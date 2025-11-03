@@ -8,6 +8,19 @@
  */
 package tmiclient
 
-// Edge routing algorithm configuration for pathfinding
-type EdgeRouter struct {
+// ModelMap represents a flexible map structure with string keys and any values
+// Used for objects with additionalProperties in the OpenAPI spec
+type ModelMap map[string]interface{}
+
+// Object represents a flexible object structure with string keys and any values
+// Used for objects with additionalProperties in the OpenAPI spec
+type Object map[string]interface{}
+
+// CellData represents flexible data storage compatible with X6
+// Supports a reserved metadata namespace for structured business metadata
+type CellData struct {
+	// Reserved namespace for structured business metadata
+	Metadata []Metadata `json:"_metadata,omitempty"`
+	// Additional properties can be stored here
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
