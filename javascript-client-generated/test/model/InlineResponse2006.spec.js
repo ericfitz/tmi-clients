@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['expect.js', '../../src/index'], factory);
+    define(['chai', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('expect.js'), require('../../src/index'));
+    factory(require('chai').expect, require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,7 +36,7 @@
 
       it('should create an instance of InlineResponse2006', function() {
         // TODO: update the code to test InlineResponse2006
-        expect(instance).to.be.a(TmiJsClient.InlineResponse2006);
+        expect(instance).to.be.an.instanceOf(TmiJsClient.InlineResponse2006);
       });
 
       it('should have the property sub (base name: "sub")', function() {
