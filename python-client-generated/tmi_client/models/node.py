@@ -74,6 +74,15 @@ class Node(Cell):
         self._width = None
         self._height = None
         self.discriminator = None
+
+        # Pass shape to Cell.__init__ to avoid validation errors
+        if shape is not None:
+            kwargs['shape'] = shape
+
+        # Initialize Cell base class first with proper parameters
+        Cell.__init__(self, *args, **kwargs)
+
+        # Now set Node-specific properties
         if shape is not None:
             self.shape = shape
         if position is not None:
@@ -96,7 +105,6 @@ class Node(Cell):
             self.width = width
         if height is not None:
             self.height = height
-        Cell.__init__(self, *args, **kwargs)
 
     @property
     def shape(self):
