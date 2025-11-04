@@ -3291,7 +3291,7 @@ class ThreatModelSubResourcesApi(object):
         :param async_req bool
         :param CreateDiagramRequest body: (required)
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3314,7 +3314,7 @@ class ThreatModelSubResourcesApi(object):
         :param async_req bool
         :param CreateDiagramRequest body: (required)
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -3378,7 +3378,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Diagram',  # noqa: E501
+            response_type='DfdDiagram',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -6810,7 +6810,7 @@ class ThreatModelSubResourcesApi(object):
         :param async_req bool
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
         :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -6833,7 +6833,7 @@ class ThreatModelSubResourcesApi(object):
         :param async_req bool
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
         :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -6893,7 +6893,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Diagram',  # noqa: E501
+            response_type='DfdDiagram',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -8111,7 +8111,7 @@ class ThreatModelSubResourcesApi(object):
         :param list[ThreatsThreatIdBody] body: (required)
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
         :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -8135,7 +8135,7 @@ class ThreatModelSubResourcesApi(object):
         :param list[ThreatsThreatIdBody] body: (required)
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
         :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -8205,7 +8205,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Diagram',  # noqa: E501
+            response_type='DfdDiagram',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -9184,17 +9184,17 @@ class ThreatModelSubResourcesApi(object):
     def update_threat_model_diagram(self, body, threat_model_id, diagram_id, **kwargs):  # noqa: E501
         """Update a diagram  # noqa: E501
 
-        Completely replaces a diagram with new data  # noqa: E501
+        Completely replaces a diagram with new data. Use DfdDiagramInput schema which excludes readOnly fields (id, created_at, modified_at, update_vector).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.update_threat_model_diagram(body, threat_model_id, diagram_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param Diagram body: (required)
+        :param DfdDiagramInput body: (required)
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
         :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -9208,17 +9208,17 @@ class ThreatModelSubResourcesApi(object):
     def update_threat_model_diagram_with_http_info(self, body, threat_model_id, diagram_id, **kwargs):  # noqa: E501
         """Update a diagram  # noqa: E501
 
-        Completely replaces a diagram with new data  # noqa: E501
+        Completely replaces a diagram with new data. Use DfdDiagramInput schema which excludes readOnly fields (id, created_at, modified_at, update_vector).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.update_threat_model_diagram_with_http_info(body, threat_model_id, diagram_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param Diagram body: (required)
+        :param DfdDiagramInput body: (required)
         :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
         :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :return: Diagram
+        :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -9288,7 +9288,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Diagram',  # noqa: E501
+            response_type='DfdDiagram',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

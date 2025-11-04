@@ -26,6 +26,7 @@ from tmi_client.models.auth_token_response import AuthTokenResponse
 from tmi_client.models.authorization import Authorization
 from tmi_client.models.base_diagram import BaseDiagram
 from tmi_client.models.base_diagram_image import BaseDiagramImage
+from tmi_client.models.base_diagram_input import BaseDiagramInput
 from tmi_client.models.cell import Cell
 from tmi_client.models.cell_data import CellData
 from tmi_client.models.cell_tool import CellTool
@@ -33,6 +34,7 @@ from tmi_client.models.collaboration_session import CollaborationSession
 from tmi_client.models.create_diagram_request import CreateDiagramRequest
 from tmi_client.models.deletion_challenge import DeletionChallenge
 from tmi_client.models.dfd_diagram import DfdDiagram
+from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 from tmi_client.models.diagram import Diagram
 from tmi_client.models.diagram_list_item import DiagramListItem
 from tmi_client.models.document import Document

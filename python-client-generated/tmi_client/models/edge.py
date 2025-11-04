@@ -68,15 +68,6 @@ class Edge(Cell):
         self._connector = None
         self._default_label = None
         self.discriminator = None
-
-        # Pass shape to Cell.__init__ to avoid validation errors
-        if shape is not None:
-            kwargs['shape'] = shape
-
-        # Initialize Cell base class first with proper parameters
-        Cell.__init__(self, *args, **kwargs)
-
-        # Now set Edge-specific properties
         if shape is not None:
             self.shape = shape
         self.source = source
@@ -93,6 +84,7 @@ class Edge(Cell):
             self.connector = connector
         if default_label is not None:
             self.default_label = default_label
+        Cell.__init__(self, *args, **kwargs)
 
     @property
     def shape(self):

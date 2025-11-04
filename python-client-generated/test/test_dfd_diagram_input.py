@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import swagger_client
-from swagger_client.models.dfd_diagram_input import DfdDiagramInput  # noqa: E501
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.models.dfd_diagram_input import DfdDiagramInput  # noqa: E501
+from tmi_client.rest import ApiException
 
 
 class TestDfdDiagramInput(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestDfdDiagramInput(unittest.TestCase):
     def testDfdDiagramInput(self):
         """Test DfdDiagramInput"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = swagger_client.models.dfd_diagram_input.DfdDiagramInput()  # noqa: E501
+        # model = tmi_client.models.dfd_diagram_input.DfdDiagramInput()  # noqa: E501
         pass
 
 

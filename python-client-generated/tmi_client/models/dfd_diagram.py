@@ -47,12 +47,9 @@ class DfdDiagram(BaseDiagram):
         self._type = None
         self._cells = None
         self.discriminator = None
-        # Pass type to BaseDiagram to prevent it from setting type=None
-        # which would fail validation in BaseDiagram.type.setter
-        if type is not None:
-            kwargs['type'] = type
         if type is not None:
             self.type = type
+            kwargs['type'] = type  # Pass type to parent constructor to avoid overwrite
         self.cells = cells
         BaseDiagram.__init__(self, *args, **kwargs)
 
