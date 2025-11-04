@@ -1,4 +1,4 @@
-# tmi_client.RepositoriesApi
+# swagger_client.RepositoriesApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -17,14 +17,14 @@ Apply JSON Patch operations to partially update a repository
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = tmi_client.RepositoriesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
+api_instance = swagger_client.RepositoriesApi(swagger_client.ApiClient(configuration))
+body = [swagger_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository ID
 

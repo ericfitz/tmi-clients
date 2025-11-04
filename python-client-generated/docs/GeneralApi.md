@@ -1,4 +1,4 @@
-# tmi_client.GeneralApi
+# swagger_client.GeneralApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -17,12 +17,12 @@ Returns service, API, and operator information without authentication
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = tmi_client.GeneralApi()
+api_instance = swagger_client.GeneralApi()
 
 try:
     # Get API information

@@ -1,4 +1,4 @@
-# tmi_client.ThreatsApi
+# swagger_client.ThreatsApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -18,13 +18,13 @@ Delete multiple threats in a single request
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = tmi_client.ThreatsApi(tmi_client.ApiClient(configuration))
+api_instance = swagger_client.ThreatsApi(swagger_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_ids = ['threat_ids_example'] # list[str] | Comma-separated list of threat IDs to delete (UUID format)
 
@@ -69,14 +69,14 @@ Apply JSON Patch operations to multiple threats in a single request
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = tmi_client.ThreatsApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatsBulkBody() # ThreatsBulkBody | 
+api_instance = swagger_client.ThreatsApi(swagger_client.ApiClient(configuration))
+body = swagger_client.ThreatsBulkBody() # ThreatsBulkBody | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:

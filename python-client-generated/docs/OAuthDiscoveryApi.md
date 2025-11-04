@@ -1,4 +1,4 @@
-# tmi_client.OAuthDiscoveryApi
+# swagger_client.OAuthDiscoveryApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -17,12 +17,12 @@ Returns OAuth 2.0 protected resource metadata as per RFC 9728
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = tmi_client.OAuthDiscoveryApi()
+api_instance = swagger_client.OAuthDiscoveryApi()
 
 try:
     # OAuth 2.0 Protected Resource Metadata

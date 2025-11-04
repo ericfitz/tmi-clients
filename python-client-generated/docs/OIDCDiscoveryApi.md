@@ -1,4 +1,4 @@
-# tmi_client.OIDCDiscoveryApi
+# swagger_client.OIDCDiscoveryApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -19,12 +19,12 @@ Returns the JSON Web Key Set (JWKS) for JWT signature verification
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = tmi_client.OIDCDiscoveryApi()
+api_instance = swagger_client.OIDCDiscoveryApi()
 
 try:
     # JSON Web Key Set
@@ -63,12 +63,12 @@ Returns OAuth 2.0 authorization server metadata as per RFC 8414
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = tmi_client.OIDCDiscoveryApi()
+api_instance = swagger_client.OIDCDiscoveryApi()
 
 try:
     # OAuth 2.0 Authorization Server Metadata
@@ -107,12 +107,12 @@ Returns OpenID Connect provider configuration metadata as per RFC 8414
 ```python
 from __future__ import print_function
 import time
-import tmi_client
-from tmi_client.rest import ApiException
+import swagger_client
+from swagger_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = tmi_client.OIDCDiscoveryApi()
+api_instance = swagger_client.OIDCDiscoveryApi()
 
 try:
     # OpenID Connect Discovery Configuration
