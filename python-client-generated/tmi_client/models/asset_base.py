@@ -33,7 +33,7 @@ class AssetBase(object):
         'type': 'str',
         'criticality': 'str',
         'classification': 'list[str]',
-        'sensitivity': 'list[str]'
+        'sensitivity': 'str'
     }
 
     attribute_map = {
@@ -194,10 +194,10 @@ class AssetBase(object):
     def sensitivity(self):
         """Gets the sensitivity of this AssetBase.  # noqa: E501
 
-        Sensitivity labels for the asset  # noqa: E501
+        Sensitivity label for the asset  # noqa: E501
 
         :return: The sensitivity of this AssetBase.  # noqa: E501
-        :rtype: list[str]
+        :rtype: str
         """
         return self._sensitivity
 
@@ -205,10 +205,10 @@ class AssetBase(object):
     def sensitivity(self, sensitivity):
         """Sets the sensitivity of this AssetBase.
 
-        Sensitivity labels for the asset  # noqa: E501
+        Sensitivity label for the asset  # noqa: E501
 
         :param sensitivity: The sensitivity of this AssetBase.  # noqa: E501
-        :type: list[str]
+        :type: str
         """
 
         self._sensitivity = sensitivity

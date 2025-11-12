@@ -1,4 +1,4 @@
-# swagger_client.ThreatModelsApi
+# tmi_client.ThreatModelsApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -22,14 +22,14 @@ Creates a new threat model with the authenticated user as owner
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelsApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ThreatModelInput() # ThreatModelInput | 
+api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
+body = tmi_client.ThreatModelInput() # ThreatModelInput | 
 
 try:
     # Create a threat model
@@ -71,13 +71,13 @@ Deletes a threat model; restricted to owner role
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelsApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to delete (UUID)
 
 try:
@@ -119,13 +119,13 @@ Retrieves the full details of a specific threat model if the user has access
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelsApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to retrieve (UUID)
 
 try:
@@ -168,13 +168,13 @@ Returns a list of threat models accessible to the authenticated user with enhanc
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelsApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 limit = 20 # int | Number of threat models to return (optional) (default to 20)
 offset = 0 # int | Pagination offset (optional) (default to 0)
 owner = 'owner_example' # str | Filter by owner name or email (optional)
@@ -241,15 +241,15 @@ Applies JSON Patch operations to a threat model; restricted to writer/owner role
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelsApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to update (UUID)
-body = [swagger_client.ThreatModelsThreatModelIdBody()] # list[ThreatModelsThreatModelIdBody] |  (optional)
+body = [tmi_client.ThreatModelsThreatModelIdBody()] # list[ThreatModelsThreatModelIdBody] |  (optional)
 
 try:
     # Partially update a threat model
@@ -292,14 +292,14 @@ Fully updates a threat model; restricted to writer/owner roles
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelsApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ThreatModelInput() # ThreatModelInput | 
+api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
+body = tmi_client.ThreatModelInput() # ThreatModelInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to update (UUID)
 
 try:

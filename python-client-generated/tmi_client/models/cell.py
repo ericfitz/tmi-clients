@@ -33,8 +33,7 @@ class Cell(object):
         'z_index': 'float',
         'visible': 'bool',
         'data': 'CellData',
-        'markup': 'list[MarkupElement]',
-        'tools': 'list[CellTool]'
+        'markup': 'list[MarkupElement]'
     }
 
     attribute_map = {
@@ -43,15 +42,14 @@ class Cell(object):
         'z_index': 'zIndex',
         'visible': 'visible',
         'data': 'data',
-        'markup': 'markup',
-        'tools': 'tools'
+        'markup': 'markup'
     }
 
     discriminator_value_class_map = {
           'Node': 'Node',
 'Edge': 'Edge'    }
 
-    def __init__(self, id=None, shape=None, z_index=1, visible=True, data=None, markup=None, tools=None):  # noqa: E501
+    def __init__(self, id=None, shape=None, z_index=1, visible=True, data=None, markup=None):  # noqa: E501
         """Cell - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._shape = None
@@ -59,7 +57,6 @@ class Cell(object):
         self._visible = None
         self._data = None
         self._markup = None
-        self._tools = None
         self.discriminator = 'shape'
         self.id = id
         self.shape = shape
@@ -71,8 +68,6 @@ class Cell(object):
             self.data = data
         if markup is not None:
             self.markup = markup
-        if tools is not None:
-            self.tools = tools
 
     @property
     def id(self):
@@ -213,29 +208,6 @@ class Cell(object):
         """
 
         self._markup = markup
-
-    @property
-    def tools(self):
-        """Gets the tools of this Cell.  # noqa: E501
-
-        Interactive tools attached to the cell for user interaction  # noqa: E501
-
-        :return: The tools of this Cell.  # noqa: E501
-        :rtype: list[CellTool]
-        """
-        return self._tools
-
-    @tools.setter
-    def tools(self, tools):
-        """Sets the tools of this Cell.
-
-        Interactive tools attached to the cell for user interaction  # noqa: E501
-
-        :param tools: The tools of this Cell.  # noqa: E501
-        :type: list[CellTool]
-        """
-
-        self._tools = tools
 
     def get_real_child_model(self, data):
         """Returns the real base class specified by the discriminator"""

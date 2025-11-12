@@ -28,6 +28,7 @@ from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResource
 from tmi_client.api.threat_models_api import ThreatModelsApi
 from tmi_client.api.threats_api import ThreatsApi
 from tmi_client.api.users_api import UsersApi
+from tmi_client.api.webhooks_api import WebhooksApi
 # import ApiClient
 from tmi_client.api_client import ApiClient
 from tmi_client.configuration import Configuration
@@ -47,7 +48,6 @@ from tmi_client.models.base_diagram_image import BaseDiagramImage
 from tmi_client.models.base_diagram_input import BaseDiagramInput
 from tmi_client.models.cell import Cell
 from tmi_client.models.cell_data import CellData
-from tmi_client.models.cell_tool import CellTool
 from tmi_client.models.collaboration_session import CollaborationSession
 from tmi_client.models.create_diagram_request import CreateDiagramRequest
 from tmi_client.models.deletion_challenge import DeletionChallenge
@@ -134,3 +134,8 @@ from tmi_client.models.threat_modelsthreat_model_idthreatsbulk_patches import Th
 from tmi_client.models.threats_bulk_body import ThreatsBulkBody
 from tmi_client.models.threats_threat_id_body import ThreatsThreatIdBody
 from tmi_client.models.user import User
+from tmi_client.models.webhook_delivery import WebhookDelivery
+from tmi_client.models.webhook_subscription import WebhookSubscription
+from tmi_client.models.webhook_subscription_input import WebhookSubscriptionInput
+from tmi_client.models.webhook_test_request import WebhookTestRequest
+from tmi_client.models.webhook_test_response import WebhookTestResponse

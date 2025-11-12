@@ -16,3 +16,4 @@ from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResource
 from tmi_client.api.threat_models_api import ThreatModelsApi
 from tmi_client.api.threats_api import ThreatsApi
 from tmi_client.api.users_api import UsersApi
+from tmi_client.api.webhooks_api import WebhooksApi

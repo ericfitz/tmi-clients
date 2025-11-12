@@ -1,4 +1,4 @@
-# swagger_client.UsersApi
+# tmi_client.UsersApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -17,13 +17,13 @@ Two-step deletion process: 1. First call (no challenge parameter) - Returns chal
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.UsersApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.UsersApi(tmi_client.ApiClient(configuration))
 challenge = 'challenge_example' # str | Challenge string from first request (step 2 only). Must match exactly. (optional)
 
 try:

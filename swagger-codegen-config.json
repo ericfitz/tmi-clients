@@ -1,0 +1,10 @@
+{
+  "packageName": "tmi_client",
+  "projectName": "tmi-client",
+  "packageVersion": "1.0.0",
+  "packageUrl": "https://github.com/threagile/tmi-clients",
+  "sortParamsByRequiredFlag": true,
+  "hideGenerationTimestamp": false,
+  "library": "urllib3",
+  "modelPropertyNaming": "snake_case"
+}

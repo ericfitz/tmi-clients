@@ -1,4 +1,4 @@
-# swagger_client.ThreatModelSubResourcesApi
+# tmi_client.ThreatModelSubResourcesApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -105,14 +105,14 @@ Creates multiple metadata entries in a single operation for the specified diagra
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -158,14 +158,14 @@ Creates multiple metadata entries in a single operation for the specified docume
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -211,14 +211,14 @@ Creates multiple metadata key-value pairs for the specified note
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -264,14 +264,14 @@ Creates multiple metadata entries in a single operation for the specified source
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -317,14 +317,14 @@ Creates multiple metadata entries in a single operation for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -370,14 +370,14 @@ Creates multiple metadata key-value pairs for the specified asset
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -423,14 +423,14 @@ Creates multiple assets within the specified threat model (maximum 50 per reques
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Asset()] # list[Asset] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Asset()] # list[Asset] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -474,14 +474,14 @@ Creates multiple documents in a single operation for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Document()] # list[Document] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Document()] # list[Document] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -525,14 +525,14 @@ Creates multiple metadata entries in a single operation for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -576,14 +576,14 @@ Creates multiple source references in a single operation for the specified threa
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Repository()] # list[Repository] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Repository()] # list[Repository] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -627,14 +627,14 @@ Creates multiple threats in a single operation for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Threat()] # list[Threat] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Threat()] # list[Threat] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -678,14 +678,14 @@ Updates multiple metadata entries for the specified note in a single operation
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -731,14 +731,14 @@ Updates multiple threats in a single operation for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Threat()] # list[Threat] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Threat()] # list[Threat] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -782,14 +782,14 @@ Creates or updates multiple metadata key-value pairs for the specified diagram
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -835,14 +835,14 @@ Creates or updates multiple metadata key-value pairs for the specified document
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -888,14 +888,14 @@ Creates or updates multiple metadata key-value pairs for the specified repositor
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -941,14 +941,14 @@ Creates or updates multiple metadata key-value pairs for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -994,14 +994,14 @@ Creates or updates multiple metadata key-value pairs for the specified asset
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -1047,14 +1047,14 @@ Create or update multiple assets in a single request
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Asset()] # list[Asset] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Asset()] # list[Asset] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1098,14 +1098,14 @@ Create or update multiple documents in a single request
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Document()] # list[Document] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Document()] # list[Document] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1149,14 +1149,14 @@ Creates or updates multiple metadata key-value pairs for the specified threat mo
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Metadata()] # list[Metadata] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1200,14 +1200,14 @@ Create or update multiple repositories in a single request
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.Repository()] # list[Repository] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Repository()] # list[Repository] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1251,14 +1251,14 @@ Creates a new metadata entry for the specified diagram
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -1304,14 +1304,14 @@ Creates new metadata entry for the specified document
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -1357,14 +1357,14 @@ Creates new metadata entry for the specified note
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -1410,14 +1410,14 @@ Creates new metadata entry for the specified source reference
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -1463,14 +1463,14 @@ Creates new metadata entry for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -1516,14 +1516,14 @@ Creates a new asset within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AssetInput() # AssetInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.AssetInput() # AssetInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1567,14 +1567,14 @@ Adds a new metadata key-value pair to the specified asset
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -1620,14 +1620,14 @@ Creates a new diagram within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.CreateDiagramRequest() # CreateDiagramRequest | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.CreateDiagramRequest() # CreateDiagramRequest | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1671,14 +1671,14 @@ Creates a new document within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.DocumentInput() # DocumentInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.DocumentInput() # DocumentInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1722,14 +1722,14 @@ Creates new metadata entry for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1773,14 +1773,14 @@ Creates a new note within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NoteInput() # NoteInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.NoteInput() # NoteInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1824,14 +1824,14 @@ Creates a new source code reference within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.RepositoryInput() # RepositoryInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.RepositoryInput() # RepositoryInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1875,14 +1875,14 @@ Creates a new threat within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ThreatInput() # ThreatInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.ThreatInput() # ThreatInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -1926,13 +1926,13 @@ Removes a specific metadata entry for the diagram by key
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 key = 'key_example' # str | Metadata key to delete
@@ -1978,13 +1978,13 @@ Deletes a specific metadata entry by key for the specified document
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 key = 'key_example' # str | Metadata key to delete
@@ -2030,13 +2030,13 @@ Deletes a specific metadata entry by key for the specified note
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 key = 'key_example' # str | Metadata key to delete
@@ -2082,13 +2082,13 @@ Deletes a specific metadata entry by key for the specified source reference
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 key = 'key_example' # str | Metadata key to delete
@@ -2134,13 +2134,13 @@ Deletes a specific metadata entry by key for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 key = 'key_example' # str | Metadata key to delete
@@ -2186,13 +2186,13 @@ Deletes an asset from the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -2236,13 +2236,13 @@ Deletes a metadata key-value pair from the specified asset
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 key = 'key_example' # str | Metadata key
@@ -2288,13 +2288,13 @@ Permanently removes a diagram from the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -2338,13 +2338,13 @@ Deletes a specific document from the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -2388,13 +2388,13 @@ Deletes a specific metadata entry by key for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 key = 'key_example' # str | Metadata key to delete
 
@@ -2438,13 +2438,13 @@ Deletes a specific note from the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -2488,13 +2488,13 @@ Deletes a specific source code reference from the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -2538,13 +2538,13 @@ Deletes a specific threat from the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -2588,13 +2588,13 @@ Retrieves all metadata entries for the specified diagram
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -2639,13 +2639,13 @@ Retrieves a specific metadata entry for the diagram by key
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 key = 'key_example' # str | Metadata key to retrieve
@@ -2692,13 +2692,13 @@ Returns all metadata key-value pairs for the specified document
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -2743,13 +2743,13 @@ Returns a specific metadata entry by key for the specified document
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 key = 'key_example' # str | Metadata key to retrieve
@@ -2796,13 +2796,13 @@ Returns all metadata key-value pairs for the specified note
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -2847,13 +2847,13 @@ Returns a specific metadata entry by key for the specified note
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 key = 'key_example' # str | Metadata key to retrieve
@@ -2900,13 +2900,13 @@ Returns all metadata key-value pairs for the specified source reference
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -2951,13 +2951,13 @@ Returns a specific metadata entry by key for the specified source reference
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 key = 'key_example' # str | Metadata key to retrieve
@@ -3004,13 +3004,13 @@ Returns all metadata key-value pairs for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -3055,13 +3055,13 @@ Returns a specific metadata entry by key for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 key = 'key_example' # str | Metadata key to retrieve
@@ -3108,13 +3108,13 @@ Returns a single asset by its ID
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -3159,13 +3159,13 @@ Returns all metadata key-value pairs for the specified asset
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -3210,13 +3210,13 @@ Returns a single metadata value by its key
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 key = 'key_example' # str | Metadata key
@@ -3263,13 +3263,13 @@ Returns a paginated list of assets within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 limit = 20 # int | Maximum number of assets to return (optional) (default to 20)
 offset = 0 # int | Number of assets to skip (optional) (default to 0)
@@ -3316,13 +3316,13 @@ Retrieves a specific diagram from the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -3367,13 +3367,13 @@ Returns all diagrams associated with a specific threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 limit = 20 # int | Maximum number of items to return (optional) (default to 20)
 offset = 0 # int | Number of items to skip (optional) (default to 0)
@@ -3420,13 +3420,13 @@ Returns details of a specific document within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -3471,13 +3471,13 @@ Returns a paginated list of documents within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 limit = 20 # int | Maximum number of documents to return (optional) (default to 20)
 offset = 0 # int | Number of documents to skip (optional) (default to 0)
@@ -3524,13 +3524,13 @@ Returns all metadata key-value pairs for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 
 try:
@@ -3573,13 +3573,13 @@ Returns a specific metadata entry by key for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 key = 'key_example' # str | Metadata key to retrieve
 
@@ -3624,13 +3624,13 @@ Returns details of a specific note within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -3675,13 +3675,13 @@ Returns a paginated list of notes within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 limit = 20 # int | Maximum number of notes to return (optional) (default to 20)
 offset = 0 # int | Number of notes to skip (optional) (default to 0)
@@ -3728,13 +3728,13 @@ Returns a paginated list of source code references within the specified threat m
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 limit = 20 # int | Maximum number of sources to return (optional) (default to 20)
 offset = 0 # int | Number of sources to skip (optional) (default to 0)
@@ -3781,13 +3781,13 @@ Returns details of a specific source code reference within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -3832,13 +3832,13 @@ Returns details of a specific threat within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -3883,13 +3883,13 @@ Returns a paginated list of threats within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 limit = 20 # int | Maximum number of threats to return (optional) (default to 20)
 offset = 0 # int | Number of threats to skip (optional) (default to 0)
@@ -3972,14 +3972,14 @@ Apply JSON Patch operations to update specific parts of a diagram
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -4025,14 +4025,14 @@ Applies JSON patch operations to a specific threat within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = [swagger_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 
@@ -4078,14 +4078,14 @@ Updates or creates a metadata entry for the diagram with the specified key
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.MetadataKeyBody4() # MetadataKeyBody4 | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.MetadataKeyBody4() # MetadataKeyBody4 | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 key = 'key_example' # str | Metadata key to update
@@ -4133,14 +4133,14 @@ Updates a specific metadata entry by key for the specified document
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.MetadataKeyBody1() # MetadataKeyBody1 | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.MetadataKeyBody1() # MetadataKeyBody1 | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 key = 'key_example' # str | Metadata key to update
@@ -4188,14 +4188,14 @@ Updates a specific metadata entry by key for the specified note
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.MetadataKeyBody5() # MetadataKeyBody5 | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.MetadataKeyBody5() # MetadataKeyBody5 | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 key = 'key_example' # str | Metadata key to update
@@ -4243,14 +4243,14 @@ Updates a specific metadata entry by key for the specified source reference
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.MetadataKeyBody2() # MetadataKeyBody2 | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.MetadataKeyBody2() # MetadataKeyBody2 | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 key = 'key_example' # str | Metadata key to update
@@ -4298,14 +4298,14 @@ Updates a specific metadata entry by key for the specified threat
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.MetadataKeyBody() # MetadataKeyBody | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.MetadataKeyBody() # MetadataKeyBody | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 key = 'key_example' # str | Metadata key to update
@@ -4353,14 +4353,14 @@ Updates an existing asset within the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.AssetInput() # AssetInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.AssetInput() # AssetInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 
@@ -4406,14 +4406,14 @@ Updates an existing metadata value by its key
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.Metadata() # Metadata | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.Metadata() # Metadata | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the asset (UUID)
 key = 'key_example' # str | Metadata key
@@ -4461,14 +4461,14 @@ Completely replaces a diagram with new data. Use DfdDiagramInput schema which ex
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.DfdDiagramInput() # DfdDiagramInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.DfdDiagramInput() # DfdDiagramInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -4514,14 +4514,14 @@ Updates a specific document within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.DocumentInput() # DocumentInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.DocumentInput() # DocumentInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the document (UUID)
 
@@ -4567,14 +4567,14 @@ Updates a specific metadata entry by key for the specified threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.MetadataKeyBody3() # MetadataKeyBody3 | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.MetadataKeyBody3() # MetadataKeyBody3 | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 key = 'key_example' # str | Metadata key to update
 
@@ -4620,14 +4620,14 @@ Updates a specific note within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.NoteInput() # NoteInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.NoteInput() # NoteInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the note (UUID)
 
@@ -4673,14 +4673,14 @@ Updates a specific source code reference within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.RepositoryInput() # RepositoryInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.RepositoryInput() # RepositoryInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the source reference (UUID)
 
@@ -4726,14 +4726,14 @@ Updates a specific threat within the threat model
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.ThreatModelSubResourcesApi(swagger_client.ApiClient(configuration))
-body = swagger_client.ThreatInput() # ThreatInput | 
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = tmi_client.ThreatInput() # ThreatInput | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat (UUID)
 

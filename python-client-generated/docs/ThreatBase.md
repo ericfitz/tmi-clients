@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **mitigation** | **str** | Recommended or planned mitigation(s) for the threat | [optional] 
 **diagram_id** | **str** | Unique identifier of the associated diagram (if applicable) (UUID) | [optional] 
 **cell_id** | **str** | Unique identifier of the associated cell (if applicable) (UUID) | [optional] 
-**severity** | **str** | Severity level of the threat | 
+**severity** | **str** | Severity level of the threat | [optional] 
 **score** | **float** | Numeric score representing the risk or impact of the threat | [optional] 
-**priority** | **str** | Priority level for addressing the threat | 
-**mitigated** | **bool** | Whether the threat has been mitigated | 
-**status** | **str** | Current status of the threat | 
+**priority** | **str** | Priority level for addressing the threat | [optional] 
+**mitigated** | **bool** | Whether the threat has been mitigated | [optional] 
+**status** | **str** | Current status of the threat | [optional] 
 **threat_type** | **str** | Type or category of the threat | 
 **metadata** | [**list[Metadata]**](Metadata.md) | Key-value pairs for additional threat metadata | [optional] 
 **issue_uri** | **str** | URL to an issue in an issue tracking system for this threat | [optional] 

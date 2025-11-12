@@ -1,4 +1,4 @@
-# swagger_client.AuthenticationApi
+# tmi_client.AuthenticationApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -31,12 +31,12 @@ Redirects user to OAuth provider's authorization page. Supports client callback 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 scope = 'scope_example' # str | OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values.
 idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified. (optional)
 client_callback = 'client_callback_example' # str | Client callback URL where TMI should redirect after successful OAuth completion with tokens as query parameters. If not provided, tokens are returned as JSON response. (optional)
@@ -86,13 +86,13 @@ Provider-neutral endpoint to exchange OAuth authorization codes for TMI JWT toke
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
-body = swagger_client.Oauth2TokenBody() # Oauth2TokenBody | 
+api_instance = tmi_client.AuthenticationApi()
+body = tmi_client.Oauth2TokenBody() # Oauth2TokenBody | 
 idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified. (optional)
 
 try:
@@ -136,12 +136,12 @@ Returns a list of configured OAuth providers available for authentication
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 
 try:
     # List available OAuth providers
@@ -180,13 +180,13 @@ Returns information about the currently authenticated user
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
 
 try:
     # Get current user information
@@ -225,13 +225,13 @@ Returns detailed information about the currently authenticated user including gr
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
 
 try:
     # Get current user profile
@@ -270,13 +270,13 @@ Returns groups available from a specific identity provider for autocomplete and 
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
 idp = 'idp_example' # str | Identity provider ID (e.g., saml_okta, saml_azure)
 
 try:
@@ -319,12 +319,12 @@ Returns the SP metadata XML for SAML configuration
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 
 try:
     # Get SAML service provider metadata
@@ -363,12 +363,12 @@ Exchanges OAuth authorization code for JWT tokens. If client_callback was provid
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 code = 'code_example' # str | Authorization code from the OAuth provider
 state = 'state_example' # str | Optional state parameter for CSRF protection (optional)
 
@@ -413,12 +413,12 @@ Starts SAML authentication flow by redirecting to IdP
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 client_callback = 'client_callback_example' # str | Client callback URL to redirect after authentication (optional)
 
 try:
@@ -460,12 +460,12 @@ Introspects a JWT token to determine its validity and metadata as per RFC 7662
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 token = 'token_example' # str | 
 token_type_hint = 'token_type_hint_example' # str | 
 
@@ -510,13 +510,13 @@ Invalidates the user's JWT token by adding it to a blacklist, effectively ending
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
 body = NULL # object | Empty request body - token is provided via Authorization header (optional)
 
 try:
@@ -558,12 +558,12 @@ Handles SAML logout requests from IdP
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 saml_request = 'saml_request_example' # str | Base64-encoded SAML logout request
 
 try:
@@ -606,12 +606,12 @@ Handles SAML logout requests from IdP via POST
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 saml_request = 'saml_request_example' # str |  (optional)
 
 try:
@@ -654,12 +654,12 @@ Processes SAML responses from IdP after authentication
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
+api_instance = tmi_client.AuthenticationApi()
 saml_response = 'saml_response_example' # str |  (optional)
 relay_state = 'relay_state_example' # str |  (optional)
 
@@ -704,13 +704,13 @@ Exchanges a refresh token for a new JWT access token
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.AuthenticationApi()
-body = swagger_client.Oauth2RefreshBody() # Oauth2RefreshBody |  (optional)
+api_instance = tmi_client.AuthenticationApi()
+body = tmi_client.Oauth2RefreshBody() # Oauth2RefreshBody |  (optional)
 
 try:
     # Refresh JWT token

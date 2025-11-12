@@ -87,12 +87,16 @@ class ThreatBase(object):
             self.diagram_id = diagram_id
         if cell_id is not None:
             self.cell_id = cell_id
-        self.severity = severity
+        if severity is not None:
+            self.severity = severity
         if score is not None:
             self.score = score
-        self.priority = priority
-        self.mitigated = mitigated
-        self.status = status
+        if priority is not None:
+            self.priority = priority
+        if mitigated is not None:
+            self.mitigated = mitigated
+        if status is not None:
+            self.status = status
         self.threat_type = threat_type
         if metadata is not None:
             self.metadata = metadata
@@ -238,14 +242,6 @@ class ThreatBase(object):
         :param severity: The severity of this ThreatBase.  # noqa: E501
         :type: str
         """
-        if severity is None:
-            raise ValueError("Invalid value for `severity`, must not be `None`")  # noqa: E501
-        allowed_values = ["Unknown", "None", "Low", "Medium", "High", "Critical"]  # noqa: E501
-        if severity not in allowed_values:
-            raise ValueError(
-                "Invalid value for `severity` ({0}), must be one of {1}"  # noqa: E501
-                .format(severity, allowed_values)
-            )
 
         self._severity = severity
 
@@ -292,8 +288,6 @@ class ThreatBase(object):
         :param priority: The priority of this ThreatBase.  # noqa: E501
         :type: str
         """
-        if priority is None:
-            raise ValueError("Invalid value for `priority`, must not be `None`")  # noqa: E501
 
         self._priority = priority
 
@@ -317,8 +311,6 @@ class ThreatBase(object):
         :param mitigated: The mitigated of this ThreatBase.  # noqa: E501
         :type: bool
         """
-        if mitigated is None:
-            raise ValueError("Invalid value for `mitigated`, must not be `None`")  # noqa: E501
 
         self._mitigated = mitigated
 
@@ -342,8 +334,6 @@ class ThreatBase(object):
         :param status: The status of this ThreatBase.  # noqa: E501
         :type: str
         """
-        if status is None:
-            raise ValueError("Invalid value for `status`, must not be `None`")  # noqa: E501
 
         self._status = status
 

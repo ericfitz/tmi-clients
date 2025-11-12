@@ -35,7 +35,7 @@ class ThreatModelBase(object):
         'authorization': 'list[Authorization]',
         'metadata': 'list[Metadata]',
         'issue_uri': 'str',
-        'status': 'list[str]'
+        'status': 'str'
     }
 
     attribute_map = {
@@ -249,7 +249,7 @@ class ThreatModelBase(object):
         Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"  # noqa: E501
 
         :return: The status of this ThreatModelBase.  # noqa: E501
-        :rtype: list[str]
+        :rtype: str
         """
         return self._status
 
@@ -260,7 +260,7 @@ class ThreatModelBase(object):
         Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"  # noqa: E501
 
         :param status: The status of this ThreatModelBase.  # noqa: E501
-        :type: list[str]
+        :type: str
         """
 
         self._status = status

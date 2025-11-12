@@ -15,12 +15,12 @@ from __future__ import absolute_import
 import unittest
 
 import tmi_client
-from tmi_client.models.cell_tool import CellTool  # noqa: E501
+from tmi_client.models.webhook_test_request import WebhookTestRequest  # noqa: E501
 from tmi_client.rest import ApiException
 
 
-class TestCellTool(unittest.TestCase):
-    """CellTool unit test stubs"""
+class TestWebhookTestRequest(unittest.TestCase):
+    """WebhookTestRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -28,10 +28,10 @@ class TestCellTool(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testCellTool(self):
-        """Test CellTool"""
+    def testWebhookTestRequest(self):
+        """Test WebhookTestRequest"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = tmi_client.models.cell_tool.CellTool()  # noqa: E501
+        # model = tmi_client.models.webhook_test_request.WebhookTestRequest()  # noqa: E501
         pass
 
 

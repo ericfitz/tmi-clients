@@ -21,19 +21,18 @@ VERSION = "1.0.0"
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 2.0.0", "six >= 1.16.0", "certifi >= 2024.2.2", "python-dateutil >= 2.9.0", "setuptools >= 70.0.0"]
+REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
 
 setup(
     name=NAME,
     version=VERSION,
     description="TMI (Threat Modeling Improved) API",
     author_email="",
-    url="",
+    url="https://github.com/threagile/tmi-clients",
     keywords=["Swagger", "TMI (Threat Modeling Improved) API"],
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
-    python_requires=">=3.8",
     long_description="""\
     A RESTful API for collaborative threat modeling with full X6 graph library compatibility. This API provides schemas that align with AntV X6 cell object models for seamless integration with modern diagramming libraries. Supports OAuth 2.0 authentication with client callback integration for seamless single-page application authentication flows.  ## API Design v1.0.0  ### Authorization Model TMI uses hierarchical authorization: access control is defined at the ThreatModel level via the authorization field (readers, writers, owners). All child resources (Assets, Diagrams, Documents, Notes, Repositories, Threats) inherit permissions from their parent ThreatModel. This simplifies permission management and ensures consistent access control.  ### Bulk Operations Notes and Diagrams do not support bulk operations due to their unique creation workflows and lack of valid bulk use cases. All other resources (Threats, Assets, Documents, Repositories) support full bulk operations: POST (create), PUT (upsert), PATCH (partial update), DELETE (batch delete).  All resources support bulk metadata operations regardless of resource-level bulk support.  ### List Response Strategy - ThreatModels return summary information (TMListItem) because they contain many child objects that can be large. - Diagrams return summary information (DiagramListItem) because diagram data (cells, images) can be large. - Notes return summary information (NoteListItem) because the content field can be large. - Threats, Assets, Documents, Repositories return full schemas as they are relatively small and static.  ### PATCH Support All resources support PATCH for partial updates using JSON Patch (RFC 6902). This is particularly useful for: - Assets: Array field updates (affected_assets, trust_boundaries) ensuring no duplicates - Notes: Updating name/description without changing content field - All resources: Efficient updates without full object replacement   # noqa: E501
     """

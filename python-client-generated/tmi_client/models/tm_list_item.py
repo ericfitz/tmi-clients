@@ -43,7 +43,7 @@ class TMListItem(object):
         'issue_uri': 'str',
         'asset_count': 'int',
         'note_count': 'int',
-        'status': 'list[str]',
+        'status': 'str',
         'status_updated': 'datetime'
     }
 
@@ -487,7 +487,7 @@ class TMListItem(object):
         Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"  # noqa: E501
 
         :return: The status of this TMListItem.  # noqa: E501
-        :rtype: list[str]
+        :rtype: str
         """
         return self._status
 
@@ -498,7 +498,7 @@ class TMListItem(object):
         Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"  # noqa: E501
 
         :param status: The status of this TMListItem.  # noqa: E501
-        :type: list[str]
+        :type: str
         """
 
         self._status = status

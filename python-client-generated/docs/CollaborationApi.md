@@ -1,4 +1,4 @@
-# swagger_client.CollaborationApi
+# tmi_client.CollaborationApi
 
 All URIs are relative to *http://localhost:8080*
 
@@ -20,13 +20,13 @@ Creates a new collaboration session for real-time diagram editing. Only one coll
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.CollaborationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -71,13 +71,13 @@ Terminates the active collaboration session for a diagram
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.CollaborationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
@@ -121,13 +121,13 @@ Returns all currently active collaboration sessions for diagrams. Clients can us
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.CollaborationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
 
 try:
     # List active collaboration sessions
@@ -166,13 +166,13 @@ Retrieves the current collaboration session details for a diagram. The session p
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import tmi_client
+from tmi_client.rest import ApiException
 from pprint import pprint
 
 
 # create an instance of the API class
-api_instance = swagger_client.CollaborationApi(swagger_client.ApiClient(configuration))
+api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
 
