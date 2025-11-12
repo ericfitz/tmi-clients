@@ -64,13 +64,19 @@ cd python-client-generated
 uv run python3 -c "import tmi_client; print('Success')"
 ```
 
-### Legacy Testing
+### Multi-version Testing
 
-The repository also includes tox configuration for multi-version Python testing:
+Use tox to test the client against all supported Python versions (3.8-3.14):
 
 ```bash
 cd python-client-generated
 tox  # Tests against Python 3.8-3.14
+
+# Test specific Python version
+tox -e py311
+
+# Run with additional pytest arguments
+tox -- -k test_dfd_diagram
 ```
 
 ## Critical OpenAPI Issues (RESOLVED)

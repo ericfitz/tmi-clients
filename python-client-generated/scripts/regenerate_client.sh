@@ -15,8 +15,9 @@ set -e  # Exit on error
 #   * python-dateutil >= 2.9.0 (was 2.5.3)
 #   * setuptools >= 70.0.0 (was 21.0.0 - CVE fix)
 #   * urllib3 >= 2.0.0 (was 1.15.1 - CVE fixes)
-# - Testing: pytest (not nose)
+# - Testing: pytest (not nose), tox for multi-version testing
 # - Modern packaging: pyproject.toml + setup.py
+# - Tox configuration: Tests against Python 3.8-3.14
 # - Constructor patches: DfdDiagram and DfdDiagramInput type preservation
 #
 # USAGE:
@@ -266,6 +267,21 @@ pytest-cov >= 4.0.0
 pytest-randomly >= 3.12.0
 EOF
 echo -e "${GREEN}  ✓ test-requirements.txt updated${NC}"
+
+# Update tox.ini
+echo "  Updating tox.ini..."
+cat > "$CLIENT_DIR/tox.ini" << 'EOF'
+[tox]
+envlist = py38,py39,py310,py311,py312,py313,py314
+
+[testenv]
+deps=-r{toxinidir}/requirements.txt
+     -r{toxinidir}/test-requirements.txt
+
+commands=
+   pytest test/ -v --tb=short {posargs}
+EOF
+echo -e "${GREEN}  ✓ tox.ini updated${NC}"
 
 echo -e "${GREEN}✓ Configuration files updated${NC}"
 echo ""
