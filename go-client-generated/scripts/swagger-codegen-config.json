@@ -1,0 +1,10 @@
+{
+  "packageName": "tmiclient",
+  "packageVersion": "1.0.0",
+  "enumClassPrefix": true,
+  "withGoCodegenComment": true,
+  "withXml": false,
+  "prependFormOrBodyParameters": false,
+  "isGoSubmodule": false,
+  "withGoMod": true
+}
