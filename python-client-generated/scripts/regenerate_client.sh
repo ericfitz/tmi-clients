@@ -28,11 +28,15 @@ set -e  # Exit on error
 #   - OpenAPI spec at: /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+# Navigate to python-client-generated directory (parent of scripts/)
+PYTHON_CLIENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$PYTHON_CLIENT_DIR"
 
 echo "========================================="
 echo "TMI Python Client Regeneration"
 echo "========================================="
+echo ""
+echo "Working directory: $PYTHON_CLIENT_DIR"
 echo ""
 echo "Automatic defaults:"
 echo "  - Package: tmi_client"
@@ -43,8 +47,8 @@ echo ""
 
 # Configuration
 OPENAPI_SPEC="/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json"
-CLIENT_DIR="python-client-generated"
-CONFIG_FILE="swagger-codegen-config.json"
+CLIENT_DIR="."  # We're already in python-client-generated/
+CONFIG_FILE="scripts/swagger-codegen-config.json"
 SWAGGER_CODEGEN="swagger-codegen"
 
 # Colors for output
@@ -221,7 +225,6 @@ exclude_lines = [
     "if __name__ == .__main__.:",
 ]
 EOF
-fi
 
 # Update setup.py with modern dependencies (Python 3.8+ only)
 echo "  Updating setup.py for Python 3.8+ with modern dependencies..."
@@ -318,13 +321,13 @@ echo ""
 
 # Step 10: Generate summary report
 echo "Step 9: Generating summary report..."
-cat > REGENERATION_REPORT.md << 'EOF'
+cat > docs/developer/REGENERATION_REPORT.md << 'EOF'
 # Python Client Regeneration Report
 
 ## Date
 EOF
-date >> REGENERATION_REPORT.md
-cat >> REGENERATION_REPORT.md << 'EOF'
+date >> docs/developer/REGENERATION_REPORT.md
+cat >> docs/developer/REGENERATION_REPORT.md << 'EOF'
 
 ## Changes Applied
 
@@ -362,19 +365,19 @@ cat >> REGENERATION_REPORT.md << 'EOF'
 EOF
 
 # List all Python files in the client
-echo "" >> REGENERATION_REPORT.md
-echo "### Generated API Classes" >> REGENERATION_REPORT.md
-ls -1 "$CLIENT_DIR/tmi_client/api/" | grep "\.py$" | wc -l | xargs echo "- Total API classes:" >> REGENERATION_REPORT.md
+echo "" >> docs/developer/REGENERATION_REPORT.md
+echo "### Generated API Classes" >> docs/developer/REGENERATION_REPORT.md
+ls -1 "$CLIENT_DIR/tmi_client/api/" | grep "\.py$" | wc -l | xargs echo "- Total API classes:" >> docs/developer/REGENERATION_REPORT.md
 
-echo "" >> REGENERATION_REPORT.md
-echo "### Generated Model Classes" >> REGENERATION_REPORT.md
-ls -1 "$CLIENT_DIR/tmi_client/models/" | grep "\.py$" | wc -l | xargs echo "- Total model classes:" >> REGENERATION_REPORT.md
+echo "" >> docs/developer/REGENERATION_REPORT.md
+echo "### Generated Model Classes" >> docs/developer/REGENERATION_REPORT.md
+ls -1 "$CLIENT_DIR/tmi_client/models/" | grep "\.py$" | wc -l | xargs echo "- Total model classes:" >> docs/developer/REGENERATION_REPORT.md
 
-echo "" >> REGENERATION_REPORT.md
-echo "### Test Files" >> REGENERATION_REPORT.md
-ls -1 "$CLIENT_DIR/test/" | grep "\.py$" | wc -l | xargs echo "- Total test files:" >> REGENERATION_REPORT.md
+echo "" >> docs/developer/REGENERATION_REPORT.md
+echo "### Test Files" >> docs/developer/REGENERATION_REPORT.md
+ls -1 "$CLIENT_DIR/test/" | grep "\.py$" | wc -l | xargs echo "- Total test files:" >> docs/developer/REGENERATION_REPORT.md
 
-cat >> REGENERATION_REPORT.md << 'EOF'
+cat >> docs/developer/REGENERATION_REPORT.md << 'EOF'
 
 ## Next Steps
 
@@ -389,7 +392,7 @@ See test_output.log and integration_test_output.log for detailed test results.
 
 EOF
 
-echo -e "${GREEN}✓ Summary report generated: REGENERATION_REPORT.md${NC}"
+echo -e "${GREEN}✓ Summary report generated: docs/developer/REGENERATION_REPORT.md${NC}"
 echo ""
 
 # Cleanup
@@ -410,15 +413,14 @@ echo "  - Modern Python configuration restored"
 echo "  - Tests executed (see logs for results)"
 echo ""
 echo "Next steps:"
-echo "  1. Review REGENERATION_REPORT.md"
+echo "  1. Review docs/developer/REGENERATION_REPORT.md"
 echo "  2. Check test_output.log for test failures"
 echo "  3. Update documentation files"
 echo "  4. Test webhook endpoints"
 echo ""
-echo "Documentation files to update:"
-echo "  - MIGRATION_GUIDE.md"
-echo "  - CLAUDE.md"
-echo "  - CHANGELOG.md"
-echo "  - OPENAPI_ISSUES_SUMMARY.md"
-echo "  - CLIENT_IMPROVEMENTS.md"
+echo "Documentation files:"
+echo "  - docs/developer/MIGRATION_GUIDE.md"
+echo "  - docs/developer/CHANGELOG.md"
+echo "  - docs/developer/REGENERATION_README.md"
+echo "  - ../CLAUDE.md (repository root)"
 echo ""

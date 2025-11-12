@@ -192,18 +192,21 @@ Diagrams use the AntV X6 graph library format for cells (nodes and edges). Cells
 }
 ```
 
-## Known Issues and Workarounds
+## Documentation Structure
 
-See `CLIENT_IMPROVEMENTS.md` for recommended improvements and `OPENAPI_ISSUES_SUMMARY.md` for technical details on resolved issues.
+Python client documentation is organized in `python-client-generated/docs/developer/`:
 
-## Documentation Files
+- `MIGRATION_GUIDE.md` - Comprehensive migration guide with webhook examples and breaking changes
+- `CHANGELOG.md` - Complete changelog for version 1.0.0
+- `REGENERATION_README.md` - Complete guide for regenerating the client
+- `REGENERATION_REPORT.md` - Technical details of the latest regeneration
 
-- `MIGRATION_GUIDE.md` - Migration guide for the fixed OpenAPI issues
-- `OPENAPI_FIX_SUMMARY.md` - Summary of OpenAPI specification fixes
-- `OPENAPI_ISSUES_SUMMARY.md` - Detailed analysis of the 6 resolved issues
-- `DFD_DIAGRAM_FIX.md` - Deep dive into the DfdDiagram inheritance bug fix
-- `CLIENT_IMPROVEMENTS.md` - Recommendations for future client improvements
-- `test_diagram_fixes.py` - Integration test verifying all fixes work correctly
+Scripts are in `python-client-generated/scripts/`:
+- `regenerate_client.sh` - Automated regeneration with intelligent defaults
+- `swagger-codegen-config.json` - Code generator configuration
+
+Tests:
+- `python-client-generated/test_diagram_fixes.py` - Integration test verifying all fixes work correctly
 
 ## Multi-Language Support
 
@@ -214,9 +217,21 @@ Each client directory contains:
 - Auto-generated documentation in `docs/`
 - Build configuration (e.g., `go.mod`, `pom.xml`, `package.json`)
 
-## Generation Notes
+## Regeneration
 
-Clients were generated using swagger-codegen 3.0.75. When regenerating:
-1. The Python package name should be `tmi_client` (not `swagger_client`)
-2. Important patches in Python client may be overwritten - review `MIGRATION_GUIDE.md`
-3. The `pyproject.toml` file is custom-added for uv support
+The Python client can be regenerated from the latest OpenAPI spec using the automated script:
+
+```bash
+cd python-client-generated
+./scripts/regenerate_client.sh
+```
+
+This script automatically:
+- Generates the client with correct package name (`tmi_client`)
+- Configures Python 3.8+ requirements
+- Updates all dependencies with security fixes
+- Applies constructor patches automatically
+- Runs all tests (239 auto-generated + integration tests)
+- Generates comprehensive reports
+
+See `python-client-generated/docs/developer/REGENERATION_README.md` for complete documentation on the regeneration process, customization options, and CI/CD integration.
