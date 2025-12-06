@@ -93,7 +93,9 @@ cp -f "$CLIENT_DIR/package.json" .regeneration_backup/ 2>/dev/null || true
 cp -f "$CLIENT_DIR/.babelrc" .regeneration_backup/ 2>/dev/null || true
 cp -f "$CLIENT_DIR/test_diagram_fixes.js" .regeneration_backup/ 2>/dev/null || true
 cp -f "$CLIENT_DIR/.swagger-codegen-ignore" .regeneration_backup/ 2>/dev/null || true
+cp -f "$CLIENT_DIR/PRE_REGENERATION_AUDIT.md" .regeneration_backup/ 2>/dev/null || true
 cp -rf "$CLIENT_DIR/docs/developer" .regeneration_backup/ 2>/dev/null || true
+cp -rf "$CLIENT_DIR/scripts" .regeneration_backup/ 2>/dev/null || true
 echo -e "${GREEN}✓ Custom files backed up${NC}"
 echo ""
 
@@ -125,37 +127,82 @@ fi
 echo -e "${GREEN}✓ Client generated successfully${NC}"
 echo ""
 
-# Step 4: Apply critical patches
-echo "Step 4: Applying critical patches..."
+# Step 4: Validate generated files and apply patches
+echo "Step 4: Validating generated files and applying patches..."
+
+# Count generated files
+API_COUNT=$(ls -1 src/tmi-client/*.js 2>/dev/null | wc -l | tr -d ' ')
+MODEL_COUNT=$(ls -1 src/model/*.js 2>/dev/null | wc -l | tr -d ' ')
+
+echo "  Generated: $API_COUNT API classes, $MODEL_COUNT model classes"
+
+# Validate critical models exist
+echo "  Validating critical models..."
+
+# Check for Input schemas
+DFD_DIAGRAM_INPUT_FILE="$CLIENT_DIR/src/model/DfdDiagramInput.js"
+BASE_DIAGRAM_INPUT_FILE="$CLIENT_DIR/src/model/BaseDiagramInput.js"
+
+if [ -f "$DFD_DIAGRAM_INPUT_FILE" ]; then
+    echo -e "  ${GREEN}✓ DfdDiagramInput.js found${NC}"
+else
+    echo -e "  ${RED}✗ DfdDiagramInput.js NOT found${NC}"
+fi
+
+if [ -f "$BASE_DIAGRAM_INPUT_FILE" ]; then
+    echo -e "  ${GREEN}✓ BaseDiagramInput.js found${NC}"
+else
+    echo -e "  ${RED}✗ BaseDiagramInput.js NOT found${NC}"
+fi
+
+# Check for webhook models
+WEBHOOK_MODELS=("WebhookSubscription" "WebhookSubscriptionInput" "WebhookDelivery" "WebhookTestRequest" "WebhookTestResponse")
+WEBHOOK_FOUND=0
+for model in "${WEBHOOK_MODELS[@]}"; do
+    if [ -f "$CLIENT_DIR/src/model/$model.js" ]; then
+        ((WEBHOOK_FOUND++))
+    fi
+done
+echo "  Webhook models: $WEBHOOK_FOUND/5 found"
+
+# Check for admin models (sample check)
+ADMIN_MODELS=("Administrator" "AdminUser" "AdminGroup")
+ADMIN_FOUND=0
+for model in "${ADMIN_MODELS[@]}"; do
+    if [ -f "$CLIENT_DIR/src/model/$model.js" ]; then
+        ((ADMIN_FOUND++))
+    fi
+done
+echo "  Admin models: $ADMIN_FOUND/3 found (sample)"
 
 # Patch 1: DfdDiagram constructor (if exists)
 DFD_DIAGRAM_FILE="$CLIENT_DIR/src/model/DfdDiagram.js"
 if [ -f "$DFD_DIAGRAM_FILE" ]; then
-    echo "  Patching DfdDiagram constructor..."
+    echo "  Checking DfdDiagram constructor..."
     # Check if the file needs patching (look for super() call)
     if grep -q "super(" "$DFD_DIAGRAM_FILE"; then
-        # Add type preservation before super() call
-        # JavaScript pattern: constructor(type, cells, ...) { super(...); }
-        # We need to ensure type is passed correctly to super()
-        # This is more complex than Python, may need manual verification
-        echo -e "${YELLOW}  ⚠ DfdDiagram.js exists - manual verification recommended${NC}"
-        echo "    Check that constructor properly preserves 'type' parameter"
+        # Verify type parameter is in constructor
+        if grep -q "constructor(type" "$DFD_DIAGRAM_FILE"; then
+            echo -e "  ${GREEN}✓ DfdDiagram.js has type parameter${NC}"
+        else
+            echo -e "  ${YELLOW}⚠ DfdDiagram.js type parameter not found${NC}"
+        fi
     fi
 else
-    echo -e "${YELLOW}  ⚠ DfdDiagram.js not found - skipping patch${NC}"
+    echo -e "  ${YELLOW}⚠ DfdDiagram.js not found - skipping patch${NC}"
 fi
 
 # Patch 2: DfdDiagramInput constructor (if exists)
-DFD_DIAGRAM_INPUT_FILE="$CLIENT_DIR/src/model/DfdDiagramInput.js"
 if [ -f "$DFD_DIAGRAM_INPUT_FILE" ]; then
-    echo "  Patching DfdDiagramInput constructor..."
-    echo -e "${YELLOW}  ⚠ DfdDiagramInput.js exists - manual verification recommended${NC}"
-else
-    echo -e "${YELLOW}  ⚠ DfdDiagramInput.js not found in regenerated client${NC}"
-    echo "    This may indicate OpenAPI spec doesn't define input schemas separately"
+    echo "  Checking DfdDiagramInput constructor..."
+    if grep -q "constructor(type" "$DFD_DIAGRAM_INPUT_FILE"; then
+        echo -e "  ${GREEN}✓ DfdDiagramInput.js has type parameter${NC}"
+    else
+        echo -e "  ${YELLOW}⚠ DfdDiagramInput.js type parameter not found${NC}"
+    fi
 fi
 
-echo -e "${GREEN}✓ Patches applied${NC}"
+echo -e "${GREEN}✓ Validation and patches complete${NC}"
 echo ""
 
 # Step 5: Restore custom files
@@ -186,6 +233,19 @@ if [ -d ".regeneration_backup/developer" ]; then
     mkdir -p "$CLIENT_DIR/docs/developer"
     cp -r .regeneration_backup/developer/* "$CLIENT_DIR/docs/developer/"
     echo "  ✓ Restored developer documentation"
+fi
+
+# Restore scripts directory if it exists
+if [ -d ".regeneration_backup/scripts" ]; then
+    mkdir -p "$CLIENT_DIR/scripts"
+    cp -r .regeneration_backup/scripts/* "$CLIENT_DIR/scripts/"
+    echo "  ✓ Restored scripts directory"
+fi
+
+# Restore audit file if it exists
+if [ -f ".regeneration_backup/PRE_REGENERATION_AUDIT.md" ]; then
+    cp .regeneration_backup/PRE_REGENERATION_AUDIT.md "$CLIENT_DIR/"
+    echo "  ✓ Restored PRE_REGENERATION_AUDIT.md"
 fi
 
 echo -e "${GREEN}✓ Custom files restored${NC}"

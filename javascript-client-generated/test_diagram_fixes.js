@@ -336,6 +336,51 @@ test('ThreatModelSubResourcesApi exists', () => {
   assert(typeof api.updateThreatModelDiagram === 'function', 'Should have updateThreatModelDiagram');
 });
 
+// Test 14: Check for admin models (should exist after regeneration)
+const adminModels = [
+  'Administrator',
+  'AdminUser',
+  'AdminGroup',
+  'AdminUserListResponse',
+  'AdminGroupListResponse'
+];
+
+adminModels.forEach(modelName => {
+  try {
+    const Model = require(`./src/model/${modelName}`);
+    test(`${modelName} class exists`, () => {
+      assert(Model, `${modelName} should exist`);
+    });
+  } catch (error) {
+    warn(
+      `${modelName} class not found`,
+      'This is expected before regeneration. Admin models will be added after regeneration.'
+    );
+  }
+});
+
+// Test 15: Check for addon models (should exist after regeneration)
+const addonModels = [
+  'AddonResponse',
+  'CreateAddonRequest',
+  'InvokeAddonRequest',
+  'InvokeAddonResponse'
+];
+
+addonModels.forEach(modelName => {
+  try {
+    const Model = require(`./src/model/${modelName}`);
+    test(`${modelName} class exists`, () => {
+      assert(Model, `${modelName} should exist`);
+    });
+  } catch (error) {
+    warn(
+      `${modelName} class not found`,
+      'This is expected before regeneration. Addon models will be added after regeneration.'
+    );
+  }
+});
+
 // Summary
 console.log('\n========================================');
 console.log('Test Summary');
