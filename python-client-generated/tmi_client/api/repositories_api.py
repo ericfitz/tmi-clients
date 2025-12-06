@@ -43,8 +43,8 @@ class RepositoriesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Repository ID (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -67,8 +67,8 @@ class RepositoriesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Repository ID (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.

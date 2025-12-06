@@ -32,7 +32,7 @@ class ThreatModel(ThreatModelBase):
         'id': 'str',
         'created_at': 'datetime',
         'modified_at': 'datetime',
-        'created_by': 'str',
+        'created_by': 'User',
         'documents': 'list[Document]',
         'repositories': 'list[Repository]',
         'diagrams': 'list[Diagram]',
@@ -171,10 +171,9 @@ class ThreatModel(ThreatModelBase):
     def created_by(self):
         """Gets the created_by of this ThreatModel.  # noqa: E501
 
-        User name, email or identifier of the creator of the threat model  # noqa: E501
 
         :return: The created_by of this ThreatModel.  # noqa: E501
-        :rtype: str
+        :rtype: User
         """
         return self._created_by
 
@@ -182,10 +181,9 @@ class ThreatModel(ThreatModelBase):
     def created_by(self, created_by):
         """Sets the created_by of this ThreatModel.
 
-        User name, email or identifier of the creator of the threat model  # noqa: E501
 
         :param created_by: The created_by of this ThreatModel.  # noqa: E501
-        :type: str
+        :type: User
         """
 
         self._created_by = created_by

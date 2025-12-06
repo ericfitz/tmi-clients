@@ -43,8 +43,8 @@ class DocumentsApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Document ID (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -67,8 +67,8 @@ class DocumentsApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Document ID (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.

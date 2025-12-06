@@ -32,19 +32,21 @@ class AuthenticationApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def authorize_o_auth_provider(self, scope, **kwargs):  # noqa: E501
+    def authorize_o_auth_provider(self, scope, code_challenge, code_challenge_method, **kwargs):  # noqa: E501
         """Initiate OAuth authorization flow  # noqa: E501
 
         Redirects user to OAuth provider's authorization page. Supports client callback URL for seamless client integration. Generates state parameter for CSRF protection.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.authorize_o_auth_provider(scope, async_req=True)
+        >>> thread = api.authorize_o_auth_provider(scope, code_challenge, code_challenge_method, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
         :param str scope: OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values. (required)
+        :param str code_challenge: PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. (required)
+        :param str code_challenge_method: PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported. (required)
         :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
-        :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens as query parameters. If not provided, tokens are returned as JSON response.
+        :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
         :param str state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :param str login_hint: User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
         :return: None
@@ -53,24 +55,26 @@ class AuthenticationApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.authorize_o_auth_provider_with_http_info(scope, **kwargs)  # noqa: E501
+            return self.authorize_o_auth_provider_with_http_info(scope, code_challenge, code_challenge_method, **kwargs)  # noqa: E501
         else:
-            (data) = self.authorize_o_auth_provider_with_http_info(scope, **kwargs)  # noqa: E501
+            (data) = self.authorize_o_auth_provider_with_http_info(scope, code_challenge, code_challenge_method, **kwargs)  # noqa: E501
             return data
 
-    def authorize_o_auth_provider_with_http_info(self, scope, **kwargs):  # noqa: E501
+    def authorize_o_auth_provider_with_http_info(self, scope, code_challenge, code_challenge_method, **kwargs):  # noqa: E501
         """Initiate OAuth authorization flow  # noqa: E501
 
         Redirects user to OAuth provider's authorization page. Supports client callback URL for seamless client integration. Generates state parameter for CSRF protection.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.authorize_o_auth_provider_with_http_info(scope, async_req=True)
+        >>> thread = api.authorize_o_auth_provider_with_http_info(scope, code_challenge, code_challenge_method, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
         :param str scope: OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values. (required)
+        :param str code_challenge: PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. (required)
+        :param str code_challenge_method: PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported. (required)
         :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
-        :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens as query parameters. If not provided, tokens are returned as JSON response.
+        :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
         :param str state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :param str login_hint: User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
         :return: None
@@ -78,7 +82,7 @@ class AuthenticationApi(object):
                  returns the request thread.
         """
 
-        all_params = ['scope', 'idp', 'client_callback', 'state', 'login_hint']  # noqa: E501
+        all_params = ['scope', 'code_challenge', 'code_challenge_method', 'idp', 'client_callback', 'state', 'login_hint']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -97,6 +101,14 @@ class AuthenticationApi(object):
         if ('scope' not in params or
                 params['scope'] is None):
             raise ValueError("Missing the required parameter `scope` when calling `authorize_o_auth_provider`")  # noqa: E501
+        # verify the required parameter 'code_challenge' is set
+        if ('code_challenge' not in params or
+                params['code_challenge'] is None):
+            raise ValueError("Missing the required parameter `code_challenge` when calling `authorize_o_auth_provider`")  # noqa: E501
+        # verify the required parameter 'code_challenge_method' is set
+        if ('code_challenge_method' not in params or
+                params['code_challenge_method'] is None):
+            raise ValueError("Missing the required parameter `code_challenge_method` when calling `authorize_o_auth_provider`")  # noqa: E501
 
         collection_formats = {}
 
@@ -113,6 +125,10 @@ class AuthenticationApi(object):
             query_params.append(('login_hint', params['login_hint']))  # noqa: E501
         if 'scope' in params:
             query_params.append(('scope', params['scope']))  # noqa: E501
+        if 'code_challenge' in params:
+            query_params.append(('code_challenge', params['code_challenge']))  # noqa: E501
+        if 'code_challenge_method' in params:
+            query_params.append(('code_challenge_method', params['code_challenge_method']))  # noqa: E501
 
         header_params = {}
 
@@ -143,10 +159,204 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def exchange_o_auth_code(self, body, **kwargs):  # noqa: E501
-        """Exchange OAuth authorization code for JWT tokens  # noqa: E501
+    def create_client_credential(self, body, **kwargs):  # noqa: E501
+        """Create client credential  # noqa: E501
 
-        Provider-neutral endpoint to exchange OAuth authorization codes for TMI JWT tokens. Supports Google, GitHub, and Microsoft OAuth providers.  # noqa: E501
+        Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_client_credential(body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param ClientcredentialsBody body: (required)
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.create_client_credential_with_http_info(body, **kwargs)  # noqa: E501
+        else:
+            (data) = self.create_client_credential_with_http_info(body, **kwargs)  # noqa: E501
+            return data
+
+    def create_client_credential_with_http_info(self, body, **kwargs):  # noqa: E501
+        """Create client credential  # noqa: E501
+
+        Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_client_credential_with_http_info(body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param ClientcredentialsBody body: (required)
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['body']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_client_credential" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'body' is set
+        if ('body' not in params or
+                params['body'] is None):
+            raise ValueError("Missing the required parameter `body` when calling `create_client_credential`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['bearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/client-credentials', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def delete_client_credential(self, id, **kwargs):  # noqa: E501
+        """Delete client credential  # noqa: E501
+
+        Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.delete_client_credential(id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str id: Client credential UUID (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.delete_client_credential_with_http_info(id, **kwargs)  # noqa: E501
+        else:
+            (data) = self.delete_client_credential_with_http_info(id, **kwargs)  # noqa: E501
+            return data
+
+    def delete_client_credential_with_http_info(self, id, **kwargs):  # noqa: E501
+        """Delete client credential  # noqa: E501
+
+        Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.delete_client_credential_with_http_info(id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str id: Client credential UUID (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['id']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_client_credential" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'id' is set
+        if ('id' not in params or
+                params['id'] is None):
+            raise ValueError("Missing the required parameter `id` when calling `delete_client_credential`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in params:
+            path_params['id'] = params['id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['bearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/client-credentials/{id}', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type=None,  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def exchange_o_auth_code(self, body, **kwargs):  # noqa: E501
+        """Exchange OAuth credentials for JWT tokens  # noqa: E501
+
+        Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.exchange_o_auth_code(body, async_req=True)
@@ -167,9 +377,9 @@ class AuthenticationApi(object):
             return data
 
     def exchange_o_auth_code_with_http_info(self, body, **kwargs):  # noqa: E501
-        """Exchange OAuth authorization code for JWT tokens  # noqa: E501
+        """Exchange OAuth credentials for JWT tokens  # noqa: E501
 
-        Provider-neutral endpoint to exchange OAuth authorization codes for TMI JWT tokens. Supports Google, GitHub, and Microsoft OAuth providers.  # noqa: E501
+        Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.exchange_o_auth_code_with_http_info(body, async_req=True)
@@ -215,6 +425,22 @@ class AuthenticationApi(object):
 
         form_params = []
         local_var_files = {}
+        if 'grant_type' in params:
+            form_params.append(('grant_type', params['grant_type']))  # noqa: E501
+        if 'code' in params:
+            form_params.append(('code', params['code']))  # noqa: E501
+        if 'client_id' in params:
+            form_params.append(('client_id', params['client_id']))  # noqa: E501
+        if 'client_secret' in params:
+            form_params.append(('client_secret', params['client_secret']))  # noqa: E501
+        if 'refresh_token' in params:
+            form_params.append(('refresh_token', params['refresh_token']))  # noqa: E501
+        if 'redirect_uri' in params:
+            form_params.append(('redirect_uri', params['redirect_uri']))  # noqa: E501
+        if 'code_verifier' in params:
+            form_params.append(('code_verifier', params['code_verifier']))  # noqa: E501
+        if 'state' in params:
+            form_params.append(('state', params['state']))  # noqa: E501
 
         body_params = None
         if 'body' in params:
@@ -225,7 +451,168 @@ class AuthenticationApi(object):
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/x-www-form-urlencoded'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/oauth2/token', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AuthTokenResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def exchange_o_auth_code(self, grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs):  # noqa: E501
+        """Exchange OAuth credentials for JWT tokens  # noqa: E501
+
+        Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.exchange_o_auth_code(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str grant_type: (required)
+        :param str code: (required)
+        :param str client_id: (required)
+        :param str client_secret: (required)
+        :param str refresh_token: (required)
+        :param str redirect_uri: (required)
+        :param str code_verifier: (required)
+        :param str state: (required)
+        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+        :return: AuthTokenResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.exchange_o_auth_code_with_http_info(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs)  # noqa: E501
+        else:
+            (data) = self.exchange_o_auth_code_with_http_info(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs)  # noqa: E501
+            return data
+
+    def exchange_o_auth_code_with_http_info(self, grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs):  # noqa: E501
+        """Exchange OAuth credentials for JWT tokens  # noqa: E501
+
+        Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.exchange_o_auth_code_with_http_info(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str grant_type: (required)
+        :param str code: (required)
+        :param str client_id: (required)
+        :param str client_secret: (required)
+        :param str refresh_token: (required)
+        :param str redirect_uri: (required)
+        :param str code_verifier: (required)
+        :param str state: (required)
+        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+        :return: AuthTokenResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['grant_type', 'code', 'client_id', 'client_secret', 'refresh_token', 'redirect_uri', 'code_verifier', 'state', 'idp']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method exchange_o_auth_code" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'grant_type' is set
+        if ('grant_type' not in params or
+                params['grant_type'] is None):
+            raise ValueError("Missing the required parameter `grant_type` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'code' is set
+        if ('code' not in params or
+                params['code'] is None):
+            raise ValueError("Missing the required parameter `code` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'client_id' is set
+        if ('client_id' not in params or
+                params['client_id'] is None):
+            raise ValueError("Missing the required parameter `client_id` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'client_secret' is set
+        if ('client_secret' not in params or
+                params['client_secret'] is None):
+            raise ValueError("Missing the required parameter `client_secret` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'refresh_token' is set
+        if ('refresh_token' not in params or
+                params['refresh_token'] is None):
+            raise ValueError("Missing the required parameter `refresh_token` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'redirect_uri' is set
+        if ('redirect_uri' not in params or
+                params['redirect_uri'] is None):
+            raise ValueError("Missing the required parameter `redirect_uri` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'code_verifier' is set
+        if ('code_verifier' not in params or
+                params['code_verifier'] is None):
+            raise ValueError("Missing the required parameter `code_verifier` when calling `exchange_o_auth_code`")  # noqa: E501
+        # verify the required parameter 'state' is set
+        if ('state' not in params or
+                params['state'] is None):
+            raise ValueError("Missing the required parameter `state` when calling `exchange_o_auth_code`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'idp' in params:
+            query_params.append(('idp', params['idp']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'grant_type' in params:
+            form_params.append(('grant_type', params['grant_type']))  # noqa: E501
+        if 'code' in params:
+            form_params.append(('code', params['code']))  # noqa: E501
+        if 'client_id' in params:
+            form_params.append(('client_id', params['client_id']))  # noqa: E501
+        if 'client_secret' in params:
+            form_params.append(('client_secret', params['client_secret']))  # noqa: E501
+        if 'refresh_token' in params:
+            form_params.append(('refresh_token', params['refresh_token']))  # noqa: E501
+        if 'redirect_uri' in params:
+            form_params.append(('redirect_uri', params['redirect_uri']))  # noqa: E501
+        if 'code_verifier' in params:
+            form_params.append(('code_verifier', params['code_verifier']))  # noqa: E501
+        if 'state' in params:
+            form_params.append(('state', params['state']))  # noqa: E501
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json', 'application/x-www-form-urlencoded'])  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
@@ -430,7 +817,7 @@ class AuthenticationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: User
+        :return: UserWithAdminStatus
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -451,7 +838,7 @@ class AuthenticationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: User
+        :return: UserWithAdminStatus
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -499,7 +886,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='User',  # noqa: E501
+            response_type='UserWithAdminStatus',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -602,38 +989,133 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def get_saml_metadata(self, **kwargs):  # noqa: E501
+    def get_saml_metadata(self, provider, **kwargs):  # noqa: E501
         """Get SAML service provider metadata  # noqa: E501
 
         Returns the SP metadata XML for SAML configuration  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_saml_metadata(async_req=True)
+        >>> thread = api.get_saml_metadata(provider, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str provider: SAML provider identifier (required)
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.get_saml_metadata_with_http_info(**kwargs)  # noqa: E501
+            return self.get_saml_metadata_with_http_info(provider, **kwargs)  # noqa: E501
         else:
-            (data) = self.get_saml_metadata_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_saml_metadata_with_http_info(provider, **kwargs)  # noqa: E501
             return data
 
-    def get_saml_metadata_with_http_info(self, **kwargs):  # noqa: E501
+    def get_saml_metadata_with_http_info(self, provider, **kwargs):  # noqa: E501
         """Get SAML service provider metadata  # noqa: E501
 
         Returns the SP metadata XML for SAML configuration  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_saml_metadata_with_http_info(async_req=True)
+        >>> thread = api.get_saml_metadata_with_http_info(provider, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str provider: SAML provider identifier (required)
         :return: str
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['provider']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_saml_metadata" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'provider' is set
+        if ('provider' not in params or
+                params['provider'] is None):
+            raise ValueError("Missing the required parameter `provider` when calling `get_saml_metadata`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'provider' in params:
+            path_params['provider'] = params['provider']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/samlmetadata+xml', 'application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/saml/{provider}/metadata', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='str',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_saml_providers(self, **kwargs):  # noqa: E501
+        """List available SAML providers  # noqa: E501
+
+        Returns a list of configured SAML providers available for authentication  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_saml_providers(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: InlineResponse20010
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.get_saml_providers_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.get_saml_providers_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def get_saml_providers_with_http_info(self, **kwargs):  # noqa: E501
+        """List available SAML providers  # noqa: E501
+
+        Returns a list of configured SAML providers available for authentication  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_saml_providers_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: InlineResponse20010
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -649,7 +1131,7 @@ class AuthenticationApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method get_saml_metadata" % key
+                    " to method get_saml_providers" % key
                 )
             params[key] = val
         del params['kwargs']
@@ -668,20 +1150,20 @@ class AuthenticationApi(object):
         body_params = None
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/samlmetadata+xml', 'application/json'])  # noqa: E501
+            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/saml/metadata', 'GET',
+            '/saml/providers', 'GET',
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='str',  # noqa: E501
+            response_type='InlineResponse20010',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -788,16 +1270,17 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def initiate_saml_login(self, **kwargs):  # noqa: E501
+    def initiate_saml_login(self, provider, **kwargs):  # noqa: E501
         """Initiate SAML authentication  # noqa: E501
 
         Starts SAML authentication flow by redirecting to IdP  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.initiate_saml_login(async_req=True)
+        >>> thread = api.initiate_saml_login(provider, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str provider: SAML provider identifier (required)
         :param str client_callback: Client callback URL to redirect after authentication
         :return: None
                  If the method is called asynchronously,
@@ -805,28 +1288,29 @@ class AuthenticationApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.initiate_saml_login_with_http_info(**kwargs)  # noqa: E501
+            return self.initiate_saml_login_with_http_info(provider, **kwargs)  # noqa: E501
         else:
-            (data) = self.initiate_saml_login_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.initiate_saml_login_with_http_info(provider, **kwargs)  # noqa: E501
             return data
 
-    def initiate_saml_login_with_http_info(self, **kwargs):  # noqa: E501
+    def initiate_saml_login_with_http_info(self, provider, **kwargs):  # noqa: E501
         """Initiate SAML authentication  # noqa: E501
 
         Starts SAML authentication flow by redirecting to IdP  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.initiate_saml_login_with_http_info(async_req=True)
+        >>> thread = api.initiate_saml_login_with_http_info(provider, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str provider: SAML provider identifier (required)
         :param str client_callback: Client callback URL to redirect after authentication
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['client_callback']  # noqa: E501
+        all_params = ['provider', 'client_callback']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -841,10 +1325,16 @@ class AuthenticationApi(object):
                 )
             params[key] = val
         del params['kwargs']
+        # verify the required parameter 'provider' is set
+        if ('provider' not in params or
+                params['provider'] is None):
+            raise ValueError("Missing the required parameter `provider` when calling `initiate_saml_login`")  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if 'provider' in params:
+            path_params['provider'] = params['provider']  # noqa: E501
 
         query_params = []
         if 'client_callback' in params:
@@ -864,7 +1354,7 @@ class AuthenticationApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/saml/login', 'GET',
+            '/saml/{provider}/login', 'GET',
             path_params,
             query_params,
             header_params,
@@ -986,6 +1476,93 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def list_client_credentials(self, **kwargs):  # noqa: E501
+        """List client credentials  # noqa: E501
+
+        Retrieves all client credentials owned by the authenticated user. Secrets are never returned.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_client_credentials(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.list_client_credentials_with_http_info(**kwargs)  # noqa: E501
+        else:
+            (data) = self.list_client_credentials_with_http_info(**kwargs)  # noqa: E501
+            return data
+
+    def list_client_credentials_with_http_info(self, **kwargs):  # noqa: E501
+        """List client credentials  # noqa: E501
+
+        Retrieves all client credentials owned by the authenticated user. Secrets are never returned.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_client_credentials_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = []  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method list_client_credentials" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['bearerAuth']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/client-credentials', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def logout_user(self, **kwargs):  # noqa: E501
         """Logout user  # noqa: E501
 
@@ -997,7 +1574,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param object body: Empty request body - token is provided via Authorization header
-        :return: None
+        :return: InlineResponse2007
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1019,7 +1596,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param object body: Empty request body - token is provided via Authorization header
-        :return: None
+        :return: InlineResponse2007
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1073,7 +1650,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type=None,  # noqa: E501
+            response_type='InlineResponse2007',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -1092,7 +1669,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str saml_request: Base64-encoded SAML logout request (required)
-        :return: InlineResponse2008
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1114,7 +1691,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str saml_request: Base64-encoded SAML logout request (required)
-        :return: InlineResponse2008
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1168,7 +1745,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='InlineResponse2008',  # noqa: E501
+            response_type='InlineResponse2009',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -1187,7 +1764,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str saml_request:
-        :return: InlineResponse2008
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1209,7 +1786,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str saml_request:
-        :return: InlineResponse2008
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1263,7 +1840,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='InlineResponse2008',  # noqa: E501
+            response_type='InlineResponse2009',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

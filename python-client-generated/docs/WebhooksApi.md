@@ -1,6 +1,6 @@
 # tmi_client.WebhooksApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -79,7 +79,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
-webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription ID
+webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription identifier
 
 try:
     # Delete webhook subscription
@@ -92,7 +92,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhook_id** | [**str**](.md)| Webhook subscription ID | 
+ **webhook_id** | [**str**](.md)| Webhook subscription identifier | 
 
 ### Return type
 
@@ -127,7 +127,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
-delivery_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook delivery ID
+delivery_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook delivery identifier
 
 try:
     # Get webhook delivery
@@ -141,7 +141,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **delivery_id** | [**str**](.md)| Webhook delivery ID | 
+ **delivery_id** | [**str**](.md)| Webhook delivery identifier | 
 
 ### Return type
 
@@ -176,7 +176,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
-webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription ID
+webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription identifier
 
 try:
     # Get webhook subscription
@@ -190,7 +190,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhook_id** | [**str**](.md)| Webhook subscription ID | 
+ **webhook_id** | [**str**](.md)| Webhook subscription identifier | 
 
 ### Return type
 
@@ -226,8 +226,8 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
 subscription_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by subscription ID (optional)
-offset = 0 # int | Pagination offset (optional) (default to 0)
-limit = 20 # int | Pagination limit (optional) (default to 20)
+offset = 0 # int | Number of results to skip (optional) (default to 0)
+limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 
 try:
     # List webhook deliveries
@@ -242,8 +242,8 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **subscription_id** | [**str**](.md)| Filter by subscription ID | [optional] 
- **offset** | **int**| Pagination offset | [optional] [default to 0]
- **limit** | **int**| Pagination limit | [optional] [default to 20]
+ **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
 
 ### Return type
 
@@ -279,8 +279,8 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter subscriptions by threat model ID (optional)
-offset = 0 # int | Pagination offset (optional) (default to 0)
-limit = 20 # int | Pagination limit (optional) (default to 20)
+offset = 0 # int | Number of results to skip (optional) (default to 0)
+limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 
 try:
     # List webhook subscriptions
@@ -295,8 +295,8 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **threat_model_id** | [**str**](.md)| Filter subscriptions by threat model ID | [optional] 
- **offset** | **int**| Pagination offset | [optional] [default to 0]
- **limit** | **int**| Pagination limit | [optional] [default to 20]
+ **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
 
 ### Return type
 
@@ -331,7 +331,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
-webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription ID
+webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription identifier
 body = tmi_client.WebhookTestRequest() # WebhookTestRequest |  (optional)
 
 try:
@@ -346,7 +346,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhook_id** | [**str**](.md)| Webhook subscription ID | 
+ **webhook_id** | [**str**](.md)| Webhook subscription identifier | 
  **body** | [**WebhookTestRequest**](WebhookTestRequest.md)|  | [optional] 
 
 ### Return type

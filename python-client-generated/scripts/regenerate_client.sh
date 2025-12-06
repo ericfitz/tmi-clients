@@ -90,10 +90,11 @@ echo ""
 
 # Step 2: Clean and regenerate
 echo "Step 2: Cleaning client directory..."
-if [ -d "$CLIENT_DIR" ]; then
-    # Preserve documentation at repo root
-    rm -rf "$CLIENT_DIR"
-fi
+# Clean specific directories that will be regenerated, preserve custom files
+rm -rf tmi_client/
+rm -rf test/
+rm -rf docs/*.md  # Remove auto-generated docs but preserve docs/developer/
+rm -f .gitignore .travis.yml git_push.sh README.md
 echo -e "${GREEN}✓ Client directory cleaned${NC}"
 echo ""
 

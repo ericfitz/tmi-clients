@@ -28,40 +28,70 @@ class InlineResponse2008(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'message': 'str'
+        'deleted_count': 'int',
+        'deleted_ids': 'list[str]'
     }
 
     attribute_map = {
-        'message': 'message'
+        'deleted_count': 'deleted_count',
+        'deleted_ids': 'deleted_ids'
     }
 
-    def __init__(self, message=None):  # noqa: E501
+    def __init__(self, deleted_count=None, deleted_ids=None):  # noqa: E501
         """InlineResponse2008 - a model defined in Swagger"""  # noqa: E501
-        self._message = None
+        self._deleted_count = None
+        self._deleted_ids = None
         self.discriminator = None
-        if message is not None:
-            self.message = message
+        if deleted_count is not None:
+            self.deleted_count = deleted_count
+        if deleted_ids is not None:
+            self.deleted_ids = deleted_ids
 
     @property
-    def message(self):
-        """Gets the message of this InlineResponse2008.  # noqa: E501
+    def deleted_count(self):
+        """Gets the deleted_count of this InlineResponse2008.  # noqa: E501
 
+        Number of threats deleted  # noqa: E501
 
-        :return: The message of this InlineResponse2008.  # noqa: E501
-        :rtype: str
+        :return: The deleted_count of this InlineResponse2008.  # noqa: E501
+        :rtype: int
         """
-        return self._message
+        return self._deleted_count
 
-    @message.setter
-    def message(self, message):
-        """Sets the message of this InlineResponse2008.
+    @deleted_count.setter
+    def deleted_count(self, deleted_count):
+        """Sets the deleted_count of this InlineResponse2008.
 
+        Number of threats deleted  # noqa: E501
 
-        :param message: The message of this InlineResponse2008.  # noqa: E501
-        :type: str
+        :param deleted_count: The deleted_count of this InlineResponse2008.  # noqa: E501
+        :type: int
         """
 
-        self._message = message
+        self._deleted_count = deleted_count
+
+    @property
+    def deleted_ids(self):
+        """Gets the deleted_ids of this InlineResponse2008.  # noqa: E501
+
+        IDs of deleted threats  # noqa: E501
+
+        :return: The deleted_ids of this InlineResponse2008.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._deleted_ids
+
+    @deleted_ids.setter
+    def deleted_ids(self, deleted_ids):
+        """Sets the deleted_ids of this InlineResponse2008.
+
+        IDs of deleted threats  # noqa: E501
+
+        :param deleted_ids: The deleted_ids of this InlineResponse2008.  # noqa: E501
+        :type: list[str]
+        """
+
+        self._deleted_ids = deleted_ids
 
     def to_dict(self):
         """Returns the model properties as a dict"""

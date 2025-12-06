@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique identifier (UUIDv7) | 
 **subscription_id** | **str** | Subscription that triggered this delivery | 
-**event_type** | **str** | Type of event | 
+**event_type** | [**WebhookEventType**](WebhookEventType.md) |  | 
 **payload** | **object** | Event payload (JSON) | [optional] 
 **status** | **str** | Delivery status | 
 **attempts** | **int** | Number of delivery attempts | 

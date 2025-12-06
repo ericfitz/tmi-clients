@@ -1,6 +1,6 @@
 # tmi_client.CollaborationApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -27,8 +27,8 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
 try:
     # Create diagram collaboration session
@@ -42,8 +42,8 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model (UUID) | 
- **diagram_id** | [**str**](.md)| Unique identifier of the diagram (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **diagram_id** | [**str**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -78,8 +78,8 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
 try:
     # End diagram collaboration session
@@ -92,8 +92,8 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model (UUID) | 
- **diagram_id** | [**str**](.md)| Unique identifier of the diagram (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **diagram_id** | [**str**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -111,7 +111,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_collaboration_sessions**
-> list[CollaborationSession] get_collaboration_sessions()
+> object get_collaboration_sessions()
 
 List active collaboration sessions
 
@@ -142,7 +142,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[CollaborationSession]**](CollaborationSession.md)
+**object**
 
 ### Authorization
 
@@ -173,8 +173,8 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the diagram (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
 try:
     # Get diagram collaboration session
@@ -188,8 +188,8 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model (UUID) | 
- **diagram_id** | [**str**](.md)| Unique identifier of the diagram (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **diagram_id** | [**str**](.md)| Diagram identifier | 
 
 ### Return type
 

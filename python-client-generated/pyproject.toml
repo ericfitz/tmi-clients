@@ -1,9 +1,28 @@
 [project]
 name = "tmi-client"
 version = "1.0.0"
-description = "TMI (Threat Modeling Improved) API Client"
+description = "TMI API Python Client"
 readme = "README.md"
 requires-python = ">=3.8"
+license = {text = "Apache-2.0"}
+keywords = ["TMI", "Threat Modeling", "API", "OpenAPI"]
+authors = [
+    {name = "TMI Contributors"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
 dependencies = [
     "certifi >= 2024.2.2",
     "six >= 1.16.0",
@@ -14,13 +33,36 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "pytest",
-    "pytest-cov",
+    "pytest >= 7.0.0",
+    "pytest-cov >= 4.0.0",
+    "pytest-randomly >= 3.12.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/threagile/tmi-clients"
+Repository = "https://github.com/threagile/tmi-clients"
+Documentation = "https://github.com/threagile/tmi-clients/tree/main/python-client-generated"
 
 [build-system]
 requires = ["setuptools>=70.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["tmi_client", "tmi_client.api", "tmi_client.models"]
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --strict-markers"
+
+[tool.coverage.run]
+source = ["tmi_client"]
+omit = ["*/test/*", "*/tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

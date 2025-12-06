@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the threat model | 
 **description** | **str** | Description of the threat model | [optional] 
-**owner** | **str** | Email address of the current owner | 
+**owner** | [**User**](User.md) |  | 
 **threat_model_framework** | **str** | The framework used for this threat model | 
 **authorization** | [**list[Authorization]**](Authorization.md) | List of users and their roles for this threat model | 
 **metadata** | [**list[Metadata]**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] 

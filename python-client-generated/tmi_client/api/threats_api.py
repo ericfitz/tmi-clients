@@ -42,9 +42,9 @@ class ThreatsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :param list[str] threat_ids: Comma-separated list of threat IDs to delete (UUID format) (required)
-        :return: InlineResponse2007
+        :return: InlineResponse2008
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -65,9 +65,9 @@ class ThreatsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :param list[str] threat_ids: Comma-separated list of threat IDs to delete (UUID format) (required)
-        :return: InlineResponse2007
+        :return: InlineResponse2008
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -128,7 +128,7 @@ class ThreatsApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='InlineResponse2007',  # noqa: E501
+            response_type='InlineResponse2008',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -147,7 +147,7 @@ class ThreatsApi(object):
 
         :param async_req bool
         :param ThreatsBulkBody body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -170,7 +170,7 @@ class ThreatsApi(object):
 
         :param async_req bool
         :param ThreatsBulkBody body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.

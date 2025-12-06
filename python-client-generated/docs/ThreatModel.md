@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **id** | **str** | Unique identifier for the threat model (UUID) | [optional] 
 **created_at** | **datetime** | Creation timestamp (RFC3339) | [optional] 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] 
-**created_by** | **str** | User name, email or identifier of the creator of the threat model | [optional] 
+**created_by** | [**User**](User.md) |  | [optional] 
 **documents** | [**list[Document]**](Document.md) | List of documents related to the threat model | [optional] 
 **repositories** | [**list[Repository]**](Repository.md) | List of source code repositories related to the threat model | [optional] 
 **diagrams** | [**list[Diagram]**](Diagram.md) | List of diagram objects associated with this threat model | [optional] 

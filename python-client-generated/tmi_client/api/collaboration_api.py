@@ -42,8 +42,8 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: CollaborationSession
                  If the method is called asynchronously,
                  returns the request thread.
@@ -65,8 +65,8 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: CollaborationSession
                  If the method is called asynchronously,
                  returns the request thread.
@@ -145,8 +145,8 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -168,8 +168,8 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -248,7 +248,7 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: list[CollaborationSession]
+        :return: object
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -269,7 +269,7 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: list[CollaborationSession]
+        :return: object
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -317,7 +317,7 @@ class CollaborationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[CollaborationSession]',  # noqa: E501
+            response_type='object',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -335,8 +335,8 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: CollaborationSession
                  If the method is called asynchronously,
                  returns the request thread.
@@ -358,8 +358,8 @@ class CollaborationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: CollaborationSession
                  If the method is called asynchronously,
                  returns the request thread.

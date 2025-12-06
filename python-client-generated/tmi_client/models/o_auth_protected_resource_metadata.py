@@ -190,6 +190,13 @@ class OAuthProtectedResourceMetadata(object):
         :param bearer_methods_supported: The bearer_methods_supported of this OAuthProtectedResourceMetadata.  # noqa: E501
         :type: list[str]
         """
+        allowed_values = ["header", "body", "query"]  # noqa: E501
+        if not set(bearer_methods_supported).issubset(set(allowed_values)):
+            raise ValueError(
+                "Invalid values for `bearer_methods_supported` [{0}], must be a subset of [{1}]"  # noqa: E501
+                .format(", ".join(map(str, set(bearer_methods_supported) - set(allowed_values))),  # noqa: E501
+                        ", ".join(map(str, allowed_values)))
+            )
 
         self._bearer_methods_supported = bearer_methods_supported
 

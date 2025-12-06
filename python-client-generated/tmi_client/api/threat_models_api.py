@@ -141,7 +141,7 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model to delete (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -163,7 +163,7 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model to delete (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -236,7 +236,7 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model to retrieve (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: ThreatModel
                  If the method is called asynchronously,
                  returns the request thread.
@@ -258,7 +258,7 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model to retrieve (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: ThreatModel
                  If the method is called asynchronously,
                  returns the request thread.
@@ -331,16 +331,16 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param int limit: Number of threat models to return
-        :param int offset: Pagination offset
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :param str owner: Filter by owner name or email
         :param str name: Filter by threat model name (partial match)
         :param str description: Filter by threat model description (partial match)
         :param str issue_uri: Filter by issue URI (partial match)
-        :param datetime created_after: Filter threat models created after this date (RFC3339 format)
-        :param datetime created_before: Filter threat models created before this date (RFC3339 format)
-        :param datetime modified_after: Filter threat models modified after this date (RFC3339 format)
-        :param datetime modified_before: Filter threat models modified before this date (RFC3339 format)
+        :param datetime created_after: Filter results created after this timestamp (ISO 8601)
+        :param datetime created_before: Filter results created before this timestamp (ISO 8601)
+        :param datetime modified_after: Filter results modified after this timestamp (ISO 8601)
+        :param datetime modified_before: Filter results modified before this timestamp (ISO 8601)
         :param str status: Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
         :param datetime status_updated_after: Filter threat models where status was updated after this timestamp (RFC3339)
         :param datetime status_updated_before: Filter threat models where status was updated before this timestamp (RFC3339)
@@ -365,16 +365,16 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param int limit: Number of threat models to return
-        :param int offset: Pagination offset
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :param str owner: Filter by owner name or email
         :param str name: Filter by threat model name (partial match)
         :param str description: Filter by threat model description (partial match)
         :param str issue_uri: Filter by issue URI (partial match)
-        :param datetime created_after: Filter threat models created after this date (RFC3339 format)
-        :param datetime created_before: Filter threat models created before this date (RFC3339 format)
-        :param datetime modified_after: Filter threat models modified after this date (RFC3339 format)
-        :param datetime modified_before: Filter threat models modified before this date (RFC3339 format)
+        :param datetime created_after: Filter results created after this timestamp (ISO 8601)
+        :param datetime created_before: Filter results created before this timestamp (ISO 8601)
+        :param datetime modified_after: Filter results modified after this timestamp (ISO 8601)
+        :param datetime modified_before: Filter results modified before this timestamp (ISO 8601)
         :param str status: Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
         :param datetime status_updated_after: Filter threat models where status was updated after this timestamp (RFC3339)
         :param datetime status_updated_before: Filter threat models where status was updated before this timestamp (RFC3339)
@@ -470,7 +470,7 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model to update (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :param list[ThreatModelsThreatModelIdBody] body:
         :return: ThreatModel
                  If the method is called asynchronously,
@@ -493,7 +493,7 @@ class ThreatModelsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model to update (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :param list[ThreatModelsThreatModelIdBody] body:
         :return: ThreatModel
                  If the method is called asynchronously,
@@ -574,7 +574,7 @@ class ThreatModelsApi(object):
 
         :param async_req bool
         :param ThreatModelInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model to update (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: ThreatModel
                  If the method is called asynchronously,
                  returns the request thread.
@@ -597,7 +597,7 @@ class ThreatModelsApi(object):
 
         :param async_req bool
         :param ThreatModelInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model to update (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: ThreatModel
                  If the method is called asynchronously,
                  returns the request thread.

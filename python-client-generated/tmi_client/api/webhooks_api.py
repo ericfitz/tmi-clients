@@ -141,7 +141,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str webhook_id: Webhook subscription ID (required)
+        :param str webhook_id: Webhook subscription identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -163,7 +163,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str webhook_id: Webhook subscription ID (required)
+        :param str webhook_id: Webhook subscription identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -236,7 +236,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str delivery_id: Webhook delivery ID (required)
+        :param str delivery_id: Webhook delivery identifier (required)
         :return: WebhookDelivery
                  If the method is called asynchronously,
                  returns the request thread.
@@ -258,7 +258,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str delivery_id: Webhook delivery ID (required)
+        :param str delivery_id: Webhook delivery identifier (required)
         :return: WebhookDelivery
                  If the method is called asynchronously,
                  returns the request thread.
@@ -331,7 +331,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str webhook_id: Webhook subscription ID (required)
+        :param str webhook_id: Webhook subscription identifier (required)
         :return: WebhookSubscription
                  If the method is called asynchronously,
                  returns the request thread.
@@ -353,7 +353,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str webhook_id: Webhook subscription ID (required)
+        :param str webhook_id: Webhook subscription identifier (required)
         :return: WebhookSubscription
                  If the method is called asynchronously,
                  returns the request thread.
@@ -427,8 +427,8 @@ class WebhooksApi(object):
 
         :param async_req bool
         :param str subscription_id: Filter by subscription ID
-        :param int offset: Pagination offset
-        :param int limit: Pagination limit
+        :param int offset: Number of results to skip
+        :param int limit: Maximum number of results to return
         :return: list[WebhookDelivery]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -451,8 +451,8 @@ class WebhooksApi(object):
 
         :param async_req bool
         :param str subscription_id: Filter by subscription ID
-        :param int offset: Pagination offset
-        :param int limit: Pagination limit
+        :param int offset: Number of results to skip
+        :param int limit: Maximum number of results to return
         :return: list[WebhookDelivery]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -526,8 +526,8 @@ class WebhooksApi(object):
 
         :param async_req bool
         :param str threat_model_id: Filter subscriptions by threat model ID
-        :param int offset: Pagination offset
-        :param int limit: Pagination limit
+        :param int offset: Number of results to skip
+        :param int limit: Maximum number of results to return
         :return: list[WebhookSubscription]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -550,8 +550,8 @@ class WebhooksApi(object):
 
         :param async_req bool
         :param str threat_model_id: Filter subscriptions by threat model ID
-        :param int offset: Pagination offset
-        :param int limit: Pagination limit
+        :param int offset: Number of results to skip
+        :param int limit: Maximum number of results to return
         :return: list[WebhookSubscription]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -624,7 +624,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str webhook_id: Webhook subscription ID (required)
+        :param str webhook_id: Webhook subscription identifier (required)
         :param WebhookTestRequest body:
         :return: WebhookTestResponse
                  If the method is called asynchronously,
@@ -647,7 +647,7 @@ class WebhooksApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str webhook_id: Webhook subscription ID (required)
+        :param str webhook_id: Webhook subscription identifier (required)
         :param WebhookTestRequest body:
         :return: WebhookTestResponse
                  If the method is called asynchronously,

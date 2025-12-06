@@ -1,0 +1,2183 @@
+{
+  "spec_info": {
+    "title": "TMI (Threat Modeling Improved) API",
+    "description": "A RESTful API for collaborative threat modeling with full X6 graph library compatibility. This API provides schemas that align with AntV X6 cell object models for seamless integration with modern diagramming libraries. Supports OAuth 2.0 authentication with client callback integration for seamless single-page application authentication flows.\n\n## API Design v1.0.0\n\n### Authorization Model\nTMI uses hierarchical authorization: access control is defined at the ThreatModel level via the authorization field (readers, writers, owners). All child resources (Assets, Diagrams, Documents, Notes, Repositories, Threats) inherit permissions from their parent ThreatModel. This simplifies permission management and ensures consistent access control.\n\n### Bulk Operations\nNotes and Diagrams do not support bulk operations due to their unique creation workflows and lack of valid bulk use cases. All other resources (Threats, Assets, Documents, Repositories) support full bulk operations: POST (create), PUT (upsert), PATCH (partial update), DELETE (batch delete).\n\nAll resources support bulk metadata operations regardless of resource-level bulk support.\n\n### List Response Strategy\n- ThreatModels return summary information (TMListItem) because they contain many child objects that can be large.\n- Diagrams return summary information (DiagramListItem) because diagram data (cells, images) can be large.\n- Notes return summary information (NoteListItem) because the content field can be large.\n- Threats, Assets, Documents, Repositories return full schemas as they are relatively small and static.\n\n### PATCH Support\nAll resources support PATCH for partial updates using JSON Patch (RFC 6902). This is particularly useful for:\n- Assets: Array field updates (affected_assets, trust_boundaries) ensuring no duplicates\n- Notes: Updating name/description without changing content field\n- All resources: Efficient updates without full object replacement\n",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "total_paths": 89,
+    "paths_by_tag": {
+      "General": [
+        {
+          "path": "/",
+          "method": "GET",
+          "operationId": "getApiInfo",
+          "summary": "Get API information"
+        }
+      ],
+      "OIDC Discovery": [
+        {
+          "path": "/.well-known/openid-configuration",
+          "method": "GET",
+          "operationId": "getOpenIDConfiguration",
+          "summary": "OpenID Connect Discovery Configuration"
+        },
+        {
+          "path": "/.well-known/oauth-authorization-server",
+          "method": "GET",
+          "operationId": "getOAuthAuthorizationServerMetadata",
+          "summary": "OAuth 2.0 Authorization Server Metadata"
+        },
+        {
+          "path": "/.well-known/jwks.json",
+          "method": "GET",
+          "operationId": "getJWKS",
+          "summary": "JSON Web Key Set"
+        }
+      ],
+      "OAuth Discovery": [
+        {
+          "path": "/.well-known/oauth-protected-resource",
+          "method": "GET",
+          "operationId": "getOAuthProtectedResourceMetadata",
+          "summary": "OAuth 2.0 Protected Resource Metadata"
+        }
+      ],
+      "Authentication": [
+        {
+          "path": "/oauth2/introspect",
+          "method": "POST",
+          "operationId": "introspectToken",
+          "summary": "Token Introspection"
+        },
+        {
+          "path": "/oauth2/providers",
+          "method": "GET",
+          "operationId": "getAuthProviders",
+          "summary": "List available OAuth providers"
+        },
+        {
+          "path": "/oauth2/providers/{idp}/groups",
+          "method": "GET",
+          "operationId": "getProviderGroups",
+          "summary": "Get groups for identity provider"
+        },
+        {
+          "path": "/oauth2/authorize",
+          "method": "GET",
+          "operationId": "authorizeOAuthProvider",
+          "summary": "Initiate OAuth authorization flow"
+        },
+        {
+          "path": "/oauth2/token",
+          "method": "POST",
+          "operationId": "exchangeOAuthCode",
+          "summary": "Exchange OAuth credentials for JWT tokens"
+        },
+        {
+          "path": "/oauth2/refresh",
+          "method": "POST",
+          "operationId": "refreshToken",
+          "summary": "Refresh JWT token"
+        },
+        {
+          "path": "/oauth2/userinfo",
+          "method": "GET",
+          "operationId": "getCurrentUser",
+          "summary": "Get current user information"
+        },
+        {
+          "path": "/oauth2/callback",
+          "method": "GET",
+          "operationId": "handleOAuthCallback",
+          "summary": "Handle OAuth callback"
+        },
+        {
+          "path": "/oauth2/revoke",
+          "method": "POST",
+          "operationId": "logoutUser",
+          "summary": "Logout user"
+        },
+        {
+          "path": "/users/me",
+          "method": "GET",
+          "operationId": "getCurrentUserProfile",
+          "summary": "Get current user profile"
+        },
+        {
+          "path": "/saml/acs",
+          "method": "POST",
+          "operationId": "processSAMLResponse",
+          "summary": "SAML Assertion Consumer Service"
+        },
+        {
+          "path": "/saml/slo",
+          "method": "GET",
+          "operationId": "processSAMLLogout",
+          "summary": "SAML Single Logout"
+        },
+        {
+          "path": "/saml/slo",
+          "method": "POST",
+          "operationId": "processSAMLLogoutPost",
+          "summary": "SAML Single Logout (POST)"
+        },
+        {
+          "path": "/saml/providers",
+          "method": "GET",
+          "operationId": "getSAMLProviders",
+          "summary": "List available SAML providers"
+        },
+        {
+          "path": "/saml/{provider}/login",
+          "method": "GET",
+          "operationId": "initiateSAMLLogin",
+          "summary": "Initiate SAML authentication"
+        },
+        {
+          "path": "/saml/{provider}/metadata",
+          "method": "GET",
+          "operationId": "getSAMLMetadata",
+          "summary": "Get SAML service provider metadata"
+        },
+        {
+          "path": "/client-credentials",
+          "method": "POST",
+          "operationId": "createClientCredential",
+          "summary": "Create client credential"
+        },
+        {
+          "path": "/client-credentials",
+          "method": "GET",
+          "operationId": "listClientCredentials",
+          "summary": "List client credentials"
+        },
+        {
+          "path": "/client-credentials/{id}",
+          "method": "DELETE",
+          "operationId": "deleteClientCredential",
+          "summary": "Delete client credential"
+        }
+      ],
+      "Collaboration": [
+        {
+          "path": "/collaboration/sessions",
+          "method": "GET",
+          "operationId": "getCollaborationSessions",
+          "summary": "List active collaboration sessions"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate",
+          "method": "GET",
+          "operationId": "getDiagramCollaborationSession",
+          "summary": "Get diagram collaboration session"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate",
+          "method": "POST",
+          "operationId": "createDiagramCollaborationSession",
+          "summary": "Create diagram collaboration session"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate",
+          "method": "DELETE",
+          "operationId": "endDiagramCollaborationSession",
+          "summary": "End diagram collaboration session"
+        }
+      ],
+      "Threat Models": [
+        {
+          "path": "/threat_models",
+          "method": "GET",
+          "operationId": "listThreatModels",
+          "summary": "List threat models"
+        },
+        {
+          "path": "/threat_models",
+          "method": "POST",
+          "operationId": "createThreatModel",
+          "summary": "Create a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}",
+          "method": "GET",
+          "operationId": "getThreatModel",
+          "summary": "Retrieve a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModel",
+          "summary": "Update a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModel",
+          "summary": "Partially update a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModel",
+          "summary": "Delete a threat model"
+        }
+      ],
+      "Threat Model Sub-Resources": [
+        {
+          "path": "/threat_models/{threat_model_id}/threats",
+          "method": "GET",
+          "operationId": "getThreatModelThreats",
+          "summary": "List threats in a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats",
+          "method": "POST",
+          "operationId": "createThreatModelThreat",
+          "summary": "Create a new threat"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}",
+          "method": "GET",
+          "operationId": "getThreatModelThreat",
+          "summary": "Get a specific threat"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModelThreat",
+          "summary": "Update a threat"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModelThreat",
+          "summary": "Partially update a threat"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelThreat",
+          "summary": "Delete a threat"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata",
+          "method": "GET",
+          "operationId": "getThreatMetadata",
+          "summary": "Get threat metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata",
+          "method": "POST",
+          "operationId": "createThreatMetadata",
+          "summary": "Create threat metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getThreatMetadataByKey",
+          "summary": "Get threat metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateThreatMetadataByKey",
+          "summary": "Update threat metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteThreatMetadataByKey",
+          "summary": "Delete threat metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatMetadata",
+          "summary": "Bulk create threat metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertThreatMetadata",
+          "summary": "Bulk upsert threat metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatModelThreats",
+          "summary": "Bulk create threats"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpdateThreatModelThreats",
+          "summary": "Bulk update threats"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents",
+          "method": "GET",
+          "operationId": "getThreatModelDocuments",
+          "summary": "List documents in a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents",
+          "method": "POST",
+          "operationId": "createThreatModelDocument",
+          "summary": "Create a new document"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}",
+          "method": "GET",
+          "operationId": "getThreatModelDocument",
+          "summary": "Get a specific document"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModelDocument",
+          "summary": "Update a document"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelDocument",
+          "summary": "Delete a document"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata",
+          "method": "GET",
+          "operationId": "getDocumentMetadata",
+          "summary": "Get document metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata",
+          "method": "POST",
+          "operationId": "createDocumentMetadata",
+          "summary": "Create document metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getDocumentMetadataByKey",
+          "summary": "Get document metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateDocumentMetadataByKey",
+          "summary": "Update document metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteDocumentMetadataByKey",
+          "summary": "Delete document metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateDocumentMetadata",
+          "summary": "Bulk create document metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertDocumentMetadata",
+          "summary": "Bulk upsert document metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatModelDocuments",
+          "summary": "Bulk create documents"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/documents/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertThreatModelDocuments",
+          "summary": "Bulk upsert documents"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories",
+          "method": "GET",
+          "operationId": "getThreatModelRepositories",
+          "summary": "List sources in a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories",
+          "method": "POST",
+          "operationId": "createThreatModelRepository",
+          "summary": "Create a new source reference"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}",
+          "method": "GET",
+          "operationId": "getThreatModelRepository",
+          "summary": "Get a specific source reference"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModelRepository",
+          "summary": "Update a source reference"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelRepository",
+          "summary": "Delete a source reference"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata",
+          "method": "GET",
+          "operationId": "getRepositoryMetadata",
+          "summary": "Get source metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata",
+          "method": "POST",
+          "operationId": "createRepositoryMetadata",
+          "summary": "Create source metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getRepositoryMetadataByKey",
+          "summary": "Get source metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateRepositoryMetadataByKey",
+          "summary": "Update source metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteRepositoryMetadataByKey",
+          "summary": "Delete source metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateRepositoryMetadata",
+          "summary": "Bulk create source metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertRepositoryMetadata",
+          "summary": "Bulk upsert repository metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatModelRepositories",
+          "summary": "Bulk create sources"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertThreatModelRepositories",
+          "summary": "Bulk upsert repositories"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata",
+          "method": "GET",
+          "operationId": "getThreatModelMetadata",
+          "summary": "Get threat model metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata",
+          "method": "POST",
+          "operationId": "createThreatModelMetadata",
+          "summary": "Create threat model metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getThreatModelMetadataByKey",
+          "summary": "Get threat model metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateThreatModelMetadataByKey",
+          "summary": "Update threat model metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelMetadataByKey",
+          "summary": "Delete threat model metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatModelMetadata",
+          "summary": "Bulk create threat model metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertThreatModelMetadata",
+          "summary": "Bulk upsert threat model metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams",
+          "method": "GET",
+          "operationId": "getThreatModelDiagrams",
+          "summary": "List threat model diagrams"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams",
+          "method": "POST",
+          "operationId": "createThreatModelDiagram",
+          "summary": "Create a new diagram"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}",
+          "method": "GET",
+          "operationId": "getThreatModelDiagram",
+          "summary": "Get a specific diagram"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModelDiagram",
+          "summary": "Update a diagram"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModelDiagram",
+          "summary": "Partially update a diagram"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelDiagram",
+          "summary": "Delete a diagram"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata",
+          "method": "GET",
+          "operationId": "getDiagramMetadata",
+          "summary": "Get diagram metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata",
+          "method": "POST",
+          "operationId": "createDiagramMetadata",
+          "summary": "Create diagram metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getDiagramMetadataByKey",
+          "summary": "Get diagram metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateDiagramMetadataByKey",
+          "summary": "Update diagram metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteDiagramMetadataByKey",
+          "summary": "Delete diagram metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateDiagramMetadata",
+          "summary": "Bulk create diagram metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertDiagramMetadata",
+          "summary": "Bulk upsert diagram metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes",
+          "method": "GET",
+          "operationId": "getThreatModelNotes",
+          "summary": "List notes in a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes",
+          "method": "POST",
+          "operationId": "createThreatModelNote",
+          "summary": "Create a new note"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}",
+          "method": "GET",
+          "operationId": "getThreatModelNote",
+          "summary": "Get a specific note"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModelNote",
+          "summary": "Update a note"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelNote",
+          "summary": "Delete a note"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata",
+          "method": "GET",
+          "operationId": "getNoteMetadata",
+          "summary": "Get note metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata",
+          "method": "POST",
+          "operationId": "createNoteMetadata",
+          "summary": "Create note metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getNoteMetadataByKey",
+          "summary": "Get note metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateNoteMetadataByKey",
+          "summary": "Update note metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteNoteMetadataByKey",
+          "summary": "Delete note metadata by key"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpdateNoteMetadata",
+          "summary": "Bulk update note metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateNoteMetadata",
+          "summary": "Bulk create note metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets",
+          "method": "GET",
+          "operationId": "getThreatModelAssets",
+          "summary": "List assets in a threat model"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets",
+          "method": "POST",
+          "operationId": "createThreatModelAsset",
+          "summary": "Create a new asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatModelAssets",
+          "summary": "Bulk create assets"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertThreatModelAssets",
+          "summary": "Bulk upsert assets"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}",
+          "method": "GET",
+          "operationId": "getThreatModelAsset",
+          "summary": "Get a specific asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}",
+          "method": "PUT",
+          "operationId": "updateThreatModelAsset",
+          "summary": "Update an asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelAsset",
+          "summary": "Delete an asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata",
+          "method": "GET",
+          "operationId": "getThreatModelAssetMetadata",
+          "summary": "Get all metadata for an asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata",
+          "method": "POST",
+          "operationId": "createThreatModelAssetMetadata",
+          "summary": "Add metadata to an asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}",
+          "method": "GET",
+          "operationId": "getThreatModelAssetMetadataByKey",
+          "summary": "Get specific metadata for an asset"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}",
+          "method": "PUT",
+          "operationId": "updateThreatModelAssetMetadata",
+          "summary": "Update asset metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}",
+          "method": "DELETE",
+          "operationId": "deleteThreatModelAssetMetadata",
+          "summary": "Delete asset metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk",
+          "method": "POST",
+          "operationId": "bulkCreateThreatModelAssetMetadata",
+          "summary": "Bulk create asset metadata"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk",
+          "method": "PUT",
+          "operationId": "bulkUpsertThreatModelAssetMetadata",
+          "summary": "Bulk upsert asset metadata"
+        }
+      ],
+      "Threats": [
+        {
+          "path": "/threat_models/{threat_model_id}/threats/bulk",
+          "method": "PATCH",
+          "operationId": "bulkPatchThreatModelThreats",
+          "summary": "Bulk PATCH threats"
+        },
+        {
+          "path": "/threat_models/{threat_model_id}/threats/bulk",
+          "method": "DELETE",
+          "operationId": "bulkDeleteThreatModelThreats",
+          "summary": "Bulk DELETE threats"
+        }
+      ],
+      "Documents": [
+        {
+          "path": "/threat_models/{threat_model_id}/documents/{document_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModelDocument",
+          "summary": "Partially update document"
+        }
+      ],
+      "Repositories": [
+        {
+          "path": "/threat_models/{threat_model_id}/repositories/{repository_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModelRepository",
+          "summary": "Partially update repository"
+        }
+      ],
+      "Users": [
+        {
+          "path": "/users/me",
+          "method": "DELETE",
+          "operationId": "deleteUserAccount",
+          "summary": "Delete authenticated user account and all data"
+        }
+      ],
+      "Notes": [
+        {
+          "path": "/threat_models/{threat_model_id}/notes/{note_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModelNote",
+          "summary": "Partially update note"
+        }
+      ],
+      "Assets": [
+        {
+          "path": "/threat_models/{threat_model_id}/assets/{asset_id}",
+          "method": "PATCH",
+          "operationId": "patchThreatModelAsset",
+          "summary": "Partially update asset"
+        }
+      ],
+      "webhooks": [
+        {
+          "path": "/webhooks/subscriptions",
+          "method": "GET",
+          "operationId": "listWebhookSubscriptions",
+          "summary": "List webhook subscriptions"
+        },
+        {
+          "path": "/webhooks/subscriptions",
+          "method": "POST",
+          "operationId": "createWebhookSubscription",
+          "summary": "Create webhook subscription"
+        },
+        {
+          "path": "/webhooks/subscriptions/{webhook_id}",
+          "method": "GET",
+          "operationId": "getWebhookSubscription",
+          "summary": "Get webhook subscription"
+        },
+        {
+          "path": "/webhooks/subscriptions/{webhook_id}",
+          "method": "DELETE",
+          "operationId": "deleteWebhookSubscription",
+          "summary": "Delete webhook subscription"
+        },
+        {
+          "path": "/webhooks/subscriptions/{webhook_id}/test",
+          "method": "POST",
+          "operationId": "testWebhookSubscription",
+          "summary": "Test webhook subscription"
+        },
+        {
+          "path": "/webhooks/deliveries",
+          "method": "GET",
+          "operationId": "listWebhookDeliveries",
+          "summary": "List webhook deliveries"
+        },
+        {
+          "path": "/webhooks/deliveries/{delivery_id}",
+          "method": "GET",
+          "operationId": "getWebhookDelivery",
+          "summary": "Get webhook delivery"
+        }
+      ],
+      "Addons": [
+        {
+          "path": "/addons",
+          "method": "POST",
+          "operationId": "createAddon",
+          "summary": "Create add-on"
+        },
+        {
+          "path": "/addons",
+          "method": "GET",
+          "operationId": "listAddons",
+          "summary": "List add-ons"
+        },
+        {
+          "path": "/addons/{id}",
+          "method": "GET",
+          "operationId": "getAddon",
+          "summary": "Get add-on"
+        },
+        {
+          "path": "/addons/{id}",
+          "method": "DELETE",
+          "operationId": "deleteAddon",
+          "summary": "Delete add-on"
+        },
+        {
+          "path": "/addons/{id}/invoke",
+          "method": "POST",
+          "operationId": "invokeAddon",
+          "summary": "Invoke add-on"
+        },
+        {
+          "path": "/invocations",
+          "method": "GET",
+          "operationId": "listInvocations",
+          "summary": "List invocations"
+        },
+        {
+          "path": "/invocations/{id}",
+          "method": "GET",
+          "operationId": "getInvocation",
+          "summary": "Get invocation"
+        },
+        {
+          "path": "/invocations/{id}/status",
+          "method": "POST",
+          "operationId": "updateInvocationStatus",
+          "summary": "Update invocation status"
+        }
+      ],
+      "Administration": [
+        {
+          "path": "/admin/administrators",
+          "method": "GET",
+          "operationId": "listAdministrators",
+          "summary": "List administrators"
+        },
+        {
+          "path": "/admin/administrators",
+          "method": "POST",
+          "operationId": "createAdministrator",
+          "summary": "Create administrator grant"
+        },
+        {
+          "path": "/admin/administrators/{id}",
+          "method": "DELETE",
+          "operationId": "deleteAdministrator",
+          "summary": "Delete administrator grant"
+        },
+        {
+          "path": "/admin/quotas/users/{user_id}",
+          "method": "GET",
+          "operationId": "getUserAPIQuota",
+          "summary": "Get user API quota"
+        },
+        {
+          "path": "/admin/quotas/users/{user_id}",
+          "method": "PUT",
+          "operationId": "updateUserAPIQuota",
+          "summary": "Update user API quota"
+        },
+        {
+          "path": "/admin/quotas/users/{user_id}",
+          "method": "DELETE",
+          "operationId": "deleteUserAPIQuota",
+          "summary": "Delete user API quota"
+        },
+        {
+          "path": "/admin/quotas/webhooks/{user_id}",
+          "method": "GET",
+          "operationId": "getWebhookQuota",
+          "summary": "Get webhook quota"
+        },
+        {
+          "path": "/admin/quotas/webhooks/{user_id}",
+          "method": "PUT",
+          "operationId": "updateWebhookQuota",
+          "summary": "Update webhook quota"
+        },
+        {
+          "path": "/admin/quotas/webhooks/{user_id}",
+          "method": "DELETE",
+          "operationId": "deleteWebhookQuota",
+          "summary": "Delete webhook quota"
+        },
+        {
+          "path": "/admin/users",
+          "method": "GET",
+          "operationId": "listAdminUsers",
+          "summary": "List users"
+        },
+        {
+          "path": "/admin/users",
+          "method": "DELETE",
+          "operationId": "deleteAdminUser",
+          "summary": "Delete user"
+        },
+        {
+          "path": "/admin/users/{internal_uuid}",
+          "method": "GET",
+          "operationId": "getAdminUser",
+          "summary": "Get user details"
+        },
+        {
+          "path": "/admin/users/{internal_uuid}",
+          "method": "PATCH",
+          "operationId": "updateAdminUser",
+          "summary": "Update user metadata"
+        },
+        {
+          "path": "/admin/groups",
+          "method": "GET",
+          "operationId": "listAdminGroups",
+          "summary": "List groups"
+        },
+        {
+          "path": "/admin/groups",
+          "method": "POST",
+          "operationId": "createAdminGroup",
+          "summary": "Create provider-independent group"
+        },
+        {
+          "path": "/admin/groups",
+          "method": "DELETE",
+          "operationId": "deleteAdminGroup",
+          "summary": "Delete group (Not Implemented)"
+        },
+        {
+          "path": "/admin/groups/{internal_uuid}",
+          "method": "GET",
+          "operationId": "getAdminGroup",
+          "summary": "Get group details"
+        },
+        {
+          "path": "/admin/groups/{internal_uuid}",
+          "method": "PATCH",
+          "operationId": "updateAdminGroup",
+          "summary": "Update group metadata"
+        },
+        {
+          "path": "/admin/groups/{internal_uuid}/members",
+          "method": "GET",
+          "operationId": "listGroupMembers",
+          "summary": "List group members"
+        },
+        {
+          "path": "/admin/groups/{internal_uuid}/members",
+          "method": "POST",
+          "operationId": "addGroupMember",
+          "summary": "Add member to group"
+        },
+        {
+          "path": "/admin/groups/{internal_uuid}/members/{user_uuid}",
+          "method": "DELETE",
+          "operationId": "removeGroupMember",
+          "summary": "Remove member from group"
+        },
+        {
+          "path": "/admin/quotas/users",
+          "method": "GET",
+          "operationId": "listUserAPIQuotas",
+          "summary": "List all user API quotas"
+        },
+        {
+          "path": "/admin/quotas/webhooks",
+          "method": "GET",
+          "operationId": "listWebhookQuotas",
+          "summary": "List all webhook quotas"
+        },
+        {
+          "path": "/admin/quotas/addons",
+          "method": "GET",
+          "operationId": "listAddonInvocationQuotas",
+          "summary": "List all addon invocation quotas"
+        },
+        {
+          "path": "/admin/quotas/addons/{user_id}",
+          "method": "GET",
+          "operationId": "getAddonInvocationQuota",
+          "summary": "Get addon invocation quota"
+        },
+        {
+          "path": "/admin/quotas/addons/{user_id}",
+          "method": "PUT",
+          "operationId": "updateAddonInvocationQuota",
+          "summary": "Update addon invocation quota"
+        },
+        {
+          "path": "/admin/quotas/addons/{user_id}",
+          "method": "DELETE",
+          "operationId": "deleteAddonInvocationQuota",
+          "summary": "Delete addon invocation quota"
+        }
+      ],
+      "SAML": [
+        {
+          "path": "/saml/providers/{idp}/users",
+          "method": "GET",
+          "operationId": "listSAMLUsers",
+          "summary": "List SAML users for UI autocomplete"
+        }
+      ]
+    },
+    "operations_by_method": {
+      "GET": 67,
+      "POST": 41,
+      "PUT": 28,
+      "PATCH": 10,
+      "DELETE": 27
+    },
+    "all_paths": [
+      "/",
+      "/.well-known/jwks.json",
+      "/.well-known/oauth-authorization-server",
+      "/.well-known/oauth-protected-resource",
+      "/.well-known/openid-configuration",
+      "/addons",
+      "/addons/{id}",
+      "/addons/{id}/invoke",
+      "/admin/administrators",
+      "/admin/administrators/{id}",
+      "/admin/groups",
+      "/admin/groups/{internal_uuid}",
+      "/admin/groups/{internal_uuid}/members",
+      "/admin/groups/{internal_uuid}/members/{user_uuid}",
+      "/admin/quotas/addons",
+      "/admin/quotas/addons/{user_id}",
+      "/admin/quotas/users",
+      "/admin/quotas/users/{user_id}",
+      "/admin/quotas/webhooks",
+      "/admin/quotas/webhooks/{user_id}",
+      "/admin/users",
+      "/admin/users/{internal_uuid}",
+      "/client-credentials",
+      "/client-credentials/{id}",
+      "/collaboration/sessions",
+      "/invocations",
+      "/invocations/{id}",
+      "/invocations/{id}/status",
+      "/oauth2/authorize",
+      "/oauth2/callback",
+      "/oauth2/introspect",
+      "/oauth2/providers",
+      "/oauth2/providers/{idp}/groups",
+      "/oauth2/refresh",
+      "/oauth2/revoke",
+      "/oauth2/token",
+      "/oauth2/userinfo",
+      "/saml/acs",
+      "/saml/providers",
+      "/saml/providers/{idp}/users",
+      "/saml/slo",
+      "/saml/{provider}/login",
+      "/saml/{provider}/metadata",
+      "/threat_models",
+      "/threat_models/{threat_model_id}",
+      "/threat_models/{threat_model_id}/assets",
+      "/threat_models/{threat_model_id}/assets/bulk",
+      "/threat_models/{threat_model_id}/assets/{asset_id}",
+      "/threat_models/{threat_model_id}/assets/{asset_id}/metadata",
+      "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}",
+      "/threat_models/{threat_model_id}/diagrams",
+      "/threat_models/{threat_model_id}/diagrams/{diagram_id}",
+      "/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate",
+      "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata",
+      "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}",
+      "/threat_models/{threat_model_id}/documents",
+      "/threat_models/{threat_model_id}/documents/bulk",
+      "/threat_models/{threat_model_id}/documents/{document_id}",
+      "/threat_models/{threat_model_id}/documents/{document_id}/metadata",
+      "/threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}",
+      "/threat_models/{threat_model_id}/metadata",
+      "/threat_models/{threat_model_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/metadata/{key}",
+      "/threat_models/{threat_model_id}/notes",
+      "/threat_models/{threat_model_id}/notes/{note_id}",
+      "/threat_models/{threat_model_id}/notes/{note_id}/metadata",
+      "/threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}",
+      "/threat_models/{threat_model_id}/repositories",
+      "/threat_models/{threat_model_id}/repositories/bulk",
+      "/threat_models/{threat_model_id}/repositories/{repository_id}",
+      "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata",
+      "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}",
+      "/threat_models/{threat_model_id}/threats",
+      "/threat_models/{threat_model_id}/threats/bulk",
+      "/threat_models/{threat_model_id}/threats/{threat_id}",
+      "/threat_models/{threat_model_id}/threats/{threat_id}/metadata",
+      "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk",
+      "/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}",
+      "/users/me",
+      "/webhooks/deliveries",
+      "/webhooks/deliveries/{delivery_id}",
+      "/webhooks/subscriptions",
+      "/webhooks/subscriptions/{webhook_id}",
+      "/webhooks/subscriptions/{webhook_id}/test"
+    ]
+  },
+  "schemas": {
+    "total_schemas": 90,
+    "schema_names": [
+      "AddGroupMemberRequest",
+      "AddonInvocationQuota",
+      "AddonResponse",
+      "AdminGroup",
+      "AdminGroupListResponse",
+      "AdminUser",
+      "AdminUserListResponse",
+      "Administrator",
+      "ApiInfo",
+      "Asset",
+      "AssetBase",
+      "AssetInput",
+      "AuthTokenResponse",
+      "Authorization",
+      "BaseDiagram",
+      "BaseDiagramInput",
+      "Cell",
+      "ClientCredentialInfo",
+      "ClientCredentialResponse",
+      "CollaborationSession",
+      "CreateAddonRequest",
+      "CreateAdminGroupRequest",
+      "CreateAdministratorRequest",
+      "CreateDiagramRequest",
+      "DeletionChallenge",
+      "DeletionStats",
+      "DfdDiagram",
+      "DfdDiagramInput",
+      "Diagram",
+      "DiagramListItem",
+      "Document",
+      "DocumentBase",
+      "DocumentInput",
+      "Edge",
+      "EdgeAttrs",
+      "EdgeConnector",
+      "EdgeLabel",
+      "EdgeRouter",
+      "EdgeTerminal",
+      "Error",
+      "ExtendedAsset",
+      "Group",
+      "GroupMember",
+      "GroupMemberListResponse",
+      "InvocationListResponse",
+      "InvocationResponse",
+      "InvokeAddonRequest",
+      "InvokeAddonResponse",
+      "ListAddonsResponse",
+      "ListAdministratorsResponse",
+      "ListInvocationsResponse",
+      "MarkupElement",
+      "Metadata",
+      "Node",
+      "NodeAttrs",
+      "Note",
+      "NoteBase",
+      "NoteInput",
+      "NoteListItem",
+      "OAuthProtectedResourceMetadata",
+      "Participant",
+      "Point",
+      "PortConfiguration",
+      "Principal",
+      "Repository",
+      "RepositoryBase",
+      "RepositoryInput",
+      "SAMLProviderInfo",
+      "SAMLUserListResponse",
+      "TMListItem",
+      "Threat",
+      "ThreatBase",
+      "ThreatInput",
+      "ThreatModel",
+      "ThreatModelBase",
+      "ThreatModelInput",
+      "UpdateAdminGroupRequest",
+      "UpdateAdminUserRequest",
+      "UpdateInvocationStatusRequest",
+      "UpdateInvocationStatusResponse",
+      "User",
+      "UserAPIQuota",
+      "UserWithAdminStatus",
+      "WebhookDelivery",
+      "WebhookEventType",
+      "WebhookQuota",
+      "WebhookSubscription",
+      "WebhookSubscriptionInput",
+      "WebhookTestRequest",
+      "WebhookTestResponse"
+    ],
+    "schemas_with_discriminator": [
+      {
+        "name": "BaseDiagram",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "DFD-1.0.0": "#/components/schemas/DfdDiagram"
+          }
+        }
+      },
+      {
+        "name": "BaseDiagramInput",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "DFD-1.0.0": "#/components/schemas/DfdDiagramInput"
+          }
+        }
+      },
+      {
+        "name": "Diagram",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "DFD-1.0.0": "#/components/schemas/DfdDiagram"
+          }
+        }
+      },
+      {
+        "name": "Cell",
+        "discriminator": {
+          "propertyName": "shape"
+        }
+      }
+    ],
+    "schemas_with_readonly": [
+      {
+        "name": "BaseDiagram",
+        "readonly_fields": [
+          "id",
+          "created_at",
+          "modified_at",
+          "update_vector"
+        ]
+      },
+      {
+        "name": "CollaborationSession",
+        "readonly_fields": [
+          "session_id",
+          "host",
+          "presenter"
+        ]
+      },
+      {
+        "name": "DiagramListItem",
+        "readonly_fields": [
+          "id"
+        ]
+      },
+      {
+        "name": "TMListItem",
+        "readonly_fields": [
+          "id",
+          "status_updated"
+        ]
+      },
+      {
+        "name": "NoteListItem",
+        "readonly_fields": [
+          "id",
+          "created_at",
+          "modified_at"
+        ]
+      },
+      {
+        "name": "AdminUser",
+        "readonly_fields": [
+          "is_admin",
+          "groups",
+          "active_threat_models"
+        ]
+      },
+      {
+        "name": "AdminGroup",
+        "readonly_fields": [
+          "used_in_authorizations",
+          "used_in_admin_grants",
+          "member_count"
+        ]
+      }
+    ],
+    "schemas_with_required": [
+      {
+        "name": "ApiInfo",
+        "required_fields": [
+          "status",
+          "service",
+          "api",
+          "operator"
+        ]
+      },
+      {
+        "name": "OAuthProtectedResourceMetadata",
+        "required_fields": [
+          "resource"
+        ]
+      },
+      {
+        "name": "BaseDiagram",
+        "required_fields": [
+          "id",
+          "name",
+          "type",
+          "created_at",
+          "modified_at"
+        ]
+      },
+      {
+        "name": "BaseDiagramInput",
+        "required_fields": [
+          "name",
+          "type"
+        ]
+      },
+      {
+        "name": "CreateDiagramRequest",
+        "required_fields": [
+          "name",
+          "type"
+        ]
+      },
+      {
+        "name": "Cell",
+        "required_fields": [
+          "id",
+          "shape"
+        ]
+      },
+      {
+        "name": "Metadata",
+        "required_fields": [
+          "key",
+          "value"
+        ]
+      },
+      {
+        "name": "Error",
+        "required_fields": [
+          "error",
+          "error_description"
+        ]
+      },
+      {
+        "name": "AuthTokenResponse",
+        "required_fields": [
+          "access_token",
+          "refresh_token",
+          "token_type",
+          "expires_in"
+        ]
+      },
+      {
+        "name": "CollaborationSession",
+        "required_fields": [
+          "session_id",
+          "host",
+          "threat_model_id",
+          "threat_model_name",
+          "diagram_id",
+          "diagram_name",
+          "participants",
+          "websocket_url"
+        ]
+      },
+      {
+        "name": "DiagramListItem",
+        "required_fields": [
+          "id",
+          "name",
+          "type"
+        ]
+      },
+      {
+        "name": "TMListItem",
+        "required_fields": [
+          "id",
+          "name",
+          "created_at",
+          "modified_at",
+          "owner",
+          "created_by",
+          "threat_model_framework",
+          "document_count",
+          "repo_count",
+          "diagram_count",
+          "threat_count",
+          "asset_count",
+          "note_count"
+        ]
+      },
+      {
+        "name": "Point",
+        "required_fields": [
+          "x",
+          "y"
+        ]
+      },
+      {
+        "name": "EdgeTerminal",
+        "required_fields": [
+          "cell"
+        ]
+      },
+      {
+        "name": "MarkupElement",
+        "required_fields": [
+          "tagName"
+        ]
+      },
+      {
+        "name": "ThreatModelBase",
+        "required_fields": [
+          "name",
+          "owner",
+          "authorization",
+          "threat_model_framework"
+        ]
+      },
+      {
+        "name": "ThreatModelInput",
+        "required_fields": [
+          "name"
+        ]
+      },
+      {
+        "name": "ThreatBase",
+        "required_fields": [
+          "name",
+          "threat_type"
+        ]
+      },
+      {
+        "name": "Participant",
+        "required_fields": [
+          "user",
+          "last_activity",
+          "permissions"
+        ]
+      },
+      {
+        "name": "DeletionChallenge",
+        "required_fields": [
+          "challenge_text",
+          "expires_at"
+        ]
+      },
+      {
+        "name": "AssetBase",
+        "required_fields": [
+          "name",
+          "type"
+        ]
+      },
+      {
+        "name": "DocumentBase",
+        "required_fields": [
+          "name",
+          "uri"
+        ]
+      },
+      {
+        "name": "NoteBase",
+        "required_fields": [
+          "name",
+          "content"
+        ]
+      },
+      {
+        "name": "NoteListItem",
+        "required_fields": [
+          "name",
+          "id"
+        ]
+      },
+      {
+        "name": "RepositoryBase",
+        "required_fields": [
+          "uri"
+        ]
+      },
+      {
+        "name": "WebhookSubscription",
+        "required_fields": [
+          "id",
+          "owner_id",
+          "name",
+          "url",
+          "events",
+          "status",
+          "created_at",
+          "modified_at"
+        ]
+      },
+      {
+        "name": "WebhookSubscriptionInput",
+        "required_fields": [
+          "name",
+          "url",
+          "events"
+        ]
+      },
+      {
+        "name": "WebhookDelivery",
+        "required_fields": [
+          "id",
+          "subscription_id",
+          "event_type",
+          "status",
+          "attempts",
+          "created_at"
+        ]
+      },
+      {
+        "name": "WebhookTestResponse",
+        "required_fields": [
+          "delivery_id",
+          "status"
+        ]
+      },
+      {
+        "name": "CreateAddonRequest",
+        "required_fields": [
+          "name",
+          "webhook_id"
+        ]
+      },
+      {
+        "name": "AddonResponse",
+        "required_fields": [
+          "id",
+          "created_at",
+          "name",
+          "webhook_id"
+        ]
+      },
+      {
+        "name": "ListAddonsResponse",
+        "required_fields": [
+          "addons",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      {
+        "name": "InvokeAddonRequest",
+        "required_fields": [
+          "threat_model_id"
+        ]
+      },
+      {
+        "name": "InvokeAddonResponse",
+        "required_fields": [
+          "invocation_id",
+          "status",
+          "created_at"
+        ]
+      },
+      {
+        "name": "InvocationResponse",
+        "required_fields": [
+          "id",
+          "addon_id",
+          "threat_model_id",
+          "invoked_by",
+          "status",
+          "status_percent",
+          "created_at",
+          "status_updated_at"
+        ]
+      },
+      {
+        "name": "ListInvocationsResponse",
+        "required_fields": [
+          "invocations",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      {
+        "name": "UpdateInvocationStatusRequest",
+        "required_fields": [
+          "status"
+        ]
+      },
+      {
+        "name": "UpdateInvocationStatusResponse",
+        "required_fields": [
+          "id",
+          "status",
+          "status_percent",
+          "status_updated_at"
+        ]
+      },
+      {
+        "name": "Principal",
+        "required_fields": [
+          "principal_type",
+          "provider",
+          "provider_id"
+        ]
+      },
+      {
+        "name": "SAMLProviderInfo",
+        "required_fields": [
+          "id",
+          "name",
+          "icon",
+          "auth_url",
+          "metadata_url",
+          "entity_id",
+          "acs_url"
+        ]
+      },
+      {
+        "name": "Administrator",
+        "required_fields": [
+          "id",
+          "provider",
+          "created_at"
+        ]
+      },
+      {
+        "name": "CreateAdministratorRequest",
+        "required_fields": [
+          "provider"
+        ]
+      },
+      {
+        "name": "ListAdministratorsResponse",
+        "required_fields": [
+          "administrators",
+          "total"
+        ]
+      },
+      {
+        "name": "UserAPIQuota",
+        "required_fields": [
+          "user_id",
+          "max_requests_per_minute",
+          "created_at",
+          "modified_at"
+        ]
+      },
+      {
+        "name": "WebhookQuota",
+        "required_fields": [
+          "owner_id",
+          "max_subscriptions",
+          "max_events_per_minute",
+          "max_subscription_requests_per_minute",
+          "max_subscription_requests_per_day"
+        ]
+      },
+      {
+        "name": "AdminUser",
+        "required_fields": [
+          "internal_uuid",
+          "provider",
+          "provider_user_id",
+          "email",
+          "name",
+          "email_verified",
+          "created_at",
+          "modified_at"
+        ]
+      },
+      {
+        "name": "AdminUserListResponse",
+        "required_fields": [
+          "users",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      {
+        "name": "DeletionStats",
+        "required_fields": [
+          "threat_models_transferred",
+          "threat_models_deleted",
+          "user_email"
+        ]
+      },
+      {
+        "name": "AdminGroup",
+        "required_fields": [
+          "internal_uuid",
+          "provider",
+          "group_name",
+          "first_used",
+          "last_used",
+          "usage_count"
+        ]
+      },
+      {
+        "name": "AdminGroupListResponse",
+        "required_fields": [
+          "groups",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      {
+        "name": "CreateAdminGroupRequest",
+        "required_fields": [
+          "group_name",
+          "name"
+        ]
+      },
+      {
+        "name": "SAMLUserListResponse",
+        "required_fields": [
+          "idp",
+          "users",
+          "total"
+        ]
+      },
+      {
+        "name": "GroupMember",
+        "required_fields": [
+          "id",
+          "group_internal_uuid",
+          "user_internal_uuid",
+          "user_email",
+          "user_name",
+          "user_provider",
+          "user_provider_user_id",
+          "added_at"
+        ]
+      },
+      {
+        "name": "GroupMemberListResponse",
+        "required_fields": [
+          "members",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      {
+        "name": "AddGroupMemberRequest",
+        "required_fields": [
+          "user_internal_uuid"
+        ]
+      },
+      {
+        "name": "AddonInvocationQuota",
+        "required_fields": [
+          "owner_id",
+          "max_active_invocations",
+          "max_invocations_per_hour",
+          "created_at",
+          "modified_at"
+        ]
+      },
+      {
+        "name": "ClientCredentialResponse",
+        "required_fields": [
+          "id",
+          "client_id",
+          "client_secret",
+          "name",
+          "created_at"
+        ]
+      },
+      {
+        "name": "ClientCredentialInfo",
+        "required_fields": [
+          "id",
+          "client_id",
+          "name",
+          "is_active",
+          "created_at",
+          "modified_at"
+        ]
+      }
+    ]
+  },
+  "comparison": {
+    "current_apis": [
+      "assets_api",
+      "authentication_api",
+      "collaboration_api",
+      "documents_api",
+      "general_api",
+      "notes_api",
+      "o_auth_discovery_api",
+      "oidc_discovery_api",
+      "repositories_api",
+      "threat_model_sub_resources_api",
+      "threat_models_api",
+      "threats_api",
+      "users_api",
+      "webhooks_api"
+    ],
+    "current_models": [
+      "api_info",
+      "api_info_api",
+      "api_info_operator",
+      "api_info_service",
+      "api_info_status",
+      "asset",
+      "asset_base",
+      "asset_input",
+      "auth_token_response",
+      "authorization",
+      "base_diagram",
+      "base_diagram_image",
+      "base_diagram_input",
+      "cell",
+      "cell_data",
+      "collaboration_session",
+      "create_diagram_request",
+      "deletion_challenge",
+      "dfd_diagram",
+      "dfd_diagram_input",
+      "diagram",
+      "diagram_list_item",
+      "document",
+      "document_base",
+      "document_input",
+      "edge",
+      "edge_attrs",
+      "edge_attrs_line",
+      "edge_attrs_line_source_marker",
+      "edge_attrs_line_target_marker",
+      "edge_connector",
+      "edge_connector_args",
+      "edge_label",
+      "edge_label_attrs",
+      "edge_label_attrs_text",
+      "edge_router",
+      "edge_router_args",
+      "edge_terminal",
+      "error",
+      "error_details",
+      "extended_asset",
+      "inline_response200",
+      "inline_response2001",
+      "inline_response2002",
+      "inline_response2002_keys",
+      "inline_response2003",
+      "inline_response2004",
+      "inline_response2004_providers",
+      "inline_response2005",
+      "inline_response2005_groups",
+      "inline_response2006",
+      "inline_response2006_providers",
+      "inline_response2007",
+      "inline_response2008",
+      "inline_response409",
+      "markup_element",
+      "metadata",
+      "metadata_key_body",
+      "metadata_key_body1",
+      "metadata_key_body2",
+      "metadata_key_body3",
+      "metadata_key_body4",
+      "metadata_key_body5",
+      "node",
+      "node_attrs",
+      "node_attrs_body",
+      "node_attrs_text",
+      "node_position",
+      "node_size",
+      "note",
+      "note_base",
+      "note_input",
+      "note_list_item",
+      "o_auth_protected_resource_metadata",
+      "oauth2_introspect_body",
+      "oauth2_refresh_body",
+      "oauth2_token_body",
+      "one_of_edge_label_position",
+      "participant",
+      "point",
+      "port_configuration",
+      "port_configuration_groups",
+      "port_configuration_items",
+      "repository",
+      "repository_base",
+      "repository_base_parameters",
+      "repository_input",
+      "saml_acs_body",
+      "saml_slo_body",
+      "threat",
+      "threat_base",
+      "threat_input",
+      "threat_model",
+      "threat_model_base",
+      "threat_model_input",
+      "threat_models_threat_model_id_body",
+      "threat_modelsthreat_model_idthreatsbulk_patches",
+      "threats_bulk_body",
+      "threats_threat_id_body",
+      "tm_list_item",
+      "user",
+      "webhook_delivery",
+      "webhook_subscription",
+      "webhook_subscription_input",
+      "webhook_test_request",
+      "webhook_test_response"
+    ],
+    "spec_tags": [
+      "Administrators",
+      "webhooks"
+    ],
+    "spec_schemas": [
+      "AddGroupMemberRequest",
+      "AddonInvocationQuota",
+      "AddonResponse",
+      "AdminGroup",
+      "AdminGroupListResponse",
+      "AdminUser",
+      "AdminUserListResponse",
+      "Administrator",
+      "ApiInfo",
+      "Asset",
+      "AssetBase",
+      "AssetInput",
+      "AuthTokenResponse",
+      "Authorization",
+      "BaseDiagram",
+      "BaseDiagramInput",
+      "Cell",
+      "ClientCredentialInfo",
+      "ClientCredentialResponse",
+      "CollaborationSession",
+      "CreateAddonRequest",
+      "CreateAdminGroupRequest",
+      "CreateAdministratorRequest",
+      "CreateDiagramRequest",
+      "DeletionChallenge",
+      "DeletionStats",
+      "DfdDiagram",
+      "DfdDiagramInput",
+      "Diagram",
+      "DiagramListItem",
+      "Document",
+      "DocumentBase",
+      "DocumentInput",
+      "Edge",
+      "EdgeAttrs",
+      "EdgeConnector",
+      "EdgeLabel",
+      "EdgeRouter",
+      "EdgeTerminal",
+      "Error",
+      "ExtendedAsset",
+      "Group",
+      "GroupMember",
+      "GroupMemberListResponse",
+      "InvocationListResponse",
+      "InvocationResponse",
+      "InvokeAddonRequest",
+      "InvokeAddonResponse",
+      "ListAddonsResponse",
+      "ListAdministratorsResponse",
+      "ListInvocationsResponse",
+      "MarkupElement",
+      "Metadata",
+      "Node",
+      "NodeAttrs",
+      "Note",
+      "NoteBase",
+      "NoteInput",
+      "NoteListItem",
+      "OAuthProtectedResourceMetadata",
+      "Participant",
+      "Point",
+      "PortConfiguration",
+      "Principal",
+      "Repository",
+      "RepositoryBase",
+      "RepositoryInput",
+      "SAMLProviderInfo",
+      "SAMLUserListResponse",
+      "TMListItem",
+      "Threat",
+      "ThreatBase",
+      "ThreatInput",
+      "ThreatModel",
+      "ThreatModelBase",
+      "ThreatModelInput",
+      "UpdateAdminGroupRequest",
+      "UpdateAdminUserRequest",
+      "UpdateInvocationStatusRequest",
+      "UpdateInvocationStatusResponse",
+      "User",
+      "UserAPIQuota",
+      "UserWithAdminStatus",
+      "WebhookDelivery",
+      "WebhookEventType",
+      "WebhookQuota",
+      "WebhookSubscription",
+      "WebhookSubscriptionInput",
+      "WebhookTestRequest",
+      "WebhookTestResponse"
+    ],
+    "new_models_expected": [
+      "add_group_member_request",
+      "addon_invocation_quota",
+      "addon_response",
+      "admin_group",
+      "admin_group_list_response",
+      "admin_user",
+      "admin_user_list_response",
+      "administrator",
+      "client_credential_info",
+      "client_credential_response",
+      "create_addon_request",
+      "create_admin_group_request",
+      "create_administrator_request",
+      "deletion_stats",
+      "group",
+      "group_member",
+      "group_member_list_response",
+      "invocation_list_response",
+      "invocation_response",
+      "invoke_addon_request",
+      "invoke_addon_response",
+      "list_addons_response",
+      "list_administrators_response",
+      "list_invocations_response",
+      "principal",
+      "s_a_m_l_provider_info",
+      "s_a_m_l_user_list_response",
+      "t_m_list_item",
+      "update_admin_group_request",
+      "update_admin_user_request",
+      "update_invocation_status_request",
+      "update_invocation_status_response",
+      "user_a_p_i_quota",
+      "user_with_admin_status",
+      "webhook_event_type",
+      "webhook_quota"
+    ],
+    "removed_models_expected": [
+      "api_info_api",
+      "api_info_operator",
+      "api_info_service",
+      "api_info_status",
+      "base_diagram_image",
+      "cell_data",
+      "edge_attrs_line",
+      "edge_attrs_line_source_marker",
+      "edge_attrs_line_target_marker",
+      "edge_connector_args",
+      "edge_label_attrs",
+      "edge_label_attrs_text",
+      "edge_router_args",
+      "error_details",
+      "inline_response200",
+      "inline_response2001",
+      "inline_response2002",
+      "inline_response2002_keys",
+      "inline_response2003",
+      "inline_response2004",
+      "inline_response2004_providers",
+      "inline_response2005",
+      "inline_response2005_groups",
+      "inline_response2006",
+      "inline_response2006_providers",
+      "inline_response2007",
+      "inline_response2008",
+      "inline_response409",
+      "metadata_key_body",
+      "metadata_key_body1",
+      "metadata_key_body2",
+      "metadata_key_body3",
+      "metadata_key_body4",
+      "metadata_key_body5",
+      "node_attrs_body",
+      "node_attrs_text",
+      "node_position",
+      "node_size",
+      "oauth2_introspect_body",
+      "oauth2_refresh_body",
+      "oauth2_token_body",
+      "one_of_edge_label_position",
+      "port_configuration_groups",
+      "port_configuration_items",
+      "repository_base_parameters",
+      "saml_acs_body",
+      "saml_slo_body",
+      "threat_models_threat_model_id_body",
+      "threat_modelsthreat_model_idthreatsbulk_patches",
+      "threats_bulk_body",
+      "threats_threat_id_body",
+      "tm_list_item"
+    ],
+    "api_count_change": -12,
+    "model_count_change": -16
+  }
+}

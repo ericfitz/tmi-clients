@@ -43,8 +43,8 @@ class NotesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Note ID (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -67,8 +67,8 @@ class NotesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Note ID (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.

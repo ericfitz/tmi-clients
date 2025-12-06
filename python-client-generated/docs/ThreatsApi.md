@@ -1,6 +1,6 @@
 # tmi_client.ThreatsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**bulk_patch_threat_model_threats**](ThreatsApi.md#bulk_patch_threat_model_threats) | **PATCH** /threat_models/{threat_model_id}/threats/bulk | Bulk PATCH threats
 
 # **bulk_delete_threat_model_threats**
-> InlineResponse2007 bulk_delete_threat_model_threats(threat_model_id, threat_ids)
+> InlineResponse2008 bulk_delete_threat_model_threats(threat_model_id, threat_ids)
 
 Bulk DELETE threats
 
@@ -25,7 +25,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatsApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_ids = ['threat_ids_example'] # list[str] | Comma-separated list of threat IDs to delete (UUID format)
 
 try:
@@ -40,12 +40,12 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_ids** | [**list[str]**](str.md)| Comma-separated list of threat IDs to delete (UUID format) | 
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -77,7 +77,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.ThreatsApi(tmi_client.ApiClient(configuration))
 body = tmi_client.ThreatsBulkBody() # ThreatsBulkBody | 
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
     # Bulk PATCH threats
@@ -92,7 +92,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**ThreatsBulkBody**](ThreatsBulkBody.md)|  | 
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
 

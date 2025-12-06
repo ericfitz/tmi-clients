@@ -1,6 +1,6 @@
 # tmi_client.AssetsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -25,8 +25,8 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AssetsApi(tmi_client.ApiClient(configuration))
 body = [tmi_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model (UUID)
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset ID
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
 try:
     # Partially update asset
@@ -41,8 +41,8 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**list[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model (UUID) | 
- **asset_id** | [**str**](.md)| Asset ID | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **asset_id** | [**str**](.md)| Asset identifier | 
 
 ### Return type
 

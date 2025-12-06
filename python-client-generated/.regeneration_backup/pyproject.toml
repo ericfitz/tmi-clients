@@ -1,0 +1,26 @@
+[project]
+name = "tmi-client"
+version = "1.0.0"
+description = "TMI (Threat Modeling Improved) API Client"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "certifi >= 2024.2.2",
+    "six >= 1.16.0",
+    "python-dateutil >= 2.9.0",
+    "setuptools >= 70.0.0",
+    "urllib3 >= 2.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+[build-system]
+requires = ["setuptools>=70.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["tmi_client", "tmi_client.api", "tmi_client.models"]

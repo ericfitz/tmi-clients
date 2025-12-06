@@ -30,7 +30,7 @@ class ThreatModelBase(object):
     swagger_types = {
         'name': 'str',
         'description': 'str',
-        'owner': 'str',
+        'owner': 'User',
         'threat_model_framework': 'str',
         'authorization': 'list[Authorization]',
         'metadata': 'list[Metadata]',
@@ -125,10 +125,9 @@ class ThreatModelBase(object):
     def owner(self):
         """Gets the owner of this ThreatModelBase.  # noqa: E501
 
-        Email address of the current owner  # noqa: E501
 
         :return: The owner of this ThreatModelBase.  # noqa: E501
-        :rtype: str
+        :rtype: User
         """
         return self._owner
 
@@ -136,10 +135,9 @@ class ThreatModelBase(object):
     def owner(self, owner):
         """Sets the owner of this ThreatModelBase.
 
-        Email address of the current owner  # noqa: E501
 
         :param owner: The owner of this ThreatModelBase.  # noqa: E501
-        :type: str
+        :type: User
         """
         if owner is None:
             raise ValueError("Invalid value for `owner`, must not be `None`")  # noqa: E501

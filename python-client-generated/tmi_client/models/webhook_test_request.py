@@ -35,7 +35,7 @@ class WebhookTestRequest(object):
         'event_type': 'event_type'
     }
 
-    def __init__(self, event_type='test.webhook'):  # noqa: E501
+    def __init__(self, event_type=None):  # noqa: E501
         """WebhookTestRequest - a model defined in Swagger"""  # noqa: E501
         self._event_type = None
         self.discriminator = None
@@ -46,7 +46,7 @@ class WebhookTestRequest(object):
     def event_type(self):
         """Gets the event_type of this WebhookTestRequest.  # noqa: E501
 
-        Event type for test  # noqa: E501
+        Webhook event type following {resource}.{action} pattern  # noqa: E501
 
         :return: The event_type of this WebhookTestRequest.  # noqa: E501
         :rtype: str
@@ -57,11 +57,17 @@ class WebhookTestRequest(object):
     def event_type(self, event_type):
         """Sets the event_type of this WebhookTestRequest.
 
-        Event type for test  # noqa: E501
+        Webhook event type following {resource}.{action} pattern  # noqa: E501
 
         :param event_type: The event_type of this WebhookTestRequest.  # noqa: E501
         :type: str
         """
+        allowed_values = ["threat_model.created", "threat_model.updated", "threat_model.deleted", "diagram.created", "diagram.updated", "diagram.deleted", "document.created", "document.updated", "document.deleted", "note.created", "note.updated", "note.deleted", "repository.created", "repository.updated", "repository.deleted", "asset.created", "asset.updated", "asset.deleted", "threat.created", "threat.updated", "threat.deleted", "metadata.created", "metadata.updated", "metadata.deleted"]  # noqa: E501
+        if event_type not in allowed_values:
+            raise ValueError(
+                "Invalid value for `event_type` ({0}), must be one of {1}"  # noqa: E501
+                .format(event_type, allowed_values)
+            )
 
         self._event_type = event_type
 

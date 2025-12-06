@@ -1,19 +1,23 @@
 # tmi_client.AuthenticationApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorize_o_auth_provider**](AuthenticationApi.md#authorize_o_auth_provider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
-[**exchange_o_auth_code**](AuthenticationApi.md#exchange_o_auth_code) | **POST** /oauth2/token | Exchange OAuth authorization code for JWT tokens
+[**create_client_credential**](AuthenticationApi.md#create_client_credential) | **POST** /client-credentials | Create client credential
+[**delete_client_credential**](AuthenticationApi.md#delete_client_credential) | **DELETE** /client-credentials/{id} | Delete client credential
+[**exchange_o_auth_code**](AuthenticationApi.md#exchange_o_auth_code) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**get_auth_providers**](AuthenticationApi.md#get_auth_providers) | **GET** /oauth2/providers | List available OAuth providers
 [**get_current_user**](AuthenticationApi.md#get_current_user) | **GET** /oauth2/userinfo | Get current user information
 [**get_current_user_profile**](AuthenticationApi.md#get_current_user_profile) | **GET** /users/me | Get current user profile
 [**get_provider_groups**](AuthenticationApi.md#get_provider_groups) | **GET** /oauth2/providers/{idp}/groups | Get groups for identity provider
-[**get_saml_metadata**](AuthenticationApi.md#get_saml_metadata) | **GET** /saml/metadata | Get SAML service provider metadata
+[**get_saml_metadata**](AuthenticationApi.md#get_saml_metadata) | **GET** /saml/{provider}/metadata | Get SAML service provider metadata
+[**get_saml_providers**](AuthenticationApi.md#get_saml_providers) | **GET** /saml/providers | List available SAML providers
 [**handle_o_auth_callback**](AuthenticationApi.md#handle_o_auth_callback) | **GET** /oauth2/callback | Handle OAuth callback
-[**initiate_saml_login**](AuthenticationApi.md#initiate_saml_login) | **GET** /saml/login | Initiate SAML authentication
+[**initiate_saml_login**](AuthenticationApi.md#initiate_saml_login) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspect_token**](AuthenticationApi.md#introspect_token) | **POST** /oauth2/introspect | Token Introspection
+[**list_client_credentials**](AuthenticationApi.md#list_client_credentials) | **GET** /client-credentials | List client credentials
 [**logout_user**](AuthenticationApi.md#logout_user) | **POST** /oauth2/revoke | Logout user
 [**process_saml_logout**](AuthenticationApi.md#process_saml_logout) | **GET** /saml/slo | SAML Single Logout
 [**process_saml_logout_post**](AuthenticationApi.md#process_saml_logout_post) | **POST** /saml/slo | SAML Single Logout (POST)
@@ -21,7 +25,7 @@ Method | HTTP request | Description
 [**refresh_token**](AuthenticationApi.md#refresh_token) | **POST** /oauth2/refresh | Refresh JWT token
 
 # **authorize_o_auth_provider**
-> authorize_o_auth_provider(scope, idp=idp, client_callback=client_callback, state=state, login_hint=login_hint)
+> authorize_o_auth_provider(scope, code_challenge, code_challenge_method, idp=idp, client_callback=client_callback, state=state, login_hint=login_hint)
 
 Initiate OAuth authorization flow
 
@@ -38,14 +42,16 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
 scope = 'scope_example' # str | OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values.
+code_challenge = 'code_challenge_example' # str | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
+code_challenge_method = 'code_challenge_method_example' # str | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
 idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified. (optional)
-client_callback = 'client_callback_example' # str | Client callback URL where TMI should redirect after successful OAuth completion with tokens as query parameters. If not provided, tokens are returned as JSON response. (optional)
+client_callback = 'client_callback_example' # str | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
 state = 'state_example' # str | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
 login_hint = 'login_hint_example' # str | User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. (optional)
 
 try:
     # Initiate OAuth authorization flow
-    api_instance.authorize_o_auth_provider(scope, idp=idp, client_callback=client_callback, state=state, login_hint=login_hint)
+    api_instance.authorize_o_auth_provider(scope, code_challenge, code_challenge_method, idp=idp, client_callback=client_callback, state=state, login_hint=login_hint)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->authorize_o_auth_provider: %s\n" % e)
 ```
@@ -55,8 +61,10 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **scope** | **str**| OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values. | 
+ **code_challenge** | **str**| PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
+ **code_challenge_method** | **str**| PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
  **idp** | **str**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | [optional] 
- **client_callback** | **str**| Client callback URL where TMI should redirect after successful OAuth completion with tokens as query parameters. If not provided, tokens are returned as JSON response. | [optional] 
+ **client_callback** | **str**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [optional] 
  **state** | **str**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [optional] 
  **login_hint** | **str**| User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [optional] 
 
@@ -75,12 +83,109 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **create_client_credential**
+> object create_client_credential(body)
+
+Create client credential
+
+Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
+body = tmi_client.ClientcredentialsBody() # ClientcredentialsBody | 
+
+try:
+    # Create client credential
+    api_response = api_instance.create_client_credential(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->create_client_credential: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**ClientcredentialsBody**](ClientcredentialsBody.md)|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_client_credential**
+> delete_client_credential(id)
+
+Delete client credential
+
+Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Client credential UUID
+
+try:
+    # Delete client credential
+    api_instance.delete_client_credential(id)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->delete_client_credential: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**str**](.md)| Client credential UUID | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **exchange_o_auth_code**
 > AuthTokenResponse exchange_o_auth_code(body, idp=idp)
 
-Exchange OAuth authorization code for JWT tokens
+Exchange OAuth credentials for JWT tokens
 
-Provider-neutral endpoint to exchange OAuth authorization codes for TMI JWT tokens. Supports Google, GitHub, and Microsoft OAuth providers.
+Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.
 
 ### Example
 ```python
@@ -96,7 +201,7 @@ body = tmi_client.Oauth2TokenBody() # Oauth2TokenBody |
 idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified. (optional)
 
 try:
-    # Exchange OAuth authorization code for JWT tokens
+    # Exchange OAuth credentials for JWT tokens
     api_response = api_instance.exchange_o_auth_code(body, idp=idp)
     pprint(api_response)
 except ApiException as e:
@@ -120,7 +225,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -215,7 +320,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_current_user_profile**
-> User get_current_user_profile()
+> UserWithAdminStatus get_current_user_profile()
 
 Get current user profile
 
@@ -246,7 +351,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**UserWithAdminStatus**](UserWithAdminStatus.md)
 
 ### Authorization
 
@@ -309,7 +414,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_saml_metadata**
-> str get_saml_metadata()
+> str get_saml_metadata(provider)
 
 Get SAML service provider metadata
 
@@ -325,17 +430,21 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
+provider = 'provider_example' # str | SAML provider identifier
 
 try:
     # Get SAML service provider metadata
-    api_response = api_instance.get_saml_metadata()
+    api_response = api_instance.get_saml_metadata(provider)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->get_saml_metadata: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **provider** | **str**| SAML provider identifier | 
 
 ### Return type
 
@@ -349,6 +458,50 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/samlmetadata+xml, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_saml_providers**
+> InlineResponse20010 get_saml_providers()
+
+List available SAML providers
+
+Returns a list of configured SAML providers available for authentication
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi()
+
+try:
+    # List available SAML providers
+    api_response = api_instance.get_saml_providers()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->get_saml_providers: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**InlineResponse20010**](InlineResponse20010.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -403,7 +556,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **initiate_saml_login**
-> initiate_saml_login(client_callback=client_callback)
+> initiate_saml_login(provider, client_callback=client_callback)
 
 Initiate SAML authentication
 
@@ -419,11 +572,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
+provider = 'provider_example' # str | SAML provider identifier
 client_callback = 'client_callback_example' # str | Client callback URL to redirect after authentication (optional)
 
 try:
     # Initiate SAML authentication
-    api_instance.initiate_saml_login(client_callback=client_callback)
+    api_instance.initiate_saml_login(provider, client_callback=client_callback)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->initiate_saml_login: %s\n" % e)
 ```
@@ -432,6 +586,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **provider** | **str**| SAML provider identifier | 
  **client_callback** | **str**| Client callback URL to redirect after authentication | [optional] 
 
 ### Return type
@@ -499,8 +654,53 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_client_credentials**
+> object list_client_credentials()
+
+List client credentials
+
+Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
+
+try:
+    # List client credentials
+    api_response = api_instance.list_client_credentials()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->list_client_credentials: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**object**
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **logout_user**
-> logout_user(body=body)
+> InlineResponse2007 logout_user(body=body)
 
 Logout user
 
@@ -521,7 +721,8 @@ body = NULL # object | Empty request body - token is provided via Authorization 
 
 try:
     # Logout user
-    api_instance.logout_user(body=body)
+    api_response = api_instance.logout_user(body=body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->logout_user: %s\n" % e)
 ```
@@ -534,7 +735,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -548,7 +749,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **process_saml_logout**
-> InlineResponse2008 process_saml_logout(saml_request)
+> InlineResponse2009 process_saml_logout(saml_request)
 
 SAML Single Logout
 
@@ -582,7 +783,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2009**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -596,7 +797,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **process_saml_logout_post**
-> InlineResponse2008 process_saml_logout_post(saml_request=saml_request)
+> InlineResponse2009 process_saml_logout_post(saml_request=saml_request)
 
 SAML Single Logout (POST)
 
@@ -630,7 +831,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2009**](InlineResponse2009.md)
 
 ### Authorization
 

@@ -1,6 +1,6 @@
 # tmi_client.ThreatModelsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -78,7 +78,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to delete (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
     # Delete a threat model
@@ -91,7 +91,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model to delete (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -126,7 +126,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to retrieve (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
     # Retrieve a threat model
@@ -140,7 +140,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model to retrieve (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -175,16 +175,16 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
-limit = 20 # int | Number of threat models to return (optional) (default to 20)
-offset = 0 # int | Pagination offset (optional) (default to 0)
+limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+offset = 0 # int | Number of results to skip (optional) (default to 0)
 owner = 'owner_example' # str | Filter by owner name or email (optional)
 name = 'name_example' # str | Filter by threat model name (partial match) (optional)
 description = 'description_example' # str | Filter by threat model description (partial match) (optional)
 issue_uri = 'issue_uri_example' # str | Filter by issue URI (partial match) (optional)
-created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter threat models created after this date (RFC3339 format) (optional)
-created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter threat models created before this date (RFC3339 format) (optional)
-modified_after = '2013-10-20T19:20:30+01:00' # datetime | Filter threat models modified after this date (RFC3339 format) (optional)
-modified_before = '2013-10-20T19:20:30+01:00' # datetime | Filter threat models modified before this date (RFC3339 format) (optional)
+created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results created after this timestamp (ISO 8601) (optional)
+created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results created before this timestamp (ISO 8601) (optional)
+modified_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified after this timestamp (ISO 8601) (optional)
+modified_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified before this timestamp (ISO 8601) (optional)
 status = 'status_example' # str | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. (optional)
 status_updated_after = '2013-10-20T19:20:30+01:00' # datetime | Filter threat models where status was updated after this timestamp (RFC3339) (optional)
 status_updated_before = '2013-10-20T19:20:30+01:00' # datetime | Filter threat models where status was updated before this timestamp (RFC3339) (optional)
@@ -201,16 +201,16 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**| Number of threat models to return | [optional] [default to 20]
- **offset** | **int**| Pagination offset | [optional] [default to 0]
+ **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
+ **offset** | **int**| Number of results to skip | [optional] [default to 0]
  **owner** | **str**| Filter by owner name or email | [optional] 
  **name** | **str**| Filter by threat model name (partial match) | [optional] 
  **description** | **str**| Filter by threat model description (partial match) | [optional] 
  **issue_uri** | **str**| Filter by issue URI (partial match) | [optional] 
- **created_after** | **datetime**| Filter threat models created after this date (RFC3339 format) | [optional] 
- **created_before** | **datetime**| Filter threat models created before this date (RFC3339 format) | [optional] 
- **modified_after** | **datetime**| Filter threat models modified after this date (RFC3339 format) | [optional] 
- **modified_before** | **datetime**| Filter threat models modified before this date (RFC3339 format) | [optional] 
+ **created_after** | **datetime**| Filter results created after this timestamp (ISO 8601) | [optional] 
+ **created_before** | **datetime**| Filter results created before this timestamp (ISO 8601) | [optional] 
+ **modified_after** | **datetime**| Filter results modified after this timestamp (ISO 8601) | [optional] 
+ **modified_before** | **datetime**| Filter results modified before this timestamp (ISO 8601) | [optional] 
  **status** | **str**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
  **status_updated_after** | **datetime**| Filter threat models where status was updated after this timestamp (RFC3339) | [optional] 
  **status_updated_before** | **datetime**| Filter threat models where status was updated before this timestamp (RFC3339) | [optional] 
@@ -248,7 +248,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to update (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 body = [tmi_client.ThreatModelsThreatModelIdBody()] # list[ThreatModelsThreatModelIdBody] |  (optional)
 
 try:
@@ -263,7 +263,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model to update (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **body** | [**list[ThreatModelsThreatModelIdBody]**](ThreatModelsThreatModelIdBody.md)|  | [optional] 
 
 ### Return type
@@ -300,7 +300,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 body = tmi_client.ThreatModelInput() # ThreatModelInput | 
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the threat model to update (UUID)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
     # Update a threat model
@@ -315,7 +315,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
- **threat_model_id** | [**str**](.md)| Unique identifier of the threat model to update (UUID) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
 

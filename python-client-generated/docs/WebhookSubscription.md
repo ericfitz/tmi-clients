@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **threat_model_id** | **str** | Optional threat model filter (null means all threat models) | [optional] 
 **name** | **str** | Descriptive name | 
 **url** | **str** | Webhook endpoint URL (must be HTTPS) | 
-**events** | **list[str]** | List of event types to subscribe to | 
+**events** | [**list[WebhookEventType]**](WebhookEventType.md) | List of event types to subscribe to. See WebhookEventType for available events. | 
 **secret** | **str** | HMAC secret for signing payloads (not returned in GET responses) | [optional] 
 **status** | **str** | Subscription status | 
 **challenges_sent** | **int** | Number of verification challenges sent | [optional] 

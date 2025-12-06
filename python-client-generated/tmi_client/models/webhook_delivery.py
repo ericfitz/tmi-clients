@@ -30,7 +30,7 @@ class WebhookDelivery(object):
     swagger_types = {
         'id': 'str',
         'subscription_id': 'str',
-        'event_type': 'str',
+        'event_type': 'WebhookEventType',
         'payload': 'object',
         'status': 'str',
         'attempts': 'int',
@@ -135,10 +135,9 @@ class WebhookDelivery(object):
     def event_type(self):
         """Gets the event_type of this WebhookDelivery.  # noqa: E501
 
-        Type of event  # noqa: E501
 
         :return: The event_type of this WebhookDelivery.  # noqa: E501
-        :rtype: str
+        :rtype: WebhookEventType
         """
         return self._event_type
 
@@ -146,10 +145,9 @@ class WebhookDelivery(object):
     def event_type(self, event_type):
         """Sets the event_type of this WebhookDelivery.
 
-        Type of event  # noqa: E501
 
         :param event_type: The event_type of this WebhookDelivery.  # noqa: E501
-        :type: str
+        :type: WebhookEventType
         """
         if event_type is None:
             raise ValueError("Invalid value for `event_type`, must not be `None`")  # noqa: E501

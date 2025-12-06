@@ -1,0 +1,32 @@
+============================================================
+TMI Python Client Integration Tests
+============================================================
+Test 1: DfdDiagram instantiation...
+✗ test_dfd_diagram_instantiation FAILED: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+
+Test 2: DfdDiagramInput instantiation...
+✗ test_dfd_diagram_input_instantiation FAILED: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+
+Test 3: Type parameter preservation...
+✗ test_type_parameter_preservation FAILED: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+
+Test 4: Serialization...
+✗ test_serialization FAILED: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+
+Test 5: Inheritance...
+✗ test_inheritance FAILED: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+
+Test 6: Cell schemas...
+✗ test_cell_schemas FAILED: Invalid value for `shape` (None), must be one of ['edge']
+
+Test 7: Webhook schemas...
+✓ Webhook schemas working correctly
+
+============================================================
+FAILED: 6 out of 7 tests failed
+  - test_dfd_diagram_instantiation: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+  - test_dfd_diagram_input_instantiation: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+  - test_type_parameter_preservation: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+  - test_serialization: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+  - test_inheritance: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
+  - test_cell_schemas: Invalid value for `shape` (None), must be one of ['edge']

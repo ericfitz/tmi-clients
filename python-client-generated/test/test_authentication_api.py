@@ -35,10 +35,24 @@ class TestAuthenticationApi(unittest.TestCase):
         """
         pass
 
+    def test_create_client_credential(self):
+        """Test case for create_client_credential
+
+        Create client credential  # noqa: E501
+        """
+        pass
+
+    def test_delete_client_credential(self):
+        """Test case for delete_client_credential
+
+        Delete client credential  # noqa: E501
+        """
+        pass
+
     def test_exchange_o_auth_code(self):
         """Test case for exchange_o_auth_code
 
-        Exchange OAuth authorization code for JWT tokens  # noqa: E501
+        Exchange OAuth credentials for JWT tokens  # noqa: E501
         """
         pass
 
@@ -77,6 +91,13 @@ class TestAuthenticationApi(unittest.TestCase):
         """
         pass
 
+    def test_get_saml_providers(self):
+        """Test case for get_saml_providers
+
+        List available SAML providers  # noqa: E501
+        """
+        pass
+
     def test_handle_o_auth_callback(self):
         """Test case for handle_o_auth_callback
 
@@ -95,6 +116,13 @@ class TestAuthenticationApi(unittest.TestCase):
         """Test case for introspect_token
 
         Token Introspection  # noqa: E501
+        """
+        pass
+
+    def test_list_client_credentials(self):
+        """Test case for list_client_credentials
+
+        List client credentials  # noqa: E501
         """
         pass
 

@@ -33,7 +33,7 @@ class WebhookSubscription(object):
         'threat_model_id': 'str',
         'name': 'str',
         'url': 'str',
-        'events': 'list[str]',
+        'events': 'list[WebhookEventType]',
         'secret': 'str',
         'status': 'str',
         'challenges_sent': 'int',
@@ -221,10 +221,10 @@ class WebhookSubscription(object):
     def events(self):
         """Gets the events of this WebhookSubscription.  # noqa: E501
 
-        List of event types to subscribe to  # noqa: E501
+        List of event types to subscribe to. See WebhookEventType for available events.  # noqa: E501
 
         :return: The events of this WebhookSubscription.  # noqa: E501
-        :rtype: list[str]
+        :rtype: list[WebhookEventType]
         """
         return self._events
 
@@ -232,10 +232,10 @@ class WebhookSubscription(object):
     def events(self, events):
         """Sets the events of this WebhookSubscription.
 
-        List of event types to subscribe to  # noqa: E501
+        List of event types to subscribe to. See WebhookEventType for available events.  # noqa: E501
 
         :param events: The events of this WebhookSubscription.  # noqa: E501
-        :type: list[str]
+        :type: list[WebhookEventType]
         """
         if events is None:
             raise ValueError("Invalid value for `events`, must not be `None`")  # noqa: E501

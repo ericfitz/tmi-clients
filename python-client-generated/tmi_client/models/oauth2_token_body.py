@@ -28,33 +28,90 @@ class Oauth2TokenBody(object):
                             and the value is json key in definition.
     """
     swagger_types = {
+        'grant_type': 'str',
         'code': 'str',
         'state': 'str',
-        'redirect_uri': 'str'
+        'redirect_uri': 'str',
+        'code_verifier': 'str',
+        'client_id': 'str',
+        'client_secret': 'str',
+        'refresh_token': 'str'
     }
 
     attribute_map = {
+        'grant_type': 'grant_type',
         'code': 'code',
         'state': 'state',
-        'redirect_uri': 'redirect_uri'
+        'redirect_uri': 'redirect_uri',
+        'code_verifier': 'code_verifier',
+        'client_id': 'client_id',
+        'client_secret': 'client_secret',
+        'refresh_token': 'refresh_token'
     }
 
-    def __init__(self, code=None, state=None, redirect_uri=None):  # noqa: E501
+    def __init__(self, grant_type=None, code=None, state=None, redirect_uri=None, code_verifier=None, client_id=None, client_secret=None, refresh_token=None):  # noqa: E501
         """Oauth2TokenBody - a model defined in Swagger"""  # noqa: E501
+        self._grant_type = None
         self._code = None
         self._state = None
         self._redirect_uri = None
+        self._code_verifier = None
+        self._client_id = None
+        self._client_secret = None
+        self._refresh_token = None
         self.discriminator = None
-        self.code = code
+        self.grant_type = grant_type
+        if code is not None:
+            self.code = code
         if state is not None:
             self.state = state
-        self.redirect_uri = redirect_uri
+        if redirect_uri is not None:
+            self.redirect_uri = redirect_uri
+        if code_verifier is not None:
+            self.code_verifier = code_verifier
+        if client_id is not None:
+            self.client_id = client_id
+        if client_secret is not None:
+            self.client_secret = client_secret
+        if refresh_token is not None:
+            self.refresh_token = refresh_token
+
+    @property
+    def grant_type(self):
+        """Gets the grant_type of this Oauth2TokenBody.  # noqa: E501
+
+        OAuth 2.0 grant type (RFC 6749)  # noqa: E501
+
+        :return: The grant_type of this Oauth2TokenBody.  # noqa: E501
+        :rtype: str
+        """
+        return self._grant_type
+
+    @grant_type.setter
+    def grant_type(self, grant_type):
+        """Sets the grant_type of this Oauth2TokenBody.
+
+        OAuth 2.0 grant type (RFC 6749)  # noqa: E501
+
+        :param grant_type: The grant_type of this Oauth2TokenBody.  # noqa: E501
+        :type: str
+        """
+        if grant_type is None:
+            raise ValueError("Invalid value for `grant_type`, must not be `None`")  # noqa: E501
+        allowed_values = ["authorization_code", "client_credentials", "refresh_token"]  # noqa: E501
+        if grant_type not in allowed_values:
+            raise ValueError(
+                "Invalid value for `grant_type` ({0}), must be one of {1}"  # noqa: E501
+                .format(grant_type, allowed_values)
+            )
+
+        self._grant_type = grant_type
 
     @property
     def code(self):
         """Gets the code of this Oauth2TokenBody.  # noqa: E501
 
-        Authorization code received from OAuth provider  # noqa: E501
+        Authorization code received from OAuth provider. Per RFC 6749, can contain any visible ASCII characters (VSCHAR: 0x20-0x7E).  # noqa: E501
 
         :return: The code of this Oauth2TokenBody.  # noqa: E501
         :rtype: str
@@ -65,13 +122,11 @@ class Oauth2TokenBody(object):
     def code(self, code):
         """Sets the code of this Oauth2TokenBody.
 
-        Authorization code received from OAuth provider  # noqa: E501
+        Authorization code received from OAuth provider. Per RFC 6749, can contain any visible ASCII characters (VSCHAR: 0x20-0x7E).  # noqa: E501
 
         :param code: The code of this Oauth2TokenBody.  # noqa: E501
         :type: str
         """
-        if code is None:
-            raise ValueError("Invalid value for `code`, must not be `None`")  # noqa: E501
 
         self._code = code
 
@@ -118,10 +173,100 @@ class Oauth2TokenBody(object):
         :param redirect_uri: The redirect_uri of this Oauth2TokenBody.  # noqa: E501
         :type: str
         """
-        if redirect_uri is None:
-            raise ValueError("Invalid value for `redirect_uri`, must not be `None`")  # noqa: E501
 
         self._redirect_uri = redirect_uri
+
+    @property
+    def code_verifier(self):
+        """Gets the code_verifier of this Oauth2TokenBody.  # noqa: E501
+
+        PKCE code verifier (RFC 7636) - High-entropy cryptographic random string used to mitigate authorization code interception attacks. Must be 43-128 characters using [A-Za-z0-9-._~] characters.  # noqa: E501
+
+        :return: The code_verifier of this Oauth2TokenBody.  # noqa: E501
+        :rtype: str
+        """
+        return self._code_verifier
+
+    @code_verifier.setter
+    def code_verifier(self, code_verifier):
+        """Sets the code_verifier of this Oauth2TokenBody.
+
+        PKCE code verifier (RFC 7636) - High-entropy cryptographic random string used to mitigate authorization code interception attacks. Must be 43-128 characters using [A-Za-z0-9-._~] characters.  # noqa: E501
+
+        :param code_verifier: The code_verifier of this Oauth2TokenBody.  # noqa: E501
+        :type: str
+        """
+
+        self._code_verifier = code_verifier
+
+    @property
+    def client_id(self):
+        """Gets the client_id of this Oauth2TokenBody.  # noqa: E501
+
+        Client identifier (required for client_credentials grant)  # noqa: E501
+
+        :return: The client_id of this Oauth2TokenBody.  # noqa: E501
+        :rtype: str
+        """
+        return self._client_id
+
+    @client_id.setter
+    def client_id(self, client_id):
+        """Sets the client_id of this Oauth2TokenBody.
+
+        Client identifier (required for client_credentials grant)  # noqa: E501
+
+        :param client_id: The client_id of this Oauth2TokenBody.  # noqa: E501
+        :type: str
+        """
+
+        self._client_id = client_id
+
+    @property
+    def client_secret(self):
+        """Gets the client_secret of this Oauth2TokenBody.  # noqa: E501
+
+        Client secret (required for client_credentials grant)  # noqa: E501
+
+        :return: The client_secret of this Oauth2TokenBody.  # noqa: E501
+        :rtype: str
+        """
+        return self._client_secret
+
+    @client_secret.setter
+    def client_secret(self, client_secret):
+        """Sets the client_secret of this Oauth2TokenBody.
+
+        Client secret (required for client_credentials grant)  # noqa: E501
+
+        :param client_secret: The client_secret of this Oauth2TokenBody.  # noqa: E501
+        :type: str
+        """
+
+        self._client_secret = client_secret
+
+    @property
+    def refresh_token(self):
+        """Gets the refresh_token of this Oauth2TokenBody.  # noqa: E501
+
+        Refresh token (required for refresh_token grant)  # noqa: E501
+
+        :return: The refresh_token of this Oauth2TokenBody.  # noqa: E501
+        :rtype: str
+        """
+        return self._refresh_token
+
+    @refresh_token.setter
+    def refresh_token(self, refresh_token):
+        """Sets the refresh_token of this Oauth2TokenBody.
+
+        Refresh token (required for refresh_token grant)  # noqa: E501
+
+        :param refresh_token: The refresh_token of this Oauth2TokenBody.  # noqa: E501
+        :type: str
+        """
+
+        self._refresh_token = refresh_token
 
     def to_dict(self):
         """Returns the model properties as a dict"""

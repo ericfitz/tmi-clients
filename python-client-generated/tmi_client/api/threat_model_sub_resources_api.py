@@ -43,8 +43,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -67,8 +67,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -158,8 +158,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -182,8 +182,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -273,8 +273,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -297,8 +297,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -388,8 +388,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -412,8 +412,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -503,8 +503,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -527,8 +527,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -618,8 +618,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -642,8 +642,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -733,7 +733,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Asset] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Asset]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -756,7 +756,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Asset] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Asset]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -840,7 +840,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Document] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Document]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -863,7 +863,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Document] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Document]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -947,7 +947,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -970,7 +970,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1054,7 +1054,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Repository] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Repository]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1077,7 +1077,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Repository] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Repository]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1161,7 +1161,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Threat] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1184,7 +1184,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Threat] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1268,8 +1268,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1292,8 +1292,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1383,7 +1383,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Threat] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1406,7 +1406,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Threat] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1490,8 +1490,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1514,8 +1514,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1605,8 +1605,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1629,8 +1629,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1720,8 +1720,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1744,8 +1744,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1835,8 +1835,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1859,8 +1859,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1950,8 +1950,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1974,8 +1974,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2065,7 +2065,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Asset] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Asset]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2088,7 +2088,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Asset] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Asset]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2172,7 +2172,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Document] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Document]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2195,7 +2195,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Document] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Document]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2279,7 +2279,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2302,7 +2302,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Metadata] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2386,7 +2386,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Repository] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Repository]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2409,7 +2409,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[Repository] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Repository]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2493,8 +2493,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2517,8 +2517,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2608,8 +2608,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2632,8 +2632,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2723,8 +2723,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2747,8 +2747,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2838,8 +2838,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2862,8 +2862,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2953,8 +2953,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2977,8 +2977,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3068,7 +3068,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param AssetInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Asset
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3091,7 +3091,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param AssetInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Asset
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3175,8 +3175,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3199,8 +3199,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3290,7 +3290,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param CreateDiagramRequest body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3313,7 +3313,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param CreateDiagramRequest body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3397,7 +3397,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param DocumentInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3420,7 +3420,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param DocumentInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3504,7 +3504,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3527,7 +3527,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3611,7 +3611,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param NoteInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3634,7 +3634,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param NoteInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3718,7 +3718,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param RepositoryInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3741,7 +3741,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param RepositoryInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3825,7 +3825,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param ThreatInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3848,7 +3848,7 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param ThreatInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3931,9 +3931,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3955,9 +3955,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4042,9 +4042,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4066,9 +4066,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4153,9 +4153,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4177,9 +4177,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4264,9 +4264,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4288,9 +4288,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4375,9 +4375,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4399,9 +4399,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4486,8 +4486,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4509,8 +4509,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4589,8 +4589,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
@@ -4613,8 +4613,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
@@ -4700,8 +4700,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4723,8 +4723,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4803,8 +4803,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4826,8 +4826,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4906,8 +4906,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -4929,8 +4929,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str key: Metadata key to delete (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str key: Metadata key (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5009,8 +5009,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5032,8 +5032,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5112,8 +5112,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5135,8 +5135,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5215,8 +5215,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5238,8 +5238,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5318,8 +5318,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5341,8 +5341,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5421,9 +5421,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5445,9 +5445,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5532,8 +5532,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5555,8 +5555,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5635,9 +5635,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5659,9 +5659,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5746,8 +5746,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5769,8 +5769,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5849,9 +5849,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5873,9 +5873,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5960,8 +5960,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -5983,8 +5983,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6063,9 +6063,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6087,9 +6087,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6174,8 +6174,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6197,8 +6197,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6277,9 +6277,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6301,9 +6301,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6388,8 +6388,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: Asset
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6411,8 +6411,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: Asset
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6491,8 +6491,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6514,8 +6514,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6594,8 +6594,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
@@ -6618,8 +6618,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
@@ -6705,9 +6705,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of assets to return
-        :param int offset: Number of assets to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[Asset]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6729,9 +6729,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of assets to return
-        :param int offset: Number of assets to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[Asset]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6808,8 +6808,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6831,8 +6831,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6911,9 +6911,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of items to return
-        :param int offset: Number of items to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[DiagramListItem]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -6935,9 +6935,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of items to return
-        :param int offset: Number of items to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[DiagramListItem]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7014,8 +7014,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7037,8 +7037,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7117,9 +7117,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of documents to return
-        :param int offset: Number of documents to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[Document]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7141,9 +7141,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of documents to return
-        :param int offset: Number of documents to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[Document]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7220,7 +7220,7 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7242,7 +7242,7 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
         :return: list[Metadata]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7315,8 +7315,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7338,8 +7338,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str key: Metadata key to retrieve (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7418,8 +7418,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7441,8 +7441,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7521,9 +7521,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of notes to return
-        :param int offset: Number of notes to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[NoteListItem]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7545,9 +7545,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of notes to return
-        :param int offset: Number of notes to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[NoteListItem]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7624,9 +7624,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of sources to return
-        :param int offset: Number of sources to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[Repository]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7648,9 +7648,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of sources to return
-        :param int offset: Number of sources to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :return: list[Repository]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7727,8 +7727,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7750,8 +7750,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7830,8 +7830,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7853,8 +7853,8 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7933,9 +7933,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of threats to return
-        :param int offset: Number of threats to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :param str sort: Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc)
         :param str name: Filter by threat name (partial match)
         :param str description: Filter by threat description (partial match)
@@ -7950,10 +7950,10 @@ class ThreatModelSubResourcesApi(object):
         :param float score_eq: Filter threats with score equal to this value
         :param float score_ge: Filter threats with score greater than or equal to this value
         :param float score_le: Filter threats with score less than or equal to this value
-        :param datetime created_after: Filter threats created after this date (RFC3339 format)
-        :param datetime created_before: Filter threats created before this date (RFC3339 format)
-        :param datetime modified_after: Filter threats modified after this date (RFC3339 format)
-        :param datetime modified_before: Filter threats modified before this date (RFC3339 format)
+        :param datetime created_after: Filter results created after this timestamp (ISO 8601)
+        :param datetime created_before: Filter results created before this timestamp (ISO 8601)
+        :param datetime modified_after: Filter results modified after this timestamp (ISO 8601)
+        :param datetime modified_before: Filter results modified before this timestamp (ISO 8601)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -7975,9 +7975,9 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param int limit: Maximum number of threats to return
-        :param int offset: Number of threats to skip
+        :param str threat_model_id: Threat model identifier (required)
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
         :param str sort: Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc)
         :param str name: Filter by threat name (partial match)
         :param str description: Filter by threat description (partial match)
@@ -7992,10 +7992,10 @@ class ThreatModelSubResourcesApi(object):
         :param float score_eq: Filter threats with score equal to this value
         :param float score_ge: Filter threats with score greater than or equal to this value
         :param float score_le: Filter threats with score less than or equal to this value
-        :param datetime created_after: Filter threats created after this date (RFC3339 format)
-        :param datetime created_before: Filter threats created before this date (RFC3339 format)
-        :param datetime modified_after: Filter threats modified after this date (RFC3339 format)
-        :param datetime modified_before: Filter threats modified before this date (RFC3339 format)
+        :param datetime created_after: Filter results created after this timestamp (ISO 8601)
+        :param datetime created_before: Filter results created before this timestamp (ISO 8601)
+        :param datetime modified_after: Filter results modified after this timestamp (ISO 8601)
+        :param datetime modified_before: Filter results modified before this timestamp (ISO 8601)
         :return: list[Threat]
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8109,8 +8109,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8133,8 +8133,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8224,8 +8224,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8248,8 +8248,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param list[ThreatsThreatIdBody] body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8339,9 +8339,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody4 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8364,9 +8364,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody4 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8462,9 +8462,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody1 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8487,9 +8487,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody1 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8585,9 +8585,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody5 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8610,9 +8610,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody5 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8708,9 +8708,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody2 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8733,9 +8733,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody2 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8831,9 +8831,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8856,9 +8856,9 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8954,8 +8954,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param AssetInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: Asset
                  If the method is called asynchronously,
                  returns the request thread.
@@ -8978,8 +8978,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param AssetInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :return: Asset
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9069,8 +9069,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
@@ -9094,8 +9094,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param Metadata body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str asset_id: Unique identifier of the asset (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str asset_id: Asset identifier (required)
         :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
@@ -9192,8 +9192,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param DfdDiagramInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9216,8 +9216,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param DfdDiagramInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str diagram_id: Unique identifier of the diagram (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str diagram_id: Diagram identifier (required)
         :return: DfdDiagram
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9307,8 +9307,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param DocumentInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9331,8 +9331,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param DocumentInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str document_id: Unique identifier of the document (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str document_id: Document identifier (required)
         :return: Document
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9422,8 +9422,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody3 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9446,8 +9446,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param MetadataKeyBody3 body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str key: Metadata key to update (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str key: Metadata key (required)
         :return: Metadata
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9537,8 +9537,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param NoteInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9561,8 +9561,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param NoteInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str note_id: Unique identifier of the note (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str note_id: Note identifier (required)
         :return: Note
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9652,8 +9652,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param RepositoryInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9676,8 +9676,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param RepositoryInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str repository_id: Unique identifier of the source reference (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str repository_id: Repository identifier (required)
         :return: Repository
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9767,8 +9767,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param ThreatInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
@@ -9791,8 +9791,8 @@ class ThreatModelSubResourcesApi(object):
 
         :param async_req bool
         :param ThreatInput body: (required)
-        :param str threat_model_id: Unique identifier of the threat model (UUID) (required)
-        :param str threat_id: Unique identifier of the threat (UUID) (required)
+        :param str threat_model_id: Threat model identifier (required)
+        :param str threat_id: Threat identifier (required)
         :return: Threat
                  If the method is called asynchronously,
                  returns the request thread.
