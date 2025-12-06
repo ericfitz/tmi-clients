@@ -1,6 +1,6 @@
 # TmiJsClient.CollaborationApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,24 +24,23 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.CollaborationApi();
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
-let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the diagram (UUID)
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.createDiagramCollaborationSession(threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createDiagramCollaborationSession(threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
- **diagramId** | [**String**](.md)| Unique identifier of the diagram (UUID) | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **diagramId** | [**String**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -71,24 +70,23 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.CollaborationApi();
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
-let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the diagram (UUID)
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.endDiagramCollaborationSession(threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.endDiagramCollaborationSession(threatModelId, diagramId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
- **diagramId** | [**String**](.md)| Unique identifier of the diagram (UUID) | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **diagramId** | [**String**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -105,7 +103,7 @@ null (empty response body)
 
 <a name="getCollaborationSessions"></a>
 # **getCollaborationSessions**
-> [CollaborationSession] getCollaborationSessions()
+> Object getCollaborationSessions()
 
 List active collaboration sessions
 
@@ -118,13 +116,12 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.CollaborationApi();
-apiInstance.getCollaborationSessions((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getCollaborationSessions().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -132,7 +129,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[CollaborationSession]**](CollaborationSession.md)
+**Object**
 
 ### Authorization
 
@@ -158,24 +155,23 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.CollaborationApi();
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
-let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the diagram (UUID)
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.getDiagramCollaborationSession(threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDiagramCollaborationSession(threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
- **diagramId** | [**String**](.md)| Unique identifier of the diagram (UUID) | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **diagramId** | [**String**](.md)| Diagram identifier | 
 
 ### Return type
 

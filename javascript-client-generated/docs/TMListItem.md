@@ -18,5 +18,5 @@ Name | Type | Description | Notes
 **issueUri** | **String** | URL to an issue in an issue tracking system | [optional] 
 **assetCount** | **Number** | Number of assets associated with this threat model | 
 **noteCount** | **Number** | Number of notes associated with this threat model | 
-**status** | **[String]** | Status of the threat model in the organization&#x27;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
+**status** | **String** | Status of the threat model in the organization&#x27;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
 **statusUpdated** | **Date** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] 

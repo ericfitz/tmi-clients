@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -39,15 +39,13 @@
           // TODO: uncomment getJWKS call and complete the assertions
           /*
 
-          instance.getJWKS(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getJWKS().then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse2002);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -59,15 +57,13 @@
           // TODO: uncomment getOAuthAuthorizationServerMetadata call and complete the assertions
           /*
 
-          instance.getOAuthAuthorizationServerMetadata(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getOAuthAuthorizationServerMetadata().then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse2001);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -79,15 +75,13 @@
           // TODO: uncomment getOpenIDConfiguration call and complete the assertions
           /*
 
-          instance.getOpenIDConfiguration(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getOpenIDConfiguration().then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse200);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:

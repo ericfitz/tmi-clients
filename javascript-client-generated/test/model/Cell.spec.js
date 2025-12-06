@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,7 +36,7 @@
 
       it('should create an instance of Cell', function() {
         // TODO: update the code to test Cell
-        expect(instance).to.be.an.instanceOf(TmiJsClient.Cell);
+        expect(instance).to.be.a(TmiJsClient.Cell);
       });
 
       it('should have the property id (base name: "id")', function() {
@@ -73,12 +73,6 @@
         // TODO: update the code to test the property markup
         expect(instance).to.have.property('markup');
         // expect(instance.markup).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property tools (base name: "tools")', function() {
-        // TODO: update the code to test the property tools
-        expect(instance).to.have.property('tools');
-        // expect(instance.tools).to.be(expectedValueLiteral);
       });
 
     });

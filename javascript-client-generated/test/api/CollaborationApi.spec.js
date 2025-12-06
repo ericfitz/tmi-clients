@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -39,15 +39,13 @@
           // TODO: uncomment, update parameter values for createDiagramCollaborationSession call and complete the assertions
           /*
 
-          instance.createDiagramCollaborationSession(threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createDiagramCollaborationSession(threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.CollaborationSession);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -59,13 +57,11 @@
           // TODO: uncomment, update parameter values for endDiagramCollaborationSession call
           /*
 
-          instance.endDiagramCollaborationSession(threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.endDiagramCollaborationSession(threatModelId, diagramId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -77,21 +73,14 @@
           // TODO: uncomment getCollaborationSessions call and complete the assertions
           /*
 
-          instance.getCollaborationSessions(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getCollaborationSessions().then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.CollaborationSession);
-            }
+            expect(data).to.be.a(Object);
+            // expect(data).to.be(null);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -103,15 +92,13 @@
           // TODO: uncomment, update parameter values for getDiagramCollaborationSession call and complete the assertions
           /*
 
-          instance.getDiagramCollaborationSession(threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getDiagramCollaborationSession(threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.CollaborationSession);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:

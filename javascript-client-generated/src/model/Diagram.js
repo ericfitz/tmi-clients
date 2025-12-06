@@ -22,6 +22,7 @@ import ApiClient from '../ApiClient';
 export default class Diagram {
   /**
    * Constructs a new <code>Diagram</code>.
+   * DEPRECATED: Empty wrapper schema for polymorphic diagram types. Use DfdDiagram directly instead. This schema is kept for backward compatibility but generates empty classes in client libraries.
    * @alias module:model/Diagram
    * @class
    */

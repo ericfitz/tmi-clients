@@ -28,14 +28,10 @@ export default class Threat extends ThreatBase {
    * @class
    * @extends module:model/ThreatBase
    * @param name {} Name of the threat
-   * @param severity {} Severity level of the threat
-   * @param priority {} Priority level for addressing the threat
-   * @param mitigated {} Whether the threat has been mitigated
-   * @param status {} Current status of the threat
    * @param threatType {} Type or category of the threat
    */
-  constructor(name, severity, priority, mitigated, status, threatType) {
-    super(name, severity, priority, mitigated, status, threatType);
+  constructor(name, threatType) {
+    super(name, threatType);
   }
 
   /**

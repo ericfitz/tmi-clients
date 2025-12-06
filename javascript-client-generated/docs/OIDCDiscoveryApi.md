@@ -1,6 +1,6 @@
 # TmiJsClient.OIDCDiscoveryApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,13 +21,12 @@ Returns the JSON Web Key Set (JWKS) for JWT signature verification
 import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.OIDCDiscoveryApi();
-apiInstance.getJWKS((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getJWKS().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -59,13 +58,12 @@ Returns OAuth 2.0 authorization server metadata as per RFC 8414
 import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.OIDCDiscoveryApi();
-apiInstance.getOAuthAuthorizationServerMetadata((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getOAuthAuthorizationServerMetadata().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -97,13 +95,12 @@ Returns OpenID Connect provider configuration metadata as per RFC 8414
 import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.OIDCDiscoveryApi();
-apiInstance.getOpenIDConfiguration((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getOpenIDConfiguration().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

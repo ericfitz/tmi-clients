@@ -13,6 +13,15 @@
  *
  */
 import ApiClient from './ApiClient';
+import AddGroupMemberRequest from './model/AddGroupMemberRequest';
+import AddonInvocationQuota from './model/AddonInvocationQuota';
+import AddonResponse from './model/AddonResponse';
+import AddonsUserIdBody from './model/AddonsUserIdBody';
+import AdminGroup from './model/AdminGroup';
+import AdminGroupListResponse from './model/AdminGroupListResponse';
+import AdminUser from './model/AdminUser';
+import AdminUserListResponse from './model/AdminUserListResponse';
+import Administrator from './model/Administrator';
 import ApiInfo from './model/ApiInfo';
 import ApiInfoApi from './model/ApiInfoApi';
 import ApiInfoOperator from './model/ApiInfoOperator';
@@ -25,13 +34,21 @@ import AuthTokenResponse from './model/AuthTokenResponse';
 import Authorization from './model/Authorization';
 import BaseDiagram from './model/BaseDiagram';
 import BaseDiagramImage from './model/BaseDiagramImage';
+import BaseDiagramInput from './model/BaseDiagramInput';
 import Cell from './model/Cell';
 import CellData from './model/CellData';
-import CellTool from './model/CellTool';
+import ClientCredentialInfo from './model/ClientCredentialInfo';
+import ClientCredentialResponse from './model/ClientCredentialResponse';
+import ClientcredentialsBody from './model/ClientcredentialsBody';
 import CollaborationSession from './model/CollaborationSession';
+import CreateAddonRequest from './model/CreateAddonRequest';
+import CreateAdminGroupRequest from './model/CreateAdminGroupRequest';
+import CreateAdministratorRequest from './model/CreateAdministratorRequest';
 import CreateDiagramRequest from './model/CreateDiagramRequest';
 import DeletionChallenge from './model/DeletionChallenge';
+import DeletionStats from './model/DeletionStats';
 import DfdDiagram from './model/DfdDiagram';
+import DfdDiagramInput from './model/DfdDiagramInput';
 import Diagram from './model/Diagram';
 import DiagramListItem from './model/DiagramListItem';
 import Document from './model/Document';
@@ -53,8 +70,12 @@ import EdgeTerminal from './model/EdgeTerminal';
 import Error from './model/Error';
 import ErrorDetails from './model/ErrorDetails';
 import ExtendedAsset from './model/ExtendedAsset';
+import Group from './model/Group';
+import GroupMember from './model/GroupMember';
+import GroupMemberListResponse from './model/GroupMemberListResponse';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
+import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2002Keys from './model/InlineResponse2002Keys';
 import InlineResponse2003 from './model/InlineResponse2003';
@@ -66,7 +87,15 @@ import InlineResponse2006 from './model/InlineResponse2006';
 import InlineResponse2006Providers from './model/InlineResponse2006Providers';
 import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
+import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse409 from './model/InlineResponse409';
+import InvocationListResponse from './model/InvocationListResponse';
+import InvocationResponse from './model/InvocationResponse';
+import InvokeAddonRequest from './model/InvokeAddonRequest';
+import InvokeAddonResponse from './model/InvokeAddonResponse';
+import ListAddonsResponse from './model/ListAddonsResponse';
+import ListAdministratorsResponse from './model/ListAdministratorsResponse';
+import ListInvocationsResponse from './model/ListInvocationsResponse';
 import MarkupElement from './model/MarkupElement';
 import Metadata from './model/Metadata';
 import MetadataKeyBody from './model/MetadataKeyBody';
@@ -89,16 +118,21 @@ import OAuthProtectedResourceMetadata from './model/OAuthProtectedResourceMetada
 import Oauth2IntrospectBody from './model/Oauth2IntrospectBody';
 import Oauth2RefreshBody from './model/Oauth2RefreshBody';
 import Oauth2TokenBody from './model/Oauth2TokenBody';
+import Oauth2TokenBody1 from './model/Oauth2TokenBody1';
 import OneOfEdgeLabelPosition from './model/OneOfEdgeLabelPosition';
 import Participant from './model/Participant';
 import Point from './model/Point';
 import PortConfiguration from './model/PortConfiguration';
 import PortConfigurationGroups from './model/PortConfigurationGroups';
 import PortConfigurationItems from './model/PortConfigurationItems';
+import Principal from './model/Principal';
 import Repository from './model/Repository';
 import RepositoryBase from './model/RepositoryBase';
 import RepositoryBaseParameters from './model/RepositoryBaseParameters';
 import RepositoryInput from './model/RepositoryInput';
+import SAMLProviderInfo from './model/SAMLProviderInfo';
+import SAMLUserListResponse from './model/SAMLUserListResponse';
+import SAMLUserListResponseUsers from './model/SAMLUserListResponseUsers';
 import SamlAcsBody from './model/SamlAcsBody';
 import SamlSloBody from './model/SamlSloBody';
 import TMListItem from './model/TMListItem';
@@ -112,23 +146,42 @@ import ThreatModelsThreatModelIdBody from './model/ThreatModelsThreatModelIdBody
 import ThreatModelsthreatModelIdthreatsbulkPatches from './model/ThreatModelsthreatModelIdthreatsbulkPatches';
 import ThreatsBulkBody from './model/ThreatsBulkBody';
 import ThreatsThreatIdBody from './model/ThreatsThreatIdBody';
+import UpdateAdminGroupRequest from './model/UpdateAdminGroupRequest';
+import UpdateAdminUserRequest from './model/UpdateAdminUserRequest';
+import UpdateInvocationStatusRequest from './model/UpdateInvocationStatusRequest';
+import UpdateInvocationStatusResponse from './model/UpdateInvocationStatusResponse';
 import User from './model/User';
-import AssetsApi from './tmi-client/AssetsApi';
-import AuthenticationApi from './tmi-client/AuthenticationApi';
-import CollaborationApi from './tmi-client/CollaborationApi';
-import DocumentsApi from './tmi-client/DocumentsApi';
-import GeneralApi from './tmi-client/GeneralApi';
-import NotesApi from './tmi-client/NotesApi';
-import OAuthDiscoveryApi from './tmi-client/OAuthDiscoveryApi';
-import OIDCDiscoveryApi from './tmi-client/OIDCDiscoveryApi';
-import RepositoriesApi from './tmi-client/RepositoriesApi';
-import ThreatModelSubResourcesApi from './tmi-client/ThreatModelSubResourcesApi';
-import ThreatModelsApi from './tmi-client/ThreatModelsApi';
-import ThreatsApi from './tmi-client/ThreatsApi';
-import UsersApi from './tmi-client/UsersApi';
+import UserAPIQuota from './model/UserAPIQuota';
+import UserWithAdminStatus from './model/UserWithAdminStatus';
+import UsersUserIdBody from './model/UsersUserIdBody';
+import WebhookDelivery from './model/WebhookDelivery';
+import WebhookEventType from './model/WebhookEventType';
+import WebhookQuota from './model/WebhookQuota';
+import WebhookSubscription from './model/WebhookSubscription';
+import WebhookSubscriptionInput from './model/WebhookSubscriptionInput';
+import WebhookTestRequest from './model/WebhookTestRequest';
+import WebhookTestResponse from './model/WebhookTestResponse';
+import WebhooksUserIdBody from './model/WebhooksUserIdBody';
+import AddonsApi from './api/AddonsApi';
+import AdministrationApi from './api/AdministrationApi';
+import AssetsApi from './api/AssetsApi';
+import AuthenticationApi from './api/AuthenticationApi';
+import CollaborationApi from './api/CollaborationApi';
+import DocumentsApi from './api/DocumentsApi';
+import GeneralApi from './api/GeneralApi';
+import NotesApi from './api/NotesApi';
+import OAuthDiscoveryApi from './api/OAuthDiscoveryApi';
+import OIDCDiscoveryApi from './api/OIDCDiscoveryApi';
+import RepositoriesApi from './api/RepositoriesApi';
+import SAMLApi from './api/SAMLApi';
+import ThreatModelSubResourcesApi from './api/ThreatModelSubResourcesApi';
+import ThreatModelsApi from './api/ThreatModelsApi';
+import ThreatsApi from './api/ThreatsApi';
+import UsersApi from './api/UsersApi';
+import WebhooksApi from './api/WebhooksApi';
 
 /**
-* Generated Client for TMI v1.0 REST API.<br>
+* JavaScript client for TMI (Threat Modeling Improved) API.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -164,6 +217,60 @@ export {
      * @property {module:ApiClient}
      */
     ApiClient,
+
+    /**
+     * The AddGroupMemberRequest model constructor.
+     * @property {module:model/AddGroupMemberRequest}
+     */
+    AddGroupMemberRequest,
+
+    /**
+     * The AddonInvocationQuota model constructor.
+     * @property {module:model/AddonInvocationQuota}
+     */
+    AddonInvocationQuota,
+
+    /**
+     * The AddonResponse model constructor.
+     * @property {module:model/AddonResponse}
+     */
+    AddonResponse,
+
+    /**
+     * The AddonsUserIdBody model constructor.
+     * @property {module:model/AddonsUserIdBody}
+     */
+    AddonsUserIdBody,
+
+    /**
+     * The AdminGroup model constructor.
+     * @property {module:model/AdminGroup}
+     */
+    AdminGroup,
+
+    /**
+     * The AdminGroupListResponse model constructor.
+     * @property {module:model/AdminGroupListResponse}
+     */
+    AdminGroupListResponse,
+
+    /**
+     * The AdminUser model constructor.
+     * @property {module:model/AdminUser}
+     */
+    AdminUser,
+
+    /**
+     * The AdminUserListResponse model constructor.
+     * @property {module:model/AdminUserListResponse}
+     */
+    AdminUserListResponse,
+
+    /**
+     * The Administrator model constructor.
+     * @property {module:model/Administrator}
+     */
+    Administrator,
 
     /**
      * The ApiInfo model constructor.
@@ -238,6 +345,12 @@ export {
     BaseDiagramImage,
 
     /**
+     * The BaseDiagramInput model constructor.
+     * @property {module:model/BaseDiagramInput}
+     */
+    BaseDiagramInput,
+
+    /**
      * The Cell model constructor.
      * @property {module:model/Cell}
      */
@@ -250,16 +363,46 @@ export {
     CellData,
 
     /**
-     * The CellTool model constructor.
-     * @property {module:model/CellTool}
+     * The ClientCredentialInfo model constructor.
+     * @property {module:model/ClientCredentialInfo}
      */
-    CellTool,
+    ClientCredentialInfo,
+
+    /**
+     * The ClientCredentialResponse model constructor.
+     * @property {module:model/ClientCredentialResponse}
+     */
+    ClientCredentialResponse,
+
+    /**
+     * The ClientcredentialsBody model constructor.
+     * @property {module:model/ClientcredentialsBody}
+     */
+    ClientcredentialsBody,
 
     /**
      * The CollaborationSession model constructor.
      * @property {module:model/CollaborationSession}
      */
     CollaborationSession,
+
+    /**
+     * The CreateAddonRequest model constructor.
+     * @property {module:model/CreateAddonRequest}
+     */
+    CreateAddonRequest,
+
+    /**
+     * The CreateAdminGroupRequest model constructor.
+     * @property {module:model/CreateAdminGroupRequest}
+     */
+    CreateAdminGroupRequest,
+
+    /**
+     * The CreateAdministratorRequest model constructor.
+     * @property {module:model/CreateAdministratorRequest}
+     */
+    CreateAdministratorRequest,
 
     /**
      * The CreateDiagramRequest model constructor.
@@ -274,10 +417,22 @@ export {
     DeletionChallenge,
 
     /**
+     * The DeletionStats model constructor.
+     * @property {module:model/DeletionStats}
+     */
+    DeletionStats,
+
+    /**
      * The DfdDiagram model constructor.
      * @property {module:model/DfdDiagram}
      */
     DfdDiagram,
+
+    /**
+     * The DfdDiagramInput model constructor.
+     * @property {module:model/DfdDiagramInput}
+     */
+    DfdDiagramInput,
 
     /**
      * The Diagram model constructor.
@@ -406,6 +561,24 @@ export {
     ExtendedAsset,
 
     /**
+     * The Group model constructor.
+     * @property {module:model/Group}
+     */
+    Group,
+
+    /**
+     * The GroupMember model constructor.
+     * @property {module:model/GroupMember}
+     */
+    GroupMember,
+
+    /**
+     * The GroupMemberListResponse model constructor.
+     * @property {module:model/GroupMemberListResponse}
+     */
+    GroupMemberListResponse,
+
+    /**
      * The InlineResponse200 model constructor.
      * @property {module:model/InlineResponse200}
      */
@@ -416,6 +589,12 @@ export {
      * @property {module:model/InlineResponse2001}
      */
     InlineResponse2001,
+
+    /**
+     * The InlineResponse20010 model constructor.
+     * @property {module:model/InlineResponse20010}
+     */
+    InlineResponse20010,
 
     /**
      * The InlineResponse2002 model constructor.
@@ -484,10 +663,58 @@ export {
     InlineResponse2008,
 
     /**
+     * The InlineResponse2009 model constructor.
+     * @property {module:model/InlineResponse2009}
+     */
+    InlineResponse2009,
+
+    /**
      * The InlineResponse409 model constructor.
      * @property {module:model/InlineResponse409}
      */
     InlineResponse409,
+
+    /**
+     * The InvocationListResponse model constructor.
+     * @property {module:model/InvocationListResponse}
+     */
+    InvocationListResponse,
+
+    /**
+     * The InvocationResponse model constructor.
+     * @property {module:model/InvocationResponse}
+     */
+    InvocationResponse,
+
+    /**
+     * The InvokeAddonRequest model constructor.
+     * @property {module:model/InvokeAddonRequest}
+     */
+    InvokeAddonRequest,
+
+    /**
+     * The InvokeAddonResponse model constructor.
+     * @property {module:model/InvokeAddonResponse}
+     */
+    InvokeAddonResponse,
+
+    /**
+     * The ListAddonsResponse model constructor.
+     * @property {module:model/ListAddonsResponse}
+     */
+    ListAddonsResponse,
+
+    /**
+     * The ListAdministratorsResponse model constructor.
+     * @property {module:model/ListAdministratorsResponse}
+     */
+    ListAdministratorsResponse,
+
+    /**
+     * The ListInvocationsResponse model constructor.
+     * @property {module:model/ListInvocationsResponse}
+     */
+    ListInvocationsResponse,
 
     /**
      * The MarkupElement model constructor.
@@ -622,6 +849,12 @@ export {
     Oauth2TokenBody,
 
     /**
+     * The Oauth2TokenBody1 model constructor.
+     * @property {module:model/Oauth2TokenBody1}
+     */
+    Oauth2TokenBody1,
+
+    /**
      * The OneOfEdgeLabelPosition model constructor.
      * @property {module:model/OneOfEdgeLabelPosition}
      */
@@ -658,6 +891,12 @@ export {
     PortConfigurationItems,
 
     /**
+     * The Principal model constructor.
+     * @property {module:model/Principal}
+     */
+    Principal,
+
+    /**
      * The Repository model constructor.
      * @property {module:model/Repository}
      */
@@ -680,6 +919,24 @@ export {
      * @property {module:model/RepositoryInput}
      */
     RepositoryInput,
+
+    /**
+     * The SAMLProviderInfo model constructor.
+     * @property {module:model/SAMLProviderInfo}
+     */
+    SAMLProviderInfo,
+
+    /**
+     * The SAMLUserListResponse model constructor.
+     * @property {module:model/SAMLUserListResponse}
+     */
+    SAMLUserListResponse,
+
+    /**
+     * The SAMLUserListResponseUsers model constructor.
+     * @property {module:model/SAMLUserListResponseUsers}
+     */
+    SAMLUserListResponseUsers,
 
     /**
      * The SamlAcsBody model constructor.
@@ -760,86 +1017,200 @@ export {
     ThreatsThreatIdBody,
 
     /**
+     * The UpdateAdminGroupRequest model constructor.
+     * @property {module:model/UpdateAdminGroupRequest}
+     */
+    UpdateAdminGroupRequest,
+
+    /**
+     * The UpdateAdminUserRequest model constructor.
+     * @property {module:model/UpdateAdminUserRequest}
+     */
+    UpdateAdminUserRequest,
+
+    /**
+     * The UpdateInvocationStatusRequest model constructor.
+     * @property {module:model/UpdateInvocationStatusRequest}
+     */
+    UpdateInvocationStatusRequest,
+
+    /**
+     * The UpdateInvocationStatusResponse model constructor.
+     * @property {module:model/UpdateInvocationStatusResponse}
+     */
+    UpdateInvocationStatusResponse,
+
+    /**
      * The User model constructor.
      * @property {module:model/User}
      */
     User,
 
     /**
+     * The UserAPIQuota model constructor.
+     * @property {module:model/UserAPIQuota}
+     */
+    UserAPIQuota,
+
+    /**
+     * The UserWithAdminStatus model constructor.
+     * @property {module:model/UserWithAdminStatus}
+     */
+    UserWithAdminStatus,
+
+    /**
+     * The UsersUserIdBody model constructor.
+     * @property {module:model/UsersUserIdBody}
+     */
+    UsersUserIdBody,
+
+    /**
+     * The WebhookDelivery model constructor.
+     * @property {module:model/WebhookDelivery}
+     */
+    WebhookDelivery,
+
+    /**
+     * The WebhookEventType model constructor.
+     * @property {module:model/WebhookEventType}
+     */
+    WebhookEventType,
+
+    /**
+     * The WebhookQuota model constructor.
+     * @property {module:model/WebhookQuota}
+     */
+    WebhookQuota,
+
+    /**
+     * The WebhookSubscription model constructor.
+     * @property {module:model/WebhookSubscription}
+     */
+    WebhookSubscription,
+
+    /**
+     * The WebhookSubscriptionInput model constructor.
+     * @property {module:model/WebhookSubscriptionInput}
+     */
+    WebhookSubscriptionInput,
+
+    /**
+     * The WebhookTestRequest model constructor.
+     * @property {module:model/WebhookTestRequest}
+     */
+    WebhookTestRequest,
+
+    /**
+     * The WebhookTestResponse model constructor.
+     * @property {module:model/WebhookTestResponse}
+     */
+    WebhookTestResponse,
+
+    /**
+     * The WebhooksUserIdBody model constructor.
+     * @property {module:model/WebhooksUserIdBody}
+     */
+    WebhooksUserIdBody,
+
+    /**
+    * The AddonsApi service constructor.
+    * @property {module:api/AddonsApi}
+    */
+    AddonsApi,
+
+    /**
+    * The AdministrationApi service constructor.
+    * @property {module:api/AdministrationApi}
+    */
+    AdministrationApi,
+
+    /**
     * The AssetsApi service constructor.
-    * @property {module:tmi-client/AssetsApi}
+    * @property {module:api/AssetsApi}
     */
     AssetsApi,
 
     /**
     * The AuthenticationApi service constructor.
-    * @property {module:tmi-client/AuthenticationApi}
+    * @property {module:api/AuthenticationApi}
     */
     AuthenticationApi,
 
     /**
     * The CollaborationApi service constructor.
-    * @property {module:tmi-client/CollaborationApi}
+    * @property {module:api/CollaborationApi}
     */
     CollaborationApi,
 
     /**
     * The DocumentsApi service constructor.
-    * @property {module:tmi-client/DocumentsApi}
+    * @property {module:api/DocumentsApi}
     */
     DocumentsApi,
 
     /**
     * The GeneralApi service constructor.
-    * @property {module:tmi-client/GeneralApi}
+    * @property {module:api/GeneralApi}
     */
     GeneralApi,
 
     /**
     * The NotesApi service constructor.
-    * @property {module:tmi-client/NotesApi}
+    * @property {module:api/NotesApi}
     */
     NotesApi,
 
     /**
     * The OAuthDiscoveryApi service constructor.
-    * @property {module:tmi-client/OAuthDiscoveryApi}
+    * @property {module:api/OAuthDiscoveryApi}
     */
     OAuthDiscoveryApi,
 
     /**
     * The OIDCDiscoveryApi service constructor.
-    * @property {module:tmi-client/OIDCDiscoveryApi}
+    * @property {module:api/OIDCDiscoveryApi}
     */
     OIDCDiscoveryApi,
 
     /**
     * The RepositoriesApi service constructor.
-    * @property {module:tmi-client/RepositoriesApi}
+    * @property {module:api/RepositoriesApi}
     */
     RepositoriesApi,
 
     /**
+    * The SAMLApi service constructor.
+    * @property {module:api/SAMLApi}
+    */
+    SAMLApi,
+
+    /**
     * The ThreatModelSubResourcesApi service constructor.
-    * @property {module:tmi-client/ThreatModelSubResourcesApi}
+    * @property {module:api/ThreatModelSubResourcesApi}
     */
     ThreatModelSubResourcesApi,
 
     /**
     * The ThreatModelsApi service constructor.
-    * @property {module:tmi-client/ThreatModelsApi}
+    * @property {module:api/ThreatModelsApi}
     */
     ThreatModelsApi,
 
     /**
     * The ThreatsApi service constructor.
-    * @property {module:tmi-client/ThreatsApi}
+    * @property {module:api/ThreatsApi}
     */
     ThreatsApi,
 
     /**
     * The UsersApi service constructor.
-    * @property {module:tmi-client/UsersApi}
+    * @property {module:api/UsersApi}
     */
-    UsersApi
+    UsersApi,
+
+    /**
+    * The WebhooksApi service constructor.
+    * @property {module:api/WebhooksApi}
+    */
+    WebhooksApi
 };

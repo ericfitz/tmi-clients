@@ -24,7 +24,7 @@ import Metadata from './Metadata';
 export default class BaseDiagram {
   /**
    * Constructs a new <code>BaseDiagram</code>.
-   * Base diagram object with common properties
+   * Base diagram object with common properties - used for API responses
    * @alias module:model/BaseDiagram
    * @class
    * @param id {String} Unique identifier for the diagram (UUID)

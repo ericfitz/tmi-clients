@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -39,15 +39,13 @@
           // TODO: uncomment getOAuthProtectedResourceMetadata call and complete the assertions
           /*
 
-          instance.getOAuthProtectedResourceMetadata(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getOAuthProtectedResourceMetadata().then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.OAuthProtectedResourceMetadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:

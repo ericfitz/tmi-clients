@@ -15,7 +15,6 @@
 import ApiClient from '../ApiClient';
 import Cell from './Cell';
 import CellData from './CellData';
-import CellTool from './CellTool';
 import EdgeLabel from './EdgeLabel';
 import MarkupElement from './MarkupElement';
 import Point from './Point';

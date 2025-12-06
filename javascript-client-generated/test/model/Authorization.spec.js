@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,25 +36,7 @@
 
       it('should create an instance of Authorization', function() {
         // TODO: update the code to test Authorization
-        expect(instance).to.be.an.instanceOf(TmiJsClient.Authorization);
-      });
-
-      it('should have the property subject (base name: "subject")', function() {
-        // TODO: update the code to test the property subject
-        expect(instance).to.have.property('subject');
-        // expect(instance.subject).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property subjectType (base name: "subject_type")', function() {
-        // TODO: update the code to test the property subjectType
-        expect(instance).to.have.property('subjectType');
-        // expect(instance.subjectType).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property idp (base name: "idp")', function() {
-        // TODO: update the code to test the property idp
-        expect(instance).to.have.property('idp');
-        // expect(instance.idp).to.be(expectedValueLiteral);
+        expect(instance).to.be.a(TmiJsClient.Authorization);
       });
 
       it('should have the property role (base name: "role")', function() {

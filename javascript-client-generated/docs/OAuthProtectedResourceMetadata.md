@@ -11,3 +11,11 @@ Name | Type | Description | Notes
 **resourceName** | **String** | Human-readable name of the protected resource | [optional] 
 **resourceDocumentation** | **String** | URL with information for developers on how to use this protected resource | [optional] 
 **tlsClientCertificateBoundAccessTokens** | **Boolean** | Whether the protected resource supports TLS client certificate bound access tokens | [optional] 
+
+<a name="[BearerMethodsSupportedEnum]"></a>
+## Enum: [BearerMethodsSupportedEnum]
+
+* `header` (value: `"header"`)
+* `body` (value: `"body"`)
+* `query` (value: `"query"`)
+

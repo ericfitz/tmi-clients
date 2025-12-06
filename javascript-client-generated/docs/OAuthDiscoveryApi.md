@@ -1,6 +1,6 @@
 # TmiJsClient.OAuthDiscoveryApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,13 +19,12 @@ Returns OAuth 2.0 protected resource metadata as per RFC 9728
 import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.OAuthDiscoveryApi();
-apiInstance.getOAuthProtectedResourceMetadata((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getOAuthProtectedResourceMetadata().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

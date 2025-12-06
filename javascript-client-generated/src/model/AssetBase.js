@@ -54,7 +54,7 @@ export default class AssetBase {
       if (data.hasOwnProperty('classification'))
         obj.classification = ApiClient.convertToType(data['classification'], ['String']);
       if (data.hasOwnProperty('sensitivity'))
-        obj.sensitivity = ApiClient.convertToType(data['sensitivity'], ['String']);
+        obj.sensitivity = ApiClient.convertToType(data['sensitivity'], 'String');
     }
     return obj;
   }
@@ -133,8 +133,8 @@ AssetBase.prototype.criticality = undefined;
 AssetBase.prototype.classification = undefined;
 
 /**
- * Sensitivity labels for the asset
- * @member {Array.<String>} sensitivity
+ * Sensitivity label for the asset
+ * @member {String} sensitivity
  */
 AssetBase.prototype.sensitivity = undefined;
 

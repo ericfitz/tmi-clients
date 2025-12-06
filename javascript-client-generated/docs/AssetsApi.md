@@ -1,6 +1,6 @@
 # TmiJsClient.AssetsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -22,16 +22,15 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 let apiInstance = new TmiJsClient.AssetsApi();
 let body = [new TmiJsClient.ThreatsThreatIdBody()]; // [ThreatsThreatIdBody] | 
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
-let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset ID
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.patchThreatModelAsset(body, threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchThreatModelAsset(body, threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -39,8 +38,8 @@ apiInstance.patchThreatModelAsset(body, threatModelId, assetId, (error, data, re
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
- **assetId** | [**String**](.md)| Asset ID | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **assetId** | [**String**](.md)| Asset identifier | 
 
 ### Return type
 

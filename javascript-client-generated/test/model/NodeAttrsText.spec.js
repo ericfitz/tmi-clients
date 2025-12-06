@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,7 +36,7 @@
 
       it('should create an instance of NodeAttrsText', function() {
         // TODO: update the code to test NodeAttrsText
-        expect(instance).to.be.an.instanceOf(TmiJsClient.NodeAttrsText);
+        expect(instance).to.be.a(TmiJsClient.NodeAttrsText);
       });
 
       it('should have the property text (base name: "text")', function() {

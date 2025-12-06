@@ -1,0 +1,13 @@
+{
+  "moduleName": "TmiJsClient",
+  "projectName": "tmi-js-client",
+  "projectVersion": "1.0.0",
+  "projectDescription": "JavaScript client for TMI (Threat Modeling Improved) API",
+  "projectLicenseName": "Apache-2.0",
+  "sortParamsByRequiredFlag": true,
+  "hideGenerationTimestamp": false,
+  "usePromises": true,
+  "useES6": true,
+  "npmName": "tmi-js-client",
+  "npmVersion": "1.0.0"
+}

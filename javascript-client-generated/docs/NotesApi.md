@@ -1,6 +1,6 @@
 # TmiJsClient.NotesApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -22,16 +22,15 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 let apiInstance = new TmiJsClient.NotesApi();
 let body = [new TmiJsClient.ThreatsThreatIdBody()]; // [ThreatsThreatIdBody] | 
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
-let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note ID
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.patchThreatModelNote(body, threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchThreatModelNote(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -39,8 +38,8 @@ apiInstance.patchThreatModelNote(body, threatModelId, noteId, (error, data, resp
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
- **noteId** | [**String**](.md)| Note ID | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **noteId** | [**String**](.md)| Note identifier | 
 
 ### Return type
 

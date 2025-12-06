@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -39,11 +39,7 @@
           // TODO: uncomment, update parameter values for bulkCreateDiagramMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateDiagramMetadata(body, threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateDiagramMetadata(body, threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -54,6 +50,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -65,11 +63,7 @@
           // TODO: uncomment, update parameter values for bulkCreateDocumentMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateDocumentMetadata(body, threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateDocumentMetadata(body, threatModelId, documentId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -80,6 +74,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -91,11 +87,7 @@
           // TODO: uncomment, update parameter values for bulkCreateNoteMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateNoteMetadata(body, threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateNoteMetadata(body, threatModelId, noteId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -106,6 +98,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -117,11 +111,7 @@
           // TODO: uncomment, update parameter values for bulkCreateRepositoryMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateRepositoryMetadata(body, threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateRepositoryMetadata(body, threatModelId, repositoryId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -132,6 +122,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -143,11 +135,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateThreatMetadata(body, threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatMetadata(body, threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -158,6 +146,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -169,11 +159,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatModelAssetMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -184,6 +170,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -195,11 +183,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatModelAssets call and complete the assertions
           /*
 
-          instance.bulkCreateThreatModelAssets(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatModelAssets(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -210,6 +194,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -221,11 +207,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatModelDocuments call and complete the assertions
           /*
 
-          instance.bulkCreateThreatModelDocuments(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatModelDocuments(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -236,6 +218,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -247,11 +231,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatModelMetadata call and complete the assertions
           /*
 
-          instance.bulkCreateThreatModelMetadata(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatModelMetadata(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -262,6 +242,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -273,11 +255,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatModelRepositories call and complete the assertions
           /*
 
-          instance.bulkCreateThreatModelRepositories(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatModelRepositories(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -288,6 +266,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -299,11 +279,7 @@
           // TODO: uncomment, update parameter values for bulkCreateThreatModelThreats call and complete the assertions
           /*
 
-          instance.bulkCreateThreatModelThreats(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkCreateThreatModelThreats(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -314,6 +290,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -325,11 +303,7 @@
           // TODO: uncomment, update parameter values for bulkUpdateNoteMetadata call and complete the assertions
           /*
 
-          instance.bulkUpdateNoteMetadata(body, threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpdateNoteMetadata(body, threatModelId, noteId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -340,6 +314,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -351,11 +327,7 @@
           // TODO: uncomment, update parameter values for bulkUpdateThreatModelThreats call and complete the assertions
           /*
 
-          instance.bulkUpdateThreatModelThreats(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpdateThreatModelThreats(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -366,6 +338,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -377,11 +351,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertDiagramMetadata call and complete the assertions
           /*
 
-          instance.bulkUpsertDiagramMetadata(body, threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertDiagramMetadata(body, threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -392,6 +362,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -403,11 +375,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertDocumentMetadata call and complete the assertions
           /*
 
-          instance.bulkUpsertDocumentMetadata(body, threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertDocumentMetadata(body, threatModelId, documentId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -418,6 +386,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -429,11 +399,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertRepositoryMetadata call and complete the assertions
           /*
 
-          instance.bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -444,6 +410,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -455,11 +423,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertThreatMetadata call and complete the assertions
           /*
 
-          instance.bulkUpsertThreatMetadata(body, threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertThreatMetadata(body, threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -470,6 +434,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -481,11 +447,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertThreatModelAssetMetadata call and complete the assertions
           /*
 
-          instance.bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -496,6 +458,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -507,11 +471,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertThreatModelAssets call and complete the assertions
           /*
 
-          instance.bulkUpsertThreatModelAssets(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertThreatModelAssets(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -522,6 +482,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -533,11 +495,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertThreatModelDocuments call and complete the assertions
           /*
 
-          instance.bulkUpsertThreatModelDocuments(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertThreatModelDocuments(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -548,6 +506,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -559,11 +519,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertThreatModelMetadata call and complete the assertions
           /*
 
-          instance.bulkUpsertThreatModelMetadata(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertThreatModelMetadata(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -574,6 +530,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -585,11 +543,7 @@
           // TODO: uncomment, update parameter values for bulkUpsertThreatModelRepositories call and complete the assertions
           /*
 
-          instance.bulkUpsertThreatModelRepositories(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkUpsertThreatModelRepositories(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -600,6 +554,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -611,15 +567,13 @@
           // TODO: uncomment, update parameter values for createDiagramMetadata call and complete the assertions
           /*
 
-          instance.createDiagramMetadata(body, threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createDiagramMetadata(body, threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -631,15 +585,13 @@
           // TODO: uncomment, update parameter values for createDocumentMetadata call and complete the assertions
           /*
 
-          instance.createDocumentMetadata(body, threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createDocumentMetadata(body, threatModelId, documentId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -651,15 +603,13 @@
           // TODO: uncomment, update parameter values for createNoteMetadata call and complete the assertions
           /*
 
-          instance.createNoteMetadata(body, threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createNoteMetadata(body, threatModelId, noteId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -671,15 +621,13 @@
           // TODO: uncomment, update parameter values for createRepositoryMetadata call and complete the assertions
           /*
 
-          instance.createRepositoryMetadata(body, threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createRepositoryMetadata(body, threatModelId, repositoryId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -691,15 +639,13 @@
           // TODO: uncomment, update parameter values for createThreatMetadata call and complete the assertions
           /*
 
-          instance.createThreatMetadata(body, threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatMetadata(body, threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -711,15 +657,13 @@
           // TODO: uncomment, update parameter values for createThreatModelAsset call and complete the assertions
           /*
 
-          instance.createThreatModelAsset(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelAsset(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Asset);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -731,15 +675,13 @@
           // TODO: uncomment, update parameter values for createThreatModelAssetMetadata call and complete the assertions
           /*
 
-          instance.createThreatModelAssetMetadata(body, threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelAssetMetadata(body, threatModelId, assetId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -751,15 +693,13 @@
           // TODO: uncomment, update parameter values for createThreatModelDiagram call and complete the assertions
           /*
 
-          instance.createThreatModelDiagram(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelDiagram(body, threatModelId).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.Diagram);
+            expect(data).to.be.a(TmiJsClient.DfdDiagram);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -771,15 +711,13 @@
           // TODO: uncomment, update parameter values for createThreatModelDocument call and complete the assertions
           /*
 
-          instance.createThreatModelDocument(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelDocument(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Document);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -791,15 +729,13 @@
           // TODO: uncomment, update parameter values for createThreatModelMetadata call and complete the assertions
           /*
 
-          instance.createThreatModelMetadata(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelMetadata(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -811,15 +747,13 @@
           // TODO: uncomment, update parameter values for createThreatModelNote call and complete the assertions
           /*
 
-          instance.createThreatModelNote(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelNote(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Note);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -831,15 +765,13 @@
           // TODO: uncomment, update parameter values for createThreatModelRepository call and complete the assertions
           /*
 
-          instance.createThreatModelRepository(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelRepository(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Repository);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -851,15 +783,13 @@
           // TODO: uncomment, update parameter values for createThreatModelThreat call and complete the assertions
           /*
 
-          instance.createThreatModelThreat(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.createThreatModelThreat(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Threat);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -871,13 +801,11 @@
           // TODO: uncomment, update parameter values for deleteDiagramMetadataByKey call
           /*
 
-          instance.deleteDiagramMetadataByKey(threatModelId, diagramId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteDiagramMetadataByKey(threatModelId, diagramId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -889,13 +817,11 @@
           // TODO: uncomment, update parameter values for deleteDocumentMetadataByKey call
           /*
 
-          instance.deleteDocumentMetadataByKey(threatModelId, documentId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteDocumentMetadataByKey(threatModelId, documentId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -907,13 +833,11 @@
           // TODO: uncomment, update parameter values for deleteNoteMetadataByKey call
           /*
 
-          instance.deleteNoteMetadataByKey(threatModelId, noteId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteNoteMetadataByKey(threatModelId, noteId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -925,13 +849,11 @@
           // TODO: uncomment, update parameter values for deleteRepositoryMetadataByKey call
           /*
 
-          instance.deleteRepositoryMetadataByKey(threatModelId, repositoryId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteRepositoryMetadataByKey(threatModelId, repositoryId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -943,13 +865,11 @@
           // TODO: uncomment, update parameter values for deleteThreatMetadataByKey call
           /*
 
-          instance.deleteThreatMetadataByKey(threatModelId, threatId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatMetadataByKey(threatModelId, threatId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -961,13 +881,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelAsset call
           /*
 
-          instance.deleteThreatModelAsset(threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelAsset(threatModelId, assetId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -979,13 +897,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelAssetMetadata call
           /*
 
-          instance.deleteThreatModelAssetMetadata(threatModelId, assetId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelAssetMetadata(threatModelId, assetId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -997,13 +913,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelDiagram call
           /*
 
-          instance.deleteThreatModelDiagram(threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelDiagram(threatModelId, diagramId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1015,13 +929,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelDocument call
           /*
 
-          instance.deleteThreatModelDocument(threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelDocument(threatModelId, documentId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1033,13 +945,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelMetadataByKey call
           /*
 
-          instance.deleteThreatModelMetadataByKey(threatModelId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelMetadataByKey(threatModelId, key).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1051,13 +961,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelNote call
           /*
 
-          instance.deleteThreatModelNote(threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelNote(threatModelId, noteId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1069,13 +977,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelRepository call
           /*
 
-          instance.deleteThreatModelRepository(threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelRepository(threatModelId, repositoryId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1087,13 +993,11 @@
           // TODO: uncomment, update parameter values for deleteThreatModelThreat call
           /*
 
-          instance.deleteThreatModelThreat(threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.deleteThreatModelThreat(threatModelId, threatId).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1105,11 +1009,7 @@
           // TODO: uncomment, update parameter values for getDiagramMetadata call and complete the assertions
           /*
 
-          instance.getDiagramMetadata(threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getDiagramMetadata(threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1120,6 +1020,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1131,15 +1033,13 @@
           // TODO: uncomment, update parameter values for getDiagramMetadataByKey call and complete the assertions
           /*
 
-          instance.getDiagramMetadataByKey(threatModelId, diagramId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getDiagramMetadataByKey(threatModelId, diagramId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1151,11 +1051,7 @@
           // TODO: uncomment, update parameter values for getDocumentMetadata call and complete the assertions
           /*
 
-          instance.getDocumentMetadata(threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getDocumentMetadata(threatModelId, documentId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1166,6 +1062,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1177,15 +1075,13 @@
           // TODO: uncomment, update parameter values for getDocumentMetadataByKey call and complete the assertions
           /*
 
-          instance.getDocumentMetadataByKey(threatModelId, documentId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getDocumentMetadataByKey(threatModelId, documentId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1197,11 +1093,7 @@
           // TODO: uncomment, update parameter values for getNoteMetadata call and complete the assertions
           /*
 
-          instance.getNoteMetadata(threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getNoteMetadata(threatModelId, noteId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1212,6 +1104,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1223,15 +1117,13 @@
           // TODO: uncomment, update parameter values for getNoteMetadataByKey call and complete the assertions
           /*
 
-          instance.getNoteMetadataByKey(threatModelId, noteId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getNoteMetadataByKey(threatModelId, noteId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1243,11 +1135,7 @@
           // TODO: uncomment, update parameter values for getRepositoryMetadata call and complete the assertions
           /*
 
-          instance.getRepositoryMetadata(threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getRepositoryMetadata(threatModelId, repositoryId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1258,6 +1146,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1269,15 +1159,13 @@
           // TODO: uncomment, update parameter values for getRepositoryMetadataByKey call and complete the assertions
           /*
 
-          instance.getRepositoryMetadataByKey(threatModelId, repositoryId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getRepositoryMetadataByKey(threatModelId, repositoryId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1289,11 +1177,7 @@
           // TODO: uncomment, update parameter values for getThreatMetadata call and complete the assertions
           /*
 
-          instance.getThreatMetadata(threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatMetadata(threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1304,6 +1188,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1315,15 +1201,13 @@
           // TODO: uncomment, update parameter values for getThreatMetadataByKey call and complete the assertions
           /*
 
-          instance.getThreatMetadataByKey(threatModelId, threatId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatMetadataByKey(threatModelId, threatId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1335,15 +1219,13 @@
           // TODO: uncomment, update parameter values for getThreatModelAsset call and complete the assertions
           /*
 
-          instance.getThreatModelAsset(threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelAsset(threatModelId, assetId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Asset);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1355,11 +1237,7 @@
           // TODO: uncomment, update parameter values for getThreatModelAssetMetadata call and complete the assertions
           /*
 
-          instance.getThreatModelAssetMetadata(threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelAssetMetadata(threatModelId, assetId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1370,6 +1248,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1381,15 +1261,13 @@
           // TODO: uncomment, update parameter values for getThreatModelAssetMetadataByKey call and complete the assertions
           /*
 
-          instance.getThreatModelAssetMetadataByKey(threatModelId, assetId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelAssetMetadataByKey(threatModelId, assetId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1402,11 +1280,7 @@
           /*
           var opts = {};
 
-          instance.getThreatModelAssets(threatModelId, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelAssets(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1417,6 +1291,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1428,15 +1304,13 @@
           // TODO: uncomment, update parameter values for getThreatModelDiagram call and complete the assertions
           /*
 
-          instance.getThreatModelDiagram(threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelDiagram(threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.Diagram);
+            expect(data).to.be.a(TmiJsClient.DfdDiagram);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1449,11 +1323,7 @@
           /*
           var opts = {};
 
-          instance.getThreatModelDiagrams(threatModelId, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelDiagrams(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1464,6 +1334,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1475,15 +1347,13 @@
           // TODO: uncomment, update parameter values for getThreatModelDocument call and complete the assertions
           /*
 
-          instance.getThreatModelDocument(threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelDocument(threatModelId, documentId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Document);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1496,11 +1366,7 @@
           /*
           var opts = {};
 
-          instance.getThreatModelDocuments(threatModelId, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelDocuments(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1511,6 +1377,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1522,11 +1390,7 @@
           // TODO: uncomment, update parameter values for getThreatModelMetadata call and complete the assertions
           /*
 
-          instance.getThreatModelMetadata(threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelMetadata(threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1537,6 +1401,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1548,15 +1414,13 @@
           // TODO: uncomment, update parameter values for getThreatModelMetadataByKey call and complete the assertions
           /*
 
-          instance.getThreatModelMetadataByKey(threatModelId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelMetadataByKey(threatModelId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1568,15 +1432,13 @@
           // TODO: uncomment, update parameter values for getThreatModelNote call and complete the assertions
           /*
 
-          instance.getThreatModelNote(threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelNote(threatModelId, noteId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Note);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1589,11 +1451,7 @@
           /*
           var opts = {};
 
-          instance.getThreatModelNotes(threatModelId, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelNotes(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1604,6 +1462,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1616,11 +1476,7 @@
           /*
           var opts = {};
 
-          instance.getThreatModelRepositories(threatModelId, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelRepositories(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1631,6 +1487,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1642,15 +1500,13 @@
           // TODO: uncomment, update parameter values for getThreatModelRepository call and complete the assertions
           /*
 
-          instance.getThreatModelRepository(threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelRepository(threatModelId, repositoryId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Repository);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1662,15 +1518,13 @@
           // TODO: uncomment, update parameter values for getThreatModelThreat call and complete the assertions
           /*
 
-          instance.getThreatModelThreat(threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelThreat(threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Threat);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1683,11 +1537,7 @@
           /*
           var opts = {};
 
-          instance.getThreatModelThreats(threatModelId, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getThreatModelThreats(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -1698,6 +1548,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1709,15 +1561,13 @@
           // TODO: uncomment, update parameter values for patchThreatModelDiagram call and complete the assertions
           /*
 
-          instance.patchThreatModelDiagram(body, threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.patchThreatModelDiagram(body, threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.Diagram);
+            expect(data).to.be.a(TmiJsClient.DfdDiagram);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1729,15 +1579,13 @@
           // TODO: uncomment, update parameter values for patchThreatModelThreat call and complete the assertions
           /*
 
-          instance.patchThreatModelThreat(body, threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.patchThreatModelThreat(body, threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Threat);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1749,15 +1597,13 @@
           // TODO: uncomment, update parameter values for updateDiagramMetadataByKey call and complete the assertions
           /*
 
-          instance.updateDiagramMetadataByKey(body, threatModelId, diagramId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateDiagramMetadataByKey(body, threatModelId, diagramId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1769,15 +1615,13 @@
           // TODO: uncomment, update parameter values for updateDocumentMetadataByKey call and complete the assertions
           /*
 
-          instance.updateDocumentMetadataByKey(body, threatModelId, documentId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateDocumentMetadataByKey(body, threatModelId, documentId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1789,15 +1633,13 @@
           // TODO: uncomment, update parameter values for updateNoteMetadataByKey call and complete the assertions
           /*
 
-          instance.updateNoteMetadataByKey(body, threatModelId, noteId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateNoteMetadataByKey(body, threatModelId, noteId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1809,15 +1651,13 @@
           // TODO: uncomment, update parameter values for updateRepositoryMetadataByKey call and complete the assertions
           /*
 
-          instance.updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1829,15 +1669,13 @@
           // TODO: uncomment, update parameter values for updateThreatMetadataByKey call and complete the assertions
           /*
 
-          instance.updateThreatMetadataByKey(body, threatModelId, threatId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatMetadataByKey(body, threatModelId, threatId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1849,15 +1687,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelAsset call and complete the assertions
           /*
 
-          instance.updateThreatModelAsset(body, threatModelId, assetId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelAsset(body, threatModelId, assetId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Asset);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1869,15 +1705,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelAssetMetadata call and complete the assertions
           /*
 
-          instance.updateThreatModelAssetMetadata(body, threatModelId, assetId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelAssetMetadata(body, threatModelId, assetId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1889,15 +1723,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelDiagram call and complete the assertions
           /*
 
-          instance.updateThreatModelDiagram(body, threatModelId, diagramId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelDiagram(body, threatModelId, diagramId).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.Diagram);
+            expect(data).to.be.a(TmiJsClient.DfdDiagram);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1909,15 +1741,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelDocument call and complete the assertions
           /*
 
-          instance.updateThreatModelDocument(body, threatModelId, documentId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelDocument(body, threatModelId, documentId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Document);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1929,15 +1759,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelMetadataByKey call and complete the assertions
           /*
 
-          instance.updateThreatModelMetadataByKey(body, threatModelId, key, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelMetadataByKey(body, threatModelId, key).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Metadata);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1949,15 +1777,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelNote call and complete the assertions
           /*
 
-          instance.updateThreatModelNote(body, threatModelId, noteId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelNote(body, threatModelId, noteId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Note);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1969,15 +1795,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelRepository call and complete the assertions
           /*
 
-          instance.updateThreatModelRepository(body, threatModelId, repositoryId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelRepository(body, threatModelId, repositoryId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Repository);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -1989,15 +1813,13 @@
           // TODO: uncomment, update parameter values for updateThreatModelThreat call and complete the assertions
           /*
 
-          instance.updateThreatModelThreat(body, threatModelId, threatId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.updateThreatModelThreat(body, threatModelId, threatId).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.Threat);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:

@@ -14,7 +14,6 @@
  */
 import ApiClient from '../ApiClient';
 import CellData from './CellData';
-import CellTool from './CellTool';
 import MarkupElement from './MarkupElement';
 
 /**
@@ -58,8 +57,6 @@ export default class Cell {
         obj.data = CellData.constructFromObject(data['data']);
       if (data.hasOwnProperty('markup'))
         obj.markup = ApiClient.convertToType(data['markup'], [MarkupElement]);
-      if (data.hasOwnProperty('tools'))
-        obj.tools = ApiClient.convertToType(data['tools'], [CellTool]);
     }
     return obj;
   }
@@ -101,10 +98,4 @@ Cell.prototype.data = undefined;
  * @member {Array.<module:model/MarkupElement>} markup
  */
 Cell.prototype.markup = undefined;
-
-/**
- * Interactive tools attached to the cell for user interaction
- * @member {Array.<module:model/CellTool>} tools
- */
-Cell.prototype.tools = undefined;
 

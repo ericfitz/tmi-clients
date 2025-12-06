@@ -31,10 +31,8 @@ export default class ExtendedAsset extends Asset {
    * @param createdAt {} Creation timestamp (ISO3339)
    * @param modifiedAt {} Last modification timestamp (ISO3339)
    * @param id {} Unique identifier for the asset
-   * @param name {} Asset name
-   * @param type {} Type of asset
    */
-  constructor(threatModelId, createdAt, modifiedAt, id, name, type) {
+  constructor(threatModelId, createdAt, modifiedAt, id) {
     super(id, name, type);
     this.threatModelId = threatModelId;
     this.createdAt = createdAt;

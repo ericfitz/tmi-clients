@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **type** | **String** | Type of asset | 
 **criticality** | **String** | Criticality level of the asset | [optional] 
 **classification** | **[String]** | Classification tags for the asset | [optional] 
-**sensitivity** | **[String]** | Sensitivity labels for the asset | [optional] 
+**sensitivity** | **String** | Sensitivity label for the asset | [optional] 
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,7 +36,13 @@
 
       it('should create an instance of Oauth2TokenBody', function() {
         // TODO: update the code to test Oauth2TokenBody
-        expect(instance).to.be.an.instanceOf(TmiJsClient.Oauth2TokenBody);
+        expect(instance).to.be.a(TmiJsClient.Oauth2TokenBody);
+      });
+
+      it('should have the property grantType (base name: "grant_type")', function() {
+        // TODO: update the code to test the property grantType
+        expect(instance).to.have.property('grantType');
+        // expect(instance.grantType).to.be(expectedValueLiteral);
       });
 
       it('should have the property code (base name: "code")', function() {
@@ -55,6 +61,30 @@
         // TODO: update the code to test the property redirectUri
         expect(instance).to.have.property('redirectUri');
         // expect(instance.redirectUri).to.be(expectedValueLiteral);
+      });
+
+      it('should have the property codeVerifier (base name: "code_verifier")', function() {
+        // TODO: update the code to test the property codeVerifier
+        expect(instance).to.have.property('codeVerifier');
+        // expect(instance.codeVerifier).to.be(expectedValueLiteral);
+      });
+
+      it('should have the property clientId (base name: "client_id")', function() {
+        // TODO: update the code to test the property clientId
+        expect(instance).to.have.property('clientId');
+        // expect(instance.clientId).to.be(expectedValueLiteral);
+      });
+
+      it('should have the property clientSecret (base name: "client_secret")', function() {
+        // TODO: update the code to test the property clientSecret
+        expect(instance).to.have.property('clientSecret');
+        // expect(instance.clientSecret).to.be(expectedValueLiteral);
+      });
+
+      it('should have the property refreshToken (base name: "refresh_token")', function() {
+        // TODO: update the code to test the property refreshToken
+        expect(instance).to.have.property('refreshToken');
+        // expect(instance.refreshToken).to.be(expectedValueLiteral);
       });
 
     });

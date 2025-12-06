@@ -38,24 +38,15 @@ export default class InlineResponse2007 {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new InlineResponse2007();
-      if (data.hasOwnProperty('deleted_count'))
-        obj.deletedCount = ApiClient.convertToType(data['deleted_count'], 'Number');
-      if (data.hasOwnProperty('deleted_ids'))
-        obj.deletedIds = ApiClient.convertToType(data['deleted_ids'], ['String']);
+      if (data.hasOwnProperty('message'))
+        obj.message = ApiClient.convertToType(data['message'], 'String');
     }
     return obj;
   }
 }
 
 /**
- * Number of threats deleted
- * @member {Number} deletedCount
+ * @member {String} message
  */
-InlineResponse2007.prototype.deletedCount = undefined;
-
-/**
- * IDs of deleted threats
- * @member {Array.<String>} deletedIds
- */
-InlineResponse2007.prototype.deletedIds = undefined;
+InlineResponse2007.prototype.message = undefined;
 

@@ -22,7 +22,7 @@ import ApiClient from '../ApiClient';
 export default class DiagramListItem {
   /**
    * Constructs a new <code>DiagramListItem</code>.
-   * A simplified diagram item for list endpoints, containing id, name, and type
+   * Summary diagram object for GET /diagrams list endpoints. Excludes large fields (cells, image) for performance. Full diagram details available via GET /diagrams/{id} which returns DfdDiagram.
    * @alias module:model/DiagramListItem
    * @class
    * @param id {String} Unique identifier of the diagram (UUID)

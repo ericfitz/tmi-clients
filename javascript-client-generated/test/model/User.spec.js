@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,13 +36,13 @@
 
       it('should create an instance of User', function() {
         // TODO: update the code to test User
-        expect(instance).to.be.an.instanceOf(TmiJsClient.User);
+        expect(instance).to.be.a(TmiJsClient.User);
       });
 
-      it('should have the property userId (base name: "user_id")', function() {
-        // TODO: update the code to test the property userId
-        expect(instance).to.have.property('userId');
-        // expect(instance.userId).to.be(expectedValueLiteral);
+      it('should have the property principalType (base name: "principal_type")', function() {
+        // TODO: update the code to test the property principalType
+        expect(instance).to.have.property('principalType');
+        // expect(instance.principalType).to.be(expectedValueLiteral);
       });
 
       it('should have the property email (base name: "email")', function() {
@@ -51,34 +51,10 @@
         // expect(instance.email).to.be(expectedValueLiteral);
       });
 
-      it('should have the property name (base name: "name")', function() {
-        // TODO: update the code to test the property name
-        expect(instance).to.have.property('name');
-        // expect(instance.name).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property picture (base name: "picture")', function() {
-        // TODO: update the code to test the property picture
-        expect(instance).to.have.property('picture');
-        // expect(instance.picture).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property idp (base name: "idp")', function() {
-        // TODO: update the code to test the property idp
-        expect(instance).to.have.property('idp');
-        // expect(instance.idp).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property groups (base name: "groups")', function() {
-        // TODO: update the code to test the property groups
-        expect(instance).to.have.property('groups');
-        // expect(instance.groups).to.be(expectedValueLiteral);
-      });
-
-      it('should have the property lastLogin (base name: "last_login")', function() {
-        // TODO: update the code to test the property lastLogin
-        expect(instance).to.have.property('lastLogin');
-        // expect(instance.lastLogin).to.be(expectedValueLiteral);
+      it('should have the property displayName (base name: "display_name")', function() {
+        // TODO: update the code to test the property displayName
+        expect(instance).to.have.property('displayName');
+        // expect(instance.displayName).to.be(expectedValueLiteral);
       });
 
     });

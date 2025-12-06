@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -39,15 +39,13 @@
           // TODO: uncomment, update parameter values for bulkDeleteThreatModelThreats call and complete the assertions
           /*
 
-          instance.bulkDeleteThreatModelThreats(threatModelId, threatIds, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkDeleteThreatModelThreats(threatModelId, threatIds).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.InlineResponse2007);
+            expect(data).to.be.a(TmiJsClient.InlineResponse2008);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -59,11 +57,7 @@
           // TODO: uncomment, update parameter values for bulkPatchThreatModelThreats call and complete the assertions
           /*
 
-          instance.bulkPatchThreatModelThreats(body, threatModelId, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.bulkPatchThreatModelThreats(body, threatModelId).then(function(data) {
             // TODO: update response assertions
             let dataCtr = data;
             expect(dataCtr).to.be.an(Array);
@@ -74,6 +68,8 @@
             }
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:

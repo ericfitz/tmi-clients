@@ -13,26 +13,29 @@
  *
  */
 import ApiClient from '../ApiClient';
+import Principal from './Principal';
 
 /**
  * The User model module.
  * @module model/User
  * @version 1.0.0
  */
-export default class User {
+export default class User extends Principal {
   /**
    * Constructs a new <code>User</code>.
-   * Represents a user in the system
    * @alias module:model/User
    * @class
-   * @param userId {String} OAuth provider's unique identifier for the user (from primary provider)
-   * @param email {String} User's email address
-   * @param name {String} User's display name
+   * @extends module:model/Principal
+   * @param principalType {} Always \"user\" for User objects
+   * @param email {} User email address (required)
+   * @param displayName {} User full name for display
+   * @param provider {} Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"test\"). Use \"*\" for provider-independent groups.
+   * @param providerId {} Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.
    */
-  constructor(userId, email, name) {
-    this.userId = userId;
+  constructor(principalType, email, displayName, provider, providerId) {
+    super(principalType, provider, providerId);
     this.email = email;
-    this.name = name;
+    this.displayName = displayName;
   }
 
   /**
@@ -45,64 +48,45 @@ export default class User {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new User();
-      if (data.hasOwnProperty('user_id'))
-        obj.userId = ApiClient.convertToType(data['user_id'], 'String');
+      Principal.constructFromObject(data, obj);
+      if (data.hasOwnProperty('principal_type'))
+        obj.principalType = ApiClient.convertToType(data['principal_type'], 'String');
       if (data.hasOwnProperty('email'))
         obj.email = ApiClient.convertToType(data['email'], 'String');
-      if (data.hasOwnProperty('name'))
-        obj.name = ApiClient.convertToType(data['name'], 'String');
-      if (data.hasOwnProperty('picture'))
-        obj.picture = ApiClient.convertToType(data['picture'], 'String');
-      if (data.hasOwnProperty('idp'))
-        obj.idp = ApiClient.convertToType(data['idp'], 'String');
-      if (data.hasOwnProperty('groups'))
-        obj.groups = ApiClient.convertToType(data['groups'], ['String']);
-      if (data.hasOwnProperty('last_login'))
-        obj.lastLogin = ApiClient.convertToType(data['last_login'], 'Date');
+      if (data.hasOwnProperty('display_name'))
+        obj.displayName = ApiClient.convertToType(data['display_name'], 'String');
     }
     return obj;
   }
 }
 
 /**
- * OAuth provider's unique identifier for the user (from primary provider)
- * @member {String} userId
+ * Allowed values for the <code>principalType</code> property.
+ * @enum {String}
+ * @readonly
  */
-User.prototype.userId = undefined;
+User.PrincipalTypeEnum = {
+  /**
+   * value: "user"
+   * @const
+   */
+  user: "user"
+};
+/**
+ * Always \"user\" for User objects
+ * @member {module:model/User.PrincipalTypeEnum} principalType
+ */
+User.prototype.principalType = undefined;
 
 /**
- * User's email address
+ * User email address (required)
  * @member {String} email
  */
 User.prototype.email = undefined;
 
 /**
- * User's display name
- * @member {String} name
+ * User full name for display
+ * @member {String} displayName
  */
-User.prototype.name = undefined;
-
-/**
- * URL to user's profile picture
- * @member {String} picture
- */
-User.prototype.picture = undefined;
-
-/**
- * Identity provider used for current session
- * @member {String} idp
- */
-User.prototype.idp = undefined;
-
-/**
- * Groups the user belongs to (from identity provider)
- * @member {Array.<String>} groups
- */
-User.prototype.groups = undefined;
-
-/**
- * Timestamp of user's last login
- * @member {Date} lastLogin
- */
-User.prototype.lastLogin = undefined;
+User.prototype.displayName = undefined;
 

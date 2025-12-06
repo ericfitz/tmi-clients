@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -40,13 +40,46 @@
           /*
           var opts = {};
 
-          instance.authorizeOAuthProvider(scope, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.authorizeOAuthProvider(scope, codeChallenge, codeChallengeMethod, opts).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
+      describe('createClientCredential', function() {
+        it('should call createClientCredential successfully', function(done) {
+          // TODO: uncomment, update parameter values for createClientCredential call and complete the assertions
+          /*
+
+          instance.createClientCredential(body).then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(Object);
+            // expect(data).to.be(null);
+
+            done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
+      describe('deleteClientCredential', function() {
+        it('should call deleteClientCredential successfully', function(done) {
+          // TODO: uncomment, update parameter values for deleteClientCredential call
+          /*
+
+          instance.deleteClientCredential(id).then(function(data) {
+
+            done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -59,15 +92,13 @@
           /*
           var opts = {};
 
-          instance.exchangeOAuthCode(body, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.exchangeOAuthCode(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.AuthTokenResponse);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -79,15 +110,13 @@
           // TODO: uncomment getAuthProviders call and complete the assertions
           /*
 
-          instance.getAuthProviders(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getAuthProviders().then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse2004);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -99,15 +128,13 @@
           // TODO: uncomment getCurrentUser call and complete the assertions
           /*
 
-          instance.getCurrentUser(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getCurrentUser().then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse2006);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -119,15 +146,13 @@
           // TODO: uncomment getCurrentUserProfile call and complete the assertions
           /*
 
-          instance.getCurrentUserProfile(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getCurrentUserProfile().then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.User);
+            expect(data).to.be.a(TmiJsClient.UserWithAdminStatus);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -139,15 +164,13 @@
           // TODO: uncomment, update parameter values for getProviderGroups call and complete the assertions
           /*
 
-          instance.getProviderGroups(idp, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getProviderGroups(idp).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse2005);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -156,19 +179,35 @@
       });
       describe('getSAMLMetadata', function() {
         it('should call getSAMLMetadata successfully', function(done) {
-          // TODO: uncomment getSAMLMetadata call and complete the assertions
+          // TODO: uncomment, update parameter values for getSAMLMetadata call and complete the assertions
           /*
 
-          instance.getSAMLMetadata(function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.getSAMLMetadata(provider).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(&#x27;string&#x27;);
             // expect(data).to.be(null);
 
             done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
+      describe('getSAMLProviders', function() {
+        it('should call getSAMLProviders successfully', function(done) {
+          // TODO: uncomment getSAMLProviders call and complete the assertions
+          /*
+
+          instance.getSAMLProviders().then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(TmiJsClient.InlineResponse20010);
+
+            done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -181,15 +220,13 @@
           /*
           var opts = {};
 
-          instance.handleOAuthCallback(code, opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.handleOAuthCallback(code, opts).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.AuthTokenResponse);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -202,13 +239,11 @@
           /*
           var opts = {};
 
-          instance.initiateSAMLLogin(opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.initiateSAMLLogin(provider, opts).then(function(data) {
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -220,15 +255,32 @@
           // TODO: uncomment, update parameter values for introspectToken call and complete the assertions
           /*
 
-          instance.introspectToken(token, tokenTypeHint, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.introspectToken(token, tokenTypeHint).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.InlineResponse2003);
 
             done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
+      describe('listClientCredentials', function() {
+        it('should call listClientCredentials successfully', function(done) {
+          // TODO: uncomment listClientCredentials call and complete the assertions
+          /*
+
+          instance.listClientCredentials().then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(Object);
+            // expect(data).to.be(null);
+
+            done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -237,17 +289,17 @@
       });
       describe('logoutUser', function() {
         it('should call logoutUser successfully', function(done) {
-          // TODO: uncomment, update parameter values for logoutUser call
+          // TODO: uncomment, update parameter values for logoutUser call and complete the assertions
           /*
           var opts = {};
 
-          instance.logoutUser(opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.logoutUser(opts).then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(TmiJsClient.InlineResponse2007);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -259,15 +311,13 @@
           // TODO: uncomment, update parameter values for processSAMLLogout call and complete the assertions
           /*
 
-          instance.processSAMLLogout(sAMLRequest, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.processSAMLLogout(sAMLRequest).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.InlineResponse2008);
+            expect(data).to.be.a(TmiJsClient.InlineResponse2009);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -280,15 +330,13 @@
           /*
           var opts = {};
 
-          instance.processSAMLLogoutPost(opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.processSAMLLogoutPost(opts).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(TmiJsClient.InlineResponse2008);
+            expect(data).to.be.a(TmiJsClient.InlineResponse2009);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -301,15 +349,13 @@
           /*
           var opts = {};
 
-          instance.processSAMLResponse(opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.processSAMLResponse(opts).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.AuthTokenResponse);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:
@@ -322,15 +368,13 @@
           /*
           var opts = {};
 
-          instance.refreshToken(opts, function(error, data, response) {
-            if (error) {
-              done(error);
-              return;
-            }
+          instance.refreshToken(opts).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.AuthTokenResponse);
 
             done();
+          }, function(error) {
+            done(error);
           });
           */
           // TODO: uncomment and complete method invocation above, then delete this line and the next:

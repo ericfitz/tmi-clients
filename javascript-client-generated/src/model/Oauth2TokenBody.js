@@ -24,12 +24,10 @@ export default class Oauth2TokenBody {
    * Constructs a new <code>Oauth2TokenBody</code>.
    * @alias module:model/Oauth2TokenBody
    * @class
-   * @param code {String} Authorization code received from OAuth provider
-   * @param redirectUri {String} Redirect URI used in the authorization request (must match exactly)
+   * @param grantType {module:model/Oauth2TokenBody.GrantTypeEnum} OAuth 2.0 grant type (RFC 6749)
    */
-  constructor(code, redirectUri) {
-    this.code = code;
-    this.redirectUri = redirectUri;
+  constructor(grantType) {
+    this.grantType = grantType;
   }
 
   /**
@@ -42,19 +40,59 @@ export default class Oauth2TokenBody {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new Oauth2TokenBody();
+      if (data.hasOwnProperty('grant_type'))
+        obj.grantType = ApiClient.convertToType(data['grant_type'], 'String');
       if (data.hasOwnProperty('code'))
         obj.code = ApiClient.convertToType(data['code'], 'String');
       if (data.hasOwnProperty('state'))
         obj.state = ApiClient.convertToType(data['state'], 'String');
       if (data.hasOwnProperty('redirect_uri'))
         obj.redirectUri = ApiClient.convertToType(data['redirect_uri'], 'String');
+      if (data.hasOwnProperty('code_verifier'))
+        obj.codeVerifier = ApiClient.convertToType(data['code_verifier'], 'String');
+      if (data.hasOwnProperty('client_id'))
+        obj.clientId = ApiClient.convertToType(data['client_id'], 'String');
+      if (data.hasOwnProperty('client_secret'))
+        obj.clientSecret = ApiClient.convertToType(data['client_secret'], 'String');
+      if (data.hasOwnProperty('refresh_token'))
+        obj.refreshToken = ApiClient.convertToType(data['refresh_token'], 'String');
     }
     return obj;
   }
 }
 
 /**
- * Authorization code received from OAuth provider
+ * Allowed values for the <code>grantType</code> property.
+ * @enum {String}
+ * @readonly
+ */
+Oauth2TokenBody.GrantTypeEnum = {
+  /**
+   * value: "authorization_code"
+   * @const
+   */
+  authorizationCode: "authorization_code",
+
+  /**
+   * value: "client_credentials"
+   * @const
+   */
+  clientCredentials: "client_credentials",
+
+  /**
+   * value: "refresh_token"
+   * @const
+   */
+  refreshToken: "refresh_token"
+};
+/**
+ * OAuth 2.0 grant type (RFC 6749)
+ * @member {module:model/Oauth2TokenBody.GrantTypeEnum} grantType
+ */
+Oauth2TokenBody.prototype.grantType = undefined;
+
+/**
+ * Authorization code received from OAuth provider. Per RFC 6749, can contain any visible ASCII characters (VSCHAR: 0x20-0x7E).
  * @member {String} code
  */
 Oauth2TokenBody.prototype.code = undefined;
@@ -70,4 +108,28 @@ Oauth2TokenBody.prototype.state = undefined;
  * @member {String} redirectUri
  */
 Oauth2TokenBody.prototype.redirectUri = undefined;
+
+/**
+ * PKCE code verifier (RFC 7636) - High-entropy cryptographic random string used to mitigate authorization code interception attacks. Must be 43-128 characters using [A-Za-z0-9-._~] characters.
+ * @member {String} codeVerifier
+ */
+Oauth2TokenBody.prototype.codeVerifier = undefined;
+
+/**
+ * Client identifier (required for client_credentials grant)
+ * @member {String} clientId
+ */
+Oauth2TokenBody.prototype.clientId = undefined;
+
+/**
+ * Client secret (required for client_credentials grant)
+ * @member {String} clientSecret
+ */
+Oauth2TokenBody.prototype.clientSecret = undefined;
+
+/**
+ * Refresh token (required for refresh_token grant)
+ * @member {String} refreshToken
+ */
+Oauth2TokenBody.prototype.refreshToken = undefined;
 

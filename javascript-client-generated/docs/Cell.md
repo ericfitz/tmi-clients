@@ -9,4 +9,3 @@ Name | Type | Description | Notes
 **visible** | **Boolean** | Whether the cell is visible in the diagram | [optional] [default to true]
 **data** | [**CellData**](CellData.md) |  | [optional] 
 **markup** | [**[MarkupElement]**](MarkupElement.md) | SVG/HTML markup definition for custom shape rendering in X6 | [optional] 
-**tools** | [**[CellTool]**](CellTool.md) | Interactive tools attached to the cell for user interaction | [optional] 

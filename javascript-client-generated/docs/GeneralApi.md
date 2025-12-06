@@ -1,6 +1,6 @@
 # TmiJsClient.GeneralApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,13 +19,12 @@ Returns service, API, and operator information without authentication
 import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.GeneralApi();
-apiInstance.getApiInfo((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getApiInfo().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

@@ -27,18 +27,10 @@ export default class ThreatBase {
    * @alias module:model/ThreatBase
    * @class
    * @param name {String} Name of the threat
-   * @param severity {module:model/ThreatBase.SeverityEnum} Severity level of the threat
-   * @param priority {String} Priority level for addressing the threat
-   * @param mitigated {Boolean} Whether the threat has been mitigated
-   * @param status {String} Current status of the threat
    * @param threatType {String} Type or category of the threat
    */
-  constructor(name, severity, priority, mitigated, status, threatType) {
+  constructor(name, threatType) {
     this.name = name;
-    this.severity = severity;
-    this.priority = priority;
-    this.mitigated = mitigated;
-    this.status = status;
     this.threatType = threatType;
   }
 
@@ -116,50 +108,8 @@ ThreatBase.prototype.diagramId = undefined;
 ThreatBase.prototype.cellId = undefined;
 
 /**
- * Allowed values for the <code>severity</code> property.
- * @enum {String}
- * @readonly
- */
-ThreatBase.SeverityEnum = {
-  /**
-   * value: "Unknown"
-   * @const
-   */
-  unknown: "Unknown",
-
-  /**
-   * value: "None"
-   * @const
-   */
-  none: "None",
-
-  /**
-   * value: "Low"
-   * @const
-   */
-  low: "Low",
-
-  /**
-   * value: "Medium"
-   * @const
-   */
-  medium: "Medium",
-
-  /**
-   * value: "High"
-   * @const
-   */
-  high: "High",
-
-  /**
-   * value: "Critical"
-   * @const
-   */
-  critical: "Critical"
-};
-/**
  * Severity level of the threat
- * @member {module:model/ThreatBase.SeverityEnum} severity
+ * @member {String} severity
  */
 ThreatBase.prototype.severity = undefined;
 

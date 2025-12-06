@@ -13,25 +13,26 @@
  *
  */
 import ApiClient from '../ApiClient';
+import Principal from './Principal';
 
 /**
  * The Authorization model module.
  * @module model/Authorization
  * @version 1.0.0
  */
-export default class Authorization {
+export default class Authorization extends Principal {
   /**
    * Constructs a new <code>Authorization</code>.
-   * Authorization entry defining access permissions for users or groups
    * @alias module:model/Authorization
    * @class
-   * @param subject {String} Email address or user id for users, group name for groups
-   * @param subjectType {module:model/Authorization.SubjectTypeEnum} Type of authorization subject: user (individual) or group
-   * @param role {module:model/Authorization.RoleEnum} Role: reader (view), writer (edit), owner (full control)
+   * @extends module:model/Principal
+   * @param role {} Role: reader (view), writer (edit), owner (full control)
+   * @param principalType {} Type of principal: user (individual) or group
+   * @param provider {} Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"test\"). Use \"*\" for provider-independent groups.
+   * @param providerId {} Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.
    */
-  constructor(subject, subjectType, role) {
-    this.subject = subject;
-    this.subjectType = subjectType;
+  constructor(role, principalType, provider, providerId) {
+    super(principalType, provider, providerId);
     this.role = role;
   }
 
@@ -45,54 +46,13 @@ export default class Authorization {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new Authorization();
-      if (data.hasOwnProperty('subject'))
-        obj.subject = ApiClient.convertToType(data['subject'], 'String');
-      if (data.hasOwnProperty('subject_type'))
-        obj.subjectType = ApiClient.convertToType(data['subject_type'], 'String');
-      if (data.hasOwnProperty('idp'))
-        obj.idp = ApiClient.convertToType(data['idp'], 'String');
+      Principal.constructFromObject(data, obj);
       if (data.hasOwnProperty('role'))
         obj.role = ApiClient.convertToType(data['role'], 'String');
     }
     return obj;
   }
 }
-
-/**
- * Email address or user id for users, group name for groups
- * @member {String} subject
- */
-Authorization.prototype.subject = undefined;
-
-/**
- * Allowed values for the <code>subjectType</code> property.
- * @enum {String}
- * @readonly
- */
-Authorization.SubjectTypeEnum = {
-  /**
-   * value: "user"
-   * @const
-   */
-  user: "user",
-
-  /**
-   * value: "group"
-   * @const
-   */
-  group: "group"
-};
-/**
- * Type of authorization subject: user (individual) or group
- * @member {module:model/Authorization.SubjectTypeEnum} subjectType
- */
-Authorization.prototype.subjectType = undefined;
-
-/**
- * Identity provider (required for groups, optional for users)
- * @member {String} idp
- */
-Authorization.prototype.idp = undefined;
 
 /**
  * Allowed values for the <code>role</code> property.

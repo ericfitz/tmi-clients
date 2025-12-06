@@ -1,6 +1,6 @@
 # TmiJsClient.ThreatsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="bulkDeleteThreatModelThreats"></a>
 # **bulkDeleteThreatModelThreats**
-> InlineResponse2007 bulkDeleteThreatModelThreats(threatModelId, threatIds)
+> InlineResponse2008 bulkDeleteThreatModelThreats(threatModelId, threatIds)
 
 Bulk DELETE threats
 
@@ -22,28 +22,27 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatsApi();
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatIds = ["threatIds_example"]; // [String] | Comma-separated list of threat IDs to delete (UUID format)
 
-apiInstance.bulkDeleteThreatModelThreats(threatModelId, threatIds, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkDeleteThreatModelThreats(threatModelId, threatIds).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatIds** | [**[String]**](String.md)| Comma-separated list of threat IDs to delete (UUID format) | 
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -70,15 +69,14 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 let apiInstance = new TmiJsClient.ThreatsApi();
 let body = new TmiJsClient.ThreatsBulkBody(); // ThreatsBulkBody | 
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Unique identifier of the threat model (UUID)
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkPatchThreatModelThreats(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkPatchThreatModelThreats(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -86,7 +84,7 @@ apiInstance.bulkPatchThreatModelThreats(body, threatModelId, (error, data, respo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**ThreatsBulkBody**](ThreatsBulkBody.md)|  | 
- **threatModelId** | [**String**](.md)| Unique identifier of the threat model (UUID) | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
 

@@ -15,7 +15,6 @@
 import ApiClient from '../ApiClient';
 import Cell from './Cell';
 import CellData from './CellData';
-import CellTool from './CellTool';
 import MarkupElement from './MarkupElement';
 import NodePosition from './NodePosition';
 import NodeSize from './NodeSize';

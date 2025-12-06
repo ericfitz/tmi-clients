@@ -15,6 +15,7 @@
 import ApiClient from '../ApiClient';
 import Authorization from './Authorization';
 import Metadata from './Metadata';
+import User from './User';
 
 /**
  * The ThreatModelBase model module.
@@ -28,7 +29,7 @@ export default class ThreatModelBase {
    * @alias module:model/ThreatModelBase
    * @class
    * @param name {String} Name of the threat model
-   * @param owner {String} Email address of the current owner
+   * @param owner {module:model/User} 
    * @param threatModelFramework {String} The framework used for this threat model
    * @param authorization {Array.<module:model/Authorization>} List of users and their roles for this threat model
    */
@@ -54,7 +55,7 @@ export default class ThreatModelBase {
       if (data.hasOwnProperty('description'))
         obj.description = ApiClient.convertToType(data['description'], 'String');
       if (data.hasOwnProperty('owner'))
-        obj.owner = ApiClient.convertToType(data['owner'], 'String');
+        obj.owner = User.constructFromObject(data['owner']);
       if (data.hasOwnProperty('threat_model_framework'))
         obj.threatModelFramework = ApiClient.convertToType(data['threat_model_framework'], 'String');
       if (data.hasOwnProperty('authorization'))
@@ -64,7 +65,7 @@ export default class ThreatModelBase {
       if (data.hasOwnProperty('issue_uri'))
         obj.issueUri = ApiClient.convertToType(data['issue_uri'], 'String');
       if (data.hasOwnProperty('status'))
-        obj.status = ApiClient.convertToType(data['status'], ['String']);
+        obj.status = ApiClient.convertToType(data['status'], 'String');
     }
     return obj;
   }
@@ -83,8 +84,7 @@ ThreatModelBase.prototype.name = undefined;
 ThreatModelBase.prototype.description = undefined;
 
 /**
- * Email address of the current owner
- * @member {String} owner
+ * @member {module:model/User} owner
  */
 ThreatModelBase.prototype.owner = undefined;
 
@@ -114,7 +114,7 @@ ThreatModelBase.prototype.issueUri = undefined;
 
 /**
  * Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"
- * @member {Array.<String>} status
+ * @member {String} status
  */
 ThreatModelBase.prototype.status = undefined;
 

@@ -15,10 +15,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD.
-    define(['chai', '../../src/index'], factory);
+    define(['expect.js', '../../src/index'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    factory(require('chai').expect, require('../../src/index'));
+    factory(require('expect.js'), require('../../src/index'));
   } else {
     // Browser globals (root is window)
     factory(root.expect, root.TmiJsClient);
@@ -36,13 +36,19 @@
 
       it('should create an instance of InlineResponse2008', function() {
         // TODO: update the code to test InlineResponse2008
-        expect(instance).to.be.an.instanceOf(TmiJsClient.InlineResponse2008);
+        expect(instance).to.be.a(TmiJsClient.InlineResponse2008);
       });
 
-      it('should have the property message (base name: "message")', function() {
-        // TODO: update the code to test the property message
-        expect(instance).to.have.property('message');
-        // expect(instance.message).to.be(expectedValueLiteral);
+      it('should have the property deletedCount (base name: "deleted_count")', function() {
+        // TODO: update the code to test the property deletedCount
+        expect(instance).to.have.property('deletedCount');
+        // expect(instance.deletedCount).to.be(expectedValueLiteral);
+      });
+
+      it('should have the property deletedIds (base name: "deleted_ids")', function() {
+        // TODO: update the code to test the property deletedIds
+        expect(instance).to.have.property('deletedIds');
+        // expect(instance.deletedIds).to.be(expectedValueLiteral);
       });
 
     });

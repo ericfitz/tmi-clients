@@ -96,7 +96,7 @@ export default class TMListItem {
       if (data.hasOwnProperty('note_count'))
         obj.noteCount = ApiClient.convertToType(data['note_count'], 'Number');
       if (data.hasOwnProperty('status'))
-        obj.status = ApiClient.convertToType(data['status'], ['String']);
+        obj.status = ApiClient.convertToType(data['status'], 'String');
       if (data.hasOwnProperty('status_updated'))
         obj.statusUpdated = ApiClient.convertToType(data['status_updated'], 'Date');
     }
@@ -196,7 +196,7 @@ TMListItem.prototype.noteCount = undefined;
 
 /**
  * Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"
- * @member {Array.<String>} status
+ * @member {String} status
  */
 TMListItem.prototype.status = undefined;
 

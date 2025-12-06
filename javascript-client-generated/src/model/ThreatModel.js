@@ -22,6 +22,7 @@ import Note from './Note';
 import Repository from './Repository';
 import Threat from './Threat';
 import ThreatModelBase from './ThreatModelBase';
+import User from './User';
 
 /**
  * The ThreatModel model module.
@@ -35,7 +36,7 @@ export default class ThreatModel extends ThreatModelBase {
    * @class
    * @extends module:model/ThreatModelBase
    * @param name {} Name of the threat model
-   * @param owner {} Email address of the current owner
+   * @param owner {} 
    * @param threatModelFramework {} The framework used for this threat model
    * @param authorization {} List of users and their roles for this threat model
    */
@@ -61,7 +62,7 @@ export default class ThreatModel extends ThreatModelBase {
       if (data.hasOwnProperty('modified_at'))
         obj.modifiedAt = ApiClient.convertToType(data['modified_at'], 'Date');
       if (data.hasOwnProperty('created_by'))
-        obj.createdBy = ApiClient.convertToType(data['created_by'], 'String');
+        obj.createdBy = User.constructFromObject(data['created_by']);
       if (data.hasOwnProperty('documents'))
         obj.documents = ApiClient.convertToType(data['documents'], [Document]);
       if (data.hasOwnProperty('repositories'))
@@ -100,8 +101,7 @@ ThreatModel.prototype.createdAt = undefined;
 ThreatModel.prototype.modifiedAt = undefined;
 
 /**
- * User name, email or identifier of the creator of the threat model
- * @member {String} createdBy
+ * @member {module:model/User} createdBy
  */
 ThreatModel.prototype.createdBy = undefined;
 

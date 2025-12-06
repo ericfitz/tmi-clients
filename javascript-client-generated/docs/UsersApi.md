@@ -1,6 +1,6 @@
 # TmiJsClient.UsersApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,13 +24,12 @@ let apiInstance = new TmiJsClient.UsersApi();
 let opts = { 
   'challenge': "challenge_example" // String | Challenge string from first request (step 2 only). Must match exactly.
 };
-apiInstance.deleteUserAccount(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteUserAccount(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

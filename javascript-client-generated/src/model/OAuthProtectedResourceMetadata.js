@@ -87,8 +87,32 @@ OAuthProtectedResourceMetadata.prototype.authorizationServers = undefined;
 OAuthProtectedResourceMetadata.prototype.jwksUrl = undefined;
 
 /**
+ * Allowed values for the <code>bearerMethodsSupported</code> property.
+ * @enum {String}
+ * @readonly
+ */
+OAuthProtectedResourceMetadata.BearerMethodsSupportedEnum = {
+  /**
+   * value: "header"
+   * @const
+   */
+  header: "header",
+
+  /**
+   * value: "body"
+   * @const
+   */
+  body: "body",
+
+  /**
+   * value: "query"
+   * @const
+   */
+  query: "query"
+};
+/**
  * Supported token presentation methods for bearer tokens
- * @member {Array.<String>} bearerMethodsSupported
+ * @member {Array.<module:model/OAuthProtectedResourceMetadata.BearerMethodsSupportedEnum>} bearerMethodsSupported
  */
 OAuthProtectedResourceMetadata.prototype.bearerMethodsSupported = undefined;
 
