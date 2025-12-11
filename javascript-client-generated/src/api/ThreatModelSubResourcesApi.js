@@ -4550,7 +4550,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} opts.sort Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (default to <.>)
      * @param {String} opts.name Filter by threat name (partial match)
      * @param {String} opts.description Filter by threat description (partial match)
-     * @param {String} opts.threatType Filter by threat type (exact match)
+     * @param {Array.<String>} opts.threatType Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing
      * @param {module:model/String} opts.severity Filter by severity level (exact match)
      * @param {String} opts.priority Filter by priority (exact match)
      * @param {String} opts.status Filter by status (exact match)
@@ -4579,7 +4579,7 @@ export default class ThreatModelSubResourcesApi {
         'threat_model_id': threatModelId
       };
       let queryParams = {
-        'limit': opts['limit'],'offset': opts['offset'],'sort': opts['sort'],'name': opts['name'],'description': opts['description'],'threat_type': opts['threatType'],'severity': opts['severity'],'priority': opts['priority'],'status': opts['status'],'diagram_id': opts['diagramId'],'cell_id': opts['cellId'],'score_gt': opts['scoreGt'],'score_lt': opts['scoreLt'],'score_eq': opts['scoreEq'],'score_ge': opts['scoreGe'],'score_le': opts['scoreLe'],'created_after': opts['createdAfter'],'created_before': opts['createdBefore'],'modified_after': opts['modifiedAfter'],'modified_before': opts['modifiedBefore']
+        'limit': opts['limit'],'offset': opts['offset'],'sort': opts['sort'],'name': opts['name'],'description': opts['description'],'threat_type': this.apiClient.buildCollectionParam(opts['threatType'], 'multi'),'severity': opts['severity'],'priority': opts['priority'],'status': opts['status'],'diagram_id': opts['diagramId'],'cell_id': opts['cellId'],'score_gt': opts['scoreGt'],'score_lt': opts['scoreLt'],'score_eq': opts['scoreEq'],'score_ge': opts['scoreGe'],'score_le': opts['scoreLe'],'created_after': opts['createdAfter'],'created_before': opts['createdBefore'],'modified_after': opts['modifiedAfter'],'modified_before': opts['modifiedBefore']
       };
       let headerParams = {
         
@@ -4610,7 +4610,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} opts.sort Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (default to <.>)
      * @param {String} opts.name Filter by threat name (partial match)
      * @param {String} opts.description Filter by threat description (partial match)
-     * @param {String} opts.threatType Filter by threat type (exact match)
+     * @param {Array.<String>} opts.threatType Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing
      * @param {module:model/String} opts.severity Filter by severity level (exact match)
      * @param {String} opts.priority Filter by priority (exact match)
      * @param {String} opts.status Filter by status (exact match)

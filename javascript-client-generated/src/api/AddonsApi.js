@@ -19,6 +19,8 @@ import Error from '../model/Error';
 import InvocationResponse from '../model/InvocationResponse';
 import InvokeAddonRequest from '../model/InvokeAddonRequest';
 import InvokeAddonResponse from '../model/InvokeAddonResponse';
+import ListAddonsResponse from '../model/ListAddonsResponse';
+import ListInvocationsResponse from '../model/ListInvocationsResponse';
 import UpdateInvocationStatusRequest from '../model/UpdateInvocationStatusRequest';
 import UpdateInvocationStatusResponse from '../model/UpdateInvocationStatusResponse';
 
@@ -321,7 +323,7 @@ export default class AddonsApi {
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {String} opts.threatModelId Filter by threat model
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListAddonsResponse} and HTTP response
      */
     listAddonsWithHttpInfo(opts) {
       opts = opts || {};
@@ -343,7 +345,7 @@ export default class AddonsApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = ListAddonsResponse;
 
       return this.apiClient.callApi(
         '/addons', 'GET',
@@ -359,7 +361,7 @@ export default class AddonsApi {
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {String} opts.threatModelId Filter by threat model
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddonsResponse}
      */
     listAddons(opts) {
       return this.listAddonsWithHttpInfo(opts)
@@ -377,7 +379,7 @@ export default class AddonsApi {
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {module:model/String} opts.status Filter by status
      * @param {String} opts.addonId Filter by add-on
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListInvocationsResponse} and HTTP response
      */
     listInvocationsWithHttpInfo(opts) {
       opts = opts || {};
@@ -399,7 +401,7 @@ export default class AddonsApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = ListInvocationsResponse;
 
       return this.apiClient.callApi(
         '/invocations', 'GET',
@@ -416,7 +418,7 @@ export default class AddonsApi {
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {module:model/String} opts.status Filter by status
      * @param {String} opts.addonId Filter by add-on
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInvocationsResponse}
      */
     listInvocations(opts) {
       return this.listInvocationsWithHttpInfo(opts)

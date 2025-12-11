@@ -84,6 +84,7 @@ class Edge(Cell):
             self.connector = connector
         if default_label is not None:
             self.default_label = default_label
+        kwargs['shape'] = shape  # PATCH: Pass shape to parent to prevent overwrite
         Cell.__init__(self, *args, **kwargs)
 
     @property

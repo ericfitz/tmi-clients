@@ -27,7 +27,7 @@ export default class ThreatBase {
    * @alias module:model/ThreatBase
    * @class
    * @param name {String} Name of the threat
-   * @param threatType {String} Type or category of the threat
+   * @param threatType {Array.<String>} Types or categories of the threat. Supports multiple classifications within the same framework (e.g., ['Spoofing', 'Tampering']). Empty array indicates no types assigned.
    */
   constructor(name, threatType) {
     this.name = name;
@@ -65,7 +65,7 @@ export default class ThreatBase {
       if (data.hasOwnProperty('status'))
         obj.status = ApiClient.convertToType(data['status'], 'String');
       if (data.hasOwnProperty('threat_type'))
-        obj.threatType = ApiClient.convertToType(data['threat_type'], 'String');
+        obj.threatType = ApiClient.convertToType(data['threat_type'], ['String']);
       if (data.hasOwnProperty('metadata'))
         obj.metadata = ApiClient.convertToType(data['metadata'], [Metadata]);
       if (data.hasOwnProperty('issue_uri'))
@@ -138,8 +138,8 @@ ThreatBase.prototype.mitigated = undefined;
 ThreatBase.prototype.status = undefined;
 
 /**
- * Type or category of the threat
- * @member {String} threatType
+ * Types or categories of the threat. Supports multiple classifications within the same framework (e.g., ['Spoofing', 'Tampering']). Empty array indicates no types assigned.
+ * @member {Array.<String>} threatType
  */
 ThreatBase.prototype.threatType = undefined;
 

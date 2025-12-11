@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 <a name="listAddons"></a>
 # **listAddons**
-> Object listAddons(opts)
+> ListAddonsResponse listAddons(opts)
 
 List add-ons
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ListAddonsResponse**](ListAddonsResponse.md)
 
 ### Authorization
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 <a name="listInvocations"></a>
 # **listInvocations**
-> Object listInvocations(opts)
+> ListInvocationsResponse listInvocations(opts)
 
 List invocations
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ListInvocationsResponse**](ListInvocationsResponse.md)
 
 ### Authorization
 

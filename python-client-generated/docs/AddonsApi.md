@@ -260,7 +260,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_addons**
-> object list_addons(limit=limit, offset=offset, threat_model_id=threat_model_id)
+> ListAddonsResponse list_addons(limit=limit, offset=offset, threat_model_id=threat_model_id)
 
 List add-ons
 
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ListAddonsResponse**](ListAddonsResponse.md)
 
 ### Authorization
 
@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_invocations**
-> object list_invocations(limit=limit, offset=offset, status=status, addon_id=addon_id)
+> ListInvocationsResponse list_invocations(limit=limit, offset=offset, status=status, addon_id=addon_id)
 
 List invocations
 
@@ -354,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ListInvocationsResponse**](ListInvocationsResponse.md)
 
 ### Authorization
 

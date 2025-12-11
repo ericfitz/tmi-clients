@@ -3547,7 +3547,7 @@ let opts = {
   'sort': "created_at:desc", // String | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc)
   'name': "name_example", // String | Filter by threat name (partial match)
   'description': "description_example", // String | Filter by threat description (partial match)
-  'threatType': "threatType_example", // String | Filter by threat type (exact match)
+  'threatType': ["threatType_example"], // [String] | Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing
   'severity': "severity_example", // String | Filter by severity level (exact match)
   'priority': "priority_example", // String | Filter by priority (exact match)
   'status': "status_example", // String | Filter by status (exact match)
@@ -3581,7 +3581,7 @@ Name | Type | Description  | Notes
  **sort** | **String**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to created_at:desc]
  **name** | **String**| Filter by threat name (partial match) | [optional] 
  **description** | **String**| Filter by threat description (partial match) | [optional] 
- **threatType** | **String**| Filter by threat type (exact match) | [optional] 
+ **threatType** | [**[String]**](String.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
  **severity** | **String**| Filter by severity level (exact match) | [optional] 
  **priority** | **String**| Filter by priority (exact match) | [optional] 
  **status** | **String**| Filter by status (exact match) | [optional] 

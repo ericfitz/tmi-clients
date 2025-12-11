@@ -149,6 +149,80 @@ else
     echo -e "${YELLOW}  ⚠ DfdDiagramInput file not found - may need manual patch${NC}"
 fi
 
+# Patch Edge
+EDGE_FILE="$CLIENT_DIR/tmi_client/models/edge.py"
+if [ -f "$EDGE_FILE" ]; then
+    echo "  Patching Edge constructor..."
+    sed -i.bak '/def __init__(self.*shape/,/Cell.__init__/ {
+        /Cell.__init__/i\
+        kwargs['"'"'shape'"'"'] = shape  # PATCH: Pass shape to parent to prevent overwrite
+    }' "$EDGE_FILE"
+
+    rm -f "${EDGE_FILE}.bak"
+    echo -e "${GREEN}  ✓ Edge patched${NC}"
+else
+    echo -e "${YELLOW}  ⚠ Edge file not found - may need manual patch${NC}"
+fi
+
+# Patch Node
+NODE_FILE="$CLIENT_DIR/tmi_client/models/node.py"
+if [ -f "$NODE_FILE" ]; then
+    echo "  Patching Node constructor..."
+    sed -i.bak '/def __init__(self.*shape/,/Cell.__init__/ {
+        /Cell.__init__/i\
+        kwargs['"'"'shape'"'"'] = shape  # PATCH: Pass shape to parent to prevent overwrite
+    }' "$NODE_FILE"
+
+    rm -f "${NODE_FILE}.bak"
+    echo -e "${GREEN}  ✓ Node patched${NC}"
+else
+    echo -e "${YELLOW}  ⚠ Node file not found - may need manual patch${NC}"
+fi
+
+# Patch Configuration.auth_settings()
+CONFIGURATION_FILE="$CLIENT_DIR/tmi_client/configuration.py"
+if [ -f "$CONFIGURATION_FILE" ]; then
+    echo "  Patching Configuration.auth_settings()..."
+    # Replace the empty auth_settings method with the proper implementation
+    python3 << 'PYTHON_PATCH'
+import re
+
+with open("tmi_client/configuration.py", "r") as f:
+    content = f.read()
+
+# Pattern to match the empty auth_settings method
+old_pattern = r'    def auth_settings\(self\):\n        """Gets Auth Settings dict for api client\.\n\n        :return: The Auth Settings information dict\.\n        """\n        return \{\n        \}'
+
+# New implementation
+new_impl = '''    def auth_settings(self):
+        """Gets Auth Settings dict for api client.
+
+        :return: The Auth Settings information dict.
+        """
+        auth = {}
+        if 'bearerAuth' in self.api_key:
+            auth['bearerAuth'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': self.get_api_key_with_prefix('bearerAuth')
+            }
+        return auth'''
+
+# Replace the pattern
+content = re.sub(old_pattern, new_impl, content)
+
+with open("tmi_client/configuration.py", "w") as f:
+    f.write(content)
+
+print("auth_settings patched")
+PYTHON_PATCH
+
+    echo -e "${GREEN}  ✓ Configuration.auth_settings() patched${NC}"
+else
+    echo -e "${YELLOW}  ⚠ Configuration file not found - may need manual patch${NC}"
+fi
+
 echo -e "${GREEN}✓ Constructor patches applied${NC}"
 echo ""
 

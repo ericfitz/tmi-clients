@@ -81,7 +81,7 @@ No authorization required
 
 <a name="createClientCredential"></a>
 # **createClientCredential**
-> Object createClientCredential(body)
+> ClientCredentialResponse createClientCredential(body)
 
 Create client credential
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ClientCredentialResponse**](ClientCredentialResponse.md)
 
 ### Authorization
 
@@ -602,7 +602,7 @@ No authorization required
 
 <a name="listClientCredentials"></a>
 # **listClientCredentials**
-> Object listClientCredentials()
+> [ClientCredentialInfo] listClientCredentials()
 
 List client credentials
 
@@ -628,7 +628,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**[ClientCredentialInfo]**](ClientCredentialInfo.md)
 
 ### Authorization
 

@@ -170,7 +170,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param ClientcredentialsBody body: (required)
-        :return: object
+        :return: ClientCredentialResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -192,7 +192,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param ClientcredentialsBody body: (required)
-        :return: object
+        :return: ClientCredentialResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -250,7 +250,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='object',  # noqa: E501
+            response_type='ClientCredentialResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -1486,7 +1486,7 @@ class AuthenticationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: object
+        :return: list[ClientCredentialInfo]
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1507,7 +1507,7 @@ class AuthenticationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: object
+        :return: list[ClientCredentialInfo]
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1555,7 +1555,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='object',  # noqa: E501
+            response_type='list[ClientCredentialInfo]',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

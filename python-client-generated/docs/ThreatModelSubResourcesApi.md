@@ -3896,7 +3896,7 @@ offset = 0 # int | Number of results to skip (optional) (default to 0)
 sort = 'created_at:desc' # str | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (optional) (default to created_at:desc)
 name = 'name_example' # str | Filter by threat name (partial match) (optional)
 description = 'description_example' # str | Filter by threat description (partial match) (optional)
-threat_type = 'threat_type_example' # str | Filter by threat type (exact match) (optional)
+threat_type = ['threat_type_example'] # list[str] | Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing (optional)
 severity = 'severity_example' # str | Filter by severity level (exact match) (optional)
 priority = 'priority_example' # str | Filter by priority (exact match) (optional)
 status = 'status_example' # str | Filter by status (exact match) (optional)
@@ -3930,7 +3930,7 @@ Name | Type | Description  | Notes
  **sort** | **str**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to created_at:desc]
  **name** | **str**| Filter by threat name (partial match) | [optional] 
  **description** | **str**| Filter by threat description (partial match) | [optional] 
- **threat_type** | **str**| Filter by threat type (exact match) | [optional] 
+ **threat_type** | [**list[str]**](str.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
  **severity** | **str**| Filter by severity level (exact match) | [optional] 
  **priority** | **str**| Filter by priority (exact match) | [optional] 
  **status** | **str**| Filter by status (exact match) | [optional] 

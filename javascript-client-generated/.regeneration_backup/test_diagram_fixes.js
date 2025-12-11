@@ -44,14 +44,14 @@ function warn(name, message) {
 
 // Test 1: Verify DfdDiagram class exists and has correct structure
 test('DfdDiagram class exists', () => {
-  const DfdDiagram = require('./src/model/DfdDiagram');
-  assert(DfdDiagram, 'DfdDiagram class should exist');
-  assert(typeof DfdDiagram === 'function', 'DfdDiagram should be a constructor');
+  const DfdDiagram = require('./dist/model/DfdDiagram');
+  assert(DfdDiagram.default, 'DfdDiagram class should exist');
+  assert(typeof DfdDiagram.default === 'function', 'DfdDiagram should be a constructor');
 });
 
 // Test 2: Verify DfdDiagram constructor signature
 test('DfdDiagram constructor has correct parameters', () => {
-  const DfdDiagram = require('./src/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram').default;
   const constructor = DfdDiagram.toString();
 
   // Check that constructor accepts type parameter
@@ -69,7 +69,7 @@ test('DfdDiagram constructor has correct parameters', () => {
 
 // Test 3: Verify DfdDiagram type preservation
 test('DfdDiagram preserves type parameter', () => {
-  const DfdDiagram = require('./src/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram');
 
   const cells = [
     { id: 'node1', shape: 'process', x: 100, y: 100 }
@@ -97,7 +97,7 @@ test('DfdDiagram preserves type parameter', () => {
 
 // Test 4: Check if DfdDiagramInput exists (should after regeneration)
 try {
-  const DfdDiagramInput = require('./src/model/DfdDiagramInput');
+  const DfdDiagramInput = require('./dist/model/DfdDiagramInput');
 
   test('DfdDiagramInput class exists', () => {
     assert(DfdDiagramInput, 'DfdDiagramInput class should exist');
@@ -140,7 +140,7 @@ try {
 
 // Test 5: Check if BaseDiagramInput exists (should after regeneration)
 try {
-  const BaseDiagramInput = require('./src/model/BaseDiagramInput');
+  const BaseDiagramInput = require('./dist/model/BaseDiagramInput');
 
   test('BaseDiagramInput class exists', () => {
     assert(BaseDiagramInput, 'BaseDiagramInput class should exist');
@@ -204,7 +204,7 @@ removedClasses.forEach(className => {
 
 // Test 8: Verify inline cell objects work
 test('Inline cell objects work correctly', () => {
-  const DfdDiagram = require('./src/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram');
 
   // Create a diagram with inline cell attributes
   const cells = [
@@ -261,7 +261,7 @@ test('Inline cell objects work correctly', () => {
 
 // Test 9: Check for WebhooksApi (if regenerated)
 try {
-  const GeneralApi = require('./src/tmi-client/GeneralApi');
+  const GeneralApi = require('./dist/tmi-client/GeneralApi');
 
   test('GeneralApi exists (for webhooks)', () => {
     assert(GeneralApi, 'GeneralApi should exist');
@@ -299,7 +299,7 @@ try {
 
 // Test 10: Verify TypeEnum for DfdDiagram
 test('DfdDiagram.TypeEnum exists and contains DFD-1.0.0', () => {
-  const DfdDiagram = require('./src/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram');
 
   assert(DfdDiagram.TypeEnum, 'DfdDiagram should have TypeEnum');
   assert(
@@ -310,14 +310,14 @@ test('DfdDiagram.TypeEnum exists and contains DFD-1.0.0', () => {
 
 // Test 11: Verify BaseDiagram exists
 test('BaseDiagram class exists', () => {
-  const BaseDiagram = require('./src/model/BaseDiagram');
+  const BaseDiagram = require('./dist/model/BaseDiagram');
   assert(BaseDiagram, 'BaseDiagram class should exist');
   assert(typeof BaseDiagram === 'function', 'BaseDiagram should be a constructor');
 });
 
 // Test 12: Verify CreateDiagramRequest exists
 test('CreateDiagramRequest class exists', () => {
-  const CreateDiagramRequest = require('./src/model/CreateDiagramRequest');
+  const CreateDiagramRequest = require('./dist/model/CreateDiagramRequest');
   assert(CreateDiagramRequest, 'CreateDiagramRequest should exist');
 
   const request = new CreateDiagramRequest('Test Diagram', 'DFD-1.0.0');
@@ -327,7 +327,7 @@ test('CreateDiagramRequest class exists', () => {
 
 // Test 13: Verify ThreatModelSubResourcesApi exists
 test('ThreatModelSubResourcesApi exists', () => {
-  const ThreatModelSubResourcesApi = require('./src/tmi-client/ThreatModelSubResourcesApi');
+  const ThreatModelSubResourcesApi = require('./dist/tmi-client/ThreatModelSubResourcesApi');
   assert(ThreatModelSubResourcesApi, 'ThreatModelSubResourcesApi should exist');
 
   const api = new ThreatModelSubResourcesApi();

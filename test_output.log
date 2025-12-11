@@ -1,5 +1,5 @@
 ============================= test session starts ==============================
-platform darwin -- Python 3.13.1, pytest-9.0.1, pluggy-1.6.0 -- /Users/efitz/.cache/uv/builds-v0/.tmpoQ1rqb/bin/python3
+platform darwin -- Python 3.13.1, pytest-9.0.1, pluggy-1.6.0 -- /Users/efitz/.cache/uv/builds-v0/.tmpoSGLDR/bin/python3
 cachedir: .pytest_cache
 rootdir: /Users/efitz/Projects/tmi-clients/python-client-generated
 configfile: pyproject.toml
@@ -328,4 +328,4 @@ test/test_webhooks_api.py::TestWebhooksApi::test_list_webhook_subscriptions PASS
 test/test_webhooks_api.py::TestWebhooksApi::test_test_webhook_subscription PASSED [ 99%]
 test/test_webhooks_user_id_body.py::TestWebhooksUserIdBody::testWebhooksUserIdBody PASSED [100%]
 
-============================= 322 passed in 0.49s ==============================
+============================= 322 passed in 0.46s ==============================

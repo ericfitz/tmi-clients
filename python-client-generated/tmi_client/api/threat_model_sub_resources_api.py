@@ -7939,7 +7939,7 @@ class ThreatModelSubResourcesApi(object):
         :param str sort: Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc)
         :param str name: Filter by threat name (partial match)
         :param str description: Filter by threat description (partial match)
-        :param str threat_type: Filter by threat type (exact match)
+        :param list[str] threat_type: Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing
         :param str severity: Filter by severity level (exact match)
         :param str priority: Filter by priority (exact match)
         :param str status: Filter by status (exact match)
@@ -7981,7 +7981,7 @@ class ThreatModelSubResourcesApi(object):
         :param str sort: Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc)
         :param str name: Filter by threat name (partial match)
         :param str description: Filter by threat description (partial match)
-        :param str threat_type: Filter by threat type (exact match)
+        :param list[str] threat_type: Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing
         :param str severity: Filter by severity level (exact match)
         :param str priority: Filter by priority (exact match)
         :param str status: Filter by status (exact match)
@@ -8040,6 +8040,7 @@ class ThreatModelSubResourcesApi(object):
             query_params.append(('description', params['description']))  # noqa: E501
         if 'threat_type' in params:
             query_params.append(('threat_type', params['threat_type']))  # noqa: E501
+            collection_formats['threat_type'] = 'multi'  # noqa: E501
         if 'severity' in params:
             query_params.append(('severity', params['severity']))  # noqa: E501
         if 'priority' in params:

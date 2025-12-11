@@ -38,7 +38,7 @@ class ThreatBase(object):
         'priority': 'str',
         'mitigated': 'bool',
         'status': 'str',
-        'threat_type': 'str',
+        'threat_type': 'list[str]',
         'metadata': 'list[Metadata]',
         'issue_uri': 'str',
         'asset_id': 'str'
@@ -341,10 +341,10 @@ class ThreatBase(object):
     def threat_type(self):
         """Gets the threat_type of this ThreatBase.  # noqa: E501
 
-        Type or category of the threat  # noqa: E501
+        Types or categories of the threat. Supports multiple classifications within the same framework (e.g., ['Spoofing', 'Tampering']). Empty array indicates no types assigned.  # noqa: E501
 
         :return: The threat_type of this ThreatBase.  # noqa: E501
-        :rtype: str
+        :rtype: list[str]
         """
         return self._threat_type
 
@@ -352,10 +352,10 @@ class ThreatBase(object):
     def threat_type(self, threat_type):
         """Sets the threat_type of this ThreatBase.
 
-        Type or category of the threat  # noqa: E501
+        Types or categories of the threat. Supports multiple classifications within the same framework (e.g., ['Spoofing', 'Tampering']). Empty array indicates no types assigned.  # noqa: E501
 
         :param threat_type: The threat_type of this ThreatBase.  # noqa: E501
-        :type: str
+        :type: list[str]
         """
         if threat_type is None:
             raise ValueError("Invalid value for `threat_type`, must not be `None`")  # noqa: E501

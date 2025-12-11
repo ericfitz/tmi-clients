@@ -96,6 +96,7 @@ class Node(Cell):
             self.width = width
         if height is not None:
             self.height = height
+        kwargs['shape'] = shape  # PATCH: Pass shape to parent to prevent overwrite
         Cell.__init__(self, *args, **kwargs)
 
     @property

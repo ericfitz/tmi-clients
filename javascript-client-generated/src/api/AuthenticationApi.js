@@ -14,6 +14,8 @@
  */
 import ApiClient from "../ApiClient";
 import AuthTokenResponse from '../model/AuthTokenResponse';
+import ClientCredentialInfo from '../model/ClientCredentialInfo';
+import ClientCredentialResponse from '../model/ClientCredentialResponse';
 import ClientcredentialsBody from '../model/ClientcredentialsBody';
 import Error from '../model/Error';
 import InlineResponse20010 from '../model/InlineResponse20010';
@@ -127,7 +129,7 @@ export default class AuthenticationApi {
      * Create client credential
      * Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
      * @param {module:model/ClientcredentialsBody} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClientCredentialResponse} and HTTP response
      */
     createClientCredentialWithHttpInfo(body) {
       
@@ -153,7 +155,7 @@ export default class AuthenticationApi {
       let authNames = ['bearerAuth'];
       let contentTypes = ['application/json'];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = ClientCredentialResponse;
 
       return this.apiClient.callApi(
         '/client-credentials', 'POST',
@@ -166,7 +168,7 @@ export default class AuthenticationApi {
      * Create client credential
      * Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
      * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClientCredentialResponse}
      */
     createClientCredential(body) {
       return this.createClientCredentialWithHttpInfo(body)
@@ -804,7 +806,7 @@ export default class AuthenticationApi {
     /**
      * List client credentials
      * Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ClientCredentialInfo>} and HTTP response
      */
     listClientCredentialsWithHttpInfo() {
       
@@ -826,7 +828,7 @@ export default class AuthenticationApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Object;
+      let returnType = [ClientCredentialInfo];
 
       return this.apiClient.callApi(
         '/client-credentials', 'GET',
@@ -838,7 +840,7 @@ export default class AuthenticationApi {
     /**
      * List client credentials
      * Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ClientCredentialInfo>}
      */
     listClientCredentials() {
       return this.listClientCredentialsWithHttpInfo()

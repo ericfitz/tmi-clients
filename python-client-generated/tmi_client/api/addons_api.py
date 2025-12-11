@@ -536,7 +536,7 @@ class AddonsApi(object):
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
         :param str threat_model_id: Filter by threat model
-        :return: object
+        :return: ListAddonsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -560,7 +560,7 @@ class AddonsApi(object):
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
         :param str threat_model_id: Filter by threat model
-        :return: object
+        :return: ListAddonsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -614,7 +614,7 @@ class AddonsApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='object',  # noqa: E501
+            response_type='ListAddonsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -636,7 +636,7 @@ class AddonsApi(object):
         :param int offset: Number of results to skip
         :param str status: Filter by status
         :param str addon_id: Filter by add-on
-        :return: object
+        :return: ListInvocationsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -661,7 +661,7 @@ class AddonsApi(object):
         :param int offset: Number of results to skip
         :param str status: Filter by status
         :param str addon_id: Filter by add-on
-        :return: object
+        :return: ListInvocationsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -717,7 +717,7 @@ class AddonsApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='object',  # noqa: E501
+            response_type='ListInvocationsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

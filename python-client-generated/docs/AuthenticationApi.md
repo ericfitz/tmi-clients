@@ -84,7 +84,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_client_credential**
-> object create_client_credential(body)
+> ClientCredentialResponse create_client_credential(body)
 
 Create client credential
 
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**ClientCredentialResponse**](ClientCredentialResponse.md)
 
 ### Authorization
 
@@ -655,7 +655,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_client_credentials**
-> object list_client_credentials()
+> list[ClientCredentialInfo] list_client_credentials()
 
 List client credentials
 
@@ -686,7 +686,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**object**
+[**list[ClientCredentialInfo]**](ClientCredentialInfo.md)
 
 ### Authorization
 

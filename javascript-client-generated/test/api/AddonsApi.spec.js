@@ -130,8 +130,7 @@
 
           instance.listAddons(opts).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(Object);
-            // expect(data).to.be(null);
+            expect(data).to.be.a(TmiJsClient.ListAddonsResponse);
 
             done();
           }, function(error) {
@@ -150,8 +149,7 @@
 
           instance.listInvocations(opts).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(Object);
-            // expect(data).to.be(null);
+            expect(data).to.be.a(TmiJsClient.ListInvocationsResponse);
 
             done();
           }, function(error) {

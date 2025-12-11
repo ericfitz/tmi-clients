@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **priority** | **str** | Priority level for addressing the threat | [optional] 
 **mitigated** | **bool** | Whether the threat has been mitigated | [optional] 
 **status** | **str** | Current status of the threat | [optional] 
-**threat_type** | **str** | Type or category of the threat | 
+**threat_type** | **list[str]** | Types or categories of the threat. Supports multiple classifications within the same framework (e.g., [&#x27;Spoofing&#x27;, &#x27;Tampering&#x27;]). Empty array indicates no types assigned. | 
 **metadata** | [**list[Metadata]**](Metadata.md) | Key-value pairs for additional threat metadata | [optional] 
 **issue_uri** | **str** | URL to an issue in an issue tracking system for this threat | [optional] 
 **asset_id** | **str** | Unique identifier of the associated asset (if applicable) (UUID) | [optional] 

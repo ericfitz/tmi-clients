@@ -58,8 +58,7 @@
 
           instance.createClientCredential(body).then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(Object);
-            // expect(data).to.be(null);
+            expect(data).to.be.a(TmiJsClient.ClientCredentialResponse);
 
             done();
           }, function(error) {
@@ -275,8 +274,13 @@
 
           instance.listClientCredentials().then(function(data) {
             // TODO: update response assertions
-            expect(data).to.be.a(Object);
-            // expect(data).to.be(null);
+            let dataCtr = data;
+            expect(dataCtr).to.be.an(Array);
+            expect(dataCtr).to.not.be.empty();
+            for (let p in dataCtr) {
+              let data = dataCtr[p];
+              expect(data).to.be.a(TmiJsClient.ClientCredentialInfo);
+            }
 
             done();
           }, function(error) {

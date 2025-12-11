@@ -28,7 +28,7 @@ export default class Threat extends ThreatBase {
    * @class
    * @extends module:model/ThreatBase
    * @param name {} Name of the threat
-   * @param threatType {} Type or category of the threat
+   * @param threatType {} Types or categories of the threat. Supports multiple classifications within the same framework (e.g., ['Spoofing', 'Tampering']). Empty array indicates no types assigned.
    */
   constructor(name, threatType) {
     super(name, threatType);
