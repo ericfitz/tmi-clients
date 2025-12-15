@@ -15,12 +15,12 @@ from __future__ import absolute_import
 import unittest
 
 import tmi_client
-from tmi_client.models.group import Group  # noqa: E501
+from tmi_client.models.inline_response429 import InlineResponse429  # noqa: E501
 from tmi_client.rest import ApiException
 
 
-class TestGroup(unittest.TestCase):
-    """Group unit test stubs"""
+class TestInlineResponse429(unittest.TestCase):
+    """InlineResponse429 unit test stubs"""
 
     def setUp(self):
         pass
@@ -28,10 +28,10 @@ class TestGroup(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testGroup(self):
-        """Test Group"""
+    def testInlineResponse429(self):
+        """Test InlineResponse429"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = tmi_client.models.group.Group()  # noqa: E501
+        # model = tmi_client.models.inline_response429.InlineResponse429()  # noqa: E501
         pass
 
 

@@ -9,12 +9,15 @@ set -e  # Exit on error
 # AUTOMATIC DEFAULTS APPLIED:
 # - Package name: tmi_client (not swagger_client)
 # - Python version: 3.8+ only (Python 2.x and 3.7 dropped)
-# - Modern dependencies with security fixes:
-#   * certifi >= 2024.2.2 (was 14.05.14)
-#   * six >= 1.16.0 (was 1.10)
-#   * python-dateutil >= 2.9.0 (was 2.5.3)
-#   * setuptools >= 70.0.0 (was 21.0.0 - CVE fix)
-#   * urllib3 >= 2.0.0 (was 1.15.1 - CVE fixes)
+# - Modern dependencies with latest Python 3.8+ compatible versions:
+#   * certifi >= 2025.11.12 (was 14.05.14)
+#   * six >= 1.17.0 (was 1.10)
+#   * python-dateutil >= 2.9.0.post0 (was 2.5.3)
+#   * setuptools >= 75.3.2 (was 21.0.0 - CVE fix, Python 3.8+ compatible)
+#   * urllib3 >= 2.2.3 (was 1.15.1 - CVE fixes, Python 3.8+ compatible)
+#   * pytest >= 8.3.5 (was using nose, Python 3.8+ compatible)
+#   * pytest-cov >= 5.0.0 (Python 3.8+ compatible)
+#   * pytest-randomly >= 3.15.0 (Python 3.8+ compatible)
 # - Testing: pytest (not nose), tox for multi-version testing
 # - Modern packaging: pyproject.toml + setup.py
 # - Tox configuration: Tests against Python 3.8-3.14
@@ -258,18 +261,18 @@ classifiers = [
 ]
 
 dependencies = [
-    "certifi >= 2024.2.2",
-    "six >= 1.16.0",
-    "python-dateutil >= 2.9.0",
-    "setuptools >= 70.0.0",
-    "urllib3 >= 2.0.0",
+    "certifi >= 2025.11.12",
+    "six >= 1.17.0",
+    "python-dateutil >= 2.9.0.post0",
+    "setuptools >= 75.3.2",
+    "urllib3 >= 2.2.3",
 ]
 
 [project.optional-dependencies]
 test = [
-    "pytest >= 7.0.0",
-    "pytest-cov >= 4.0.0",
-    "pytest-randomly >= 3.12.0",
+    "pytest >= 8.3.5",
+    "pytest-cov >= 5.0.0",
+    "pytest-randomly >= 3.15.0",
 ]
 
 [project.urls]
@@ -308,15 +311,15 @@ if [ -f "$CLIENT_DIR/setup.py" ]; then
     # Update Python version requirement - Python 3.8+ only
     sed -i.bak 's/python_requires="[^"]*"/python_requires=">=3.8"/' "$CLIENT_DIR/setup.py"
 
-    # Update dependencies to modern versions with security fixes
-    sed -i.bak 's/"certifi[^"]*"/"certifi>=2024.2.2"/' "$CLIENT_DIR/setup.py"
-    sed -i.bak 's/"six[^"]*"/"six>=1.16.0"/' "$CLIENT_DIR/setup.py"
-    sed -i.bak 's/"python-dateutil[^"]*"/"python-dateutil>=2.9.0"/' "$CLIENT_DIR/setup.py"
-    sed -i.bak 's/"urllib3[^"]*"/"urllib3>=2.0.0"/' "$CLIENT_DIR/setup.py"
+    # Update dependencies to latest Python 3.8+ compatible versions
+    sed -i.bak 's/"certifi[^"]*"/"certifi>=2025.11.12"/' "$CLIENT_DIR/setup.py"
+    sed -i.bak 's/"six[^"]*"/"six>=1.17.0"/' "$CLIENT_DIR/setup.py"
+    sed -i.bak 's/"python-dateutil[^"]*"/"python-dateutil>=2.9.0.post0"/' "$CLIENT_DIR/setup.py"
+    sed -i.bak 's/"urllib3[^"]*"/"urllib3>=2.2.3"/' "$CLIENT_DIR/setup.py"
 
     # Add setuptools if not present, or update if present
     if grep -q '"setuptools' "$CLIENT_DIR/setup.py"; then
-        sed -i.bak 's/"setuptools[^"]*"/"setuptools>=70.0.0"/' "$CLIENT_DIR/setup.py"
+        sed -i.bak 's/"setuptools[^"]*"/"setuptools>=75.3.2"/' "$CLIENT_DIR/setup.py"
     fi
 
     rm -f "$CLIENT_DIR/setup.py.bak"
@@ -326,20 +329,20 @@ fi
 # Update requirements.txt
 echo "  Updating requirements.txt..."
 cat > "$CLIENT_DIR/requirements.txt" << 'EOF'
-certifi >= 2024.2.2
-six >= 1.16.0
-python-dateutil >= 2.9.0
-setuptools >= 70.0.0
-urllib3 >= 2.0.0
+certifi >= 2025.11.12
+six >= 1.17.0
+python-dateutil >= 2.9.0.post0
+setuptools >= 75.3.2
+urllib3 >= 2.2.3
 EOF
 echo -e "${GREEN}  ✓ requirements.txt updated${NC}"
 
 # Update test-requirements.txt
 echo "  Updating test-requirements.txt..."
 cat > "$CLIENT_DIR/test-requirements.txt" << 'EOF'
-pytest >= 7.0.0
-pytest-cov >= 4.0.0
-pytest-randomly >= 3.12.0
+pytest >= 8.3.5
+pytest-cov >= 5.0.0
+pytest-randomly >= 3.15.0
 EOF
 echo -e "${GREEN}  ✓ test-requirements.txt updated${NC}"
 
@@ -433,12 +436,15 @@ cat >> docs/developer/REGENERATION_REPORT.md << 'EOF'
 
 ### 3. Modern Python Configuration
 - ✓ Python 3.8+ requirement
-- ✓ Updated dependencies:
-  - certifi >= 2024.2.2 (security fixes)
-  - six >= 1.16.0
-  - python-dateutil >= 2.9.0
-  - setuptools >= 70.0.0 (RCE vulnerability fix)
-  - urllib3 >= 2.0.0 (CVE fixes)
+- ✓ Updated dependencies (latest Python 3.8+ compatible versions):
+  - certifi >= 2025.11.12
+  - six >= 1.17.0
+  - python-dateutil >= 2.9.0.post0
+  - setuptools >= 75.3.2
+  - urllib3 >= 2.2.3
+  - pytest >= 8.3.5
+  - pytest-cov >= 5.0.0
+  - pytest-randomly >= 3.15.0
 - ✓ pyproject.toml with UV support
 - ✓ pytest-based testing infrastructure
 

@@ -15,12 +15,12 @@ from __future__ import absolute_import
 import unittest
 
 import tmi_client
-from tmi_client.models.saml_user_list_response import SAMLUserListResponse  # noqa: E501
+from tmi_client.models.minimal_edge import MinimalEdge  # noqa: E501
 from tmi_client.rest import ApiException
 
 
-class TestSAMLUserListResponse(unittest.TestCase):
-    """SAMLUserListResponse unit test stubs"""
+class TestMinimalEdge(unittest.TestCase):
+    """MinimalEdge unit test stubs"""
 
     def setUp(self):
         pass
@@ -28,10 +28,10 @@ class TestSAMLUserListResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testSAMLUserListResponse(self):
-        """Test SAMLUserListResponse"""
+    def testMinimalEdge(self):
+        """Test MinimalEdge"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = tmi_client.models.saml_user_list_response.SAMLUserListResponse()  # noqa: E501
+        # model = tmi_client.models.minimal_edge.MinimalEdge()  # noqa: E501
         pass
 
 

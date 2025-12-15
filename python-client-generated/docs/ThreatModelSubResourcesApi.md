@@ -54,6 +54,7 @@ Method | HTTP request | Description
 [**delete_threat_model_threat**](ThreatModelSubResourcesApi.md#delete_threat_model_threat) | **DELETE** /threat_models/{threat_model_id}/threats/{threat_id} | Delete a threat
 [**get_diagram_metadata**](ThreatModelSubResourcesApi.md#get_diagram_metadata) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Get diagram metadata
 [**get_diagram_metadata_by_key**](ThreatModelSubResourcesApi.md#get_diagram_metadata_by_key) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Get diagram metadata by key
+[**get_diagram_model**](ThreatModelSubResourcesApi.md#get_diagram_model) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/model | Get minimal diagram model for automated analysis
 [**get_document_metadata**](ThreatModelSubResourcesApi.md#get_document_metadata) | **GET** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Get document metadata
 [**get_document_metadata_by_key**](ThreatModelSubResourcesApi.md#get_document_metadata_by_key) | **GET** /threat_models/{threat_model_id}/documents/{document_id}/metadata/{key} | Get document metadata by key
 [**get_note_metadata**](ThreatModelSubResourcesApi.md#get_note_metadata) | **GET** /threat_models/{threat_model_id}/notes/{note_id}/metadata | Get note metadata
@@ -2681,6 +2682,59 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_diagram_model**
+> MinimalDiagramModel get_diagram_model(threat_model_id, diagram_id, format=format)
+
+Get minimal diagram model for automated analysis
+
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model UUID
+diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram UUID
+format = 'json' # str | Output format for the diagram model (case-insensitive). Defaults to json if not specified. (optional) (default to json)
+
+try:
+    # Get minimal diagram model for automated analysis
+    api_response = api_instance.get_diagram_model(threat_model_id, diagram_id, format=format)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->get_diagram_model: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model UUID | 
+ **diagram_id** | [**str**](.md)| Diagram UUID | 
+ **format** | **str**| Output format for the diagram model (case-insensitive). Defaults to json if not specified. | [optional] [default to json]
+
+### Return type
+
+[**MinimalDiagramModel**](MinimalDiagramModel.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/x-yaml, application/xml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_document_metadata**
 > list[Metadata] get_document_metadata(threat_model_id, document_id)
 
@@ -3894,12 +3948,12 @@ threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model id
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
 sort = 'created_at:desc' # str | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (optional) (default to created_at:desc)
-name = 'name_example' # str | Filter by threat name (partial match) (optional)
-description = 'description_example' # str | Filter by threat description (partial match) (optional)
+name = 'name_example' # str | Filter by threat model name (partial match) (optional)
+description = 'description_example' # str | Filter by threat model description (partial match) (optional)
 threat_type = ['threat_type_example'] # list[str] | Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing (optional)
 severity = 'severity_example' # str | Filter by severity level (exact match) (optional)
 priority = 'priority_example' # str | Filter by priority (exact match) (optional)
-status = 'status_example' # str | Filter by status (exact match) (optional)
+status = 'status_example' # str | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. (optional)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by diagram ID (exact match) (optional)
 cell_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by cell ID (exact match) (optional)
 score_gt = 1.2 # float | Filter threats with score greater than this value (optional)
@@ -3928,12 +3982,12 @@ Name | Type | Description  | Notes
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
  **sort** | **str**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to created_at:desc]
- **name** | **str**| Filter by threat name (partial match) | [optional] 
- **description** | **str**| Filter by threat description (partial match) | [optional] 
+ **name** | **str**| Filter by threat model name (partial match) | [optional] 
+ **description** | **str**| Filter by threat model description (partial match) | [optional] 
  **threat_type** | [**list[str]**](str.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
  **severity** | **str**| Filter by severity level (exact match) | [optional] 
  **priority** | **str**| Filter by priority (exact match) | [optional] 
- **status** | **str**| Filter by status (exact match) | [optional] 
+ **status** | **str**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
  **diagram_id** | [**str**](.md)| Filter by diagram ID (exact match) | [optional] 
  **cell_id** | [**str**](.md)| Filter by cell ID (exact match) | [optional] 
  **score_gt** | **float**| Filter threats with score greater than this value | [optional] 

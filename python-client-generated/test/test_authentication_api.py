@@ -35,15 +35,15 @@ class TestAuthenticationApi(unittest.TestCase):
         """
         pass
 
-    def test_create_client_credential(self):
-        """Test case for create_client_credential
+    def test_create_current_user_client_credential(self):
+        """Test case for create_current_user_client_credential
 
         Create client credential  # noqa: E501
         """
         pass
 
-    def test_delete_client_credential(self):
-        """Test case for delete_client_credential
+    def test_delete_current_user_client_credential(self):
+        """Test case for delete_current_user_client_credential
 
         Delete client credential  # noqa: E501
         """
@@ -119,8 +119,8 @@ class TestAuthenticationApi(unittest.TestCase):
         """
         pass
 
-    def test_list_client_credentials(self):
-        """Test case for list_client_credentials
+    def test_list_current_user_client_credentials(self):
+        """Test case for list_current_user_client_credentials
 
         List client credentials  # noqa: E501
         """

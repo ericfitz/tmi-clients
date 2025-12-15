@@ -159,39 +159,39 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def create_client_credential(self, body, **kwargs):  # noqa: E501
+    def create_current_user_client_credential(self, body, **kwargs):  # noqa: E501
         """Create client credential  # noqa: E501
 
         Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_client_credential(body, async_req=True)
+        >>> thread = api.create_current_user_client_credential(body, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param ClientcredentialsBody body: (required)
+        :param MeClientCredentialsBody body: (required)
         :return: ClientCredentialResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.create_client_credential_with_http_info(body, **kwargs)  # noqa: E501
+            return self.create_current_user_client_credential_with_http_info(body, **kwargs)  # noqa: E501
         else:
-            (data) = self.create_client_credential_with_http_info(body, **kwargs)  # noqa: E501
+            (data) = self.create_current_user_client_credential_with_http_info(body, **kwargs)  # noqa: E501
             return data
 
-    def create_client_credential_with_http_info(self, body, **kwargs):  # noqa: E501
+    def create_current_user_client_credential_with_http_info(self, body, **kwargs):  # noqa: E501
         """Create client credential  # noqa: E501
 
         Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_client_credential_with_http_info(body, async_req=True)
+        >>> thread = api.create_current_user_client_credential_with_http_info(body, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param ClientcredentialsBody body: (required)
+        :param MeClientCredentialsBody body: (required)
         :return: ClientCredentialResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -208,14 +208,14 @@ class AuthenticationApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method create_client_credential" % key
+                    " to method create_current_user_client_credential" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'body' is set
         if ('body' not in params or
                 params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `create_client_credential`")  # noqa: E501
+            raise ValueError("Missing the required parameter `body` when calling `create_current_user_client_credential`")  # noqa: E501
 
         collection_formats = {}
 
@@ -243,7 +243,7 @@ class AuthenticationApi(object):
         auth_settings = ['bearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/client-credentials', 'POST',
+            '/users/me/client_credentials', 'POST',
             path_params,
             query_params,
             header_params,
@@ -258,39 +258,39 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def delete_client_credential(self, id, **kwargs):  # noqa: E501
+    def delete_current_user_client_credential(self, id, **kwargs):  # noqa: E501
         """Delete client credential  # noqa: E501
 
         Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_client_credential(id, async_req=True)
+        >>> thread = api.delete_current_user_client_credential(id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str id: Client credential UUID (required)
+        :param str id: Administrator grant ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.delete_client_credential_with_http_info(id, **kwargs)  # noqa: E501
+            return self.delete_current_user_client_credential_with_http_info(id, **kwargs)  # noqa: E501
         else:
-            (data) = self.delete_client_credential_with_http_info(id, **kwargs)  # noqa: E501
+            (data) = self.delete_current_user_client_credential_with_http_info(id, **kwargs)  # noqa: E501
             return data
 
-    def delete_client_credential_with_http_info(self, id, **kwargs):  # noqa: E501
+    def delete_current_user_client_credential_with_http_info(self, id, **kwargs):  # noqa: E501
         """Delete client credential  # noqa: E501
 
         Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_client_credential_with_http_info(id, async_req=True)
+        >>> thread = api.delete_current_user_client_credential_with_http_info(id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str id: Client credential UUID (required)
+        :param str id: Administrator grant ID (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -307,14 +307,14 @@ class AuthenticationApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method delete_client_credential" % key
+                    " to method delete_current_user_client_credential" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'id' is set
         if ('id' not in params or
                 params['id'] is None):
-            raise ValueError("Missing the required parameter `id` when calling `delete_client_credential`")  # noqa: E501
+            raise ValueError("Missing the required parameter `id` when calling `delete_current_user_client_credential`")  # noqa: E501
 
         collection_formats = {}
 
@@ -338,7 +338,7 @@ class AuthenticationApi(object):
         auth_settings = ['bearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/client-credentials/{id}', 'DELETE',
+            '/users/me/client_credentials/{id}', 'DELETE',
             path_params,
             query_params,
             header_params,
@@ -1182,7 +1182,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str code: Authorization code from the OAuth provider (required)
-        :param str state: Optional state parameter for CSRF protection
+        :param str state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :return: AuthTokenResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1205,7 +1205,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str code: Authorization code from the OAuth provider (required)
-        :param str state: Optional state parameter for CSRF protection
+        :param str state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :return: AuthTokenResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1281,7 +1281,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str provider: SAML provider identifier (required)
-        :param str client_callback: Client callback URL to redirect after authentication
+        :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1304,7 +1304,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param str provider: SAML provider identifier (required)
-        :param str client_callback: Client callback URL to redirect after authentication
+        :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1476,13 +1476,13 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def list_client_credentials(self, **kwargs):  # noqa: E501
+    def list_current_user_client_credentials(self, **kwargs):  # noqa: E501
         """List client credentials  # noqa: E501
 
         Retrieves all client credentials owned by the authenticated user. Secrets are never returned.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_client_credentials(async_req=True)
+        >>> thread = api.list_current_user_client_credentials(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
@@ -1492,18 +1492,18 @@ class AuthenticationApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.list_client_credentials_with_http_info(**kwargs)  # noqa: E501
+            return self.list_current_user_client_credentials_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.list_client_credentials_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.list_current_user_client_credentials_with_http_info(**kwargs)  # noqa: E501
             return data
 
-    def list_client_credentials_with_http_info(self, **kwargs):  # noqa: E501
+    def list_current_user_client_credentials_with_http_info(self, **kwargs):  # noqa: E501
         """List client credentials  # noqa: E501
 
         Retrieves all client credentials owned by the authenticated user. Secrets are never returned.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_client_credentials_with_http_info(async_req=True)
+        >>> thread = api.list_current_user_client_credentials_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
@@ -1523,7 +1523,7 @@ class AuthenticationApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method list_client_credentials" % key
+                    " to method list_current_user_client_credentials" % key
                 )
             params[key] = val
         del params['kwargs']
@@ -1548,7 +1548,7 @@ class AuthenticationApi(object):
         auth_settings = ['bearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/client-credentials', 'GET',
+            '/users/me/client_credentials', 'GET',
             path_params,
             query_params,
             header_params,

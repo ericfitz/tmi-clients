@@ -43,7 +43,7 @@ class AdministrationApi(object):
 
         :param async_req bool
         :param AddGroupMemberRequest body: (required)
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: GroupMember
                  If the method is called asynchronously,
                  returns the request thread.
@@ -66,7 +66,7 @@ class AdministrationApi(object):
 
         :param async_req bool
         :param AddGroupMemberRequest body: (required)
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: GroupMember
                  If the method is called asynchronously,
                  returns the request thread.
@@ -241,7 +241,7 @@ class AdministrationApi(object):
     def create_administrator(self, body, **kwargs):  # noqa: E501
         """Create administrator grant  # noqa: E501
 
-        Grants administrator privileges to a user or group for a specific provider. Exactly one of user_id or group_id must be specified.  # noqa: E501
+        Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_administrator(body, async_req=True)
@@ -263,7 +263,7 @@ class AdministrationApi(object):
     def create_administrator_with_http_info(self, body, **kwargs):  # noqa: E501
         """Create administrator grant  # noqa: E501
 
-        Grants administrator privileges to a user or group for a specific provider. Exactly one of user_id or group_id must be specified.  # noqa: E501
+        Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_administrator_with_http_info(body, async_req=True)
@@ -432,47 +432,45 @@ class AdministrationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def delete_admin_group(self, provider, group_name, **kwargs):  # noqa: E501
-        """Delete group (Not Implemented)  # noqa: E501
+    def delete_admin_group(self, internal_uuid, **kwargs):  # noqa: E501
+        """Delete group  # noqa: E501
 
-        Group deletion is not currently supported. This endpoint returns 501 Not Implemented. Groups remain in the system for audit and historical purposes.  # noqa: E501
+        Deletes a TMI-managed group and handles threat model cleanup. Protected groups like 'everyone' cannot be deleted.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_admin_group(provider, group_name, async_req=True)
+        >>> thread = api.delete_admin_group(internal_uuid, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str provider: OAuth/SAML provider identifier or \"*\" for provider-independent groups (required)
-        :param str group_name: Group name identifier (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.delete_admin_group_with_http_info(provider, group_name, **kwargs)  # noqa: E501
+            return self.delete_admin_group_with_http_info(internal_uuid, **kwargs)  # noqa: E501
         else:
-            (data) = self.delete_admin_group_with_http_info(provider, group_name, **kwargs)  # noqa: E501
+            (data) = self.delete_admin_group_with_http_info(internal_uuid, **kwargs)  # noqa: E501
             return data
 
-    def delete_admin_group_with_http_info(self, provider, group_name, **kwargs):  # noqa: E501
-        """Delete group (Not Implemented)  # noqa: E501
+    def delete_admin_group_with_http_info(self, internal_uuid, **kwargs):  # noqa: E501
+        """Delete group  # noqa: E501
 
-        Group deletion is not currently supported. This endpoint returns 501 Not Implemented. Groups remain in the system for audit and historical purposes.  # noqa: E501
+        Deletes a TMI-managed group and handles threat model cleanup. Protected groups like 'everyone' cannot be deleted.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_admin_group_with_http_info(provider, group_name, async_req=True)
+        >>> thread = api.delete_admin_group_with_http_info(internal_uuid, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str provider: OAuth/SAML provider identifier or \"*\" for provider-independent groups (required)
-        :param str group_name: Group name identifier (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['provider', 'group_name']  # noqa: E501
+        all_params = ['internal_uuid']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -487,24 +485,18 @@ class AdministrationApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'provider' is set
-        if ('provider' not in params or
-                params['provider'] is None):
-            raise ValueError("Missing the required parameter `provider` when calling `delete_admin_group`")  # noqa: E501
-        # verify the required parameter 'group_name' is set
-        if ('group_name' not in params or
-                params['group_name'] is None):
-            raise ValueError("Missing the required parameter `group_name` when calling `delete_admin_group`")  # noqa: E501
+        # verify the required parameter 'internal_uuid' is set
+        if ('internal_uuid' not in params or
+                params['internal_uuid'] is None):
+            raise ValueError("Missing the required parameter `internal_uuid` when calling `delete_admin_group`")  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if 'internal_uuid' in params:
+            path_params['internal_uuid'] = params['internal_uuid']  # noqa: E501
 
         query_params = []
-        if 'provider' in params:
-            query_params.append(('provider', params['provider']))  # noqa: E501
-        if 'group_name' in params:
-            query_params.append(('group_name', params['group_name']))  # noqa: E501
 
         header_params = {}
 
@@ -520,7 +512,7 @@ class AdministrationApi(object):
         auth_settings = ['bearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/admin/groups', 'DELETE',
+            '/admin/groups/{internal_uuid}', 'DELETE',
             path_params,
             query_params,
             header_params,
@@ -535,47 +527,45 @@ class AdministrationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def delete_admin_user(self, provider, provider_user_id, **kwargs):  # noqa: E501
+    def delete_admin_user(self, internal_uuid, **kwargs):  # noqa: E501
         """Delete user  # noqa: E501
 
-        Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist. Requires both provider and provider_user_id query parameters.  # noqa: E501
+        Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_admin_user(provider, provider_user_id, async_req=True)
+        >>> thread = api.delete_admin_user(internal_uuid, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str provider: OAuth/SAML provider identifier (required)
-        :param str provider_user_id: Provider-assigned user identifier (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.delete_admin_user_with_http_info(provider, provider_user_id, **kwargs)  # noqa: E501
+            return self.delete_admin_user_with_http_info(internal_uuid, **kwargs)  # noqa: E501
         else:
-            (data) = self.delete_admin_user_with_http_info(provider, provider_user_id, **kwargs)  # noqa: E501
+            (data) = self.delete_admin_user_with_http_info(internal_uuid, **kwargs)  # noqa: E501
             return data
 
-    def delete_admin_user_with_http_info(self, provider, provider_user_id, **kwargs):  # noqa: E501
+    def delete_admin_user_with_http_info(self, internal_uuid, **kwargs):  # noqa: E501
         """Delete user  # noqa: E501
 
-        Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist. Requires both provider and provider_user_id query parameters.  # noqa: E501
+        Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_admin_user_with_http_info(provider, provider_user_id, async_req=True)
+        >>> thread = api.delete_admin_user_with_http_info(internal_uuid, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str provider: OAuth/SAML provider identifier (required)
-        :param str provider_user_id: Provider-assigned user identifier (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['provider', 'provider_user_id']  # noqa: E501
+        all_params = ['internal_uuid']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -590,24 +580,18 @@ class AdministrationApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'provider' is set
-        if ('provider' not in params or
-                params['provider'] is None):
-            raise ValueError("Missing the required parameter `provider` when calling `delete_admin_user`")  # noqa: E501
-        # verify the required parameter 'provider_user_id' is set
-        if ('provider_user_id' not in params or
-                params['provider_user_id'] is None):
-            raise ValueError("Missing the required parameter `provider_user_id` when calling `delete_admin_user`")  # noqa: E501
+        # verify the required parameter 'internal_uuid' is set
+        if ('internal_uuid' not in params or
+                params['internal_uuid'] is None):
+            raise ValueError("Missing the required parameter `internal_uuid` when calling `delete_admin_user`")  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if 'internal_uuid' in params:
+            path_params['internal_uuid'] = params['internal_uuid']  # noqa: E501
 
         query_params = []
-        if 'provider' in params:
-            query_params.append(('provider', params['provider']))  # noqa: E501
-        if 'provider_user_id' in params:
-            query_params.append(('provider_user_id', params['provider_user_id']))  # noqa: E501
 
         header_params = {}
 
@@ -623,7 +607,7 @@ class AdministrationApi(object):
         auth_settings = ['bearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/admin/users', 'DELETE',
+            '/admin/users/{internal_uuid}', 'DELETE',
             path_params,
             query_params,
             header_params,
@@ -1028,7 +1012,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: AdminGroup
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1050,7 +1034,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: AdminGroup
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1503,7 +1487,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str provider: Filter by OAuth/SAML provider (use \"*\" for provider-independent groups)
+        :param str provider: Filter by OAuth/SAML provider
         :param str group_name: Filter by group name (case-insensitive substring match)
         :param bool used_in_authorizations: Filter groups used (true) or not used (false) in authorizations
         :param int limit: Maximum number of results to return
@@ -1531,7 +1515,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str provider: Filter by OAuth/SAML provider (use \"*\" for provider-independent groups)
+        :param str provider: Filter by OAuth/SAML provider
         :param str group_name: Filter by group name (case-insensitive substring match)
         :param bool used_in_authorizations: Filter groups used (true) or not used (false) in authorizations
         :param int limit: Maximum number of results to return
@@ -1852,7 +1836,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
         :return: GroupMemberListResponse
@@ -1876,7 +1860,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
         :return: GroupMemberListResponse
@@ -2145,7 +2129,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :param str user_uuid: Internal system UUID of the user to remove (required)
         :return: None
                  If the method is called asynchronously,
@@ -2168,7 +2152,7 @@ class AdministrationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :param str user_uuid: Internal system UUID of the user to remove (required)
         :return: None
                  If the method is called asynchronously,
@@ -2356,7 +2340,7 @@ class AdministrationApi(object):
 
         :param async_req bool
         :param UpdateAdminGroupRequest body: (required)
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: AdminGroup
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2379,7 +2363,7 @@ class AdministrationApi(object):
 
         :param async_req bool
         :param UpdateAdminGroupRequest body: (required)
-        :param str internal_uuid: Internal system UUID of the group (required)
+        :param str internal_uuid: Internal system UUID of the user (required)
         :return: AdminGroup
                  If the method is called asynchronously,
                  returns the request thread.

@@ -50,19 +50,11 @@ class User(Principal):
         self._email = None
         self._display_name = None
         self.discriminator = None
-        # Default principal_type to "user" if not provided (bugfix for API responses)
-        if principal_type is None:
-            principal_type = "user"
-
-        # Remove principal_type from kwargs to avoid passing it to Parent
-        kwargs.pop('principal_type', None)
-
-        # Initialize parent with principal_type set to "user"
-        Principal.__init__(self, principal_type=principal_type, *args, **kwargs)
-
-        # Set User-specific fields
+        if principal_type is not None:
+            self.principal_type = principal_type
         self.email = email
         self.display_name = display_name
+        Principal.__init__(self, *args, **kwargs)
 
     @property
     def principal_type(self):

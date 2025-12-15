@@ -535,7 +535,7 @@ class AddonsApi(object):
         :param async_req bool
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :param str threat_model_id: Filter by threat model
+        :param str threat_model_id: Filter subscriptions by threat model ID
         :return: ListAddonsResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -559,7 +559,7 @@ class AddonsApi(object):
         :param async_req bool
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :param str threat_model_id: Filter by threat model
+        :param str threat_model_id: Filter subscriptions by threat model ID
         :return: ListAddonsResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -634,7 +634,7 @@ class AddonsApi(object):
         :param async_req bool
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :param str status: Filter by status
+        :param str status: Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
         :param str addon_id: Filter by add-on
         :return: ListInvocationsResponse
                  If the method is called asynchronously,
@@ -659,7 +659,7 @@ class AddonsApi(object):
         :param async_req bool
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :param str status: Filter by status
+        :param str status: Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
         :param str addon_id: Filter by add-on
         :return: ListInvocationsResponse
                  If the method is called asynchronously,

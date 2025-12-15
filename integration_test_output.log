@@ -17,16 +17,15 @@ Test 5: Inheritance...
 ✗ test_inheritance FAILED: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
 
 Test 6: Cell schemas...
-✗ test_cell_schemas FAILED: Invalid value for `shape` (None), must be one of ['edge']
+✓ Cell schemas exist and work correctly
 
 Test 7: Webhook schemas...
 ✓ Webhook schemas working correctly
 
 ============================================================
-FAILED: 6 out of 7 tests failed
+FAILED: 5 out of 7 tests failed
   - test_dfd_diagram_instantiation: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
   - test_dfd_diagram_input_instantiation: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
   - test_type_parameter_preservation: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
   - test_serialization: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
   - test_inheritance: Invalid value for `type` (None), must be one of ['DFD-1.0.0']
-  - test_cell_schemas: Invalid value for `shape` (None), must be one of ['edge']

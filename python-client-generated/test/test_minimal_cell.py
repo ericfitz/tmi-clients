@@ -15,12 +15,12 @@ from __future__ import absolute_import
 import unittest
 
 import tmi_client
-from tmi_client.models.invocation_list_response import InvocationListResponse  # noqa: E501
+from tmi_client.models.minimal_cell import MinimalCell  # noqa: E501
 from tmi_client.rest import ApiException
 
 
-class TestInvocationListResponse(unittest.TestCase):
-    """InvocationListResponse unit test stubs"""
+class TestMinimalCell(unittest.TestCase):
+    """MinimalCell unit test stubs"""
 
     def setUp(self):
         pass
@@ -28,10 +28,10 @@ class TestInvocationListResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testInvocationListResponse(self):
-        """Test InvocationListResponse"""
+    def testMinimalCell(self):
+        """Test MinimalCell"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = tmi_client.models.invocation_list_response.InvocationListResponse()  # noqa: E501
+        # model = tmi_client.models.minimal_cell.MinimalCell()  # noqa: E501
         pass
 
 

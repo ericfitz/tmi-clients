@@ -50,7 +50,6 @@ class DfdDiagramInput(BaseDiagramInput):
         if type is not None:
             self.type = type
         self.cells = cells
-        kwargs['type'] = type  # PATCH: Pass type to parent to prevent overwrite
         BaseDiagramInput.__init__(self, *args, **kwargs)
 
     @property

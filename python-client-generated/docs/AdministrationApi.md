@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**create_admin_group**](AdministrationApi.md#create_admin_group) | **POST** /admin/groups | Create provider-independent group
 [**create_administrator**](AdministrationApi.md#create_administrator) | **POST** /admin/administrators | Create administrator grant
 [**delete_addon_invocation_quota**](AdministrationApi.md#delete_addon_invocation_quota) | **DELETE** /admin/quotas/addons/{user_id} | Delete addon invocation quota
-[**delete_admin_group**](AdministrationApi.md#delete_admin_group) | **DELETE** /admin/groups | Delete group (Not Implemented)
-[**delete_admin_user**](AdministrationApi.md#delete_admin_user) | **DELETE** /admin/users | Delete user
+[**delete_admin_group**](AdministrationApi.md#delete_admin_group) | **DELETE** /admin/groups/{internal_uuid} | Delete group
+[**delete_admin_user**](AdministrationApi.md#delete_admin_user) | **DELETE** /admin/users/{internal_uuid} | Delete user
 [**delete_administrator**](AdministrationApi.md#delete_administrator) | **DELETE** /admin/administrators/{id} | Delete administrator grant
 [**delete_user_api_quota**](AdministrationApi.md#delete_user_api_quota) | **DELETE** /admin/quotas/users/{user_id} | Delete user API quota
 [**delete_webhook_quota**](AdministrationApi.md#delete_webhook_quota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota
@@ -51,7 +51,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
 body = tmi_client.AddGroupMemberRequest() # AddGroupMemberRequest | 
-internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the group
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
     # Add member to group
@@ -66,7 +66,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)|  | 
- **internal_uuid** | [**str**](.md)| Internal system UUID of the group | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 Create administrator grant
 
-Grants administrator privileges to a user or group for a specific provider. Exactly one of user_id or group_id must be specified.
+Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.
 
 ### Example
 ```python
@@ -230,11 +230,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_admin_group**
-> delete_admin_group(provider, group_name)
+> delete_admin_group(internal_uuid)
 
-Delete group (Not Implemented)
+Delete group
 
-Group deletion is not currently supported. This endpoint returns 501 Not Implemented. Groups remain in the system for audit and historical purposes.
+Deletes a TMI-managed group and handles threat model cleanup. Protected groups like 'everyone' cannot be deleted.
 
 ### Example
 ```python
@@ -247,12 +247,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-provider = 'provider_example' # str | OAuth/SAML provider identifier or \"*\" for provider-independent groups
-group_name = 'group_name_example' # str | Group name identifier
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
-    # Delete group (Not Implemented)
-    api_instance.delete_admin_group(provider, group_name)
+    # Delete group
+    api_instance.delete_admin_group(internal_uuid)
 except ApiException as e:
     print("Exception when calling AdministrationApi->delete_admin_group: %s\n" % e)
 ```
@@ -261,8 +260,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provider** | **str**| OAuth/SAML provider identifier or \&quot;*\&quot; for provider-independent groups | 
- **group_name** | **str**| Group name identifier | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
 
@@ -280,11 +278,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_admin_user**
-> delete_admin_user(provider, provider_user_id)
+> delete_admin_user(internal_uuid)
 
 Delete user
 
-Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist. Requires both provider and provider_user_id query parameters.
+Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist.
 
 ### Example
 ```python
@@ -297,12 +295,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-provider = 'provider_example' # str | OAuth/SAML provider identifier
-provider_user_id = 'provider_user_id_example' # str | Provider-assigned user identifier
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
     # Delete user
-    api_instance.delete_admin_user(provider, provider_user_id)
+    api_instance.delete_admin_user(internal_uuid)
 except ApiException as e:
     print("Exception when calling AdministrationApi->delete_admin_user: %s\n" % e)
 ```
@@ -311,8 +308,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provider** | **str**| OAuth/SAML provider identifier | 
- **provider_user_id** | **str**| Provider-assigned user identifier | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
 
@@ -540,7 +536,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the group
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
     # Get group details
@@ -554,7 +550,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **internal_uuid** | [**str**](.md)| Internal system UUID of the group | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
 
@@ -787,13 +783,13 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-provider = 'provider_example' # str | Filter by OAuth/SAML provider (use \"*\" for provider-independent groups) (optional)
+provider = 'provider_example' # str | Filter by OAuth/SAML provider (optional)
 group_name = 'group_name_example' # str | Filter by group name (case-insensitive substring match) (optional)
 used_in_authorizations = true # bool | Filter groups used (true) or not used (false) in authorizations (optional)
 limit = 50 # int | Maximum number of results to return (optional) (default to 50)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
-sort_by = 'group_name' # str | Field to sort by (optional) (default to group_name)
-sort_order = 'asc' # str | Sort direction (optional) (default to asc)
+sort_by = 'created_at' # str | Field to sort by (optional) (default to created_at)
+sort_order = 'desc' # str | Sort direction (optional) (default to desc)
 
 try:
     # List groups
@@ -807,13 +803,13 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **provider** | **str**| Filter by OAuth/SAML provider (use \&quot;*\&quot; for provider-independent groups) | [optional] 
+ **provider** | **str**| Filter by OAuth/SAML provider | [optional] 
  **group_name** | **str**| Filter by group name (case-insensitive substring match) | [optional] 
  **used_in_authorizations** | **bool**| Filter groups used (true) or not used (false) in authorizations | [optional] 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 50]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **sort_by** | **str**| Field to sort by | [optional] [default to group_name]
- **sort_order** | **str**| Sort direction | [optional] [default to asc]
+ **sort_by** | **str**| Field to sort by | [optional] [default to created_at]
+ **sort_order** | **str**| Sort direction | [optional] [default to desc]
 
 ### Return type
 
@@ -972,7 +968,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the group
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 limit = 50 # int | Maximum number of results to return (optional) (default to 50)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
 
@@ -988,7 +984,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **internal_uuid** | [**str**](.md)| Internal system UUID of the group | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 50]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -1127,7 +1123,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the group
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 user_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user to remove
 
 try:
@@ -1141,7 +1137,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **internal_uuid** | [**str**](.md)| Internal system UUID of the group | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
  **user_uuid** | [**str**](.md)| Internal system UUID of the user to remove | 
 
 ### Return type
@@ -1229,7 +1225,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
 body = tmi_client.UpdateAdminGroupRequest() # UpdateAdminGroupRequest | 
-internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the group
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
     # Update group metadata
@@ -1244,7 +1240,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)|  | 
- **internal_uuid** | [**str**](.md)| Internal system UUID of the group | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
 

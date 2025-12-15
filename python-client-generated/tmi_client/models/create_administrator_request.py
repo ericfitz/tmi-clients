@@ -28,74 +28,102 @@ class CreateAdministratorRequest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'user_id': 'str',
-        'group_id': 'str',
+        'email': 'str',
+        'provider_user_id': 'str',
+        'group_name': 'str',
         'provider': 'str'
     }
 
     attribute_map = {
-        'user_id': 'user_id',
-        'group_id': 'group_id',
+        'email': 'email',
+        'provider_user_id': 'provider_user_id',
+        'group_name': 'group_name',
         'provider': 'provider'
     }
 
-    def __init__(self, user_id=None, group_id=None, provider=None):  # noqa: E501
+    def __init__(self, email=None, provider_user_id=None, group_name=None, provider=None):  # noqa: E501
         """CreateAdministratorRequest - a model defined in Swagger"""  # noqa: E501
-        self._user_id = None
-        self._group_id = None
+        self._email = None
+        self._provider_user_id = None
+        self._group_name = None
         self._provider = None
         self.discriminator = None
-        if user_id is not None:
-            self.user_id = user_id
-        if group_id is not None:
-            self.group_id = group_id
+        if email is not None:
+            self.email = email
+        if provider_user_id is not None:
+            self.provider_user_id = provider_user_id
+        if group_name is not None:
+            self.group_name = group_name
         self.provider = provider
 
     @property
-    def user_id(self):
-        """Gets the user_id of this CreateAdministratorRequest.  # noqa: E501
+    def email(self):
+        """Gets the email of this CreateAdministratorRequest.  # noqa: E501
 
-        User ID to grant admin privileges (mutually exclusive with group_id)  # noqa: E501
+        User email to grant admin privileges (mutually exclusive with provider_user_id and group_name)  # noqa: E501
 
-        :return: The user_id of this CreateAdministratorRequest.  # noqa: E501
+        :return: The email of this CreateAdministratorRequest.  # noqa: E501
         :rtype: str
         """
-        return self._user_id
+        return self._email
 
-    @user_id.setter
-    def user_id(self, user_id):
-        """Sets the user_id of this CreateAdministratorRequest.
+    @email.setter
+    def email(self, email):
+        """Sets the email of this CreateAdministratorRequest.
 
-        User ID to grant admin privileges (mutually exclusive with group_id)  # noqa: E501
+        User email to grant admin privileges (mutually exclusive with provider_user_id and group_name)  # noqa: E501
 
-        :param user_id: The user_id of this CreateAdministratorRequest.  # noqa: E501
+        :param email: The email of this CreateAdministratorRequest.  # noqa: E501
         :type: str
         """
 
-        self._user_id = user_id
+        self._email = email
 
     @property
-    def group_id(self):
-        """Gets the group_id of this CreateAdministratorRequest.  # noqa: E501
+    def provider_user_id(self):
+        """Gets the provider_user_id of this CreateAdministratorRequest.  # noqa: E501
 
-        Group ID to grant admin privileges (mutually exclusive with user_id)  # noqa: E501
+        Provider's user ID to grant admin privileges (mutually exclusive with email and group_name)  # noqa: E501
 
-        :return: The group_id of this CreateAdministratorRequest.  # noqa: E501
+        :return: The provider_user_id of this CreateAdministratorRequest.  # noqa: E501
         :rtype: str
         """
-        return self._group_id
+        return self._provider_user_id
 
-    @group_id.setter
-    def group_id(self, group_id):
-        """Sets the group_id of this CreateAdministratorRequest.
+    @provider_user_id.setter
+    def provider_user_id(self, provider_user_id):
+        """Sets the provider_user_id of this CreateAdministratorRequest.
 
-        Group ID to grant admin privileges (mutually exclusive with user_id)  # noqa: E501
+        Provider's user ID to grant admin privileges (mutually exclusive with email and group_name)  # noqa: E501
 
-        :param group_id: The group_id of this CreateAdministratorRequest.  # noqa: E501
+        :param provider_user_id: The provider_user_id of this CreateAdministratorRequest.  # noqa: E501
         :type: str
         """
 
-        self._group_id = group_id
+        self._provider_user_id = provider_user_id
+
+    @property
+    def group_name(self):
+        """Gets the group_name of this CreateAdministratorRequest.  # noqa: E501
+
+        Group name to grant admin privileges (mutually exclusive with email and provider_user_id)  # noqa: E501
+
+        :return: The group_name of this CreateAdministratorRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._group_name
+
+    @group_name.setter
+    def group_name(self, group_name):
+        """Sets the group_name of this CreateAdministratorRequest.
+
+        Group name to grant admin privileges (mutually exclusive with email and provider_user_id)  # noqa: E501
+
+        :param group_name: The group_name of this CreateAdministratorRequest.  # noqa: E501
+        :type: str
+        """
+
+        self._group_name = group_name
 
     @property
     def provider(self):

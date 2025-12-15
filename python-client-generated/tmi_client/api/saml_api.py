@@ -42,7 +42,7 @@ class SAMLApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str idp: SAML provider identifier (must start with \"saml_\") (required)
+        :param str idp: Identity provider ID (e.g., saml_okta, saml_azure) (required)
         :return: object
                  If the method is called asynchronously,
                  returns the request thread.
@@ -64,7 +64,7 @@ class SAMLApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str idp: SAML provider identifier (must start with \"saml_\") (required)
+        :param str idp: Identity provider ID (e.g., saml_okta, saml_azure) (required)
         :return: object
                  If the method is called asynchronously,
                  returns the request thread.

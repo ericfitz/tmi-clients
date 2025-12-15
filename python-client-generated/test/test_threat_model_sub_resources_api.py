@@ -378,6 +378,13 @@ class TestThreatModelSubResourcesApi(unittest.TestCase):
         """
         pass
 
+    def test_get_diagram_model(self):
+        """Test case for get_diagram_model
+
+        Get minimal diagram model for automated analysis  # noqa: E501
+        """
+        pass
+
     def test_get_document_metadata(self):
         """Test case for get_document_metadata
 

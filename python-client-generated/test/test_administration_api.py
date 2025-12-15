@@ -59,7 +59,7 @@ class TestAdministrationApi(unittest.TestCase):
     def test_delete_admin_group(self):
         """Test case for delete_admin_group
 
-        Delete group (Not Implemented)  # noqa: E501
+        Delete group  # noqa: E501
         """
         pass
 

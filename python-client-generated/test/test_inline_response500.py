@@ -15,12 +15,12 @@ from __future__ import absolute_import
 import unittest
 
 import tmi_client
-from tmi_client.models.deletion_stats import DeletionStats  # noqa: E501
+from tmi_client.models.inline_response500 import InlineResponse500  # noqa: E501
 from tmi_client.rest import ApiException
 
 
-class TestDeletionStats(unittest.TestCase):
-    """DeletionStats unit test stubs"""
+class TestInlineResponse500(unittest.TestCase):
+    """InlineResponse500 unit test stubs"""
 
     def setUp(self):
         pass
@@ -28,10 +28,10 @@ class TestDeletionStats(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testDeletionStats(self):
-        """Test DeletionStats"""
+    def testInlineResponse500(self):
+        """Test InlineResponse500"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = tmi_client.models.deletion_stats.DeletionStats()  # noqa: E501
+        # model = tmi_client.models.inline_response500.InlineResponse500()  # noqa: E501
         pass
 
 

@@ -15,12 +15,12 @@ from __future__ import absolute_import
 import unittest
 
 import tmi_client
-from tmi_client.models.clientcredentials_body import ClientcredentialsBody  # noqa: E501
+from tmi_client.models.me_client_credentials_body import MeClientCredentialsBody  # noqa: E501
 from tmi_client.rest import ApiException
 
 
-class TestClientcredentialsBody(unittest.TestCase):
-    """ClientcredentialsBody unit test stubs"""
+class TestMeClientCredentialsBody(unittest.TestCase):
+    """MeClientCredentialsBody unit test stubs"""
 
     def setUp(self):
         pass
@@ -28,10 +28,10 @@ class TestClientcredentialsBody(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testClientcredentialsBody(self):
-        """Test ClientcredentialsBody"""
+    def testMeClientCredentialsBody(self):
+        """Test MeClientCredentialsBody"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = tmi_client.models.clientcredentials_body.ClientcredentialsBody()  # noqa: E501
+        # model = tmi_client.models.me_client_credentials_body.MeClientCredentialsBody()  # noqa: E501
         pass
 
 

@@ -24,7 +24,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.SAMLApi(tmi_client.ApiClient(configuration))
-idp = 'idp_example' # str | SAML provider identifier (must start with \"saml_\")
+idp = 'idp_example' # str | Identity provider ID (e.g., saml_okta, saml_azure)
 
 try:
     # List SAML users for UI autocomplete
@@ -38,7 +38,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idp** | **str**| SAML provider identifier (must start with \&quot;saml_\&quot;) | 
+ **idp** | **str**| Identity provider ID (e.g., saml_okta, saml_azure) | 
 
 ### Return type
 

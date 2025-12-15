@@ -40,14 +40,12 @@ from tmi_client.models.cell import Cell
 from tmi_client.models.cell_data import CellData
 from tmi_client.models.client_credential_info import ClientCredentialInfo
 from tmi_client.models.client_credential_response import ClientCredentialResponse
-from tmi_client.models.clientcredentials_body import ClientcredentialsBody
 from tmi_client.models.collaboration_session import CollaborationSession
 from tmi_client.models.create_addon_request import CreateAddonRequest
 from tmi_client.models.create_admin_group_request import CreateAdminGroupRequest
 from tmi_client.models.create_administrator_request import CreateAdministratorRequest
 from tmi_client.models.create_diagram_request import CreateDiagramRequest
 from tmi_client.models.deletion_challenge import DeletionChallenge
-from tmi_client.models.deletion_stats import DeletionStats
 from tmi_client.models.dfd_diagram import DfdDiagram
 from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 from tmi_client.models.diagram import Diagram
@@ -71,7 +69,6 @@ from tmi_client.models.edge_terminal import EdgeTerminal
 from tmi_client.models.error import Error
 from tmi_client.models.error_details import ErrorDetails
 from tmi_client.models.extended_asset import ExtendedAsset
-from tmi_client.models.group import Group
 from tmi_client.models.group_member import GroupMember
 from tmi_client.models.group_member_list_response import GroupMemberListResponse
 from tmi_client.models.inline_response200 import InlineResponse200
@@ -90,7 +87,8 @@ from tmi_client.models.inline_response2007 import InlineResponse2007
 from tmi_client.models.inline_response2008 import InlineResponse2008
 from tmi_client.models.inline_response2009 import InlineResponse2009
 from tmi_client.models.inline_response409 import InlineResponse409
-from tmi_client.models.invocation_list_response import InvocationListResponse
+from tmi_client.models.inline_response429 import InlineResponse429
+from tmi_client.models.inline_response500 import InlineResponse500
 from tmi_client.models.invocation_response import InvocationResponse
 from tmi_client.models.invoke_addon_request import InvokeAddonRequest
 from tmi_client.models.invoke_addon_response import InvokeAddonResponse
@@ -98,6 +96,7 @@ from tmi_client.models.list_addons_response import ListAddonsResponse
 from tmi_client.models.list_administrators_response import ListAdministratorsResponse
 from tmi_client.models.list_invocations_response import ListInvocationsResponse
 from tmi_client.models.markup_element import MarkupElement
+from tmi_client.models.me_client_credentials_body import MeClientCredentialsBody
 from tmi_client.models.metadata import Metadata
 from tmi_client.models.metadata_key_body import MetadataKeyBody
 from tmi_client.models.metadata_key_body1 import MetadataKeyBody1
@@ -105,6 +104,10 @@ from tmi_client.models.metadata_key_body2 import MetadataKeyBody2
 from tmi_client.models.metadata_key_body3 import MetadataKeyBody3
 from tmi_client.models.metadata_key_body4 import MetadataKeyBody4
 from tmi_client.models.metadata_key_body5 import MetadataKeyBody5
+from tmi_client.models.minimal_cell import MinimalCell
+from tmi_client.models.minimal_diagram_model import MinimalDiagramModel
+from tmi_client.models.minimal_edge import MinimalEdge
+from tmi_client.models.minimal_node import MinimalNode
 from tmi_client.models.node import Node
 from tmi_client.models.node_attrs import NodeAttrs
 from tmi_client.models.node_attrs_body import NodeAttrsBody
@@ -132,8 +135,6 @@ from tmi_client.models.repository_base import RepositoryBase
 from tmi_client.models.repository_base_parameters import RepositoryBaseParameters
 from tmi_client.models.repository_input import RepositoryInput
 from tmi_client.models.saml_provider_info import SAMLProviderInfo
-from tmi_client.models.saml_user_list_response import SAMLUserListResponse
-from tmi_client.models.saml_user_list_response_users import SAMLUserListResponseUsers
 from tmi_client.models.saml_acs_body import SamlAcsBody
 from tmi_client.models.saml_slo_body import SamlSloBody
 from tmi_client.models.tm_list_item import TMListItem

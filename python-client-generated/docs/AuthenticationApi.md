@@ -5,8 +5,8 @@ All URIs are relative to *http://localhost:{port}*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorize_o_auth_provider**](AuthenticationApi.md#authorize_o_auth_provider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
-[**create_client_credential**](AuthenticationApi.md#create_client_credential) | **POST** /client-credentials | Create client credential
-[**delete_client_credential**](AuthenticationApi.md#delete_client_credential) | **DELETE** /client-credentials/{id} | Delete client credential
+[**create_current_user_client_credential**](AuthenticationApi.md#create_current_user_client_credential) | **POST** /users/me/client_credentials | Create client credential
+[**delete_current_user_client_credential**](AuthenticationApi.md#delete_current_user_client_credential) | **DELETE** /users/me/client_credentials/{id} | Delete client credential
 [**exchange_o_auth_code**](AuthenticationApi.md#exchange_o_auth_code) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**get_auth_providers**](AuthenticationApi.md#get_auth_providers) | **GET** /oauth2/providers | List available OAuth providers
 [**get_current_user**](AuthenticationApi.md#get_current_user) | **GET** /oauth2/userinfo | Get current user information
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**handle_o_auth_callback**](AuthenticationApi.md#handle_o_auth_callback) | **GET** /oauth2/callback | Handle OAuth callback
 [**initiate_saml_login**](AuthenticationApi.md#initiate_saml_login) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspect_token**](AuthenticationApi.md#introspect_token) | **POST** /oauth2/introspect | Token Introspection
-[**list_client_credentials**](AuthenticationApi.md#list_client_credentials) | **GET** /client-credentials | List client credentials
+[**list_current_user_client_credentials**](AuthenticationApi.md#list_current_user_client_credentials) | **GET** /users/me/client_credentials | List client credentials
 [**logout_user**](AuthenticationApi.md#logout_user) | **POST** /oauth2/revoke | Logout user
 [**process_saml_logout**](AuthenticationApi.md#process_saml_logout) | **GET** /saml/slo | SAML Single Logout
 [**process_saml_logout_post**](AuthenticationApi.md#process_saml_logout_post) | **POST** /saml/slo | SAML Single Logout (POST)
@@ -83,8 +83,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_client_credential**
-> ClientCredentialResponse create_client_credential(body)
+# **create_current_user_client_credential**
+> ClientCredentialResponse create_current_user_client_credential(body)
 
 Create client credential
 
@@ -101,21 +101,21 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ClientcredentialsBody() # ClientcredentialsBody | 
+body = tmi_client.MeClientCredentialsBody() # MeClientCredentialsBody | 
 
 try:
     # Create client credential
-    api_response = api_instance.create_client_credential(body)
+    api_response = api_instance.create_current_user_client_credential(body)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling AuthenticationApi->create_client_credential: %s\n" % e)
+    print("Exception when calling AuthenticationApi->create_current_user_client_credential: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ClientcredentialsBody**](ClientcredentialsBody.md)|  | 
+ **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)|  | 
 
 ### Return type
 
@@ -132,8 +132,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_client_credential**
-> delete_client_credential(id)
+# **delete_current_user_client_credential**
+> delete_current_user_client_credential(id)
 
 Delete client credential
 
@@ -150,20 +150,20 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
-id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Client credential UUID
+id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Administrator grant ID
 
 try:
     # Delete client credential
-    api_instance.delete_client_credential(id)
+    api_instance.delete_current_user_client_credential(id)
 except ApiException as e:
-    print("Exception when calling AuthenticationApi->delete_client_credential: %s\n" % e)
+    print("Exception when calling AuthenticationApi->delete_current_user_client_credential: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Client credential UUID | 
+ **id** | [**str**](.md)| Administrator grant ID | 
 
 ### Return type
 
@@ -523,7 +523,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
 code = 'code_example' # str | Authorization code from the OAuth provider
-state = 'state_example' # str | Optional state parameter for CSRF protection (optional)
+state = 'state_example' # str | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
 
 try:
     # Handle OAuth callback
@@ -538,7 +538,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **code** | **str**| Authorization code from the OAuth provider | 
- **state** | **str**| Optional state parameter for CSRF protection | [optional] 
+ **state** | **str**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [optional] 
 
 ### Return type
 
@@ -573,7 +573,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
 provider = 'provider_example' # str | SAML provider identifier
-client_callback = 'client_callback_example' # str | Client callback URL to redirect after authentication (optional)
+client_callback = 'client_callback_example' # str | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
 
 try:
     # Initiate SAML authentication
@@ -587,7 +587,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider** | **str**| SAML provider identifier | 
- **client_callback** | **str**| Client callback URL to redirect after authentication | [optional] 
+ **client_callback** | **str**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [optional] 
 
 ### Return type
 
@@ -654,8 +654,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_client_credentials**
-> list[ClientCredentialInfo] list_client_credentials()
+# **list_current_user_client_credentials**
+> list[ClientCredentialInfo] list_current_user_client_credentials()
 
 List client credentials
 
@@ -675,10 +675,10 @@ api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
 
 try:
     # List client credentials
-    api_response = api_instance.list_client_credentials()
+    api_response = api_instance.list_current_user_client_credentials()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling AuthenticationApi->list_client_credentials: %s\n" % e)
+    print("Exception when calling AuthenticationApi->list_current_user_client_credentials: %s\n" % e)
 ```
 
 ### Parameters
