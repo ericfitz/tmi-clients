@@ -1,4 +1,4 @@
-# TmiJsClient.AddonsUserIdBody
+# TmiThreatModelingImprovedApi.AddonsUserIdBody
 
 ## Properties
 Name | Type | Description | Notes

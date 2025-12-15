@@ -1,4 +1,4 @@
-# TmiJsClient.EdgeConnector
+# TmiThreatModelingImprovedApi.EdgeConnector
 
 ## Properties
 Name | Type | Description | Notes

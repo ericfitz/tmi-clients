@@ -1,4 +1,4 @@
-# TmiJsClient.Threat
+# TmiThreatModelingImprovedApi.Threat
 
 ## Properties
 Name | Type | Description | Notes

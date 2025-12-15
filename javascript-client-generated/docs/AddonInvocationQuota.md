@@ -1,4 +1,4 @@
-# TmiJsClient.AddonInvocationQuota
+# TmiThreatModelingImprovedApi.AddonInvocationQuota
 
 ## Properties
 Name | Type | Description | Notes

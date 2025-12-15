@@ -1,4 +1,4 @@
-# TmiJsClient.NoteListItem
+# TmiThreatModelingImprovedApi.NoteListItem
 
 ## Properties
 Name | Type | Description | Notes

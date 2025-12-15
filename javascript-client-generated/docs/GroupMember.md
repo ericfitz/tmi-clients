@@ -1,4 +1,4 @@
-# TmiJsClient.GroupMember
+# TmiThreatModelingImprovedApi.GroupMember
 
 ## Properties
 Name | Type | Description | Notes

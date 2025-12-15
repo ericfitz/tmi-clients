@@ -1,4 +1,4 @@
-# TmiJsClient.ThreatModelsthreatModelIdthreatsbulkPatches
+# TmiThreatModelingImprovedApi.ThreatModelsthreatModelIdthreatsbulkPatches
 
 ## Properties
 Name | Type | Description | Notes

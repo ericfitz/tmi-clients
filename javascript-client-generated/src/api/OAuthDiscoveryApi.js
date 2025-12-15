@@ -35,14 +35,21 @@ export default class OAuthDiscoveryApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the getOAuthProtectedResourceMetadata operation.
+     * @callback moduleapi/OAuthDiscoveryApi~getOAuthProtectedResourceMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/OAuthProtectedResourceMetadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * OAuth 2.0 Protected Resource Metadata
      * Returns OAuth 2.0 protected resource metadata as per RFC 9728
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/OAuthProtectedResourceMetadata} and HTTP response
+     * @param {module:api/OAuthDiscoveryApi~getOAuthProtectedResourceMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getOAuthProtectedResourceMetadataWithHttpInfo() {
+    getOAuthProtectedResourceMetadata(callback) {
       
       let postBody = null;
 
@@ -67,20 +74,8 @@ export default class OAuthDiscoveryApi {
       return this.apiClient.callApi(
         '/.well-known/oauth-protected-resource', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * OAuth 2.0 Protected Resource Metadata
-     * Returns OAuth 2.0 protected resource metadata as per RFC 9728
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OAuthProtectedResourceMetadata}
-     */
-    getOAuthProtectedResourceMetadata() {
-      return this.getOAuthProtectedResourceMetadataWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

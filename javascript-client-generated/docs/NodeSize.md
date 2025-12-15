@@ -1,4 +1,4 @@
-# TmiJsClient.NodeSize
+# TmiThreatModelingImprovedApi.NodeSize
 
 ## Properties
 Name | Type | Description | Notes

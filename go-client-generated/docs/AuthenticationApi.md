@@ -1,19 +1,23 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AuthorizeOAuthProvider**](AuthenticationApi.md#AuthorizeOAuthProvider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
-[**ExchangeOAuthCode**](AuthenticationApi.md#ExchangeOAuthCode) | **Post** /oauth2/token | Exchange OAuth authorization code for JWT tokens
+[**CreateCurrentUserClientCredential**](AuthenticationApi.md#CreateCurrentUserClientCredential) | **Post** /users/me/client_credentials | Create client credential
+[**DeleteCurrentUserClientCredential**](AuthenticationApi.md#DeleteCurrentUserClientCredential) | **Delete** /users/me/client_credentials/{id} | Delete client credential
+[**ExchangeOAuthCode**](AuthenticationApi.md#ExchangeOAuthCode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**GetAuthProviders**](AuthenticationApi.md#GetAuthProviders) | **Get** /oauth2/providers | List available OAuth providers
 [**GetCurrentUser**](AuthenticationApi.md#GetCurrentUser) | **Get** /oauth2/userinfo | Get current user information
 [**GetCurrentUserProfile**](AuthenticationApi.md#GetCurrentUserProfile) | **Get** /users/me | Get current user profile
 [**GetProviderGroups**](AuthenticationApi.md#GetProviderGroups) | **Get** /oauth2/providers/{idp}/groups | Get groups for identity provider
-[**GetSAMLMetadata**](AuthenticationApi.md#GetSAMLMetadata) | **Get** /saml/metadata | Get SAML service provider metadata
+[**GetSAMLMetadata**](AuthenticationApi.md#GetSAMLMetadata) | **Get** /saml/{provider}/metadata | Get SAML service provider metadata
+[**GetSAMLProviders**](AuthenticationApi.md#GetSAMLProviders) | **Get** /saml/providers | List available SAML providers
 [**HandleOAuthCallback**](AuthenticationApi.md#HandleOAuthCallback) | **Get** /oauth2/callback | Handle OAuth callback
-[**InitiateSAMLLogin**](AuthenticationApi.md#InitiateSAMLLogin) | **Get** /saml/login | Initiate SAML authentication
+[**InitiateSAMLLogin**](AuthenticationApi.md#InitiateSAMLLogin) | **Get** /saml/{provider}/login | Initiate SAML authentication
 [**IntrospectToken**](AuthenticationApi.md#IntrospectToken) | **Post** /oauth2/introspect | Token Introspection
+[**ListCurrentUserClientCredentials**](AuthenticationApi.md#ListCurrentUserClientCredentials) | **Get** /users/me/client_credentials | List client credentials
 [**LogoutUser**](AuthenticationApi.md#LogoutUser) | **Post** /oauth2/revoke | Logout user
 [**ProcessSAMLLogout**](AuthenticationApi.md#ProcessSAMLLogout) | **Get** /saml/slo | SAML Single Logout
 [**ProcessSAMLLogoutPost**](AuthenticationApi.md#ProcessSAMLLogoutPost) | **Post** /saml/slo | SAML Single Logout (POST)
@@ -21,7 +25,7 @@ Method | HTTP request | Description
 [**RefreshToken**](AuthenticationApi.md#RefreshToken) | **Post** /oauth2/refresh | Refresh JWT token
 
 # **AuthorizeOAuthProvider**
-> AuthorizeOAuthProvider(ctx, scope, optional)
+> AuthorizeOAuthProvider(ctx, scope, codeChallenge, codeChallengeMethod, optional)
 Initiate OAuth authorization flow
 
 Redirects user to OAuth provider's authorization page. Supports client callback URL for seamless client integration. Generates state parameter for CSRF protection.
@@ -32,6 +36,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **scope** | **string**| OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values. | 
+  **codeChallenge** | **string**| PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
+  **codeChallengeMethod** | **string**| PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
  **optional** | ***AuthenticationApiAuthorizeOAuthProviderOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -39,8 +45,10 @@ Optional parameters are passed through a pointer to a AuthenticationApiAuthorize
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+
+
  **idp** | **optional.String**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | 
- **clientCallback** | **optional.String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens as query parameters. If not provided, tokens are returned as JSON response. | 
+ **clientCallback** | **optional.String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
  **state** | **optional.String**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
  **loginHint** | **optional.String**| User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | 
 
@@ -59,11 +67,67 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **ExchangeOAuthCode**
-> AuthTokenResponse ExchangeOAuthCode(ctx, body, optional)
-Exchange OAuth authorization code for JWT tokens
+# **CreateCurrentUserClientCredential**
+> ClientCredentialResponse CreateCurrentUserClientCredential(ctx, body)
+Create client credential
 
-Provider-neutral endpoint to exchange OAuth authorization codes for TMI JWT tokens. Supports Google, GitHub, and Microsoft OAuth providers.
+Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)|  | 
+
+### Return type
+
+[**ClientCredentialResponse**](ClientCredentialResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteCurrentUserClientCredential**
+> DeleteCurrentUserClientCredential(ctx, id)
+Delete client credential
+
+Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | [**string**](.md)| Administrator grant ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ExchangeOAuthCode**
+> AuthTokenResponse ExchangeOAuthCode(ctx, body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, optional)
+Exchange OAuth credentials for JWT tokens
+
+Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.
 
 ### Required Parameters
 
@@ -71,12 +135,28 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)|  | 
+  **grantType** | **string**|  | 
+  **code** | **string**|  | 
+  **clientId** | **string**|  | 
+  **clientSecret** | **string**|  | 
+  **refreshToken** | **string**|  | 
+  **redirectUri** | **string**|  | 
+  **codeVerifier** | **string**|  | 
+  **state** | **string**|  | 
  **optional** | ***AuthenticationApiExchangeOAuthCodeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a AuthenticationApiExchangeOAuthCodeOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+
+
+
+
+
+
 
  **idp** | **optional.**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | 
 
@@ -90,7 +170,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/x-www-form-urlencoded
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -144,7 +224,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetCurrentUserProfile**
-> User GetCurrentUserProfile(ctx, )
+> UserWithAdminStatus GetCurrentUserProfile(ctx, )
 Get current user profile
 
 Returns detailed information about the currently authenticated user including groups and identity provider
@@ -154,7 +234,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**UserWithAdminStatus**](UserWithAdminStatus.md)
 
 ### Authorization
 
@@ -196,13 +276,17 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSAMLMetadata**
-> string GetSAMLMetadata(ctx, )
+> string GetSAMLMetadata(ctx, provider)
 Get SAML service provider metadata
 
 Returns the SP metadata XML for SAML configuration
 
 ### Required Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **provider** | **string**| SAML provider identifier | 
 
 ### Return type
 
@@ -216,6 +300,30 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/samlmetadata+xml, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetSAMLProviders**
+> InlineResponse20010 GetSAMLProviders(ctx, )
+List available SAML providers
+
+Returns a list of configured SAML providers available for authentication
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**InlineResponse20010**](inline_response_200_10.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -238,7 +346,7 @@ Optional parameters are passed through a pointer to a AuthenticationApiHandleOAu
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **state** | **optional.String**| Optional state parameter for CSRF protection | 
+ **state** | **optional.String**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
 
 ### Return type
 
@@ -256,7 +364,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **InitiateSAMLLogin**
-> InitiateSAMLLogin(ctx, optional)
+> InitiateSAMLLogin(ctx, provider, optional)
 Initiate SAML authentication
 
 Starts SAML authentication flow by redirecting to IdP
@@ -266,13 +374,15 @@ Starts SAML authentication flow by redirecting to IdP
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **provider** | **string**| SAML provider identifier | 
  **optional** | ***AuthenticationApiInitiateSAMLLoginOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a AuthenticationApiInitiateSAMLLoginOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **clientCallback** | **optional.String**| Client callback URL to redirect after authentication | 
+
+ **clientCallback** | **optional.String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
 
 ### Return type
 
@@ -318,8 +428,32 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **ListCurrentUserClientCredentials**
+> []ClientCredentialInfo ListCurrentUserClientCredentials(ctx, )
+List client credentials
+
+Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[]ClientCredentialInfo**](ClientCredentialInfo.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **LogoutUser**
-> LogoutUser(ctx, optional)
+> InlineResponse2007 LogoutUser(ctx, optional)
 Logout user
 
 Invalidates the user's JWT token by adding it to a blacklist, effectively ending the session. Once logged out, the token cannot be used for further authenticated requests until it naturally expires. The token blacklist is maintained in Redis with automatic cleanup based on token expiration times.
@@ -339,7 +473,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**InlineResponse2007**](inline_response_200_7.md)
 
 ### Authorization
 
@@ -353,7 +487,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ProcessSAMLLogout**
-> InlineResponse2008 ProcessSAMLLogout(ctx, sAMLRequest)
+> InlineResponse2009 ProcessSAMLLogout(ctx, sAMLRequest)
 SAML Single Logout
 
 Handles SAML logout requests from IdP
@@ -367,7 +501,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](inline_response_200_8.md)
+[**InlineResponse2009**](inline_response_200_9.md)
 
 ### Authorization
 
@@ -381,7 +515,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ProcessSAMLLogoutPost**
-> InlineResponse2008 ProcessSAMLLogoutPost(ctx, optional)
+> InlineResponse2009 ProcessSAMLLogoutPost(ctx, optional)
 SAML Single Logout (POST)
 
 Handles SAML logout requests from IdP via POST
@@ -401,7 +535,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](inline_response_200_8.md)
+[**InlineResponse2009**](inline_response_200_9.md)
 
 ### Authorization
 

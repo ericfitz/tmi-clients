@@ -1,4 +1,4 @@
-# TmiJsClient.OIDCDiscoveryApi
+# TmiThreatModelingImprovedApi.OIDCDiscoveryApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -18,15 +18,16 @@ Returns the JSON Web Key Set (JWKS) for JWT signature verification
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.OIDCDiscoveryApi();
-apiInstance.getJWKS().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.OIDCDiscoveryApi();
+apiInstance.getJWKS((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -55,15 +56,16 @@ Returns OAuth 2.0 authorization server metadata as per RFC 8414
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.OIDCDiscoveryApi();
-apiInstance.getOAuthAuthorizationServerMetadata().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.OIDCDiscoveryApi();
+apiInstance.getOAuthAuthorizationServerMetadata((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -92,15 +94,16 @@ Returns OpenID Connect provider configuration metadata as per RFC 8414
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.OIDCDiscoveryApi();
-apiInstance.getOpenIDConfiguration().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.OIDCDiscoveryApi();
+apiInstance.getOpenIDConfiguration((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

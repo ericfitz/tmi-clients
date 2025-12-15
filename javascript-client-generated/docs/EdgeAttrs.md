@@ -1,4 +1,4 @@
-# TmiJsClient.EdgeAttrs
+# TmiThreatModelingImprovedApi.EdgeAttrs
 
 ## Properties
 Name | Type | Description | Notes

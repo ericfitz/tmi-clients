@@ -36,16 +36,23 @@ export default class CollaborationApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the createDiagramCollaborationSession operation.
+     * @callback moduleapi/CollaborationApi~createDiagramCollaborationSessionCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CollaborationSession{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Create diagram collaboration session
      * Creates a new collaboration session for real-time diagram editing. Only one collaboration session can exist per diagram at a time. If a session already exists, returns 409 with a link to join the existing session.
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/CollaborationSession} and HTTP response
+     * @param {module:api/CollaborationApi~createDiagramCollaborationSessionCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createDiagramCollaborationSessionWithHttpInfo(threatModelId, diagramId) {
+    createDiagramCollaborationSession(threatModelId, diagramId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -78,33 +85,25 @@ export default class CollaborationApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create diagram collaboration session
-     * Creates a new collaboration session for real-time diagram editing. Only one collaboration session can exist per diagram at a time. If a session already exists, returns 409 with a link to join the existing session.
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CollaborationSession}
+     * Callback function to receive the result of the endDiagramCollaborationSession operation.
+     * @callback moduleapi/CollaborationApi~endDiagramCollaborationSessionCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createDiagramCollaborationSession(threatModelId, diagramId) {
-      return this.createDiagramCollaborationSessionWithHttpInfo(threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * End diagram collaboration session
      * Terminates the active collaboration session for a diagram
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/CollaborationApi~endDiagramCollaborationSessionCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    endDiagramCollaborationSessionWithHttpInfo(threatModelId, diagramId) {
+    endDiagramCollaborationSession(threatModelId, diagramId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -137,31 +136,24 @@ export default class CollaborationApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * End diagram collaboration session
-     * Terminates the active collaboration session for a diagram
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the getCollaborationSessions operation.
+     * @callback moduleapi/CollaborationApi~getCollaborationSessionsCallback
+     * @param {String} error Error message, if any.
+     * @param {Object{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    endDiagramCollaborationSession(threatModelId, diagramId) {
-      return this.endDiagramCollaborationSessionWithHttpInfo(threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List active collaboration sessions
      * Returns all currently active collaboration sessions for diagrams. Clients can use this endpoint to discover existing sessions before connecting via WebSocket.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @param {module:api/CollaborationApi~getCollaborationSessionsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getCollaborationSessionsWithHttpInfo() {
+    getCollaborationSessions(callback) {
       
       let postBody = null;
 
@@ -186,31 +178,26 @@ export default class CollaborationApi {
       return this.apiClient.callApi(
         '/collaboration/sessions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List active collaboration sessions
-     * Returns all currently active collaboration sessions for diagrams. Clients can use this endpoint to discover existing sessions before connecting via WebSocket.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * Callback function to receive the result of the getDiagramCollaborationSession operation.
+     * @callback moduleapi/CollaborationApi~getDiagramCollaborationSessionCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/CollaborationSession{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getCollaborationSessions() {
-      return this.getCollaborationSessionsWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get diagram collaboration session
      * Retrieves the current collaboration session details for a diagram. The session payload indicates who has been authorized to the session, not who is currently active in the WebSocket session. The 200 status indicates successful retrieval - clients must NOT evaluate the payload to determine session status.
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/CollaborationSession} and HTTP response
+     * @param {module:api/CollaborationApi~getDiagramCollaborationSessionCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getDiagramCollaborationSessionWithHttpInfo(threatModelId, diagramId) {
+    getDiagramCollaborationSession(threatModelId, diagramId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -243,22 +230,8 @@ export default class CollaborationApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Get diagram collaboration session
-     * Retrieves the current collaboration session details for a diagram. The session payload indicates who has been authorized to the session, not who is currently active in the WebSocket session. The 200 status indicates successful retrieval - clients must NOT evaluate the payload to determine session status.
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CollaborationSession}
-     */
-    getDiagramCollaborationSession(threatModelId, diagramId) {
-      return this.getDiagramCollaborationSessionWithHttpInfo(threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

@@ -1,4 +1,4 @@
-# TmiJsClient.MarkupElement
+# TmiThreatModelingImprovedApi.MarkupElement
 
 ## Properties
 Name | Type | Description | Notes

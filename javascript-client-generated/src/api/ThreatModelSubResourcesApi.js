@@ -29,6 +29,7 @@ import MetadataKeyBody2 from '../model/MetadataKeyBody2';
 import MetadataKeyBody3 from '../model/MetadataKeyBody3';
 import MetadataKeyBody4 from '../model/MetadataKeyBody4';
 import MetadataKeyBody5 from '../model/MetadataKeyBody5';
+import MinimalDiagramModel from '../model/MinimalDiagramModel';
 import Note from '../model/Note';
 import NoteInput from '../model/NoteInput';
 import NoteListItem from '../model/NoteListItem';
@@ -57,7 +58,13 @@ export default class ThreatModelSubResourcesApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the bulkCreateDiagramMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateDiagramMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Bulk create diagram metadata
@@ -65,9 +72,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateDiagramMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateDiagramMetadataWithHttpInfo(body, threatModelId, diagramId) {
+    bulkCreateDiagramMetadata(body, threatModelId, diagramId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -104,25 +112,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create diagram metadata
-     * Creates multiple metadata entries in a single operation for the specified diagram
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateDocumentMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateDocumentMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateDiagramMetadata(body, threatModelId, diagramId) {
-      return this.bulkCreateDiagramMetadataWithHttpInfo(body, threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create document metadata
@@ -130,9 +129,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateDocumentMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateDocumentMetadataWithHttpInfo(body, threatModelId, documentId) {
+    bulkCreateDocumentMetadata(body, threatModelId, documentId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -169,25 +169,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create document metadata
-     * Creates multiple metadata entries in a single operation for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateNoteMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateNoteMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateDocumentMetadata(body, threatModelId, documentId) {
-      return this.bulkCreateDocumentMetadataWithHttpInfo(body, threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create note metadata
@@ -195,9 +186,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateNoteMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateNoteMetadataWithHttpInfo(body, threatModelId, noteId) {
+    bulkCreateNoteMetadata(body, threatModelId, noteId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -234,25 +226,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create note metadata
-     * Creates multiple metadata key-value pairs for the specified note
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateRepositoryMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateRepositoryMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateNoteMetadata(body, threatModelId, noteId) {
-      return this.bulkCreateNoteMetadataWithHttpInfo(body, threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create source metadata
@@ -260,9 +243,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateRepositoryMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateRepositoryMetadataWithHttpInfo(body, threatModelId, repositoryId) {
+    bulkCreateRepositoryMetadata(body, threatModelId, repositoryId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -299,25 +283,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create source metadata
-     * Creates multiple metadata entries in a single operation for the specified source reference
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateThreatMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateRepositoryMetadata(body, threatModelId, repositoryId) {
-      return this.bulkCreateRepositoryMetadataWithHttpInfo(body, threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create threat metadata
@@ -325,9 +300,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatMetadataWithHttpInfo(body, threatModelId, threatId) {
+    bulkCreateThreatMetadata(body, threatModelId, threatId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -364,25 +340,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create threat metadata
-     * Creates multiple metadata entries in a single operation for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateThreatModelAssetMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatModelAssetMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatMetadata(body, threatModelId, threatId) {
-      return this.bulkCreateThreatMetadataWithHttpInfo(body, threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create asset metadata
@@ -390,9 +357,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatModelAssetMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId) {
+    bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -429,34 +397,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create asset metadata
-     * Creates multiple metadata key-value pairs for the specified asset
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateThreatModelAssets operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatModelAssetsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Asset>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId) {
-      return this.bulkCreateThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create assets
      * Creates multiple assets within the specified threat model (maximum 50 per request)
      * @param {Array.<module:model/Asset>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Asset>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatModelAssetsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatModelAssetsWithHttpInfo(body, threatModelId) {
+    bulkCreateThreatModelAssets(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -489,33 +449,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create assets
-     * Creates multiple assets within the specified threat model (maximum 50 per request)
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Asset>}
+     * Callback function to receive the result of the bulkCreateThreatModelDocuments operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatModelDocumentsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Document>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatModelAssets(body, threatModelId) {
-      return this.bulkCreateThreatModelAssetsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create documents
      * Creates multiple documents in a single operation for the specified threat model
      * @param {Array.<module:model/Document>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Document>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatModelDocumentsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatModelDocumentsWithHttpInfo(body, threatModelId) {
+    bulkCreateThreatModelDocuments(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -548,33 +501,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create documents
-     * Creates multiple documents in a single operation for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Document>}
+     * Callback function to receive the result of the bulkCreateThreatModelMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatModelMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatModelDocuments(body, threatModelId) {
-      return this.bulkCreateThreatModelDocumentsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create threat model metadata
      * Creates multiple metadata entries in a single operation for the specified threat model
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatModelMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatModelMetadataWithHttpInfo(body, threatModelId) {
+    bulkCreateThreatModelMetadata(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -607,33 +553,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create threat model metadata
-     * Creates multiple metadata entries in a single operation for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkCreateThreatModelRepositories operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatModelRepositoriesCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Repository>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatModelMetadata(body, threatModelId) {
-      return this.bulkCreateThreatModelMetadataWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create sources
      * Creates multiple source references in a single operation for the specified threat model
      * @param {Array.<module:model/Repository>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Repository>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatModelRepositoriesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatModelRepositoriesWithHttpInfo(body, threatModelId) {
+    bulkCreateThreatModelRepositories(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -666,33 +605,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create sources
-     * Creates multiple source references in a single operation for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Repository>}
+     * Callback function to receive the result of the bulkCreateThreatModelThreats operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkCreateThreatModelThreatsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Threat>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatModelRepositories(body, threatModelId) {
-      return this.bulkCreateThreatModelRepositoriesWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk create threats
      * Creates multiple threats in a single operation for the specified threat model
      * @param {Array.<module:model/Threat>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkCreateThreatModelThreatsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkCreateThreatModelThreatsWithHttpInfo(body, threatModelId) {
+    bulkCreateThreatModelThreats(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -725,24 +657,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/bulk', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk create threats
-     * Creates multiple threats in a single operation for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Threat>}
+     * Callback function to receive the result of the bulkUpdateNoteMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpdateNoteMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkCreateThreatModelThreats(body, threatModelId) {
-      return this.bulkCreateThreatModelThreatsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk update note metadata
@@ -750,9 +674,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpdateNoteMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpdateNoteMetadataWithHttpInfo(body, threatModelId, noteId) {
+    bulkUpdateNoteMetadata(body, threatModelId, noteId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -789,34 +714,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk update note metadata
-     * Updates multiple metadata entries for the specified note in a single operation
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpdateThreatModelThreats operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpdateThreatModelThreatsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Threat>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpdateNoteMetadata(body, threatModelId, noteId) {
-      return this.bulkUpdateNoteMetadataWithHttpInfo(body, threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk update threats
      * Updates multiple threats in a single operation for the specified threat model
      * @param {Array.<module:model/Threat>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpdateThreatModelThreatsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpdateThreatModelThreatsWithHttpInfo(body, threatModelId) {
+    bulkUpdateThreatModelThreats(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -849,24 +766,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk update threats
-     * Updates multiple threats in a single operation for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Threat>}
+     * Callback function to receive the result of the bulkUpsertDiagramMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertDiagramMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpdateThreatModelThreats(body, threatModelId) {
-      return this.bulkUpdateThreatModelThreatsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert diagram metadata
@@ -874,9 +783,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertDiagramMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertDiagramMetadataWithHttpInfo(body, threatModelId, diagramId) {
+    bulkUpsertDiagramMetadata(body, threatModelId, diagramId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -913,25 +823,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert diagram metadata
-     * Creates or updates multiple metadata key-value pairs for the specified diagram
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpsertDocumentMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertDocumentMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertDiagramMetadata(body, threatModelId, diagramId) {
-      return this.bulkUpsertDiagramMetadataWithHttpInfo(body, threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert document metadata
@@ -939,9 +840,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertDocumentMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertDocumentMetadataWithHttpInfo(body, threatModelId, documentId) {
+    bulkUpsertDocumentMetadata(body, threatModelId, documentId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -978,25 +880,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert document metadata
-     * Creates or updates multiple metadata key-value pairs for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpsertRepositoryMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertRepositoryMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertDocumentMetadata(body, threatModelId, documentId) {
-      return this.bulkUpsertDocumentMetadataWithHttpInfo(body, threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert repository metadata
@@ -1004,9 +897,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertRepositoryMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertRepositoryMetadataWithHttpInfo(body, threatModelId, repositoryId) {
+    bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1043,25 +937,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert repository metadata
-     * Creates or updates multiple metadata key-value pairs for the specified repository
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpsertThreatMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertThreatMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId) {
-      return this.bulkUpsertRepositoryMetadataWithHttpInfo(body, threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert threat metadata
@@ -1069,9 +954,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertThreatMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertThreatMetadataWithHttpInfo(body, threatModelId, threatId) {
+    bulkUpsertThreatMetadata(body, threatModelId, threatId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1108,25 +994,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert threat metadata
-     * Creates or updates multiple metadata key-value pairs for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpsertThreatModelAssetMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertThreatModelAssetMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertThreatMetadata(body, threatModelId, threatId) {
-      return this.bulkUpsertThreatMetadataWithHttpInfo(body, threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert asset metadata
@@ -1134,9 +1011,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertThreatModelAssetMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId) {
+    bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1173,34 +1051,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert asset metadata
-     * Creates or updates multiple metadata key-value pairs for the specified asset
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpsertThreatModelAssets operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertThreatModelAssetsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Asset>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId) {
-      return this.bulkUpsertThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert assets
      * Create or update multiple assets in a single request
      * @param {Array.<module:model/Asset>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Asset>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertThreatModelAssetsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertThreatModelAssetsWithHttpInfo(body, threatModelId) {
+    bulkUpsertThreatModelAssets(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1233,33 +1103,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert assets
-     * Create or update multiple assets in a single request
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Asset>}
+     * Callback function to receive the result of the bulkUpsertThreatModelDocuments operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertThreatModelDocumentsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Document>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertThreatModelAssets(body, threatModelId) {
-      return this.bulkUpsertThreatModelAssetsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert documents
      * Create or update multiple documents in a single request
      * @param {Array.<module:model/Document>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Document>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertThreatModelDocumentsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertThreatModelDocumentsWithHttpInfo(body, threatModelId) {
+    bulkUpsertThreatModelDocuments(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1292,33 +1155,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert documents
-     * Create or update multiple documents in a single request
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Document>}
+     * Callback function to receive the result of the bulkUpsertThreatModelMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertThreatModelMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertThreatModelDocuments(body, threatModelId) {
-      return this.bulkUpsertThreatModelDocumentsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert threat model metadata
      * Creates or updates multiple metadata key-value pairs for the specified threat model
      * @param {Array.<module:model/Metadata>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertThreatModelMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertThreatModelMetadataWithHttpInfo(body, threatModelId) {
+    bulkUpsertThreatModelMetadata(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1351,33 +1207,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert threat model metadata
-     * Creates or updates multiple metadata key-value pairs for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the bulkUpsertThreatModelRepositories operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~bulkUpsertThreatModelRepositoriesCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Repository>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertThreatModelMetadata(body, threatModelId) {
-      return this.bulkUpsertThreatModelMetadataWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk upsert repositories
      * Create or update multiple repositories in a single request
      * @param {Array.<module:model/Repository>} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Repository>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~bulkUpsertThreatModelRepositoriesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkUpsertThreatModelRepositoriesWithHttpInfo(body, threatModelId) {
+    bulkUpsertThreatModelRepositories(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1410,24 +1259,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/bulk', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk upsert repositories
-     * Create or update multiple repositories in a single request
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Repository>}
+     * Callback function to receive the result of the createDiagramMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createDiagramMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkUpsertThreatModelRepositories(body, threatModelId) {
-      return this.bulkUpsertThreatModelRepositoriesWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create diagram metadata
@@ -1435,9 +1276,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createDiagramMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createDiagramMetadataWithHttpInfo(body, threatModelId, diagramId) {
+    createDiagramMetadata(body, threatModelId, diagramId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1474,25 +1316,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create diagram metadata
-     * Creates a new metadata entry for the specified diagram
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createDocumentMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createDocumentMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createDiagramMetadata(body, threatModelId, diagramId) {
-      return this.createDiagramMetadataWithHttpInfo(body, threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create document metadata
@@ -1500,9 +1333,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createDocumentMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createDocumentMetadataWithHttpInfo(body, threatModelId, documentId) {
+    createDocumentMetadata(body, threatModelId, documentId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1539,25 +1373,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create document metadata
-     * Creates new metadata entry for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createNoteMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createNoteMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createDocumentMetadata(body, threatModelId, documentId) {
-      return this.createDocumentMetadataWithHttpInfo(body, threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create note metadata
@@ -1565,9 +1390,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createNoteMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createNoteMetadataWithHttpInfo(body, threatModelId, noteId) {
+    createNoteMetadata(body, threatModelId, noteId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1604,25 +1430,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create note metadata
-     * Creates new metadata entry for the specified note
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createRepositoryMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createRepositoryMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createNoteMetadata(body, threatModelId, noteId) {
-      return this.createNoteMetadataWithHttpInfo(body, threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create source metadata
@@ -1630,9 +1447,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createRepositoryMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createRepositoryMetadataWithHttpInfo(body, threatModelId, repositoryId) {
+    createRepositoryMetadata(body, threatModelId, repositoryId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1669,25 +1487,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create source metadata
-     * Creates new metadata entry for the specified source reference
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createThreatMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createRepositoryMetadata(body, threatModelId, repositoryId) {
-      return this.createRepositoryMetadataWithHttpInfo(body, threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create threat metadata
@@ -1695,9 +1504,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatMetadataWithHttpInfo(body, threatModelId, threatId) {
+    createThreatMetadata(body, threatModelId, threatId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1734,34 +1544,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create threat metadata
-     * Creates new metadata entry for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createThreatModelAsset operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelAssetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Asset{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatMetadata(body, threatModelId, threatId) {
-      return this.createThreatMetadataWithHttpInfo(body, threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create a new asset
      * Creates a new asset within the specified threat model
      * @param {module:model/AssetInput} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Asset} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelAssetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelAssetWithHttpInfo(body, threatModelId) {
+    createThreatModelAsset(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1794,24 +1596,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a new asset
-     * Creates a new asset within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Asset}
+     * Callback function to receive the result of the createThreatModelAssetMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelAssetMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelAsset(body, threatModelId) {
-      return this.createThreatModelAssetWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Add metadata to an asset
@@ -1819,9 +1613,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelAssetMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId) {
+    createThreatModelAssetMetadata(body, threatModelId, assetId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1858,34 +1653,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Add metadata to an asset
-     * Adds a new metadata key-value pair to the specified asset
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createThreatModelDiagram operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelDiagramCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/DfdDiagram{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelAssetMetadata(body, threatModelId, assetId) {
-      return this.createThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create a new diagram
      * Creates a new diagram within the specified threat model
      * @param {module:model/CreateDiagramRequest} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DfdDiagram} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelDiagramCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelDiagramWithHttpInfo(body, threatModelId) {
+    createThreatModelDiagram(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1918,33 +1705,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a new diagram
-     * Creates a new diagram within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DfdDiagram}
+     * Callback function to receive the result of the createThreatModelDocument operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelDocumentCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Document{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelDiagram(body, threatModelId) {
-      return this.createThreatModelDiagramWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create a new document
      * Creates a new document within the specified threat model
      * @param {module:model/DocumentInput} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Document} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelDocumentCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelDocumentWithHttpInfo(body, threatModelId) {
+    createThreatModelDocument(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1977,33 +1757,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a new document
-     * Creates a new document within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Document}
+     * Callback function to receive the result of the createThreatModelMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelDocument(body, threatModelId) {
-      return this.createThreatModelDocumentWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create threat model metadata
      * Creates new metadata entry for the specified threat model
      * @param {module:model/Metadata} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelMetadataWithHttpInfo(body, threatModelId) {
+    createThreatModelMetadata(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -2036,33 +1809,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create threat model metadata
-     * Creates new metadata entry for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the createThreatModelNote operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelNoteCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Note{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelMetadata(body, threatModelId) {
-      return this.createThreatModelMetadataWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create a new note
      * Creates a new note within the specified threat model
      * @param {module:model/NoteInput} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Note} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelNoteCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelNoteWithHttpInfo(body, threatModelId) {
+    createThreatModelNote(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -2095,33 +1861,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a new note
-     * Creates a new note within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Note}
+     * Callback function to receive the result of the createThreatModelRepository operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelRepositoryCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Repository{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelNote(body, threatModelId) {
-      return this.createThreatModelNoteWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create a new source reference
      * Creates a new source code reference within the specified threat model
      * @param {module:model/RepositoryInput} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Repository} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelRepositoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelRepositoryWithHttpInfo(body, threatModelId) {
+    createThreatModelRepository(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -2154,33 +1913,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a new source reference
-     * Creates a new source code reference within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Repository}
+     * Callback function to receive the result of the createThreatModelThreat operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~createThreatModelThreatCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Threat{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelRepository(body, threatModelId) {
-      return this.createThreatModelRepositoryWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create a new threat
      * Creates a new threat within the specified threat model
      * @param {module:model/ThreatInput} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Threat} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~createThreatModelThreatCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelThreatWithHttpInfo(body, threatModelId) {
+    createThreatModelThreat(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -2213,24 +1965,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a new threat
-     * Creates a new threat within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Threat}
+     * Callback function to receive the result of the deleteDiagramMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteDiagramMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModelThreat(body, threatModelId) {
-      return this.createThreatModelThreatWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete diagram metadata by key
@@ -2238,9 +1982,9 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteDiagramMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteDiagramMetadataByKeyWithHttpInfo(threatModelId, diagramId, key) {
+    deleteDiagramMetadataByKey(threatModelId, diagramId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2277,25 +2021,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete diagram metadata by key
-     * Removes a specific metadata entry for the diagram by key
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteDocumentMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteDocumentMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteDiagramMetadataByKey(threatModelId, diagramId, key) {
-      return this.deleteDiagramMetadataByKeyWithHttpInfo(threatModelId, diagramId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete document metadata by key
@@ -2303,9 +2038,9 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteDocumentMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteDocumentMetadataByKeyWithHttpInfo(threatModelId, documentId, key) {
+    deleteDocumentMetadataByKey(threatModelId, documentId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2342,25 +2077,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete document metadata by key
-     * Deletes a specific metadata entry by key for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteNoteMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteNoteMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteDocumentMetadataByKey(threatModelId, documentId, key) {
-      return this.deleteDocumentMetadataByKeyWithHttpInfo(threatModelId, documentId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete note metadata by key
@@ -2368,9 +2094,9 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteNoteMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteNoteMetadataByKeyWithHttpInfo(threatModelId, noteId, key) {
+    deleteNoteMetadataByKey(threatModelId, noteId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2407,25 +2133,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete note metadata by key
-     * Deletes a specific metadata entry by key for the specified note
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteRepositoryMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteRepositoryMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteNoteMetadataByKey(threatModelId, noteId, key) {
-      return this.deleteNoteMetadataByKeyWithHttpInfo(threatModelId, noteId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete source metadata by key
@@ -2433,9 +2150,9 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteRepositoryMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteRepositoryMetadataByKeyWithHttpInfo(threatModelId, repositoryId, key) {
+    deleteRepositoryMetadataByKey(threatModelId, repositoryId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2472,25 +2189,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete source metadata by key
-     * Deletes a specific metadata entry by key for the specified source reference
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteRepositoryMetadataByKey(threatModelId, repositoryId, key) {
-      return this.deleteRepositoryMetadataByKeyWithHttpInfo(threatModelId, repositoryId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete threat metadata by key
@@ -2498,9 +2206,9 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatMetadataByKeyWithHttpInfo(threatModelId, threatId, key) {
+    deleteThreatMetadataByKey(threatModelId, threatId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2537,34 +2245,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete threat metadata by key
-     * Deletes a specific metadata entry by key for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelAsset operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelAssetCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatMetadataByKey(threatModelId, threatId, key) {
-      return this.deleteThreatMetadataByKeyWithHttpInfo(threatModelId, threatId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete an asset
      * Deletes an asset from the specified threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelAssetCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelAssetWithHttpInfo(threatModelId, assetId) {
+    deleteThreatModelAsset(threatModelId, assetId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2597,24 +2296,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete an asset
-     * Deletes an asset from the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelAssetMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelAssetMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelAsset(threatModelId, assetId) {
-      return this.deleteThreatModelAssetWithHttpInfo(threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete asset metadata
@@ -2622,9 +2313,9 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelAssetMetadataCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelAssetMetadataWithHttpInfo(threatModelId, assetId, key) {
+    deleteThreatModelAssetMetadata(threatModelId, assetId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2661,34 +2352,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete asset metadata
-     * Deletes a metadata key-value pair from the specified asset
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelDiagram operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelDiagramCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelAssetMetadata(threatModelId, assetId, key) {
-      return this.deleteThreatModelAssetMetadataWithHttpInfo(threatModelId, assetId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete a diagram
      * Permanently removes a diagram from the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelDiagramCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelDiagramWithHttpInfo(threatModelId, diagramId) {
+    deleteThreatModelDiagram(threatModelId, diagramId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2721,33 +2403,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete a diagram
-     * Permanently removes a diagram from the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelDocument operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelDocumentCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelDiagram(threatModelId, diagramId) {
-      return this.deleteThreatModelDiagramWithHttpInfo(threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete a document
      * Deletes a specific document from the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelDocumentCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelDocumentWithHttpInfo(threatModelId, documentId) {
+    deleteThreatModelDocument(threatModelId, documentId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2780,33 +2454,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete a document
-     * Deletes a specific document from the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelDocument(threatModelId, documentId) {
-      return this.deleteThreatModelDocumentWithHttpInfo(threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete threat model metadata by key
      * Deletes a specific metadata entry by key for the specified threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelMetadataByKeyWithHttpInfo(threatModelId, key) {
+    deleteThreatModelMetadataByKey(threatModelId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2839,33 +2505,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata/{key}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete threat model metadata by key
-     * Deletes a specific metadata entry by key for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelNote operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelNoteCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelMetadataByKey(threatModelId, key) {
-      return this.deleteThreatModelMetadataByKeyWithHttpInfo(threatModelId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete a note
      * Deletes a specific note from the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelNoteCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelNoteWithHttpInfo(threatModelId, noteId) {
+    deleteThreatModelNote(threatModelId, noteId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2898,33 +2556,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete a note
-     * Deletes a specific note from the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelRepository operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelRepositoryCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelNote(threatModelId, noteId) {
-      return this.deleteThreatModelNoteWithHttpInfo(threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete a source reference
      * Deletes a specific source code reference from the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelRepositoryCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelRepositoryWithHttpInfo(threatModelId, repositoryId) {
+    deleteThreatModelRepository(threatModelId, repositoryId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -2957,33 +2607,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete a source reference
-     * Deletes a specific source code reference from the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteThreatModelThreat operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~deleteThreatModelThreatCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelRepository(threatModelId, repositoryId) {
-      return this.deleteThreatModelRepositoryWithHttpInfo(threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete a threat
      * Deletes a specific threat from the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~deleteThreatModelThreatCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelThreatWithHttpInfo(threatModelId, threatId) {
+    deleteThreatModelThreat(threatModelId, threatId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3016,33 +2658,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete a threat
-     * Deletes a specific threat from the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the getDiagramMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getDiagramMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModelThreat(threatModelId, threatId) {
-      return this.deleteThreatModelThreatWithHttpInfo(threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get diagram metadata
      * Retrieves all metadata entries for the specified diagram
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getDiagramMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getDiagramMetadataWithHttpInfo(threatModelId, diagramId) {
+    getDiagramMetadata(threatModelId, diagramId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3075,24 +2710,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get diagram metadata
-     * Retrieves all metadata entries for the specified diagram
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getDiagramMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getDiagramMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getDiagramMetadata(threatModelId, diagramId) {
-      return this.getDiagramMetadataWithHttpInfo(threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get diagram metadata by key
@@ -3100,9 +2727,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getDiagramMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getDiagramMetadataByKeyWithHttpInfo(threatModelId, diagramId, key) {
+    getDiagramMetadataByKey(threatModelId, diagramId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3139,34 +2767,80 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
+    /**
+     * Callback function to receive the result of the getDiagramModel operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getDiagramModelCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/MinimalDiagramModel{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
-     * Get diagram metadata by key
-     * Retrieves a specific metadata entry for the diagram by key
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Get minimal diagram model for automated analysis
+     * Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+     * @param {String} threatModelId Threat model UUID
+     * @param {String} diagramId Diagram UUID
+     * @param {Object} opts Optional parameters
+     * @param {module:model/String} opts.format Output format for the diagram model (case-insensitive). Defaults to json if not specified. (default to <.>)
+     * @param {module:api/ThreatModelSubResourcesApi~getDiagramModelCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getDiagramMetadataByKey(threatModelId, diagramId, key) {
-      return this.getDiagramMetadataByKeyWithHttpInfo(threatModelId, diagramId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
+    getDiagramModel(threatModelId, diagramId, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'threatModelId' is set
+      if (threatModelId === undefined || threatModelId === null) {
+        throw new Error("Missing the required parameter 'threatModelId' when calling getDiagramModel");
+      }
+      // verify the required parameter 'diagramId' is set
+      if (diagramId === undefined || diagramId === null) {
+        throw new Error("Missing the required parameter 'diagramId' when calling getDiagramModel");
+      }
 
+      let pathParams = {
+        'threat_model_id': threatModelId,'diagram_id': diagramId
+      };
+      let queryParams = {
+        'format': opts['format']
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
+
+      let authNames = ['bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json', 'application/x-yaml', 'application/xml'];
+      let returnType = MinimalDiagramModel;
+
+      return this.apiClient.callApi(
+        '/threat_models/{threat_model_id}/diagrams/{diagram_id}/model', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, callback
+      );
+    }
+    /**
+     * Callback function to receive the result of the getDocumentMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getDocumentMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Get document metadata
      * Returns all metadata key-value pairs for the specified document
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getDocumentMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getDocumentMetadataWithHttpInfo(threatModelId, documentId) {
+    getDocumentMetadata(threatModelId, documentId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3199,24 +2873,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get document metadata
-     * Returns all metadata key-value pairs for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getDocumentMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getDocumentMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getDocumentMetadata(threatModelId, documentId) {
-      return this.getDocumentMetadataWithHttpInfo(threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get document metadata by key
@@ -3224,9 +2890,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getDocumentMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getDocumentMetadataByKeyWithHttpInfo(threatModelId, documentId, key) {
+    getDocumentMetadataByKey(threatModelId, documentId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3263,34 +2930,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get document metadata by key
-     * Returns a specific metadata entry by key for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the getNoteMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getNoteMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getDocumentMetadataByKey(threatModelId, documentId, key) {
-      return this.getDocumentMetadataByKeyWithHttpInfo(threatModelId, documentId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get note metadata
      * Returns all metadata key-value pairs for the specified note
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getNoteMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getNoteMetadataWithHttpInfo(threatModelId, noteId) {
+    getNoteMetadata(threatModelId, noteId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3323,24 +2982,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get note metadata
-     * Returns all metadata key-value pairs for the specified note
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getNoteMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getNoteMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getNoteMetadata(threatModelId, noteId) {
-      return this.getNoteMetadataWithHttpInfo(threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get note metadata by key
@@ -3348,9 +2999,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getNoteMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getNoteMetadataByKeyWithHttpInfo(threatModelId, noteId, key) {
+    getNoteMetadataByKey(threatModelId, noteId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3387,34 +3039,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get note metadata by key
-     * Returns a specific metadata entry by key for the specified note
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the getRepositoryMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getRepositoryMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getNoteMetadataByKey(threatModelId, noteId, key) {
-      return this.getNoteMetadataByKeyWithHttpInfo(threatModelId, noteId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get source metadata
      * Returns all metadata key-value pairs for the specified source reference
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getRepositoryMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getRepositoryMetadataWithHttpInfo(threatModelId, repositoryId) {
+    getRepositoryMetadata(threatModelId, repositoryId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3447,24 +3091,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get source metadata
-     * Returns all metadata key-value pairs for the specified source reference
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getRepositoryMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getRepositoryMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getRepositoryMetadata(threatModelId, repositoryId) {
-      return this.getRepositoryMetadataWithHttpInfo(threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get source metadata by key
@@ -3472,9 +3108,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getRepositoryMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getRepositoryMetadataByKeyWithHttpInfo(threatModelId, repositoryId, key) {
+    getRepositoryMetadataByKey(threatModelId, repositoryId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3511,34 +3148,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get source metadata by key
-     * Returns a specific metadata entry by key for the specified source reference
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the getThreatMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getRepositoryMetadataByKey(threatModelId, repositoryId, key) {
-      return this.getRepositoryMetadataByKeyWithHttpInfo(threatModelId, repositoryId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get threat metadata
      * Returns all metadata key-value pairs for the specified threat
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatMetadataWithHttpInfo(threatModelId, threatId) {
+    getThreatMetadata(threatModelId, threatId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3571,24 +3200,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get threat metadata
-     * Returns all metadata key-value pairs for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getThreatMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatMetadata(threatModelId, threatId) {
-      return this.getThreatMetadataWithHttpInfo(threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get threat metadata by key
@@ -3596,9 +3217,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatMetadataByKeyWithHttpInfo(threatModelId, threatId, key) {
+    getThreatMetadataByKey(threatModelId, threatId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3635,34 +3257,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get threat metadata by key
-     * Returns a specific metadata entry by key for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the getThreatModelAsset operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelAssetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Asset{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatMetadataByKey(threatModelId, threatId, key) {
-      return this.getThreatMetadataByKeyWithHttpInfo(threatModelId, threatId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get a specific asset
      * Returns a single asset by its ID
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Asset} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelAssetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelAssetWithHttpInfo(threatModelId, assetId) {
+    getThreatModelAsset(threatModelId, assetId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3695,33 +3309,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get a specific asset
-     * Returns a single asset by its ID
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Asset}
+     * Callback function to receive the result of the getThreatModelAssetMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelAssetMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelAsset(threatModelId, assetId) {
-      return this.getThreatModelAssetWithHttpInfo(threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get all metadata for an asset
      * Returns all metadata key-value pairs for the specified asset
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelAssetMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelAssetMetadataWithHttpInfo(threatModelId, assetId) {
+    getThreatModelAssetMetadata(threatModelId, assetId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3754,24 +3361,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get all metadata for an asset
-     * Returns all metadata key-value pairs for the specified asset
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getThreatModelAssetMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelAssetMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelAssetMetadata(threatModelId, assetId) {
-      return this.getThreatModelAssetMetadataWithHttpInfo(threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get specific metadata for an asset
@@ -3779,9 +3378,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelAssetMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelAssetMetadataByKeyWithHttpInfo(threatModelId, assetId, key) {
+    getThreatModelAssetMetadataByKey(threatModelId, assetId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3818,25 +3418,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get specific metadata for an asset
-     * Returns a single metadata value by its key
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the getThreatModelAssets operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelAssetsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Asset>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelAssetMetadataByKey(threatModelId, assetId, key) {
-      return this.getThreatModelAssetMetadataByKeyWithHttpInfo(threatModelId, assetId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List assets in a threat model
@@ -3845,9 +3436,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Asset>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelAssetsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelAssetsWithHttpInfo(threatModelId, opts) {
+    getThreatModelAssets(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3876,35 +3468,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List assets in a threat model
-     * Returns a paginated list of assets within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Asset>}
+     * Callback function to receive the result of the getThreatModelDiagram operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelDiagramCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/DfdDiagram{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelAssets(threatModelId, opts) {
-      return this.getThreatModelAssetsWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get a specific diagram
      * Retrieves a specific diagram from the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DfdDiagram} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelDiagramCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelDiagramWithHttpInfo(threatModelId, diagramId) {
+    getThreatModelDiagram(threatModelId, diagramId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3937,24 +3520,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get a specific diagram
-     * Retrieves a specific diagram from the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DfdDiagram}
+     * Callback function to receive the result of the getThreatModelDiagrams operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelDiagramsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/DiagramListItem>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelDiagram(threatModelId, diagramId) {
-      return this.getThreatModelDiagramWithHttpInfo(threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List threat model diagrams
@@ -3963,9 +3538,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/DiagramListItem>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelDiagramsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelDiagramsWithHttpInfo(threatModelId, opts) {
+    getThreatModelDiagrams(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -3994,35 +3570,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List threat model diagrams
-     * Returns all diagrams associated with a specific threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/DiagramListItem>}
+     * Callback function to receive the result of the getThreatModelDocument operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelDocumentCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Document{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelDiagrams(threatModelId, opts) {
-      return this.getThreatModelDiagramsWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get a specific document
      * Returns details of a specific document within the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Document} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelDocumentCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelDocumentWithHttpInfo(threatModelId, documentId) {
+    getThreatModelDocument(threatModelId, documentId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4055,24 +3622,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get a specific document
-     * Returns details of a specific document within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Document}
+     * Callback function to receive the result of the getThreatModelDocuments operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelDocumentsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Document>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelDocument(threatModelId, documentId) {
-      return this.getThreatModelDocumentWithHttpInfo(threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List documents in a threat model
@@ -4081,9 +3640,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Document>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelDocumentsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelDocumentsWithHttpInfo(threatModelId, opts) {
+    getThreatModelDocuments(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4112,34 +3672,25 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List documents in a threat model
-     * Returns a paginated list of documents within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Document>}
+     * Callback function to receive the result of the getThreatModelMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Metadata>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelDocuments(threatModelId, opts) {
-      return this.getThreatModelDocumentsWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get threat model metadata
      * Returns all metadata key-value pairs for the specified threat model
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Metadata>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelMetadataWithHttpInfo(threatModelId) {
+    getThreatModelMetadata(threatModelId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4168,32 +3719,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get threat model metadata
-     * Returns all metadata key-value pairs for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Metadata>}
+     * Callback function to receive the result of the getThreatModelMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelMetadata(threatModelId) {
-      return this.getThreatModelMetadataWithHttpInfo(threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get threat model metadata by key
      * Returns a specific metadata entry by key for the specified threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelMetadataByKeyWithHttpInfo(threatModelId, key) {
+    getThreatModelMetadataByKey(threatModelId, key, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4226,33 +3771,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata/{key}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get threat model metadata by key
-     * Returns a specific metadata entry by key for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the getThreatModelNote operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelNoteCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Note{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelMetadataByKey(threatModelId, key) {
-      return this.getThreatModelMetadataByKeyWithHttpInfo(threatModelId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get a specific note
      * Returns details of a specific note within the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Note} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelNoteCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelNoteWithHttpInfo(threatModelId, noteId) {
+    getThreatModelNote(threatModelId, noteId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4285,24 +3823,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get a specific note
-     * Returns details of a specific note within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Note}
+     * Callback function to receive the result of the getThreatModelNotes operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelNotesCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/NoteListItem>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelNote(threatModelId, noteId) {
-      return this.getThreatModelNoteWithHttpInfo(threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List notes in a threat model
@@ -4311,9 +3841,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/NoteListItem>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelNotesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelNotesWithHttpInfo(threatModelId, opts) {
+    getThreatModelNotes(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4342,26 +3873,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List notes in a threat model
-     * Returns a paginated list of notes within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/NoteListItem>}
+     * Callback function to receive the result of the getThreatModelRepositories operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelRepositoriesCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Repository>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelNotes(threatModelId, opts) {
-      return this.getThreatModelNotesWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List sources in a threat model
@@ -4370,9 +3891,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Repository>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelRepositoriesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelRepositoriesWithHttpInfo(threatModelId, opts) {
+    getThreatModelRepositories(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4401,35 +3923,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List sources in a threat model
-     * Returns a paginated list of source code references within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Repository>}
+     * Callback function to receive the result of the getThreatModelRepository operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelRepositoryCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Repository{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelRepositories(threatModelId, opts) {
-      return this.getThreatModelRepositoriesWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get a specific source reference
      * Returns details of a specific source code reference within the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Repository} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelRepositoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelRepositoryWithHttpInfo(threatModelId, repositoryId) {
+    getThreatModelRepository(threatModelId, repositoryId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4462,33 +3975,26 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get a specific source reference
-     * Returns details of a specific source code reference within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Repository}
+     * Callback function to receive the result of the getThreatModelThreat operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelThreatCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Threat{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelRepository(threatModelId, repositoryId) {
-      return this.getThreatModelRepositoryWithHttpInfo(threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get a specific threat
      * Returns details of a specific threat within the threat model
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Threat} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelThreatCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelThreatWithHttpInfo(threatModelId, threatId) {
+    getThreatModelThreat(threatModelId, threatId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4521,24 +4027,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get a specific threat
-     * Returns details of a specific threat within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Threat}
+     * Callback function to receive the result of the getThreatModelThreats operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~getThreatModelThreatsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Threat>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelThreat(threatModelId, threatId) {
-      return this.getThreatModelThreatWithHttpInfo(threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List threats in a threat model
@@ -4548,12 +4046,12 @@ export default class ThreatModelSubResourcesApi {
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {String} opts.sort Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (default to <.>)
-     * @param {String} opts.name Filter by threat name (partial match)
-     * @param {String} opts.description Filter by threat description (partial match)
+     * @param {String} opts.name Filter by threat model name (partial match)
+     * @param {String} opts.description Filter by threat model description (partial match)
      * @param {Array.<String>} opts.threatType Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing
      * @param {module:model/String} opts.severity Filter by severity level (exact match)
      * @param {String} opts.priority Filter by priority (exact match)
-     * @param {String} opts.status Filter by status (exact match)
+     * @param {String} opts.status Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
      * @param {String} opts.diagramId Filter by diagram ID (exact match)
      * @param {String} opts.cellId Filter by cell ID (exact match)
      * @param {Number} opts.scoreGt Filter threats with score greater than this value
@@ -4565,9 +4063,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Date} opts.createdBefore Filter results created before this timestamp (ISO 8601)
      * @param {Date} opts.modifiedAfter Filter results modified after this timestamp (ISO 8601)
      * @param {Date} opts.modifiedBefore Filter results modified before this timestamp (ISO 8601)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~getThreatModelThreatsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelThreatsWithHttpInfo(threatModelId, opts) {
+    getThreatModelThreats(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -4596,44 +4095,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List threats in a threat model
-     * Returns a paginated list of threats within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {String} opts.sort Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (default to <.>)
-     * @param {String} opts.name Filter by threat name (partial match)
-     * @param {String} opts.description Filter by threat description (partial match)
-     * @param {Array.<String>} opts.threatType Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing
-     * @param {module:model/String} opts.severity Filter by severity level (exact match)
-     * @param {String} opts.priority Filter by priority (exact match)
-     * @param {String} opts.status Filter by status (exact match)
-     * @param {String} opts.diagramId Filter by diagram ID (exact match)
-     * @param {String} opts.cellId Filter by cell ID (exact match)
-     * @param {Number} opts.scoreGt Filter threats with score greater than this value
-     * @param {Number} opts.scoreLt Filter threats with score less than this value
-     * @param {Number} opts.scoreEq Filter threats with score equal to this value
-     * @param {Number} opts.scoreGe Filter threats with score greater than or equal to this value
-     * @param {Number} opts.scoreLe Filter threats with score less than or equal to this value
-     * @param {Date} opts.createdAfter Filter results created after this timestamp (ISO 8601)
-     * @param {Date} opts.createdBefore Filter results created before this timestamp (ISO 8601)
-     * @param {Date} opts.modifiedAfter Filter results modified after this timestamp (ISO 8601)
-     * @param {Date} opts.modifiedBefore Filter results modified before this timestamp (ISO 8601)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Threat>}
+     * Callback function to receive the result of the patchThreatModelDiagram operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~patchThreatModelDiagramCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/DfdDiagram{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModelThreats(threatModelId, opts) {
-      return this.getThreatModelThreatsWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Partially update a diagram
@@ -4641,9 +4112,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/ThreatsThreatIdBody>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DfdDiagram} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~patchThreatModelDiagramCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelDiagramWithHttpInfo(body, threatModelId, diagramId) {
+    patchThreatModelDiagram(body, threatModelId, diagramId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -4680,25 +4152,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Partially update a diagram
-     * Apply JSON Patch operations to update specific parts of a diagram
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DfdDiagram}
+     * Callback function to receive the result of the patchThreatModelThreat operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~patchThreatModelThreatCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Threat{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    patchThreatModelDiagram(body, threatModelId, diagramId) {
-      return this.patchThreatModelDiagramWithHttpInfo(body, threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Partially update a threat
@@ -4706,9 +4169,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {Array.<module:model/ThreatsThreatIdBody>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Threat} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~patchThreatModelThreatCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelThreatWithHttpInfo(body, threatModelId, threatId) {
+    patchThreatModelThreat(body, threatModelId, threatId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -4745,25 +4209,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Partially update a threat
-     * Applies JSON patch operations to a specific threat within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Threat}
+     * Callback function to receive the result of the updateDiagramMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateDiagramMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    patchThreatModelThreat(body, threatModelId, threatId) {
-      return this.patchThreatModelThreatWithHttpInfo(body, threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update diagram metadata by key
@@ -4772,9 +4227,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateDiagramMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateDiagramMetadataByKeyWithHttpInfo(body, threatModelId, diagramId, key) {
+    updateDiagramMetadataByKey(body, threatModelId, diagramId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -4815,26 +4271,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update diagram metadata by key
-     * Updates or creates a metadata entry for the diagram with the specified key
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateDocumentMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateDocumentMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateDiagramMetadataByKey(body, threatModelId, diagramId, key) {
-      return this.updateDiagramMetadataByKeyWithHttpInfo(body, threatModelId, diagramId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update document metadata by key
@@ -4843,9 +4289,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateDocumentMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateDocumentMetadataByKeyWithHttpInfo(body, threatModelId, documentId, key) {
+    updateDocumentMetadataByKey(body, threatModelId, documentId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -4886,26 +4333,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update document metadata by key
-     * Updates a specific metadata entry by key for the specified document
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateNoteMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateNoteMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateDocumentMetadataByKey(body, threatModelId, documentId, key) {
-      return this.updateDocumentMetadataByKeyWithHttpInfo(body, threatModelId, documentId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update note metadata by key
@@ -4914,9 +4351,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateNoteMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateNoteMetadataByKeyWithHttpInfo(body, threatModelId, noteId, key) {
+    updateNoteMetadataByKey(body, threatModelId, noteId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -4957,26 +4395,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update note metadata by key
-     * Updates a specific metadata entry by key for the specified note
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateRepositoryMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateRepositoryMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateNoteMetadataByKey(body, threatModelId, noteId, key) {
-      return this.updateNoteMetadataByKeyWithHttpInfo(body, threatModelId, noteId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update source metadata by key
@@ -4985,9 +4413,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateRepositoryMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateRepositoryMetadataByKeyWithHttpInfo(body, threatModelId, repositoryId, key) {
+    updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5028,26 +4457,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update source metadata by key
-     * Updates a specific metadata entry by key for the specified source reference
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateThreatMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key) {
-      return this.updateRepositoryMetadataByKeyWithHttpInfo(body, threatModelId, repositoryId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update threat metadata by key
@@ -5056,9 +4475,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatMetadataByKeyWithHttpInfo(body, threatModelId, threatId, key) {
+    updateThreatMetadataByKey(body, threatModelId, threatId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5099,26 +4519,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update threat metadata by key
-     * Updates a specific metadata entry by key for the specified threat
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateThreatModelAsset operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelAssetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Asset{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatMetadataByKey(body, threatModelId, threatId, key) {
-      return this.updateThreatMetadataByKeyWithHttpInfo(body, threatModelId, threatId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update an asset
@@ -5126,9 +4536,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/AssetInput} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Asset} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelAssetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelAssetWithHttpInfo(body, threatModelId, assetId) {
+    updateThreatModelAsset(body, threatModelId, assetId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5165,25 +4576,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update an asset
-     * Updates an existing asset within the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Asset}
+     * Callback function to receive the result of the updateThreatModelAssetMetadata operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelAssetMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelAsset(body, threatModelId, assetId) {
-      return this.updateThreatModelAssetWithHttpInfo(body, threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update asset metadata
@@ -5192,9 +4594,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelAssetMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId, key) {
+    updateThreatModelAssetMetadata(body, threatModelId, assetId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5235,26 +4638,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update asset metadata
-     * Updates an existing metadata value by its key
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateThreatModelDiagram operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelDiagramCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/DfdDiagram{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelAssetMetadata(body, threatModelId, assetId, key) {
-      return this.updateThreatModelAssetMetadataWithHttpInfo(body, threatModelId, assetId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update a diagram
@@ -5262,9 +4655,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/DfdDiagramInput} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DfdDiagram} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelDiagramCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelDiagramWithHttpInfo(body, threatModelId, diagramId) {
+    updateThreatModelDiagram(body, threatModelId, diagramId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5301,25 +4695,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams/{diagram_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update a diagram
-     * Completely replaces a diagram with new data. Use DfdDiagramInput schema which excludes readOnly fields (id, created_at, modified_at, update_vector).
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DfdDiagram}
+     * Callback function to receive the result of the updateThreatModelDocument operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelDocumentCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Document{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelDiagram(body, threatModelId, diagramId) {
-      return this.updateThreatModelDiagramWithHttpInfo(body, threatModelId, diagramId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update a document
@@ -5327,9 +4712,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/DocumentInput} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Document} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelDocumentCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelDocumentWithHttpInfo(body, threatModelId, documentId) {
+    updateThreatModelDocument(body, threatModelId, documentId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5366,25 +4752,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update a document
-     * Updates a specific document within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Document}
+     * Callback function to receive the result of the updateThreatModelMetadataByKey operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelMetadataByKeyCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Metadata{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelDocument(body, threatModelId, documentId) {
-      return this.updateThreatModelDocumentWithHttpInfo(body, threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update threat model metadata by key
@@ -5392,9 +4769,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/MetadataKeyBody3} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Metadata} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelMetadataByKeyCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelMetadataByKeyWithHttpInfo(body, threatModelId, key) {
+    updateThreatModelMetadataByKey(body, threatModelId, key, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5431,25 +4809,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/metadata/{key}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update threat model metadata by key
-     * Updates a specific metadata entry by key for the specified threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} key Metadata key
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Metadata}
+     * Callback function to receive the result of the updateThreatModelNote operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelNoteCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Note{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelMetadataByKey(body, threatModelId, key) {
-      return this.updateThreatModelMetadataByKeyWithHttpInfo(body, threatModelId, key)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update a note
@@ -5457,9 +4826,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/NoteInput} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Note} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelNoteCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelNoteWithHttpInfo(body, threatModelId, noteId) {
+    updateThreatModelNote(body, threatModelId, noteId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5496,25 +4866,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update a note
-     * Updates a specific note within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Note}
+     * Callback function to receive the result of the updateThreatModelRepository operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelRepositoryCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Repository{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelNote(body, threatModelId, noteId) {
-      return this.updateThreatModelNoteWithHttpInfo(body, threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update a source reference
@@ -5522,9 +4883,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/RepositoryInput} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Repository} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelRepositoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelRepositoryWithHttpInfo(body, threatModelId, repositoryId) {
+    updateThreatModelRepository(body, threatModelId, repositoryId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5561,25 +4923,16 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update a source reference
-     * Updates a specific source code reference within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Repository}
+     * Callback function to receive the result of the updateThreatModelThreat operation.
+     * @callback moduleapi/ThreatModelSubResourcesApi~updateThreatModelThreatCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Threat{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateThreatModelRepository(body, threatModelId, repositoryId) {
-      return this.updateThreatModelRepositoryWithHttpInfo(body, threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update a threat
@@ -5587,9 +4940,10 @@ export default class ThreatModelSubResourcesApi {
      * @param {module:model/ThreatInput} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Threat} and HTTP response
+     * @param {module:api/ThreatModelSubResourcesApi~updateThreatModelThreatCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelThreatWithHttpInfo(body, threatModelId, threatId) {
+    updateThreatModelThreat(body, threatModelId, threatId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -5626,23 +4980,8 @@ export default class ThreatModelSubResourcesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/{threat_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Update a threat
-     * Updates a specific threat within the threat model
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatId Threat identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Threat}
-     */
-    updateThreatModelThreat(body, threatModelId, threatId) {
-      return this.updateThreatModelThreatWithHttpInfo(body, threatModelId, threatId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

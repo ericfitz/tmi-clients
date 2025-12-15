@@ -1,4 +1,4 @@
-# TmiJsClient.CellData
+# TmiThreatModelingImprovedApi.CellData
 
 ## Properties
 Name | Type | Description | Notes

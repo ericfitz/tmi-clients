@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,8 +18,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]ThreatsThreatIdBody**](threats_threat_id_body.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Note ID | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 

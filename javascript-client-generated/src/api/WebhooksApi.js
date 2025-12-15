@@ -39,15 +39,22 @@ export default class WebhooksApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the createWebhookSubscription operation.
+     * @callback moduleapi/WebhooksApi~createWebhookSubscriptionCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/WebhookSubscription{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Create webhook subscription
      * Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
      * @param {module:model/WebhookSubscriptionInput} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookSubscription} and HTTP response
+     * @param {module:api/WebhooksApi~createWebhookSubscriptionCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createWebhookSubscriptionWithHttpInfo(body) {
+    createWebhookSubscription(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -76,31 +83,24 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/subscriptions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create webhook subscription
-     * Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookSubscription}
+     * Callback function to receive the result of the deleteWebhookSubscription operation.
+     * @callback moduleapi/WebhooksApi~deleteWebhookSubscriptionCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createWebhookSubscription(body) {
-      return this.createWebhookSubscriptionWithHttpInfo(body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete webhook subscription
      * Delete a webhook subscription. Only the owner can delete a subscription.
      * @param {String} webhookId Webhook subscription identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/WebhooksApi~deleteWebhookSubscriptionCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteWebhookSubscriptionWithHttpInfo(webhookId) {
+    deleteWebhookSubscription(webhookId, callback) {
       
       let postBody = null;
       // verify the required parameter 'webhookId' is set
@@ -129,31 +129,25 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/subscriptions/{webhook_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete webhook subscription
-     * Delete a webhook subscription. Only the owner can delete a subscription.
-     * @param {<&vendorExtensions.x-jsdoc-type>} webhookId Webhook subscription identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the getWebhookDelivery operation.
+     * @callback moduleapi/WebhooksApi~getWebhookDeliveryCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/WebhookDelivery{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    deleteWebhookSubscription(webhookId) {
-      return this.deleteWebhookSubscriptionWithHttpInfo(webhookId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get webhook delivery
      * Get details of a specific webhook delivery
      * @param {String} deliveryId Webhook delivery identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookDelivery} and HTTP response
+     * @param {module:api/WebhooksApi~getWebhookDeliveryCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getWebhookDeliveryWithHttpInfo(deliveryId) {
+    getWebhookDelivery(deliveryId, callback) {
       
       let postBody = null;
       // verify the required parameter 'deliveryId' is set
@@ -182,31 +176,25 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/deliveries/{delivery_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get webhook delivery
-     * Get details of a specific webhook delivery
-     * @param {<&vendorExtensions.x-jsdoc-type>} deliveryId Webhook delivery identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookDelivery}
+     * Callback function to receive the result of the getWebhookSubscription operation.
+     * @callback moduleapi/WebhooksApi~getWebhookSubscriptionCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/WebhookSubscription{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getWebhookDelivery(deliveryId) {
-      return this.getWebhookDeliveryWithHttpInfo(deliveryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get webhook subscription
      * Get a specific webhook subscription by ID
      * @param {String} webhookId Webhook subscription identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookSubscription} and HTTP response
+     * @param {module:api/WebhooksApi~getWebhookSubscriptionCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getWebhookSubscriptionWithHttpInfo(webhookId) {
+    getWebhookSubscription(webhookId, callback) {
       
       let postBody = null;
       // verify the required parameter 'webhookId' is set
@@ -235,23 +223,16 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/subscriptions/{webhook_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get webhook subscription
-     * Get a specific webhook subscription by ID
-     * @param {<&vendorExtensions.x-jsdoc-type>} webhookId Webhook subscription identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookSubscription}
+     * Callback function to receive the result of the listWebhookDeliveries operation.
+     * @callback moduleapi/WebhooksApi~listWebhookDeliveriesCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/WebhookDelivery>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getWebhookSubscription(webhookId) {
-      return this.getWebhookSubscriptionWithHttpInfo(webhookId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List webhook deliveries
@@ -260,9 +241,10 @@ export default class WebhooksApi {
      * @param {String} opts.subscriptionId Filter by subscription ID
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/WebhookDelivery>} and HTTP response
+     * @param {module:api/WebhooksApi~listWebhookDeliveriesCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listWebhookDeliveriesWithHttpInfo(opts) {
+    listWebhookDeliveries(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -287,26 +269,16 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/deliveries', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List webhook deliveries
-     * List webhook deliveries for the authenticated user&#x27;s subscriptions
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.subscriptionId Filter by subscription ID
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/WebhookDelivery>}
+     * Callback function to receive the result of the listWebhookSubscriptions operation.
+     * @callback moduleapi/WebhooksApi~listWebhookSubscriptionsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/WebhookSubscription>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listWebhookDeliveries(opts) {
-      return this.listWebhookDeliveriesWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List webhook subscriptions
@@ -315,9 +287,10 @@ export default class WebhooksApi {
      * @param {String} opts.threatModelId Filter subscriptions by threat model ID
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/WebhookSubscription>} and HTTP response
+     * @param {module:api/WebhooksApi~listWebhookSubscriptionsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listWebhookSubscriptionsWithHttpInfo(opts) {
+    listWebhookSubscriptions(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -342,26 +315,16 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/subscriptions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List webhook subscriptions
-     * List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.threatModelId Filter subscriptions by threat model ID
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/WebhookSubscription>}
+     * Callback function to receive the result of the testWebhookSubscription operation.
+     * @callback moduleapi/WebhooksApi~testWebhookSubscriptionCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/WebhookTestResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listWebhookSubscriptions(opts) {
-      return this.listWebhookSubscriptionsWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Test webhook subscription
@@ -369,9 +332,10 @@ export default class WebhooksApi {
      * @param {String} webhookId Webhook subscription identifier
      * @param {Object} opts Optional parameters
      * @param {module:model/WebhookTestRequest} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookTestResponse} and HTTP response
+     * @param {module:api/WebhooksApi~testWebhookSubscriptionCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    testWebhookSubscriptionWithHttpInfo(webhookId, opts) {
+    testWebhookSubscription(webhookId, opts, callback) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter 'webhookId' is set
@@ -400,23 +364,8 @@ export default class WebhooksApi {
       return this.apiClient.callApi(
         '/webhooks/subscriptions/{webhook_id}/test', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Test webhook subscription
-     * Send a test event to the webhook URL to verify it&#x27;s working correctly
-     * @param {<&vendorExtensions.x-jsdoc-type>} webhookId Webhook subscription identifier
-     * @param {Object} opts Optional parameters
-     * @param {module:model/WebhookTestRequest} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookTestResponse}
-     */
-    testWebhookSubscription(webhookId, opts) {
-      return this.testWebhookSubscriptionWithHttpInfo(webhookId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

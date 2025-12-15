@@ -1,4 +1,4 @@
-# TmiJsClient.CreateDiagramRequest
+# TmiThreatModelingImprovedApi.CreateDiagramRequest
 
 ## Properties
 Name | Type | Description | Notes

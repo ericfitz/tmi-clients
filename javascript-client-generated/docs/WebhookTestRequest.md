@@ -1,4 +1,4 @@
-# TmiJsClient.WebhookTestRequest
+# TmiThreatModelingImprovedApi.WebhookTestRequest
 
 ## Properties
 Name | Type | Description | Notes

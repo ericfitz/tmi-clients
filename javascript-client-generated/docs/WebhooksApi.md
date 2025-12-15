@@ -1,4 +1,4 @@
-# TmiJsClient.WebhooksApi
+# TmiThreatModelingImprovedApi.WebhooksApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -22,19 +22,20 @@ Create a new webhook subscription. The subscription will be in pending_verificat
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
-let body = new TmiJsClient.WebhookSubscriptionInput(); // WebhookSubscriptionInput | 
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
+let body = new TmiThreatModelingImprovedApi.WebhookSubscriptionInput(); // WebhookSubscriptionInput | 
 
-apiInstance.createWebhookSubscription(body).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.createWebhookSubscription(body, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -66,19 +67,20 @@ Delete a webhook subscription. Only the owner can delete a subscription.
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
 let webhookId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Webhook subscription identifier
 
-apiInstance.deleteWebhookSubscription(webhookId).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
+apiInstance.deleteWebhookSubscription(webhookId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
 });
-
 ```
 
 ### Parameters
@@ -110,19 +112,20 @@ Get details of a specific webhook delivery
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
 let deliveryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Webhook delivery identifier
 
-apiInstance.getWebhookDelivery(deliveryId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getWebhookDelivery(deliveryId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -154,19 +157,20 @@ Get a specific webhook subscription by ID
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
 let webhookId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Webhook subscription identifier
 
-apiInstance.getWebhookSubscription(webhookId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getWebhookSubscription(webhookId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -198,22 +202,23 @@ List webhook deliveries for the authenticated user&#x27;s subscriptions
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
 let opts = { 
   'subscriptionId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter by subscription ID
   'offset': 0, // Number | Number of results to skip
   'limit': 20 // Number | Maximum number of results to return
 };
-apiInstance.listWebhookDeliveries(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.listWebhookDeliveries(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -247,22 +252,23 @@ List all webhook subscriptions owned by the authenticated user. Optionally filte
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
 let opts = { 
   'threatModelId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter subscriptions by threat model ID
   'offset': 0, // Number | Number of results to skip
   'limit': 20 // Number | Maximum number of results to return
 };
-apiInstance.listWebhookSubscriptions(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.listWebhookSubscriptions(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -296,21 +302,22 @@ Send a test event to the webhook URL to verify it&#x27;s working correctly
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.WebhooksApi();
+let apiInstance = new TmiThreatModelingImprovedApi.WebhooksApi();
 let webhookId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Webhook subscription identifier
 let opts = { 
-  'body': new TmiJsClient.WebhookTestRequest() // WebhookTestRequest | 
+  'body': new TmiThreatModelingImprovedApi.WebhookTestRequest() // WebhookTestRequest | 
 };
-apiInstance.testWebhookSubscription(webhookId, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.testWebhookSubscription(webhookId, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

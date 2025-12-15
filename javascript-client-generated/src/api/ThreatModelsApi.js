@@ -38,15 +38,22 @@ export default class ThreatModelsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the createThreatModel operation.
+     * @callback moduleapi/ThreatModelsApi~createThreatModelCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ThreatModel{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Create a threat model
      * Creates a new threat model with the authenticated user as owner
      * @param {module:model/ThreatModelInput} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ThreatModel} and HTTP response
+     * @param {module:api/ThreatModelsApi~createThreatModelCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createThreatModelWithHttpInfo(body) {
+    createThreatModel(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -75,31 +82,24 @@ export default class ThreatModelsApi {
       return this.apiClient.callApi(
         '/threat_models', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create a threat model
-     * Creates a new threat model with the authenticated user as owner
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ThreatModel}
+     * Callback function to receive the result of the deleteThreatModel operation.
+     * @callback moduleapi/ThreatModelsApi~deleteThreatModelCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createThreatModel(body) {
-      return this.createThreatModelWithHttpInfo(body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete a threat model
      * Deletes a threat model; restricted to owner role
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/ThreatModelsApi~deleteThreatModelCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteThreatModelWithHttpInfo(threatModelId) {
+    deleteThreatModel(threatModelId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -128,31 +128,25 @@ export default class ThreatModelsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete a threat model
-     * Deletes a threat model; restricted to owner role
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the getThreatModel operation.
+     * @callback moduleapi/ThreatModelsApi~getThreatModelCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ThreatModel{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    deleteThreatModel(threatModelId) {
-      return this.deleteThreatModelWithHttpInfo(threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Retrieve a threat model
      * Retrieves the full details of a specific threat model if the user has access
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ThreatModel} and HTTP response
+     * @param {module:api/ThreatModelsApi~getThreatModelCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getThreatModelWithHttpInfo(threatModelId) {
+    getThreatModel(threatModelId, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -181,23 +175,16 @@ export default class ThreatModelsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Retrieve a threat model
-     * Retrieves the full details of a specific threat model if the user has access
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ThreatModel}
+     * Callback function to receive the result of the listThreatModels operation.
+     * @callback moduleapi/ThreatModelsApi~listThreatModelsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/TMListItem>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getThreatModel(threatModelId) {
-      return this.getThreatModelWithHttpInfo(threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List threat models
@@ -216,9 +203,10 @@ export default class ThreatModelsApi {
      * @param {String} opts.status Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
      * @param {Date} opts.statusUpdatedAfter Filter threat models where status was updated after this timestamp (RFC3339)
      * @param {Date} opts.statusUpdatedBefore Filter threat models where status was updated before this timestamp (RFC3339)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/TMListItem>} and HTTP response
+     * @param {module:api/ThreatModelsApi~listThreatModelsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listThreatModelsWithHttpInfo(opts) {
+    listThreatModels(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -243,36 +231,16 @@ export default class ThreatModelsApi {
       return this.apiClient.callApi(
         '/threat_models', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List threat models
-     * Returns a list of threat models accessible to the authenticated user with enhanced metadata and entity counts
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {String} opts.owner Filter by owner name or email
-     * @param {String} opts.name Filter by threat model name (partial match)
-     * @param {String} opts.description Filter by threat model description (partial match)
-     * @param {String} opts.issueUri Filter by issue URI (partial match)
-     * @param {Date} opts.createdAfter Filter results created after this timestamp (ISO 8601)
-     * @param {Date} opts.createdBefore Filter results created before this timestamp (ISO 8601)
-     * @param {Date} opts.modifiedAfter Filter results modified after this timestamp (ISO 8601)
-     * @param {Date} opts.modifiedBefore Filter results modified before this timestamp (ISO 8601)
-     * @param {String} opts.status Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
-     * @param {Date} opts.statusUpdatedAfter Filter threat models where status was updated after this timestamp (RFC3339)
-     * @param {Date} opts.statusUpdatedBefore Filter threat models where status was updated before this timestamp (RFC3339)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/TMListItem>}
+     * Callback function to receive the result of the patchThreatModel operation.
+     * @callback moduleapi/ThreatModelsApi~patchThreatModelCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ThreatModel{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listThreatModels(opts) {
-      return this.listThreatModelsWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Partially update a threat model
@@ -280,9 +248,10 @@ export default class ThreatModelsApi {
      * @param {String} threatModelId Threat model identifier
      * @param {Object} opts Optional parameters
      * @param {Array.<module:model/ThreatModelsThreatModelIdBody>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ThreatModel} and HTTP response
+     * @param {module:api/ThreatModelsApi~patchThreatModelCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelWithHttpInfo(threatModelId, opts) {
+    patchThreatModel(threatModelId, opts, callback) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter 'threatModelId' is set
@@ -311,34 +280,26 @@ export default class ThreatModelsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Partially update a threat model
-     * Applies JSON Patch operations to a threat model; restricted to writer/owner roles
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {Object} opts Optional parameters
-     * @param {Array.<module:model/ThreatModelsThreatModelIdBody>} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ThreatModel}
+     * Callback function to receive the result of the updateThreatModel operation.
+     * @callback moduleapi/ThreatModelsApi~updateThreatModelCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ThreatModel{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    patchThreatModel(threatModelId, opts) {
-      return this.patchThreatModelWithHttpInfo(threatModelId, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update a threat model
      * Fully updates a threat model; restricted to writer/owner roles
      * @param {module:model/ThreatModelInput} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ThreatModel} and HTTP response
+     * @param {module:api/ThreatModelsApi~updateThreatModelCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateThreatModelWithHttpInfo(body, threatModelId) {
+    updateThreatModel(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -371,22 +332,8 @@ export default class ThreatModelsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Update a threat model
-     * Fully updates a threat model; restricted to writer/owner roles
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ThreatModel}
-     */
-    updateThreatModel(body, threatModelId) {
-      return this.updateThreatModelWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

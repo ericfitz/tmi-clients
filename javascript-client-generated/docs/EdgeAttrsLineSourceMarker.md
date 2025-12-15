@@ -1,4 +1,4 @@
-# TmiJsClient.EdgeAttrsLineSourceMarker
+# TmiThreatModelingImprovedApi.EdgeAttrsLineSourceMarker
 
 ## Properties
 Name | Type | Description | Notes

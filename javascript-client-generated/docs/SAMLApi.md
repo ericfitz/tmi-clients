@@ -1,4 +1,4 @@
-# TmiJsClient.SAMLApi
+# TmiThreatModelingImprovedApi.SAMLApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -16,26 +16,27 @@ Returns a lightweight list of active users for a specific SAML provider. Intende
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.SAMLApi();
-let idp = "idp_example"; // String | SAML provider identifier (must start with \"saml_\")
+let apiInstance = new TmiThreatModelingImprovedApi.SAMLApi();
+let idp = "idp_example"; // String | Identity provider ID (e.g., saml_okta, saml_azure)
 
-apiInstance.listSAMLUsers(idp).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.listSAMLUsers(idp, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idp** | **String**| SAML provider identifier (must start with \&quot;saml_\&quot;) | 
+ **idp** | **String**| Identity provider ID (e.g., saml_okta, saml_azure) | 
 
 ### Return type
 

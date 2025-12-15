@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -54,6 +54,7 @@ Method | HTTP request | Description
 [**DeleteThreatModelThreat**](ThreatModelSubResourcesApi.md#DeleteThreatModelThreat) | **Delete** /threat_models/{threat_model_id}/threats/{threat_id} | Delete a threat
 [**GetDiagramMetadata**](ThreatModelSubResourcesApi.md#GetDiagramMetadata) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Get diagram metadata
 [**GetDiagramMetadataByKey**](ThreatModelSubResourcesApi.md#GetDiagramMetadataByKey) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Get diagram metadata by key
+[**GetDiagramModel**](ThreatModelSubResourcesApi.md#GetDiagramModel) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/model | Get minimal diagram model for automated analysis
 [**GetDocumentMetadata**](ThreatModelSubResourcesApi.md#GetDocumentMetadata) | **Get** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Get document metadata
 [**GetDocumentMetadataByKey**](ThreatModelSubResourcesApi.md#GetDocumentMetadataByKey) | **Get** /threat_models/{threat_model_id}/documents/{document_id}/metadata/{key} | Get document metadata by key
 [**GetNoteMetadata**](ThreatModelSubResourcesApi.md#GetNoteMetadata) | **Get** /threat_models/{threat_model_id}/notes/{note_id}/metadata | Get note metadata
@@ -106,8 +107,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -136,8 +137,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -166,8 +167,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -196,8 +197,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -226,8 +227,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -256,8 +257,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -286,7 +287,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Asset**](Asset.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -315,7 +316,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Document**](Document.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -344,7 +345,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -373,7 +374,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Repository**](Repository.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -402,7 +403,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Threat**](Threat.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -431,8 +432,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -461,7 +462,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Threat**](Threat.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -490,8 +491,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -520,8 +521,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -550,8 +551,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -580,8 +581,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -610,8 +611,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -640,7 +641,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Asset**](Asset.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -669,7 +670,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Document**](Document.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -698,7 +699,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -727,7 +728,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]Repository**](Repository.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -756,8 +757,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -786,8 +787,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -816,8 +817,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -846,8 +847,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -876,8 +877,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -906,7 +907,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**AssetInput**](AssetInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -935,8 +936,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -954,7 +955,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CreateThreatModelDiagram**
-> Diagram CreateThreatModelDiagram(ctx, body, threatModelId)
+> DfdDiagram CreateThreatModelDiagram(ctx, body, threatModelId)
 Create a new diagram
 
 Creates a new diagram within the specified threat model
@@ -965,11 +966,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
-[**Diagram**](Diagram.md)
+[**DfdDiagram**](DfdDiagram.md)
 
 ### Authorization
 
@@ -994,7 +995,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**DocumentInput**](DocumentInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -1023,7 +1024,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -1052,7 +1053,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**NoteInput**](NoteInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -1081,7 +1082,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -1110,7 +1111,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**ThreatInput**](ThreatInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -1138,9 +1139,9 @@ Removes a specific metadata entry for the diagram by key
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
-  **key** | **string**| Metadata key to delete | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1168,9 +1169,9 @@ Deletes a specific metadata entry by key for the specified document
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
-  **key** | **string**| Metadata key to delete | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1198,9 +1199,9 @@ Deletes a specific metadata entry by key for the specified note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
-  **key** | **string**| Metadata key to delete | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1228,9 +1229,9 @@ Deletes a specific metadata entry by key for the specified source reference
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
-  **key** | **string**| Metadata key to delete | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1258,9 +1259,9 @@ Deletes a specific metadata entry by key for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
-  **key** | **string**| Metadata key to delete | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1288,8 +1289,8 @@ Deletes an asset from the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -1317,8 +1318,8 @@ Deletes a metadata key-value pair from the specified asset
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
   **key** | **string**| Metadata key | 
 
 ### Return type
@@ -1347,8 +1348,8 @@ Permanently removes a diagram from the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -1376,8 +1377,8 @@ Deletes a specific document from the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -1405,8 +1406,8 @@ Deletes a specific metadata entry by key for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **key** | **string**| Metadata key to delete | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1434,8 +1435,8 @@ Deletes a specific note from the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -1463,8 +1464,8 @@ Deletes a specific source code reference from the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -1492,8 +1493,8 @@ Deletes a specific threat from the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -1521,8 +1522,8 @@ Retrieves all metadata entries for the specified diagram
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -1550,9 +1551,9 @@ Retrieves a specific metadata entry for the diagram by key
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
-  **key** | **string**| Metadata key to retrieve | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1569,6 +1570,44 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetDiagramModel**
+> MinimalDiagramModel GetDiagramModel(ctx, threatModelId, diagramId, optional)
+Get minimal diagram model for automated analysis
+
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **threatModelId** | [**string**](.md)| Threat model UUID | 
+  **diagramId** | [**string**](.md)| Diagram UUID | 
+ **optional** | ***ThreatModelSubResourcesApiGetDiagramModelOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a ThreatModelSubResourcesApiGetDiagramModelOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **format** | **optional.String**| Output format for the diagram model (case-insensitive). Defaults to json if not specified. | [default to json]
+
+### Return type
+
+[**MinimalDiagramModel**](MinimalDiagramModel.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/x-yaml, application/xml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetDocumentMetadata**
 > []Metadata GetDocumentMetadata(ctx, threatModelId, documentId)
 Get document metadata
@@ -1580,8 +1619,8 @@ Returns all metadata key-value pairs for the specified document
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -1609,9 +1648,9 @@ Returns a specific metadata entry by key for the specified document
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
-  **key** | **string**| Metadata key to retrieve | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1639,8 +1678,8 @@ Returns all metadata key-value pairs for the specified note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -1668,9 +1707,9 @@ Returns a specific metadata entry by key for the specified note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
-  **key** | **string**| Metadata key to retrieve | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1698,8 +1737,8 @@ Returns all metadata key-value pairs for the specified source reference
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -1727,9 +1766,9 @@ Returns a specific metadata entry by key for the specified source reference
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
-  **key** | **string**| Metadata key to retrieve | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1757,8 +1796,8 @@ Returns all metadata key-value pairs for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -1786,9 +1825,9 @@ Returns a specific metadata entry by key for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
-  **key** | **string**| Metadata key to retrieve | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -1816,8 +1855,8 @@ Returns a single asset by its ID
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -1845,8 +1884,8 @@ Returns all metadata key-value pairs for the specified asset
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -1874,8 +1913,8 @@ Returns a single metadata value by its key
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
   **key** | **string**| Metadata key | 
 
 ### Return type
@@ -1904,7 +1943,7 @@ Returns a paginated list of assets within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelSubResourcesApiGetThreatModelAssetsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1912,8 +1951,8 @@ Optional parameters are passed through a pointer to a ThreatModelSubResourcesApi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of assets to return | [default to 20]
- **offset** | **optional.Int32**| Number of assets to skip | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -1931,7 +1970,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelDiagram**
-> Diagram GetThreatModelDiagram(ctx, threatModelId, diagramId)
+> DfdDiagram GetThreatModelDiagram(ctx, threatModelId, diagramId)
 Get a specific diagram
 
 Retrieves a specific diagram from the threat model
@@ -1941,12 +1980,12 @@ Retrieves a specific diagram from the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
-[**Diagram**](Diagram.md)
+[**DfdDiagram**](DfdDiagram.md)
 
 ### Authorization
 
@@ -1970,7 +2009,7 @@ Returns all diagrams associated with a specific threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelSubResourcesApiGetThreatModelDiagramsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -1978,8 +2017,8 @@ Optional parameters are passed through a pointer to a ThreatModelSubResourcesApi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of items to return | [default to 20]
- **offset** | **optional.Int32**| Number of items to skip | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -2007,8 +2046,8 @@ Returns details of a specific document within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -2036,7 +2075,7 @@ Returns a paginated list of documents within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelSubResourcesApiGetThreatModelDocumentsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2044,8 +2083,8 @@ Optional parameters are passed through a pointer to a ThreatModelSubResourcesApi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of documents to return | [default to 20]
- **offset** | **optional.Int32**| Number of documents to skip | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -2073,7 +2112,7 @@ Returns all metadata key-value pairs for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -2101,8 +2140,8 @@ Returns a specific metadata entry by key for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **key** | **string**| Metadata key to retrieve | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2130,8 +2169,8 @@ Returns details of a specific note within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -2159,7 +2198,7 @@ Returns a paginated list of notes within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelSubResourcesApiGetThreatModelNotesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2167,8 +2206,8 @@ Optional parameters are passed through a pointer to a ThreatModelSubResourcesApi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of notes to return | [default to 20]
- **offset** | **optional.Int32**| Number of notes to skip | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -2196,7 +2235,7 @@ Returns a paginated list of source code references within the specified threat m
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelSubResourcesApiGetThreatModelRepositoriesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2204,8 +2243,8 @@ Optional parameters are passed through a pointer to a ThreatModelSubResourcesApi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of sources to return | [default to 20]
- **offset** | **optional.Int32**| Number of sources to skip | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -2233,8 +2272,8 @@ Returns details of a specific source code reference within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -2262,8 +2301,8 @@ Returns details of a specific threat within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -2291,7 +2330,7 @@ Returns a paginated list of threats within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelSubResourcesApiGetThreatModelThreatsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -2299,15 +2338,15 @@ Optional parameters are passed through a pointer to a ThreatModelSubResourcesApi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of threats to return | [default to 20]
- **offset** | **optional.Int32**| Number of threats to skip | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
  **sort** | **optional.String**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [default to created_at:desc]
- **name** | **optional.String**| Filter by threat name (partial match) | 
- **description** | **optional.String**| Filter by threat description (partial match) | 
- **threatType** | **optional.String**| Filter by threat type (exact match) | 
+ **name** | **optional.String**| Filter by threat model name (partial match) | 
+ **description** | **optional.String**| Filter by threat model description (partial match) | 
+ **threatType** | [**optional.Interface of []string**](string.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | 
  **severity** | **optional.String**| Filter by severity level (exact match) | 
  **priority** | **optional.String**| Filter by priority (exact match) | 
- **status** | **optional.String**| Filter by status (exact match) | 
+ **status** | **optional.String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | 
  **diagramId** | [**optional.Interface of string**](.md)| Filter by diagram ID (exact match) | 
  **cellId** | [**optional.Interface of string**](.md)| Filter by cell ID (exact match) | 
  **scoreGt** | **optional.Float64**| Filter threats with score greater than this value | 
@@ -2315,10 +2354,10 @@ Name | Type | Description  | Notes
  **scoreEq** | **optional.Float64**| Filter threats with score equal to this value | 
  **scoreGe** | **optional.Float64**| Filter threats with score greater than or equal to this value | 
  **scoreLe** | **optional.Float64**| Filter threats with score less than or equal to this value | 
- **createdAfter** | **optional.Time**| Filter threats created after this date (RFC3339 format) | 
- **createdBefore** | **optional.Time**| Filter threats created before this date (RFC3339 format) | 
- **modifiedAfter** | **optional.Time**| Filter threats modified after this date (RFC3339 format) | 
- **modifiedBefore** | **optional.Time**| Filter threats modified before this date (RFC3339 format) | 
+ **createdAfter** | **optional.Time**| Filter results created after this timestamp (ISO 8601) | 
+ **createdBefore** | **optional.Time**| Filter results created before this timestamp (ISO 8601) | 
+ **modifiedAfter** | **optional.Time**| Filter results modified after this timestamp (ISO 8601) | 
+ **modifiedBefore** | **optional.Time**| Filter results modified before this timestamp (ISO 8601) | 
 
 ### Return type
 
@@ -2336,7 +2375,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PatchThreatModelDiagram**
-> Diagram PatchThreatModelDiagram(ctx, body, threatModelId, diagramId)
+> DfdDiagram PatchThreatModelDiagram(ctx, body, threatModelId, diagramId)
 Partially update a diagram
 
 Apply JSON Patch operations to update specific parts of a diagram
@@ -2347,12 +2386,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]ThreatsThreatIdBody**](threats_threat_id_body.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
-[**Diagram**](Diagram.md)
+[**DfdDiagram**](DfdDiagram.md)
 
 ### Authorization
 
@@ -2377,8 +2416,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**[]ThreatsThreatIdBody**](threats_threat_id_body.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 
@@ -2407,9 +2446,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
-  **key** | **string**| Metadata key to update | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2438,9 +2477,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
-  **key** | **string**| Metadata key to update | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2469,9 +2508,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
-  **key** | **string**| Metadata key to update | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2500,9 +2539,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
-  **key** | **string**| Metadata key to update | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2531,9 +2570,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**MetadataKeyBody**](MetadataKeyBody.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
-  **key** | **string**| Metadata key to update | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2562,8 +2601,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**AssetInput**](AssetInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
 
 ### Return type
 
@@ -2592,8 +2631,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**Metadata**](Metadata.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **assetId** | [**string**](.md)| Unique identifier of the asset (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
   **key** | **string**| Metadata key | 
 
 ### Return type
@@ -2612,23 +2651,23 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateThreatModelDiagram**
-> Diagram UpdateThreatModelDiagram(ctx, body, threatModelId, diagramId)
+> DfdDiagram UpdateThreatModelDiagram(ctx, body, threatModelId, diagramId)
 Update a diagram
 
-Completely replaces a diagram with new data
+Completely replaces a diagram with new data. Use DfdDiagramInput schema which excludes readOnly fields (id, created_at, modified_at, update_vector).
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Diagram**](Diagram.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **body** | [**DfdDiagramInput**](DfdDiagramInput.md)|  | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
-[**Diagram**](Diagram.md)
+[**DfdDiagram**](DfdDiagram.md)
 
 ### Authorization
 
@@ -2653,8 +2692,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**DocumentInput**](DocumentInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **documentId** | [**string**](.md)| Unique identifier of the document (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
 
 ### Return type
 
@@ -2683,8 +2722,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **key** | **string**| Metadata key to update | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **key** | **string**| Metadata key | 
 
 ### Return type
 
@@ -2713,8 +2752,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**NoteInput**](NoteInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **noteId** | [**string**](.md)| Unique identifier of the note (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -2743,8 +2782,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **repositoryId** | [**string**](.md)| Unique identifier of the source reference (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
 
 ### Return type
 
@@ -2773,8 +2812,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**ThreatInput**](ThreatInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **threatId** | [**string**](.md)| Unique identifier of the threat (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
 
 ### Return type
 

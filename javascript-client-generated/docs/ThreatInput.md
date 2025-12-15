@@ -1,4 +1,4 @@
-# TmiJsClient.ThreatInput
+# TmiThreatModelingImprovedApi.ThreatInput
 
 ## Properties
 Name | Type | Description | Notes

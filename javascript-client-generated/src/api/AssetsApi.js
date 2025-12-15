@@ -15,6 +15,7 @@
 import ApiClient from "../ApiClient";
 import Asset from '../model/Asset';
 import Error from '../model/Error';
+import InlineResponse500 from '../model/InlineResponse500';
 import ThreatsThreatIdBody from '../model/ThreatsThreatIdBody';
 
 /**
@@ -36,7 +37,13 @@ export default class AssetsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the patchThreatModelAsset operation.
+     * @callback moduleapi/AssetsApi~patchThreatModelAssetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Asset{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Partially update asset
@@ -44,9 +51,10 @@ export default class AssetsApi {
      * @param {Array.<module:model/ThreatsThreatIdBody>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Asset} and HTTP response
+     * @param {module:api/AssetsApi~patchThreatModelAssetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelAssetWithHttpInfo(body, threatModelId, assetId) {
+    patchThreatModelAsset(body, threatModelId, assetId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -83,23 +91,8 @@ export default class AssetsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets/{asset_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Partially update asset
-     * Apply JSON Patch operations to partially update a asset
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} assetId Asset identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Asset}
-     */
-    patchThreatModelAsset(body, threatModelId, assetId) {
-      return this.patchThreatModelAssetWithHttpInfo(body, threatModelId, assetId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

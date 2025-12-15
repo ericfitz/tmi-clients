@@ -1,4 +1,4 @@
-# TmiJsClient.AddonsApi
+# TmiThreatModelingImprovedApi.AddonsApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -23,19 +23,20 @@ Create a new add-on (administrators only)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
-let body = new TmiJsClient.CreateAddonRequest(); // CreateAddonRequest | 
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
+let body = new TmiThreatModelingImprovedApi.CreateAddonRequest(); // CreateAddonRequest | 
 
-apiInstance.createAddon(body).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.createAddon(body, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -67,19 +68,20 @@ Delete an add-on (administrators only)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 
-apiInstance.deleteAddon(id).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
+apiInstance.deleteAddon(id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
 });
-
 ```
 
 ### Parameters
@@ -111,19 +113,20 @@ Get a single add-on by ID
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 
-apiInstance.getAddon(id).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getAddon(id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -155,19 +158,20 @@ Get a single invocation by ID (own invocations or admin)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 
-apiInstance.getInvocation(id).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getInvocation(id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -199,20 +203,21 @@ Trigger an add-on invocation (authenticated users)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
-let body = new TmiJsClient.InvokeAddonRequest(); // InvokeAddonRequest | 
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
+let body = new TmiThreatModelingImprovedApi.InvokeAddonRequest(); // InvokeAddonRequest | 
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 
-apiInstance.invokeAddon(body, id).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.invokeAddon(body, id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -245,22 +250,23 @@ List all add-ons (authenticated users)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
-  'threatModelId': "38400000-8cf0-11bd-b23e-10b96e4ef00d" // String | Filter by threat model
+  'threatModelId': "38400000-8cf0-11bd-b23e-10b96e4ef00d" // String | Filter subscriptions by threat model ID
 };
-apiInstance.listAddons(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.listAddons(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -269,7 +275,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
- **threatModelId** | [**String**](.md)| Filter by threat model | [optional] 
+ **threatModelId** | [**String**](.md)| Filter subscriptions by threat model ID | [optional] 
 
 ### Return type
 
@@ -294,23 +300,24 @@ List add-on invocations (users see own, admins see all)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
-  'status': "status_example", // String | Filter by status
+  'status': "status_example", // String | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
   'addonId': "38400000-8cf0-11bd-b23e-10b96e4ef00d" // String | Filter by add-on
 };
-apiInstance.listInvocations(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.listInvocations(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -319,7 +326,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
- **status** | **String**| Filter by status | [optional] 
+ **status** | **String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
  **addonId** | [**String**](.md)| Filter by add-on | [optional] 
 
 ### Return type
@@ -345,21 +352,22 @@ Update invocation status (webhook callback with HMAC authentication)
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AddonsApi();
-let body = new TmiJsClient.UpdateInvocationStatusRequest(); // UpdateInvocationStatusRequest | 
+let apiInstance = new TmiThreatModelingImprovedApi.AddonsApi();
+let body = new TmiThreatModelingImprovedApi.UpdateInvocationStatusRequest(); // UpdateInvocationStatusRequest | 
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 let xWebhookSignature = "xWebhookSignature_example"; // String | HMAC-SHA256 signature (format: sha256={hex_signature})
 
-apiInstance.updateInvocationStatus(body, id, xWebhookSignature).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.updateInvocationStatus(body, id, xWebhookSignature, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

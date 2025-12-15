@@ -1,4 +1,4 @@
-# TmiJsClient.WebhooksUserIdBody
+# TmiThreatModelingImprovedApi.WebhooksUserIdBody
 
 ## Properties
 Name | Type | Description | Notes

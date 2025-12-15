@@ -1,0 +1,864 @@
+# {{classname}}
+
+All URIs are relative to *http://localhost:{port}*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**AddGroupMember**](AdministrationApi.md#AddGroupMember) | **Post** /admin/groups/{internal_uuid}/members | Add member to group
+[**CreateAdminGroup**](AdministrationApi.md#CreateAdminGroup) | **Post** /admin/groups | Create provider-independent group
+[**CreateAdministrator**](AdministrationApi.md#CreateAdministrator) | **Post** /admin/administrators | Create administrator grant
+[**DeleteAddonInvocationQuota**](AdministrationApi.md#DeleteAddonInvocationQuota) | **Delete** /admin/quotas/addons/{user_id} | Delete addon invocation quota
+[**DeleteAdminGroup**](AdministrationApi.md#DeleteAdminGroup) | **Delete** /admin/groups/{internal_uuid} | Delete group
+[**DeleteAdminUser**](AdministrationApi.md#DeleteAdminUser) | **Delete** /admin/users/{internal_uuid} | Delete user
+[**DeleteAdministrator**](AdministrationApi.md#DeleteAdministrator) | **Delete** /admin/administrators/{id} | Delete administrator grant
+[**DeleteUserAPIQuota**](AdministrationApi.md#DeleteUserAPIQuota) | **Delete** /admin/quotas/users/{user_id} | Delete user API quota
+[**DeleteWebhookQuota**](AdministrationApi.md#DeleteWebhookQuota) | **Delete** /admin/quotas/webhooks/{user_id} | Delete webhook quota
+[**GetAddonInvocationQuota**](AdministrationApi.md#GetAddonInvocationQuota) | **Get** /admin/quotas/addons/{user_id} | Get addon invocation quota
+[**GetAdminGroup**](AdministrationApi.md#GetAdminGroup) | **Get** /admin/groups/{internal_uuid} | Get group details
+[**GetAdminUser**](AdministrationApi.md#GetAdminUser) | **Get** /admin/users/{internal_uuid} | Get user details
+[**GetUserAPIQuota**](AdministrationApi.md#GetUserAPIQuota) | **Get** /admin/quotas/users/{user_id} | Get user API quota
+[**GetWebhookQuota**](AdministrationApi.md#GetWebhookQuota) | **Get** /admin/quotas/webhooks/{user_id} | Get webhook quota
+[**ListAddonInvocationQuotas**](AdministrationApi.md#ListAddonInvocationQuotas) | **Get** /admin/quotas/addons | List all addon invocation quotas
+[**ListAdminGroups**](AdministrationApi.md#ListAdminGroups) | **Get** /admin/groups | List groups
+[**ListAdminUsers**](AdministrationApi.md#ListAdminUsers) | **Get** /admin/users | List users
+[**ListAdministrators**](AdministrationApi.md#ListAdministrators) | **Get** /admin/administrators | List administrators
+[**ListGroupMembers**](AdministrationApi.md#ListGroupMembers) | **Get** /admin/groups/{internal_uuid}/members | List group members
+[**ListUserAPIQuotas**](AdministrationApi.md#ListUserAPIQuotas) | **Get** /admin/quotas/users | List all user API quotas
+[**ListWebhookQuotas**](AdministrationApi.md#ListWebhookQuotas) | **Get** /admin/quotas/webhooks | List all webhook quotas
+[**RemoveGroupMember**](AdministrationApi.md#RemoveGroupMember) | **Delete** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
+[**UpdateAddonInvocationQuota**](AdministrationApi.md#UpdateAddonInvocationQuota) | **Put** /admin/quotas/addons/{user_id} | Update addon invocation quota
+[**UpdateAdminGroup**](AdministrationApi.md#UpdateAdminGroup) | **Patch** /admin/groups/{internal_uuid} | Update group metadata
+[**UpdateAdminUser**](AdministrationApi.md#UpdateAdminUser) | **Patch** /admin/users/{internal_uuid} | Update user metadata
+[**UpdateUserAPIQuota**](AdministrationApi.md#UpdateUserAPIQuota) | **Put** /admin/quotas/users/{user_id} | Update user API quota
+[**UpdateWebhookQuota**](AdministrationApi.md#UpdateWebhookQuota) | **Put** /admin/quotas/webhooks/{user_id} | Update webhook quota
+
+# **AddGroupMember**
+> GroupMember AddGroupMember(ctx, body, internalUuid)
+Add member to group
+
+Adds a user to a group. The user must exist in the system. Cannot add members to the special 'everyone' pseudo-group.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)|  | 
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**GroupMember**](GroupMember.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **CreateAdminGroup**
+> AdminGroup CreateAdminGroup(ctx, body)
+Create provider-independent group
+
+Creates a new provider-independent group (provider=\"*\"). These groups can be used across all providers for authorization and administration.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)|  | 
+
+### Return type
+
+[**AdminGroup**](AdminGroup.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **CreateAdministrator**
+> Administrator CreateAdministrator(ctx, body)
+Create administrator grant
+
+Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)|  | 
+
+### Return type
+
+[**Administrator**](Administrator.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteAddonInvocationQuota**
+> DeleteAddonInvocationQuota(ctx, userId)
+Delete addon invocation quota
+
+Deletes the custom addon invocation quota for a user, reverting to system defaults
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteAdminGroup**
+> DeleteAdminGroup(ctx, internalUuid)
+Delete group
+
+Deletes a TMI-managed group and handles threat model cleanup. Protected groups like 'everyone' cannot be deleted.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteAdminUser**
+> DeleteAdminUser(ctx, internalUuid)
+Delete user
+
+Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteAdministrator**
+> DeleteAdministrator(ctx, id)
+Delete administrator grant
+
+Revokes administrator privileges. Users cannot revoke their own privileges or privileges for groups they belong to.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | [**string**](.md)| Administrator grant ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteUserAPIQuota**
+> DeleteUserAPIQuota(ctx, userId)
+Delete user API quota
+
+Deletes the custom API quota for a user, reverting to system defaults
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteWebhookQuota**
+> DeleteWebhookQuota(ctx, userId)
+Delete webhook quota
+
+Deletes the custom webhook quota for a user, reverting to system defaults
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetAddonInvocationQuota**
+> AddonInvocationQuota GetAddonInvocationQuota(ctx, userId)
+Get addon invocation quota
+
+Retrieves the addon invocation quota for a specific user
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+[**AddonInvocationQuota**](AddonInvocationQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetAdminGroup**
+> AdminGroup GetAdminGroup(ctx, internalUuid)
+Get group details
+
+Returns detailed information about a specific group, including enriched data (usage in authorizations and admin grants).
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**AdminGroup**](AdminGroup.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetAdminUser**
+> AdminUser GetAdminUser(ctx, internalUuid)
+Get user details
+
+Returns detailed information about a specific user, including enriched data (admin status, groups, threat model counts).
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**AdminUser**](AdminUser.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetUserAPIQuota**
+> UserApiQuota GetUserAPIQuota(ctx, userId)
+Get user API quota
+
+Retrieves the API rate limit quota for a specific user
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+[**UserApiQuota**](UserAPIQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetWebhookQuota**
+> WebhookQuota GetWebhookQuota(ctx, userId)
+Get webhook quota
+
+Retrieves the webhook quota for a specific user
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+[**WebhookQuota**](WebhookQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListAddonInvocationQuotas**
+> []AddonInvocationQuota ListAddonInvocationQuotas(ctx, optional)
+List all addon invocation quotas
+
+Retrieves all custom addon invocation quotas (users with non-default quotas)
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiListAddonInvocationQuotasOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListAddonInvocationQuotasOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+
+### Return type
+
+[**[]AddonInvocationQuota**](AddonInvocationQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListAdminGroups**
+> AdminGroupListResponse ListAdminGroups(ctx, optional)
+List groups
+
+Returns a paginated list of groups with optional filtering by provider, name, and usage. Includes enriched data (usage in authorizations and admin grants).
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiListAdminGroupsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListAdminGroupsOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **provider** | **optional.String**| Filter by OAuth/SAML provider | 
+ **groupName** | **optional.String**| Filter by group name (case-insensitive substring match) | 
+ **usedInAuthorizations** | **optional.Bool**| Filter groups used (true) or not used (false) in authorizations | 
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+ **sortBy** | **optional.String**| Field to sort by | [default to created_at]
+ **sortOrder** | **optional.String**| Sort direction | [default to desc]
+
+### Return type
+
+[**AdminGroupListResponse**](AdminGroupListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListAdminUsers**
+> AdminUserListResponse ListAdminUsers(ctx, optional)
+List users
+
+Returns a paginated list of users with optional filtering by provider, email, and date ranges. Includes enriched data (admin status, groups, threat model counts).
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiListAdminUsersOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListAdminUsersOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **provider** | **optional.String**| Filter by OAuth/SAML provider | 
+ **email** | **optional.String**| Filter by email (case-insensitive substring match) | 
+ **createdAfter** | **optional.Time**| Filter users created after this timestamp (RFC3339) | 
+ **createdBefore** | **optional.Time**| Filter users created before this timestamp (RFC3339) | 
+ **lastLoginAfter** | **optional.Time**| Filter users who logged in after this timestamp (RFC3339) | 
+ **lastLoginBefore** | **optional.Time**| Filter users who logged in before this timestamp (RFC3339) | 
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+ **sortBy** | **optional.String**| Field to sort by | [default to created_at]
+ **sortOrder** | **optional.String**| Sort direction | [default to desc]
+
+### Return type
+
+[**AdminUserListResponse**](AdminUserListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListAdministrators**
+> ListAdministratorsResponse ListAdministrators(ctx, optional)
+List administrators
+
+Returns a list of administrator grants with optional filtering by provider, user, or group
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiListAdministratorsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListAdministratorsOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **provider** | **optional.String**| Filter by OAuth/SAML provider | 
+ **userId** | [**optional.Interface of string**](.md)| Filter by user ID | 
+ **groupId** | [**optional.Interface of string**](.md)| Filter by group ID | 
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+
+### Return type
+
+[**ListAdministratorsResponse**](ListAdministratorsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListGroupMembers**
+> GroupMemberListResponse ListGroupMembers(ctx, internalUuid, optional)
+List group members
+
+Returns a paginated list of users who are members of the specified group. Includes user details (email, name, provider information).
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+ **optional** | ***AdministrationApiListGroupMembersOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListGroupMembersOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+
+### Return type
+
+[**GroupMemberListResponse**](GroupMemberListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListUserAPIQuotas**
+> []UserApiQuota ListUserAPIQuotas(ctx, optional)
+List all user API quotas
+
+Retrieves all custom API rate limit quotas (users with non-default quotas)
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiListUserAPIQuotasOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListUserAPIQuotasOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+
+### Return type
+
+[**[]UserApiQuota**](UserAPIQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ListWebhookQuotas**
+> []WebhookQuota ListWebhookQuotas(ctx, optional)
+List all webhook quotas
+
+Retrieves all custom webhook quotas (users with non-default quotas)
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiListWebhookQuotasOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiListWebhookQuotasOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+
+### Return type
+
+[**[]WebhookQuota**](WebhookQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **RemoveGroupMember**
+> RemoveGroupMember(ctx, internalUuid, userUuid)
+Remove member from group
+
+Removes a user from a group. Cannot remove members from the special 'everyone' pseudo-group.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+  **userUuid** | [**string**](.md)| Internal system UUID of the user to remove | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateAddonInvocationQuota**
+> AddonInvocationQuota UpdateAddonInvocationQuota(ctx, body, userId)
+Update addon invocation quota
+
+Creates or updates the addon invocation quota for a specific user
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**AddonsUserIdBody**](AddonsUserIdBody.md)|  | 
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+[**AddonInvocationQuota**](AddonInvocationQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateAdminGroup**
+> AdminGroup UpdateAdminGroup(ctx, body, internalUuid)
+Update group metadata
+
+Updates group metadata fields (name, description). Only provided fields are updated.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)|  | 
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**AdminGroup**](AdminGroup.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateAdminUser**
+> AdminUser UpdateAdminUser(ctx, body, internalUuid)
+Update user metadata
+
+Updates user metadata fields (email, name, email_verified). Only provided fields are updated.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)|  | 
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**AdminUser**](AdminUser.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateUserAPIQuota**
+> UserApiQuota UpdateUserAPIQuota(ctx, body, userId)
+Update user API quota
+
+Creates or updates the API rate limit quota for a specific user
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**UsersUserIdBody**](UsersUserIdBody.md)|  | 
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+[**UserApiQuota**](UserAPIQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateWebhookQuota**
+> WebhookQuota UpdateWebhookQuota(ctx, body, userId)
+Update webhook quota
+
+Creates or updates the webhook quota for a specific user
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**WebhooksUserIdBody**](WebhooksUserIdBody.md)|  | 
+  **userId** | [**string**](.md)| User ID | 
+
+### Return type
+
+[**WebhookQuota**](WebhookQuota.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

@@ -1,4 +1,4 @@
-# TmiJsClient.NodeAttrsBody
+# TmiThreatModelingImprovedApi.NodeAttrsBody
 
 ## Properties
 Name | Type | Description | Notes

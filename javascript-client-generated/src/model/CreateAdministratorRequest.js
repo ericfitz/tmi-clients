@@ -40,10 +40,12 @@ export default class CreateAdministratorRequest {
   static constructFromObject(data, obj) {
     if (data) {
       obj = obj || new CreateAdministratorRequest();
-      if (data.hasOwnProperty('user_id'))
-        obj.userId = ApiClient.convertToType(data['user_id'], 'String');
-      if (data.hasOwnProperty('group_id'))
-        obj.groupId = ApiClient.convertToType(data['group_id'], 'String');
+      if (data.hasOwnProperty('email'))
+        obj.email = ApiClient.convertToType(data['email'], 'String');
+      if (data.hasOwnProperty('provider_user_id'))
+        obj.providerUserId = ApiClient.convertToType(data['provider_user_id'], 'String');
+      if (data.hasOwnProperty('group_name'))
+        obj.groupName = ApiClient.convertToType(data['group_name'], 'String');
       if (data.hasOwnProperty('provider'))
         obj.provider = ApiClient.convertToType(data['provider'], 'String');
     }
@@ -52,16 +54,22 @@ export default class CreateAdministratorRequest {
 }
 
 /**
- * User ID to grant admin privileges (mutually exclusive with group_id)
- * @member {String} userId
+ * User email to grant admin privileges (mutually exclusive with provider_user_id and group_name)
+ * @member {String} email
  */
-CreateAdministratorRequest.prototype.userId = undefined;
+CreateAdministratorRequest.prototype.email = undefined;
 
 /**
- * Group ID to grant admin privileges (mutually exclusive with user_id)
- * @member {String} groupId
+ * Provider's user ID to grant admin privileges (mutually exclusive with email and group_name)
+ * @member {String} providerUserId
  */
-CreateAdministratorRequest.prototype.groupId = undefined;
+CreateAdministratorRequest.prototype.providerUserId = undefined;
+
+/**
+ * Group name to grant admin privileges (mutually exclusive with email and provider_user_id)
+ * @member {String} groupName
+ */
+CreateAdministratorRequest.prototype.groupName = undefined;
 
 /**
  * OAuth/SAML provider

@@ -39,14 +39,12 @@ import Cell from './model/Cell';
 import CellData from './model/CellData';
 import ClientCredentialInfo from './model/ClientCredentialInfo';
 import ClientCredentialResponse from './model/ClientCredentialResponse';
-import ClientcredentialsBody from './model/ClientcredentialsBody';
 import CollaborationSession from './model/CollaborationSession';
 import CreateAddonRequest from './model/CreateAddonRequest';
 import CreateAdminGroupRequest from './model/CreateAdminGroupRequest';
 import CreateAdministratorRequest from './model/CreateAdministratorRequest';
 import CreateDiagramRequest from './model/CreateDiagramRequest';
 import DeletionChallenge from './model/DeletionChallenge';
-import DeletionStats from './model/DeletionStats';
 import DfdDiagram from './model/DfdDiagram';
 import DfdDiagramInput from './model/DfdDiagramInput';
 import Diagram from './model/Diagram';
@@ -70,7 +68,6 @@ import EdgeTerminal from './model/EdgeTerminal';
 import Error from './model/Error';
 import ErrorDetails from './model/ErrorDetails';
 import ExtendedAsset from './model/ExtendedAsset';
-import Group from './model/Group';
 import GroupMember from './model/GroupMember';
 import GroupMemberListResponse from './model/GroupMemberListResponse';
 import InlineResponse200 from './model/InlineResponse200';
@@ -89,7 +86,8 @@ import InlineResponse2007 from './model/InlineResponse2007';
 import InlineResponse2008 from './model/InlineResponse2008';
 import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse409 from './model/InlineResponse409';
-import InvocationListResponse from './model/InvocationListResponse';
+import InlineResponse429 from './model/InlineResponse429';
+import InlineResponse500 from './model/InlineResponse500';
 import InvocationResponse from './model/InvocationResponse';
 import InvokeAddonRequest from './model/InvokeAddonRequest';
 import InvokeAddonResponse from './model/InvokeAddonResponse';
@@ -97,6 +95,7 @@ import ListAddonsResponse from './model/ListAddonsResponse';
 import ListAdministratorsResponse from './model/ListAdministratorsResponse';
 import ListInvocationsResponse from './model/ListInvocationsResponse';
 import MarkupElement from './model/MarkupElement';
+import MeClientCredentialsBody from './model/MeClientCredentialsBody';
 import Metadata from './model/Metadata';
 import MetadataKeyBody from './model/MetadataKeyBody';
 import MetadataKeyBody1 from './model/MetadataKeyBody1';
@@ -104,6 +103,10 @@ import MetadataKeyBody2 from './model/MetadataKeyBody2';
 import MetadataKeyBody3 from './model/MetadataKeyBody3';
 import MetadataKeyBody4 from './model/MetadataKeyBody4';
 import MetadataKeyBody5 from './model/MetadataKeyBody5';
+import MinimalCell from './model/MinimalCell';
+import MinimalDiagramModel from './model/MinimalDiagramModel';
+import MinimalEdge from './model/MinimalEdge';
+import MinimalNode from './model/MinimalNode';
 import Node from './model/Node';
 import NodeAttrs from './model/NodeAttrs';
 import NodeAttrsBody from './model/NodeAttrsBody';
@@ -131,8 +134,6 @@ import RepositoryBase from './model/RepositoryBase';
 import RepositoryBaseParameters from './model/RepositoryBaseParameters';
 import RepositoryInput from './model/RepositoryInput';
 import SAMLProviderInfo from './model/SAMLProviderInfo';
-import SAMLUserListResponse from './model/SAMLUserListResponse';
-import SAMLUserListResponseUsers from './model/SAMLUserListResponseUsers';
 import SamlAcsBody from './model/SamlAcsBody';
 import SamlSloBody from './model/SamlSloBody';
 import TMListItem from './model/TMListItem';
@@ -181,14 +182,14 @@ import UsersApi from './api/UsersApi';
 import WebhooksApi from './api/WebhooksApi';
 
 /**
-* JavaScript client for TMI (Threat Modeling Improved) API.<br>
+* A_RESTful_API_for_collaborative_threat_modeling_with_full_X6_graph_library_compatibility__This_API_provides_schemas_that_align_with_AntV_X6_cell_object_models_for_seamless_integration_with_modern_diagramming_libraries__Supports_OAuth_2_0_authentication_with_client_callback_integration_for_seamless_single_page_application_authentication_flows__API_Design_v1_0_0_Authorization_ModelTMI_uses_hierarchical_authorization_access_control_is_defined_at_the_ThreatModel_level_via_the_authorization_field__readers_writers_owners__All_child_resources__Assets_Diagrams_Documents_Notes_Repositories_Threats_inherit_permissions_from_their_parent_ThreatModel__This_simplifies_permission_management_and_ensures_consistent_access_control__Bulk_OperationsNotes_and_Diagrams_do_not_support_bulk_operations_due_to_their_unique_creation_workflows_and_lack_of_valid_bulk_use_cases__All_other_resources__Threats_Assets_Documents_Repositories_support_full_bulk_operations_POST__create_PUT__upsert_PATCH__partial_update_DELETE__batch_delete_All_resources_support_bulk_metadata_operations_regardless_of_resource_level_bulk_support__List_Response_Strategy__ThreatModels_return_summary_information__TMListItem_because_they_contain_many_child_objects_that_can_be_large___Diagrams_return_summary_information__DiagramListItem_because_diagram_data__cells_images_can_be_large___Notes_return_summary_information__NoteListItem_because_the_content_field_can_be_large___Threats_Assets_Documents_Repositories_return_full_schemas_as_they_are_relatively_small_and_static__PATCH_SupportAll_resources_support_PATCH_for_partial_updates_using_JSON_Patch__RFC_6902__This_is_particularly_useful_for__Assets_Array_field_updates__affected_assets_trust_boundaries_ensuring_no_duplicates__Notes_Updating_namedescription_without_changing_content_field__All_resources_Efficient_updates_without_full_object_replacement.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var TmiJsClient = require('index'); // See note below*.
-* var xxxSvc = new TmiJsClient.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new TmiJsClient.Yyy(); // Construct a model instance.
+* var TmiThreatModelingImprovedApi = require('index'); // See note below*.
+* var xxxSvc = new TmiThreatModelingImprovedApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new TmiThreatModelingImprovedApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -200,8 +201,8 @@ import WebhooksApi from './api/WebhooksApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new TmiJsClient.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new TmiJsClient.Yyy(); // Construct a model instance.
+* var xxxSvc = new TmiThreatModelingImprovedApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new TmiThreatModelingImprovedApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -375,12 +376,6 @@ export {
     ClientCredentialResponse,
 
     /**
-     * The ClientcredentialsBody model constructor.
-     * @property {module:model/ClientcredentialsBody}
-     */
-    ClientcredentialsBody,
-
-    /**
      * The CollaborationSession model constructor.
      * @property {module:model/CollaborationSession}
      */
@@ -415,12 +410,6 @@ export {
      * @property {module:model/DeletionChallenge}
      */
     DeletionChallenge,
-
-    /**
-     * The DeletionStats model constructor.
-     * @property {module:model/DeletionStats}
-     */
-    DeletionStats,
 
     /**
      * The DfdDiagram model constructor.
@@ -561,12 +550,6 @@ export {
     ExtendedAsset,
 
     /**
-     * The Group model constructor.
-     * @property {module:model/Group}
-     */
-    Group,
-
-    /**
      * The GroupMember model constructor.
      * @property {module:model/GroupMember}
      */
@@ -675,10 +658,16 @@ export {
     InlineResponse409,
 
     /**
-     * The InvocationListResponse model constructor.
-     * @property {module:model/InvocationListResponse}
+     * The InlineResponse429 model constructor.
+     * @property {module:model/InlineResponse429}
      */
-    InvocationListResponse,
+    InlineResponse429,
+
+    /**
+     * The InlineResponse500 model constructor.
+     * @property {module:model/InlineResponse500}
+     */
+    InlineResponse500,
 
     /**
      * The InvocationResponse model constructor.
@@ -723,6 +712,12 @@ export {
     MarkupElement,
 
     /**
+     * The MeClientCredentialsBody model constructor.
+     * @property {module:model/MeClientCredentialsBody}
+     */
+    MeClientCredentialsBody,
+
+    /**
      * The Metadata model constructor.
      * @property {module:model/Metadata}
      */
@@ -763,6 +758,30 @@ export {
      * @property {module:model/MetadataKeyBody5}
      */
     MetadataKeyBody5,
+
+    /**
+     * The MinimalCell model constructor.
+     * @property {module:model/MinimalCell}
+     */
+    MinimalCell,
+
+    /**
+     * The MinimalDiagramModel model constructor.
+     * @property {module:model/MinimalDiagramModel}
+     */
+    MinimalDiagramModel,
+
+    /**
+     * The MinimalEdge model constructor.
+     * @property {module:model/MinimalEdge}
+     */
+    MinimalEdge,
+
+    /**
+     * The MinimalNode model constructor.
+     * @property {module:model/MinimalNode}
+     */
+    MinimalNode,
 
     /**
      * The Node model constructor.
@@ -925,18 +944,6 @@ export {
      * @property {module:model/SAMLProviderInfo}
      */
     SAMLProviderInfo,
-
-    /**
-     * The SAMLUserListResponse model constructor.
-     * @property {module:model/SAMLUserListResponse}
-     */
-    SAMLUserListResponse,
-
-    /**
-     * The SAMLUserListResponseUsers model constructor.
-     * @property {module:model/SAMLUserListResponseUsers}
-     */
-    SAMLUserListResponseUsers,
 
     /**
      * The SamlAcsBody model constructor.

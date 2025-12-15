@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -50,7 +50,7 @@ Deletes a threat model; restricted to owner role
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model to delete (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -78,7 +78,7 @@ Retrieves the full details of a specific threat model if the user has access
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model to retrieve (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -112,16 +112,16 @@ Name | Type | Description  | Notes
 Optional parameters are passed through a pointer to a ThreatModelsApiListThreatModelsOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| Number of threat models to return | [default to 20]
- **offset** | **optional.Int32**| Pagination offset | [default to 0]
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
  **owner** | **optional.String**| Filter by owner name or email | 
  **name** | **optional.String**| Filter by threat model name (partial match) | 
  **description** | **optional.String**| Filter by threat model description (partial match) | 
  **issueUri** | **optional.String**| Filter by issue URI (partial match) | 
- **createdAfter** | **optional.Time**| Filter threat models created after this date (RFC3339 format) | 
- **createdBefore** | **optional.Time**| Filter threat models created before this date (RFC3339 format) | 
- **modifiedAfter** | **optional.Time**| Filter threat models modified after this date (RFC3339 format) | 
- **modifiedBefore** | **optional.Time**| Filter threat models modified before this date (RFC3339 format) | 
+ **createdAfter** | **optional.Time**| Filter results created after this timestamp (ISO 8601) | 
+ **createdBefore** | **optional.Time**| Filter results created before this timestamp (ISO 8601) | 
+ **modifiedAfter** | **optional.Time**| Filter results modified after this timestamp (ISO 8601) | 
+ **modifiedBefore** | **optional.Time**| Filter results modified before this timestamp (ISO 8601) | 
  **status** | **optional.String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | 
  **statusUpdatedAfter** | **optional.Time**| Filter threat models where status was updated after this timestamp (RFC3339) | 
  **statusUpdatedBefore** | **optional.Time**| Filter threat models where status was updated before this timestamp (RFC3339) | 
@@ -152,7 +152,7 @@ Applies JSON Patch operations to a threat model; restricted to writer/owner role
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model to update (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
  **optional** | ***ThreatModelsApiPatchThreatModelOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model to update (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 

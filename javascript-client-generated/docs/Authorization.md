@@ -1,4 +1,4 @@
-# TmiJsClient.Authorization
+# TmiThreatModelingImprovedApi.Authorization
 
 ## Properties
 Name | Type | Description | Notes

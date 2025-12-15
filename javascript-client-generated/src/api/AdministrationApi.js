@@ -26,6 +26,8 @@ import CreateAdministratorRequest from '../model/CreateAdministratorRequest';
 import Error from '../model/Error';
 import GroupMember from '../model/GroupMember';
 import GroupMemberListResponse from '../model/GroupMemberListResponse';
+import InlineResponse429 from '../model/InlineResponse429';
+import InlineResponse500 from '../model/InlineResponse500';
 import ListAdministratorsResponse from '../model/ListAdministratorsResponse';
 import UpdateAdminGroupRequest from '../model/UpdateAdminGroupRequest';
 import UpdateAdminUserRequest from '../model/UpdateAdminUserRequest';
@@ -53,16 +55,23 @@ export default class AdministrationApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the addGroupMember operation.
+     * @callback moduleapi/AdministrationApi~addGroupMemberCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/GroupMember{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Add member to group
      * Adds a user to a group. The user must exist in the system. Cannot add members to the special &#x27;everyone&#x27; pseudo-group.
      * @param {module:model/AddGroupMemberRequest} body 
-     * @param {String} internalUuid Internal system UUID of the group
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/GroupMember} and HTTP response
+     * @param {String} internalUuid Internal system UUID of the user
+     * @param {module:api/AdministrationApi~addGroupMemberCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    addGroupMemberWithHttpInfo(body, internalUuid) {
+    addGroupMember(body, internalUuid, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -95,32 +104,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups/{internal_uuid}/members', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Add member to group
-     * Adds a user to a group. The user must exist in the system. Cannot add members to the special &#x27;everyone&#x27; pseudo-group.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the group
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/GroupMember}
+     * Callback function to receive the result of the createAdminGroup operation.
+     * @callback moduleapi/AdministrationApi~createAdminGroupCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminGroup{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    addGroupMember(body, internalUuid) {
-      return this.addGroupMemberWithHttpInfo(body, internalUuid)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create provider-independent group
      * Creates a new provider-independent group (provider&#x3D;\&quot;*\&quot;). These groups can be used across all providers for authorization and administration.
      * @param {module:model/CreateAdminGroupRequest} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminGroup} and HTTP response
+     * @param {module:api/AdministrationApi~createAdminGroupCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createAdminGroupWithHttpInfo(body) {
+    createAdminGroup(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -149,31 +151,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create provider-independent group
-     * Creates a new provider-independent group (provider&#x3D;\&quot;*\&quot;). These groups can be used across all providers for authorization and administration.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminGroup}
+     * Callback function to receive the result of the createAdministrator operation.
+     * @callback moduleapi/AdministrationApi~createAdministratorCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Administrator{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    createAdminGroup(body) {
-      return this.createAdminGroupWithHttpInfo(body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create administrator grant
-     * Grants administrator privileges to a user or group for a specific provider. Exactly one of user_id or group_id must be specified.
+     * Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.
      * @param {module:model/CreateAdministratorRequest} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Administrator} and HTTP response
+     * @param {module:api/AdministrationApi~createAdministratorCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createAdministratorWithHttpInfo(body) {
+    createAdministrator(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -202,31 +198,24 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/administrators', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create administrator grant
-     * Grants administrator privileges to a user or group for a specific provider. Exactly one of user_id or group_id must be specified.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Administrator}
+     * Callback function to receive the result of the deleteAddonInvocationQuota operation.
+     * @callback moduleapi/AdministrationApi~deleteAddonInvocationQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createAdministrator(body) {
-      return this.createAdministratorWithHttpInfo(body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete addon invocation quota
      * Deletes the custom addon invocation quota for a user, reverting to system defaults
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AdministrationApi~deleteAddonInvocationQuotaCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteAddonInvocationQuotaWithHttpInfo(userId) {
+    deleteAddonInvocationQuota(userId, callback) {
       
       let postBody = null;
       // verify the required parameter 'userId' is set
@@ -255,48 +244,36 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/addons/{user_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
+    /**
+     * Callback function to receive the result of the deleteAdminGroup operation.
+     * @callback moduleapi/AdministrationApi~deleteAdminGroupCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
-     * Delete addon invocation quota
-     * Deletes the custom addon invocation quota for a user, reverting to system defaults
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Delete group
+     * Deletes a TMI-managed group and handles threat model cleanup. Protected groups like &#x27;everyone&#x27; cannot be deleted.
+     * @param {String} internalUuid Internal system UUID of the user
+     * @param {module:api/AdministrationApi~deleteAdminGroupCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteAddonInvocationQuota(userId) {
-      return this.deleteAddonInvocationQuotaWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Delete group (Not Implemented)
-     * Group deletion is not currently supported. This endpoint returns 501 Not Implemented. Groups remain in the system for audit and historical purposes.
-     * @param {String} provider OAuth/SAML provider identifier or \&quot;*\&quot; for provider-independent groups
-     * @param {String} groupName Group name identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
-     */
-    deleteAdminGroupWithHttpInfo(provider, groupName) {
+    deleteAdminGroup(internalUuid, callback) {
       
       let postBody = null;
-      // verify the required parameter 'provider' is set
-      if (provider === undefined || provider === null) {
-        throw new Error("Missing the required parameter 'provider' when calling deleteAdminGroup");
-      }
-      // verify the required parameter 'groupName' is set
-      if (groupName === undefined || groupName === null) {
-        throw new Error("Missing the required parameter 'groupName' when calling deleteAdminGroup");
+      // verify the required parameter 'internalUuid' is set
+      if (internalUuid === undefined || internalUuid === null) {
+        throw new Error("Missing the required parameter 'internalUuid' when calling deleteAdminGroup");
       }
 
       let pathParams = {
-        
+        'internal_uuid': internalUuid
       };
       let queryParams = {
-        'provider': provider,'group_name': groupName
+        
       };
       let headerParams = {
         
@@ -311,51 +288,38 @@ export default class AdministrationApi {
       let returnType = null;
 
       return this.apiClient.callApi(
-        '/admin/groups', 'DELETE',
+        '/admin/groups/{internal_uuid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete group (Not Implemented)
-     * Group deletion is not currently supported. This endpoint returns 501 Not Implemented. Groups remain in the system for audit and historical purposes.
-     * @param {<&vendorExtensions.x-jsdoc-type>} provider OAuth/SAML provider identifier or \&quot;*\&quot; for provider-independent groups
-     * @param {<&vendorExtensions.x-jsdoc-type>} groupName Group name identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteAdminUser operation.
+     * @callback moduleapi/AdministrationApi~deleteAdminUserCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteAdminGroup(provider, groupName) {
-      return this.deleteAdminGroupWithHttpInfo(provider, groupName)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete user
-     * Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist. Requires both provider and provider_user_id query parameters.
-     * @param {String} provider OAuth/SAML provider identifier
-     * @param {String} providerUserId Provider-assigned user identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist.
+     * @param {String} internalUuid Internal system UUID of the user
+     * @param {module:api/AdministrationApi~deleteAdminUserCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteAdminUserWithHttpInfo(provider, providerUserId) {
+    deleteAdminUser(internalUuid, callback) {
       
       let postBody = null;
-      // verify the required parameter 'provider' is set
-      if (provider === undefined || provider === null) {
-        throw new Error("Missing the required parameter 'provider' when calling deleteAdminUser");
-      }
-      // verify the required parameter 'providerUserId' is set
-      if (providerUserId === undefined || providerUserId === null) {
-        throw new Error("Missing the required parameter 'providerUserId' when calling deleteAdminUser");
+      // verify the required parameter 'internalUuid' is set
+      if (internalUuid === undefined || internalUuid === null) {
+        throw new Error("Missing the required parameter 'internalUuid' when calling deleteAdminUser");
       }
 
       let pathParams = {
-        
+        'internal_uuid': internalUuid
       };
       let queryParams = {
-        'provider': provider,'provider_user_id': providerUserId
+        
       };
       let headerParams = {
         
@@ -370,34 +334,26 @@ export default class AdministrationApi {
       let returnType = null;
 
       return this.apiClient.callApi(
-        '/admin/users', 'DELETE',
+        '/admin/users/{internal_uuid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete user
-     * Deletes a user and all associated data. Transfers sole-owned threat models or deletes them if no other owners exist. Requires both provider and provider_user_id query parameters.
-     * @param {<&vendorExtensions.x-jsdoc-type>} provider OAuth/SAML provider identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} providerUserId Provider-assigned user identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteAdministrator operation.
+     * @callback moduleapi/AdministrationApi~deleteAdministratorCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteAdminUser(provider, providerUserId) {
-      return this.deleteAdminUserWithHttpInfo(provider, providerUserId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete administrator grant
      * Revokes administrator privileges. Users cannot revoke their own privileges or privileges for groups they belong to.
      * @param {String} id Administrator grant ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AdministrationApi~deleteAdministratorCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteAdministratorWithHttpInfo(id) {
+    deleteAdministrator(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -426,31 +382,24 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/administrators/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete administrator grant
-     * Revokes administrator privileges. Users cannot revoke their own privileges or privileges for groups they belong to.
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Administrator grant ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteUserAPIQuota operation.
+     * @callback moduleapi/AdministrationApi~deleteUserAPIQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteAdministrator(id) {
-      return this.deleteAdministratorWithHttpInfo(id)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete user API quota
      * Deletes the custom API quota for a user, reverting to system defaults
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AdministrationApi~deleteUserAPIQuotaCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteUserAPIQuotaWithHttpInfo(userId) {
+    deleteUserAPIQuota(userId, callback) {
       
       let postBody = null;
       // verify the required parameter 'userId' is set
@@ -479,31 +428,24 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/users/{user_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete user API quota
-     * Deletes the custom API quota for a user, reverting to system defaults
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the deleteWebhookQuota operation.
+     * @callback moduleapi/AdministrationApi~deleteWebhookQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    deleteUserAPIQuota(userId) {
-      return this.deleteUserAPIQuotaWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete webhook quota
      * Deletes the custom webhook quota for a user, reverting to system defaults
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AdministrationApi~deleteWebhookQuotaCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteWebhookQuotaWithHttpInfo(userId) {
+    deleteWebhookQuota(userId, callback) {
       
       let postBody = null;
       // verify the required parameter 'userId' is set
@@ -532,31 +474,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/webhooks/{user_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete webhook quota
-     * Deletes the custom webhook quota for a user, reverting to system defaults
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the getAddonInvocationQuota operation.
+     * @callback moduleapi/AdministrationApi~getAddonInvocationQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AddonInvocationQuota{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    deleteWebhookQuota(userId) {
-      return this.deleteWebhookQuotaWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get addon invocation quota
      * Retrieves the addon invocation quota for a specific user
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AddonInvocationQuota} and HTTP response
+     * @param {module:api/AdministrationApi~getAddonInvocationQuotaCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getAddonInvocationQuotaWithHttpInfo(userId) {
+    getAddonInvocationQuota(userId, callback) {
       
       let postBody = null;
       // verify the required parameter 'userId' is set
@@ -585,31 +521,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/addons/{user_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get addon invocation quota
-     * Retrieves the addon invocation quota for a specific user
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AddonInvocationQuota}
+     * Callback function to receive the result of the getAdminGroup operation.
+     * @callback moduleapi/AdministrationApi~getAdminGroupCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminGroup{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getAddonInvocationQuota(userId) {
-      return this.getAddonInvocationQuotaWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get group details
      * Returns detailed information about a specific group, including enriched data (usage in authorizations and admin grants).
-     * @param {String} internalUuid Internal system UUID of the group
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminGroup} and HTTP response
+     * @param {String} internalUuid Internal system UUID of the user
+     * @param {module:api/AdministrationApi~getAdminGroupCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getAdminGroupWithHttpInfo(internalUuid) {
+    getAdminGroup(internalUuid, callback) {
       
       let postBody = null;
       // verify the required parameter 'internalUuid' is set
@@ -638,31 +568,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups/{internal_uuid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get group details
-     * Returns detailed information about a specific group, including enriched data (usage in authorizations and admin grants).
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the group
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminGroup}
+     * Callback function to receive the result of the getAdminUser operation.
+     * @callback moduleapi/AdministrationApi~getAdminUserCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminUser{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getAdminGroup(internalUuid) {
-      return this.getAdminGroupWithHttpInfo(internalUuid)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get user details
      * Returns detailed information about a specific user, including enriched data (admin status, groups, threat model counts).
      * @param {String} internalUuid Internal system UUID of the user
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminUser} and HTTP response
+     * @param {module:api/AdministrationApi~getAdminUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getAdminUserWithHttpInfo(internalUuid) {
+    getAdminUser(internalUuid, callback) {
       
       let postBody = null;
       // verify the required parameter 'internalUuid' is set
@@ -691,31 +615,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/users/{internal_uuid}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get user details
-     * Returns detailed information about a specific user, including enriched data (admin status, groups, threat model counts).
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the user
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminUser}
+     * Callback function to receive the result of the getUserAPIQuota operation.
+     * @callback moduleapi/AdministrationApi~getUserAPIQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/UserAPIQuota{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getAdminUser(internalUuid) {
-      return this.getAdminUserWithHttpInfo(internalUuid)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get user API quota
      * Retrieves the API rate limit quota for a specific user
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserAPIQuota} and HTTP response
+     * @param {module:api/AdministrationApi~getUserAPIQuotaCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getUserAPIQuotaWithHttpInfo(userId) {
+    getUserAPIQuota(userId, callback) {
       
       let postBody = null;
       // verify the required parameter 'userId' is set
@@ -744,31 +662,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/users/{user_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get user API quota
-     * Retrieves the API rate limit quota for a specific user
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserAPIQuota}
+     * Callback function to receive the result of the getWebhookQuota operation.
+     * @callback moduleapi/AdministrationApi~getWebhookQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/WebhookQuota{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getUserAPIQuota(userId) {
-      return this.getUserAPIQuotaWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get webhook quota
      * Retrieves the webhook quota for a specific user
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookQuota} and HTTP response
+     * @param {module:api/AdministrationApi~getWebhookQuotaCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getWebhookQuotaWithHttpInfo(userId) {
+    getWebhookQuota(userId, callback) {
       
       let postBody = null;
       // verify the required parameter 'userId' is set
@@ -797,23 +709,16 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/webhooks/{user_id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get webhook quota
-     * Retrieves the webhook quota for a specific user
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookQuota}
+     * Callback function to receive the result of the listAddonInvocationQuotas operation.
+     * @callback moduleapi/AdministrationApi~listAddonInvocationQuotasCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/AddonInvocationQuota>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getWebhookQuota(userId) {
-      return this.getWebhookQuotaWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List all addon invocation quotas
@@ -821,9 +726,10 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AddonInvocationQuota>} and HTTP response
+     * @param {module:api/AdministrationApi~listAddonInvocationQuotasCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listAddonInvocationQuotasWithHttpInfo(opts) {
+    listAddonInvocationQuotas(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -848,40 +754,32 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/addons', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List all addon invocation quotas
-     * Retrieves all custom addon invocation quotas (users with non-default quotas)
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AddonInvocationQuota>}
+     * Callback function to receive the result of the listAdminGroups operation.
+     * @callback moduleapi/AdministrationApi~listAdminGroupsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminGroupListResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listAddonInvocationQuotas(opts) {
-      return this.listAddonInvocationQuotasWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List groups
      * Returns a paginated list of groups with optional filtering by provider, name, and usage. Includes enriched data (usage in authorizations and admin grants).
      * @param {Object} opts Optional parameters
-     * @param {String} opts.provider Filter by OAuth/SAML provider (use \&quot;*\&quot; for provider-independent groups)
+     * @param {String} opts.provider Filter by OAuth/SAML provider
      * @param {String} opts.groupName Filter by group name (case-insensitive substring match)
      * @param {Boolean} opts.usedInAuthorizations Filter groups used (true) or not used (false) in authorizations
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {module:model/String} opts.sortBy Field to sort by (default to <.>)
      * @param {module:model/String} opts.sortOrder Sort direction (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminGroupListResponse} and HTTP response
+     * @param {module:api/AdministrationApi~listAdminGroupsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listAdminGroupsWithHttpInfo(opts) {
+    listAdminGroups(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -906,30 +804,16 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List groups
-     * Returns a paginated list of groups with optional filtering by provider, name, and usage. Includes enriched data (usage in authorizations and admin grants).
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.provider Filter by OAuth/SAML provider (use \&quot;*\&quot; for provider-independent groups)
-     * @param {String} opts.groupName Filter by group name (case-insensitive substring match)
-     * @param {Boolean} opts.usedInAuthorizations Filter groups used (true) or not used (false) in authorizations
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {module:model/String} opts.sortBy Field to sort by (default to <.>)
-     * @param {module:model/String} opts.sortOrder Sort direction (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminGroupListResponse}
+     * Callback function to receive the result of the listAdminUsers operation.
+     * @callback moduleapi/AdministrationApi~listAdminUsersCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminUserListResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listAdminGroups(opts) {
-      return this.listAdminGroupsWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List users
@@ -945,9 +829,10 @@ export default class AdministrationApi {
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {module:model/String} opts.sortBy Field to sort by (default to <.>)
      * @param {module:model/String} opts.sortOrder Sort direction (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminUserListResponse} and HTTP response
+     * @param {module:api/AdministrationApi~listAdminUsersCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listAdminUsersWithHttpInfo(opts) {
+    listAdminUsers(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -972,33 +857,16 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List users
-     * Returns a paginated list of users with optional filtering by provider, email, and date ranges. Includes enriched data (admin status, groups, threat model counts).
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.provider Filter by OAuth/SAML provider
-     * @param {String} opts.email Filter by email (case-insensitive substring match)
-     * @param {Date} opts.createdAfter Filter users created after this timestamp (RFC3339)
-     * @param {Date} opts.createdBefore Filter users created before this timestamp (RFC3339)
-     * @param {Date} opts.lastLoginAfter Filter users who logged in after this timestamp (RFC3339)
-     * @param {Date} opts.lastLoginBefore Filter users who logged in before this timestamp (RFC3339)
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {module:model/String} opts.sortBy Field to sort by (default to <.>)
-     * @param {module:model/String} opts.sortOrder Sort direction (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminUserListResponse}
+     * Callback function to receive the result of the listAdministrators operation.
+     * @callback moduleapi/AdministrationApi~listAdministratorsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ListAdministratorsResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listAdminUsers(opts) {
-      return this.listAdminUsersWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List administrators
@@ -1009,9 +877,10 @@ export default class AdministrationApi {
      * @param {String} opts.groupId Filter by group ID
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListAdministratorsResponse} and HTTP response
+     * @param {module:api/AdministrationApi~listAdministratorsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listAdministratorsWithHttpInfo(opts) {
+    listAdministrators(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -1036,39 +905,28 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/administrators', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List administrators
-     * Returns a list of administrator grants with optional filtering by provider, user, or group
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.provider Filter by OAuth/SAML provider
-     * @param {String} opts.userId Filter by user ID
-     * @param {String} opts.groupId Filter by group ID
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAdministratorsResponse}
+     * Callback function to receive the result of the listGroupMembers operation.
+     * @callback moduleapi/AdministrationApi~listGroupMembersCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/GroupMemberListResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listAdministrators(opts) {
-      return this.listAdministratorsWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List group members
      * Returns a paginated list of users who are members of the specified group. Includes user details (email, name, provider information).
-     * @param {String} internalUuid Internal system UUID of the group
+     * @param {String} internalUuid Internal system UUID of the user
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/GroupMemberListResponse} and HTTP response
+     * @param {module:api/AdministrationApi~listGroupMembersCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listGroupMembersWithHttpInfo(internalUuid, opts) {
+    listGroupMembers(internalUuid, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'internalUuid' is set
@@ -1097,26 +955,16 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups/{internal_uuid}/members', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List group members
-     * Returns a paginated list of users who are members of the specified group. Includes user details (email, name, provider information).
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the group
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/GroupMemberListResponse}
+     * Callback function to receive the result of the listUserAPIQuotas operation.
+     * @callback moduleapi/AdministrationApi~listUserAPIQuotasCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/UserAPIQuota>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listGroupMembers(internalUuid, opts) {
-      return this.listGroupMembersWithHttpInfo(internalUuid, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List all user API quotas
@@ -1124,9 +972,10 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/UserAPIQuota>} and HTTP response
+     * @param {module:api/AdministrationApi~listUserAPIQuotasCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listUserAPIQuotasWithHttpInfo(opts) {
+    listUserAPIQuotas(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -1151,25 +1000,16 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List all user API quotas
-     * Retrieves all custom API rate limit quotas (users with non-default quotas)
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/UserAPIQuota>}
+     * Callback function to receive the result of the listWebhookQuotas operation.
+     * @callback moduleapi/AdministrationApi~listWebhookQuotasCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/WebhookQuota>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listUserAPIQuotas(opts) {
-      return this.listUserAPIQuotasWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List all webhook quotas
@@ -1177,9 +1017,10 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/WebhookQuota>} and HTTP response
+     * @param {module:api/AdministrationApi~listWebhookQuotasCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listWebhookQuotasWithHttpInfo(opts) {
+    listWebhookQuotas(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -1204,34 +1045,25 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/webhooks', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List all webhook quotas
-     * Retrieves all custom webhook quotas (users with non-default quotas)
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/WebhookQuota>}
+     * Callback function to receive the result of the removeGroupMember operation.
+     * @callback moduleapi/AdministrationApi~removeGroupMemberCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    listWebhookQuotas(opts) {
-      return this.listWebhookQuotasWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Remove member from group
      * Removes a user from a group. Cannot remove members from the special &#x27;everyone&#x27; pseudo-group.
-     * @param {String} internalUuid Internal system UUID of the group
+     * @param {String} internalUuid Internal system UUID of the user
      * @param {String} userUuid Internal system UUID of the user to remove
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AdministrationApi~removeGroupMemberCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    removeGroupMemberWithHttpInfo(internalUuid, userUuid) {
+    removeGroupMember(internalUuid, userUuid, callback) {
       
       let postBody = null;
       // verify the required parameter 'internalUuid' is set
@@ -1264,33 +1096,26 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups/{internal_uuid}/members/{user_uuid}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Remove member from group
-     * Removes a user from a group. Cannot remove members from the special &#x27;everyone&#x27; pseudo-group.
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the group
-     * @param {<&vendorExtensions.x-jsdoc-type>} userUuid Internal system UUID of the user to remove
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the updateAddonInvocationQuota operation.
+     * @callback moduleapi/AdministrationApi~updateAddonInvocationQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AddonInvocationQuota{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    removeGroupMember(internalUuid, userUuid) {
-      return this.removeGroupMemberWithHttpInfo(internalUuid, userUuid)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update addon invocation quota
      * Creates or updates the addon invocation quota for a specific user
      * @param {module:model/AddonsUserIdBody} body 
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AddonInvocationQuota} and HTTP response
+     * @param {module:api/AdministrationApi~updateAddonInvocationQuotaCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateAddonInvocationQuotaWithHttpInfo(body, userId) {
+    updateAddonInvocationQuota(body, userId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1323,33 +1148,26 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/addons/{user_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update addon invocation quota
-     * Creates or updates the addon invocation quota for a specific user
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AddonInvocationQuota}
+     * Callback function to receive the result of the updateAdminGroup operation.
+     * @callback moduleapi/AdministrationApi~updateAdminGroupCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminGroup{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateAddonInvocationQuota(body, userId) {
-      return this.updateAddonInvocationQuotaWithHttpInfo(body, userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update group metadata
      * Updates group metadata fields (name, description). Only provided fields are updated.
      * @param {module:model/UpdateAdminGroupRequest} body 
-     * @param {String} internalUuid Internal system UUID of the group
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminGroup} and HTTP response
+     * @param {String} internalUuid Internal system UUID of the user
+     * @param {module:api/AdministrationApi~updateAdminGroupCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateAdminGroupWithHttpInfo(body, internalUuid) {
+    updateAdminGroup(body, internalUuid, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1382,33 +1200,26 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/groups/{internal_uuid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update group metadata
-     * Updates group metadata fields (name, description). Only provided fields are updated.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the group
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminGroup}
+     * Callback function to receive the result of the updateAdminUser operation.
+     * @callback moduleapi/AdministrationApi~updateAdminUserCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AdminUser{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateAdminGroup(body, internalUuid) {
-      return this.updateAdminGroupWithHttpInfo(body, internalUuid)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update user metadata
      * Updates user metadata fields (email, name, email_verified). Only provided fields are updated.
      * @param {module:model/UpdateAdminUserRequest} body 
      * @param {String} internalUuid Internal system UUID of the user
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminUser} and HTTP response
+     * @param {module:api/AdministrationApi~updateAdminUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateAdminUserWithHttpInfo(body, internalUuid) {
+    updateAdminUser(body, internalUuid, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1441,33 +1252,26 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/users/{internal_uuid}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update user metadata
-     * Updates user metadata fields (email, name, email_verified). Only provided fields are updated.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} internalUuid Internal system UUID of the user
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminUser}
+     * Callback function to receive the result of the updateUserAPIQuota operation.
+     * @callback moduleapi/AdministrationApi~updateUserAPIQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/UserAPIQuota{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateAdminUser(body, internalUuid) {
-      return this.updateAdminUserWithHttpInfo(body, internalUuid)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update user API quota
      * Creates or updates the API rate limit quota for a specific user
      * @param {module:model/UsersUserIdBody} body 
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserAPIQuota} and HTTP response
+     * @param {module:api/AdministrationApi~updateUserAPIQuotaCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateUserAPIQuotaWithHttpInfo(body, userId) {
+    updateUserAPIQuota(body, userId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1500,33 +1304,26 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/users/{user_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Update user API quota
-     * Creates or updates the API rate limit quota for a specific user
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserAPIQuota}
+     * Callback function to receive the result of the updateWebhookQuota operation.
+     * @callback moduleapi/AdministrationApi~updateWebhookQuotaCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/WebhookQuota{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    updateUserAPIQuota(body, userId) {
-      return this.updateUserAPIQuotaWithHttpInfo(body, userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update webhook quota
      * Creates or updates the webhook quota for a specific user
      * @param {module:model/WebhooksUserIdBody} body 
      * @param {String} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookQuota} and HTTP response
+     * @param {module:api/AdministrationApi~updateWebhookQuotaCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateWebhookQuotaWithHttpInfo(body, userId) {
+    updateWebhookQuota(body, userId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -1559,22 +1356,8 @@ export default class AdministrationApi {
       return this.apiClient.callApi(
         '/admin/quotas/webhooks/{user_id}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Update webhook quota
-     * Creates or updates the webhook quota for a specific user
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} userId User ID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookQuota}
-     */
-    updateWebhookQuota(body, userId) {
-      return this.updateWebhookQuotaWithHttpInfo(body, userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

@@ -1,4 +1,4 @@
-# TmiJsClient.WebhookQuota
+# TmiThreatModelingImprovedApi.WebhookQuota
 
 ## Properties
 Name | Type | Description | Notes

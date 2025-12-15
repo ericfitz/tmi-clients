@@ -3,10 +3,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Subject** | **string** | Email address or user id for users, group name for groups | [default to null]
-**SubjectType** | **string** | Type of authorization subject: user (individual) or group | [default to null]
-**Idp** | **string** | Identity provider (required for groups, optional for users) | [optional] [default to null]
 **Role** | **string** | Role: reader (view), writer (edit), owner (full control) | [default to null]
+**PrincipalType** | **string** | Type of principal: user (individual) or group | [default to null]
+**Provider** | **string** | Identity provider name (e.g., \&quot;google\&quot;, \&quot;github\&quot;, \&quot;microsoft\&quot;, \&quot;test\&quot;). Use \&quot;*\&quot; for provider-independent groups. | [default to null]
+**ProviderId** | **string** | Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name. | [default to null]
+**DisplayName** | **string** | Human-readable display name for UI presentation | [optional] [default to null]
+**Email** | **string** | Email address (required for users, optional for groups) | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

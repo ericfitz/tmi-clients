@@ -1,4 +1,4 @@
-# TmiJsClient.ThreatsBulkBody
+# TmiThreatModelingImprovedApi.ThreatsBulkBody
 
 ## Properties
 Name | Type | Description | Notes

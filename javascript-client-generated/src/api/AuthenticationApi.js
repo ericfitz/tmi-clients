@@ -16,7 +16,6 @@ import ApiClient from "../ApiClient";
 import AuthTokenResponse from '../model/AuthTokenResponse';
 import ClientCredentialInfo from '../model/ClientCredentialInfo';
 import ClientCredentialResponse from '../model/ClientCredentialResponse';
-import ClientcredentialsBody from '../model/ClientcredentialsBody';
 import Error from '../model/Error';
 import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse2003 from '../model/InlineResponse2003';
@@ -25,6 +24,9 @@ import InlineResponse2005 from '../model/InlineResponse2005';
 import InlineResponse2006 from '../model/InlineResponse2006';
 import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse2009 from '../model/InlineResponse2009';
+import InlineResponse429 from '../model/InlineResponse429';
+import InlineResponse500 from '../model/InlineResponse500';
+import MeClientCredentialsBody from '../model/MeClientCredentialsBody';
 import Oauth2RefreshBody from '../model/Oauth2RefreshBody';
 import Oauth2TokenBody from '../model/Oauth2TokenBody';
 import UserWithAdminStatus from '../model/UserWithAdminStatus';
@@ -48,7 +50,13 @@ export default class AuthenticationApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the authorizeOAuthProvider operation.
+     * @callback moduleapi/AuthenticationApi~authorizeOAuthProviderCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Initiate OAuth authorization flow
@@ -61,9 +69,9 @@ export default class AuthenticationApi {
      * @param {String} opts.clientCallback Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
      * @param {String} opts.state CSRF protection state parameter. Recommended for security. Will be included in the callback response.
      * @param {String} opts.loginHint User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AuthenticationApi~authorizeOAuthProviderCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    authorizeOAuthProviderWithHttpInfo(scope, codeChallenge, codeChallengeMethod, opts) {
+    authorizeOAuthProvider(scope, codeChallenge, codeChallengeMethod, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'scope' is set
@@ -100,43 +108,30 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/authorize', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Initiate OAuth authorization flow
-     * Redirects user to OAuth provider&#x27;s authorization page. Supports client callback URL for seamless client integration. Generates state parameter for CSRF protection.
-     * @param {<&vendorExtensions.x-jsdoc-type>} scope OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values.
-     * @param {<&vendorExtensions.x-jsdoc-type>} codeChallenge PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
-     * @param {<&vendorExtensions.x-jsdoc-type>} codeChallengeMethod PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.idp OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified.
-     * @param {String} opts.clientCallback Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
-     * @param {String} opts.state CSRF protection state parameter. Recommended for security. Will be included in the callback response.
-     * @param {String} opts.loginHint User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the createCurrentUserClientCredential operation.
+     * @callback moduleapi/AuthenticationApi~createCurrentUserClientCredentialCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ClientCredentialResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    authorizeOAuthProvider(scope, codeChallenge, codeChallengeMethod, opts) {
-      return this.authorizeOAuthProviderWithHttpInfo(scope, codeChallenge, codeChallengeMethod, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Create client credential
      * Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
-     * @param {module:model/ClientcredentialsBody} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ClientCredentialResponse} and HTTP response
+     * @param {module:model/MeClientCredentialsBody} body 
+     * @param {module:api/AuthenticationApi~createCurrentUserClientCredentialCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createClientCredentialWithHttpInfo(body) {
+    createCurrentUserClientCredential(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
       if (body === undefined || body === null) {
-        throw new Error("Missing the required parameter 'body' when calling createClientCredential");
+        throw new Error("Missing the required parameter 'body' when calling createCurrentUserClientCredential");
       }
 
       let pathParams = {
@@ -158,38 +153,31 @@ export default class AuthenticationApi {
       let returnType = ClientCredentialResponse;
 
       return this.apiClient.callApi(
-        '/client-credentials', 'POST',
+        '/users/me/client_credentials', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create client credential
-     * Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ClientCredentialResponse}
+     * Callback function to receive the result of the deleteCurrentUserClientCredential operation.
+     * @callback moduleapi/AuthenticationApi~deleteCurrentUserClientCredentialCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createClientCredential(body) {
-      return this.createClientCredentialWithHttpInfo(body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete client credential
      * Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
-     * @param {String} id Client credential UUID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {String} id Administrator grant ID
+     * @param {module:api/AuthenticationApi~deleteCurrentUserClientCredentialCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteClientCredentialWithHttpInfo(id) {
+    deleteCurrentUserClientCredential(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
       if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteClientCredential");
+        throw new Error("Missing the required parameter 'id' when calling deleteCurrentUserClientCredential");
       }
 
       let pathParams = {
@@ -211,25 +199,18 @@ export default class AuthenticationApi {
       let returnType = null;
 
       return this.apiClient.callApi(
-        '/client-credentials/{id}', 'DELETE',
+        '/users/me/client_credentials/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete client credential
-     * Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Client credential UUID
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the exchangeOAuthCode operation.
+     * @callback moduleapi/AuthenticationApi~exchangeOAuthCodeCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AuthTokenResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    deleteClientCredential(id) {
-      return this.deleteClientCredentialWithHttpInfo(id)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Exchange OAuth credentials for JWT tokens
@@ -245,9 +226,10 @@ export default class AuthenticationApi {
      * @param {String} state 
      * @param {Object} opts Optional parameters
      * @param {String} opts.idp OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuthTokenResponse} and HTTP response
+     * @param {module:api/AuthenticationApi~exchangeOAuthCodeCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    exchangeOAuthCodeWithHttpInfo(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts) {
+    exchangeOAuthCode(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts, callback) {
       opts = opts || {};
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -308,40 +290,24 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/token', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Exchange OAuth credentials for JWT tokens
-     * Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} grantType 
-     * @param {<&vendorExtensions.x-jsdoc-type>} code 
-     * @param {<&vendorExtensions.x-jsdoc-type>} clientId 
-     * @param {<&vendorExtensions.x-jsdoc-type>} clientSecret 
-     * @param {<&vendorExtensions.x-jsdoc-type>} refreshToken 
-     * @param {<&vendorExtensions.x-jsdoc-type>} redirectUri 
-     * @param {<&vendorExtensions.x-jsdoc-type>} codeVerifier 
-     * @param {<&vendorExtensions.x-jsdoc-type>} state 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.idp OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuthTokenResponse}
+     * Callback function to receive the result of the getAuthProviders operation.
+     * @callback moduleapi/AuthenticationApi~getAuthProvidersCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2004{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    exchangeOAuthCode(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts) {
-      return this.exchangeOAuthCodeWithHttpInfo(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List available OAuth providers
      * Returns a list of configured OAuth providers available for authentication
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2004} and HTTP response
+     * @param {module:api/AuthenticationApi~getAuthProvidersCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getAuthProvidersWithHttpInfo() {
+    getAuthProviders(callback) {
       
       let postBody = null;
 
@@ -366,29 +332,24 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/providers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List available OAuth providers
-     * Returns a list of configured OAuth providers available for authentication
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2004}
+     * Callback function to receive the result of the getCurrentUser operation.
+     * @callback moduleapi/AuthenticationApi~getCurrentUserCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2006{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getAuthProviders() {
-      return this.getAuthProvidersWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get current user information
      * Returns information about the currently authenticated user
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2006} and HTTP response
+     * @param {module:api/AuthenticationApi~getCurrentUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getCurrentUserWithHttpInfo() {
+    getCurrentUser(callback) {
       
       let postBody = null;
 
@@ -413,29 +374,24 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/userinfo', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get current user information
-     * Returns information about the currently authenticated user
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2006}
+     * Callback function to receive the result of the getCurrentUserProfile operation.
+     * @callback moduleapi/AuthenticationApi~getCurrentUserProfileCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/UserWithAdminStatus{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getCurrentUser() {
-      return this.getCurrentUserWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get current user profile
      * Returns detailed information about the currently authenticated user including groups and identity provider
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserWithAdminStatus} and HTTP response
+     * @param {module:api/AuthenticationApi~getCurrentUserProfileCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getCurrentUserProfileWithHttpInfo() {
+    getCurrentUserProfile(callback) {
       
       let postBody = null;
 
@@ -460,30 +416,25 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/users/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get current user profile
-     * Returns detailed information about the currently authenticated user including groups and identity provider
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserWithAdminStatus}
+     * Callback function to receive the result of the getProviderGroups operation.
+     * @callback moduleapi/AuthenticationApi~getProviderGroupsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2005{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getCurrentUserProfile() {
-      return this.getCurrentUserProfileWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get groups for identity provider
      * Returns groups available from a specific identity provider for autocomplete and discovery
      * @param {String} idp Identity provider ID (e.g., saml_okta, saml_azure)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2005} and HTTP response
+     * @param {module:api/AuthenticationApi~getProviderGroupsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getProviderGroupsWithHttpInfo(idp) {
+    getProviderGroups(idp, callback) {
       
       let postBody = null;
       // verify the required parameter 'idp' is set
@@ -512,31 +463,25 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/providers/{idp}/groups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get groups for identity provider
-     * Returns groups available from a specific identity provider for autocomplete and discovery
-     * @param {<&vendorExtensions.x-jsdoc-type>} idp Identity provider ID (e.g., saml_okta, saml_azure)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2005}
+     * Callback function to receive the result of the getSAMLMetadata operation.
+     * @callback moduleapi/AuthenticationApi~getSAMLMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {'String'{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getProviderGroups(idp) {
-      return this.getProviderGroupsWithHttpInfo(idp)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get SAML service provider metadata
      * Returns the SP metadata XML for SAML configuration
      * @param {String} provider SAML provider identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link 'String'} and HTTP response
+     * @param {module:api/AuthenticationApi~getSAMLMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getSAMLMetadataWithHttpInfo(provider) {
+    getSAMLMetadata(provider, callback) {
       
       let postBody = null;
       // verify the required parameter 'provider' is set
@@ -565,30 +510,24 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/saml/{provider}/metadata', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get SAML service provider metadata
-     * Returns the SP metadata XML for SAML configuration
-     * @param {<&vendorExtensions.x-jsdoc-type>} provider SAML provider identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link 'String'}
+     * Callback function to receive the result of the getSAMLProviders operation.
+     * @callback moduleapi/AuthenticationApi~getSAMLProvidersCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse20010{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getSAMLMetadata(provider) {
-      return this.getSAMLMetadataWithHttpInfo(provider)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List available SAML providers
      * Returns a list of configured SAML providers available for authentication
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20010} and HTTP response
+     * @param {module:api/AuthenticationApi~getSAMLProvidersCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getSAMLProvidersWithHttpInfo() {
+    getSAMLProviders(callback) {
       
       let postBody = null;
 
@@ -613,32 +552,27 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/saml/providers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List available SAML providers
-     * Returns a list of configured SAML providers available for authentication
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20010}
+     * Callback function to receive the result of the handleOAuthCallback operation.
+     * @callback moduleapi/AuthenticationApi~handleOAuthCallbackCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AuthTokenResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getSAMLProviders() {
-      return this.getSAMLProvidersWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Handle OAuth callback
      * Exchanges OAuth authorization code for JWT tokens. If client_callback was provided during authorization, redirects to client with tokens. Otherwise returns tokens as JSON response.
      * @param {String} code Authorization code from the OAuth provider
      * @param {Object} opts Optional parameters
-     * @param {String} opts.state Optional state parameter for CSRF protection
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuthTokenResponse} and HTTP response
+     * @param {String} opts.state CSRF protection state parameter. Recommended for security. Will be included in the callback response.
+     * @param {module:api/AuthenticationApi~handleOAuthCallbackCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    handleOAuthCallbackWithHttpInfo(code, opts) {
+    handleOAuthCallback(code, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'code' is set
@@ -667,35 +601,26 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/callback', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Handle OAuth callback
-     * Exchanges OAuth authorization code for JWT tokens. If client_callback was provided during authorization, redirects to client with tokens. Otherwise returns tokens as JSON response.
-     * @param {<&vendorExtensions.x-jsdoc-type>} code Authorization code from the OAuth provider
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.state Optional state parameter for CSRF protection
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuthTokenResponse}
+     * Callback function to receive the result of the initiateSAMLLogin operation.
+     * @callback moduleapi/AuthenticationApi~initiateSAMLLoginCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    handleOAuthCallback(code, opts) {
-      return this.handleOAuthCallbackWithHttpInfo(code, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Initiate SAML authentication
      * Starts SAML authentication flow by redirecting to IdP
      * @param {String} provider SAML provider identifier
      * @param {Object} opts Optional parameters
-     * @param {String} opts.clientCallback Client callback URL to redirect after authentication
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {String} opts.clientCallback Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
+     * @param {module:api/AuthenticationApi~initiateSAMLLoginCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    initiateSAMLLoginWithHttpInfo(provider, opts) {
+    initiateSAMLLogin(provider, opts, callback) {
       opts = opts || {};
       let postBody = null;
       // verify the required parameter 'provider' is set
@@ -724,34 +649,26 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/saml/{provider}/login', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Initiate SAML authentication
-     * Starts SAML authentication flow by redirecting to IdP
-     * @param {<&vendorExtensions.x-jsdoc-type>} provider SAML provider identifier
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.clientCallback Client callback URL to redirect after authentication
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the introspectToken operation.
+     * @callback moduleapi/AuthenticationApi~introspectTokenCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2003{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    initiateSAMLLogin(provider, opts) {
-      return this.initiateSAMLLoginWithHttpInfo(provider, opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Token Introspection
      * Introspects a JWT token to determine its validity and metadata as per RFC 7662
      * @param {String} token 
      * @param {String} tokenTypeHint 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2003} and HTTP response
+     * @param {module:api/AuthenticationApi~introspectTokenCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    introspectTokenWithHttpInfo(token, tokenTypeHint) {
+    introspectToken(token, tokenTypeHint, callback) {
       
       let postBody = null;
       // verify the required parameter 'token' is set
@@ -784,31 +701,24 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/introspect', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Token Introspection
-     * Introspects a JWT token to determine its validity and metadata as per RFC 7662
-     * @param {<&vendorExtensions.x-jsdoc-type>} token 
-     * @param {<&vendorExtensions.x-jsdoc-type>} tokenTypeHint 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2003}
+     * Callback function to receive the result of the listCurrentUserClientCredentials operation.
+     * @callback moduleapi/AuthenticationApi~listCurrentUserClientCredentialsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/ClientCredentialInfo>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    introspectToken(token, tokenTypeHint) {
-      return this.introspectTokenWithHttpInfo(token, tokenTypeHint)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List client credentials
      * Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ClientCredentialInfo>} and HTTP response
+     * @param {module:api/AuthenticationApi~listCurrentUserClientCredentialsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listClientCredentialsWithHttpInfo() {
+    listCurrentUserClientCredentials(callback) {
       
       let postBody = null;
 
@@ -831,33 +741,28 @@ export default class AuthenticationApi {
       let returnType = [ClientCredentialInfo];
 
       return this.apiClient.callApi(
-        '/client-credentials', 'GET',
+        '/users/me/client_credentials', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List client credentials
-     * Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ClientCredentialInfo>}
+     * Callback function to receive the result of the logoutUser operation.
+     * @callback moduleapi/AuthenticationApi~logoutUserCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2007{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listClientCredentials() {
-      return this.listClientCredentialsWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Logout user
      * Invalidates the user&#x27;s JWT token by adding it to a blacklist, effectively ending the session. Once logged out, the token cannot be used for further authenticated requests until it naturally expires. The token blacklist is maintained in Redis with automatic cleanup based on token expiration times.
      * @param {Object} opts Optional parameters
      * @param {Object} opts.body Empty request body - token is provided via Authorization header
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2007} and HTTP response
+     * @param {module:api/AuthenticationApi~logoutUserCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    logoutUserWithHttpInfo(opts) {
+    logoutUser(opts, callback) {
       opts = opts || {};
       let postBody = opts['body'];
 
@@ -882,32 +787,25 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/revoke', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Logout user
-     * Invalidates the user&#x27;s JWT token by adding it to a blacklist, effectively ending the session. Once logged out, the token cannot be used for further authenticated requests until it naturally expires. The token blacklist is maintained in Redis with automatic cleanup based on token expiration times.
-     * @param {Object} opts Optional parameters
-     * @param {Object} opts.body Empty request body - token is provided via Authorization header
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2007}
+     * Callback function to receive the result of the processSAMLLogout operation.
+     * @callback moduleapi/AuthenticationApi~processSAMLLogoutCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2009{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    logoutUser(opts) {
-      return this.logoutUserWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * SAML Single Logout
      * Handles SAML logout requests from IdP
      * @param {String} sAMLRequest Base64-encoded SAML logout request
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
+     * @param {module:api/AuthenticationApi~processSAMLLogoutCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    processSAMLLogoutWithHttpInfo(sAMLRequest) {
+    processSAMLLogout(sAMLRequest, callback) {
       
       let postBody = null;
       // verify the required parameter 'sAMLRequest' is set
@@ -936,32 +834,26 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/saml/slo', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * SAML Single Logout
-     * Handles SAML logout requests from IdP
-     * @param {<&vendorExtensions.x-jsdoc-type>} sAMLRequest Base64-encoded SAML logout request
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
+     * Callback function to receive the result of the processSAMLLogoutPost operation.
+     * @callback moduleapi/AuthenticationApi~processSAMLLogoutPostCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2009{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    processSAMLLogout(sAMLRequest) {
-      return this.processSAMLLogoutWithHttpInfo(sAMLRequest)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * SAML Single Logout (POST)
      * Handles SAML logout requests from IdP via POST
      * @param {Object} opts Optional parameters
      * @param {String} opts.sAMLRequest 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2009} and HTTP response
+     * @param {module:api/AuthenticationApi~processSAMLLogoutPostCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    processSAMLLogoutPostWithHttpInfo(opts) {
+    processSAMLLogoutPost(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -986,24 +878,16 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/saml/slo', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * SAML Single Logout (POST)
-     * Handles SAML logout requests from IdP via POST
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.sAMLRequest 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2009}
+     * Callback function to receive the result of the processSAMLResponse operation.
+     * @callback moduleapi/AuthenticationApi~processSAMLResponseCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AuthTokenResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    processSAMLLogoutPost(opts) {
-      return this.processSAMLLogoutPostWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * SAML Assertion Consumer Service
@@ -1011,9 +895,10 @@ export default class AuthenticationApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.sAMLResponse 
      * @param {String} opts.relayState 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuthTokenResponse} and HTTP response
+     * @param {module:api/AuthenticationApi~processSAMLResponseCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    processSAMLResponseWithHttpInfo(opts) {
+    processSAMLResponse(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -1038,34 +923,26 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/saml/acs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * SAML Assertion Consumer Service
-     * Processes SAML responses from IdP after authentication
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.sAMLResponse 
-     * @param {String} opts.relayState 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuthTokenResponse}
+     * Callback function to receive the result of the refreshToken operation.
+     * @callback moduleapi/AuthenticationApi~refreshTokenCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AuthTokenResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    processSAMLResponse(opts) {
-      return this.processSAMLResponseWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Refresh JWT token
      * Exchanges a refresh token for a new JWT access token
      * @param {Object} opts Optional parameters
      * @param {module:model/Oauth2RefreshBody} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuthTokenResponse} and HTTP response
+     * @param {module:api/AuthenticationApi~refreshTokenCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    refreshTokenWithHttpInfo(opts) {
+    refreshToken(opts, callback) {
       opts = opts || {};
       let postBody = opts['body'];
 
@@ -1090,22 +967,8 @@ export default class AuthenticationApi {
       return this.apiClient.callApi(
         '/oauth2/refresh', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Refresh JWT token
-     * Exchanges a refresh token for a new JWT access token
-     * @param {Object} opts Optional parameters
-     * @param {module:model/Oauth2RefreshBody} opts.body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuthTokenResponse}
-     */
-    refreshToken(opts) {
-      return this.refreshTokenWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

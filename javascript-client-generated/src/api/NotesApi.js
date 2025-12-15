@@ -14,6 +14,7 @@
  */
 import ApiClient from "../ApiClient";
 import Error from '../model/Error';
+import InlineResponse500 from '../model/InlineResponse500';
 import Note from '../model/Note';
 import ThreatsThreatIdBody from '../model/ThreatsThreatIdBody';
 
@@ -36,7 +37,13 @@ export default class NotesApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the patchThreatModelNote operation.
+     * @callback moduleapi/NotesApi~patchThreatModelNoteCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Note{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Partially update note
@@ -44,9 +51,10 @@ export default class NotesApi {
      * @param {Array.<module:model/ThreatsThreatIdBody>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Note} and HTTP response
+     * @param {module:api/NotesApi~patchThreatModelNoteCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelNoteWithHttpInfo(body, threatModelId, noteId) {
+    patchThreatModelNote(body, threatModelId, noteId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -83,23 +91,8 @@ export default class NotesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes/{note_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Partially update note
-     * Apply JSON Patch operations to partially update a note
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} noteId Note identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Note}
-     */
-    patchThreatModelNote(body, threatModelId, noteId) {
-      return this.patchThreatModelNoteWithHttpInfo(body, threatModelId, noteId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

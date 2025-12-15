@@ -1,4 +1,4 @@
-# TmiJsClient.Oauth2IntrospectBody
+# TmiThreatModelingImprovedApi.Oauth2IntrospectBody
 
 ## Properties
 Name | Type | Description | Notes

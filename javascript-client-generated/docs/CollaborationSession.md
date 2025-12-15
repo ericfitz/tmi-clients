@@ -1,4 +1,4 @@
-# TmiJsClient.CollaborationSession
+# TmiThreatModelingImprovedApi.CollaborationSession
 
 ## Properties
 Name | Type | Description | Notes

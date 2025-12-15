@@ -1,4 +1,4 @@
-# TmiJsClient.SAMLProviderInfo
+# TmiThreatModelingImprovedApi.SAMLProviderInfo
 
 ## Properties
 Name | Type | Description | Notes

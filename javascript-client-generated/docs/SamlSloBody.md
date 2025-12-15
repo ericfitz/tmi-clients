@@ -1,4 +1,4 @@
-# TmiJsClient.SamlSloBody
+# TmiThreatModelingImprovedApi.SamlSloBody
 
 ## Properties
 Name | Type | Description | Notes

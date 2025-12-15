@@ -1,4 +1,4 @@
-# TmiJsClient.ThreatModelsThreatModelIdBody
+# TmiThreatModelingImprovedApi.ThreatModelsThreatModelIdBody
 
 ## Properties
 Name | Type | Description | Notes

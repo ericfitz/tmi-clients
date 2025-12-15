@@ -15,6 +15,7 @@
 import ApiClient from "../ApiClient";
 import Error from '../model/Error';
 import InlineResponse2008 from '../model/InlineResponse2008';
+import InlineResponse500 from '../model/InlineResponse500';
 import Threat from '../model/Threat';
 import ThreatsBulkBody from '../model/ThreatsBulkBody';
 
@@ -37,16 +38,23 @@ export default class ThreatsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the bulkDeleteThreatModelThreats operation.
+     * @callback moduleapi/ThreatsApi~bulkDeleteThreatModelThreatsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2008{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Bulk DELETE threats
      * Delete multiple threats in a single request
      * @param {String} threatModelId Threat model identifier
      * @param {Array.<String>} threatIds Comma-separated list of threat IDs to delete (UUID format)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2008} and HTTP response
+     * @param {module:api/ThreatsApi~bulkDeleteThreatModelThreatsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkDeleteThreatModelThreatsWithHttpInfo(threatModelId, threatIds) {
+    bulkDeleteThreatModelThreats(threatModelId, threatIds, callback) {
       
       let postBody = null;
       // verify the required parameter 'threatModelId' is set
@@ -79,33 +87,26 @@ export default class ThreatsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/bulk', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Bulk DELETE threats
-     * Delete multiple threats in a single request
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatIds Comma-separated list of threat IDs to delete (UUID format)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2008}
+     * Callback function to receive the result of the bulkPatchThreatModelThreats operation.
+     * @callback moduleapi/ThreatsApi~bulkPatchThreatModelThreatsCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/Threat>{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    bulkDeleteThreatModelThreats(threatModelId, threatIds) {
-      return this.bulkDeleteThreatModelThreatsWithHttpInfo(threatModelId, threatIds)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Bulk PATCH threats
      * Apply JSON Patch operations to multiple threats in a single request
      * @param {module:model/ThreatsBulkBody} body 
      * @param {String} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
+     * @param {module:api/ThreatsApi~bulkPatchThreatModelThreatsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    bulkPatchThreatModelThreatsWithHttpInfo(body, threatModelId) {
+    bulkPatchThreatModelThreats(body, threatModelId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -138,22 +139,8 @@ export default class ThreatsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats/bulk', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Bulk PATCH threats
-     * Apply JSON Patch operations to multiple threats in a single request
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Threat>}
-     */
-    bulkPatchThreatModelThreats(body, threatModelId) {
-      return this.bulkPatchThreatModelThreatsWithHttpInfo(body, threatModelId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

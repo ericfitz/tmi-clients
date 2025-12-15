@@ -1,4 +1,4 @@
-# TmiJsClient.AssetsApi
+# TmiThreatModelingImprovedApi.AssetsApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -16,21 +16,22 @@ Apply JSON Patch operations to partially update a asset
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AssetsApi();
-let body = [new TmiJsClient.ThreatsThreatIdBody()]; // [ThreatsThreatIdBody] | 
+let apiInstance = new TmiThreatModelingImprovedApi.AssetsApi();
+let body = [new TmiThreatModelingImprovedApi.ThreatsThreatIdBody()]; // [ThreatsThreatIdBody] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.patchThreatModelAsset(body, threatModelId, assetId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.patchThreatModelAsset(body, threatModelId, assetId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

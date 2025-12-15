@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import AddonResponse from '../model/AddonResponse';
 import CreateAddonRequest from '../model/CreateAddonRequest';
 import Error from '../model/Error';
+import InlineResponse500 from '../model/InlineResponse500';
 import InvocationResponse from '../model/InvocationResponse';
 import InvokeAddonRequest from '../model/InvokeAddonRequest';
 import InvokeAddonResponse from '../model/InvokeAddonResponse';
@@ -43,15 +44,22 @@ export default class AddonsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the createAddon operation.
+     * @callback moduleapi/AddonsApi~createAddonCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AddonResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Create add-on
      * Create a new add-on (administrators only)
      * @param {module:model/CreateAddonRequest} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AddonResponse} and HTTP response
+     * @param {module:api/AddonsApi~createAddonCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    createAddonWithHttpInfo(body) {
+    createAddon(body, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -80,31 +88,24 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/addons', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Create add-on
-     * Create a new add-on (administrators only)
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AddonResponse}
+     * Callback function to receive the result of the deleteAddon operation.
+     * @callback moduleapi/AddonsApi~deleteAddonCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
      */
-    createAddon(body) {
-      return this.createAddonWithHttpInfo(body)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Delete add-on
      * Delete an add-on (administrators only)
      * @param {String} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {module:api/AddonsApi~deleteAddonCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    deleteAddonWithHttpInfo(id) {
+    deleteAddon(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -133,31 +134,25 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/addons/{id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Delete add-on
-     * Delete an add-on (administrators only)
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * Callback function to receive the result of the getAddon operation.
+     * @callback moduleapi/AddonsApi~getAddonCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/AddonResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    deleteAddon(id) {
-      return this.deleteAddonWithHttpInfo(id)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get add-on
      * Get a single add-on by ID
      * @param {String} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AddonResponse} and HTTP response
+     * @param {module:api/AddonsApi~getAddonCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getAddonWithHttpInfo(id) {
+    getAddon(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -186,31 +181,25 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/addons/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get add-on
-     * Get a single add-on by ID
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AddonResponse}
+     * Callback function to receive the result of the getInvocation operation.
+     * @callback moduleapi/AddonsApi~getInvocationCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InvocationResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getAddon(id) {
-      return this.getAddonWithHttpInfo(id)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Get invocation
      * Get a single invocation by ID (own invocations or admin)
      * @param {String} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InvocationResponse} and HTTP response
+     * @param {module:api/AddonsApi~getInvocationCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getInvocationWithHttpInfo(id) {
+    getInvocation(id, callback) {
       
       let postBody = null;
       // verify the required parameter 'id' is set
@@ -239,32 +228,26 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/invocations/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Get invocation
-     * Get a single invocation by ID (own invocations or admin)
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InvocationResponse}
+     * Callback function to receive the result of the invokeAddon operation.
+     * @callback moduleapi/AddonsApi~invokeAddonCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InvokeAddonResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getInvocation(id) {
-      return this.getInvocationWithHttpInfo(id)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Invoke add-on
      * Trigger an add-on invocation (authenticated users)
      * @param {module:model/InvokeAddonRequest} body 
      * @param {String} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InvokeAddonResponse} and HTTP response
+     * @param {module:api/AddonsApi~invokeAddonCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    invokeAddonWithHttpInfo(body, id) {
+    invokeAddon(body, id, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -297,24 +280,16 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/addons/{id}/invoke', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * Invoke add-on
-     * Trigger an add-on invocation (authenticated users)
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Resource identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InvokeAddonResponse}
+     * Callback function to receive the result of the listAddons operation.
+     * @callback moduleapi/AddonsApi~listAddonsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ListAddonsResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    invokeAddon(body, id) {
-      return this.invokeAddonWithHttpInfo(body, id)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List add-ons
@@ -322,10 +297,11 @@ export default class AddonsApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {String} opts.threatModelId Filter by threat model
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListAddonsResponse} and HTTP response
+     * @param {String} opts.threatModelId Filter subscriptions by threat model ID
+     * @param {module:api/AddonsApi~listAddonsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listAddonsWithHttpInfo(opts) {
+    listAddons(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -350,26 +326,16 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/addons', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List add-ons
-     * List all add-ons (authenticated users)
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {String} opts.threatModelId Filter by threat model
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddonsResponse}
+     * Callback function to receive the result of the listInvocations operation.
+     * @callback moduleapi/AddonsApi~listInvocationsCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ListInvocationsResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listAddons(opts) {
-      return this.listAddonsWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * List invocations
@@ -377,11 +343,12 @@ export default class AddonsApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {module:model/String} opts.status Filter by status
+     * @param {String} opts.status Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
      * @param {String} opts.addonId Filter by add-on
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListInvocationsResponse} and HTTP response
+     * @param {module:api/AddonsApi~listInvocationsCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listInvocationsWithHttpInfo(opts) {
+    listInvocations(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -406,27 +373,16 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/invocations', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * List invocations
-     * List add-on invocations (users see own, admins see all)
-     * @param {Object} opts Optional parameters
-     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @param {module:model/String} opts.status Filter by status
-     * @param {String} opts.addonId Filter by add-on
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInvocationsResponse}
+     * Callback function to receive the result of the updateInvocationStatus operation.
+     * @callback moduleapi/AddonsApi~updateInvocationStatusCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/UpdateInvocationStatusResponse{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    listInvocations(opts) {
-      return this.listInvocationsWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * Update invocation status
@@ -434,9 +390,10 @@ export default class AddonsApi {
      * @param {module:model/UpdateInvocationStatusRequest} body 
      * @param {String} id Resource identifier
      * @param {String} xWebhookSignature HMAC-SHA256 signature (format: sha256&#x3D;{hex_signature})
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UpdateInvocationStatusResponse} and HTTP response
+     * @param {module:api/AddonsApi~updateInvocationStatusCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    updateInvocationStatusWithHttpInfo(body, id, xWebhookSignature) {
+    updateInvocationStatus(body, id, xWebhookSignature, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -473,23 +430,8 @@ export default class AddonsApi {
       return this.apiClient.callApi(
         '/invocations/{id}/status', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Update invocation status
-     * Update invocation status (webhook callback with HMAC authentication)
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Resource identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} xWebhookSignature HMAC-SHA256 signature (format: sha256&#x3D;{hex_signature})
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UpdateInvocationStatusResponse}
-     */
-    updateInvocationStatus(body, id, xWebhookSignature) {
-      return this.updateInvocationStatusWithHttpInfo(body, id, xWebhookSignature)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

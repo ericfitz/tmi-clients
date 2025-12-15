@@ -1,4 +1,4 @@
-# TmiJsClient.OneOfEdgeLabelPosition
+# TmiThreatModelingImprovedApi.OneOfEdgeLabelPosition
 
 ## Properties
 Name | Type | Description | Notes

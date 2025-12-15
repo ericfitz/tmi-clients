@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -20,8 +20,8 @@ Creates a new collaboration session for real-time diagram editing. Only one coll
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -49,8 +49,8 @@ Terminates the active collaboration session for a diagram
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetCollaborationSessions**
-> []CollaborationSession GetCollaborationSessions(ctx, )
+> interface{} GetCollaborationSessions(ctx, )
 List active collaboration sessions
 
 Returns all currently active collaboration sessions for diagrams. Clients can use this endpoint to discover existing sessions before connecting via WebSocket.
@@ -78,7 +78,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[]CollaborationSession**](CollaborationSession.md)
+[**interface{}**](interface{}.md)
 
 ### Authorization
 
@@ -102,8 +102,8 @@ Retrieves the current collaboration session details for a diagram. The session p
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
-  **diagramId** | [**string**](.md)| Unique identifier of the diagram (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
 
 ### Return type
 

@@ -15,6 +15,7 @@
 import ApiClient from "../ApiClient";
 import DeletionChallenge from '../model/DeletionChallenge';
 import Error from '../model/Error';
+import InlineResponse500 from '../model/InlineResponse500';
 
 /**
 * Users service.
@@ -35,16 +36,23 @@ export default class UsersApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the deleteUserAccount operation.
+     * @callback moduleapi/UsersApi~deleteUserAccountCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/DeletionChallenge{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Delete authenticated user account and all data
      * Two-step deletion process: 1. First call (no challenge parameter) - Returns challenge string 2. Second call (with challenge parameter) - Confirms deletion  Ownership behavior: - Shared threat models: Transfers ownership to another owner from authorization list - Unshared threat models: Deletes completely along with all child resources
      * @param {Object} opts Optional parameters
      * @param {String} opts.challenge Challenge string from first request (step 2 only). Must match exactly.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/DeletionChallenge} and HTTP response
+     * @param {module:api/UsersApi~deleteUserAccountCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    deleteUserAccountWithHttpInfo(opts) {
+    deleteUserAccount(opts, callback) {
       opts = opts || {};
       let postBody = null;
 
@@ -69,22 +77,8 @@ export default class UsersApi {
       return this.apiClient.callApi(
         '/users/me', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Delete authenticated user account and all data
-     * Two-step deletion process: 1. First call (no challenge parameter) - Returns challenge string 2. Second call (with challenge parameter) - Confirms deletion  Ownership behavior: - Shared threat models: Transfers ownership to another owner from authorization list - Unshared threat models: Deletes completely along with all child resources
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.challenge Challenge string from first request (step 2 only). Must match exactly.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/DeletionChallenge}
-     */
-    deleteUserAccount(opts) {
-      return this.deleteUserAccountWithHttpInfo(opts)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

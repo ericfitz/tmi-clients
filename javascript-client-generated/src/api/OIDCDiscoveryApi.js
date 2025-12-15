@@ -37,14 +37,21 @@ export default class OIDCDiscoveryApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the getJWKS operation.
+     * @callback moduleapi/OIDCDiscoveryApi~getJWKSCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2002{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * JSON Web Key Set
      * Returns the JSON Web Key Set (JWKS) for JWT signature verification
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @param {module:api/OIDCDiscoveryApi~getJWKSCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getJWKSWithHttpInfo() {
+    getJWKS(callback) {
       
       let postBody = null;
 
@@ -69,29 +76,24 @@ export default class OIDCDiscoveryApi {
       return this.apiClient.callApi(
         '/.well-known/jwks.json', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * JSON Web Key Set
-     * Returns the JSON Web Key Set (JWKS) for JWT signature verification
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * Callback function to receive the result of the getOAuthAuthorizationServerMetadata operation.
+     * @callback moduleapi/OIDCDiscoveryApi~getOAuthAuthorizationServerMetadataCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse2001{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getJWKS() {
-      return this.getJWKSWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * OAuth 2.0 Authorization Server Metadata
      * Returns OAuth 2.0 authorization server metadata as per RFC 8414
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
+     * @param {module:api/OIDCDiscoveryApi~getOAuthAuthorizationServerMetadataCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getOAuthAuthorizationServerMetadataWithHttpInfo() {
+    getOAuthAuthorizationServerMetadata(callback) {
       
       let postBody = null;
 
@@ -116,29 +118,24 @@ export default class OIDCDiscoveryApi {
       return this.apiClient.callApi(
         '/.well-known/oauth-authorization-server', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
     }
-
     /**
-     * OAuth 2.0 Authorization Server Metadata
-     * Returns OAuth 2.0 authorization server metadata as per RFC 8414
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
+     * Callback function to receive the result of the getOpenIDConfiguration operation.
+     * @callback moduleapi/OIDCDiscoveryApi~getOpenIDConfigurationCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/InlineResponse200{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
      */
-    getOAuthAuthorizationServerMetadata() {
-      return this.getOAuthAuthorizationServerMetadataWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
 
     /**
      * OpenID Connect Discovery Configuration
      * Returns OpenID Connect provider configuration metadata as per RFC 8414
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @param {module:api/OIDCDiscoveryApi~getOpenIDConfigurationCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    getOpenIDConfigurationWithHttpInfo() {
+    getOpenIDConfiguration(callback) {
       
       let postBody = null;
 
@@ -163,20 +160,8 @@ export default class OIDCDiscoveryApi {
       return this.apiClient.callApi(
         '/.well-known/openid-configuration', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * OpenID Connect Discovery Configuration
-     * Returns OpenID Connect provider configuration metadata as per RFC 8414
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
-     */
-    getOpenIDConfiguration() {
-      return this.getOpenIDConfigurationWithHttpInfo()
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

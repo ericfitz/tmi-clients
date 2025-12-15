@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**BulkPatchThreatModelThreats**](ThreatsApi.md#BulkPatchThreatModelThreats) | **Patch** /threat_models/{threat_model_id}/threats/bulk | Bulk PATCH threats
 
 # **BulkDeleteThreatModelThreats**
-> InlineResponse2007 BulkDeleteThreatModelThreats(ctx, threatModelId, threatIds)
+> InlineResponse2008 BulkDeleteThreatModelThreats(ctx, threatModelId, threatIds)
 Bulk DELETE threats
 
 Delete multiple threats in a single request
@@ -18,12 +18,12 @@ Delete multiple threats in a single request
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatIds** | [**[]string**](string.md)| Comma-separated list of threat IDs to delete (UUID format) | 
 
 ### Return type
 
-[**InlineResponse2007**](inline_response_200_7.md)
+[**InlineResponse2008**](inline_response_200_8.md)
 
 ### Authorization
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**ThreatsBulkBody**](ThreatsBulkBody.md)|  | 
-  **threatModelId** | [**string**](.md)| Unique identifier of the threat model (UUID) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 

@@ -1,4 +1,4 @@
-# TmiJsClient.OAuthProtectedResourceMetadata
+# TmiThreatModelingImprovedApi.OAuthProtectedResourceMetadata
 
 ## Properties
 Name | Type | Description | Notes

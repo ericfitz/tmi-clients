@@ -1,12 +1,12 @@
-# TmiJsClient.AuthenticationApi
+# TmiThreatModelingImprovedApi.AuthenticationApi
 
 All URIs are relative to *http://localhost:{port}*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorizeOAuthProvider**](AuthenticationApi.md#authorizeOAuthProvider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
-[**createClientCredential**](AuthenticationApi.md#createClientCredential) | **POST** /client-credentials | Create client credential
-[**deleteClientCredential**](AuthenticationApi.md#deleteClientCredential) | **DELETE** /client-credentials/{id} | Delete client credential
+[**createCurrentUserClientCredential**](AuthenticationApi.md#createCurrentUserClientCredential) | **POST** /users/me/client_credentials | Create client credential
+[**deleteCurrentUserClientCredential**](AuthenticationApi.md#deleteCurrentUserClientCredential) | **DELETE** /users/me/client_credentials/{id} | Delete client credential
 [**exchangeOAuthCode**](AuthenticationApi.md#exchangeOAuthCode) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**getAuthProviders**](AuthenticationApi.md#getAuthProviders) | **GET** /oauth2/providers | List available OAuth providers
 [**getCurrentUser**](AuthenticationApi.md#getCurrentUser) | **GET** /oauth2/userinfo | Get current user information
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 [**handleOAuthCallback**](AuthenticationApi.md#handleOAuthCallback) | **GET** /oauth2/callback | Handle OAuth callback
 [**initiateSAMLLogin**](AuthenticationApi.md#initiateSAMLLogin) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspectToken**](AuthenticationApi.md#introspectToken) | **POST** /oauth2/introspect | Token Introspection
-[**listClientCredentials**](AuthenticationApi.md#listClientCredentials) | **GET** /client-credentials | List client credentials
+[**listCurrentUserClientCredentials**](AuthenticationApi.md#listCurrentUserClientCredentials) | **GET** /users/me/client_credentials | List client credentials
 [**logoutUser**](AuthenticationApi.md#logoutUser) | **POST** /oauth2/revoke | Logout user
 [**processSAMLLogout**](AuthenticationApi.md#processSAMLLogout) | **GET** /saml/slo | SAML Single Logout
 [**processSAMLLogoutPost**](AuthenticationApi.md#processSAMLLogoutPost) | **POST** /saml/slo | SAML Single Logout (POST)
@@ -34,9 +34,9 @@ Redirects user to OAuth provider&#x27;s authorization page. Supports client call
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let scope = "scope_example"; // String | OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values.
 let codeChallenge = "codeChallenge_example"; // String | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
 let codeChallengeMethod = "codeChallengeMethod_example"; // String | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
@@ -46,12 +46,13 @@ let opts = {
   'state': "state_example", // String | CSRF protection state parameter. Recommended for security. Will be included in the callback response.
   'loginHint': "loginHint_example" // String | User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
 };
-apiInstance.authorizeOAuthProvider(scope, codeChallenge, codeChallengeMethod, opts).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
+apiInstance.authorizeOAuthProvider(scope, codeChallenge, codeChallengeMethod, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
 });
-
 ```
 
 ### Parameters
@@ -79,9 +80,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="createClientCredential"></a>
-# **createClientCredential**
-> ClientCredentialResponse createClientCredential(body)
+<a name="createCurrentUserClientCredential"></a>
+# **createCurrentUserClientCredential**
+> ClientCredentialResponse createCurrentUserClientCredential(body)
 
 Create client credential
 
@@ -89,26 +90,27 @@ Creates a new OAuth 2.0 client credential for machine-to-machine authentication.
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-let body = new TmiJsClient.ClientcredentialsBody(); // ClientcredentialsBody | 
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+let body = new TmiThreatModelingImprovedApi.MeClientCredentialsBody(); // MeClientCredentialsBody | 
 
-apiInstance.createClientCredential(body).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.createCurrentUserClientCredential(body, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ClientcredentialsBody**](ClientcredentialsBody.md)|  | 
+ **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)|  | 
 
 ### Return type
 
@@ -123,9 +125,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="deleteClientCredential"></a>
-# **deleteClientCredential**
-> deleteClientCredential(id)
+<a name="deleteCurrentUserClientCredential"></a>
+# **deleteCurrentUserClientCredential**
+> deleteCurrentUserClientCredential(id)
 
 Delete client credential
 
@@ -133,26 +135,27 @@ Permanently deletes a client credential. All tokens issued with this credential 
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Client credential UUID
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Administrator grant ID
 
-apiInstance.deleteClientCredential(id).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
+apiInstance.deleteCurrentUserClientCredential(id, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
 });
-
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**String**](.md)| Client credential UUID | 
+ **id** | [**String**](.md)| Administrator grant ID | 
 
 ### Return type
 
@@ -177,10 +180,10 @@ Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supp
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-let body = new TmiJsClient.Oauth2TokenBody(); // Oauth2TokenBody | 
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+let body = new TmiThreatModelingImprovedApi.Oauth2TokenBody(); // Oauth2TokenBody | 
 let grantType = "grantType_example"; // String | 
 let code = "code_example"; // String | 
 let clientId = "clientId_example"; // String | 
@@ -192,12 +195,13 @@ let state = "state_example"; // String |
 let opts = { 
   'idp': "idp_example" // String | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
 };
-apiInstance.exchangeOAuthCode(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.exchangeOAuthCode(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -238,15 +242,16 @@ Returns a list of configured OAuth providers available for authentication
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-apiInstance.getAuthProviders().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+apiInstance.getAuthProviders((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -275,17 +280,18 @@ Returns information about the currently authenticated user
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-apiInstance.getCurrentUser().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+apiInstance.getCurrentUser((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -314,17 +320,18 @@ Returns detailed information about the currently authenticated user including gr
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-apiInstance.getCurrentUserProfile().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+apiInstance.getCurrentUserProfile((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -353,19 +360,20 @@ Returns groups available from a specific identity provider for autocomplete and 
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let idp = "idp_example"; // String | Identity provider ID (e.g., saml_okta, saml_azure)
 
-apiInstance.getProviderGroups(idp).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getProviderGroups(idp, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -397,17 +405,18 @@ Returns the SP metadata XML for SAML configuration
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let provider = "provider_example"; // String | SAML provider identifier
 
-apiInstance.getSAMLMetadata(provider).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getSAMLMetadata(provider, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -439,15 +448,16 @@ Returns a list of configured SAML providers available for authentication
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-apiInstance.getSAMLProviders().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+apiInstance.getSAMLProviders((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -476,19 +486,20 @@ Exchanges OAuth authorization code for JWT tokens. If client_callback was provid
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let code = "code_example"; // String | Authorization code from the OAuth provider
 let opts = { 
-  'state': "state_example" // String | Optional state parameter for CSRF protection
+  'state': "state_example" // String | CSRF protection state parameter. Recommended for security. Will be included in the callback response.
 };
-apiInstance.handleOAuthCallback(code, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.handleOAuthCallback(code, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -496,7 +507,7 @@ apiInstance.handleOAuthCallback(code, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **code** | **String**| Authorization code from the OAuth provider | 
- **state** | **String**| Optional state parameter for CSRF protection | [optional] 
+ **state** | **String**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [optional] 
 
 ### Return type
 
@@ -521,19 +532,20 @@ Starts SAML authentication flow by redirecting to IdP
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let provider = "provider_example"; // String | SAML provider identifier
 let opts = { 
-  'clientCallback': "clientCallback_example" // String | Client callback URL to redirect after authentication
+  'clientCallback': "clientCallback_example" // String | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
 };
-apiInstance.initiateSAMLLogin(provider, opts).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
+apiInstance.initiateSAMLLogin(provider, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
 });
-
 ```
 
 ### Parameters
@@ -541,7 +553,7 @@ apiInstance.initiateSAMLLogin(provider, opts).then(() => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider** | **String**| SAML provider identifier | 
- **clientCallback** | **String**| Client callback URL to redirect after authentication | [optional] 
+ **clientCallback** | **String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [optional] 
 
 ### Return type
 
@@ -566,18 +578,19 @@ Introspects a JWT token to determine its validity and metadata as per RFC 7662
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let token = "token_example"; // String | 
 let tokenTypeHint = "tokenTypeHint_example"; // String | 
 
-apiInstance.introspectToken(token, tokenTypeHint).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.introspectToken(token, tokenTypeHint, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -600,9 +613,9 @@ No authorization required
  - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: application/json
 
-<a name="listClientCredentials"></a>
-# **listClientCredentials**
-> [ClientCredentialInfo] listClientCredentials()
+<a name="listCurrentUserClientCredentials"></a>
+# **listCurrentUserClientCredentials**
+> [ClientCredentialInfo] listCurrentUserClientCredentials()
 
 List client credentials
 
@@ -610,17 +623,18 @@ Retrieves all client credentials owned by the authenticated user. Secrets are ne
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
-apiInstance.listClientCredentials().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
+apiInstance.listCurrentUserClientCredentials((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -649,20 +663,21 @@ Invalidates the user&#x27;s JWT token by adding it to a blacklist, effectively e
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let opts = { 
   'body': null // Object | Empty request body - token is provided via Authorization header
 };
-apiInstance.logoutUser(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.logoutUser(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -694,17 +709,18 @@ Handles SAML logout requests from IdP
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let sAMLRequest = "sAMLRequest_example"; // String | Base64-encoded SAML logout request
 
-apiInstance.processSAMLLogout(sAMLRequest).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.processSAMLLogout(sAMLRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -736,18 +752,19 @@ Handles SAML logout requests from IdP via POST
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let opts = { 
   'sAMLRequest': "sAMLRequest_example" // String | 
 };
-apiInstance.processSAMLLogoutPost(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.processSAMLLogoutPost(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -779,19 +796,20 @@ Processes SAML responses from IdP after authentication
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let opts = { 
   'sAMLResponse': "sAMLResponse_example", // String | 
   'relayState': "relayState_example" // String | 
 };
-apiInstance.processSAMLResponse(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.processSAMLResponse(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -824,18 +842,19 @@ Exchanges a refresh token for a new JWT access token
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.AuthenticationApi();
+let apiInstance = new TmiThreatModelingImprovedApi.AuthenticationApi();
 let opts = { 
-  'body': new TmiJsClient.Oauth2RefreshBody() // Oauth2RefreshBody | 
+  'body': new TmiThreatModelingImprovedApi.Oauth2RefreshBody() // Oauth2RefreshBody | 
 };
-apiInstance.refreshToken(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.refreshToken(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

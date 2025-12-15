@@ -1,4 +1,4 @@
-# TmiJsClient.OAuthDiscoveryApi
+# TmiThreatModelingImprovedApi.OAuthDiscoveryApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -16,15 +16,16 @@ Returns OAuth 2.0 protected resource metadata as per RFC 9728
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
 
-let apiInstance = new TmiJsClient.OAuthDiscoveryApi();
-apiInstance.getOAuthProtectedResourceMetadata().then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+let apiInstance = new TmiThreatModelingImprovedApi.OAuthDiscoveryApi();
+apiInstance.getOAuthProtectedResourceMetadata((error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

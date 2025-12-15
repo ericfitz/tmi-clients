@@ -1,4 +1,4 @@
-# TmiJsClient.MetadataKeyBody
+# TmiThreatModelingImprovedApi.MetadataKeyBody
 
 ## Properties
 Name | Type | Description | Notes

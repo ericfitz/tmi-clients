@@ -1,4 +1,4 @@
-# TmiJsClient.Point
+# TmiThreatModelingImprovedApi.Point
 
 ## Properties
 Name | Type | Description | Notes

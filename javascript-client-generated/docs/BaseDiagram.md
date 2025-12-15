@@ -1,4 +1,4 @@
-# TmiJsClient.BaseDiagram
+# TmiThreatModelingImprovedApi.BaseDiagram
 
 ## Properties
 Name | Type | Description | Notes

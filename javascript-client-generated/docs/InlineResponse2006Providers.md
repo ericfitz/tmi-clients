@@ -1,4 +1,4 @@
-# TmiJsClient.InlineResponse2006Providers
+# TmiThreatModelingImprovedApi.InlineResponse2006Providers
 
 ## Properties
 Name | Type | Description | Notes

@@ -15,6 +15,7 @@
 import ApiClient from "../ApiClient";
 import Document from '../model/Document';
 import Error from '../model/Error';
+import InlineResponse500 from '../model/InlineResponse500';
 import ThreatsThreatIdBody from '../model/ThreatsThreatIdBody';
 
 /**
@@ -36,7 +37,13 @@ export default class DocumentsApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the patchThreatModelDocument operation.
+     * @callback moduleapi/DocumentsApi~patchThreatModelDocumentCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Document{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Partially update document
@@ -44,9 +51,10 @@ export default class DocumentsApi {
      * @param {Array.<module:model/ThreatsThreatIdBody>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Document} and HTTP response
+     * @param {module:api/DocumentsApi~patchThreatModelDocumentCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelDocumentWithHttpInfo(body, threatModelId, documentId) {
+    patchThreatModelDocument(body, threatModelId, documentId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -83,23 +91,8 @@ export default class DocumentsApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents/{document_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Partially update document
-     * Apply JSON Patch operations to partially update a document
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} documentId Document identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Document}
-     */
-    patchThreatModelDocument(body, threatModelId, documentId) {
-      return this.patchThreatModelDocumentWithHttpInfo(body, threatModelId, documentId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

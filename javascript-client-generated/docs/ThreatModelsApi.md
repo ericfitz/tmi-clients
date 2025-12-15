@@ -1,4 +1,4 @@
-# TmiJsClient.ThreatModelsApi
+# TmiThreatModelingImprovedApi.ThreatModelsApi
 
 All URIs are relative to *http://localhost:{port}*
 
@@ -21,19 +21,20 @@ Creates a new threat model with the authenticated user as owner
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.ThreatModelsApi();
-let body = new TmiJsClient.ThreatModelInput(); // ThreatModelInput | 
+let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelsApi();
+let body = new TmiThreatModelingImprovedApi.ThreatModelInput(); // ThreatModelInput | 
 
-apiInstance.createThreatModel(body).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.createThreatModel(body, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -65,19 +66,20 @@ Deletes a threat model; restricted to owner role
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.ThreatModelsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelsApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.deleteThreatModel(threatModelId).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
+apiInstance.deleteThreatModel(threatModelId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
 });
-
 ```
 
 ### Parameters
@@ -109,19 +111,20 @@ Retrieves the full details of a specific threat model if the user has access
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.ThreatModelsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelsApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.getThreatModel(threatModelId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.getThreatModel(threatModelId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -153,11 +156,11 @@ Returns a list of threat models accessible to the authenticated user with enhanc
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.ThreatModelsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelsApi();
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
@@ -173,12 +176,13 @@ let opts = {
   'statusUpdatedAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter threat models where status was updated after this timestamp (RFC3339)
   'statusUpdatedBefore': new Date("2013-10-20T19:20:30+01:00") // Date | Filter threat models where status was updated before this timestamp (RFC3339)
 };
-apiInstance.listThreatModels(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.listThreatModels(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -222,21 +226,22 @@ Applies JSON Patch operations to a threat model; restricted to writer/owner role
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.ThreatModelsApi();
+let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelsApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
-  'body': [new TmiJsClient.ThreatModelsThreatModelIdBody()] // [ThreatModelsThreatModelIdBody] | 
+  'body': [new TmiThreatModelingImprovedApi.ThreatModelsThreatModelIdBody()] // [ThreatModelsThreatModelIdBody] | 
 };
-apiInstance.patchThreatModel(threatModelId, opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.patchThreatModel(threatModelId, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters
@@ -269,20 +274,21 @@ Fully updates a threat model; restricted to writer/owner roles
 
 ### Example
 ```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
+import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
 
 
-let apiInstance = new TmiJsClient.ThreatModelsApi();
-let body = new TmiJsClient.ThreatModelInput(); // ThreatModelInput | 
+let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelsApi();
+let body = new TmiThreatModelingImprovedApi.ThreatModelInput(); // ThreatModelInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.updateThreatModel(body, threatModelId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
+apiInstance.updateThreatModel(body, threatModelId, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
 });
-
 ```
 
 ### Parameters

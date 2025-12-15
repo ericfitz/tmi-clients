@@ -1,4 +1,4 @@
-# TmiJsClient.EdgeRouterArgs
+# TmiThreatModelingImprovedApi.EdgeRouterArgs
 
 ## Properties
 Name | Type | Description | Notes

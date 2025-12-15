@@ -14,6 +14,7 @@
  */
 import ApiClient from "../ApiClient";
 import Error from '../model/Error';
+import InlineResponse500 from '../model/InlineResponse500';
 import Repository from '../model/Repository';
 import ThreatsThreatIdBody from '../model/ThreatsThreatIdBody';
 
@@ -36,7 +37,13 @@ export default class RepositoriesApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the patchThreatModelRepository operation.
+     * @callback moduleapi/RepositoriesApi~patchThreatModelRepositoryCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/Repository{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * Partially update repository
@@ -44,9 +51,10 @@ export default class RepositoriesApi {
      * @param {Array.<module:model/ThreatsThreatIdBody>} body 
      * @param {String} threatModelId Threat model identifier
      * @param {String} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Repository} and HTTP response
+     * @param {module:api/RepositoriesApi~patchThreatModelRepositoryCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    patchThreatModelRepositoryWithHttpInfo(body, threatModelId, repositoryId) {
+    patchThreatModelRepository(body, threatModelId, repositoryId, callback) {
       
       let postBody = body;
       // verify the required parameter 'body' is set
@@ -83,23 +91,8 @@ export default class RepositoriesApi {
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories/{repository_id}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * Partially update repository
-     * Apply JSON Patch operations to partially update a repository
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
-     * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
-     * @param {<&vendorExtensions.x-jsdoc-type>} repositoryId Repository identifier
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Repository}
-     */
-    patchThreatModelRepository(body, threatModelId, repositoryId) {
-      return this.patchThreatModelRepositoryWithHttpInfo(body, threatModelId, repositoryId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }

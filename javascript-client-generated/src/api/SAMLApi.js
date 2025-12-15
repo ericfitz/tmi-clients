@@ -14,6 +14,7 @@
  */
 import ApiClient from "../ApiClient";
 import Error from '../model/Error';
+import InlineResponse429 from '../model/InlineResponse429';
 
 /**
 * SAML service.
@@ -34,15 +35,22 @@ export default class SAMLApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
-
+    /**
+     * Callback function to receive the result of the listSAMLUsers operation.
+     * @callback moduleapi/SAMLApi~listSAMLUsersCallback
+     * @param {String} error Error message, if any.
+     * @param {Object{ data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
 
     /**
      * List SAML users for UI autocomplete
      * Returns a lightweight list of active users for a specific SAML provider. Intended for UI autocomplete/search features. Only accessible to users from the same provider.
-     * @param {String} idp SAML provider identifier (must start with \&quot;saml_\&quot;)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @param {String} idp Identity provider ID (e.g., saml_okta, saml_azure)
+     * @param {module:api/SAMLApi~listSAMLUsersCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link <&vendorExtensions.x-jsdoc-type>}
      */
-    listSAMLUsersWithHttpInfo(idp) {
+    listSAMLUsers(idp, callback) {
       
       let postBody = null;
       // verify the required parameter 'idp' is set
@@ -71,21 +79,8 @@ export default class SAMLApi {
       return this.apiClient.callApi(
         '/saml/providers/{idp}/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        authNames, contentTypes, accepts, returnType, callback
       );
-    }
-
-    /**
-     * List SAML users for UI autocomplete
-     * Returns a lightweight list of active users for a specific SAML provider. Intended for UI autocomplete/search features. Only accessible to users from the same provider.
-     * @param {<&vendorExtensions.x-jsdoc-type>} idp SAML provider identifier (must start with \&quot;saml_\&quot;)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
-     */
-    listSAMLUsers(idp) {
-      return this.listSAMLUsersWithHttpInfo(idp)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
     }
 
 }
