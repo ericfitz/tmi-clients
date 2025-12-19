@@ -1,6 +1,6 @@
-# TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi
+# TmiJsClient.ThreatModelSubResourcesApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -105,22 +105,21 @@ Creates multiple metadata entries in a single operation for the specified diagra
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.bulkCreateDiagramMetadata(body, threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateDiagramMetadata(body, threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -154,22 +153,21 @@ Creates multiple metadata entries in a single operation for the specified docume
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.bulkCreateDocumentMetadata(body, threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateDocumentMetadata(body, threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -203,22 +201,21 @@ Creates multiple metadata key-value pairs for the specified note
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.bulkCreateNoteMetadata(body, threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateNoteMetadata(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -252,22 +249,21 @@ Creates multiple metadata entries in a single operation for the specified source
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.bulkCreateRepositoryMetadata(body, threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateRepositoryMetadata(body, threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -301,22 +297,21 @@ Creates multiple metadata entries in a single operation for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.bulkCreateThreatMetadata(body, threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatMetadata(body, threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -350,22 +345,21 @@ Creates multiple metadata key-value pairs for the specified asset
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -399,21 +393,20 @@ Creates multiple assets within the specified threat model (maximum 50 per reques
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Asset()]; // [Asset] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Asset()]; // [Asset] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkCreateThreatModelAssets(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatModelAssets(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -446,21 +439,20 @@ Creates multiple documents in a single operation for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Document()]; // [Document] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Document()]; // [Document] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkCreateThreatModelDocuments(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatModelDocuments(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -493,21 +485,20 @@ Creates multiple metadata entries in a single operation for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkCreateThreatModelMetadata(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatModelMetadata(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -540,21 +531,20 @@ Creates multiple source references in a single operation for the specified threa
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Repository()]; // [Repository] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Repository()]; // [Repository] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkCreateThreatModelRepositories(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatModelRepositories(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -587,21 +577,20 @@ Creates multiple threats in a single operation for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Threat()]; // [Threat] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Threat()]; // [Threat] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkCreateThreatModelThreats(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkCreateThreatModelThreats(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -634,22 +623,21 @@ Updates multiple metadata entries for the specified note in a single operation
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.bulkUpdateNoteMetadata(body, threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpdateNoteMetadata(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -683,21 +671,20 @@ Updates multiple threats in a single operation for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Threat()]; // [Threat] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Threat()]; // [Threat] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkUpdateThreatModelThreats(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpdateThreatModelThreats(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -730,22 +717,21 @@ Creates or updates multiple metadata key-value pairs for the specified diagram
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.bulkUpsertDiagramMetadata(body, threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertDiagramMetadata(body, threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -779,22 +765,21 @@ Creates or updates multiple metadata key-value pairs for the specified document
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.bulkUpsertDocumentMetadata(body, threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertDocumentMetadata(body, threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -828,22 +813,21 @@ Creates or updates multiple metadata key-value pairs for the specified repositor
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -877,22 +861,21 @@ Creates or updates multiple metadata key-value pairs for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.bulkUpsertThreatMetadata(body, threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertThreatMetadata(body, threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -926,22 +909,21 @@ Creates or updates multiple metadata key-value pairs for the specified asset
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -975,21 +957,20 @@ Create or update multiple assets in a single request
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Asset()]; // [Asset] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Asset()]; // [Asset] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkUpsertThreatModelAssets(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertThreatModelAssets(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1022,21 +1003,20 @@ Create or update multiple documents in a single request
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Document()]; // [Document] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Document()]; // [Document] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkUpsertThreatModelDocuments(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertThreatModelDocuments(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1069,21 +1049,20 @@ Creates or updates multiple metadata key-value pairs for the specified threat mo
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Metadata()]; // [Metadata] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkUpsertThreatModelMetadata(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertThreatModelMetadata(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1116,21 +1095,20 @@ Create or update multiple repositories in a single request
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.Repository()]; // [Repository] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Repository()]; // [Repository] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkUpsertThreatModelRepositories(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkUpsertThreatModelRepositories(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1163,22 +1141,21 @@ Creates a new metadata entry for the specified diagram
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.createDiagramMetadata(body, threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createDiagramMetadata(body, threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1212,22 +1189,21 @@ Creates new metadata entry for the specified document
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.createDocumentMetadata(body, threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createDocumentMetadata(body, threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1261,22 +1237,21 @@ Creates new metadata entry for the specified note
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.createNoteMetadata(body, threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createNoteMetadata(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1310,22 +1285,21 @@ Creates new metadata entry for the specified source reference
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.createRepositoryMetadata(body, threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createRepositoryMetadata(body, threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1359,22 +1333,21 @@ Creates new metadata entry for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.createThreatMetadata(body, threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatMetadata(body, threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1408,21 +1381,20 @@ Creates a new asset within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.AssetInput(); // AssetInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.AssetInput(); // AssetInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelAsset(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelAsset(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1455,22 +1427,21 @@ Adds a new metadata key-value pair to the specified asset
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.createThreatModelAssetMetadata(body, threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelAssetMetadata(body, threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1504,21 +1475,20 @@ Creates a new diagram within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.CreateDiagramRequest(); // CreateDiagramRequest | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.CreateDiagramRequest(); // CreateDiagramRequest | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelDiagram(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelDiagram(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1551,21 +1521,20 @@ Creates a new document within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.DocumentInput(); // DocumentInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.DocumentInput(); // DocumentInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelDocument(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelDocument(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1598,21 +1567,20 @@ Creates new metadata entry for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelMetadata(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelMetadata(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1645,21 +1613,20 @@ Creates a new note within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.NoteInput(); // NoteInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.NoteInput(); // NoteInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelNote(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelNote(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1692,21 +1659,20 @@ Creates a new source code reference within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.RepositoryInput(); // RepositoryInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.RepositoryInput(); // RepositoryInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelRepository(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelRepository(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1739,21 +1705,20 @@ Creates a new threat within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.ThreatInput(); // ThreatInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.ThreatInput(); // ThreatInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.createThreatModelThreat(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createThreatModelThreat(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1786,22 +1751,21 @@ Removes a specific metadata entry for the diagram by key
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteDiagramMetadataByKey(threatModelId, diagramId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteDiagramMetadataByKey(threatModelId, diagramId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1835,22 +1799,21 @@ Deletes a specific metadata entry by key for the specified document
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteDocumentMetadataByKey(threatModelId, documentId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteDocumentMetadataByKey(threatModelId, documentId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1884,22 +1847,21 @@ Deletes a specific metadata entry by key for the specified note
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteNoteMetadataByKey(threatModelId, noteId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteNoteMetadataByKey(threatModelId, noteId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1933,22 +1895,21 @@ Deletes a specific metadata entry by key for the specified source reference
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteRepositoryMetadataByKey(threatModelId, repositoryId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteRepositoryMetadataByKey(threatModelId, repositoryId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1982,22 +1943,21 @@ Deletes a specific metadata entry by key for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteThreatMetadataByKey(threatModelId, threatId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatMetadataByKey(threatModelId, threatId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2031,21 +1991,20 @@ Deletes an asset from the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.deleteThreatModelAsset(threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelAsset(threatModelId, assetId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2078,22 +2037,21 @@ Deletes a metadata key-value pair from the specified asset
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteThreatModelAssetMetadata(threatModelId, assetId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelAssetMetadata(threatModelId, assetId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2127,21 +2085,20 @@ Permanently removes a diagram from the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.deleteThreatModelDiagram(threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelDiagram(threatModelId, diagramId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2174,21 +2131,20 @@ Deletes a specific document from the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.deleteThreatModelDocument(threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelDocument(threatModelId, documentId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2221,21 +2177,20 @@ Deletes a specific metadata entry by key for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.deleteThreatModelMetadataByKey(threatModelId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelMetadataByKey(threatModelId, key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2268,21 +2223,20 @@ Deletes a specific note from the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.deleteThreatModelNote(threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelNote(threatModelId, noteId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2315,21 +2269,20 @@ Deletes a specific source code reference from the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.deleteThreatModelRepository(threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelRepository(threatModelId, repositoryId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2362,21 +2315,20 @@ Deletes a specific threat from the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.deleteThreatModelThreat(threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteThreatModelThreat(threatModelId, threatId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2409,21 +2361,20 @@ Retrieves all metadata entries for the specified diagram
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.getDiagramMetadata(threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDiagramMetadata(threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2456,22 +2407,21 @@ Retrieves a specific metadata entry for the diagram by key
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getDiagramMetadataByKey(threatModelId, diagramId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDiagramMetadataByKey(threatModelId, diagramId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2505,23 +2455,22 @@ Returns a minimal representation of the diagram optimized for automated threat m
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model UUID
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram UUID
 let opts = { 
   'format': "json" // String | Output format for the diagram model (case-insensitive). Defaults to json if not specified.
 };
-apiInstance.getDiagramModel(threatModelId, diagramId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDiagramModel(threatModelId, diagramId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2555,21 +2504,20 @@ Returns all metadata key-value pairs for the specified document
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.getDocumentMetadata(threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDocumentMetadata(threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2602,22 +2550,21 @@ Returns a specific metadata entry by key for the specified document
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getDocumentMetadataByKey(threatModelId, documentId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDocumentMetadataByKey(threatModelId, documentId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2651,21 +2598,20 @@ Returns all metadata key-value pairs for the specified note
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.getNoteMetadata(threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getNoteMetadata(threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2698,22 +2644,21 @@ Returns a specific metadata entry by key for the specified note
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getNoteMetadataByKey(threatModelId, noteId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getNoteMetadataByKey(threatModelId, noteId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2747,21 +2692,20 @@ Returns all metadata key-value pairs for the specified source reference
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.getRepositoryMetadata(threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getRepositoryMetadata(threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2794,22 +2738,21 @@ Returns a specific metadata entry by key for the specified source reference
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getRepositoryMetadataByKey(threatModelId, repositoryId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getRepositoryMetadataByKey(threatModelId, repositoryId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2843,21 +2786,20 @@ Returns all metadata key-value pairs for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.getThreatMetadata(threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatMetadata(threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2890,22 +2832,21 @@ Returns a specific metadata entry by key for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getThreatMetadataByKey(threatModelId, threatId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatMetadataByKey(threatModelId, threatId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2939,21 +2880,20 @@ Returns a single asset by its ID
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.getThreatModelAsset(threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelAsset(threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -2986,21 +2926,20 @@ Returns all metadata key-value pairs for the specified asset
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.getThreatModelAssetMetadata(threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelAssetMetadata(threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3033,22 +2972,21 @@ Returns a single metadata value by its key
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getThreatModelAssetMetadataByKey(threatModelId, assetId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelAssetMetadataByKey(threatModelId, assetId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3082,23 +3020,22 @@ Returns a paginated list of assets within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.getThreatModelAssets(threatModelId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelAssets(threatModelId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3132,21 +3069,20 @@ Retrieves a specific diagram from the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.getThreatModelDiagram(threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelDiagram(threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3179,23 +3115,22 @@ Returns all diagrams associated with a specific threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.getThreatModelDiagrams(threatModelId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelDiagrams(threatModelId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3229,21 +3164,20 @@ Returns details of a specific document within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.getThreatModelDocument(threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelDocument(threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3276,23 +3210,22 @@ Returns a paginated list of documents within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.getThreatModelDocuments(threatModelId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelDocuments(threatModelId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3326,20 +3259,19 @@ Returns all metadata key-value pairs for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.getThreatModelMetadata(threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelMetadata(threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3371,21 +3303,20 @@ Returns a specific metadata entry by key for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.getThreatModelMetadataByKey(threatModelId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelMetadataByKey(threatModelId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3418,21 +3349,20 @@ Returns details of a specific note within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.getThreatModelNote(threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelNote(threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3465,23 +3395,22 @@ Returns a paginated list of notes within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.getThreatModelNotes(threatModelId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelNotes(threatModelId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3515,23 +3444,22 @@ Returns a paginated list of source code references within the specified threat m
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.getThreatModelRepositories(threatModelId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelRepositories(threatModelId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3565,21 +3493,20 @@ Returns details of a specific source code reference within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.getThreatModelRepository(threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelRepository(threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3612,21 +3539,20 @@ Returns details of a specific threat within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.getThreatModelThreat(threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelThreat(threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3659,11 +3585,11 @@ Returns a paginated list of threats within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
@@ -3687,13 +3613,12 @@ let opts = {
   'modifiedAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results modified after this timestamp (ISO 8601)
   'modifiedBefore': new Date("2013-10-20T19:20:30+01:00") // Date | Filter results modified before this timestamp (ISO 8601)
 };
-apiInstance.getThreatModelThreats(threatModelId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getThreatModelThreats(threatModelId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3745,29 +3670,28 @@ Apply JSON Patch operations to update specific parts of a diagram
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.ThreatsThreatIdBody()]; // [ThreatsThreatIdBody] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.patchThreatModelDiagram(body, threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchThreatModelDiagram(body, threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -3794,29 +3718,28 @@ Applies JSON patch operations to a specific threat within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = [new TmiThreatModelingImprovedApi.ThreatsThreatIdBody()]; // [ThreatsThreatIdBody] | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.patchThreatModelThreat(body, threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.patchThreatModelThreat(body, threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 
@@ -3843,23 +3766,22 @@ Updates or creates a metadata entry for the diagram with the specified key
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.MetadataKeyBody4(); // MetadataKeyBody4 | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.MetadataKeyBody4(); // MetadataKeyBody4 | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateDiagramMetadataByKey(body, threatModelId, diagramId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateDiagramMetadataByKey(body, threatModelId, diagramId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3894,23 +3816,22 @@ Updates a specific metadata entry by key for the specified document
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.MetadataKeyBody1(); // MetadataKeyBody1 | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.MetadataKeyBody1(); // MetadataKeyBody1 | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateDocumentMetadataByKey(body, threatModelId, documentId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateDocumentMetadataByKey(body, threatModelId, documentId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3945,23 +3866,22 @@ Updates a specific metadata entry by key for the specified note
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.MetadataKeyBody5(); // MetadataKeyBody5 | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.MetadataKeyBody5(); // MetadataKeyBody5 | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateNoteMetadataByKey(body, threatModelId, noteId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateNoteMetadataByKey(body, threatModelId, noteId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -3996,23 +3916,22 @@ Updates a specific metadata entry by key for the specified source reference
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.MetadataKeyBody2(); // MetadataKeyBody2 | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.MetadataKeyBody2(); // MetadataKeyBody2 | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4047,23 +3966,22 @@ Updates a specific metadata entry by key for the specified threat
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.MetadataKeyBody(); // MetadataKeyBody | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.MetadataKeyBody(); // MetadataKeyBody | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateThreatMetadataByKey(body, threatModelId, threatId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatMetadataByKey(body, threatModelId, threatId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4098,22 +4016,21 @@ Updates an existing asset within the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.AssetInput(); // AssetInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.AssetInput(); // AssetInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
-apiInstance.updateThreatModelAsset(body, threatModelId, assetId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelAsset(body, threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4147,23 +4064,22 @@ Updates an existing metadata value by its key
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.Metadata(); // Metadata | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.Metadata(); // Metadata | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateThreatModelAssetMetadata(body, threatModelId, assetId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelAssetMetadata(body, threatModelId, assetId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4198,22 +4114,21 @@ Completely replaces a diagram with new data. Use DfdDiagramInput schema which ex
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.DfdDiagramInput(); // DfdDiagramInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.DfdDiagramInput(); // DfdDiagramInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.updateThreatModelDiagram(body, threatModelId, diagramId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelDiagram(body, threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4247,22 +4162,21 @@ Updates a specific document within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.DocumentInput(); // DocumentInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.DocumentInput(); // DocumentInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
-apiInstance.updateThreatModelDocument(body, threatModelId, documentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelDocument(body, threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4296,22 +4210,21 @@ Updates a specific metadata entry by key for the specified threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.MetadataKeyBody3(); // MetadataKeyBody3 | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.MetadataKeyBody3(); // MetadataKeyBody3 | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let key = "key_example"; // String | Metadata key
 
-apiInstance.updateThreatModelMetadataByKey(body, threatModelId, key, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelMetadataByKey(body, threatModelId, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4345,22 +4258,21 @@ Updates a specific note within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.NoteInput(); // NoteInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.NoteInput(); // NoteInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
-apiInstance.updateThreatModelNote(body, threatModelId, noteId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelNote(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4394,22 +4306,21 @@ Updates a specific source code reference within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.RepositoryInput(); // RepositoryInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.RepositoryInput(); // RepositoryInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
-apiInstance.updateThreatModelRepository(body, threatModelId, repositoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelRepository(body, threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -4443,22 +4354,21 @@ Updates a specific threat within the threat model
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatModelSubResourcesApi();
-let body = new TmiThreatModelingImprovedApi.ThreatInput(); // ThreatInput | 
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = new TmiJsClient.ThreatInput(); // ThreatInput | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
-apiInstance.updateThreatModelThreat(body, threatModelId, threatId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateThreatModelThreat(body, threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

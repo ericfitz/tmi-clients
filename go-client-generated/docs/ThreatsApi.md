@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -47,7 +47,7 @@ Apply JSON Patch operations to multiple threats in a single request
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**ThreatsBulkBody**](ThreatsBulkBody.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type

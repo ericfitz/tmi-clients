@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.AuthTokenResponse
+# TmiJsClient.AuthTokenResponse
 
 ## Properties
 Name | Type | Description | Notes

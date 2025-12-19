@@ -1,6 +1,6 @@
-# TmiThreatModelingImprovedApi.AdministrationApi
+# TmiJsClient.AdministrationApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -42,21 +42,20 @@ Adds a user to a group. The user must exist in the system. Cannot add members to
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.AddGroupMemberRequest(); // AddGroupMemberRequest | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.AddGroupMemberRequest(); // AddGroupMemberRequest | 
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.addGroupMember(body, internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.addGroupMember(body, internalUuid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -89,20 +88,19 @@ Creates a new provider-independent group (provider&#x3D;\&quot;*\&quot;). These 
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.CreateAdminGroupRequest(); // CreateAdminGroupRequest | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.CreateAdminGroupRequest(); // CreateAdminGroupRequest | 
 
-apiInstance.createAdminGroup(body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createAdminGroup(body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -134,20 +132,19 @@ Grants administrator privileges to a user or group for a specific provider. Exac
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.CreateAdministratorRequest(); // CreateAdministratorRequest | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.CreateAdministratorRequest(); // CreateAdministratorRequest | 
 
-apiInstance.createAdministrator(body, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.createAdministrator(body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -179,20 +176,19 @@ Deletes the custom addon invocation quota for a user, reverting to system defaul
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.deleteAddonInvocationQuota(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteAddonInvocationQuota(userId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -224,20 +220,19 @@ Deletes a TMI-managed group and handles threat model cleanup. Protected groups l
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.deleteAdminGroup(internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteAdminGroup(internalUuid).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -269,20 +264,19 @@ Deletes a user and all associated data. Transfers sole-owned threat models or de
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.deleteAdminUser(internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteAdminUser(internalUuid).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -314,20 +308,19 @@ Revokes administrator privileges. Users cannot revoke their own privileges or pr
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Administrator grant ID
 
-apiInstance.deleteAdministrator(id, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteAdministrator(id).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -359,20 +352,19 @@ Deletes the custom API quota for a user, reverting to system defaults
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.deleteUserAPIQuota(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteUserAPIQuota(userId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -404,20 +396,19 @@ Deletes the custom webhook quota for a user, reverting to system defaults
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.deleteWebhookQuota(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteWebhookQuota(userId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -449,20 +440,19 @@ Retrieves the addon invocation quota for a specific user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.getAddonInvocationQuota(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAddonInvocationQuota(userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -494,20 +484,19 @@ Returns detailed information about a specific group, including enriched data (us
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.getAdminGroup(internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAdminGroup(internalUuid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -539,20 +528,19 @@ Returns detailed information about a specific user, including enriched data (adm
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.getAdminUser(internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAdminUser(internalUuid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -584,20 +572,19 @@ Retrieves the API rate limit quota for a specific user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.getUserAPIQuota(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUserAPIQuota(userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -629,20 +616,19 @@ Retrieves the webhook quota for a specific user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.getWebhookQuota(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getWebhookQuota(userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -674,22 +660,21 @@ Retrieves all custom addon invocation quotas (users with non-default quotas)
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'limit': 50, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.listAddonInvocationQuotas(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listAddonInvocationQuotas(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -722,11 +707,11 @@ Returns a paginated list of groups with optional filtering by provider, name, an
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'provider': "provider_example", // String | Filter by OAuth/SAML provider
   'groupName': "groupName_example", // String | Filter by group name (case-insensitive substring match)
@@ -736,13 +721,12 @@ let opts = {
   'sortBy': "created_at", // String | Field to sort by
   'sortOrder': "desc" // String | Sort direction
 };
-apiInstance.listAdminGroups(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listAdminGroups(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -780,11 +764,11 @@ Returns a paginated list of users with optional filtering by provider, email, an
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'provider': "provider_example", // String | Filter by OAuth/SAML provider
   'email': "email_example", // String | Filter by email (case-insensitive substring match)
@@ -797,13 +781,12 @@ let opts = {
   'sortBy': "created_at", // String | Field to sort by
   'sortOrder': "desc" // String | Sort direction
 };
-apiInstance.listAdminUsers(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listAdminUsers(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -844,11 +827,11 @@ Returns a list of administrator grants with optional filtering by provider, user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'provider': "provider_example", // String | Filter by OAuth/SAML provider
   'userId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter by user ID
@@ -856,13 +839,12 @@ let opts = {
   'limit': 50, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.listAdministrators(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listAdministrators(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -898,23 +880,22 @@ Returns a paginated list of users who are members of the specified group. Includ
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 let opts = { 
   'limit': 50, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.listGroupMembers(internalUuid, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listGroupMembers(internalUuid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -948,22 +929,21 @@ Retrieves all custom API rate limit quotas (users with non-default quotas)
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'limit': 50, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.listUserAPIQuotas(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listUserAPIQuotas(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -996,22 +976,21 @@ Retrieves all custom webhook quotas (users with non-default quotas)
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'limit': 50, // Number | Maximum number of results to return
   'offset': 0 // Number | Number of results to skip
 };
-apiInstance.listWebhookQuotas(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.listWebhookQuotas(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1044,21 +1023,20 @@ Removes a user from a group. Cannot remove members from the special &#x27;everyo
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
+let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 let userUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user to remove
 
-apiInstance.removeGroupMember(internalUuid, userUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.removeGroupMember(internalUuid, userUuid).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1091,28 +1069,27 @@ Creates or updates the addon invocation quota for a specific user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.AddonsUserIdBody(); // AddonsUserIdBody | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.AddonQuotaUpdate(); // AddonQuotaUpdate | 
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.updateAddonInvocationQuota(body, userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateAddonInvocationQuota(body, userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AddonsUserIdBody**](AddonsUserIdBody.md)|  | 
+ **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)|  | 
  **userId** | [**String**](.md)| User ID | 
 
 ### Return type
@@ -1138,21 +1115,20 @@ Updates group metadata fields (name, description). Only provided fields are upda
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.UpdateAdminGroupRequest(); // UpdateAdminGroupRequest | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.UpdateAdminGroupRequest(); // UpdateAdminGroupRequest | 
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.updateAdminGroup(body, internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateAdminGroup(body, internalUuid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1185,21 +1161,20 @@ Updates user metadata fields (email, name, email_verified). Only provided fields
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.UpdateAdminUserRequest(); // UpdateAdminUserRequest | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.UpdateAdminUserRequest(); // UpdateAdminUserRequest | 
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
-apiInstance.updateAdminUser(body, internalUuid, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateAdminUser(body, internalUuid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -1232,28 +1207,27 @@ Creates or updates the API rate limit quota for a specific user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.UsersUserIdBody(); // UsersUserIdBody | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.UserQuotaUpdate(); // UserQuotaUpdate | 
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.updateUserAPIQuota(body, userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUserAPIQuota(body, userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UsersUserIdBody**](UsersUserIdBody.md)|  | 
+ **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)|  | 
  **userId** | [**String**](.md)| User ID | 
 
 ### Return type
@@ -1279,28 +1253,27 @@ Creates or updates the webhook quota for a specific user
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.AdministrationApi();
-let body = new TmiThreatModelingImprovedApi.WebhooksUserIdBody(); // WebhooksUserIdBody | 
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.WebhookQuotaUpdate(); // WebhookQuotaUpdate | 
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
-apiInstance.updateWebhookQuota(body, userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateWebhookQuota(body, userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**WebhooksUserIdBody**](WebhooksUserIdBody.md)|  | 
+ **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)|  | 
  **userId** | [**String**](.md)| User ID | 
 
 ### Return type

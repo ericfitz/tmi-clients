@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.AssetBase
+# TmiJsClient.AssetBase
 
 ## Properties
 Name | Type | Description | Notes

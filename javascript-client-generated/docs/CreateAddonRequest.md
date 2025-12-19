@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.CreateAddonRequest
+# TmiJsClient.CreateAddonRequest
 
 ## Properties
 Name | Type | Description | Notes

@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.NoteBase
+# TmiJsClient.NoteBase
 
 ## Properties
 Name | Type | Description | Notes

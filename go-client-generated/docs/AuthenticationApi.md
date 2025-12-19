@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 Optional parameters are passed through a pointer to a AuthenticationApiRefreshTokenOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**optional.Interface of Oauth2RefreshBody**](Oauth2RefreshBody.md)|  | 
+ **body** | [**optional.Interface of TokenRefreshRequest**](TokenRefreshRequest.md)|  | 
 
 ### Return type
 

@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.Document
+# TmiJsClient.Document
 
 ## Properties
 Name | Type | Description | Notes

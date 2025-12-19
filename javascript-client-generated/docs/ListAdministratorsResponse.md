@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ListAdministratorsResponse
+# TmiJsClient.ListAdministratorsResponse
 
 ## Properties
 Name | Type | Description | Notes

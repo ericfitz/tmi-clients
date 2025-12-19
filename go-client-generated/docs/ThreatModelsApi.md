@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -160,7 +160,7 @@ Optional parameters are passed through a pointer to a ThreatModelsApiPatchThreat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **body** | [**optional.Interface of []ThreatModelsThreatModelIdBody**](threat_models_threat_model_id_body.md)|  | 
+ **body** | [**optional.Interface of []JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
 
 ### Return type
 

@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.PortConfigurationGroups
+# TmiJsClient.PortConfigurationGroups
 
 ## Properties
 Name | Type | Description | Notes

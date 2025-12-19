@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.InlineResponse2005Groups
+# TmiJsClient.InlineResponse2005Groups
 
 ## Properties
 Name | Type | Description | Notes

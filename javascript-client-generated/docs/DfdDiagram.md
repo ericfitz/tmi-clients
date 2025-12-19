@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.DfdDiagram
+# TmiJsClient.DfdDiagram
 
 ## Properties
 Name | Type | Description | Notes

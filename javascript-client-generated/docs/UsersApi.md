@@ -1,6 +1,6 @@
-# TmiThreatModelingImprovedApi.UsersApi
+# TmiJsClient.UsersApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,21 +16,20 @@ Two-step deletion process: 1. First call (no challenge parameter) - Returns chal
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.UsersApi();
+let apiInstance = new TmiJsClient.UsersApi();
 let opts = { 
   'challenge': "challenge_example" // String | Challenge string from first request (step 2 only). Must match exactly.
 };
-apiInstance.deleteUserAccount(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteUserAccount(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

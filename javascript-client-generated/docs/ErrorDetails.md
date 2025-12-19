@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ErrorDetails
+# TmiJsClient.ErrorDetails
 
 ## Properties
 Name | Type | Description | Notes

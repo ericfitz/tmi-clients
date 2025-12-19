@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.InvocationResponse
+# TmiJsClient.InvocationResponse
 
 ## Properties
 Name | Type | Description | Notes
@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **threatModelId** | **String** | Threat model context | 
 **objectType** | **String** | Object type (if specified) | [optional] 
 **objectId** | **String** | Object ID (if specified) | [optional] 
-**invokedBy** | [**User**](User.md) |  | 
+**invokedBy** | **AllOfInvocationResponseInvokedBy** | User who triggered the invocation | 
 **payload** | **String** | JSON-encoded payload | [optional] 
 **status** | **String** | Current status | 
 **statusPercent** | **Number** | Progress percentage (0-100) | 

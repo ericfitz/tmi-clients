@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.MinimalCell
+# TmiJsClient.MinimalCell
 
 ## Properties
 Name | Type | Description | Notes

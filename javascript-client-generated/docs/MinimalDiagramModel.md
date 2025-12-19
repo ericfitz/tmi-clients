@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.MinimalDiagramModel
+# TmiJsClient.MinimalDiagramModel
 
 ## Properties
 Name | Type | Description | Notes

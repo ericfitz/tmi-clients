@@ -5,8 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Cell unique identifier | 
 **shape** | **str** | Edge shape type | 
-**source** | [**EdgeTerminal**](EdgeTerminal.md) |  | 
-**target** | [**EdgeTerminal**](EdgeTerminal.md) |  | 
+**source** | **AllOfMinimalEdgeSource** | Source node connection details | 
+**target** | **AllOfMinimalEdgeTarget** | Target node connection details | 
 **labels** | **list[str]** | Text labels extracted from edge labels array | 
 **data_asset_id** | **str** | Optional reference to a data asset entity | [optional] 
 **metadata** | **dict(str, str)** | Flattened edge metadata (converted from _metadata array in edge.data) | 

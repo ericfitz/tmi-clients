@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.MinimalNode
+# TmiJsClient.MinimalNode
 
 ## Properties
 Name | Type | Description | Notes

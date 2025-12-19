@@ -1,6 +1,6 @@
 # tmi_client.AuthenticationApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -911,7 +911,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
-body = tmi_client.Oauth2RefreshBody() # Oauth2RefreshBody |  (optional)
+body = tmi_client.TokenRefreshRequest() # TokenRefreshRequest |  (optional)
 
 try:
     # Refresh JWT token
@@ -925,7 +925,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Oauth2RefreshBody**](Oauth2RefreshBody.md)|  | [optional] 
+ **body** | [**TokenRefreshRequest**](TokenRefreshRequest.md)|  | [optional] 
 
 ### Return type
 

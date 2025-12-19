@@ -1,6 +1,6 @@
-# TmiThreatModelingImprovedApi.ThreatsApi
+# TmiJsClient.ThreatsApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -17,21 +17,20 @@ Delete multiple threats in a single request
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatsApi();
+let apiInstance = new TmiJsClient.ThreatsApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatIds = ["threatIds_example"]; // [String] | Comma-separated list of threat IDs to delete (UUID format)
 
-apiInstance.bulkDeleteThreatModelThreats(threatModelId, threatIds, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkDeleteThreatModelThreats(threatModelId, threatIds).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -64,28 +63,27 @@ Apply JSON Patch operations to multiple threats in a single request
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
-let defaultClient = TmiThreatModelingImprovedApi.ApiClient.instance;
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
 
 
-let apiInstance = new TmiThreatModelingImprovedApi.ThreatsApi();
-let body = new TmiThreatModelingImprovedApi.ThreatsBulkBody(); // ThreatsBulkBody | 
+let apiInstance = new TmiJsClient.ThreatsApi();
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
-apiInstance.bulkPatchThreatModelThreats(body, threatModelId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.bulkPatchThreatModelThreats(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatsBulkBody**](ThreatsBulkBody.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type

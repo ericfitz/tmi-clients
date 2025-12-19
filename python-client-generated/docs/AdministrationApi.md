@@ -1,6 +1,6 @@
 # tmi_client.AdministrationApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -1173,7 +1173,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AddonsUserIdBody() # AddonsUserIdBody | 
+body = tmi_client.AddonQuotaUpdate() # AddonQuotaUpdate | 
 user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | User ID
 
 try:
@@ -1188,7 +1188,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AddonsUserIdBody**](AddonsUserIdBody.md)|  | 
+ **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)|  | 
  **user_id** | [**str**](.md)| User ID | 
 
 ### Return type
@@ -1326,7 +1326,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.UsersUserIdBody() # UsersUserIdBody | 
+body = tmi_client.UserQuotaUpdate() # UserQuotaUpdate | 
 user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | User ID
 
 try:
@@ -1341,7 +1341,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UsersUserIdBody**](UsersUserIdBody.md)|  | 
+ **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)|  | 
  **user_id** | [**str**](.md)| User ID | 
 
 ### Return type
@@ -1377,7 +1377,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.WebhooksUserIdBody() # WebhooksUserIdBody | 
+body = tmi_client.WebhookQuotaUpdate() # WebhookQuotaUpdate | 
 user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | User ID
 
 try:
@@ -1392,7 +1392,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**WebhooksUserIdBody**](WebhooksUserIdBody.md)|  | 
+ **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)|  | 
  **user_id** | [**str**](.md)| User ID | 
 
 ### Return type

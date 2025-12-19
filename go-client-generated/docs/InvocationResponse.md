@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ThreatModelId** | **string** | Threat model context | [default to null]
 **ObjectType** | **string** | Object type (if specified) | [optional] [default to null]
 **ObjectId** | **string** | Object ID (if specified) | [optional] [default to null]
-**InvokedBy** | [***User**](User.md) |  | [default to null]
+**InvokedBy** | [***AllOfInvocationResponseInvokedBy**](AllOfInvocationResponseInvokedBy.md) | User who triggered the invocation | [default to null]
 **Payload** | **string** | JSON-encoded payload | [optional] [default to null]
 **Status** | **string** | Current status | [default to null]
 **StatusPercent** | **int32** | Progress percentage (0-100) | [default to null]

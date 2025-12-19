@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.NodePosition
+# TmiJsClient.NodePosition
 
 ## Properties
 Name | Type | Description | Notes

@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.GroupMemberListResponse
+# TmiJsClient.GroupMemberListResponse
 
 ## Properties
 Name | Type | Description | Notes

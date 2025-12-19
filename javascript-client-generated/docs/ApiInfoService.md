@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ApiInfoService
+# TmiJsClient.ApiInfoService
 
 ## Properties
 Name | Type | Description | Notes

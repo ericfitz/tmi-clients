@@ -1,6 +1,6 @@
 # tmi_client.ThreatModelsApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -249,7 +249,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-body = [tmi_client.ThreatModelsThreatModelIdBody()] # list[ThreatModelsThreatModelIdBody] |  (optional)
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] |  (optional)
 
 try:
     # Partially update a threat model
@@ -264,7 +264,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **body** | [**list[ThreatModelsThreatModelIdBody]**](ThreatModelsThreatModelIdBody.md)|  | [optional] 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | [optional] 
 
 ### Return type
 

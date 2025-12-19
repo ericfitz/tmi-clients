@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the threat model | [default to null]
 **Description** | **string** | Description of the threat model | [optional] [default to null]
-**Owner** | [***User**](User.md) |  | [default to null]
+**Owner** | [***AllOfThreatModelBaseOwner**](AllOfThreatModelBaseOwner.md) | User who owns the threat model (can be null for orphaned models) | [default to null]
 **ThreatModelFramework** | **string** | The framework used for this threat model | [default to null]
 **Authorization** | [**[]Authorization**](Authorization.md) | List of users and their roles for this threat model | [default to null]
 **Metadata** | [**[]Metadata**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] [default to null]

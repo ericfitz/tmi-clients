@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ListAddonsResponse
+# TmiJsClient.ListAddonsResponse
 
 ## Properties
 Name | Type | Description | Notes

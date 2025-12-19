@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.DiagramListItem
+# TmiJsClient.DiagramListItem
 
 ## Properties
 Name | Type | Description | Notes

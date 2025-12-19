@@ -1,6 +1,6 @@
-# TmiThreatModelingImprovedApi.GeneralApi
+# TmiJsClient.GeneralApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,16 +16,15 @@ Returns service, API, and operator information without authentication
 
 ### Example
 ```javascript
-import {TmiThreatModelingImprovedApi} from 'tmi__threat_modeling_improved_api';
+import {TmiJsClient} from 'tmi-js-client';
 
-let apiInstance = new TmiThreatModelingImprovedApi.GeneralApi();
-apiInstance.getApiInfo((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+let apiInstance = new TmiJsClient.GeneralApi();
+apiInstance.getApiInfo().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -2385,7 +2385,7 @@ Apply JSON Patch operations to update specific parts of a diagram
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]ThreatsThreatIdBody**](threats_threat_id_body.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -2415,7 +2415,7 @@ Applies JSON patch operations to a specific threat within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]ThreatsThreatIdBody**](threats_threat_id_body.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 

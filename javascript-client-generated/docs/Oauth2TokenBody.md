@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.Oauth2TokenBody
+# TmiJsClient.Oauth2TokenBody
 
 ## Properties
 Name | Type | Description | Notes

@@ -1,6 +1,6 @@
 # {{classname}}
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -728,7 +728,7 @@ Creates or updates the addon invocation quota for a specific user
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**AddonsUserIdBody**](AddonsUserIdBody.md)|  | 
+  **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)|  | 
   **userId** | [**string**](.md)| User ID | 
 
 ### Return type
@@ -815,7 +815,7 @@ Creates or updates the API rate limit quota for a specific user
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**UsersUserIdBody**](UsersUserIdBody.md)|  | 
+  **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)|  | 
   **userId** | [**string**](.md)| User ID | 
 
 ### Return type
@@ -844,7 +844,7 @@ Creates or updates the webhook quota for a specific user
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**WebhooksUserIdBody**](WebhooksUserIdBody.md)|  | 
+  **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)|  | 
   **userId** | [**string**](.md)| User ID | 
 
 ### Return type

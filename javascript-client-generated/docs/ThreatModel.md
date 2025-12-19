@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ThreatModel
+# TmiJsClient.ThreatModel
 
 ## Properties
 Name | Type | Description | Notes
@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **id** | **String** | Unique identifier for the threat model (UUID) | [optional] 
 **createdAt** | **Date** | Creation timestamp (RFC3339) | [optional] 
 **modifiedAt** | **Date** | Last modification timestamp (RFC3339) | [optional] 
-**createdBy** | [**User**](User.md) |  | [optional] 
+**createdBy** | **Object** | User who created the threat model | [optional] 
 **documents** | [**[Document]**](Document.md) | List of documents related to the threat model | [optional] 
 **repositories** | [**[Repository]**](Repository.md) | List of source code repositories related to the threat model | [optional] 
 **diagrams** | [**[Diagram]**](Diagram.md) | List of diagram objects associated with this threat model | [optional] 

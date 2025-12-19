@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.UserAPIQuota
+# TmiJsClient.UserAPIQuota
 
 ## Properties
 Name | Type | Description | Notes

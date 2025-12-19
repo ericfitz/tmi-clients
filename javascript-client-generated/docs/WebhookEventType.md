@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.WebhookEventType
+# TmiJsClient.WebhookEventType
 
 ## Enum
 

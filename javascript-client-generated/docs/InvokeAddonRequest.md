@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.InvokeAddonRequest
+# TmiJsClient.InvokeAddonRequest
 
 ## Properties
 Name | Type | Description | Notes

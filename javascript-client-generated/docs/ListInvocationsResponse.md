@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ListInvocationsResponse
+# TmiJsClient.ListInvocationsResponse
 
 ## Properties
 Name | Type | Description | Notes

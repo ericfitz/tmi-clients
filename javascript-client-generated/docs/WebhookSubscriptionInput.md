@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.WebhookSubscriptionInput
+# TmiJsClient.WebhookSubscriptionInput
 
 ## Properties
 Name | Type | Description | Notes

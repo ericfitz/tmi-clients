@@ -1,11 +1,11 @@
-# TmiThreatModelingImprovedApi.ThreatModelBase
+# TmiJsClient.ThreatModelBase
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** | Name of the threat model | 
 **description** | **String** | Description of the threat model | [optional] 
-**owner** | [**User**](User.md) |  | 
+**owner** | **AllOfThreatModelBaseOwner** | User who owns the threat model (can be null for orphaned models) | 
 **threatModelFramework** | **String** | The framework used for this threat model | 
 **authorization** | [**[Authorization]**](Authorization.md) | List of users and their roles for this threat model | 
 **metadata** | [**[Metadata]**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] 

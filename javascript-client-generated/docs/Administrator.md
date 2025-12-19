@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.Administrator
+# TmiJsClient.Administrator
 
 ## Properties
 Name | Type | Description | Notes

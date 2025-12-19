@@ -1,6 +1,6 @@
 # tmi_client.ThreatModelSubResourcesApi
 
-All URIs are relative to *http://localhost:{port}*
+All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -4033,7 +4033,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -4049,7 +4049,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -4086,7 +4086,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.ThreatsThreatIdBody()] # list[ThreatsThreatIdBody] | 
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | 
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -4102,7 +4102,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[ThreatsThreatIdBody]**](ThreatsThreatIdBody.md)|  | 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 

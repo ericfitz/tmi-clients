@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.DeletionChallenge
+# TmiJsClient.DeletionChallenge
 
 ## Properties
 Name | Type | Description | Notes

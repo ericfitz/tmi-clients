@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.CreateAdminGroupRequest
+# TmiJsClient.CreateAdminGroupRequest
 
 ## Properties
 Name | Type | Description | Notes

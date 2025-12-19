@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.ClientCredentialResponse
+# TmiJsClient.ClientCredentialResponse
 
 ## Properties
 Name | Type | Description | Notes

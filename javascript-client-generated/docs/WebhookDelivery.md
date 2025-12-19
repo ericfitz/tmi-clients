@@ -1,4 +1,4 @@
-# TmiThreatModelingImprovedApi.WebhookDelivery
+# TmiJsClient.WebhookDelivery
 
 ## Properties
 Name | Type | Description | Notes
