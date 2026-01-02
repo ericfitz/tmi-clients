@@ -37,7 +37,7 @@ class AddGroupMemberRequest(object):
         'notes': 'notes'
     }
 
-    def __init__(self, user_internal_uuid=None, notes=None):  # noqa: E501
+    def __init__(self, user_internal_uuid=None, notes=None, **kwargs):  # noqa: E501
         """AddGroupMemberRequest - a model defined in Swagger"""  # noqa: E501
         self._user_internal_uuid = None
         self._notes = None

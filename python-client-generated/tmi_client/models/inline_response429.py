@@ -37,7 +37,7 @@ class InlineResponse429(object):
         'retry_after': 'retry_after'
     }
 
-    def __init__(self, error=None, retry_after=None):  # noqa: E501
+    def __init__(self, error=None, retry_after=None, **kwargs):  # noqa: E501
         """InlineResponse429 - a model defined in Swagger"""  # noqa: E501
         self._error = None
         self._retry_after = None

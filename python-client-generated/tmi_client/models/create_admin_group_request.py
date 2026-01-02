@@ -39,7 +39,7 @@ class CreateAdminGroupRequest(object):
         'description': 'description'
     }
 
-    def __init__(self, group_name=None, name=None, description=None):  # noqa: E501
+    def __init__(self, group_name=None, name=None, description=None, **kwargs):  # noqa: E501
         """CreateAdminGroupRequest - a model defined in Swagger"""  # noqa: E501
         self._group_name = None
         self._name = None

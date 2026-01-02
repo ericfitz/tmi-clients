@@ -38,10 +38,10 @@ class NoteInput(NoteBase):
     if hasattr(NoteBase, "attribute_map"):
         attribute_map.update(NoteBase.attribute_map)
 
-    def __init__(self, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """NoteInput - a model defined in Swagger"""  # noqa: E501
         self.discriminator = None
-        NoteBase.__init__(self, *args, **kwargs)
+        NoteBase.__init__(self, **kwargs)
 
     def to_dict(self):
         """Returns the model properties as a dict"""

@@ -38,10 +38,10 @@ class RepositoryInput(RepositoryBase):
     if hasattr(RepositoryBase, "attribute_map"):
         attribute_map.update(RepositoryBase.attribute_map)
 
-    def __init__(self, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """RepositoryInput - a model defined in Swagger"""  # noqa: E501
         self.discriminator = None
-        RepositoryBase.__init__(self, *args, **kwargs)
+        RepositoryBase.__init__(self, **kwargs)
 
     def to_dict(self):
         """Returns the model properties as a dict"""

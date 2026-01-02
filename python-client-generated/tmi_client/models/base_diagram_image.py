@@ -37,7 +37,7 @@ class BaseDiagramImage(object):
         'update_vector': 'update_vector'
     }
 
-    def __init__(self, svg=None, update_vector=None):  # noqa: E501
+    def __init__(self, svg=None, update_vector=None, **kwargs):  # noqa: E501
         """BaseDiagramImage - a model defined in Swagger"""  # noqa: E501
         self._svg = None
         self._update_vector = None

@@ -41,7 +41,7 @@ class UpdateInvocationStatusResponse(object):
         'status_updated_at': 'status_updated_at'
     }
 
-    def __init__(self, id=None, status=None, status_percent=None, status_updated_at=None):  # noqa: E501
+    def __init__(self, id=None, status=None, status_percent=None, status_updated_at=None, **kwargs):  # noqa: E501
         """UpdateInvocationStatusResponse - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._status = None

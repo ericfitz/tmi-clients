@@ -39,7 +39,7 @@ class Participant(object):
         'permissions': 'permissions'
     }
 
-    def __init__(self, user=None, last_activity=None, permissions=None):  # noqa: E501
+    def __init__(self, user=None, last_activity=None, permissions=None, **kwargs):  # noqa: E501
         """Participant - a model defined in Swagger"""  # noqa: E501
         self._user = None
         self._last_activity = None

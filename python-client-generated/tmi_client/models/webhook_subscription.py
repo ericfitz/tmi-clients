@@ -59,7 +59,7 @@ class WebhookSubscription(object):
         'publication_failures': 'publication_failures'
     }
 
-    def __init__(self, id=None, owner_id=None, threat_model_id=None, name=None, url=None, events=None, secret=None, status=None, challenges_sent=None, created_at=None, modified_at=None, last_successful_use=None, publication_failures=None):  # noqa: E501
+    def __init__(self, id=None, owner_id=None, threat_model_id=None, name=None, url=None, events=None, secret=None, status=None, challenges_sent=None, created_at=None, modified_at=None, last_successful_use=None, publication_failures=None, **kwargs):  # noqa: E501
         """WebhookSubscription - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._owner_id = None

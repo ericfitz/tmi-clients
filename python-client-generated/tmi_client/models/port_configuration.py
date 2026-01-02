@@ -37,7 +37,7 @@ class PortConfiguration(object):
         'items': 'items'
     }
 
-    def __init__(self, groups=None, items=None):  # noqa: E501
+    def __init__(self, groups=None, items=None, **kwargs):  # noqa: E501
         """PortConfiguration - a model defined in Swagger"""  # noqa: E501
         self._groups = None
         self._items = None

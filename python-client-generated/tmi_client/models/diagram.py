@@ -38,7 +38,7 @@ class Diagram(object):
             'DfdDiagram'.lower(): 'DFD-1.0.0',
     }
 
-    def __init__(self):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """Diagram - a model defined in Swagger"""  # noqa: E501
         self.discriminator = 'type'
 

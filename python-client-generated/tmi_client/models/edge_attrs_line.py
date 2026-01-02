@@ -43,7 +43,7 @@ class EdgeAttrsLine(object):
         'source_marker': 'sourceMarker'
     }
 
-    def __init__(self, stroke=None, stroke_width=None, stroke_dasharray=None, target_marker=None, source_marker=None):  # noqa: E501
+    def __init__(self, stroke=None, stroke_width=None, stroke_dasharray=None, target_marker=None, source_marker=None, **kwargs):  # noqa: E501
         """EdgeAttrsLine - a model defined in Swagger"""  # noqa: E501
         self._stroke = None
         self._stroke_width = None

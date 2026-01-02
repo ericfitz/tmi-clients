@@ -102,12 +102,16 @@ echo -e "${GREEN}✓ Client directory cleaned${NC}"
 echo ""
 
 echo "Step 3: Running swagger-codegen..."
-echo "Command: swagger-codegen generate -i $OPENAPI_SPEC -l python -o $CLIENT_DIR -c $CONFIG_FILE"
+# Use custom templates with fix for allOf inheritance __init__ parameter forwarding
+# See: https://github.com/swagger-api/swagger-codegen-generators/issues/XXX
+TEMPLATE_DIR="custom-templates/python"
+echo "Command: swagger-codegen generate -i $OPENAPI_SPEC -l python -o $CLIENT_DIR -c $CONFIG_FILE -t $TEMPLATE_DIR"
 swagger-codegen generate \
     -i "$OPENAPI_SPEC" \
     -l python \
     -o "$CLIENT_DIR" \
-    -c "$CONFIG_FILE"
+    -c "$CONFIG_FILE" \
+    -t "$TEMPLATE_DIR"
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}ERROR: swagger-codegen failed${NC}"

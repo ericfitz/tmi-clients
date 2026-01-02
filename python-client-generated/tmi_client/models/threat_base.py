@@ -61,7 +61,7 @@ class ThreatBase(object):
         'asset_id': 'asset_id'
     }
 
-    def __init__(self, name=None, description=None, mitigation=None, diagram_id=None, cell_id=None, severity=None, score=None, priority=None, mitigated=None, status=None, threat_type=None, metadata=None, issue_uri=None, asset_id=None):  # noqa: E501
+    def __init__(self, name=None, description=None, mitigation=None, diagram_id=None, cell_id=None, severity=None, score=None, priority=None, mitigated=None, status=None, threat_type=None, metadata=None, issue_uri=None, asset_id=None, **kwargs):  # noqa: E501
         """ThreatBase - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._description = None

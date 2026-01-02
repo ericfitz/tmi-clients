@@ -37,7 +37,7 @@ class InlineResponse2006Providers(object):
         'is_primary': 'is_primary'
     }
 
-    def __init__(self, provider=None, is_primary=None):  # noqa: E501
+    def __init__(self, provider=None, is_primary=None, **kwargs):  # noqa: E501
         """InlineResponse2006Providers - a model defined in Swagger"""  # noqa: E501
         self._provider = None
         self._is_primary = None

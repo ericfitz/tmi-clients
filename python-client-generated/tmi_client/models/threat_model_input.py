@@ -45,7 +45,7 @@ class ThreatModelInput(object):
         'issue_uri': 'issue_uri'
     }
 
-    def __init__(self, name=None, description=None, threat_model_framework=None, authorization=None, metadata=None, issue_uri=None):  # noqa: E501
+    def __init__(self, name=None, description=None, threat_model_framework=None, authorization=None, metadata=None, issue_uri=None, **kwargs):  # noqa: E501
         """ThreatModelInput - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._description = None

@@ -41,7 +41,7 @@ class AuthTokenResponse(object):
         'expires_in': 'expires_in'
     }
 
-    def __init__(self, access_token=None, refresh_token=None, token_type=None, expires_in=None):  # noqa: E501
+    def __init__(self, access_token=None, refresh_token=None, token_type=None, expires_in=None, **kwargs):  # noqa: E501
         """AuthTokenResponse - a model defined in Swagger"""  # noqa: E501
         self._access_token = None
         self._refresh_token = None

@@ -37,7 +37,7 @@ class Metadata(object):
         'value': 'value'
     }
 
-    def __init__(self, key=None, value=None):  # noqa: E501
+    def __init__(self, key=None, value=None, **kwargs):  # noqa: E501
         """Metadata - a model defined in Swagger"""  # noqa: E501
         self._key = None
         self._value = None

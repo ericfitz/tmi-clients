@@ -35,7 +35,7 @@ class MetadataKeyBody1(object):
         'value': 'value'
     }
 
-    def __init__(self, value=None):  # noqa: E501
+    def __init__(self, value=None, **kwargs):  # noqa: E501
         """MetadataKeyBody1 - a model defined in Swagger"""  # noqa: E501
         self._value = None
         self.discriminator = None

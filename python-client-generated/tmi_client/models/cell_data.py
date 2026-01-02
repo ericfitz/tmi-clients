@@ -35,7 +35,7 @@ class CellData(object):
         'metadata': '_metadata'
     }
 
-    def __init__(self, metadata=None):  # noqa: E501
+    def __init__(self, metadata=None, **kwargs):  # noqa: E501
         """CellData - a model defined in Swagger"""  # noqa: E501
         self._metadata = None
         self.discriminator = None

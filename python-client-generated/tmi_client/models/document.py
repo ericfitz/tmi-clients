@@ -46,21 +46,25 @@ class Document(DocumentBase):
     if hasattr(DocumentBase, "attribute_map"):
         attribute_map.update(DocumentBase.attribute_map)
 
-    def __init__(self, id=None, metadata=None, created_at=None, modified_at=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """Document - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._metadata = None
         self._created_at = None
         self._modified_at = None
         self.discriminator = None
+        id = kwargs.get('id')
         self.id = id
+        metadata = kwargs.get('metadata')
         if metadata is not None:
             self.metadata = metadata
+        created_at = kwargs.get('created_at')
         if created_at is not None:
             self.created_at = created_at
+        modified_at = kwargs.get('modified_at')
         if modified_at is not None:
             self.modified_at = modified_at
-        DocumentBase.__init__(self, *args, **kwargs)
+        DocumentBase.__init__(self, **kwargs)
 
     @property
     def id(self):

@@ -44,10 +44,10 @@ api_instance = tmi_client.AuthenticationApi()
 scope = 'scope_example' # str | OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values.
 code_challenge = 'code_challenge_example' # str | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
 code_challenge_method = 'code_challenge_method_example' # str | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
-idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified. (optional)
+idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified. (optional)
 client_callback = 'client_callback_example' # str | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
 state = 'state_example' # str | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
-login_hint = 'login_hint_example' # str | User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. (optional)
+login_hint = 'login_hint_example' # str | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. (optional)
 
 try:
     # Initiate OAuth authorization flow
@@ -63,10 +63,10 @@ Name | Type | Description  | Notes
  **scope** | **str**| OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values. | 
  **code_challenge** | **str**| PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
  **code_challenge_method** | **str**| PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
- **idp** | **str**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | [optional] 
+ **idp** | **str**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | [optional] 
  **client_callback** | **str**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [optional] 
  **state** | **str**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [optional] 
- **login_hint** | **str**| User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [optional] 
+ **login_hint** | **str**| User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [optional] 
 
 ### Return type
 
@@ -198,7 +198,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
 body = tmi_client.Oauth2TokenBody() # Oauth2TokenBody | 
-idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified. (optional)
+idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified. (optional)
 
 try:
     # Exchange OAuth credentials for JWT tokens
@@ -213,7 +213,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)|  | 
- **idp** | **str**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | [optional] 
+ **idp** | **str**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | [optional] 
 
 ### Return type
 

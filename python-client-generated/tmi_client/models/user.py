@@ -44,17 +44,20 @@ class User(Principal):
     if hasattr(Principal, "attribute_map"):
         attribute_map.update(Principal.attribute_map)
 
-    def __init__(self, principal_type=None, email=None, display_name=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """User - a model defined in Swagger"""  # noqa: E501
         self._principal_type = None
         self._email = None
         self._display_name = None
         self.discriminator = None
+        principal_type = kwargs.get('principal_type')
         if principal_type is not None:
             self.principal_type = principal_type
+        email = kwargs.get('email')
         self.email = email
+        display_name = kwargs.get('display_name')
         self.display_name = display_name
-        Principal.__init__(self, *args, **kwargs)
+        Principal.__init__(self, **kwargs)
 
     @property
     def principal_type(self):

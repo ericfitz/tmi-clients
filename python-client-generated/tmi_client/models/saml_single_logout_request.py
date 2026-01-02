@@ -35,7 +35,7 @@ class SamlSingleLogoutRequest(object):
         'saml_request': 'SAMLRequest'
     }
 
-    def __init__(self, saml_request=None):  # noqa: E501
+    def __init__(self, saml_request=None, **kwargs):  # noqa: E501
         """SamlSingleLogoutRequest - a model defined in Swagger"""  # noqa: E501
         self._saml_request = None
         self.discriminator = None

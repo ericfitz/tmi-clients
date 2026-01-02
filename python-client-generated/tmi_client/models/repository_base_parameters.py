@@ -39,7 +39,7 @@ class RepositoryBaseParameters(object):
         'sub_path': 'subPath'
     }
 
-    def __init__(self, ref_type=None, ref_value=None, sub_path=None):  # noqa: E501
+    def __init__(self, ref_type=None, ref_value=None, sub_path=None, **kwargs):  # noqa: E501
         """RepositoryBaseParameters - a model defined in Swagger"""  # noqa: E501
         self._ref_type = None
         self._ref_value = None

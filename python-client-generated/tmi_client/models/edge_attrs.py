@@ -35,7 +35,7 @@ class EdgeAttrs(object):
         'line': 'line'
     }
 
-    def __init__(self, line=None):  # noqa: E501
+    def __init__(self, line=None, **kwargs):  # noqa: E501
         """EdgeAttrs - a model defined in Swagger"""  # noqa: E501
         self._line = None
         self.discriminator = None

@@ -45,7 +45,7 @@ class CreateAddonRequest(object):
         'threat_model_id': 'threat_model_id'
     }
 
-    def __init__(self, name=None, webhook_id=None, description=None, icon=None, objects=None, threat_model_id=None):  # noqa: E501
+    def __init__(self, name=None, webhook_id=None, description=None, icon=None, objects=None, threat_model_id=None, **kwargs):  # noqa: E501
         """CreateAddonRequest - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._webhook_id = None

@@ -60,7 +60,7 @@ class Node(Cell):
     if hasattr(Cell, "attribute_map"):
         attribute_map.update(Cell.attribute_map)
 
-    def __init__(self, shape=None, position=None, size=None, angle=0, attrs=None, ports=None, parent=None, x=None, y=None, width=None, height=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """Node - a model defined in Swagger"""  # noqa: E501
         self._shape = None
         self._position = None
@@ -74,30 +74,40 @@ class Node(Cell):
         self._width = None
         self._height = None
         self.discriminator = None
+        shape = kwargs.get('shape')
         if shape is not None:
             self.shape = shape
+        position = kwargs.get('position')
         if position is not None:
             self.position = position
+        size = kwargs.get('size')
         if size is not None:
             self.size = size
+        angle = kwargs.get('angle', 0)
         if angle is not None:
             self.angle = angle
+        attrs = kwargs.get('attrs')
         if attrs is not None:
             self.attrs = attrs
+        ports = kwargs.get('ports')
         if ports is not None:
             self.ports = ports
+        parent = kwargs.get('parent')
         if parent is not None:
             self.parent = parent
+        x = kwargs.get('x')
         if x is not None:
             self.x = x
+        y = kwargs.get('y')
         if y is not None:
             self.y = y
+        width = kwargs.get('width')
         if width is not None:
             self.width = width
+        height = kwargs.get('height')
         if height is not None:
             self.height = height
-        kwargs['shape'] = shape  # PATCH: Pass shape to parent to prevent overwrite
-        Cell.__init__(self, *args, **kwargs)
+        Cell.__init__(self, **kwargs)
 
     @property
     def shape(self):

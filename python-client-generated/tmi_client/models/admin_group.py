@@ -55,7 +55,7 @@ class AdminGroup(object):
         'member_count': 'member_count'
     }
 
-    def __init__(self, internal_uuid=None, provider=None, group_name=None, name=None, description=None, first_used=None, last_used=None, usage_count=None, used_in_authorizations=None, used_in_admin_grants=None, member_count=None):  # noqa: E501
+    def __init__(self, internal_uuid=None, provider=None, group_name=None, name=None, description=None, first_used=None, last_used=None, usage_count=None, used_in_authorizations=None, used_in_admin_grants=None, member_count=None, **kwargs):  # noqa: E501
         """AdminGroup - a model defined in Swagger"""  # noqa: E501
         self._internal_uuid = None
         self._provider = None

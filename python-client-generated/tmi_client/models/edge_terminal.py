@@ -37,7 +37,7 @@ class EdgeTerminal(object):
         'port': 'port'
     }
 
-    def __init__(self, cell=None, port=None):  # noqa: E501
+    def __init__(self, cell=None, port=None, **kwargs):  # noqa: E501
         """EdgeTerminal - a model defined in Swagger"""  # noqa: E501
         self._cell = None
         self._port = None

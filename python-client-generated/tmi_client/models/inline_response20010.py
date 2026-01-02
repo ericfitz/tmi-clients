@@ -35,7 +35,7 @@ class InlineResponse20010(object):
         'providers': 'providers'
     }
 
-    def __init__(self, providers=None):  # noqa: E501
+    def __init__(self, providers=None, **kwargs):  # noqa: E501
         """InlineResponse20010 - a model defined in Swagger"""  # noqa: E501
         self._providers = None
         self.discriminator = None

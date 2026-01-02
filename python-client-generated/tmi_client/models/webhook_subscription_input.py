@@ -43,7 +43,7 @@ class WebhookSubscriptionInput(object):
         'secret': 'secret'
     }
 
-    def __init__(self, threat_model_id=None, name=None, url=None, events=None, secret=None):  # noqa: E501
+    def __init__(self, threat_model_id=None, name=None, url=None, events=None, secret=None, **kwargs):  # noqa: E501
         """WebhookSubscriptionInput - a model defined in Swagger"""  # noqa: E501
         self._threat_model_id = None
         self._name = None

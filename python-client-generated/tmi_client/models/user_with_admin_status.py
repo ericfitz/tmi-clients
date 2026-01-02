@@ -40,12 +40,13 @@ class UserWithAdminStatus(User):
     if hasattr(User, "attribute_map"):
         attribute_map.update(User.attribute_map)
 
-    def __init__(self, is_admin=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """UserWithAdminStatus - a model defined in Swagger"""  # noqa: E501
         self._is_admin = None
         self.discriminator = None
+        is_admin = kwargs.get('is_admin')
         self.is_admin = is_admin
-        User.__init__(self, *args, **kwargs)
+        User.__init__(self, **kwargs)
 
     @property
     def is_admin(self):

@@ -47,7 +47,7 @@ class BaseDiagramInput(object):
             'DFD-1.0.0'.lower(): '#/components/schemas/DfdDiagramInput',
     }
 
-    def __init__(self, name=None, type=None, metadata=None, image=None, description=None):  # noqa: E501
+    def __init__(self, name=None, type=None, metadata=None, image=None, description=None, **kwargs):  # noqa: E501
         """BaseDiagramInput - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._type = None

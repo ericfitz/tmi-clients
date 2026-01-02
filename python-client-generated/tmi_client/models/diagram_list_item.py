@@ -39,7 +39,7 @@ class DiagramListItem(object):
         'type': 'type'
     }
 
-    def __init__(self, id=None, name=None, type=None):  # noqa: E501
+    def __init__(self, id=None, name=None, type=None, **kwargs):  # noqa: E501
         """DiagramListItem - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._name = None

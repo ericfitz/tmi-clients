@@ -49,7 +49,7 @@ class Cell(object):
           'Node': 'Node',
 'Edge': 'Edge'    }
 
-    def __init__(self, id=None, shape=None, z_index=1, visible=True, data=None, markup=None):  # noqa: E501
+    def __init__(self, id=None, shape=None, z_index=1, visible=True, data=None, markup=None, **kwargs):  # noqa: E501
         """Cell - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._shape = None

@@ -41,7 +41,7 @@ class AdminUserListResponse(object):
         'offset': 'offset'
     }
 
-    def __init__(self, users=None, total=None, limit=None, offset=None):  # noqa: E501
+    def __init__(self, users=None, total=None, limit=None, offset=None, **kwargs):  # noqa: E501
         """AdminUserListResponse - a model defined in Swagger"""  # noqa: E501
         self._users = None
         self._total = None

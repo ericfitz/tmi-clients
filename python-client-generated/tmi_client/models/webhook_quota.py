@@ -43,7 +43,7 @@ class WebhookQuota(object):
         'max_subscription_requests_per_day': 'max_subscription_requests_per_day'
     }
 
-    def __init__(self, owner_id=None, max_subscriptions=None, max_events_per_minute=None, max_subscription_requests_per_minute=None, max_subscription_requests_per_day=None):  # noqa: E501
+    def __init__(self, owner_id=None, max_subscriptions=None, max_events_per_minute=None, max_subscription_requests_per_minute=None, max_subscription_requests_per_day=None, **kwargs):  # noqa: E501
         """WebhookQuota - a model defined in Swagger"""  # noqa: E501
         self._owner_id = None
         self._max_subscriptions = None

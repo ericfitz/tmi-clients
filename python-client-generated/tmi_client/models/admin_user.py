@@ -57,7 +57,7 @@ class AdminUser(object):
         'active_threat_models': 'active_threat_models'
     }
 
-    def __init__(self, internal_uuid=None, provider=None, provider_user_id=None, email=None, name=None, email_verified=None, created_at=None, modified_at=None, last_login=None, is_admin=None, groups=None, active_threat_models=None):  # noqa: E501
+    def __init__(self, internal_uuid=None, provider=None, provider_user_id=None, email=None, name=None, email_verified=None, created_at=None, modified_at=None, last_login=None, is_admin=None, groups=None, active_threat_models=None, **kwargs):  # noqa: E501
         """AdminUser - a model defined in Swagger"""  # noqa: E501
         self._internal_uuid = None
         self._provider = None

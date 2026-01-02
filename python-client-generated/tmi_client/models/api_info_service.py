@@ -37,7 +37,7 @@ class ApiInfoService(object):
         'build': 'build'
     }
 
-    def __init__(self, name=None, build=None):  # noqa: E501
+    def __init__(self, name=None, build=None, **kwargs):  # noqa: E501
         """ApiInfoService - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._build = None

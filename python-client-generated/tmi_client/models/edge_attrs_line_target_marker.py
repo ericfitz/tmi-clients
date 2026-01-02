@@ -37,7 +37,7 @@ class EdgeAttrsLineTargetMarker(object):
         'size': 'size'
     }
 
-    def __init__(self, name=None, size=None):  # noqa: E501
+    def __init__(self, name=None, size=None, **kwargs):  # noqa: E501
         """EdgeAttrsLineTargetMarker - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._size = None

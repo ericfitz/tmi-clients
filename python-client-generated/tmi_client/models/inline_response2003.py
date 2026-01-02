@@ -49,7 +49,7 @@ class InlineResponse2003(object):
         'iss': 'iss'
     }
 
-    def __init__(self, active=None, sub=None, email=None, email_verified=None, name=None, exp=None, iat=None, iss=None):  # noqa: E501
+    def __init__(self, active=None, sub=None, email=None, email_verified=None, name=None, exp=None, iat=None, iss=None, **kwargs):  # noqa: E501
         """InlineResponse2003 - a model defined in Swagger"""  # noqa: E501
         self._active = None
         self._sub = None

@@ -39,7 +39,7 @@ class WebhookTestResponse(object):
         'message': 'message'
     }
 
-    def __init__(self, delivery_id=None, status=None, message=None):  # noqa: E501
+    def __init__(self, delivery_id=None, status=None, message=None, **kwargs):  # noqa: E501
         """WebhookTestResponse - a model defined in Swagger"""  # noqa: E501
         self._delivery_id = None
         self._status = None

@@ -55,7 +55,7 @@ class BaseDiagram(object):
             'DFD-1.0.0'.lower(): '#/components/schemas/DfdDiagram',
     }
 
-    def __init__(self, id=None, name=None, type=None, created_at=None, modified_at=None, metadata=None, update_vector=None, image=None, description=None):  # noqa: E501
+    def __init__(self, id=None, name=None, type=None, created_at=None, modified_at=None, metadata=None, update_vector=None, image=None, description=None, **kwargs):  # noqa: E501
         """BaseDiagram - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._name = None

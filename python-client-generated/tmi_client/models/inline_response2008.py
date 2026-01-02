@@ -37,7 +37,7 @@ class InlineResponse2008(object):
         'deleted_ids': 'deleted_ids'
     }
 
-    def __init__(self, deleted_count=None, deleted_ids=None):  # noqa: E501
+    def __init__(self, deleted_count=None, deleted_ids=None, **kwargs):  # noqa: E501
         """InlineResponse2008 - a model defined in Swagger"""  # noqa: E501
         self._deleted_count = None
         self._deleted_ids = None

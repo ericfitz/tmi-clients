@@ -39,7 +39,7 @@ class JsonPatchDocumentInner(object):
         'value': 'value'
     }
 
-    def __init__(self, op=None, path=None, value=None):  # noqa: E501
+    def __init__(self, op=None, path=None, value=None, **kwargs):  # noqa: E501
         """JsonPatchDocumentInner - a model defined in Swagger"""  # noqa: E501
         self._op = None
         self._path = None

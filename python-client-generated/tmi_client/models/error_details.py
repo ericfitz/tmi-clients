@@ -39,7 +39,7 @@ class ErrorDetails(object):
         'suggestion': 'suggestion'
     }
 
-    def __init__(self, code=None, context=None, suggestion=None):  # noqa: E501
+    def __init__(self, code=None, context=None, suggestion=None, **kwargs):  # noqa: E501
         """ErrorDetails - a model defined in Swagger"""  # noqa: E501
         self._code = None
         self._context = None

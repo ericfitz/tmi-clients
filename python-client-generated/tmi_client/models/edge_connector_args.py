@@ -41,7 +41,7 @@ class EdgeConnectorArgs(object):
         'jump': 'jump'
     }
 
-    def __init__(self, radius=None, precision=None, size=None, jump=None):  # noqa: E501
+    def __init__(self, radius=None, precision=None, size=None, jump=None, **kwargs):  # noqa: E501
         """EdgeConnectorArgs - a model defined in Swagger"""  # noqa: E501
         self._radius = None
         self._precision = None

@@ -67,7 +67,7 @@ class TMListItem(object):
         'status_updated': 'status_updated'
     }
 
-    def __init__(self, id=None, name=None, description=None, created_at=None, modified_at=None, owner=None, created_by=None, threat_model_framework=None, document_count=None, repo_count=None, diagram_count=None, threat_count=None, issue_uri=None, asset_count=None, note_count=None, status=None, status_updated=None):  # noqa: E501
+    def __init__(self, id=None, name=None, description=None, created_at=None, modified_at=None, owner=None, created_by=None, threat_model_framework=None, document_count=None, repo_count=None, diagram_count=None, threat_count=None, issue_uri=None, asset_count=None, note_count=None, status=None, status_updated=None, **kwargs):  # noqa: E501
         """TMListItem - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._name = None

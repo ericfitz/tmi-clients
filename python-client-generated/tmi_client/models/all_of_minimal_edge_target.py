@@ -38,10 +38,10 @@ class AllOfMinimalEdgeTarget(EdgeTerminal):
     if hasattr(EdgeTerminal, "attribute_map"):
         attribute_map.update(EdgeTerminal.attribute_map)
 
-    def __init__(self, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """AllOfMinimalEdgeTarget - a model defined in Swagger"""  # noqa: E501
         self.discriminator = None
-        EdgeTerminal.__init__(self, *args, **kwargs)
+        EdgeTerminal.__init__(self, **kwargs)
 
     def to_dict(self):
         """Returns the model properties as a dict"""

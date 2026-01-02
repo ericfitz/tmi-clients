@@ -41,7 +41,7 @@ class Error(object):
         'details': 'details'
     }
 
-    def __init__(self, error=None, error_description=None, error_uri=None, details=None):  # noqa: E501
+    def __init__(self, error=None, error_description=None, error_uri=None, details=None, **kwargs):  # noqa: E501
         """Error - a model defined in Swagger"""  # noqa: E501
         self._error = None
         self._error_description = None

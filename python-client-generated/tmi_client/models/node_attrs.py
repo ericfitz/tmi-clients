@@ -37,7 +37,7 @@ class NodeAttrs(object):
         'text': 'text'
     }
 
-    def __init__(self, body=None, text=None):  # noqa: E501
+    def __init__(self, body=None, text=None, **kwargs):  # noqa: E501
         """NodeAttrs - a model defined in Swagger"""  # noqa: E501
         self._body = None
         self._text = None

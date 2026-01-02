@@ -39,7 +39,7 @@ class UpdateInvocationStatusRequest(object):
         'status_message': 'status_message'
     }
 
-    def __init__(self, status=None, status_percent=None, status_message=None):  # noqa: E501
+    def __init__(self, status=None, status_percent=None, status_message=None, **kwargs):  # noqa: E501
         """UpdateInvocationStatusRequest - a model defined in Swagger"""  # noqa: E501
         self._status = None
         self._status_percent = None

@@ -39,7 +39,7 @@ class InvokeAddonResponse(object):
         'created_at': 'created_at'
     }
 
-    def __init__(self, invocation_id=None, status=None, created_at=None):  # noqa: E501
+    def __init__(self, invocation_id=None, status=None, created_at=None, **kwargs):  # noqa: E501
         """InvokeAddonResponse - a model defined in Swagger"""  # noqa: E501
         self._invocation_id = None
         self._status = None

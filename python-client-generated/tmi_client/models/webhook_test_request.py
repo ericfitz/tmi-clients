@@ -35,7 +35,7 @@ class WebhookTestRequest(object):
         'event_type': 'event_type'
     }
 
-    def __init__(self, event_type=None):  # noqa: E501
+    def __init__(self, event_type=None, **kwargs):  # noqa: E501
         """WebhookTestRequest - a model defined in Swagger"""  # noqa: E501
         self._event_type = None
         self.discriminator = None

@@ -41,7 +41,7 @@ class GroupMemberListResponse(object):
         'offset': 'offset'
     }
 
-    def __init__(self, members=None, total=None, limit=None, offset=None):  # noqa: E501
+    def __init__(self, members=None, total=None, limit=None, offset=None, **kwargs):  # noqa: E501
         """GroupMemberListResponse - a model defined in Swagger"""  # noqa: E501
         self._members = None
         self._total = None

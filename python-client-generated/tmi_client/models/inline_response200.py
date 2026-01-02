@@ -55,7 +55,7 @@ class InlineResponse200(object):
         'introspection_endpoint': 'introspection_endpoint'
     }
 
-    def __init__(self, issuer=None, authorization_endpoint=None, token_endpoint=None, userinfo_endpoint=None, jwks_uri=None, response_types_supported=None, subject_types_supported=None, id_token_signing_alg_values_supported=None, scopes_supported=None, claims_supported=None, introspection_endpoint=None):  # noqa: E501
+    def __init__(self, issuer=None, authorization_endpoint=None, token_endpoint=None, userinfo_endpoint=None, jwks_uri=None, response_types_supported=None, subject_types_supported=None, id_token_signing_alg_values_supported=None, scopes_supported=None, claims_supported=None, introspection_endpoint=None, **kwargs):  # noqa: E501
         """InlineResponse200 - a model defined in Swagger"""  # noqa: E501
         self._issuer = None
         self._authorization_endpoint = None

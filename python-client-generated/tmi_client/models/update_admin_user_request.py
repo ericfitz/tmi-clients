@@ -39,7 +39,7 @@ class UpdateAdminUserRequest(object):
         'email_verified': 'email_verified'
     }
 
-    def __init__(self, email=None, name=None, email_verified=None):  # noqa: E501
+    def __init__(self, email=None, name=None, email_verified=None, **kwargs):  # noqa: E501
         """UpdateAdminUserRequest - a model defined in Swagger"""  # noqa: E501
         self._email = None
         self._name = None

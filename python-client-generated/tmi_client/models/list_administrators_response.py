@@ -37,7 +37,7 @@ class ListAdministratorsResponse(object):
         'total': 'total'
     }
 
-    def __init__(self, administrators=None, total=None):  # noqa: E501
+    def __init__(self, administrators=None, total=None, **kwargs):  # noqa: E501
         """ListAdministratorsResponse - a model defined in Swagger"""  # noqa: E501
         self._administrators = None
         self._total = None

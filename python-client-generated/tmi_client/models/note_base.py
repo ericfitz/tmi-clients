@@ -39,7 +39,7 @@ class NoteBase(object):
         'description': 'description'
     }
 
-    def __init__(self, name=None, content=None, description=None):  # noqa: E501
+    def __init__(self, name=None, content=None, description=None, **kwargs):  # noqa: E501
         """NoteBase - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._content = None

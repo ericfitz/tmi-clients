@@ -45,7 +45,7 @@ class AssetBase(object):
         'sensitivity': 'sensitivity'
     }
 
-    def __init__(self, name=None, description=None, type=None, criticality=None, classification=None, sensitivity=None):  # noqa: E501
+    def __init__(self, name=None, description=None, type=None, criticality=None, classification=None, sensitivity=None, **kwargs):  # noqa: E501
         """AssetBase - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._description = None

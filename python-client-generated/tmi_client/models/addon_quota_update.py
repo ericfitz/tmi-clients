@@ -37,7 +37,7 @@ class AddonQuotaUpdate(object):
         'max_invocations_per_hour': 'max_invocations_per_hour'
     }
 
-    def __init__(self, max_active_invocations=None, max_invocations_per_hour=None):  # noqa: E501
+    def __init__(self, max_active_invocations=None, max_invocations_per_hour=None, **kwargs):  # noqa: E501
         """AddonQuotaUpdate - a model defined in Swagger"""  # noqa: E501
         self._max_active_invocations = None
         self._max_invocations_per_hour = None

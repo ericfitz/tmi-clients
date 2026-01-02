@@ -37,7 +37,7 @@ class UserQuotaUpdate(object):
         'max_requests_per_hour': 'max_requests_per_hour'
     }
 
-    def __init__(self, max_requests_per_minute=None, max_requests_per_hour=None):  # noqa: E501
+    def __init__(self, max_requests_per_minute=None, max_requests_per_hour=None, **kwargs):  # noqa: E501
         """UserQuotaUpdate - a model defined in Swagger"""  # noqa: E501
         self._max_requests_per_minute = None
         self._max_requests_per_hour = None

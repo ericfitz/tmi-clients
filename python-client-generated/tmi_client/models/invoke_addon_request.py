@@ -41,7 +41,7 @@ class InvokeAddonRequest(object):
         'payload': 'payload'
     }
 
-    def __init__(self, threat_model_id=None, object_type=None, object_id=None, payload=None):  # noqa: E501
+    def __init__(self, threat_model_id=None, object_type=None, object_id=None, payload=None, **kwargs):  # noqa: E501
         """InvokeAddonRequest - a model defined in Swagger"""  # noqa: E501
         self._threat_model_id = None
         self._object_type = None

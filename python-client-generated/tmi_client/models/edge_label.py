@@ -37,7 +37,7 @@ class EdgeLabel(object):
         'position': 'position'
     }
 
-    def __init__(self, attrs=None, position=None):  # noqa: E501
+    def __init__(self, attrs=None, position=None, **kwargs):  # noqa: E501
         """EdgeLabel - a model defined in Swagger"""  # noqa: E501
         self._attrs = None
         self._position = None

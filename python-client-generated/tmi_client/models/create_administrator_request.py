@@ -41,7 +41,7 @@ class CreateAdministratorRequest(object):
         'provider': 'provider'
     }
 
-    def __init__(self, email=None, provider_user_id=None, group_name=None, provider=None):  # noqa: E501
+    def __init__(self, email=None, provider_user_id=None, group_name=None, provider=None, **kwargs):  # noqa: E501
         """CreateAdministratorRequest - a model defined in Swagger"""  # noqa: E501
         self._email = None
         self._provider_user_id = None

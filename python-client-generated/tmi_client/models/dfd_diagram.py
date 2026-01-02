@@ -42,16 +42,17 @@ class DfdDiagram(BaseDiagram):
     if hasattr(BaseDiagram, "attribute_map"):
         attribute_map.update(BaseDiagram.attribute_map)
 
-    def __init__(self, type=None, cells=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """DfdDiagram - a model defined in Swagger"""  # noqa: E501
         self._type = None
         self._cells = None
         self.discriminator = None
+        type = kwargs.get('type')
         if type is not None:
             self.type = type
+        cells = kwargs.get('cells')
         self.cells = cells
-        kwargs['type'] = type  # PATCH: Pass type to parent to prevent overwrite
-        BaseDiagram.__init__(self, *args, **kwargs)
+        BaseDiagram.__init__(self, **kwargs)
 
     @property
     def type(self):

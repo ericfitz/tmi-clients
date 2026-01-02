@@ -49,7 +49,7 @@ class ThreatModelBase(object):
         'status': 'status'
     }
 
-    def __init__(self, name=None, description=None, owner=None, threat_model_framework=None, authorization=None, metadata=None, issue_uri=None, status=None):  # noqa: E501
+    def __init__(self, name=None, description=None, owner=None, threat_model_framework=None, authorization=None, metadata=None, issue_uri=None, status=None, **kwargs):  # noqa: E501
         """ThreatModelBase - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._description = None

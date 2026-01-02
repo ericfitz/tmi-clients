@@ -44,16 +44,19 @@ class ExtendedAsset(Asset):
     if hasattr(Asset, "attribute_map"):
         attribute_map.update(Asset.attribute_map)
 
-    def __init__(self, threat_model_id=None, created_at=None, modified_at=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """ExtendedAsset - a model defined in Swagger"""  # noqa: E501
         self._threat_model_id = None
         self._created_at = None
         self._modified_at = None
         self.discriminator = None
+        threat_model_id = kwargs.get('threat_model_id')
         self.threat_model_id = threat_model_id
+        created_at = kwargs.get('created_at')
         self.created_at = created_at
+        modified_at = kwargs.get('modified_at')
         self.modified_at = modified_at
-        Asset.__init__(self, *args, **kwargs)
+        Asset.__init__(self, **kwargs)
 
     @property
     def threat_model_id(self):

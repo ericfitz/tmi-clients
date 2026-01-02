@@ -41,7 +41,7 @@ class MarkupElement(object):
         'children': 'children'
     }
 
-    def __init__(self, tag_name=None, selector=None, attrs=None, children=None):  # noqa: E501
+    def __init__(self, tag_name=None, selector=None, attrs=None, children=None, **kwargs):  # noqa: E501
         """MarkupElement - a model defined in Swagger"""  # noqa: E501
         self._tag_name = None
         self._selector = None

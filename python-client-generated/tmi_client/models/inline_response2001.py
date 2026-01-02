@@ -47,7 +47,7 @@ class InlineResponse2001(object):
         'token_endpoint_auth_methods_supported': 'token_endpoint_auth_methods_supported'
     }
 
-    def __init__(self, issuer=None, authorization_endpoint=None, token_endpoint=None, introspection_endpoint=None, response_types_supported=None, grant_types_supported=None, token_endpoint_auth_methods_supported=None):  # noqa: E501
+    def __init__(self, issuer=None, authorization_endpoint=None, token_endpoint=None, introspection_endpoint=None, response_types_supported=None, grant_types_supported=None, token_endpoint_auth_methods_supported=None, **kwargs):  # noqa: E501
         """InlineResponse2001 - a model defined in Swagger"""  # noqa: E501
         self._issuer = None
         self._authorization_endpoint = None

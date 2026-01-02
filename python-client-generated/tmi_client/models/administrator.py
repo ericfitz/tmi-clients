@@ -49,7 +49,7 @@ class Administrator(object):
         'user_name': 'user_name'
     }
 
-    def __init__(self, id=None, user_id=None, user_email=None, group_id=None, group_name=None, provider=None, created_at=None, user_name=None):  # noqa: E501
+    def __init__(self, id=None, user_id=None, user_email=None, group_id=None, group_name=None, provider=None, created_at=None, user_name=None, **kwargs):  # noqa: E501
         """Administrator - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._user_id = None

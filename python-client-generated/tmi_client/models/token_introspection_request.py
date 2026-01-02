@@ -37,7 +37,7 @@ class TokenIntrospectionRequest(object):
         'token_type_hint': 'token_type_hint'
     }
 
-    def __init__(self, token=None, token_type_hint=None):  # noqa: E501
+    def __init__(self, token=None, token_type_hint=None, **kwargs):  # noqa: E501
         """TokenIntrospectionRequest - a model defined in Swagger"""  # noqa: E501
         self._token = None
         self._token_type_hint = None

@@ -37,7 +37,7 @@ class DeletionChallenge(object):
         'expires_at': 'expires_at'
     }
 
-    def __init__(self, challenge_text=None, expires_at=None):  # noqa: E501
+    def __init__(self, challenge_text=None, expires_at=None, **kwargs):  # noqa: E501
         """DeletionChallenge - a model defined in Swagger"""  # noqa: E501
         self._challenge_text = None
         self._expires_at = None

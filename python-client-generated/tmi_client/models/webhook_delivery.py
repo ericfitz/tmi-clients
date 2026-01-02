@@ -53,7 +53,7 @@ class WebhookDelivery(object):
         'delivered_at': 'delivered_at'
     }
 
-    def __init__(self, id=None, subscription_id=None, event_type=None, payload=None, status=None, attempts=None, next_retry_at=None, last_error=None, created_at=None, delivered_at=None):  # noqa: E501
+    def __init__(self, id=None, subscription_id=None, event_type=None, payload=None, status=None, attempts=None, next_retry_at=None, last_error=None, created_at=None, delivered_at=None, **kwargs):  # noqa: E501
         """WebhookDelivery - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._subscription_id = None

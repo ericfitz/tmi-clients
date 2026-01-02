@@ -57,7 +57,7 @@ class InvocationResponse(object):
         'status_updated_at': 'status_updated_at'
     }
 
-    def __init__(self, id=None, addon_id=None, threat_model_id=None, object_type=None, object_id=None, invoked_by=None, payload=None, status=None, status_percent=None, status_message=None, created_at=None, status_updated_at=None):  # noqa: E501
+    def __init__(self, id=None, addon_id=None, threat_model_id=None, object_type=None, object_id=None, invoked_by=None, payload=None, status=None, status_percent=None, status_message=None, created_at=None, status_updated_at=None, **kwargs):  # noqa: E501
         """InvocationResponse - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._addon_id = None

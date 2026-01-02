@@ -37,7 +37,7 @@ class SamlAssertionConsumerRequest(object):
         'relay_state': 'RelayState'
     }
 
-    def __init__(self, saml_response=None, relay_state=None):  # noqa: E501
+    def __init__(self, saml_response=None, relay_state=None, **kwargs):  # noqa: E501
         """SamlAssertionConsumerRequest - a model defined in Swagger"""  # noqa: E501
         self._saml_response = None
         self._relay_state = None

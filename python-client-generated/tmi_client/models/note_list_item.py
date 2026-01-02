@@ -45,7 +45,7 @@ class NoteListItem(object):
         'modified_at': 'modified_at'
     }
 
-    def __init__(self, name=None, description=None, metadata=None, id=None, created_at=None, modified_at=None):  # noqa: E501
+    def __init__(self, name=None, description=None, metadata=None, id=None, created_at=None, modified_at=None, **kwargs):  # noqa: E501
         """NoteListItem - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._description = None

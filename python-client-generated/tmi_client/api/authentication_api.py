@@ -45,10 +45,10 @@ class AuthenticationApi(object):
         :param str scope: OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values. (required)
         :param str code_challenge: PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. (required)
         :param str code_challenge_method: PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported. (required)
-        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+        :param str idp: OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.
         :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
         :param str state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
-        :param str login_hint: User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
+        :param str login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -73,10 +73,10 @@ class AuthenticationApi(object):
         :param str scope: OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values. (required)
         :param str code_challenge: PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. (required)
         :param str code_challenge_method: PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported. (required)
-        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+        :param str idp: OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.
         :param str client_callback: Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
         :param str state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
-        :param str login_hint: User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
+        :param str login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -364,7 +364,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param Oauth2TokenBody body: (required)
-        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+        :param str idp: OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.
         :return: AuthTokenResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -387,7 +387,7 @@ class AuthenticationApi(object):
 
         :param async_req bool
         :param Oauth2TokenBody body: (required)
-        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+        :param str idp: OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.
         :return: AuthTokenResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -412,167 +412,6 @@ class AuthenticationApi(object):
         if ('body' not in params or
                 params['body'] is None):
             raise ValueError("Missing the required parameter `body` when calling `exchange_o_auth_code`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-        if 'idp' in params:
-            query_params.append(('idp', params['idp']))  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-        if 'grant_type' in params:
-            form_params.append(('grant_type', params['grant_type']))  # noqa: E501
-        if 'code' in params:
-            form_params.append(('code', params['code']))  # noqa: E501
-        if 'client_id' in params:
-            form_params.append(('client_id', params['client_id']))  # noqa: E501
-        if 'client_secret' in params:
-            form_params.append(('client_secret', params['client_secret']))  # noqa: E501
-        if 'refresh_token' in params:
-            form_params.append(('refresh_token', params['refresh_token']))  # noqa: E501
-        if 'redirect_uri' in params:
-            form_params.append(('redirect_uri', params['redirect_uri']))  # noqa: E501
-        if 'code_verifier' in params:
-            form_params.append(('code_verifier', params['code_verifier']))  # noqa: E501
-        if 'state' in params:
-            form_params.append(('state', params['state']))  # noqa: E501
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json', 'application/x-www-form-urlencoded'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = []  # noqa: E501
-
-        return self.api_client.call_api(
-            '/oauth2/token', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='AuthTokenResponse',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def exchange_o_auth_code(self, grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs):  # noqa: E501
-        """Exchange OAuth credentials for JWT tokens  # noqa: E501
-
-        Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.exchange_o_auth_code(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str grant_type: (required)
-        :param str code: (required)
-        :param str client_id: (required)
-        :param str client_secret: (required)
-        :param str refresh_token: (required)
-        :param str redirect_uri: (required)
-        :param str code_verifier: (required)
-        :param str state: (required)
-        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
-        :return: AuthTokenResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.exchange_o_auth_code_with_http_info(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs)  # noqa: E501
-        else:
-            (data) = self.exchange_o_auth_code_with_http_info(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs)  # noqa: E501
-            return data
-
-    def exchange_o_auth_code_with_http_info(self, grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, **kwargs):  # noqa: E501
-        """Exchange OAuth credentials for JWT tokens  # noqa: E501
-
-        Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.exchange_o_auth_code_with_http_info(grant_type, code, client_id, client_secret, refresh_token, redirect_uri, code_verifier, state, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str grant_type: (required)
-        :param str code: (required)
-        :param str client_id: (required)
-        :param str client_secret: (required)
-        :param str refresh_token: (required)
-        :param str redirect_uri: (required)
-        :param str code_verifier: (required)
-        :param str state: (required)
-        :param str idp: OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
-        :return: AuthTokenResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['grant_type', 'code', 'client_id', 'client_secret', 'refresh_token', 'redirect_uri', 'code_verifier', 'state', 'idp']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method exchange_o_auth_code" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'grant_type' is set
-        if ('grant_type' not in params or
-                params['grant_type'] is None):
-            raise ValueError("Missing the required parameter `grant_type` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'code' is set
-        if ('code' not in params or
-                params['code'] is None):
-            raise ValueError("Missing the required parameter `code` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'client_id' is set
-        if ('client_id' not in params or
-                params['client_id'] is None):
-            raise ValueError("Missing the required parameter `client_id` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'client_secret' is set
-        if ('client_secret' not in params or
-                params['client_secret'] is None):
-            raise ValueError("Missing the required parameter `client_secret` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'refresh_token' is set
-        if ('refresh_token' not in params or
-                params['refresh_token'] is None):
-            raise ValueError("Missing the required parameter `refresh_token` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'redirect_uri' is set
-        if ('redirect_uri' not in params or
-                params['redirect_uri'] is None):
-            raise ValueError("Missing the required parameter `redirect_uri` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'code_verifier' is set
-        if ('code_verifier' not in params or
-                params['code_verifier'] is None):
-            raise ValueError("Missing the required parameter `code_verifier` when calling `exchange_o_auth_code`")  # noqa: E501
-        # verify the required parameter 'state' is set
-        if ('state' not in params or
-                params['state'] is None):
-            raise ValueError("Missing the required parameter `state` when calling `exchange_o_auth_code`")  # noqa: E501
 
         collection_formats = {}
 

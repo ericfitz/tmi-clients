@@ -41,7 +41,7 @@ class InlineResponse2002Keys(object):
         'kid': 'kid'
     }
 
-    def __init__(self, kty=None, use=None, alg=None, kid=None):  # noqa: E501
+    def __init__(self, kty=None, use=None, alg=None, kid=None, **kwargs):  # noqa: E501
         """InlineResponse2002Keys - a model defined in Swagger"""  # noqa: E501
         self._kty = None
         self._use = None

@@ -35,7 +35,7 @@ class TokenRefreshRequest(object):
         'refresh_token': 'refresh_token'
     }
 
-    def __init__(self, refresh_token=None):  # noqa: E501
+    def __init__(self, refresh_token=None, **kwargs):  # noqa: E501
         """TokenRefreshRequest - a model defined in Swagger"""  # noqa: E501
         self._refresh_token = None
         self.discriminator = None

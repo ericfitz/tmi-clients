@@ -37,7 +37,7 @@ class NodePosition(object):
         'y': 'y'
     }
 
-    def __init__(self, x=None, y=None):  # noqa: E501
+    def __init__(self, x=None, y=None, **kwargs):  # noqa: E501
         """NodePosition - a model defined in Swagger"""  # noqa: E501
         self._x = None
         self._y = None

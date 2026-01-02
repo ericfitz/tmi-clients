@@ -49,7 +49,7 @@ class Oauth2TokenBody(object):
         'refresh_token': 'refresh_token'
     }
 
-    def __init__(self, grant_type=None, code=None, state=None, redirect_uri=None, code_verifier=None, client_id=None, client_secret=None, refresh_token=None):  # noqa: E501
+    def __init__(self, grant_type=None, code=None, state=None, redirect_uri=None, code_verifier=None, client_id=None, client_secret=None, refresh_token=None, **kwargs):  # noqa: E501
         """Oauth2TokenBody - a model defined in Swagger"""  # noqa: E501
         self._grant_type = None
         self._code = None

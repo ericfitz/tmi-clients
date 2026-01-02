@@ -40,12 +40,13 @@ class Authorization(Principal):
     if hasattr(Principal, "attribute_map"):
         attribute_map.update(Principal.attribute_map)
 
-    def __init__(self, role=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """Authorization - a model defined in Swagger"""  # noqa: E501
         self._role = None
         self.discriminator = None
+        role = kwargs.get('role')
         self.role = role
-        Principal.__init__(self, *args, **kwargs)
+        Principal.__init__(self, **kwargs)
 
     @property
     def role(self):

@@ -43,7 +43,7 @@ class AddonInvocationQuota(object):
         'modified_at': 'modified_at'
     }
 
-    def __init__(self, owner_id=None, max_active_invocations=None, max_invocations_per_hour=None, created_at=None, modified_at=None):  # noqa: E501
+    def __init__(self, owner_id=None, max_active_invocations=None, max_invocations_per_hour=None, created_at=None, modified_at=None, **kwargs):  # noqa: E501
         """AddonInvocationQuota - a model defined in Swagger"""  # noqa: E501
         self._owner_id = None
         self._max_active_invocations = None

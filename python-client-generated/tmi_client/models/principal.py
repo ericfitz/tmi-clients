@@ -43,7 +43,7 @@ class Principal(object):
         'email': 'email'
     }
 
-    def __init__(self, principal_type=None, provider=None, provider_id=None, display_name=None, email=None):  # noqa: E501
+    def __init__(self, principal_type=None, provider=None, provider_id=None, display_name=None, email=None, **kwargs):  # noqa: E501
         """Principal - a model defined in Swagger"""  # noqa: E501
         self._principal_type = None
         self._provider = None
@@ -94,7 +94,7 @@ class Principal(object):
     def provider(self):
         """Gets the provider of this Principal.  # noqa: E501
 
-        Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"test\"). Use \"*\" for provider-independent groups.  # noqa: E501
+        Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.  # noqa: E501
 
         :return: The provider of this Principal.  # noqa: E501
         :rtype: str
@@ -105,7 +105,7 @@ class Principal(object):
     def provider(self, provider):
         """Sets the provider of this Principal.
 
-        Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"test\"). Use \"*\" for provider-independent groups.  # noqa: E501
+        Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.  # noqa: E501
 
         :param provider: The provider of this Principal.  # noqa: E501
         :type: str

@@ -55,7 +55,7 @@ class GroupMember(object):
         'notes': 'notes'
     }
 
-    def __init__(self, id=None, group_internal_uuid=None, user_internal_uuid=None, user_email=None, user_name=None, user_provider=None, user_provider_user_id=None, added_by_internal_uuid=None, added_by_email=None, added_at=None, notes=None):  # noqa: E501
+    def __init__(self, id=None, group_internal_uuid=None, user_internal_uuid=None, user_email=None, user_name=None, user_provider=None, user_provider_user_id=None, added_by_internal_uuid=None, added_by_email=None, added_at=None, notes=None, **kwargs):  # noqa: E501
         """GroupMember - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._group_internal_uuid = None

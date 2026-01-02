@@ -37,7 +37,7 @@ class ApiInfoStatus(object):
         'time': 'time'
     }
 
-    def __init__(self, code=None, time=None):  # noqa: E501
+    def __init__(self, code=None, time=None, **kwargs):  # noqa: E501
         """ApiInfoStatus - a model defined in Swagger"""  # noqa: E501
         self._code = None
         self._time = None

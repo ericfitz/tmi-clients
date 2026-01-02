@@ -37,7 +37,7 @@ class InlineResponse500(object):
         'request_id': 'request_id'
     }
 
-    def __init__(self, error=None, request_id=None):  # noqa: E501
+    def __init__(self, error=None, request_id=None, **kwargs):  # noqa: E501
         """InlineResponse500 - a model defined in Swagger"""  # noqa: E501
         self._error = None
         self._request_id = None

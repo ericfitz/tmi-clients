@@ -37,7 +37,7 @@ class ApiInfoApi(object):
         'specification': 'specification'
     }
 
-    def __init__(self, version=None, specification=None):  # noqa: E501
+    def __init__(self, version=None, specification=None, **kwargs):  # noqa: E501
         """ApiInfoApi - a model defined in Swagger"""  # noqa: E501
         self._version = None
         self._specification = None

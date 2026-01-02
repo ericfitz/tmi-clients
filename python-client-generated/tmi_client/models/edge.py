@@ -56,7 +56,7 @@ class Edge(Cell):
     if hasattr(Cell, "attribute_map"):
         attribute_map.update(Cell.attribute_map)
 
-    def __init__(self, shape=None, source=None, target=None, attrs=None, labels=None, vertices=None, router=None, connector=None, default_label=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """Edge - a model defined in Swagger"""  # noqa: E501
         self._shape = None
         self._source = None
@@ -68,24 +68,32 @@ class Edge(Cell):
         self._connector = None
         self._default_label = None
         self.discriminator = None
+        shape = kwargs.get('shape')
         if shape is not None:
             self.shape = shape
+        source = kwargs.get('source')
         self.source = source
+        target = kwargs.get('target')
         self.target = target
+        attrs = kwargs.get('attrs')
         if attrs is not None:
             self.attrs = attrs
+        labels = kwargs.get('labels')
         if labels is not None:
             self.labels = labels
+        vertices = kwargs.get('vertices')
         if vertices is not None:
             self.vertices = vertices
+        router = kwargs.get('router')
         if router is not None:
             self.router = router
+        connector = kwargs.get('connector')
         if connector is not None:
             self.connector = connector
+        default_label = kwargs.get('default_label')
         if default_label is not None:
             self.default_label = default_label
-        kwargs['shape'] = shape  # PATCH: Pass shape to parent to prevent overwrite
-        Cell.__init__(self, *args, **kwargs)
+        Cell.__init__(self, **kwargs)
 
     @property
     def shape(self):

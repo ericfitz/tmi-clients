@@ -60,7 +60,7 @@ class ThreatModel(ThreatModelBase):
     if hasattr(ThreatModelBase, "attribute_map"):
         attribute_map.update(ThreatModelBase.attribute_map)
 
-    def __init__(self, id=None, created_at=None, modified_at=None, created_by=None, documents=None, repositories=None, diagrams=None, threats=None, notes=None, assets=None, status_updated=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """ThreatModel - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._created_at = None
@@ -74,29 +74,40 @@ class ThreatModel(ThreatModelBase):
         self._assets = None
         self._status_updated = None
         self.discriminator = None
+        id = kwargs.get('id')
         if id is not None:
             self.id = id
+        created_at = kwargs.get('created_at')
         if created_at is not None:
             self.created_at = created_at
+        modified_at = kwargs.get('modified_at')
         if modified_at is not None:
             self.modified_at = modified_at
+        created_by = kwargs.get('created_by')
         if created_by is not None:
             self.created_by = created_by
+        documents = kwargs.get('documents')
         if documents is not None:
             self.documents = documents
+        repositories = kwargs.get('repositories')
         if repositories is not None:
             self.repositories = repositories
+        diagrams = kwargs.get('diagrams')
         if diagrams is not None:
             self.diagrams = diagrams
+        threats = kwargs.get('threats')
         if threats is not None:
             self.threats = threats
+        notes = kwargs.get('notes')
         if notes is not None:
             self.notes = notes
+        assets = kwargs.get('assets')
         if assets is not None:
             self.assets = assets
+        status_updated = kwargs.get('status_updated')
         if status_updated is not None:
             self.status_updated = status_updated
-        ThreatModelBase.__init__(self, *args, **kwargs)
+        ThreatModelBase.__init__(self, **kwargs)
 
     @property
     def id(self):

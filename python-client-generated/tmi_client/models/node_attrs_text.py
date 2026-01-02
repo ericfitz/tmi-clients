@@ -41,7 +41,7 @@ class NodeAttrsText(object):
         'font_family': 'fontFamily'
     }
 
-    def __init__(self, text=None, font_size=None, fill=None, font_family=None):  # noqa: E501
+    def __init__(self, text=None, font_size=None, fill=None, font_family=None, **kwargs):  # noqa: E501
         """NodeAttrsText - a model defined in Swagger"""  # noqa: E501
         self._text = None
         self._font_size = None

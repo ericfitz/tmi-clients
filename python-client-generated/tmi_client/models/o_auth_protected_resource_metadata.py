@@ -49,7 +49,7 @@ class OAuthProtectedResourceMetadata(object):
         'tls_client_certificate_bound_access_tokens': 'tls_client_certificate_bound_access_tokens'
     }
 
-    def __init__(self, resource=None, scopes_supported=None, authorization_servers=None, jwks_url=None, bearer_methods_supported=None, resource_name=None, resource_documentation=None, tls_client_certificate_bound_access_tokens=None):  # noqa: E501
+    def __init__(self, resource=None, scopes_supported=None, authorization_servers=None, jwks_url=None, bearer_methods_supported=None, resource_name=None, resource_documentation=None, tls_client_certificate_bound_access_tokens=None, **kwargs):  # noqa: E501
         """OAuthProtectedResourceMetadata - a model defined in Swagger"""  # noqa: E501
         self._resource = None
         self._scopes_supported = None

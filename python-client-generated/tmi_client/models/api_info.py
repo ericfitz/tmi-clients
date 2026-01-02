@@ -41,7 +41,7 @@ class ApiInfo(object):
         'operator': 'operator'
     }
 
-    def __init__(self, status=None, service=None, api=None, operator=None):  # noqa: E501
+    def __init__(self, status=None, service=None, api=None, operator=None, **kwargs):  # noqa: E501
         """ApiInfo - a model defined in Swagger"""  # noqa: E501
         self._status = None
         self._service = None

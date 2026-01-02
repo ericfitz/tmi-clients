@@ -46,22 +46,26 @@ class Threat(ThreatBase):
     if hasattr(ThreatBase, "attribute_map"):
         attribute_map.update(ThreatBase.attribute_map)
 
-    def __init__(self, id=None, threat_model_id=None, created_at=None, modified_at=None, *args, **kwargs):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """Threat - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._threat_model_id = None
         self._created_at = None
         self._modified_at = None
         self.discriminator = None
+        id = kwargs.get('id')
         if id is not None:
             self.id = id
+        threat_model_id = kwargs.get('threat_model_id')
         if threat_model_id is not None:
             self.threat_model_id = threat_model_id
+        created_at = kwargs.get('created_at')
         if created_at is not None:
             self.created_at = created_at
+        modified_at = kwargs.get('modified_at')
         if modified_at is not None:
             self.modified_at = modified_at
-        ThreatBase.__init__(self, *args, **kwargs)
+        ThreatBase.__init__(self, **kwargs)
 
     @property
     def id(self):

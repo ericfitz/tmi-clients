@@ -47,7 +47,7 @@ class InlineResponse2006(object):
         'providers': 'providers'
     }
 
-    def __init__(self, sub=None, id=None, email=None, name=None, idp=None, groups=None, providers=None):  # noqa: E501
+    def __init__(self, sub=None, id=None, email=None, name=None, idp=None, groups=None, providers=None, **kwargs):  # noqa: E501
         """InlineResponse2006 - a model defined in Swagger"""  # noqa: E501
         self._sub = None
         self._id = None

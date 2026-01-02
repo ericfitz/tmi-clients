@@ -47,7 +47,7 @@ class ClientCredentialResponse(object):
         'expires_at': 'expires_at'
     }
 
-    def __init__(self, id=None, client_id=None, client_secret=None, name=None, description=None, created_at=None, expires_at=None):  # noqa: E501
+    def __init__(self, id=None, client_id=None, client_secret=None, name=None, description=None, created_at=None, expires_at=None, **kwargs):  # noqa: E501
         """ClientCredentialResponse - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._client_id = None

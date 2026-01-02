@@ -47,7 +47,7 @@ class InlineResponse2004Providers(object):
         'client_id': 'client_id'
     }
 
-    def __init__(self, id=None, name=None, icon=None, auth_url=None, token_url=None, redirect_uri=None, client_id=None):  # noqa: E501
+    def __init__(self, id=None, name=None, icon=None, auth_url=None, token_url=None, redirect_uri=None, client_id=None, **kwargs):  # noqa: E501
         """InlineResponse2004Providers - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._name = None

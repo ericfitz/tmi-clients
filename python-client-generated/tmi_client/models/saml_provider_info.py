@@ -49,7 +49,7 @@ class SAMLProviderInfo(object):
         'slo_url': 'slo_url'
     }
 
-    def __init__(self, id=None, name=None, icon=None, auth_url=None, metadata_url=None, entity_id=None, acs_url=None, slo_url=None):  # noqa: E501
+    def __init__(self, id=None, name=None, icon=None, auth_url=None, metadata_url=None, entity_id=None, acs_url=None, slo_url=None, **kwargs):  # noqa: E501
         """SAMLProviderInfo - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._name = None

@@ -51,7 +51,7 @@ class CollaborationSession(object):
         'websocket_url': 'websocket_url'
     }
 
-    def __init__(self, session_id=None, host=None, presenter=None, threat_model_id=None, threat_model_name=None, diagram_id=None, diagram_name=None, participants=None, websocket_url=None):  # noqa: E501
+    def __init__(self, session_id=None, host=None, presenter=None, threat_model_id=None, threat_model_name=None, diagram_id=None, diagram_name=None, participants=None, websocket_url=None, **kwargs):  # noqa: E501
         """CollaborationSession - a model defined in Swagger"""  # noqa: E501
         self._session_id = None
         self._host = None

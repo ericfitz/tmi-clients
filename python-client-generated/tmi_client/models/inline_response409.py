@@ -37,7 +37,7 @@ class InlineResponse409(object):
         'join_url': 'join_url'
     }
 
-    def __init__(self, error=None, join_url=None):  # noqa: E501
+    def __init__(self, error=None, join_url=None, **kwargs):  # noqa: E501
         """InlineResponse409 - a model defined in Swagger"""  # noqa: E501
         self._error = None
         self._join_url = None

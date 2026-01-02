@@ -43,7 +43,7 @@ class UserAPIQuota(object):
         'modified_at': 'modified_at'
     }
 
-    def __init__(self, user_id=None, max_requests_per_minute=None, max_requests_per_hour=None, created_at=None, modified_at=None):  # noqa: E501
+    def __init__(self, user_id=None, max_requests_per_minute=None, max_requests_per_hour=None, created_at=None, modified_at=None, **kwargs):  # noqa: E501
         """UserAPIQuota - a model defined in Swagger"""  # noqa: E501
         self._user_id = None
         self._max_requests_per_minute = None

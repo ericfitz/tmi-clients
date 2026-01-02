@@ -49,7 +49,7 @@ class TokenRequest(object):
         'state': 'state'
     }
 
-    def __init__(self, grant_type=None, code=None, client_id=None, client_secret=None, refresh_token=None, redirect_uri=None, code_verifier=None, state=None):  # noqa: E501
+    def __init__(self, grant_type=None, code=None, client_id=None, client_secret=None, refresh_token=None, redirect_uri=None, code_verifier=None, state=None, **kwargs):  # noqa: E501
         """TokenRequest - a model defined in Swagger"""  # noqa: E501
         self._grant_type = None
         self._code = None

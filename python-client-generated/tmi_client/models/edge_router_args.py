@@ -39,7 +39,7 @@ class EdgeRouterArgs(object):
         'directions': 'directions'
     }
 
-    def __init__(self, padding=None, step=None, directions=None):  # noqa: E501
+    def __init__(self, padding=None, step=None, directions=None, **kwargs):  # noqa: E501
         """EdgeRouterArgs - a model defined in Swagger"""  # noqa: E501
         self._padding = None
         self._step = None

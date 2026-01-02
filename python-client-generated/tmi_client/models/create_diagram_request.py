@@ -37,7 +37,7 @@ class CreateDiagramRequest(object):
         'type': 'type'
     }
 
-    def __init__(self, name=None, type=None):  # noqa: E501
+    def __init__(self, name=None, type=None, **kwargs):  # noqa: E501
         """CreateDiagramRequest - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._type = None

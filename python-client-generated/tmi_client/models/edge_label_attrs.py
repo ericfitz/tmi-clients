@@ -35,7 +35,7 @@ class EdgeLabelAttrs(object):
         'text': 'text'
     }
 
-    def __init__(self, text=None):  # noqa: E501
+    def __init__(self, text=None, **kwargs):  # noqa: E501
         """EdgeLabelAttrs - a model defined in Swagger"""  # noqa: E501
         self._text = None
         self.discriminator = None

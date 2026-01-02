@@ -37,7 +37,7 @@ class NodeSize(object):
         'height': 'height'
     }
 
-    def __init__(self, width=None, height=None):  # noqa: E501
+    def __init__(self, width=None, height=None, **kwargs):  # noqa: E501
         """NodeSize - a model defined in Swagger"""  # noqa: E501
         self._width = None
         self._height = None

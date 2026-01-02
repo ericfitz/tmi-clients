@@ -37,7 +37,7 @@ class InlineResponse2005(object):
         'groups': 'groups'
     }
 
-    def __init__(self, idp=None, groups=None):  # noqa: E501
+    def __init__(self, idp=None, groups=None, **kwargs):  # noqa: E501
         """InlineResponse2005 - a model defined in Swagger"""  # noqa: E501
         self._idp = None
         self._groups = None

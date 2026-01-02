@@ -33,7 +33,7 @@ class EdgeRouter(object):
     attribute_map = {
     }
 
-    def __init__(self):  # noqa: E501
+    def __init__(self, **kwargs):  # noqa: E501
         """EdgeRouter - a model defined in Swagger"""  # noqa: E501
         self.discriminator = None
 

@@ -41,7 +41,7 @@ class NodeAttrsBody(object):
         'stroke_dasharray': 'strokeDasharray'
     }
 
-    def __init__(self, fill=None, stroke=None, stroke_width=None, stroke_dasharray=None):  # noqa: E501
+    def __init__(self, fill=None, stroke=None, stroke_width=None, stroke_dasharray=None, **kwargs):  # noqa: E501
         """NodeAttrsBody - a model defined in Swagger"""  # noqa: E501
         self._fill = None
         self._stroke = None

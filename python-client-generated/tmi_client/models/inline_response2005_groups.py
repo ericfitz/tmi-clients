@@ -39,7 +39,7 @@ class InlineResponse2005Groups(object):
         'used_in_authorizations': 'used_in_authorizations'
     }
 
-    def __init__(self, name=None, display_name=None, used_in_authorizations=None):  # noqa: E501
+    def __init__(self, name=None, display_name=None, used_in_authorizations=None, **kwargs):  # noqa: E501
         """InlineResponse2005Groups - a model defined in Swagger"""  # noqa: E501
         self._name = None
         self._display_name = None

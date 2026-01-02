@@ -47,7 +47,7 @@ class MinimalNode(object):
         'metadata': 'metadata'
     }
 
-    def __init__(self, id=None, shape=None, parent=None, children=None, labels=None, data_asset_id=None, metadata=None):  # noqa: E501
+    def __init__(self, id=None, shape=None, parent=None, children=None, labels=None, data_asset_id=None, metadata=None, **kwargs):  # noqa: E501
         """MinimalNode - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._shape = None
