@@ -24,7 +24,7 @@ Create a new add-on (administrators only)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CreateAddonRequest**](CreateAddonRequest.md)|  | 
+  **body** | [**CreateAddonRequest**](CreateAddonRequest.md)| Addon registration details | 
 
 ### Return type
 
@@ -136,7 +136,7 @@ Trigger an add-on invocation (authenticated users)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**InvokeAddonRequest**](InvokeAddonRequest.md)|  | 
+  **body** | [**InvokeAddonRequest**](InvokeAddonRequest.md)| Addon invocation parameters | 
   **id** | [**string**](.md)| Resource identifier | 
 
 ### Return type
@@ -238,7 +238,7 @@ Update invocation status (webhook callback with HMAC authentication)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**UpdateInvocationStatusRequest**](UpdateInvocationStatusRequest.md)|  | 
+  **body** | [**UpdateInvocationStatusRequest**](UpdateInvocationStatusRequest.md)| Invocation status update | 
   **id** | [**string**](.md)| Resource identifier | 
   **xWebhookSignature** | **string**| HMAC-SHA256 signature (format: sha256&#x3D;{hex_signature}) | 
 

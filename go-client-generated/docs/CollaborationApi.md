@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateDiagramCollaborationSession**](CollaborationApi.md#CreateDiagramCollaborationSession) | **Post** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Create diagram collaboration session
 [**EndDiagramCollaborationSession**](CollaborationApi.md#EndDiagramCollaborationSession) | **Delete** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | End diagram collaboration session
-[**GetCollaborationSessions**](CollaborationApi.md#GetCollaborationSessions) | **Get** /collaboration/sessions | List active collaboration sessions
+[**GetCurrentUserSessions**](CollaborationApi.md#GetCurrentUserSessions) | **Get** /me/sessions | List active collaboration sessions
 [**GetDiagramCollaborationSession**](CollaborationApi.md#GetDiagramCollaborationSession) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Get diagram collaboration session
 
 # **CreateDiagramCollaborationSession**
@@ -67,8 +67,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetCollaborationSessions**
-> interface{} GetCollaborationSessions(ctx, )
+# **GetCurrentUserSessions**
+> interface{} GetCurrentUserSessions(ctx, )
 List active collaboration sessions
 
 Returns all currently active collaboration sessions for diagrams. Clients can use this endpoint to discover existing sessions before connecting via WebSocket.

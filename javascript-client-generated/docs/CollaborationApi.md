@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createDiagramCollaborationSession**](CollaborationApi.md#createDiagramCollaborationSession) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Create diagram collaboration session
 [**endDiagramCollaborationSession**](CollaborationApi.md#endDiagramCollaborationSession) | **DELETE** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | End diagram collaboration session
-[**getCollaborationSessions**](CollaborationApi.md#getCollaborationSessions) | **GET** /collaboration/sessions | List active collaboration sessions
+[**getCurrentUserSessions**](CollaborationApi.md#getCurrentUserSessions) | **GET** /me/sessions | List active collaboration sessions
 [**getDiagramCollaborationSession**](CollaborationApi.md#getDiagramCollaborationSession) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Get diagram collaboration session
 
 <a name="createDiagramCollaborationSession"></a>
@@ -101,9 +101,9 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getCollaborationSessions"></a>
-# **getCollaborationSessions**
-> Object getCollaborationSessions()
+<a name="getCurrentUserSessions"></a>
+# **getCurrentUserSessions**
+> Object getCurrentUserSessions()
 
 List active collaboration sessions
 
@@ -116,7 +116,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.CollaborationApi();
-apiInstance.getCollaborationSessions().then((data) => {
+apiInstance.getCurrentUserSessions().then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);

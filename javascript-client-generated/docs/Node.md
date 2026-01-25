@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **attrs** | **Object** | Visual styling attributes for the node | [optional] 
 **ports** | **Object** | Port configuration for connections | [optional] 
 **parent** | **String** | ID of the parent cell for nested/grouped nodes (UUID) | [optional] 
+**children** | **[String]** | IDs of child cells contained within this node (UUIDs) | [optional] 
 **x** | **Number** | X coordinate (flat format). Use either this with y, width, height OR use position/size objects. | [optional] 
 **y** | **Number** | Y coordinate (flat format) | [optional] 
 **width** | **Number** | Width in pixels (flat format) | [optional] 

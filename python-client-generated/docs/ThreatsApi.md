@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**bulk_patch_threat_model_threats**](ThreatsApi.md#bulk_patch_threat_model_threats) | **PATCH** /threat_models/{threat_model_id}/threats/bulk | Bulk PATCH threats
 
 # **bulk_delete_threat_model_threats**
-> InlineResponse2008 bulk_delete_threat_model_threats(threat_model_id, threat_ids)
+> InlineResponse2007 bulk_delete_threat_model_threats(threat_model_id, threat_ids)
 
 Bulk DELETE threats
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatsApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | 
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to multiple threats
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -91,7 +91,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to multiple threats | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type

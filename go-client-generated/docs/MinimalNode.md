@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 **Parent** | **string** | Parent cell ID for nested nodes (null for top-level nodes) | [optional] [default to null]
 **Children** | **[]string** | Child cell IDs (computed bidirectional relationship including reverse parent references) | [default to null]
 **Labels** | **[]string** | Text labels extracted from node attrs and embedded text-box children | [default to null]
-**DataAssetId** | **string** | Optional reference to a data asset entity | [optional] [default to null]
+**DataAssetIds** | **[]string** | References to Asset IDs associated with this node | [optional] [default to null]
 **Metadata** | **map[string]string** | Flattened cell metadata (converted from _metadata array in cell.data) | [default to null]
+**SecurityBoundary** | **bool** | Indicates whether this node represents a security boundary. Always true for shape&#x3D;&#x27;security-boundary&#x27;, otherwise derived from cell data. | [default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

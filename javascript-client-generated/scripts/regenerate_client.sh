@@ -48,7 +48,7 @@ echo "  - Testing: Mocha + Chai"
 echo ""
 
 # Configuration
-OPENAPI_SPEC="/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json"
+OPENAPI_SPEC="/Users/efitz/Projects/tmi/api-schema/tmi-openapi.json"
 CLIENT_DIR="."  # We're already in javascript-client-generated/
 CONFIG_FILE="scripts/swagger-codegen-config.json"
 SWAGGER_CODEGEN="swagger-codegen"

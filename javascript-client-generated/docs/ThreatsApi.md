@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="bulkDeleteThreatModelThreats"></a>
 # **bulkDeleteThreatModelThreats**
-> InlineResponse2008 bulkDeleteThreatModelThreats(threatModelId, threatIds)
+> InlineResponse2007 bulkDeleteThreatModelThreats(threatModelId, threatIds)
 
 Bulk DELETE threats
 
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](InlineResponse2008.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatsApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to multiple threats
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkPatchThreatModelThreats(body, threatModelId).then((data) => {
@@ -83,7 +83,7 @@ apiInstance.bulkPatchThreatModelThreats(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to multiple threats | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type

@@ -13,10 +13,7 @@ Name | Type | Description | Notes
 **Connector** | [***Object**](.md) | Edge connector style configuration for visual appearance | [optional] [default to null]
 **DefaultLabel** | [***Object**](.md) | Default label configuration applied to edges without explicit labels | [optional] [default to null]
 **Id** | **string** | Unique identifier of the cell (UUID) | [default to null]
-**ZIndex** | **float64** | Z-order layer for rendering (higher values render on top) | [optional] [default to 1]
-**Visible** | **bool** | Whether the cell is visible in the diagram | [optional] [default to true]
 **Data** | [***CellData**](Cell_data.md) |  | [optional] [default to null]
-**Markup** | [**[]MarkupElement**](MarkupElement.md) | SVG/HTML markup definition for custom shape rendering in X6 | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

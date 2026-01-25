@@ -21,7 +21,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.RepositoriesApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to the repository
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
@@ -37,7 +37,7 @@ apiInstance.patchThreatModelRepository(body, threatModelId, repositoryId).then((
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the repository | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
 

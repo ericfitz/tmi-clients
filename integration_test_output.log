@@ -17,11 +17,11 @@ Test 5: Inheritance...
 ✓ Inheritance working correctly
 
 Test 6: Cell schemas...
-✓ Cell schemas exist and work correctly
+✗ test_cell_schemas FAILED: Invalid value for `shape` (edge), must be one of ['flow']
 
 Test 7: Webhook schemas...
 ✓ Webhook schemas working correctly
 
 ============================================================
-SUCCESS: All 7 tests passed!
-============================================================
+FAILED: 1 out of 7 tests failed
+  - test_cell_schemas: Invalid value for `shape` (edge), must be one of ['flow']

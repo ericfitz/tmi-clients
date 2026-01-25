@@ -16,5 +16,5 @@ Name | Type | Description | Notes
 <a name="ShapeEnum"></a>
 ## Enum: ShapeEnum
 
-* `edge` (value: `"edge"`)
+* `flow` (value: `"flow"`)
 

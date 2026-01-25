@@ -26,7 +26,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelsApi();
-let body = new TmiJsClient.ThreatModelInput(); // ThreatModelInput | 
+let body = new TmiJsClient.ThreatModelInput(); // ThreatModelInput | Threat Model creation data
 
 apiInstance.createThreatModel(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -40,7 +40,7 @@ apiInstance.createThreatModel(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
+ **body** | [**ThreatModelInput**](ThreatModelInput.md)| Threat Model creation data | 
 
 ### Return type
 
@@ -229,7 +229,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 let apiInstance = new TmiJsClient.ThreatModelsApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
-  'body': [new TmiJsClient.JsonPatchDocumentInner()] // [JsonPatchDocumentInner] | 
+  'body': [new TmiJsClient.JsonPatchDocumentInner()] // [JsonPatchDocumentInner] | JSON Patch operations to apply to the threat model
 };
 apiInstance.patchThreatModel(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -244,7 +244,7 @@ apiInstance.patchThreatModel(threatModelId, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **threatModelId** | [**String**](.md)| Threat model identifier | 
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | [optional] 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the threat model | [optional] 
 
 ### Return type
 
@@ -274,7 +274,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelsApi();
-let body = new TmiJsClient.ThreatModelInput(); // ThreatModelInput | 
+let body = new TmiJsClient.ThreatModelInput(); // ThreatModelInput | Complete threat model data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.updateThreatModel(body, threatModelId).then((data) => {
@@ -289,7 +289,7 @@ apiInstance.updateThreatModel(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
+ **body** | [**ThreatModelInput**](ThreatModelInput.md)| Complete threat model data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type

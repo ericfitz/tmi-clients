@@ -21,7 +21,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.NotesApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to the note
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
@@ -37,7 +37,7 @@ apiInstance.patchThreatModelNote(body, threatModelId, noteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the note | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
 

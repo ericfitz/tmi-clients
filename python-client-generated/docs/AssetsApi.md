@@ -24,7 +24,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AssetsApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | 
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to the asset
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
@@ -40,7 +40,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the asset | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
 

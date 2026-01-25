@@ -152,14 +152,15 @@ def test_cell_schemas():
         raise AssertionError(f"Failed to import cell classes: {e}")
 
     # Test Edge creation with required fields
+    # Note: Edge shape must be "flow" per the OpenAPI spec
     edge = Edge(
         id="edge1",
-        shape="edge",
+        shape="flow",
         source={"cell": "node1"},
         target={"cell": "node2"}
     )
     assert edge.id == "edge1", "Edge id not set correctly"
-    assert edge.shape == "edge", "Edge shape not set correctly"
+    assert edge.shape == "flow", "Edge shape not set correctly"
 
     print("✓ Cell schemas exist and work correctly")
 

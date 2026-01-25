@@ -27,7 +27,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.WebhooksApi();
-let body = new TmiJsClient.WebhookSubscriptionInput(); // WebhookSubscriptionInput | 
+let body = new TmiJsClient.WebhookSubscriptionInput(); // WebhookSubscriptionInput | Webhook subscription configuration
 
 apiInstance.createWebhookSubscription(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -41,7 +41,7 @@ apiInstance.createWebhookSubscription(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**WebhookSubscriptionInput**](WebhookSubscriptionInput.md)|  | 
+ **body** | [**WebhookSubscriptionInput**](WebhookSubscriptionInput.md)| Webhook subscription configuration | 
 
 ### Return type
 
@@ -303,7 +303,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 let apiInstance = new TmiJsClient.WebhooksApi();
 let webhookId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Webhook subscription identifier
 let opts = { 
-  'body': new TmiJsClient.WebhookTestRequest() // WebhookTestRequest | 
+  'body': new TmiJsClient.WebhookTestRequest() // WebhookTestRequest | Webhook test request configuration
 };
 apiInstance.testWebhookSubscription(webhookId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -318,7 +318,7 @@ apiInstance.testWebhookSubscription(webhookId, opts).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **webhookId** | [**String**](.md)| Webhook subscription identifier | 
- **body** | [**WebhookTestRequest**](WebhookTestRequest.md)|  | [optional] 
+ **body** | [**WebhookTestRequest**](WebhookTestRequest.md)| Webhook test request configuration | [optional] 
 
 ### Return type
 

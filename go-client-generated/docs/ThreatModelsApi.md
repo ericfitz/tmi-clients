@@ -22,7 +22,7 @@ Creates a new threat model with the authenticated user as owner
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
+  **body** | [**ThreatModelInput**](ThreatModelInput.md)| Threat Model creation data | 
 
 ### Return type
 
@@ -160,7 +160,7 @@ Optional parameters are passed through a pointer to a ThreatModelsApiPatchThreat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **body** | [**optional.Interface of []JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
+ **body** | [**optional.Interface of []JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to the threat model | 
 
 ### Return type
 
@@ -188,7 +188,7 @@ Fully updates a threat model; restricted to writer/owner roles
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
+  **body** | [**ThreatModelInput**](ThreatModelInput.md)| Complete threat model data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type

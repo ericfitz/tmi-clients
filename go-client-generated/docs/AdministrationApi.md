@@ -43,7 +43,7 @@ Adds a user to a group. The user must exist in the system. Cannot add members to
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)|  | 
+  **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)| Group membership update | 
   **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -72,7 +72,7 @@ Creates a new provider-independent group (provider=\"*\"). These groups can be u
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)|  | 
+  **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)| Group creation request | 
 
 ### Return type
 
@@ -100,7 +100,7 @@ Grants administrator privileges to a user or group for a specific provider. Exac
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)|  | 
+  **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)| Administrator creation request | 
 
 ### Return type
 
@@ -728,7 +728,7 @@ Creates or updates the addon invocation quota for a specific user
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)|  | 
+  **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)| Addon quota update configuration | 
   **userId** | [**string**](.md)| User ID | 
 
 ### Return type
@@ -757,7 +757,7 @@ Updates group metadata fields (name, description). Only provided fields are upda
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)|  | 
+  **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)| Group update details | 
   **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -786,7 +786,7 @@ Updates user metadata fields (email, name, email_verified). Only provided fields
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)|  | 
+  **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)| User profile update | 
   **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -815,7 +815,7 @@ Creates or updates the API rate limit quota for a specific user
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)|  | 
+  **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)| User quota update configuration | 
   **userId** | [**string**](.md)| User ID | 
 
 ### Return type
@@ -844,7 +844,7 @@ Creates or updates the webhook quota for a specific user
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)|  | 
+  **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)| Webhook quota update configuration | 
   **userId** | [**string**](.md)| User ID | 
 
 ### Return type

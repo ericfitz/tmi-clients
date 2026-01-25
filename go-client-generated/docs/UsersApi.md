@@ -4,7 +4,8 @@ All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUserAccount**](UsersApi.md#DeleteUserAccount) | **Delete** /users/me | Delete authenticated user account and all data
+[**DeleteUserAccount**](UsersApi.md#DeleteUserAccount) | **Delete** /me | Delete authenticated user account and all data
+[**LogoutCurrentUser**](UsersApi.md#LogoutCurrentUser) | **Post** /me/logout | Logout current user
 
 # **DeleteUserAccount**
 > DeletionChallenge DeleteUserAccount(ctx, optional)
@@ -28,6 +29,30 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeletionChallenge**](DeletionChallenge.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **LogoutCurrentUser**
+> LogoutCurrentUser(ctx, )
+Logout current user
+
+Revokes the authenticated user's current JWT token. This is a convenience endpoint that automatically revokes the token used to authenticate the request, without requiring the token to be passed in the request body. The token is immediately added to the blacklist and cannot be used for further requests.
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 

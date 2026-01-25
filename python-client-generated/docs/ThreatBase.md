@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **metadata** | [**list[Metadata]**](Metadata.md) | Key-value pairs for additional threat metadata | [optional] 
 **issue_uri** | **str** | URL to an issue in an issue tracking system for this threat | [optional] 
 **asset_id** | **str** | Unique identifier of the associated asset (if applicable) (UUID) | [optional] 
+**cwe_id** | **list[str]** | CWE (Common Weakness Enumeration) identifiers associated with this threat | [optional] 
+**cvss** | [**list[CVSSScore]**](CVSSScore.md) | CVSS scoring information for this threat | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

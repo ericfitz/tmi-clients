@@ -4,7 +4,8 @@ All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteUserAccount**](UsersApi.md#deleteUserAccount) | **DELETE** /users/me | Delete authenticated user account and all data
+[**deleteUserAccount**](UsersApi.md#deleteUserAccount) | **DELETE** /me | Delete authenticated user account and all data
+[**logoutCurrentUser**](UsersApi.md#logoutCurrentUser) | **POST** /me/logout | Logout current user
 
 <a name="deleteUserAccount"></a>
 # **deleteUserAccount**
@@ -41,6 +42,45 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeletionChallenge**](DeletionChallenge.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="logoutCurrentUser"></a>
+# **logoutCurrentUser**
+> logoutCurrentUser()
+
+Logout current user
+
+Revokes the authenticated user&#x27;s current JWT token. This is a convenience endpoint that automatically revokes the token used to authenticate the request, without requiring the token to be passed in the request body. The token is immediately added to the blacklist and cannot be used for further requests.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.UsersApi();
+apiInstance.logoutCurrentUser().then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

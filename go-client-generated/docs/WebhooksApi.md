@@ -23,7 +23,7 @@ Create a new webhook subscription. The subscription will be in pending_verificat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**WebhookSubscriptionInput**](WebhookSubscriptionInput.md)|  | 
+  **body** | [**WebhookSubscriptionInput**](WebhookSubscriptionInput.md)| Webhook subscription configuration | 
 
 ### Return type
 
@@ -215,7 +215,7 @@ Optional parameters are passed through a pointer to a WebhooksApiTestWebhookSubs
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **body** | [**optional.Interface of WebhookTestRequest**](WebhookTestRequest.md)|  | 
+ **body** | [**optional.Interface of WebhookTestRequest**](WebhookTestRequest.md)| Webhook test request configuration | 
 
 ### Return type
 

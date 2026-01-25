@@ -30,7 +30,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
-body = tmi_client.WebhookSubscriptionInput() # WebhookSubscriptionInput | 
+body = tmi_client.WebhookSubscriptionInput() # WebhookSubscriptionInput | Webhook subscription configuration
 
 try:
     # Create webhook subscription
@@ -44,7 +44,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**WebhookSubscriptionInput**](WebhookSubscriptionInput.md)|  | 
+ **body** | [**WebhookSubscriptionInput**](WebhookSubscriptionInput.md)| Webhook subscription configuration | 
 
 ### Return type
 
@@ -332,7 +332,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.WebhooksApi(tmi_client.ApiClient(configuration))
 webhook_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Webhook subscription identifier
-body = tmi_client.WebhookTestRequest() # WebhookTestRequest |  (optional)
+body = tmi_client.WebhookTestRequest() # WebhookTestRequest | Webhook test request configuration (optional)
 
 try:
     # Test webhook subscription
@@ -347,7 +347,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **webhook_id** | [**str**](.md)| Webhook subscription identifier | 
- **body** | [**WebhookTestRequest**](WebhookTestRequest.md)|  | [optional] 
+ **body** | [**WebhookTestRequest**](WebhookTestRequest.md)| Webhook test request configuration | [optional] 
 
 ### Return type
 

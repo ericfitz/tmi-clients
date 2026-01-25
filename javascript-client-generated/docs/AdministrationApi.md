@@ -47,7 +47,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.AddGroupMemberRequest(); // AddGroupMemberRequest | 
+let body = new TmiJsClient.AddGroupMemberRequest(); // AddGroupMemberRequest | Group membership update
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
 apiInstance.addGroupMember(body, internalUuid).then((data) => {
@@ -62,7 +62,7 @@ apiInstance.addGroupMember(body, internalUuid).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)|  | 
+ **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)| Group membership update | 
  **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -93,7 +93,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.CreateAdminGroupRequest(); // CreateAdminGroupRequest | 
+let body = new TmiJsClient.CreateAdminGroupRequest(); // CreateAdminGroupRequest | Group creation request
 
 apiInstance.createAdminGroup(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -107,7 +107,7 @@ apiInstance.createAdminGroup(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)|  | 
+ **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)| Group creation request | 
 
 ### Return type
 
@@ -137,7 +137,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.CreateAdministratorRequest(); // CreateAdministratorRequest | 
+let body = new TmiJsClient.CreateAdministratorRequest(); // CreateAdministratorRequest | Administrator creation request
 
 apiInstance.createAdministrator(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -151,7 +151,7 @@ apiInstance.createAdministrator(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)|  | 
+ **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)| Administrator creation request | 
 
 ### Return type
 
@@ -1074,7 +1074,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.AddonQuotaUpdate(); // AddonQuotaUpdate | 
+let body = new TmiJsClient.AddonQuotaUpdate(); // AddonQuotaUpdate | Addon quota update configuration
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
 apiInstance.updateAddonInvocationQuota(body, userId).then((data) => {
@@ -1089,7 +1089,7 @@ apiInstance.updateAddonInvocationQuota(body, userId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)|  | 
+ **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)| Addon quota update configuration | 
  **userId** | [**String**](.md)| User ID | 
 
 ### Return type
@@ -1120,7 +1120,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.UpdateAdminGroupRequest(); // UpdateAdminGroupRequest | 
+let body = new TmiJsClient.UpdateAdminGroupRequest(); // UpdateAdminGroupRequest | Group update details
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
 apiInstance.updateAdminGroup(body, internalUuid).then((data) => {
@@ -1135,7 +1135,7 @@ apiInstance.updateAdminGroup(body, internalUuid).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)|  | 
+ **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)| Group update details | 
  **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -1166,7 +1166,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.UpdateAdminUserRequest(); // UpdateAdminUserRequest | 
+let body = new TmiJsClient.UpdateAdminUserRequest(); // UpdateAdminUserRequest | User profile update
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
 
 apiInstance.updateAdminUser(body, internalUuid).then((data) => {
@@ -1181,7 +1181,7 @@ apiInstance.updateAdminUser(body, internalUuid).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)|  | 
+ **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)| User profile update | 
  **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -1212,7 +1212,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.UserQuotaUpdate(); // UserQuotaUpdate | 
+let body = new TmiJsClient.UserQuotaUpdate(); // UserQuotaUpdate | User quota update configuration
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
 apiInstance.updateUserAPIQuota(body, userId).then((data) => {
@@ -1227,7 +1227,7 @@ apiInstance.updateUserAPIQuota(body, userId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)|  | 
+ **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)| User quota update configuration | 
  **userId** | [**String**](.md)| User ID | 
 
 ### Return type
@@ -1258,7 +1258,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.WebhookQuotaUpdate(); // WebhookQuotaUpdate | 
+let body = new TmiJsClient.WebhookQuotaUpdate(); // WebhookQuotaUpdate | Webhook quota update configuration
 let userId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | User ID
 
 apiInstance.updateWebhookQuota(body, userId).then((data) => {
@@ -1273,7 +1273,7 @@ apiInstance.updateWebhookQuota(body, userId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)|  | 
+ **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)| Webhook quota update configuration | 
  **userId** | [**String**](.md)| User ID | 
 
 ### Return type

@@ -59,27 +59,27 @@ Class | Method | HTTP request | Description
 *AdministrationApi* | [**UpdateWebhookQuota**](docs/AdministrationApi.md#updatewebhookquota) | **Put** /admin/quotas/webhooks/{user_id} | Update webhook quota
 *AssetsApi* | [**PatchThreatModelAsset**](docs/AssetsApi.md#patchthreatmodelasset) | **Patch** /threat_models/{threat_model_id}/assets/{asset_id} | Partially update asset
 *AuthenticationApi* | [**AuthorizeOAuthProvider**](docs/AuthenticationApi.md#authorizeoauthprovider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
-*AuthenticationApi* | [**CreateCurrentUserClientCredential**](docs/AuthenticationApi.md#createcurrentuserclientcredential) | **Post** /users/me/client_credentials | Create client credential
-*AuthenticationApi* | [**DeleteCurrentUserClientCredential**](docs/AuthenticationApi.md#deletecurrentuserclientcredential) | **Delete** /users/me/client_credentials/{id} | Delete client credential
+*AuthenticationApi* | [**CreateCurrentUserClientCredential**](docs/AuthenticationApi.md#createcurrentuserclientcredential) | **Post** /me/client_credentials | Create client credential
+*AuthenticationApi* | [**DeleteCurrentUserClientCredential**](docs/AuthenticationApi.md#deletecurrentuserclientcredential) | **Delete** /me/client_credentials/{id} | Delete client credential
 *AuthenticationApi* | [**ExchangeOAuthCode**](docs/AuthenticationApi.md#exchangeoauthcode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
 *AuthenticationApi* | [**GetAuthProviders**](docs/AuthenticationApi.md#getauthproviders) | **Get** /oauth2/providers | List available OAuth providers
 *AuthenticationApi* | [**GetCurrentUser**](docs/AuthenticationApi.md#getcurrentuser) | **Get** /oauth2/userinfo | Get current user information
-*AuthenticationApi* | [**GetCurrentUserProfile**](docs/AuthenticationApi.md#getcurrentuserprofile) | **Get** /users/me | Get current user profile
+*AuthenticationApi* | [**GetCurrentUserProfile**](docs/AuthenticationApi.md#getcurrentuserprofile) | **Get** /me | Get current user profile
 *AuthenticationApi* | [**GetProviderGroups**](docs/AuthenticationApi.md#getprovidergroups) | **Get** /oauth2/providers/{idp}/groups | Get groups for identity provider
 *AuthenticationApi* | [**GetSAMLMetadata**](docs/AuthenticationApi.md#getsamlmetadata) | **Get** /saml/{provider}/metadata | Get SAML service provider metadata
 *AuthenticationApi* | [**GetSAMLProviders**](docs/AuthenticationApi.md#getsamlproviders) | **Get** /saml/providers | List available SAML providers
 *AuthenticationApi* | [**HandleOAuthCallback**](docs/AuthenticationApi.md#handleoauthcallback) | **Get** /oauth2/callback | Handle OAuth callback
 *AuthenticationApi* | [**InitiateSAMLLogin**](docs/AuthenticationApi.md#initiatesamllogin) | **Get** /saml/{provider}/login | Initiate SAML authentication
 *AuthenticationApi* | [**IntrospectToken**](docs/AuthenticationApi.md#introspecttoken) | **Post** /oauth2/introspect | Token Introspection
-*AuthenticationApi* | [**ListCurrentUserClientCredentials**](docs/AuthenticationApi.md#listcurrentuserclientcredentials) | **Get** /users/me/client_credentials | List client credentials
-*AuthenticationApi* | [**LogoutUser**](docs/AuthenticationApi.md#logoutuser) | **Post** /oauth2/revoke | Logout user
+*AuthenticationApi* | [**ListCurrentUserClientCredentials**](docs/AuthenticationApi.md#listcurrentuserclientcredentials) | **Get** /me/client_credentials | List client credentials
 *AuthenticationApi* | [**ProcessSAMLLogout**](docs/AuthenticationApi.md#processsamllogout) | **Get** /saml/slo | SAML Single Logout
 *AuthenticationApi* | [**ProcessSAMLLogoutPost**](docs/AuthenticationApi.md#processsamllogoutpost) | **Post** /saml/slo | SAML Single Logout (POST)
 *AuthenticationApi* | [**ProcessSAMLResponse**](docs/AuthenticationApi.md#processsamlresponse) | **Post** /saml/acs | SAML Assertion Consumer Service
 *AuthenticationApi* | [**RefreshToken**](docs/AuthenticationApi.md#refreshtoken) | **Post** /oauth2/refresh | Refresh JWT token
+*AuthenticationApi* | [**RevokeToken**](docs/AuthenticationApi.md#revoketoken) | **Post** /oauth2/revoke | Revoke token
 *CollaborationApi* | [**CreateDiagramCollaborationSession**](docs/CollaborationApi.md#creatediagramcollaborationsession) | **Post** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Create diagram collaboration session
 *CollaborationApi* | [**EndDiagramCollaborationSession**](docs/CollaborationApi.md#enddiagramcollaborationsession) | **Delete** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | End diagram collaboration session
-*CollaborationApi* | [**GetCollaborationSessions**](docs/CollaborationApi.md#getcollaborationsessions) | **Get** /collaboration/sessions | List active collaboration sessions
+*CollaborationApi* | [**GetCurrentUserSessions**](docs/CollaborationApi.md#getcurrentusersessions) | **Get** /me/sessions | List active collaboration sessions
 *CollaborationApi* | [**GetDiagramCollaborationSession**](docs/CollaborationApi.md#getdiagramcollaborationsession) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Get diagram collaboration session
 *DocumentsApi* | [**PatchThreatModelDocument**](docs/DocumentsApi.md#patchthreatmodeldocument) | **Patch** /threat_models/{threat_model_id}/documents/{document_id} | Partially update document
 *GeneralApi* | [**GetApiInfo**](docs/GeneralApi.md#getapiinfo) | **Get** / | Get API information
@@ -188,7 +188,11 @@ Class | Method | HTTP request | Description
 *ThreatModelsApi* | [**UpdateThreatModel**](docs/ThreatModelsApi.md#updatethreatmodel) | **Put** /threat_models/{threat_model_id} | Update a threat model
 *ThreatsApi* | [**BulkDeleteThreatModelThreats**](docs/ThreatsApi.md#bulkdeletethreatmodelthreats) | **Delete** /threat_models/{threat_model_id}/threats/bulk | Bulk DELETE threats
 *ThreatsApi* | [**BulkPatchThreatModelThreats**](docs/ThreatsApi.md#bulkpatchthreatmodelthreats) | **Patch** /threat_models/{threat_model_id}/threats/bulk | Bulk PATCH threats
-*UsersApi* | [**DeleteUserAccount**](docs/UsersApi.md#deleteuseraccount) | **Delete** /users/me | Delete authenticated user account and all data
+*UserAccountApi* | [**CreateCurrentUserPreferences**](docs/UserAccountApi.md#createcurrentuserpreferences) | **Post** /me/preferences | Create user preferences
+*UserAccountApi* | [**GetCurrentUserPreferences**](docs/UserAccountApi.md#getcurrentuserpreferences) | **Get** /me/preferences | Get user preferences
+*UserAccountApi* | [**UpdateCurrentUserPreferences**](docs/UserAccountApi.md#updatecurrentuserpreferences) | **Put** /me/preferences | Update user preferences
+*UsersApi* | [**DeleteUserAccount**](docs/UsersApi.md#deleteuseraccount) | **Delete** /me | Delete authenticated user account and all data
+*UsersApi* | [**LogoutCurrentUser**](docs/UsersApi.md#logoutcurrentuser) | **Post** /me/logout | Logout current user
 *WebhooksApi* | [**CreateWebhookSubscription**](docs/WebhooksApi.md#createwebhooksubscription) | **Post** /webhooks/subscriptions | Create webhook subscription
 *WebhooksApi* | [**DeleteWebhookSubscription**](docs/WebhooksApi.md#deletewebhooksubscription) | **Delete** /webhooks/subscriptions/{webhook_id} | Delete webhook subscription
 *WebhooksApi* | [**GetWebhookDelivery**](docs/WebhooksApi.md#getwebhookdelivery) | **Get** /webhooks/deliveries/{delivery_id} | Get webhook delivery
@@ -214,6 +218,7 @@ Class | Method | HTTP request | Description
  - [AllOfThreatModelBaseOwner](docs/AllOfThreatModelBaseOwner.md)
  - [ApiInfo](docs/ApiInfo.md)
  - [ApiInfoApi](docs/ApiInfoApi.md)
+ - [ApiInfoHealth](docs/ApiInfoHealth.md)
  - [ApiInfoOperator](docs/ApiInfoOperator.md)
  - [ApiInfoService](docs/ApiInfoService.md)
  - [ApiInfoStatus](docs/ApiInfoStatus.md)
@@ -229,10 +234,12 @@ Class | Method | HTTP request | Description
  - [ClientCredentialInfo](docs/ClientCredentialInfo.md)
  - [ClientCredentialResponse](docs/ClientCredentialResponse.md)
  - [CollaborationSession](docs/CollaborationSession.md)
+ - [ComponentHealth](docs/ComponentHealth.md)
  - [CreateAddonRequest](docs/CreateAddonRequest.md)
  - [CreateAdminGroupRequest](docs/CreateAdminGroupRequest.md)
  - [CreateAdministratorRequest](docs/CreateAdministratorRequest.md)
  - [CreateDiagramRequest](docs/CreateDiagramRequest.md)
+ - [CvssScore](docs/CvssScore.md)
  - [DeletionChallenge](docs/DeletionChallenge.md)
  - [DfdDiagram](docs/DfdDiagram.md)
  - [DfdDiagramInput](docs/DfdDiagramInput.md)
@@ -258,7 +265,6 @@ Class | Method | HTTP request | Description
  - [GroupMemberListResponse](docs/GroupMemberListResponse.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
- - [InlineResponse20010](docs/InlineResponse20010.md)
  - [InlineResponse2002](docs/InlineResponse2002.md)
  - [InlineResponse2002Keys](docs/InlineResponse2002Keys.md)
  - [InlineResponse2003](docs/InlineResponse2003.md)
@@ -267,7 +273,6 @@ Class | Method | HTTP request | Description
  - [InlineResponse2005](docs/InlineResponse2005.md)
  - [InlineResponse2005Groups](docs/InlineResponse2005Groups.md)
  - [InlineResponse2006](docs/InlineResponse2006.md)
- - [InlineResponse2006Providers](docs/InlineResponse2006Providers.md)
  - [InlineResponse2007](docs/InlineResponse2007.md)
  - [InlineResponse2008](docs/InlineResponse2008.md)
  - [InlineResponse2009](docs/InlineResponse2009.md)
@@ -281,7 +286,6 @@ Class | Method | HTTP request | Description
  - [ListAddonsResponse](docs/ListAddonsResponse.md)
  - [ListAdministratorsResponse](docs/ListAdministratorsResponse.md)
  - [ListInvocationsResponse](docs/ListInvocationsResponse.md)
- - [MarkupElement](docs/MarkupElement.md)
  - [MeClientCredentialsBody](docs/MeClientCredentialsBody.md)
  - [Metadata](docs/Metadata.md)
  - [MetadataKeyBody](docs/MetadataKeyBody.md)
@@ -307,6 +311,7 @@ Class | Method | HTTP request | Description
  - [NoteListItem](docs/NoteListItem.md)
  - [OAuthProtectedResourceMetadata](docs/OAuthProtectedResourceMetadata.md)
  - [Oauth2TokenBody](docs/Oauth2TokenBody.md)
+ - [OneOfCreateAdministratorRequest](docs/OneOfCreateAdministratorRequest.md)
  - [OneOfEdgeLabelPosition](docs/OneOfEdgeLabelPosition.md)
  - [Participant](docs/Participant.md)
  - [Point](docs/Point.md)
@@ -331,6 +336,7 @@ Class | Method | HTTP request | Description
  - [TokenIntrospectionRequest](docs/TokenIntrospectionRequest.md)
  - [TokenRefreshRequest](docs/TokenRefreshRequest.md)
  - [TokenRequest](docs/TokenRequest.md)
+ - [TokenRevocationRequest](docs/TokenRevocationRequest.md)
  - [UpdateAdminGroupRequest](docs/UpdateAdminGroupRequest.md)
  - [UpdateAdminUserRequest](docs/UpdateAdminUserRequest.md)
  - [UpdateInvocationStatusRequest](docs/UpdateInvocationStatusRequest.md)
@@ -354,4 +360,4 @@ Class | Method | HTTP request | Description
 
 ## Author
 
-api@tmi.dev
+api@tmi.local.dev

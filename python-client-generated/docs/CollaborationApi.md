@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_diagram_collaboration_session**](CollaborationApi.md#create_diagram_collaboration_session) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Create diagram collaboration session
 [**end_diagram_collaboration_session**](CollaborationApi.md#end_diagram_collaboration_session) | **DELETE** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | End diagram collaboration session
-[**get_collaboration_sessions**](CollaborationApi.md#get_collaboration_sessions) | **GET** /collaboration/sessions | List active collaboration sessions
+[**get_current_user_sessions**](CollaborationApi.md#get_current_user_sessions) | **GET** /me/sessions | List active collaboration sessions
 [**get_diagram_collaboration_session**](CollaborationApi.md#get_diagram_collaboration_session) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Get diagram collaboration session
 
 # **create_diagram_collaboration_session**
@@ -110,8 +110,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_collaboration_sessions**
-> object get_collaboration_sessions()
+# **get_current_user_sessions**
+> object get_current_user_sessions()
 
 List active collaboration sessions
 
@@ -131,10 +131,10 @@ api_instance = tmi_client.CollaborationApi(tmi_client.ApiClient(configuration))
 
 try:
     # List active collaboration sessions
-    api_response = api_instance.get_collaboration_sessions()
+    api_response = api_instance.get_current_user_sessions()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling CollaborationApi->get_collaboration_sessions: %s\n" % e)
+    print("Exception when calling CollaborationApi->get_current_user_sessions: %s\n" % e)
 ```
 
 ### Parameters

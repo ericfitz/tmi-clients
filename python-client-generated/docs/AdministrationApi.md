@@ -50,7 +50,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AddGroupMemberRequest() # AddGroupMemberRequest | 
+body = tmi_client.AddGroupMemberRequest() # AddGroupMemberRequest | Group membership update
 internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
@@ -65,7 +65,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)|  | 
+ **body** | [**AddGroupMemberRequest**](AddGroupMemberRequest.md)| Group membership update | 
  **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -101,7 +101,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.CreateAdminGroupRequest() # CreateAdminGroupRequest | 
+body = tmi_client.CreateAdminGroupRequest() # CreateAdminGroupRequest | Group creation request
 
 try:
     # Create provider-independent group
@@ -115,7 +115,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)|  | 
+ **body** | [**CreateAdminGroupRequest**](CreateAdminGroupRequest.md)| Group creation request | 
 
 ### Return type
 
@@ -150,7 +150,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.CreateAdministratorRequest() # CreateAdministratorRequest | 
+body = tmi_client.CreateAdministratorRequest() # CreateAdministratorRequest | Administrator creation request
 
 try:
     # Create administrator grant
@@ -164,7 +164,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)|  | 
+ **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)| Administrator creation request | 
 
 ### Return type
 
@@ -1173,7 +1173,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AddonQuotaUpdate() # AddonQuotaUpdate | 
+body = tmi_client.AddonQuotaUpdate() # AddonQuotaUpdate | Addon quota update configuration
 user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | User ID
 
 try:
@@ -1188,7 +1188,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)|  | 
+ **body** | [**AddonQuotaUpdate**](AddonQuotaUpdate.md)| Addon quota update configuration | 
  **user_id** | [**str**](.md)| User ID | 
 
 ### Return type
@@ -1224,7 +1224,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.UpdateAdminGroupRequest() # UpdateAdminGroupRequest | 
+body = tmi_client.UpdateAdminGroupRequest() # UpdateAdminGroupRequest | Group update details
 internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
@@ -1239,7 +1239,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)|  | 
+ **body** | [**UpdateAdminGroupRequest**](UpdateAdminGroupRequest.md)| Group update details | 
  **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -1275,7 +1275,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.UpdateAdminUserRequest() # UpdateAdminUserRequest | 
+body = tmi_client.UpdateAdminUserRequest() # UpdateAdminUserRequest | User profile update
 internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
 
 try:
@@ -1290,7 +1290,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)|  | 
+ **body** | [**UpdateAdminUserRequest**](UpdateAdminUserRequest.md)| User profile update | 
  **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
 
 ### Return type
@@ -1326,7 +1326,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.UserQuotaUpdate() # UserQuotaUpdate | 
+body = tmi_client.UserQuotaUpdate() # UserQuotaUpdate | User quota update configuration
 user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | User ID
 
 try:
@@ -1341,7 +1341,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)|  | 
+ **body** | [**UserQuotaUpdate**](UserQuotaUpdate.md)| User quota update configuration | 
  **user_id** | [**str**](.md)| User ID | 
 
 ### Return type
@@ -1377,7 +1377,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.WebhookQuotaUpdate() # WebhookQuotaUpdate | 
+body = tmi_client.WebhookQuotaUpdate() # WebhookQuotaUpdate | Webhook quota update configuration
 user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | User ID
 
 try:
@@ -1392,7 +1392,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)|  | 
+ **body** | [**WebhookQuotaUpdate**](WebhookQuotaUpdate.md)| Webhook quota update configuration | 
  **user_id** | [**str**](.md)| User ID | 
 
 ### Return type

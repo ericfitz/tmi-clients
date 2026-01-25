@@ -5,24 +5,24 @@ All URIs are relative to *https://api.tmi.dev*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorize_o_auth_provider**](AuthenticationApi.md#authorize_o_auth_provider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
-[**create_current_user_client_credential**](AuthenticationApi.md#create_current_user_client_credential) | **POST** /users/me/client_credentials | Create client credential
-[**delete_current_user_client_credential**](AuthenticationApi.md#delete_current_user_client_credential) | **DELETE** /users/me/client_credentials/{id} | Delete client credential
+[**create_current_user_client_credential**](AuthenticationApi.md#create_current_user_client_credential) | **POST** /me/client_credentials | Create client credential
+[**delete_current_user_client_credential**](AuthenticationApi.md#delete_current_user_client_credential) | **DELETE** /me/client_credentials/{id} | Delete client credential
 [**exchange_o_auth_code**](AuthenticationApi.md#exchange_o_auth_code) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**get_auth_providers**](AuthenticationApi.md#get_auth_providers) | **GET** /oauth2/providers | List available OAuth providers
 [**get_current_user**](AuthenticationApi.md#get_current_user) | **GET** /oauth2/userinfo | Get current user information
-[**get_current_user_profile**](AuthenticationApi.md#get_current_user_profile) | **GET** /users/me | Get current user profile
+[**get_current_user_profile**](AuthenticationApi.md#get_current_user_profile) | **GET** /me | Get current user profile
 [**get_provider_groups**](AuthenticationApi.md#get_provider_groups) | **GET** /oauth2/providers/{idp}/groups | Get groups for identity provider
 [**get_saml_metadata**](AuthenticationApi.md#get_saml_metadata) | **GET** /saml/{provider}/metadata | Get SAML service provider metadata
 [**get_saml_providers**](AuthenticationApi.md#get_saml_providers) | **GET** /saml/providers | List available SAML providers
 [**handle_o_auth_callback**](AuthenticationApi.md#handle_o_auth_callback) | **GET** /oauth2/callback | Handle OAuth callback
 [**initiate_saml_login**](AuthenticationApi.md#initiate_saml_login) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspect_token**](AuthenticationApi.md#introspect_token) | **POST** /oauth2/introspect | Token Introspection
-[**list_current_user_client_credentials**](AuthenticationApi.md#list_current_user_client_credentials) | **GET** /users/me/client_credentials | List client credentials
-[**logout_user**](AuthenticationApi.md#logout_user) | **POST** /oauth2/revoke | Logout user
+[**list_current_user_client_credentials**](AuthenticationApi.md#list_current_user_client_credentials) | **GET** /me/client_credentials | List client credentials
 [**process_saml_logout**](AuthenticationApi.md#process_saml_logout) | **GET** /saml/slo | SAML Single Logout
 [**process_saml_logout_post**](AuthenticationApi.md#process_saml_logout_post) | **POST** /saml/slo | SAML Single Logout (POST)
 [**process_saml_response**](AuthenticationApi.md#process_saml_response) | **POST** /saml/acs | SAML Assertion Consumer Service
 [**refresh_token**](AuthenticationApi.md#refresh_token) | **POST** /oauth2/refresh | Refresh JWT token
+[**revoke_token**](AuthenticationApi.md#revoke_token) | **POST** /oauth2/revoke | Revoke token
 
 # **authorize_o_auth_provider**
 > authorize_o_auth_provider(scope, code_challenge, code_challenge_method, idp=idp, client_callback=client_callback, state=state, login_hint=login_hint)
@@ -101,7 +101,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MeClientCredentialsBody() # MeClientCredentialsBody | 
+body = tmi_client.MeClientCredentialsBody() # MeClientCredentialsBody | Client credential creation request
 
 try:
     # Create client credential
@@ -115,7 +115,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)|  | 
+ **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)| Client credential creation request | 
 
 ### Return type
 
@@ -197,7 +197,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
-body = tmi_client.Oauth2TokenBody() # Oauth2TokenBody | 
+body = tmi_client.Oauth2TokenBody() # Oauth2TokenBody | OAuth 2.0 token exchange request parameters
 idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified. (optional)
 
 try:
@@ -212,7 +212,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)|  | 
+ **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)| OAuth 2.0 token exchange request parameters | 
  **idp** | **str**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | [optional] 
 
 ### Return type
@@ -462,7 +462,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_saml_providers**
-> InlineResponse20010 get_saml_providers()
+> InlineResponse2009 get_saml_providers()
 
 List available SAML providers
 
@@ -492,7 +492,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse20010**](InlineResponse20010.md)
+[**InlineResponse2009**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -699,57 +699,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **logout_user**
-> InlineResponse2007 logout_user(body=body)
-
-Logout user
-
-Invalidates the user's JWT token by adding it to a blacklist, effectively ending the session. Once logged out, the token cannot be used for further authenticated requests until it naturally expires. The token blacklist is maintained in Redis with automatic cleanup based on token expiration times.
-
-### Example
-```python
-from __future__ import print_function
-import time
-import tmi_client
-from tmi_client.rest import ApiException
-from pprint import pprint
-
-
-# create an instance of the API class
-api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
-body = NULL # object | Empty request body - token is provided via Authorization header (optional)
-
-try:
-    # Logout user
-    api_response = api_instance.logout_user(body=body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuthenticationApi->logout_user: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**object**](object.md)| Empty request body - token is provided via Authorization header | [optional] 
-
-### Return type
-
-[**InlineResponse2007**](InlineResponse2007.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **process_saml_logout**
-> InlineResponse2009 process_saml_logout(saml_request)
+> InlineResponse2008 process_saml_logout(saml_request)
 
 SAML Single Logout
 
@@ -783,7 +734,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -797,7 +748,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **process_saml_logout_post**
-> InlineResponse2009 process_saml_logout_post(saml_request=saml_request)
+> InlineResponse2008 process_saml_logout_post(saml_request=saml_request)
 
 SAML Single Logout (POST)
 
@@ -831,7 +782,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -911,7 +862,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi()
-body = tmi_client.TokenRefreshRequest() # TokenRefreshRequest |  (optional)
+body = tmi_client.TokenRefreshRequest() # TokenRefreshRequest | OAuth 2.0 token refresh request parameters (optional)
 
 try:
     # Refresh JWT token
@@ -925,7 +876,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**TokenRefreshRequest**](TokenRefreshRequest.md)|  | [optional] 
+ **body** | [**TokenRefreshRequest**](TokenRefreshRequest.md)| OAuth 2.0 token refresh request parameters | [optional] 
 
 ### Return type
 
@@ -938,6 +889,60 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **revoke_token**
+> object revoke_token(token, token_type_hint, client_id, client_secret)
+
+Revoke token
+
+Revokes an OAuth 2.0 token per RFC 7009. The token to revoke is passed in the request body. Supports both access tokens and refresh tokens. Authentication is required via Bearer token in the Authorization header OR client credentials (client_id/client_secret) in the request body. Per RFC 7009, the response is always 200 OK regardless of whether the token was valid, to prevent token existence disclosure.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi()
+token = 'token_example' # str | 
+token_type_hint = 'token_type_hint_example' # str | 
+client_id = 'client_id_example' # str | 
+client_secret = 'client_secret_example' # str | 
+
+try:
+    # Revoke token
+    api_response = api_instance.revoke_token(token, token_type_hint, client_id, client_secret)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->revoke_token: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**|  | 
+ **token_type_hint** | **str**|  | 
+ **client_id** | **str**|  | 
+ **client_secret** | **str**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded, application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

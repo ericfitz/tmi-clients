@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **op** | **String** | Patch operation type | 
 **path** | **String** | JSON path to target | 
-**value** | **Object** |  | [optional] 
+**value** | **Object** | The value to use for add/replace/test operations. Can be any JSON value per RFC 6902 (string, number, boolean, object, array, or null). | [optional] 
 
 <a name="OpEnum"></a>
 ## Enum: OpEnum

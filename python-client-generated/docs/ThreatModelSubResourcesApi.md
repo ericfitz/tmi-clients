@@ -113,7 +113,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -129,7 +129,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -166,7 +166,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
 
@@ -182,7 +182,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **document_id** | [**str**](.md)| Document identifier | 
 
@@ -219,7 +219,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
 
@@ -235,7 +235,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **note_id** | [**str**](.md)| Note identifier | 
 
@@ -272,7 +272,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
 
@@ -288,7 +288,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **repository_id** | [**str**](.md)| Repository identifier | 
 
@@ -325,7 +325,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -341,7 +341,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 
@@ -378,7 +378,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
@@ -394,7 +394,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
 
@@ -431,7 +431,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Asset()] # list[Asset] | 
+body = [tmi_client.AssetBase()] # list[AssetBase] | Array of assets to create in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -446,7 +446,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Asset]**](Asset.md)|  | 
+ **body** | [**list[AssetBase]**](AssetBase.md)| Array of assets to create in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -482,7 +482,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Document()] # list[Document] | 
+body = [tmi_client.Document()] # list[Document] | Array of documents to create in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -497,7 +497,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Document]**](Document.md)|  | 
+ **body** | [**list[Document]**](Document.md)| Array of documents to create in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -533,7 +533,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -548,7 +548,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -584,7 +584,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Repository()] # list[Repository] | 
+body = [tmi_client.Repository()] # list[Repository] | Array of repositorys to create in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -599,7 +599,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Repository]**](Repository.md)|  | 
+ **body** | [**list[Repository]**](Repository.md)| Array of repositorys to create in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -635,7 +635,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Threat()] # list[Threat] | 
+body = [tmi_client.Threat()] # list[Threat] | Array of threats to create in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -650,7 +650,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Threat]**](Threat.md)|  | 
+ **body** | [**list[Threat]**](Threat.md)| Array of threats to create in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -686,7 +686,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
 
@@ -702,7 +702,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **note_id** | [**str**](.md)| Note identifier | 
 
@@ -739,7 +739,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Threat()] # list[Threat] | 
+body = [tmi_client.Threat()] # list[Threat] | Array of threats to upsert in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -754,7 +754,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Threat]**](Threat.md)|  | 
+ **body** | [**list[Threat]**](Threat.md)| Array of threats to upsert in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -790,7 +790,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -806,7 +806,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -843,7 +843,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
 
@@ -859,7 +859,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **document_id** | [**str**](.md)| Document identifier | 
 
@@ -896,7 +896,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
 
@@ -912,7 +912,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **repository_id** | [**str**](.md)| Repository identifier | 
 
@@ -949,7 +949,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -965,7 +965,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 
@@ -1002,7 +1002,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
@@ -1018,7 +1018,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
 
@@ -1055,7 +1055,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Asset()] # list[Asset] | 
+body = [tmi_client.Asset()] # list[Asset] | Array of assets to upsert in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1070,7 +1070,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Asset]**](Asset.md)|  | 
+ **body** | [**list[Asset]**](Asset.md)| Array of assets to upsert in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1106,7 +1106,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Document()] # list[Document] | 
+body = [tmi_client.Document()] # list[Document] | Array of documents to upsert in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1121,7 +1121,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Document]**](Document.md)|  | 
+ **body** | [**list[Document]**](Document.md)| Array of documents to upsert in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1157,7 +1157,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | 
+body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1172,7 +1172,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)|  | 
+ **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1208,7 +1208,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Repository()] # list[Repository] | 
+body = [tmi_client.Repository()] # list[Repository] | Array of repositorys to upsert in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1223,7 +1223,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Repository]**](Repository.md)|  | 
+ **body** | [**list[Repository]**](Repository.md)| Array of repositorys to upsert in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1259,7 +1259,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -1275,7 +1275,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -1312,7 +1312,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
 
@@ -1328,7 +1328,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **document_id** | [**str**](.md)| Document identifier | 
 
@@ -1365,7 +1365,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
 
@@ -1381,7 +1381,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **note_id** | [**str**](.md)| Note identifier | 
 
@@ -1418,7 +1418,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
 
@@ -1434,7 +1434,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **repository_id** | [**str**](.md)| Repository identifier | 
 
@@ -1471,7 +1471,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -1487,7 +1487,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 
@@ -1524,7 +1524,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AssetInput() # AssetInput | 
+body = tmi_client.AssetInput() # AssetInput | Asset creation data
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1539,7 +1539,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AssetInput**](AssetInput.md)|  | 
+ **body** | [**AssetInput**](AssetInput.md)| Asset creation data | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1575,7 +1575,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
@@ -1591,7 +1591,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
 
@@ -1628,7 +1628,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.CreateDiagramRequest() # CreateDiagramRequest | 
+body = tmi_client.CreateDiagramRequest() # CreateDiagramRequest | Diagram creation data
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1643,7 +1643,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)|  | 
+ **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)| Diagram creation data | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1679,7 +1679,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.DocumentInput() # DocumentInput | 
+body = tmi_client.DocumentInput() # DocumentInput | Document creation data
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1694,7 +1694,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DocumentInput**](DocumentInput.md)|  | 
+ **body** | [**DocumentInput**](DocumentInput.md)| Document creation data | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1730,7 +1730,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1745,7 +1745,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1781,7 +1781,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.NoteInput() # NoteInput | 
+body = tmi_client.NoteInput() # NoteInput | Note creation data
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1796,7 +1796,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NoteInput**](NoteInput.md)|  | 
+ **body** | [**NoteInput**](NoteInput.md)| Note creation data | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1832,7 +1832,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.RepositoryInput() # RepositoryInput | 
+body = tmi_client.RepositoryInput() # RepositoryInput | Repository creation data
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1847,7 +1847,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
+ **body** | [**RepositoryInput**](RepositoryInput.md)| Repository creation data | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1883,7 +1883,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatInput() # ThreatInput | 
+body = tmi_client.ThreatInput() # ThreatInput | Threat creation data
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1898,7 +1898,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatInput**](ThreatInput.md)|  | 
+ **body** | [**ThreatInput**](ThreatInput.md)| Threat creation data | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -4033,7 +4033,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | 
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to the diagram
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -4049,7 +4049,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the diagram | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -4086,7 +4086,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | 
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to the threat
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -4102,7 +4102,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the threat | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 
@@ -4139,7 +4139,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody4() # MetadataKeyBody4 | 
+body = tmi_client.MetadataKeyBody4() # MetadataKeyBody4 | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 key = 'key_example' # str | Metadata key
@@ -4156,7 +4156,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)|  | 
+ **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
  **key** | **str**| Metadata key | 
@@ -4194,7 +4194,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody1() # MetadataKeyBody1 | 
+body = tmi_client.MetadataKeyBody1() # MetadataKeyBody1 | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
 key = 'key_example' # str | Metadata key
@@ -4211,7 +4211,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)|  | 
+ **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **document_id** | [**str**](.md)| Document identifier | 
  **key** | **str**| Metadata key | 
@@ -4249,7 +4249,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody5() # MetadataKeyBody5 | 
+body = tmi_client.MetadataKeyBody5() # MetadataKeyBody5 | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
 key = 'key_example' # str | Metadata key
@@ -4266,7 +4266,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)|  | 
+ **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **note_id** | [**str**](.md)| Note identifier | 
  **key** | **str**| Metadata key | 
@@ -4304,7 +4304,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody2() # MetadataKeyBody2 | 
+body = tmi_client.MetadataKeyBody2() # MetadataKeyBody2 | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
 key = 'key_example' # str | Metadata key
@@ -4321,7 +4321,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)|  | 
+ **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **repository_id** | [**str**](.md)| Repository identifier | 
  **key** | **str**| Metadata key | 
@@ -4359,7 +4359,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody() # MetadataKeyBody | 
+body = tmi_client.MetadataKeyBody() # MetadataKeyBody | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 key = 'key_example' # str | Metadata key
@@ -4376,7 +4376,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody**](MetadataKeyBody.md)|  | 
+ **body** | [**MetadataKeyBody**](MetadataKeyBody.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
  **key** | **str**| Metadata key | 
@@ -4414,7 +4414,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AssetInput() # AssetInput | 
+body = tmi_client.AssetInput() # AssetInput | Complete asset data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
@@ -4430,7 +4430,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AssetInput**](AssetInput.md)|  | 
+ **body** | [**AssetInput**](AssetInput.md)| Complete asset data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
 
@@ -4467,7 +4467,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | 
+body = tmi_client.Metadata() # Metadata | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 key = 'key_example' # str | Metadata key
@@ -4484,7 +4484,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
  **key** | **str**| Metadata key | 
@@ -4522,7 +4522,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.DfdDiagramInput() # DfdDiagramInput | 
+body = tmi_client.DfdDiagramInput() # DfdDiagramInput | Complete diagram data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -4538,7 +4538,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DfdDiagramInput**](DfdDiagramInput.md)|  | 
+ **body** | [**DfdDiagramInput**](DfdDiagramInput.md)| Complete diagram data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -4575,7 +4575,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.DocumentInput() # DocumentInput | 
+body = tmi_client.DocumentInput() # DocumentInput | Complete document data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
 
@@ -4591,7 +4591,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DocumentInput**](DocumentInput.md)|  | 
+ **body** | [**DocumentInput**](DocumentInput.md)| Complete document data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **document_id** | [**str**](.md)| Document identifier | 
 
@@ -4628,7 +4628,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody3() # MetadataKeyBody3 | 
+body = tmi_client.MetadataKeyBody3() # MetadataKeyBody3 | Metadata value to set
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 key = 'key_example' # str | Metadata key
 
@@ -4644,7 +4644,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)|  | 
+ **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)| Metadata value to set | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **key** | **str**| Metadata key | 
 
@@ -4681,7 +4681,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.NoteInput() # NoteInput | 
+body = tmi_client.NoteInput() # NoteInput | Complete note data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
 
@@ -4697,7 +4697,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NoteInput**](NoteInput.md)|  | 
+ **body** | [**NoteInput**](NoteInput.md)| Complete note data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **note_id** | [**str**](.md)| Note identifier | 
 
@@ -4734,7 +4734,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.RepositoryInput() # RepositoryInput | 
+body = tmi_client.RepositoryInput() # RepositoryInput | Complete repository data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
 
@@ -4750,7 +4750,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
+ **body** | [**RepositoryInput**](RepositoryInput.md)| Complete repository data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **repository_id** | [**str**](.md)| Repository identifier | 
 
@@ -4787,7 +4787,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatInput() # ThreatInput | 
+body = tmi_client.ThreatInput() # ThreatInput | Complete threat data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -4803,7 +4803,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatInput**](ThreatInput.md)|  | 
+ **body** | [**ThreatInput**](ThreatInput.md)| Complete threat data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 

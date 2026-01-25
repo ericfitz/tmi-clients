@@ -110,7 +110,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
@@ -126,7 +126,7 @@ apiInstance.bulkCreateDiagramMetadata(body, threatModelId, diagramId).then((data
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -158,7 +158,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
@@ -174,7 +174,7 @@ apiInstance.bulkCreateDocumentMetadata(body, threatModelId, documentId).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
 
@@ -206,7 +206,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
@@ -222,7 +222,7 @@ apiInstance.bulkCreateNoteMetadata(body, threatModelId, noteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
 
@@ -254,7 +254,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
@@ -270,7 +270,7 @@ apiInstance.bulkCreateRepositoryMetadata(body, threatModelId, repositoryId).then
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
 
@@ -302,7 +302,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
@@ -318,7 +318,7 @@ apiInstance.bulkCreateThreatMetadata(body, threatModelId, threatId).then((data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 
@@ -350,7 +350,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
@@ -366,7 +366,7 @@ apiInstance.bulkCreateThreatModelAssetMetadata(body, threatModelId, assetId).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **assetId** | [**String**](.md)| Asset identifier | 
 
@@ -398,7 +398,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Asset()]; // [Asset] | 
+let body = [new TmiJsClient.AssetBase()]; // [AssetBase] | Array of assets to create in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkCreateThreatModelAssets(body, threatModelId).then((data) => {
@@ -413,7 +413,7 @@ apiInstance.bulkCreateThreatModelAssets(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Asset]**](Asset.md)|  | 
+ **body** | [**[AssetBase]**](AssetBase.md)| Array of assets to create in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -444,7 +444,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Document()]; // [Document] | 
+let body = [new TmiJsClient.Document()]; // [Document] | Array of documents to create in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkCreateThreatModelDocuments(body, threatModelId).then((data) => {
@@ -459,7 +459,7 @@ apiInstance.bulkCreateThreatModelDocuments(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Document]**](Document.md)|  | 
+ **body** | [**[Document]**](Document.md)| Array of documents to create in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -490,7 +490,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkCreateThreatModelMetadata(body, threatModelId).then((data) => {
@@ -505,7 +505,7 @@ apiInstance.bulkCreateThreatModelMetadata(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -536,7 +536,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Repository()]; // [Repository] | 
+let body = [new TmiJsClient.Repository()]; // [Repository] | Array of repositorys to create in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkCreateThreatModelRepositories(body, threatModelId).then((data) => {
@@ -551,7 +551,7 @@ apiInstance.bulkCreateThreatModelRepositories(body, threatModelId).then((data) =
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Repository]**](Repository.md)|  | 
+ **body** | [**[Repository]**](Repository.md)| Array of repositorys to create in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -582,7 +582,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Threat()]; // [Threat] | 
+let body = [new TmiJsClient.Threat()]; // [Threat] | Array of threats to create in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkCreateThreatModelThreats(body, threatModelId).then((data) => {
@@ -597,7 +597,7 @@ apiInstance.bulkCreateThreatModelThreats(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Threat]**](Threat.md)|  | 
+ **body** | [**[Threat]**](Threat.md)| Array of threats to create in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -628,7 +628,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
@@ -644,7 +644,7 @@ apiInstance.bulkUpdateNoteMetadata(body, threatModelId, noteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
 
@@ -676,7 +676,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Threat()]; // [Threat] | 
+let body = [new TmiJsClient.Threat()]; // [Threat] | Array of threats to upsert in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpdateThreatModelThreats(body, threatModelId).then((data) => {
@@ -691,7 +691,7 @@ apiInstance.bulkUpdateThreatModelThreats(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Threat]**](Threat.md)|  | 
+ **body** | [**[Threat]**](Threat.md)| Array of threats to upsert in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -722,7 +722,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
@@ -738,7 +738,7 @@ apiInstance.bulkUpsertDiagramMetadata(body, threatModelId, diagramId).then((data
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -770,7 +770,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
@@ -786,7 +786,7 @@ apiInstance.bulkUpsertDocumentMetadata(body, threatModelId, documentId).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
 
@@ -818,7 +818,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
@@ -834,7 +834,7 @@ apiInstance.bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId).then
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
 
@@ -866,7 +866,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
@@ -882,7 +882,7 @@ apiInstance.bulkUpsertThreatMetadata(body, threatModelId, threatId).then((data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 
@@ -914,7 +914,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
@@ -930,7 +930,7 @@ apiInstance.bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **assetId** | [**String**](.md)| Asset identifier | 
 
@@ -962,7 +962,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Asset()]; // [Asset] | 
+let body = [new TmiJsClient.Asset()]; // [Asset] | Array of assets to upsert in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpsertThreatModelAssets(body, threatModelId).then((data) => {
@@ -977,7 +977,7 @@ apiInstance.bulkUpsertThreatModelAssets(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Asset]**](Asset.md)|  | 
+ **body** | [**[Asset]**](Asset.md)| Array of assets to upsert in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1008,7 +1008,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Document()]; // [Document] | 
+let body = [new TmiJsClient.Document()]; // [Document] | Array of documents to upsert in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpsertThreatModelDocuments(body, threatModelId).then((data) => {
@@ -1023,7 +1023,7 @@ apiInstance.bulkUpsertThreatModelDocuments(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Document]**](Document.md)|  | 
+ **body** | [**[Document]**](Document.md)| Array of documents to upsert in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1054,7 +1054,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | 
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpsertThreatModelMetadata(body, threatModelId).then((data) => {
@@ -1069,7 +1069,7 @@ apiInstance.bulkUpsertThreatModelMetadata(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)|  | 
+ **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1100,7 +1100,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Repository()]; // [Repository] | 
+let body = [new TmiJsClient.Repository()]; // [Repository] | Array of repositorys to upsert in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpsertThreatModelRepositories(body, threatModelId).then((data) => {
@@ -1115,7 +1115,7 @@ apiInstance.bulkUpsertThreatModelRepositories(body, threatModelId).then((data) =
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Repository]**](Repository.md)|  | 
+ **body** | [**[Repository]**](Repository.md)| Array of repositorys to upsert in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1146,7 +1146,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
@@ -1162,7 +1162,7 @@ apiInstance.createDiagramMetadata(body, threatModelId, diagramId).then((data) =>
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -1194,7 +1194,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
@@ -1210,7 +1210,7 @@ apiInstance.createDocumentMetadata(body, threatModelId, documentId).then((data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
 
@@ -1242,7 +1242,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
@@ -1258,7 +1258,7 @@ apiInstance.createNoteMetadata(body, threatModelId, noteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
 
@@ -1290,7 +1290,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
@@ -1306,7 +1306,7 @@ apiInstance.createRepositoryMetadata(body, threatModelId, repositoryId).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
 
@@ -1338,7 +1338,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
@@ -1354,7 +1354,7 @@ apiInstance.createThreatMetadata(body, threatModelId, threatId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 
@@ -1386,7 +1386,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.AssetInput(); // AssetInput | 
+let body = new TmiJsClient.AssetInput(); // AssetInput | Asset creation data
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelAsset(body, threatModelId).then((data) => {
@@ -1401,7 +1401,7 @@ apiInstance.createThreatModelAsset(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AssetInput**](AssetInput.md)|  | 
+ **body** | [**AssetInput**](AssetInput.md)| Asset creation data | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1432,7 +1432,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
@@ -1448,7 +1448,7 @@ apiInstance.createThreatModelAssetMetadata(body, threatModelId, assetId).then((d
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **assetId** | [**String**](.md)| Asset identifier | 
 
@@ -1480,7 +1480,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.CreateDiagramRequest(); // CreateDiagramRequest | 
+let body = new TmiJsClient.CreateDiagramRequest(); // CreateDiagramRequest | Diagram creation data
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelDiagram(body, threatModelId).then((data) => {
@@ -1495,7 +1495,7 @@ apiInstance.createThreatModelDiagram(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)|  | 
+ **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)| Diagram creation data | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1526,7 +1526,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.DocumentInput(); // DocumentInput | 
+let body = new TmiJsClient.DocumentInput(); // DocumentInput | Document creation data
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelDocument(body, threatModelId).then((data) => {
@@ -1541,7 +1541,7 @@ apiInstance.createThreatModelDocument(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DocumentInput**](DocumentInput.md)|  | 
+ **body** | [**DocumentInput**](DocumentInput.md)| Document creation data | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1572,7 +1572,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata key-value pair to create
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelMetadata(body, threatModelId).then((data) => {
@@ -1587,7 +1587,7 @@ apiInstance.createThreatModelMetadata(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1618,7 +1618,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.NoteInput(); // NoteInput | 
+let body = new TmiJsClient.NoteInput(); // NoteInput | Note creation data
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelNote(body, threatModelId).then((data) => {
@@ -1633,7 +1633,7 @@ apiInstance.createThreatModelNote(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NoteInput**](NoteInput.md)|  | 
+ **body** | [**NoteInput**](NoteInput.md)| Note creation data | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1664,7 +1664,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.RepositoryInput(); // RepositoryInput | 
+let body = new TmiJsClient.RepositoryInput(); // RepositoryInput | Repository creation data
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelRepository(body, threatModelId).then((data) => {
@@ -1679,7 +1679,7 @@ apiInstance.createThreatModelRepository(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
+ **body** | [**RepositoryInput**](RepositoryInput.md)| Repository creation data | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1710,7 +1710,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.ThreatInput(); // ThreatInput | 
+let body = new TmiJsClient.ThreatInput(); // ThreatInput | Threat creation data
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.createThreatModelThreat(body, threatModelId).then((data) => {
@@ -1725,7 +1725,7 @@ apiInstance.createThreatModelThreat(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatInput**](ThreatInput.md)|  | 
+ **body** | [**ThreatInput**](ThreatInput.md)| Threat creation data | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -3675,7 +3675,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to the diagram
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
@@ -3691,7 +3691,7 @@ apiInstance.patchThreatModelDiagram(body, threatModelId, diagramId).then((data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the diagram | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -3723,7 +3723,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to the threat
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
@@ -3739,7 +3739,7 @@ apiInstance.patchThreatModelThreat(body, threatModelId, threatId).then((data) =>
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the threat | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 
@@ -3771,7 +3771,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.MetadataKeyBody4(); // MetadataKeyBody4 | 
+let body = new TmiJsClient.MetadataKeyBody4(); // MetadataKeyBody4 | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 let key = "key_example"; // String | Metadata key
@@ -3788,7 +3788,7 @@ apiInstance.updateDiagramMetadataByKey(body, threatModelId, diagramId, key).then
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)|  | 
+ **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
  **key** | **String**| Metadata key | 
@@ -3821,7 +3821,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.MetadataKeyBody1(); // MetadataKeyBody1 | 
+let body = new TmiJsClient.MetadataKeyBody1(); // MetadataKeyBody1 | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 let key = "key_example"; // String | Metadata key
@@ -3838,7 +3838,7 @@ apiInstance.updateDocumentMetadataByKey(body, threatModelId, documentId, key).th
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)|  | 
+ **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
  **key** | **String**| Metadata key | 
@@ -3871,7 +3871,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.MetadataKeyBody5(); // MetadataKeyBody5 | 
+let body = new TmiJsClient.MetadataKeyBody5(); // MetadataKeyBody5 | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 let key = "key_example"; // String | Metadata key
@@ -3888,7 +3888,7 @@ apiInstance.updateNoteMetadataByKey(body, threatModelId, noteId, key).then((data
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)|  | 
+ **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
  **key** | **String**| Metadata key | 
@@ -3921,7 +3921,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.MetadataKeyBody2(); // MetadataKeyBody2 | 
+let body = new TmiJsClient.MetadataKeyBody2(); // MetadataKeyBody2 | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 let key = "key_example"; // String | Metadata key
@@ -3938,7 +3938,7 @@ apiInstance.updateRepositoryMetadataByKey(body, threatModelId, repositoryId, key
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)|  | 
+ **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
  **key** | **String**| Metadata key | 
@@ -3971,7 +3971,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.MetadataKeyBody(); // MetadataKeyBody | 
+let body = new TmiJsClient.MetadataKeyBody(); // MetadataKeyBody | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 let key = "key_example"; // String | Metadata key
@@ -3988,7 +3988,7 @@ apiInstance.updateThreatMetadataByKey(body, threatModelId, threatId, key).then((
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody**](MetadataKeyBody.md)|  | 
+ **body** | [**MetadataKeyBody**](MetadataKeyBody.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
  **key** | **String**| Metadata key | 
@@ -4021,7 +4021,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.AssetInput(); // AssetInput | 
+let body = new TmiJsClient.AssetInput(); // AssetInput | Complete asset data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
@@ -4037,7 +4037,7 @@ apiInstance.updateThreatModelAsset(body, threatModelId, assetId).then((data) => 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AssetInput**](AssetInput.md)|  | 
+ **body** | [**AssetInput**](AssetInput.md)| Complete asset data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **assetId** | [**String**](.md)| Asset identifier | 
 
@@ -4069,7 +4069,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.Metadata(); // Metadata | 
+let body = new TmiJsClient.Metadata(); // Metadata | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 let key = "key_example"; // String | Metadata key
@@ -4086,7 +4086,7 @@ apiInstance.updateThreatModelAssetMetadata(body, threatModelId, assetId, key).th
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)|  | 
+ **body** | [**Metadata**](Metadata.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **assetId** | [**String**](.md)| Asset identifier | 
  **key** | **String**| Metadata key | 
@@ -4119,7 +4119,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.DfdDiagramInput(); // DfdDiagramInput | 
+let body = new TmiJsClient.DfdDiagramInput(); // DfdDiagramInput | Complete diagram data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
@@ -4135,7 +4135,7 @@ apiInstance.updateThreatModelDiagram(body, threatModelId, diagramId).then((data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DfdDiagramInput**](DfdDiagramInput.md)|  | 
+ **body** | [**DfdDiagramInput**](DfdDiagramInput.md)| Complete diagram data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -4167,7 +4167,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.DocumentInput(); // DocumentInput | 
+let body = new TmiJsClient.DocumentInput(); // DocumentInput | Complete document data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
@@ -4183,7 +4183,7 @@ apiInstance.updateThreatModelDocument(body, threatModelId, documentId).then((dat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DocumentInput**](DocumentInput.md)|  | 
+ **body** | [**DocumentInput**](DocumentInput.md)| Complete document data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
 
@@ -4215,7 +4215,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.MetadataKeyBody3(); // MetadataKeyBody3 | 
+let body = new TmiJsClient.MetadataKeyBody3(); // MetadataKeyBody3 | Metadata value to set
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let key = "key_example"; // String | Metadata key
 
@@ -4231,7 +4231,7 @@ apiInstance.updateThreatModelMetadataByKey(body, threatModelId, key).then((data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)|  | 
+ **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)| Metadata value to set | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **key** | **String**| Metadata key | 
 
@@ -4263,7 +4263,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.NoteInput(); // NoteInput | 
+let body = new TmiJsClient.NoteInput(); // NoteInput | Complete note data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
 
@@ -4279,7 +4279,7 @@ apiInstance.updateThreatModelNote(body, threatModelId, noteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NoteInput**](NoteInput.md)|  | 
+ **body** | [**NoteInput**](NoteInput.md)| Complete note data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
 
@@ -4311,7 +4311,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.RepositoryInput(); // RepositoryInput | 
+let body = new TmiJsClient.RepositoryInput(); // RepositoryInput | Complete repository data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
@@ -4327,7 +4327,7 @@ apiInstance.updateThreatModelRepository(body, threatModelId, repositoryId).then(
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
+ **body** | [**RepositoryInput**](RepositoryInput.md)| Complete repository data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
 
@@ -4359,7 +4359,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = new TmiJsClient.ThreatInput(); // ThreatInput | 
+let body = new TmiJsClient.ThreatInput(); // ThreatInput | Complete threat data for replacement
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
@@ -4375,7 +4375,7 @@ apiInstance.updateThreatModelThreat(body, threatModelId, threatId).then((data) =
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatInput**](ThreatInput.md)|  | 
+ **body** | [**ThreatInput**](ThreatInput.md)| Complete threat data for replacement | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 

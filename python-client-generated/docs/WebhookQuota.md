@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **max_events_per_minute** | **int** | Maximum webhook events per minute | 
 **max_subscription_requests_per_minute** | **int** | Maximum subscription requests per minute | 
 **max_subscription_requests_per_day** | **int** | Maximum subscription requests per day | 
+**created_at** | **datetime** | Timestamp when the quota was created | [optional] 
+**modified_at** | **datetime** | Timestamp when the quota was last modified | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

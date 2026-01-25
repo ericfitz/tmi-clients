@@ -17,7 +17,7 @@ Apply JSON Patch operations to partially update a note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to the note | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
 

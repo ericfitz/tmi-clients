@@ -21,7 +21,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.DocumentsApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | 
+let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to the document
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
@@ -37,7 +37,7 @@ apiInstance.patchThreatModelDocument(body, threatModelId, documentId).then((data
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | 
+ **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the document | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
 

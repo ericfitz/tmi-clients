@@ -8,3 +8,5 @@ Name | Type | Description | Notes
 **maxEventsPerMinute** | **Number** | Maximum webhook events per minute | 
 **maxSubscriptionRequestsPerMinute** | **Number** | Maximum subscription requests per minute | 
 **maxSubscriptionRequestsPerDay** | **Number** | Maximum subscription requests per day | 
+**createdAt** | **Date** | Timestamp when the quota was created | [optional] 
+**modifiedAt** | **Date** | Timestamp when the quota was last modified | [optional] 

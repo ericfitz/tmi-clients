@@ -106,7 +106,7 @@ Creates multiple metadata entries in a single operation for the specified diagra
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -136,7 +136,7 @@ Creates multiple metadata entries in a single operation for the specified docume
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **documentId** | [**string**](.md)| Document identifier | 
 
@@ -166,7 +166,7 @@ Creates multiple metadata key-value pairs for the specified note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
 
@@ -196,7 +196,7 @@ Creates multiple metadata entries in a single operation for the specified source
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **repositoryId** | [**string**](.md)| Repository identifier | 
 
@@ -226,7 +226,7 @@ Creates multiple metadata entries in a single operation for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 
@@ -256,7 +256,7 @@ Creates multiple metadata key-value pairs for the specified asset
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
 
@@ -286,7 +286,7 @@ Creates multiple assets within the specified threat model (maximum 50 per reques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Asset**](Asset.md)|  | 
+  **body** | [**[]AssetBase**](AssetBase.md)| Array of assets to create in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -315,7 +315,7 @@ Creates multiple documents in a single operation for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Document**](Document.md)|  | 
+  **body** | [**[]Document**](Document.md)| Array of documents to create in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -344,7 +344,7 @@ Creates multiple metadata entries in a single operation for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -373,7 +373,7 @@ Creates multiple source references in a single operation for the specified threa
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Repository**](Repository.md)|  | 
+  **body** | [**[]Repository**](Repository.md)| Array of repositorys to create in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -402,7 +402,7 @@ Creates multiple threats in a single operation for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Threat**](Threat.md)|  | 
+  **body** | [**[]Threat**](Threat.md)| Array of threats to create in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -431,7 +431,7 @@ Updates multiple metadata entries for the specified note in a single operation
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
 
@@ -461,7 +461,7 @@ Updates multiple threats in a single operation for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Threat**](Threat.md)|  | 
+  **body** | [**[]Threat**](Threat.md)| Array of threats to upsert in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -490,7 +490,7 @@ Creates or updates multiple metadata key-value pairs for the specified diagram
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -520,7 +520,7 @@ Creates or updates multiple metadata key-value pairs for the specified document
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **documentId** | [**string**](.md)| Document identifier | 
 
@@ -550,7 +550,7 @@ Creates or updates multiple metadata key-value pairs for the specified repositor
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **repositoryId** | [**string**](.md)| Repository identifier | 
 
@@ -580,7 +580,7 @@ Creates or updates multiple metadata key-value pairs for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 
@@ -610,7 +610,7 @@ Creates or updates multiple metadata key-value pairs for the specified asset
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
 
@@ -640,7 +640,7 @@ Create or update multiple assets in a single request
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Asset**](Asset.md)|  | 
+  **body** | [**[]Asset**](Asset.md)| Array of assets to upsert in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -669,7 +669,7 @@ Create or update multiple documents in a single request
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Document**](Document.md)|  | 
+  **body** | [**[]Document**](Document.md)| Array of documents to upsert in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -698,7 +698,7 @@ Creates or updates multiple metadata key-value pairs for the specified threat mo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)|  | 
+  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -727,7 +727,7 @@ Create or update multiple repositories in a single request
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Repository**](Repository.md)|  | 
+  **body** | [**[]Repository**](Repository.md)| Array of repositorys to upsert in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -756,7 +756,7 @@ Creates a new metadata entry for the specified diagram
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -786,7 +786,7 @@ Creates new metadata entry for the specified document
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **documentId** | [**string**](.md)| Document identifier | 
 
@@ -816,7 +816,7 @@ Creates new metadata entry for the specified note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
 
@@ -846,7 +846,7 @@ Creates new metadata entry for the specified source reference
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **repositoryId** | [**string**](.md)| Repository identifier | 
 
@@ -876,7 +876,7 @@ Creates new metadata entry for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 
@@ -906,7 +906,7 @@ Creates a new asset within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**AssetInput**](AssetInput.md)|  | 
+  **body** | [**AssetInput**](AssetInput.md)| Asset creation data | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -935,7 +935,7 @@ Adds a new metadata key-value pair to the specified asset
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
 
@@ -965,7 +965,7 @@ Creates a new diagram within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)|  | 
+  **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)| Diagram creation data | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -994,7 +994,7 @@ Creates a new document within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**DocumentInput**](DocumentInput.md)|  | 
+  **body** | [**DocumentInput**](DocumentInput.md)| Document creation data | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1023,7 +1023,7 @@ Creates new metadata entry for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1052,7 +1052,7 @@ Creates a new note within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**NoteInput**](NoteInput.md)|  | 
+  **body** | [**NoteInput**](NoteInput.md)| Note creation data | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1081,7 +1081,7 @@ Creates a new source code reference within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
+  **body** | [**RepositoryInput**](RepositoryInput.md)| Repository creation data | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1110,7 +1110,7 @@ Creates a new threat within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**ThreatInput**](ThreatInput.md)|  | 
+  **body** | [**ThreatInput**](ThreatInput.md)| Threat creation data | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -2385,7 +2385,7 @@ Apply JSON Patch operations to update specific parts of a diagram
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to the diagram | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -2415,7 +2415,7 @@ Applies JSON patch operations to a specific threat within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to the threat | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 
@@ -2445,7 +2445,7 @@ Updates or creates a metadata entry for the diagram with the specified key
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)|  | 
+  **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
   **key** | **string**| Metadata key | 
@@ -2476,7 +2476,7 @@ Updates a specific metadata entry by key for the specified document
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)|  | 
+  **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **documentId** | [**string**](.md)| Document identifier | 
   **key** | **string**| Metadata key | 
@@ -2507,7 +2507,7 @@ Updates a specific metadata entry by key for the specified note
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)|  | 
+  **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
   **key** | **string**| Metadata key | 
@@ -2538,7 +2538,7 @@ Updates a specific metadata entry by key for the specified source reference
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)|  | 
+  **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **repositoryId** | [**string**](.md)| Repository identifier | 
   **key** | **string**| Metadata key | 
@@ -2569,7 +2569,7 @@ Updates a specific metadata entry by key for the specified threat
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MetadataKeyBody**](MetadataKeyBody.md)|  | 
+  **body** | [**MetadataKeyBody**](MetadataKeyBody.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
   **key** | **string**| Metadata key | 
@@ -2600,7 +2600,7 @@ Updates an existing asset within the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**AssetInput**](AssetInput.md)|  | 
+  **body** | [**AssetInput**](AssetInput.md)| Complete asset data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
 
@@ -2630,7 +2630,7 @@ Updates an existing metadata value by its key
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Metadata**](Metadata.md)|  | 
+  **body** | [**Metadata**](Metadata.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
   **key** | **string**| Metadata key | 
@@ -2661,7 +2661,7 @@ Completely replaces a diagram with new data. Use DfdDiagramInput schema which ex
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**DfdDiagramInput**](DfdDiagramInput.md)|  | 
+  **body** | [**DfdDiagramInput**](DfdDiagramInput.md)| Complete diagram data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -2691,7 +2691,7 @@ Updates a specific document within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**DocumentInput**](DocumentInput.md)|  | 
+  **body** | [**DocumentInput**](DocumentInput.md)| Complete document data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **documentId** | [**string**](.md)| Document identifier | 
 
@@ -2721,7 +2721,7 @@ Updates a specific metadata entry by key for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)|  | 
+  **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)| Metadata value to set | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **key** | **string**| Metadata key | 
 
@@ -2751,7 +2751,7 @@ Updates a specific note within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**NoteInput**](NoteInput.md)|  | 
+  **body** | [**NoteInput**](NoteInput.md)| Complete note data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
 
@@ -2781,7 +2781,7 @@ Updates a specific source code reference within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**RepositoryInput**](RepositoryInput.md)|  | 
+  **body** | [**RepositoryInput**](RepositoryInput.md)| Complete repository data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **repositoryId** | [**string**](.md)| Repository identifier | 
 
@@ -2811,7 +2811,7 @@ Updates a specific threat within the threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**ThreatInput**](ThreatInput.md)|  | 
+  **body** | [**ThreatInput**](ThreatInput.md)| Complete threat data for replacement | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 

@@ -29,7 +29,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatModelInput() # ThreatModelInput | 
+body = tmi_client.ThreatModelInput() # ThreatModelInput | Threat Model creation data
 
 try:
     # Create a threat model
@@ -43,7 +43,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
+ **body** | [**ThreatModelInput**](ThreatModelInput.md)| Threat Model creation data | 
 
 ### Return type
 
@@ -249,7 +249,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] |  (optional)
+body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to the threat model (optional)
 
 try:
     # Partially update a threat model
@@ -264,7 +264,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)|  | [optional] 
+ **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the threat model | [optional] 
 
 ### Return type
 
@@ -299,7 +299,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelsApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatModelInput() # ThreatModelInput | 
+body = tmi_client.ThreatModelInput() # ThreatModelInput | Complete threat model data for replacement
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -314,7 +314,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatModelInput**](ThreatModelInput.md)|  | 
+ **body** | [**ThreatModelInput**](ThreatModelInput.md)| Complete threat model data for replacement | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type

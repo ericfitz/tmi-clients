@@ -28,7 +28,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AddonsApi();
-let body = new TmiJsClient.CreateAddonRequest(); // CreateAddonRequest | 
+let body = new TmiJsClient.CreateAddonRequest(); // CreateAddonRequest | Addon registration details
 
 apiInstance.createAddon(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -42,7 +42,7 @@ apiInstance.createAddon(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateAddonRequest**](CreateAddonRequest.md)|  | 
+ **body** | [**CreateAddonRequest**](CreateAddonRequest.md)| Addon registration details | 
 
 ### Return type
 
@@ -204,7 +204,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AddonsApi();
-let body = new TmiJsClient.InvokeAddonRequest(); // InvokeAddonRequest | 
+let body = new TmiJsClient.InvokeAddonRequest(); // InvokeAddonRequest | Addon invocation parameters
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 
 apiInstance.invokeAddon(body, id).then((data) => {
@@ -219,7 +219,7 @@ apiInstance.invokeAddon(body, id).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**InvokeAddonRequest**](InvokeAddonRequest.md)|  | 
+ **body** | [**InvokeAddonRequest**](InvokeAddonRequest.md)| Addon invocation parameters | 
  **id** | [**String**](.md)| Resource identifier | 
 
 ### Return type
@@ -350,7 +350,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AddonsApi();
-let body = new TmiJsClient.UpdateInvocationStatusRequest(); // UpdateInvocationStatusRequest | 
+let body = new TmiJsClient.UpdateInvocationStatusRequest(); // UpdateInvocationStatusRequest | Invocation status update
 let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Resource identifier
 let xWebhookSignature = "xWebhookSignature_example"; // String | HMAC-SHA256 signature (format: sha256={hex_signature})
 
@@ -366,7 +366,7 @@ apiInstance.updateInvocationStatus(body, id, xWebhookSignature).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UpdateInvocationStatusRequest**](UpdateInvocationStatusRequest.md)|  | 
+ **body** | [**UpdateInvocationStatusRequest**](UpdateInvocationStatusRequest.md)| Invocation status update | 
  **id** | [**String**](.md)| Resource identifier | 
  **xWebhookSignature** | **String**| HMAC-SHA256 signature (format: sha256&#x3D;{hex_signature}) | 
 

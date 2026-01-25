@@ -31,7 +31,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AddonsApi(tmi_client.ApiClient(configuration))
-body = tmi_client.CreateAddonRequest() # CreateAddonRequest | 
+body = tmi_client.CreateAddonRequest() # CreateAddonRequest | Addon registration details
 
 try:
     # Create add-on
@@ -45,7 +45,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateAddonRequest**](CreateAddonRequest.md)|  | 
+ **body** | [**CreateAddonRequest**](CreateAddonRequest.md)| Addon registration details | 
 
 ### Return type
 
@@ -226,7 +226,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AddonsApi(tmi_client.ApiClient(configuration))
-body = tmi_client.InvokeAddonRequest() # InvokeAddonRequest | 
+body = tmi_client.InvokeAddonRequest() # InvokeAddonRequest | Addon invocation parameters
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Resource identifier
 
 try:
@@ -241,7 +241,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**InvokeAddonRequest**](InvokeAddonRequest.md)|  | 
+ **body** | [**InvokeAddonRequest**](InvokeAddonRequest.md)| Addon invocation parameters | 
  **id** | [**str**](.md)| Resource identifier | 
 
 ### Return type
@@ -385,7 +385,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AddonsApi(tmi_client.ApiClient(configuration))
-body = tmi_client.UpdateInvocationStatusRequest() # UpdateInvocationStatusRequest | 
+body = tmi_client.UpdateInvocationStatusRequest() # UpdateInvocationStatusRequest | Invocation status update
 x_webhook_signature = 'x_webhook_signature_example' # str | HMAC-SHA256 signature (format: sha256={hex_signature})
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Resource identifier
 
@@ -401,7 +401,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UpdateInvocationStatusRequest**](UpdateInvocationStatusRequest.md)|  | 
+ **body** | [**UpdateInvocationStatusRequest**](UpdateInvocationStatusRequest.md)| Invocation status update | 
  **x_webhook_signature** | **str**| HMAC-SHA256 signature (format: sha256&#x3D;{hex_signature}) | 
  **id** | [**str**](.md)| Resource identifier | 
 

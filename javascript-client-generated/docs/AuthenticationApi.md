@@ -5,24 +5,24 @@ All URIs are relative to *https://api.tmi.dev*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorizeOAuthProvider**](AuthenticationApi.md#authorizeOAuthProvider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
-[**createCurrentUserClientCredential**](AuthenticationApi.md#createCurrentUserClientCredential) | **POST** /users/me/client_credentials | Create client credential
-[**deleteCurrentUserClientCredential**](AuthenticationApi.md#deleteCurrentUserClientCredential) | **DELETE** /users/me/client_credentials/{id} | Delete client credential
+[**createCurrentUserClientCredential**](AuthenticationApi.md#createCurrentUserClientCredential) | **POST** /me/client_credentials | Create client credential
+[**deleteCurrentUserClientCredential**](AuthenticationApi.md#deleteCurrentUserClientCredential) | **DELETE** /me/client_credentials/{id} | Delete client credential
 [**exchangeOAuthCode**](AuthenticationApi.md#exchangeOAuthCode) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**getAuthProviders**](AuthenticationApi.md#getAuthProviders) | **GET** /oauth2/providers | List available OAuth providers
 [**getCurrentUser**](AuthenticationApi.md#getCurrentUser) | **GET** /oauth2/userinfo | Get current user information
-[**getCurrentUserProfile**](AuthenticationApi.md#getCurrentUserProfile) | **GET** /users/me | Get current user profile
+[**getCurrentUserProfile**](AuthenticationApi.md#getCurrentUserProfile) | **GET** /me | Get current user profile
 [**getProviderGroups**](AuthenticationApi.md#getProviderGroups) | **GET** /oauth2/providers/{idp}/groups | Get groups for identity provider
 [**getSAMLMetadata**](AuthenticationApi.md#getSAMLMetadata) | **GET** /saml/{provider}/metadata | Get SAML service provider metadata
 [**getSAMLProviders**](AuthenticationApi.md#getSAMLProviders) | **GET** /saml/providers | List available SAML providers
 [**handleOAuthCallback**](AuthenticationApi.md#handleOAuthCallback) | **GET** /oauth2/callback | Handle OAuth callback
 [**initiateSAMLLogin**](AuthenticationApi.md#initiateSAMLLogin) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspectToken**](AuthenticationApi.md#introspectToken) | **POST** /oauth2/introspect | Token Introspection
-[**listCurrentUserClientCredentials**](AuthenticationApi.md#listCurrentUserClientCredentials) | **GET** /users/me/client_credentials | List client credentials
-[**logoutUser**](AuthenticationApi.md#logoutUser) | **POST** /oauth2/revoke | Logout user
+[**listCurrentUserClientCredentials**](AuthenticationApi.md#listCurrentUserClientCredentials) | **GET** /me/client_credentials | List client credentials
 [**processSAMLLogout**](AuthenticationApi.md#processSAMLLogout) | **GET** /saml/slo | SAML Single Logout
 [**processSAMLLogoutPost**](AuthenticationApi.md#processSAMLLogoutPost) | **POST** /saml/slo | SAML Single Logout (POST)
 [**processSAMLResponse**](AuthenticationApi.md#processSAMLResponse) | **POST** /saml/acs | SAML Assertion Consumer Service
 [**refreshToken**](AuthenticationApi.md#refreshToken) | **POST** /oauth2/refresh | Refresh JWT token
+[**revokeToken**](AuthenticationApi.md#revokeToken) | **POST** /oauth2/revoke | Revoke token
 
 <a name="authorizeOAuthProvider"></a>
 # **authorizeOAuthProvider**
@@ -41,10 +41,10 @@ let scope = "scope_example"; // String | OAuth 2.0 scope parameter. For OpenID C
 let codeChallenge = "codeChallenge_example"; // String | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
 let codeChallengeMethod = "codeChallengeMethod_example"; // String | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
 let opts = { 
-  'idp': "idp_example", // String | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+  'idp': "idp_example", // String | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.
   'clientCallback': "clientCallback_example", // String | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.
   'state': "state_example", // String | CSRF protection state parameter. Recommended for security. Will be included in the callback response.
-  'loginHint': "loginHint_example" // String | User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
+  'loginHint': "loginHint_example" // String | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
 };
 apiInstance.authorizeOAuthProvider(scope, codeChallenge, codeChallengeMethod, opts).then(() => {
   console.log('API called successfully.');
@@ -61,10 +61,10 @@ Name | Type | Description  | Notes
  **scope** | **String**| OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values. | 
  **codeChallenge** | **String**| PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
  **codeChallengeMethod** | **String**| PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
- **idp** | **String**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | [optional] 
+ **idp** | **String**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | [optional] 
  **clientCallback** | **String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [optional] 
  **state** | **String**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [optional] 
- **loginHint** | **String**| User identity hint for test OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the test provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [optional] 
+ **loginHint** | **String**| User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [optional] 
 
 ### Return type
 
@@ -94,7 +94,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AuthenticationApi();
-let body = new TmiJsClient.MeClientCredentialsBody(); // MeClientCredentialsBody | 
+let body = new TmiJsClient.MeClientCredentialsBody(); // MeClientCredentialsBody | Client credential creation request
 
 apiInstance.createCurrentUserClientCredential(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -108,7 +108,7 @@ apiInstance.createCurrentUserClientCredential(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)|  | 
+ **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)| Client credential creation request | 
 
 ### Return type
 
@@ -180,7 +180,7 @@ Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supp
 import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.AuthenticationApi();
-let body = new TmiJsClient.Oauth2TokenBody(); // Oauth2TokenBody | 
+let body = new TmiJsClient.Oauth2TokenBody(); // Oauth2TokenBody | OAuth 2.0 token exchange request parameters
 let grantType = "grantType_example"; // String | 
 let code = "code_example"; // String | 
 let clientId = "clientId_example"; // String | 
@@ -190,7 +190,7 @@ let redirectUri = "redirectUri_example"; // String |
 let codeVerifier = "codeVerifier_example"; // String | 
 let state = "state_example"; // String | 
 let opts = { 
-  'idp': "idp_example" // String | OAuth provider identifier. Defaults to 'test' provider in non-production builds if not specified.
+  'idp': "idp_example" // String | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.
 };
 apiInstance.exchangeOAuthCode(body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -204,7 +204,7 @@ apiInstance.exchangeOAuthCode(body, grantType, code, clientId, clientSecret, ref
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)|  | 
+ **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)| OAuth 2.0 token exchange request parameters | 
  **grantType** | **String**|  | 
  **code** | **String**|  | 
  **clientId** | **String**|  | 
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
  **redirectUri** | **String**|  | 
  **codeVerifier** | **String**|  | 
  **state** | **String**|  | 
- **idp** | **String**| OAuth provider identifier. Defaults to &#x27;test&#x27; provider in non-production builds if not specified. | [optional] 
+ **idp** | **String**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | [optional] 
 
 ### Return type
 
@@ -431,7 +431,7 @@ No authorization required
 
 <a name="getSAMLProviders"></a>
 # **getSAMLProviders**
-> InlineResponse20010 getSAMLProviders()
+> InlineResponse2009 getSAMLProviders()
 
 List available SAML providers
 
@@ -455,7 +455,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse20010**](InlineResponse20010.md)
+[**InlineResponse2009**](InlineResponse2009.md)
 
 ### Authorization
 
@@ -639,54 +639,9 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="logoutUser"></a>
-# **logoutUser**
-> InlineResponse2007 logoutUser(opts)
-
-Logout user
-
-Invalidates the user&#x27;s JWT token by adding it to a blacklist, effectively ending the session. Once logged out, the token cannot be used for further authenticated requests until it naturally expires. The token blacklist is maintained in Redis with automatic cleanup based on token expiration times.
-
-### Example
-```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
-
-
-let apiInstance = new TmiJsClient.AuthenticationApi();
-let opts = { 
-  'body': null // Object | Empty request body - token is provided via Authorization header
-};
-apiInstance.logoutUser(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**Object**](Object.md)| Empty request body - token is provided via Authorization header | [optional] 
-
-### Return type
-
-[**InlineResponse2007**](InlineResponse2007.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
 <a name="processSAMLLogout"></a>
 # **processSAMLLogout**
-> InlineResponse2009 processSAMLLogout(sAMLRequest)
+> InlineResponse2008 processSAMLLogout(sAMLRequest)
 
 SAML Single Logout
 
@@ -715,7 +670,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -728,7 +683,7 @@ No authorization required
 
 <a name="processSAMLLogoutPost"></a>
 # **processSAMLLogoutPost**
-> InlineResponse2009 processSAMLLogoutPost(opts)
+> InlineResponse2008 processSAMLLogoutPost(opts)
 
 SAML Single Logout (POST)
 
@@ -758,7 +713,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2009**](InlineResponse2009.md)
+[**InlineResponse2008**](InlineResponse2008.md)
 
 ### Authorization
 
@@ -828,7 +783,7 @@ import {TmiJsClient} from 'tmi-js-client';
 
 let apiInstance = new TmiJsClient.AuthenticationApi();
 let opts = { 
-  'body': new TmiJsClient.TokenRefreshRequest() // TokenRefreshRequest | 
+  'body': new TmiJsClient.TokenRefreshRequest() // TokenRefreshRequest | OAuth 2.0 token refresh request parameters
 };
 apiInstance.refreshToken(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -842,7 +797,7 @@ apiInstance.refreshToken(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**TokenRefreshRequest**](TokenRefreshRequest.md)|  | [optional] 
+ **body** | [**TokenRefreshRequest**](TokenRefreshRequest.md)| OAuth 2.0 token refresh request parameters | [optional] 
 
 ### Return type
 
@@ -855,5 +810,55 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="revokeToken"></a>
+# **revokeToken**
+> Object revokeToken(token, tokenTypeHint, clientId, clientSecret, body)
+
+Revoke token
+
+Revokes an OAuth 2.0 token per RFC 7009. The token to revoke is passed in the request body. Supports both access tokens and refresh tokens. Authentication is required via Bearer token in the Authorization header OR client credentials (client_id/client_secret) in the request body. Per RFC 7009, the response is always 200 OK regardless of whether the token was valid, to prevent token existence disclosure.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+
+let apiInstance = new TmiJsClient.AuthenticationApi();
+let token = "token_example"; // String | 
+let tokenTypeHint = "tokenTypeHint_example"; // String | 
+let clientId = "clientId_example"; // String | 
+let clientSecret = "clientSecret_example"; // String | 
+let body = new TmiJsClient.TokenRevocationRequest(); // TokenRevocationRequest | Token revocation request per RFC 7009
+
+apiInstance.revokeToken(token, tokenTypeHint, clientId, clientSecret, body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **String**|  | 
+ **tokenTypeHint** | **String**|  | 
+ **clientId** | **String**|  | 
+ **clientSecret** | **String**|  | 
+ **body** | [**TokenRevocationRequest**](TokenRevocationRequest.md)| Token revocation request per RFC 7009 | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded, application/json
  - **Accept**: application/json
 

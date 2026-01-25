@@ -4,7 +4,8 @@ All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_user_account**](UsersApi.md#delete_user_account) | **DELETE** /users/me | Delete authenticated user account and all data
+[**delete_user_account**](UsersApi.md#delete_user_account) | **DELETE** /me | Delete authenticated user account and all data
+[**logout_current_user**](UsersApi.md#logout_current_user) | **POST** /me/logout | Logout current user
 
 # **delete_user_account**
 > DeletionChallenge delete_user_account(challenge=challenge)
@@ -43,6 +44,50 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeletionChallenge**](DeletionChallenge.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **logout_current_user**
+> logout_current_user()
+
+Logout current user
+
+Revokes the authenticated user's current JWT token. This is a convenience endpoint that automatically revokes the token used to authenticate the request, without requiring the token to be passed in the request body. The token is immediately added to the blacklist and cannot be used for further requests.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.UsersApi(tmi_client.ApiClient(configuration))
+
+try:
+    # Logout current user
+    api_instance.logout_current_user()
+except ApiException as e:
+    print("Exception when calling UsersApi->logout_current_user: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 

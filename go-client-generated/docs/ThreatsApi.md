@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**BulkPatchThreatModelThreats**](ThreatsApi.md#BulkPatchThreatModelThreats) | **Patch** /threat_models/{threat_model_id}/threats/bulk | Bulk PATCH threats
 
 # **BulkDeleteThreatModelThreats**
-> InlineResponse2008 BulkDeleteThreatModelThreats(ctx, threatModelId, threatIds)
+> InlineResponse2007 BulkDeleteThreatModelThreats(ctx, threatModelId, threatIds)
 Bulk DELETE threats
 
 Delete multiple threats in a single request
@@ -23,7 +23,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2008**](inline_response_200_8.md)
+[**InlineResponse2007**](inline_response_200_7.md)
 
 ### Authorization
 
@@ -47,7 +47,7 @@ Apply JSON Patch operations to multiple threats in a single request
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to multiple threats | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type

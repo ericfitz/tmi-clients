@@ -17,7 +17,7 @@ Apply JSON Patch operations to partially update a asset
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)|  | 
+  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to the asset | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
 
