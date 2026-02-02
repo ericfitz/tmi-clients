@@ -7,7 +7,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This repository contains auto-generated API clients for the TMI (Threat Modeling Improved) API in multiple languages:
 - **Python** (`python-client-generated/`) - Package name: `tmi_client`
 - **Go** (`go-client-generated/`)
-- **Java** (`java-client-generated/`)
 - **JavaScript** (`javascript-client-generated/`)
 
 All clients are generated from the TMI OpenAPI specification using swagger-codegen 3.0.75.
@@ -216,12 +215,12 @@ Tests:
 
 ## Multi-Language Support
 
-While this repository contains clients for Go, Java, and JavaScript, they are currently auto-generated without custom patches. The Python client is the most mature and has been enhanced with bug fixes and modern tooling.
+While this repository contains clients for Go and JavaScript, they are currently auto-generated without custom patches. The Python client is the most mature and has been enhanced with bug fixes and modern tooling.
 
 Each client directory contains:
 - Language-specific README with usage examples
 - Auto-generated documentation in `docs/`
-- Build configuration (e.g., `go.mod`, `pom.xml`, `package.json`)
+- Build configuration (e.g., `go.mod`, `package.json`)
 
 ## OpenAPI Specification
 
