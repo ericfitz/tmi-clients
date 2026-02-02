@@ -46,7 +46,8 @@ export default class UserWithAdminStatus extends User {
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new UserWithAdminStatus();
+      // Create object without calling constructor to avoid required parameter issues
+      obj = obj || Object.create(UserWithAdminStatus.prototype);
       User.constructFromObject(data, obj);
       if (data.hasOwnProperty('is_admin'))
         obj.isAdmin = ApiClient.convertToType(data['is_admin'], 'Boolean');

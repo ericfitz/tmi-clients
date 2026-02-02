@@ -32,11 +32,11 @@
   describe('(package)', function() {
     describe('WebhookEventType', function() {
       beforeEach(function() {
-        instance = TmiJsClient.WebhookEventType;
+        // WebhookEventType is exported as {WebhookEventType}, so access the nested enum
+        instance = TmiJsClient.WebhookEventType.WebhookEventType;
       });
 
       it('should create an instance of WebhookEventType', function() {
-        // TODO: update the code to test WebhookEventType
         expect(instance).to.be.a('object');
       });
 

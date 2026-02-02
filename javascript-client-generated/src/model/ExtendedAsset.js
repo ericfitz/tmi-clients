@@ -50,7 +50,8 @@ export default class ExtendedAsset extends Asset {
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new ExtendedAsset();
+      // Create object without calling constructor to avoid required parameter issues
+      obj = obj || Object.create(ExtendedAsset.prototype);
       Asset.constructFromObject(data, obj);
       if (data.hasOwnProperty('threat_model_id'))
         obj.threatModelId = ApiClient.convertToType(data['threat_model_id'], 'String');

@@ -32,11 +32,18 @@
   describe('(package)', function() {
     describe('ExtendedAsset', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.ExtendedAsset();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.ExtendedAsset.constructFromObject({
+          id: 'test-id',
+          name: 'Test Asset',
+          type: 'data',
+          threat_model_id: 'tm-123',
+          created_at: new Date().toISOString(),
+          modified_at: new Date().toISOString()
+        });
       });
 
       it('should create an instance of ExtendedAsset', function() {
-        // TODO: update the code to test ExtendedAsset
         expect(instance).to.be.a(TmiJsClient.ExtendedAsset);
       });
 

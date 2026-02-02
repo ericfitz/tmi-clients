@@ -32,11 +32,14 @@
   describe('(package)', function() {
     describe('AllOfInvocationResponseInvokedBy', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.AllOfInvocationResponseInvokedBy();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.AllOfInvocationResponseInvokedBy.constructFromObject({
+          email: 'test@example.com',
+          display_name: 'Test User'
+        });
       });
 
       it('should create an instance of AllOfInvocationResponseInvokedBy', function() {
-        // TODO: update the code to test AllOfInvocationResponseInvokedBy
         expect(instance).to.be.a(TmiJsClient.AllOfInvocationResponseInvokedBy);
       });
 

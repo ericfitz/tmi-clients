@@ -44,7 +44,8 @@ export default class AllOfThreatModelBaseOwner extends User {
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new AllOfThreatModelBaseOwner();
+      // Create object without calling constructor to avoid required parameter issues
+      obj = obj || Object.create(AllOfThreatModelBaseOwner.prototype);
       User.constructFromObject(data, obj);
     }
     return obj;

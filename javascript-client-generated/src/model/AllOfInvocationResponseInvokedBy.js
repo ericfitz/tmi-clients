@@ -44,7 +44,8 @@ export default class AllOfInvocationResponseInvokedBy extends User {
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new AllOfInvocationResponseInvokedBy();
+      // Create object without calling constructor to avoid required parameter issues
+      obj = obj || Object.create(AllOfInvocationResponseInvokedBy.prototype);
       User.constructFromObject(data, obj);
     }
     return obj;
