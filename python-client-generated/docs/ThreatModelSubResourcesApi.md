@@ -739,7 +739,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Threat()] # list[Threat] | Array of threats to upsert in bulk
+body = [tmi_client.ThreatBulkUpdateItem()] # list[ThreatBulkUpdateItem] | Array of threats to upsert in bulk
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -754,7 +754,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Threat]**](Threat.md)| Array of threats to upsert in bulk | 
+ **body** | [**list[ThreatBulkUpdateItem]**](ThreatBulkUpdateItem.md)| Array of threats to upsert in bulk | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -2687,7 +2687,7 @@ Name | Type | Description  | Notes
 
 Get minimal diagram model for automated analysis
 
-Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
 
 ### Example
 ```python
@@ -3307,7 +3307,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_assets**
-> list[Asset] get_threat_model_assets(threat_model_id, limit=limit, offset=offset)
+> ListAssetsResponse get_threat_model_assets(threat_model_id, limit=limit, offset=offset)
 
 List assets in a threat model
 
@@ -3346,7 +3346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[Asset]**](Asset.md)
+[**ListAssetsResponse**](ListAssetsResponse.md)
 
 ### Authorization
 
@@ -3411,7 +3411,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_diagrams**
-> list[DiagramListItem] get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset)
+> ListDiagramsResponse get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset)
 
 List threat model diagrams
 
@@ -3450,7 +3450,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[DiagramListItem]**](DiagramListItem.md)
+[**ListDiagramsResponse**](ListDiagramsResponse.md)
 
 ### Authorization
 
@@ -3515,7 +3515,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_documents**
-> list[Document] get_threat_model_documents(threat_model_id, limit=limit, offset=offset)
+> ListDocumentsResponse get_threat_model_documents(threat_model_id, limit=limit, offset=offset)
 
 List documents in a threat model
 
@@ -3554,7 +3554,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[Document]**](Document.md)
+[**ListDocumentsResponse**](ListDocumentsResponse.md)
 
 ### Authorization
 
@@ -3719,7 +3719,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_notes**
-> list[NoteListItem] get_threat_model_notes(threat_model_id, limit=limit, offset=offset)
+> ListNotesResponse get_threat_model_notes(threat_model_id, limit=limit, offset=offset)
 
 List notes in a threat model
 
@@ -3758,7 +3758,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[NoteListItem]**](NoteListItem.md)
+[**ListNotesResponse**](ListNotesResponse.md)
 
 ### Authorization
 
@@ -3772,7 +3772,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_repositories**
-> list[Repository] get_threat_model_repositories(threat_model_id, limit=limit, offset=offset)
+> ListRepositoriesResponse get_threat_model_repositories(threat_model_id, limit=limit, offset=offset)
 
 List sources in a threat model
 
@@ -3811,7 +3811,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[Repository]**](Repository.md)
+[**ListRepositoriesResponse**](ListRepositoriesResponse.md)
 
 ### Authorization
 
@@ -3927,7 +3927,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_threats**
-> list[Threat] get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before)
+> ListThreatsResponse get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before)
 
 List threats in a threat model
 
@@ -4002,7 +4002,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[Threat]**](Threat.md)
+[**ListThreatsResponse**](ListThreatsResponse.md)
 
 ### Authorization
 

@@ -126,7 +126,7 @@ python3 --version        # Should be >= 3.8.0
 
 ### Required Files
 
-- OpenAPI spec: `/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json`
+- OpenAPI spec: Downloaded automatically from `https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json`
 - Must be valid OpenAPI 3.0+ specification
 
 ## Usage
@@ -251,17 +251,14 @@ fi
 brew install swagger-codegen
 ```
 
-### "OpenAPI spec not found"
+### "Failed to download OpenAPI spec"
 
-Check that the spec exists:
+Check that the URL is accessible:
 ```bash
-ls -lh /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json
+curl -fsSL https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json -o /dev/null
 ```
 
-If it's in a different location, edit `regenerate_client.sh` line 45:
-```bash
-OPENAPI_SPEC="/path/to/your/tmi-openapi.json"
-```
+If the URL has changed, edit `regenerate_client.sh` and update the `OPENAPI_SPEC_URL` variable.
 
 ### "uv not found"
 

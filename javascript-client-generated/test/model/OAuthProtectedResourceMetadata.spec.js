@@ -58,10 +58,10 @@
         // expect(instance.authorizationServers).to.be(expectedValueLiteral);
       });
 
-      it('should have the property jwksUrl (base name: "jwks_url")', function() {
-        // TODO: update the code to test the property jwksUrl
-        expect(instance).to.have.property('jwksUrl');
-        // expect(instance.jwksUrl).to.be(expectedValueLiteral);
+      it('should have the property jwksUri (base name: "jwks_uri")', function() {
+        // TODO: update the code to test the property jwksUri
+        expect(instance).to.have.property('jwksUri');
+        // expect(instance.jwksUri).to.be(expectedValueLiteral);
       });
 
       it('should have the property bearerMethodsSupported (base name: "bearer_methods_supported")', function() {

@@ -655,7 +655,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_current_user_client_credentials**
-> list[ClientCredentialInfo] list_current_user_client_credentials()
+> ListClientCredentialsResponse list_current_user_client_credentials(limit=limit, offset=offset)
 
 List client credentials
 
@@ -672,21 +672,27 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
+limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+offset = 0 # int | Number of results to skip (optional) (default to 0)
 
 try:
     # List client credentials
-    api_response = api_instance.list_current_user_client_credentials()
+    api_response = api_instance.list_current_user_client_credentials(limit=limit, offset=offset)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->list_current_user_client_credentials: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
+ **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
 ### Return type
 
-[**list[ClientCredentialInfo]**](ClientCredentialInfo.md)
+[**ListClientCredentialsResponse**](ListClientCredentialsResponse.md)
 
 ### Authorization
 

@@ -29,7 +29,7 @@ set -e  # Exit on error
 # REQUIREMENTS:
 #   - swagger-codegen (install via: brew install swagger-codegen)
 #   - uv (install via: brew install uv)
-#   - OpenAPI spec at: /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json
+#   - curl (for downloading OpenAPI spec)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Navigate to python-client-generated directory (parent of scripts/)
@@ -50,7 +50,8 @@ echo "  - Testing: pytest"
 echo ""
 
 # Configuration
-OPENAPI_SPEC="/Users/efitz/Projects/tmi/api-schema/tmi-openapi.json"
+OPENAPI_SPEC_URL="https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json"
+OPENAPI_SPEC="$PYTHON_CLIENT_DIR/tmi-openapi.json"
 CLIENT_DIR="."  # We're already in python-client-generated/
 CONFIG_FILE="scripts/swagger-codegen-config.json"
 SWAGGER_CODEGEN="swagger-codegen"
@@ -64,10 +65,13 @@ NC='\033[0m' # No Color
 # Check prerequisites
 echo "Checking prerequisites..."
 
-if [ ! -f "$OPENAPI_SPEC" ]; then
-    echo -e "${RED}ERROR: OpenAPI spec not found at $OPENAPI_SPEC${NC}"
+# Download the OpenAPI spec from GitHub
+echo "Downloading OpenAPI spec from $OPENAPI_SPEC_URL..."
+if ! curl -fsSL "$OPENAPI_SPEC_URL" -o "$OPENAPI_SPEC"; then
+    echo -e "${RED}ERROR: Failed to download OpenAPI spec from $OPENAPI_SPEC_URL${NC}"
     exit 1
 fi
+echo -e "${GREEN}✓ OpenAPI spec downloaded${NC}"
 
 if ! command -v swagger-codegen &> /dev/null; then
     echo -e "${RED}ERROR: swagger-codegen not found. Installing via Homebrew...${NC}"
@@ -430,7 +434,7 @@ cat >> docs/developer/REGENERATION_REPORT.md << 'EOF'
 ## Changes Applied
 
 ### 1. Client Regenerated
-- Source: `/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json`
+- Source: `https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json`
 - Generator: swagger-codegen 3.0.75
 - Package: tmi_client v1.0.0
 

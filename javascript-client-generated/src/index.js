@@ -41,9 +41,16 @@ import Authorization from './model/Authorization';
 import BaseDiagram from './model/BaseDiagram';
 import BaseDiagramImage from './model/BaseDiagramImage';
 import BaseDiagramInput from './model/BaseDiagramInput';
+import BulkPatchRequest from './model/BulkPatchRequest';
+import BulkPatchRequestPatches from './model/BulkPatchRequestPatches';
 import CVSSScore from './model/CVSSScore';
 import Cell from './model/Cell';
 import CellData from './model/CellData';
+import ClientConfig from './model/ClientConfig';
+import ClientConfigFeatures from './model/ClientConfigFeatures';
+import ClientConfigLimits from './model/ClientConfigLimits';
+import ClientConfigOperator from './model/ClientConfigOperator';
+import ClientConfigUi from './model/ClientConfigUi';
 import ClientCredentialInfo from './model/ClientCredentialInfo';
 import ClientCredentialResponse from './model/ClientCredentialResponse';
 import CollaborationSession from './model/CollaborationSession';
@@ -80,6 +87,7 @@ import GroupMember from './model/GroupMember';
 import GroupMemberListResponse from './model/GroupMemberListResponse';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
+import InlineResponse20010 from './model/InlineResponse20010';
 import InlineResponse2002 from './model/InlineResponse2002';
 import InlineResponse2002Keys from './model/InlineResponse2002Keys';
 import InlineResponse2003 from './model/InlineResponse2003';
@@ -99,9 +107,22 @@ import InvokeAddonRequest from './model/InvokeAddonRequest';
 import InvokeAddonResponse from './model/InvokeAddonResponse';
 import JsonPatchDocument from './model/JsonPatchDocument';
 import JsonPatchDocumentInner from './model/JsonPatchDocumentInner';
+import ListAddonQuotasResponse from './model/ListAddonQuotasResponse';
 import ListAddonsResponse from './model/ListAddonsResponse';
 import ListAdministratorsResponse from './model/ListAdministratorsResponse';
+import ListAssetsResponse from './model/ListAssetsResponse';
+import ListClientCredentialsResponse from './model/ListClientCredentialsResponse';
+import ListDiagramsResponse from './model/ListDiagramsResponse';
+import ListDocumentsResponse from './model/ListDocumentsResponse';
 import ListInvocationsResponse from './model/ListInvocationsResponse';
+import ListNotesResponse from './model/ListNotesResponse';
+import ListRepositoriesResponse from './model/ListRepositoriesResponse';
+import ListThreatModelsResponse from './model/ListThreatModelsResponse';
+import ListThreatsResponse from './model/ListThreatsResponse';
+import ListUserQuotasResponse from './model/ListUserQuotasResponse';
+import ListWebhookDeliveriesResponse from './model/ListWebhookDeliveriesResponse';
+import ListWebhookQuotasResponse from './model/ListWebhookQuotasResponse';
+import ListWebhookSubscriptionsResponse from './model/ListWebhookSubscriptionsResponse';
 import MeClientCredentialsBody from './model/MeClientCredentialsBody';
 import Metadata from './model/Metadata';
 import MetadataKeyBody from './model/MetadataKeyBody';
@@ -128,6 +149,7 @@ import OAuthProtectedResourceMetadata from './model/OAuthProtectedResourceMetada
 import Oauth2TokenBody from './model/Oauth2TokenBody';
 import OneOfCreateAdministratorRequest from './model/OneOfCreateAdministratorRequest';
 import OneOfEdgeLabelPosition from './model/OneOfEdgeLabelPosition';
+import OneOfJsonPatchDocumentInnerValue from './model/OneOfJsonPatchDocumentInnerValue';
 import Participant from './model/Participant';
 import Point from './model/Point';
 import PortConfiguration from './model/PortConfiguration';
@@ -141,9 +163,12 @@ import RepositoryInput from './model/RepositoryInput';
 import SAMLProviderInfo from './model/SAMLProviderInfo';
 import SamlAssertionConsumerRequest from './model/SamlAssertionConsumerRequest';
 import SamlSingleLogoutRequest from './model/SamlSingleLogoutRequest';
+import SystemSetting from './model/SystemSetting';
+import SystemSettingUpdate from './model/SystemSettingUpdate';
 import TMListItem from './model/TMListItem';
 import Threat from './model/Threat';
 import ThreatBase from './model/ThreatBase';
+import ThreatBulkUpdateItem from './model/ThreatBulkUpdateItem';
 import ThreatInput from './model/ThreatInput';
 import ThreatModel from './model/ThreatModel';
 import ThreatModelBase from './model/ThreatModelBase';
@@ -174,6 +199,7 @@ import AdministrationApi from './api/AdministrationApi';
 import AssetsApi from './api/AssetsApi';
 import AuthenticationApi from './api/AuthenticationApi';
 import CollaborationApi from './api/CollaborationApi';
+import ConfigurationApi from './api/ConfigurationApi';
 import DocumentsApi from './api/DocumentsApi';
 import GeneralApi from './api/GeneralApi';
 import NotesApi from './api/NotesApi';
@@ -389,6 +415,18 @@ export {
     BaseDiagramInput,
 
     /**
+     * The BulkPatchRequest model constructor.
+     * @property {module:model/BulkPatchRequest}
+     */
+    BulkPatchRequest,
+
+    /**
+     * The BulkPatchRequestPatches model constructor.
+     * @property {module:model/BulkPatchRequestPatches}
+     */
+    BulkPatchRequestPatches,
+
+    /**
      * The CVSSScore model constructor.
      * @property {module:model/CVSSScore}
      */
@@ -405,6 +443,36 @@ export {
      * @property {module:model/CellData}
      */
     CellData,
+
+    /**
+     * The ClientConfig model constructor.
+     * @property {module:model/ClientConfig}
+     */
+    ClientConfig,
+
+    /**
+     * The ClientConfigFeatures model constructor.
+     * @property {module:model/ClientConfigFeatures}
+     */
+    ClientConfigFeatures,
+
+    /**
+     * The ClientConfigLimits model constructor.
+     * @property {module:model/ClientConfigLimits}
+     */
+    ClientConfigLimits,
+
+    /**
+     * The ClientConfigOperator model constructor.
+     * @property {module:model/ClientConfigOperator}
+     */
+    ClientConfigOperator,
+
+    /**
+     * The ClientConfigUi model constructor.
+     * @property {module:model/ClientConfigUi}
+     */
+    ClientConfigUi,
 
     /**
      * The ClientCredentialInfo model constructor.
@@ -623,6 +691,12 @@ export {
     InlineResponse2001,
 
     /**
+     * The InlineResponse20010 model constructor.
+     * @property {module:model/InlineResponse20010}
+     */
+    InlineResponse20010,
+
+    /**
      * The InlineResponse2002 model constructor.
      * @property {module:model/InlineResponse2002}
      */
@@ -737,6 +811,12 @@ export {
     JsonPatchDocumentInner,
 
     /**
+     * The ListAddonQuotasResponse model constructor.
+     * @property {module:model/ListAddonQuotasResponse}
+     */
+    ListAddonQuotasResponse,
+
+    /**
      * The ListAddonsResponse model constructor.
      * @property {module:model/ListAddonsResponse}
      */
@@ -749,10 +829,82 @@ export {
     ListAdministratorsResponse,
 
     /**
+     * The ListAssetsResponse model constructor.
+     * @property {module:model/ListAssetsResponse}
+     */
+    ListAssetsResponse,
+
+    /**
+     * The ListClientCredentialsResponse model constructor.
+     * @property {module:model/ListClientCredentialsResponse}
+     */
+    ListClientCredentialsResponse,
+
+    /**
+     * The ListDiagramsResponse model constructor.
+     * @property {module:model/ListDiagramsResponse}
+     */
+    ListDiagramsResponse,
+
+    /**
+     * The ListDocumentsResponse model constructor.
+     * @property {module:model/ListDocumentsResponse}
+     */
+    ListDocumentsResponse,
+
+    /**
      * The ListInvocationsResponse model constructor.
      * @property {module:model/ListInvocationsResponse}
      */
     ListInvocationsResponse,
+
+    /**
+     * The ListNotesResponse model constructor.
+     * @property {module:model/ListNotesResponse}
+     */
+    ListNotesResponse,
+
+    /**
+     * The ListRepositoriesResponse model constructor.
+     * @property {module:model/ListRepositoriesResponse}
+     */
+    ListRepositoriesResponse,
+
+    /**
+     * The ListThreatModelsResponse model constructor.
+     * @property {module:model/ListThreatModelsResponse}
+     */
+    ListThreatModelsResponse,
+
+    /**
+     * The ListThreatsResponse model constructor.
+     * @property {module:model/ListThreatsResponse}
+     */
+    ListThreatsResponse,
+
+    /**
+     * The ListUserQuotasResponse model constructor.
+     * @property {module:model/ListUserQuotasResponse}
+     */
+    ListUserQuotasResponse,
+
+    /**
+     * The ListWebhookDeliveriesResponse model constructor.
+     * @property {module:model/ListWebhookDeliveriesResponse}
+     */
+    ListWebhookDeliveriesResponse,
+
+    /**
+     * The ListWebhookQuotasResponse model constructor.
+     * @property {module:model/ListWebhookQuotasResponse}
+     */
+    ListWebhookQuotasResponse,
+
+    /**
+     * The ListWebhookSubscriptionsResponse model constructor.
+     * @property {module:model/ListWebhookSubscriptionsResponse}
+     */
+    ListWebhookSubscriptionsResponse,
 
     /**
      * The MeClientCredentialsBody model constructor.
@@ -911,6 +1063,12 @@ export {
     OneOfEdgeLabelPosition,
 
     /**
+     * The OneOfJsonPatchDocumentInnerValue model constructor.
+     * @property {module:model/OneOfJsonPatchDocumentInnerValue}
+     */
+    OneOfJsonPatchDocumentInnerValue,
+
+    /**
      * The Participant model constructor.
      * @property {module:model/Participant}
      */
@@ -989,6 +1147,18 @@ export {
     SamlSingleLogoutRequest,
 
     /**
+     * The SystemSetting model constructor.
+     * @property {module:model/SystemSetting}
+     */
+    SystemSetting,
+
+    /**
+     * The SystemSettingUpdate model constructor.
+     * @property {module:model/SystemSettingUpdate}
+     */
+    SystemSettingUpdate,
+
+    /**
      * The TMListItem model constructor.
      * @property {module:model/TMListItem}
      */
@@ -1005,6 +1175,12 @@ export {
      * @property {module:model/ThreatBase}
      */
     ThreatBase,
+
+    /**
+     * The ThreatBulkUpdateItem model constructor.
+     * @property {module:model/ThreatBulkUpdateItem}
+     */
+    ThreatBulkUpdateItem,
 
     /**
      * The ThreatInput model constructor.
@@ -1185,6 +1361,12 @@ export {
     * @property {module:api/CollaborationApi}
     */
     CollaborationApi,
+
+    /**
+    * The ConfigurationApi service constructor.
+    * @property {module:api/ConfigurationApi}
+    */
+    ConfigurationApi,
 
     /**
     * The DocumentsApi service constructor.

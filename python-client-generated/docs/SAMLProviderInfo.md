@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **entity_id** | **str** | Service Provider entity ID | 
 **acs_url** | **str** | Assertion Consumer Service URL | 
 **slo_url** | **str** | Single Logout URL | [optional] 
+**initialized** | **bool** | Whether the SAML provider was successfully initialized and is available for authentication | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -95,13 +95,7 @@
 
           instance.listThreatModels(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.TMListItem);
-            }
+            expect(data).to.be.a(TmiJsClient.ListThreatModelsResponse);
 
             done();
           }, function(error) {

@@ -11,3 +11,4 @@ Name | Type | Description | Notes
 **entityId** | **String** | Service Provider entity ID | 
 **acsUrl** | **String** | Assertion Consumer Service URL | 
 **sloUrl** | **String** | Single Logout URL | [optional] 
+**initialized** | **Boolean** | Whether the SAML provider was successfully initialized and is available for authentication | 

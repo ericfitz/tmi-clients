@@ -31,7 +31,7 @@ class OAuthProtectedResourceMetadata(object):
         'resource': 'str',
         'scopes_supported': 'list[str]',
         'authorization_servers': 'list[str]',
-        'jwks_url': 'str',
+        'jwks_uri': 'str',
         'bearer_methods_supported': 'list[str]',
         'resource_name': 'str',
         'resource_documentation': 'str',
@@ -42,19 +42,19 @@ class OAuthProtectedResourceMetadata(object):
         'resource': 'resource',
         'scopes_supported': 'scopes_supported',
         'authorization_servers': 'authorization_servers',
-        'jwks_url': 'jwks_url',
+        'jwks_uri': 'jwks_uri',
         'bearer_methods_supported': 'bearer_methods_supported',
         'resource_name': 'resource_name',
         'resource_documentation': 'resource_documentation',
         'tls_client_certificate_bound_access_tokens': 'tls_client_certificate_bound_access_tokens'
     }
 
-    def __init__(self, resource=None, scopes_supported=None, authorization_servers=None, jwks_url=None, bearer_methods_supported=None, resource_name=None, resource_documentation=None, tls_client_certificate_bound_access_tokens=None, **kwargs):  # noqa: E501
+    def __init__(self, resource=None, scopes_supported=None, authorization_servers=None, jwks_uri=None, bearer_methods_supported=None, resource_name=None, resource_documentation=None, tls_client_certificate_bound_access_tokens=None, **kwargs):  # noqa: E501
         """OAuthProtectedResourceMetadata - a model defined in Swagger"""  # noqa: E501
         self._resource = None
         self._scopes_supported = None
         self._authorization_servers = None
-        self._jwks_url = None
+        self._jwks_uri = None
         self._bearer_methods_supported = None
         self._resource_name = None
         self._resource_documentation = None
@@ -65,8 +65,8 @@ class OAuthProtectedResourceMetadata(object):
             self.scopes_supported = scopes_supported
         if authorization_servers is not None:
             self.authorization_servers = authorization_servers
-        if jwks_url is not None:
-            self.jwks_url = jwks_url
+        if jwks_uri is not None:
+            self.jwks_uri = jwks_uri
         if bearer_methods_supported is not None:
             self.bearer_methods_supported = bearer_methods_supported
         if resource_name is not None:
@@ -148,27 +148,27 @@ class OAuthProtectedResourceMetadata(object):
         self._authorization_servers = authorization_servers
 
     @property
-    def jwks_url(self):
-        """Gets the jwks_url of this OAuthProtectedResourceMetadata.  # noqa: E501
+    def jwks_uri(self):
+        """Gets the jwks_uri of this OAuthProtectedResourceMetadata.  # noqa: E501
 
-        URL of the protected resource's JSON Web Key Set  # noqa: E501
+        URL of the protected resource's JSON Web Key Set (RFC 9728)  # noqa: E501
 
-        :return: The jwks_url of this OAuthProtectedResourceMetadata.  # noqa: E501
+        :return: The jwks_uri of this OAuthProtectedResourceMetadata.  # noqa: E501
         :rtype: str
         """
-        return self._jwks_url
+        return self._jwks_uri
 
-    @jwks_url.setter
-    def jwks_url(self, jwks_url):
-        """Sets the jwks_url of this OAuthProtectedResourceMetadata.
+    @jwks_uri.setter
+    def jwks_uri(self, jwks_uri):
+        """Sets the jwks_uri of this OAuthProtectedResourceMetadata.
 
-        URL of the protected resource's JSON Web Key Set  # noqa: E501
+        URL of the protected resource's JSON Web Key Set (RFC 9728)  # noqa: E501
 
-        :param jwks_url: The jwks_url of this OAuthProtectedResourceMetadata.  # noqa: E501
+        :param jwks_uri: The jwks_uri of this OAuthProtectedResourceMetadata.  # noqa: E501
         :type: str
         """
 
-        self._jwks_url = jwks_url
+        self._jwks_uri = jwks_uri
 
     @property
     def bearer_methods_supported(self):

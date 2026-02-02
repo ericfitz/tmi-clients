@@ -41,7 +41,7 @@ export default class UserAccountApi {
     /**
      * Create user preferences
      * Creates preferences for the current user. Fails with 409 Conflict if preferences already exist (use PUT to update).
-     * @param {{String: {String: Object}}} body 
+     * @param {{String: {String: Object}}} body User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserPreferences} and HTTP response
      */
     createCurrentUserPreferencesWithHttpInfo(body) {
@@ -80,7 +80,7 @@ export default class UserAccountApi {
     /**
      * Create user preferences
      * Creates preferences for the current user. Fails with 409 Conflict if preferences already exist (use PUT to update).
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
+     * @param {<&vendorExtensions.x-jsdoc-type>} body User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserPreferences}
      */
     createCurrentUserPreferences(body) {
@@ -141,7 +141,7 @@ export default class UserAccountApi {
     /**
      * Update user preferences
      * Creates or replaces the current user&#x27;s preferences. This is an upsert operation - creates if not exists, replaces entirely if exists.
-     * @param {{String: {String: Object}}} body 
+     * @param {{String: {String: Object}}} body User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/UserPreferences} and HTTP response
      */
     updateCurrentUserPreferencesWithHttpInfo(body) {
@@ -180,7 +180,7 @@ export default class UserAccountApi {
     /**
      * Update user preferences
      * Creates or replaces the current user&#x27;s preferences. This is an upsert operation - creates if not exists, replaces entirely if exists.
-     * @param {<&vendorExtensions.x-jsdoc-type>} body 
+     * @param {<&vendorExtensions.x-jsdoc-type>} body User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserPreferences}
      */
     updateCurrentUserPreferences(body) {

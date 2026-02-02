@@ -1824,7 +1824,7 @@ Updates multiple threats in a single operation for the specified threat model
  * @param threatModelId Threat model identifier
 @return []Threat
 */
-func (a *ThreatModelSubResourcesApiService) BulkUpdateThreatModelThreats(ctx context.Context, body []Threat, threatModelId string) ([]Threat, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) BulkUpdateThreatModelThreats(ctx context.Context, body []ThreatBulkUpdateItem, threatModelId string) ([]Threat, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Put")
 		localVarPostBody   interface{}
@@ -7276,7 +7276,7 @@ func (a *ThreatModelSubResourcesApiService) GetDiagramMetadataByKey(ctx context.
 }
 /*
 ThreatModelSubResourcesApiService Get minimal diagram model for automated analysis
-Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param threatModelId Threat model UUID
  * @param diagramId Diagram UUID
@@ -9087,7 +9087,7 @@ Returns a paginated list of assets within the specified threat model
  * @param optional nil or *ThreatModelSubResourcesApiGetThreatModelAssetsOpts - Optional Parameters:
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
      * @param "Offset" (optional.Int32) -  Number of results to skip
-@return []Asset
+@return ListAssetsResponse
 */
 
 type ThreatModelSubResourcesApiGetThreatModelAssetsOpts struct {
@@ -9095,13 +9095,13 @@ type ThreatModelSubResourcesApiGetThreatModelAssetsOpts struct {
     Offset optional.Int32
 }
 
-func (a *ThreatModelSubResourcesApiService) GetThreatModelAssets(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelAssetsOpts) ([]Asset, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) GetThreatModelAssets(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelAssetsOpts) (ListAssetsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []Asset
+		localVarReturnValue ListAssetsResponse
 	)
 
 	// create path and map variables
@@ -9165,7 +9165,7 @@ func (a *ThreatModelSubResourcesApiService) GetThreatModelAssets(ctx context.Con
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []Asset
+			var v ListAssetsResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -9394,7 +9394,7 @@ Returns all diagrams associated with a specific threat model
  * @param optional nil or *ThreatModelSubResourcesApiGetThreatModelDiagramsOpts - Optional Parameters:
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
      * @param "Offset" (optional.Int32) -  Number of results to skip
-@return []DiagramListItem
+@return ListDiagramsResponse
 */
 
 type ThreatModelSubResourcesApiGetThreatModelDiagramsOpts struct {
@@ -9402,13 +9402,13 @@ type ThreatModelSubResourcesApiGetThreatModelDiagramsOpts struct {
     Offset optional.Int32
 }
 
-func (a *ThreatModelSubResourcesApiService) GetThreatModelDiagrams(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelDiagramsOpts) ([]DiagramListItem, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) GetThreatModelDiagrams(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelDiagramsOpts) (ListDiagramsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []DiagramListItem
+		localVarReturnValue ListDiagramsResponse
 	)
 
 	// create path and map variables
@@ -9472,7 +9472,7 @@ func (a *ThreatModelSubResourcesApiService) GetThreatModelDiagrams(ctx context.C
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []DiagramListItem
+			var v ListDiagramsResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -9701,7 +9701,7 @@ Returns a paginated list of documents within the specified threat model
  * @param optional nil or *ThreatModelSubResourcesApiGetThreatModelDocumentsOpts - Optional Parameters:
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
      * @param "Offset" (optional.Int32) -  Number of results to skip
-@return []Document
+@return ListDocumentsResponse
 */
 
 type ThreatModelSubResourcesApiGetThreatModelDocumentsOpts struct {
@@ -9709,13 +9709,13 @@ type ThreatModelSubResourcesApiGetThreatModelDocumentsOpts struct {
     Offset optional.Int32
 }
 
-func (a *ThreatModelSubResourcesApiService) GetThreatModelDocuments(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelDocumentsOpts) ([]Document, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) GetThreatModelDocuments(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelDocumentsOpts) (ListDocumentsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []Document
+		localVarReturnValue ListDocumentsResponse
 	)
 
 	// create path and map variables
@@ -9779,7 +9779,7 @@ func (a *ThreatModelSubResourcesApiService) GetThreatModelDocuments(ctx context.
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []Document
+			var v ListDocumentsResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -10303,7 +10303,7 @@ Returns a paginated list of notes within the specified threat model
  * @param optional nil or *ThreatModelSubResourcesApiGetThreatModelNotesOpts - Optional Parameters:
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
      * @param "Offset" (optional.Int32) -  Number of results to skip
-@return []NoteListItem
+@return ListNotesResponse
 */
 
 type ThreatModelSubResourcesApiGetThreatModelNotesOpts struct {
@@ -10311,13 +10311,13 @@ type ThreatModelSubResourcesApiGetThreatModelNotesOpts struct {
     Offset optional.Int32
 }
 
-func (a *ThreatModelSubResourcesApiService) GetThreatModelNotes(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelNotesOpts) ([]NoteListItem, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) GetThreatModelNotes(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelNotesOpts) (ListNotesResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []NoteListItem
+		localVarReturnValue ListNotesResponse
 	)
 
 	// create path and map variables
@@ -10381,7 +10381,7 @@ func (a *ThreatModelSubResourcesApiService) GetThreatModelNotes(ctx context.Cont
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []NoteListItem
+			var v ListNotesResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -10463,7 +10463,7 @@ Returns a paginated list of source code references within the specified threat m
  * @param optional nil or *ThreatModelSubResourcesApiGetThreatModelRepositoriesOpts - Optional Parameters:
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
      * @param "Offset" (optional.Int32) -  Number of results to skip
-@return []Repository
+@return ListRepositoriesResponse
 */
 
 type ThreatModelSubResourcesApiGetThreatModelRepositoriesOpts struct {
@@ -10471,13 +10471,13 @@ type ThreatModelSubResourcesApiGetThreatModelRepositoriesOpts struct {
     Offset optional.Int32
 }
 
-func (a *ThreatModelSubResourcesApiService) GetThreatModelRepositories(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelRepositoriesOpts) ([]Repository, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) GetThreatModelRepositories(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelRepositoriesOpts) (ListRepositoriesResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []Repository
+		localVarReturnValue ListRepositoriesResponse
 	)
 
 	// create path and map variables
@@ -10541,7 +10541,7 @@ func (a *ThreatModelSubResourcesApiService) GetThreatModelRepositories(ctx conte
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []Repository
+			var v ListRepositoriesResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -10935,7 +10935,7 @@ Returns a paginated list of threats within the specified threat model
      * @param "CreatedBefore" (optional.Time) -  Filter results created before this timestamp (ISO 8601)
      * @param "ModifiedAfter" (optional.Time) -  Filter results modified after this timestamp (ISO 8601)
      * @param "ModifiedBefore" (optional.Time) -  Filter results modified before this timestamp (ISO 8601)
-@return []Threat
+@return ListThreatsResponse
 */
 
 type ThreatModelSubResourcesApiGetThreatModelThreatsOpts struct {
@@ -10961,13 +10961,13 @@ type ThreatModelSubResourcesApiGetThreatModelThreatsOpts struct {
     ModifiedBefore optional.Time
 }
 
-func (a *ThreatModelSubResourcesApiService) GetThreatModelThreats(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelThreatsOpts) ([]Threat, *http.Response, error) {
+func (a *ThreatModelSubResourcesApiService) GetThreatModelThreats(ctx context.Context, threatModelId string, localVarOptionals *ThreatModelSubResourcesApiGetThreatModelThreatsOpts) (ListThreatsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []Threat
+		localVarReturnValue ListThreatsResponse
 	)
 
 	// create path and map variables
@@ -11085,7 +11085,7 @@ func (a *ThreatModelSubResourcesApiService) GetThreatModelThreats(ctx context.Co
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []Threat
+			var v ListThreatsResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()

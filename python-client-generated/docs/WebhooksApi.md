@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Create webhook subscription
 
-Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
+Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.
 
 ### Example
 ```python
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 Delete webhook subscription
 
-Delete a webhook subscription. Only the owner can delete a subscription.
+Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.
 
 ### Example
 ```python
@@ -114,7 +114,7 @@ void (empty response body)
 
 Get webhook delivery
 
-Get details of a specific webhook delivery
+Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.
 
 ### Example
 ```python
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 Get webhook subscription
 
-Get a specific webhook subscription by ID
+Retrieve details of a specific webhook subscription. Requires administrator privileges.
 
 ### Example
 ```python
@@ -208,11 +208,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_webhook_deliveries**
-> list[WebhookDelivery] list_webhook_deliveries(subscription_id=subscription_id, offset=offset, limit=limit)
+> ListWebhookDeliveriesResponse list_webhook_deliveries(subscription_id=subscription_id, offset=offset, limit=limit)
 
 List webhook deliveries
 
-List webhook deliveries for the authenticated user's subscriptions
+List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.
 
 ### Example
 ```python
@@ -247,7 +247,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[WebhookDelivery]**](WebhookDelivery.md)
+[**ListWebhookDeliveriesResponse**](ListWebhookDeliveriesResponse.md)
 
 ### Authorization
 
@@ -261,11 +261,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_webhook_subscriptions**
-> list[WebhookSubscription] list_webhook_subscriptions(threat_model_id=threat_model_id, offset=offset, limit=limit)
+> ListWebhookSubscriptionsResponse list_webhook_subscriptions(threat_model_id=threat_model_id, offset=offset, limit=limit)
 
 List webhook subscriptions
 
-List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
+List all webhook subscriptions. Requires administrator privileges.
 
 ### Example
 ```python
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[WebhookSubscription]**](WebhookSubscription.md)
+[**ListWebhookSubscriptionsResponse**](ListWebhookSubscriptionsResponse.md)
 
 ### Authorization
 
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 Test webhook subscription
 
-Send a test event to the webhook URL to verify it's working correctly
+Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.
 
 ### Example
 ```python

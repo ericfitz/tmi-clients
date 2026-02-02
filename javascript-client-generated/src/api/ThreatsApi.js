@@ -14,10 +14,10 @@
  *
  */
 import ApiClient from "../ApiClient";
+import BulkPatchRequest from '../model/BulkPatchRequest';
 import Error from '../model/Error';
 import InlineResponse2007 from '../model/InlineResponse2007';
 import InlineResponse500 from '../model/InlineResponse500';
-import JsonPatchDocumentInner from '../model/JsonPatchDocumentInner';
 import Threat from '../model/Threat';
 
 /**
@@ -102,8 +102,8 @@ export default class ThreatsApi {
 
     /**
      * Bulk PATCH threats
-     * Apply JSON Patch operations to multiple threats in a single request
-     * @param {Array.<module:model/JsonPatchDocumentInner>} body JSON Patch operations to apply to multiple threats
+     * Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.
+     * @param {module:model/BulkPatchRequest} body JSON Patch operations to apply to multiple threats
      * @param {String} threatModelId Threat model identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
      */
@@ -133,7 +133,7 @@ export default class ThreatsApi {
       };
 
       let authNames = ['bearerAuth'];
-      let contentTypes = ['application/json-patch+json'];
+      let contentTypes = ['application/json'];
       let accepts = ['application/json'];
       let returnType = [Threat];
 
@@ -146,7 +146,7 @@ export default class ThreatsApi {
 
     /**
      * Bulk PATCH threats
-     * Apply JSON Patch operations to multiple threats in a single request
+     * Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.
      * @param {<&vendorExtensions.x-jsdoc-type>} body JSON Patch operations to apply to multiple threats
      * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Threat>}

@@ -113,13 +113,7 @@
 
           instance.listWebhookDeliveries(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.WebhookDelivery);
-            }
+            expect(data).to.be.a(TmiJsClient.ListWebhookDeliveriesResponse);
 
             done();
           }, function(error) {
@@ -138,13 +132,7 @@
 
           instance.listWebhookSubscriptions(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.WebhookSubscription);
-            }
+            expect(data).to.be.a(TmiJsClient.ListWebhookSubscriptionsResponse);
 
             done();
           }, function(error) {

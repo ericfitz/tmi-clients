@@ -96,8 +96,8 @@ swagger-codegen version  # Should be 3.0.75
 uv --version
 python3 --version  # Should be 3.8+
 
-# Verify spec exists
-test -f /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json && echo "✓ Spec found"
+# Verify spec is accessible
+curl -fsSL https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json -o /dev/null && echo "✓ Spec found"
 ```
 
 #### 1.2 Review Analysis
@@ -343,7 +343,7 @@ Migration:
 
 Technical Details:
 - Generated with swagger-codegen 3.0.75
-- Source: /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json
+- Source: https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json
 - Analysis: docs/developer/SPEC_ANALYSIS.md
 - Process: docs/developer/REGENERATION_PROCESS.md
 
@@ -476,7 +476,7 @@ git push origin main
 - `scripts/validate_regeneration.py` - Validate output
 
 ### OpenAPI Spec
-- Location: `/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json`
+- Location: `https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json`
 - Version: 1.0.0
 - Paths: 89
 - Schemas: 90

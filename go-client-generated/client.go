@@ -55,6 +55,8 @@ type APIClient struct {
 
 	CollaborationApi *CollaborationApiService
 
+	ConfigurationApi *ConfigurationApiService
+
 	DocumentsApi *DocumentsApiService
 
 	GeneralApi *GeneralApiService
@@ -103,6 +105,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AssetsApi = (*AssetsApiService)(&c.common)
 	c.AuthenticationApi = (*AuthenticationApiService)(&c.common)
 	c.CollaborationApi = (*CollaborationApiService)(&c.common)
+	c.ConfigurationApi = (*ConfigurationApiService)(&c.common)
 	c.DocumentsApi = (*DocumentsApiService)(&c.common)
 	c.GeneralApi = (*GeneralApiService)(&c.common)
 	c.NotesApi = (*NotesApiService)(&c.common)

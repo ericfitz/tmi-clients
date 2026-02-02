@@ -17,8 +17,8 @@ type OAuthProtectedResourceMetadata struct {
 	ScopesSupported []string `json:"scopes_supported,omitempty"`
 	// List of authorization server issuer identifiers that can issue tokens for this resource
 	AuthorizationServers []string `json:"authorization_servers,omitempty"`
-	// URL of the protected resource's JSON Web Key Set
-	JwksUrl string `json:"jwks_url,omitempty"`
+	// URL of the protected resource's JSON Web Key Set (RFC 9728)
+	JwksUri string `json:"jwks_uri,omitempty"`
 	// Supported token presentation methods for bearer tokens
 	BearerMethodsSupported []string `json:"bearer_methods_supported,omitempty"`
 	// Human-readable name of the protected resource

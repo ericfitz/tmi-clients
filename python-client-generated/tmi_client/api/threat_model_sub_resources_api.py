@@ -1382,7 +1382,7 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param list[Threat] body: Array of threats to upsert in bulk (required)
+        :param list[ThreatBulkUpdateItem] body: Array of threats to upsert in bulk (required)
         :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
@@ -1405,7 +1405,7 @@ class ThreatModelSubResourcesApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param list[Threat] body: Array of threats to upsert in bulk (required)
+        :param list[ThreatBulkUpdateItem] body: Array of threats to upsert in bulk (required)
         :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
@@ -5525,7 +5525,7 @@ class ThreatModelSubResourcesApi(object):
     def get_diagram_model(self, threat_model_id, diagram_id, **kwargs):  # noqa: E501
         """Get minimal diagram model for automated analysis  # noqa: E501
 
-        Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.  # noqa: E501
+        Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_diagram_model(threat_model_id, diagram_id, async_req=True)
@@ -5549,7 +5549,7 @@ class ThreatModelSubResourcesApi(object):
     def get_diagram_model_with_http_info(self, threat_model_id, diagram_id, **kwargs):  # noqa: E501
         """Get minimal diagram model for automated analysis  # noqa: E501
 
-        Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.  # noqa: E501
+        Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_diagram_model_with_http_info(threat_model_id, diagram_id, async_req=True)
@@ -6815,7 +6815,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[Asset]
+        :return: ListAssetsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -6839,7 +6839,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[Asset]
+        :return: ListAssetsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -6897,7 +6897,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[Asset]',  # noqa: E501
+            response_type='ListAssetsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -7021,7 +7021,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[DiagramListItem]
+        :return: ListDiagramsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7045,7 +7045,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[DiagramListItem]
+        :return: ListDiagramsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7103,7 +7103,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[DiagramListItem]',  # noqa: E501
+            response_type='ListDiagramsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -7227,7 +7227,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[Document]
+        :return: ListDocumentsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7251,7 +7251,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[Document]
+        :return: ListDocumentsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7309,7 +7309,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[Document]',  # noqa: E501
+            response_type='ListDocumentsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -7631,7 +7631,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[NoteListItem]
+        :return: ListNotesResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7655,7 +7655,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[NoteListItem]
+        :return: ListNotesResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7713,7 +7713,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[NoteListItem]',  # noqa: E501
+            response_type='ListNotesResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -7734,7 +7734,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[Repository]
+        :return: ListRepositoriesResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7758,7 +7758,7 @@ class ThreatModelSubResourcesApi(object):
         :param str threat_model_id: Threat model identifier (required)
         :param int limit: Maximum number of results to return
         :param int offset: Number of results to skip
-        :return: list[Repository]
+        :return: ListRepositoriesResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -7816,7 +7816,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[Repository]',  # noqa: E501
+            response_type='ListRepositoriesResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -8061,7 +8061,7 @@ class ThreatModelSubResourcesApi(object):
         :param datetime created_before: Filter results created before this timestamp (ISO 8601)
         :param datetime modified_after: Filter results modified after this timestamp (ISO 8601)
         :param datetime modified_before: Filter results modified before this timestamp (ISO 8601)
-        :return: list[Threat]
+        :return: ListThreatsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -8103,7 +8103,7 @@ class ThreatModelSubResourcesApi(object):
         :param datetime created_before: Filter results created before this timestamp (ISO 8601)
         :param datetime modified_after: Filter results modified after this timestamp (ISO 8601)
         :param datetime modified_before: Filter results modified before this timestamp (ISO 8601)
-        :return: list[Threat]
+        :return: ListThreatsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -8198,7 +8198,7 @@ class ThreatModelSubResourcesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[Threat]',  # noqa: E501
+            response_type='ListThreatsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

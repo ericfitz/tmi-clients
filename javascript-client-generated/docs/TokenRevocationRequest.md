@@ -13,4 +13,5 @@ Name | Type | Description | Notes
 
 * `accessToken` (value: `"access_token"`)
 * `refreshToken` (value: `"refresh_token"`)
+* `_null` (value: `"null"`)
 

@@ -27,4 +27,6 @@ type SamlProviderInfo struct {
 	AcsUrl string `json:"acs_url"`
 	// Single Logout URL
 	SloUrl string `json:"slo_url,omitempty"`
+	// Whether the SAML provider was successfully initialized and is available for authentication
+	Initialized bool `json:"initialized"`
 }

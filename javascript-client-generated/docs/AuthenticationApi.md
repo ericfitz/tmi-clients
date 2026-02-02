@@ -602,7 +602,7 @@ No authorization required
 
 <a name="listCurrentUserClientCredentials"></a>
 # **listCurrentUserClientCredentials**
-> [ClientCredentialInfo] listCurrentUserClientCredentials()
+> ListClientCredentialsResponse listCurrentUserClientCredentials(opts)
 
 List client credentials
 
@@ -615,7 +615,11 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AuthenticationApi();
-apiInstance.listCurrentUserClientCredentials().then((data) => {
+let opts = { 
+  'limit': 20, // Number | Maximum number of results to return
+  'offset': 0 // Number | Number of results to skip
+};
+apiInstance.listCurrentUserClientCredentials(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -624,11 +628,15 @@ apiInstance.listCurrentUserClientCredentials().then((data) => {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
+ **offset** | **Number**| Number of results to skip | [optional] [default to 0]
 
 ### Return type
 
-[**[ClientCredentialInfo]**](ClientCredentialInfo.md)
+[**ListClientCredentialsResponse**](ListClientCredentialsResponse.md)
 
 ### Authorization
 

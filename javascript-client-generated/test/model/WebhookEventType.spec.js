@@ -32,8 +32,7 @@
   describe('(package)', function() {
     describe('WebhookEventType', function() {
       beforeEach(function() {
-        // WebhookEventType is exported as { WebhookEventType: ... }, need to access inner object
-        instance = TmiJsClient.WebhookEventType.WebhookEventType || TmiJsClient.WebhookEventType;
+        instance = TmiJsClient.WebhookEventType;
       });
 
       it('should create an instance of WebhookEventType', function() {

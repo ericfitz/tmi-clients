@@ -461,7 +461,7 @@ Updates multiple threats in a single operation for the specified threat model
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Threat**](Threat.md)| Array of threats to upsert in bulk | 
+  **body** | [**[]ThreatBulkUpdateItem**](ThreatBulkUpdateItem.md)| Array of threats to upsert in bulk | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1574,7 +1574,7 @@ Name | Type | Description  | Notes
 > MinimalDiagramModel GetDiagramModel(ctx, threatModelId, diagramId, optional)
 Get minimal diagram model for automated analysis
 
-Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
 
 ### Required Parameters
 
@@ -1933,7 +1933,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelAssets**
-> []Asset GetThreatModelAssets(ctx, threatModelId, optional)
+> ListAssetsResponse GetThreatModelAssets(ctx, threatModelId, optional)
 List assets in a threat model
 
 Returns a paginated list of assets within the specified threat model
@@ -1956,7 +1956,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Asset**](Asset.md)
+[**ListAssetsResponse**](ListAssetsResponse.md)
 
 ### Authorization
 
@@ -1999,7 +1999,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelDiagrams**
-> []DiagramListItem GetThreatModelDiagrams(ctx, threatModelId, optional)
+> ListDiagramsResponse GetThreatModelDiagrams(ctx, threatModelId, optional)
 List threat model diagrams
 
 Returns all diagrams associated with a specific threat model
@@ -2022,7 +2022,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]DiagramListItem**](DiagramListItem.md)
+[**ListDiagramsResponse**](ListDiagramsResponse.md)
 
 ### Authorization
 
@@ -2065,7 +2065,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelDocuments**
-> []Document GetThreatModelDocuments(ctx, threatModelId, optional)
+> ListDocumentsResponse GetThreatModelDocuments(ctx, threatModelId, optional)
 List documents in a threat model
 
 Returns a paginated list of documents within the specified threat model
@@ -2088,7 +2088,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Document**](Document.md)
+[**ListDocumentsResponse**](ListDocumentsResponse.md)
 
 ### Authorization
 
@@ -2188,7 +2188,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelNotes**
-> []NoteListItem GetThreatModelNotes(ctx, threatModelId, optional)
+> ListNotesResponse GetThreatModelNotes(ctx, threatModelId, optional)
 List notes in a threat model
 
 Returns a paginated list of notes within the specified threat model
@@ -2211,7 +2211,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]NoteListItem**](NoteListItem.md)
+[**ListNotesResponse**](ListNotesResponse.md)
 
 ### Authorization
 
@@ -2225,7 +2225,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelRepositories**
-> []Repository GetThreatModelRepositories(ctx, threatModelId, optional)
+> ListRepositoriesResponse GetThreatModelRepositories(ctx, threatModelId, optional)
 List sources in a threat model
 
 Returns a paginated list of source code references within the specified threat model
@@ -2248,7 +2248,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Repository**](Repository.md)
+[**ListRepositoriesResponse**](ListRepositoriesResponse.md)
 
 ### Authorization
 
@@ -2320,7 +2320,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetThreatModelThreats**
-> []Threat GetThreatModelThreats(ctx, threatModelId, optional)
+> ListThreatsResponse GetThreatModelThreats(ctx, threatModelId, optional)
 List threats in a threat model
 
 Returns a paginated list of threats within the specified threat model
@@ -2361,7 +2361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Threat**](Threat.md)
+[**ListThreatsResponse**](ListThreatsResponse.md)
 
 ### Authorization
 

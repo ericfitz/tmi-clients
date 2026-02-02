@@ -16,7 +16,7 @@ Method | HTTP request | Description
 > WebhookSubscription CreateWebhookSubscription(ctx, body)
 Create webhook subscription
 
-Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
+Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.
 
 ### Required Parameters
 
@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 > DeleteWebhookSubscription(ctx, webhookId)
 Delete webhook subscription
 
-Delete a webhook subscription. Only the owner can delete a subscription.
+Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.
 
 ### Required Parameters
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 > WebhookDelivery GetWebhookDelivery(ctx, deliveryId)
 Get webhook delivery
 
-Get details of a specific webhook delivery
+Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.
 
 ### Required Parameters
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes
 > WebhookSubscription GetWebhookSubscription(ctx, webhookId)
 Get webhook subscription
 
-Get a specific webhook subscription by ID
+Retrieve details of a specific webhook subscription. Requires administrator privileges.
 
 ### Required Parameters
 
@@ -125,10 +125,10 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListWebhookDeliveries**
-> []WebhookDelivery ListWebhookDeliveries(ctx, optional)
+> ListWebhookDeliveriesResponse ListWebhookDeliveries(ctx, optional)
 List webhook deliveries
 
-List webhook deliveries for the authenticated user's subscriptions
+List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.
 
 ### Required Parameters
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]WebhookDelivery**](WebhookDelivery.md)
+[**ListWebhookDeliveriesResponse**](ListWebhookDeliveriesResponse.md)
 
 ### Authorization
 
@@ -161,10 +161,10 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListWebhookSubscriptions**
-> []WebhookSubscription ListWebhookSubscriptions(ctx, optional)
+> ListWebhookSubscriptionsResponse ListWebhookSubscriptions(ctx, optional)
 List webhook subscriptions
 
-List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
+List all webhook subscriptions. Requires administrator privileges.
 
 ### Required Parameters
 
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]WebhookSubscription**](WebhookSubscription.md)
+[**ListWebhookSubscriptionsResponse**](ListWebhookSubscriptionsResponse.md)
 
 ### Authorization
 
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 > WebhookTestResponse TestWebhookSubscription(ctx, webhookId, optional)
 Test webhook subscription
 
-Send a test event to the webhook URL to verify it's working correctly
+Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.
 
 ### Required Parameters
 

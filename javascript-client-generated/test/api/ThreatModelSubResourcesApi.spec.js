@@ -1302,13 +1302,7 @@
 
           instance.getThreatModelAssets(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.Asset);
-            }
+            expect(data).to.be.a(TmiJsClient.ListAssetsResponse);
 
             done();
           }, function(error) {
@@ -1345,13 +1339,7 @@
 
           instance.getThreatModelDiagrams(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.DiagramListItem);
-            }
+            expect(data).to.be.a(TmiJsClient.ListDiagramsResponse);
 
             done();
           }, function(error) {
@@ -1388,13 +1376,7 @@
 
           instance.getThreatModelDocuments(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.Document);
-            }
+            expect(data).to.be.a(TmiJsClient.ListDocumentsResponse);
 
             done();
           }, function(error) {
@@ -1473,13 +1455,7 @@
 
           instance.getThreatModelNotes(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.NoteListItem);
-            }
+            expect(data).to.be.a(TmiJsClient.ListNotesResponse);
 
             done();
           }, function(error) {
@@ -1498,13 +1474,7 @@
 
           instance.getThreatModelRepositories(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.Repository);
-            }
+            expect(data).to.be.a(TmiJsClient.ListRepositoriesResponse);
 
             done();
           }, function(error) {
@@ -1559,13 +1529,7 @@
 
           instance.getThreatModelThreats(threatModelId, opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.Threat);
-            }
+            expect(data).to.be.a(TmiJsClient.ListThreatsResponse);
 
             done();
           }, function(error) {

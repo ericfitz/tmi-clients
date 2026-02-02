@@ -29,21 +29,29 @@ class ListAdministratorsResponse(object):
     """
     swagger_types = {
         'administrators': 'list[Administrator]',
-        'total': 'int'
+        'total': 'int',
+        'limit': 'int',
+        'offset': 'int'
     }
 
     attribute_map = {
         'administrators': 'administrators',
-        'total': 'total'
+        'total': 'total',
+        'limit': 'limit',
+        'offset': 'offset'
     }
 
-    def __init__(self, administrators=None, total=None, **kwargs):  # noqa: E501
+    def __init__(self, administrators=None, total=None, limit=None, offset=None, **kwargs):  # noqa: E501
         """ListAdministratorsResponse - a model defined in Swagger"""  # noqa: E501
         self._administrators = None
         self._total = None
+        self._limit = None
+        self._offset = None
         self.discriminator = None
         self.administrators = administrators
         self.total = total
+        self.limit = limit
+        self.offset = offset
 
     @property
     def administrators(self):
@@ -94,6 +102,56 @@ class ListAdministratorsResponse(object):
             raise ValueError("Invalid value for `total`, must not be `None`")  # noqa: E501
 
         self._total = total
+
+    @property
+    def limit(self):
+        """Gets the limit of this ListAdministratorsResponse.  # noqa: E501
+
+        Pagination limit  # noqa: E501
+
+        :return: The limit of this ListAdministratorsResponse.  # noqa: E501
+        :rtype: int
+        """
+        return self._limit
+
+    @limit.setter
+    def limit(self, limit):
+        """Sets the limit of this ListAdministratorsResponse.
+
+        Pagination limit  # noqa: E501
+
+        :param limit: The limit of this ListAdministratorsResponse.  # noqa: E501
+        :type: int
+        """
+        if limit is None:
+            raise ValueError("Invalid value for `limit`, must not be `None`")  # noqa: E501
+
+        self._limit = limit
+
+    @property
+    def offset(self):
+        """Gets the offset of this ListAdministratorsResponse.  # noqa: E501
+
+        Pagination offset  # noqa: E501
+
+        :return: The offset of this ListAdministratorsResponse.  # noqa: E501
+        :rtype: int
+        """
+        return self._offset
+
+    @offset.setter
+    def offset(self, offset):
+        """Sets the offset of this ListAdministratorsResponse.
+
+        Pagination offset  # noqa: E501
+
+        :param offset: The offset of this ListAdministratorsResponse.  # noqa: E501
+        :type: int
+        """
+        if offset is None:
+            raise ValueError("Invalid value for `offset`, must not be `None`")  # noqa: E501
+
+        self._offset = offset
 
     def to_dict(self):
         """Returns the model properties as a dict"""

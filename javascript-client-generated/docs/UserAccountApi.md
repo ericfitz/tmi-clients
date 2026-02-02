@@ -23,7 +23,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.UserAccountApi();
-let body = null; // {String: {String: Object}} | 
+let body = null; // {String: {String: Object}} | User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
 
 apiInstance.createCurrentUserPreferences(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -37,7 +37,7 @@ apiInstance.createCurrentUserPreferences(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**{String: {String: Object}}**](Object.md)|  | 
+ **body** | [**{String: {String: Object}}**](Object.md)| User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. | 
 
 ### Return type
 
@@ -106,7 +106,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.UserAccountApi();
-let body = null; // {String: {String: Object}} | 
+let body = null; // {String: {String: Object}} | User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
 
 apiInstance.updateCurrentUserPreferences(body).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -120,7 +120,7 @@ apiInstance.updateCurrentUserPreferences(body).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**{String: {String: Object}}**](Object.md)|  | 
+ **body** | [**{String: {String: Object}}**](Object.md)| User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. | 
 
 ### Return type
 

@@ -344,7 +344,7 @@ class ThreatModelsApi(object):
         :param str status: Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
         :param datetime status_updated_after: Filter threat models where status was updated after this timestamp (RFC3339)
         :param datetime status_updated_before: Filter threat models where status was updated before this timestamp (RFC3339)
-        :return: list[TMListItem]
+        :return: ListThreatModelsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -378,7 +378,7 @@ class ThreatModelsApi(object):
         :param str status: Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
         :param datetime status_updated_after: Filter threat models where status was updated after this timestamp (RFC3339)
         :param datetime status_updated_before: Filter threat models where status was updated before this timestamp (RFC3339)
-        :return: list[TMListItem]
+        :return: ListThreatModelsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -452,7 +452,7 @@ class ThreatModelsApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[TMListItem]',  # noqa: E501
+            response_type='ListThreatModelsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

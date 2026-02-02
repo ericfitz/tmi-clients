@@ -29,10 +29,14 @@ export default class ListAdministratorsResponse {
    * @class
    * @param administrators {Array.<module:model/Administrator>} List of administrator grants
    * @param total {Number} Total number of grants matching filter
+   * @param limit {Number} Pagination limit
+   * @param offset {Number} Pagination offset
    */
-  constructor(administrators, total) {
+  constructor(administrators, total, limit, offset) {
     this.administrators = administrators;
     this.total = total;
+    this.limit = limit;
+    this.offset = offset;
   }
 
   /**
@@ -49,6 +53,10 @@ export default class ListAdministratorsResponse {
         obj.administrators = ApiClient.convertToType(data['administrators'], [Administrator]);
       if (data.hasOwnProperty('total'))
         obj.total = ApiClient.convertToType(data['total'], 'Number');
+      if (data.hasOwnProperty('limit'))
+        obj.limit = ApiClient.convertToType(data['limit'], 'Number');
+      if (data.hasOwnProperty('offset'))
+        obj.offset = ApiClient.convertToType(data['offset'], 'Number');
     }
     return obj;
   }
@@ -65,4 +73,16 @@ ListAdministratorsResponse.prototype.administrators = undefined;
  * @member {Number} total
  */
 ListAdministratorsResponse.prototype.total = undefined;
+
+/**
+ * Pagination limit
+ * @member {Number} limit
+ */
+ListAdministratorsResponse.prototype.limit = undefined;
+
+/**
+ * Pagination offset
+ * @member {Number} offset
+ */
+ListAdministratorsResponse.prototype.offset = undefined;
 

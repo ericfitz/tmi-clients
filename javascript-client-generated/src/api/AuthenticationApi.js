@@ -15,7 +15,6 @@
  */
 import ApiClient from "../ApiClient";
 import AuthTokenResponse from '../model/AuthTokenResponse';
-import ClientCredentialInfo from '../model/ClientCredentialInfo';
 import ClientCredentialResponse from '../model/ClientCredentialResponse';
 import Error from '../model/Error';
 import InlineResponse2003 from '../model/InlineResponse2003';
@@ -26,6 +25,7 @@ import InlineResponse2008 from '../model/InlineResponse2008';
 import InlineResponse2009 from '../model/InlineResponse2009';
 import InlineResponse429 from '../model/InlineResponse429';
 import InlineResponse500 from '../model/InlineResponse500';
+import ListClientCredentialsResponse from '../model/ListClientCredentialsResponse';
 import MeClientCredentialsBody from '../model/MeClientCredentialsBody';
 import Oauth2TokenBody from '../model/Oauth2TokenBody';
 import TokenRefreshRequest from '../model/TokenRefreshRequest';
@@ -809,17 +809,20 @@ export default class AuthenticationApi {
     /**
      * List client credentials
      * Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/ClientCredentialInfo>} and HTTP response
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
+     * @param {Number} opts.offset Number of results to skip (default to <.>)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListClientCredentialsResponse} and HTTP response
      */
-    listCurrentUserClientCredentialsWithHttpInfo() {
-      
+    listCurrentUserClientCredentialsWithHttpInfo(opts) {
+      opts = opts || {};
       let postBody = null;
 
       let pathParams = {
         
       };
       let queryParams = {
-        
+        'limit': opts['limit'],'offset': opts['offset']
       };
       let headerParams = {
         
@@ -831,7 +834,7 @@ export default class AuthenticationApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [ClientCredentialInfo];
+      let returnType = ListClientCredentialsResponse;
 
       return this.apiClient.callApi(
         '/me/client_credentials', 'GET',
@@ -843,10 +846,13 @@ export default class AuthenticationApi {
     /**
      * List client credentials
      * Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/ClientCredentialInfo>}
+     * @param {Object} opts Optional parameters
+     * @param {Number} opts.limit Maximum number of results to return (default to <.>)
+     * @param {Number} opts.offset Number of results to skip (default to <.>)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListClientCredentialsResponse}
      */
-    listCurrentUserClientCredentials() {
-      return this.listCurrentUserClientCredentialsWithHttpInfo()
+    listCurrentUserClientCredentials(opts) {
+      return this.listCurrentUserClientCredentialsWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

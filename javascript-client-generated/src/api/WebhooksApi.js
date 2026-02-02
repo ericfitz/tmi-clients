@@ -15,6 +15,8 @@
  */
 import ApiClient from "../ApiClient";
 import Error from '../model/Error';
+import ListWebhookDeliveriesResponse from '../model/ListWebhookDeliveriesResponse';
+import ListWebhookSubscriptionsResponse from '../model/ListWebhookSubscriptionsResponse';
 import WebhookDelivery from '../model/WebhookDelivery';
 import WebhookSubscription from '../model/WebhookSubscription';
 import WebhookSubscriptionInput from '../model/WebhookSubscriptionInput';
@@ -44,7 +46,7 @@ export default class WebhooksApi {
 
     /**
      * Create webhook subscription
-     * Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
+     * Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.
      * @param {module:model/WebhookSubscriptionInput} body Webhook subscription configuration
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookSubscription} and HTTP response
      */
@@ -83,7 +85,7 @@ export default class WebhooksApi {
 
     /**
      * Create webhook subscription
-     * Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
+     * Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.
      * @param {<&vendorExtensions.x-jsdoc-type>} body Webhook subscription configuration
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookSubscription}
      */
@@ -97,7 +99,7 @@ export default class WebhooksApi {
 
     /**
      * Delete webhook subscription
-     * Delete a webhook subscription. Only the owner can delete a subscription.
+     * Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.
      * @param {String} webhookId Webhook subscription identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
@@ -136,7 +138,7 @@ export default class WebhooksApi {
 
     /**
      * Delete webhook subscription
-     * Delete a webhook subscription. Only the owner can delete a subscription.
+     * Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.
      * @param {<&vendorExtensions.x-jsdoc-type>} webhookId Webhook subscription identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -150,7 +152,7 @@ export default class WebhooksApi {
 
     /**
      * Get webhook delivery
-     * Get details of a specific webhook delivery
+     * Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.
      * @param {String} deliveryId Webhook delivery identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookDelivery} and HTTP response
      */
@@ -189,7 +191,7 @@ export default class WebhooksApi {
 
     /**
      * Get webhook delivery
-     * Get details of a specific webhook delivery
+     * Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.
      * @param {<&vendorExtensions.x-jsdoc-type>} deliveryId Webhook delivery identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookDelivery}
      */
@@ -203,7 +205,7 @@ export default class WebhooksApi {
 
     /**
      * Get webhook subscription
-     * Get a specific webhook subscription by ID
+     * Retrieve details of a specific webhook subscription. Requires administrator privileges.
      * @param {String} webhookId Webhook subscription identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/WebhookSubscription} and HTTP response
      */
@@ -242,7 +244,7 @@ export default class WebhooksApi {
 
     /**
      * Get webhook subscription
-     * Get a specific webhook subscription by ID
+     * Retrieve details of a specific webhook subscription. Requires administrator privileges.
      * @param {<&vendorExtensions.x-jsdoc-type>} webhookId Webhook subscription identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/WebhookSubscription}
      */
@@ -256,12 +258,12 @@ export default class WebhooksApi {
 
     /**
      * List webhook deliveries
-     * List webhook deliveries for the authenticated user&#x27;s subscriptions
+     * List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.
      * @param {Object} opts Optional parameters
      * @param {String} opts.subscriptionId Filter by subscription ID
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/WebhookDelivery>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListWebhookDeliveriesResponse} and HTTP response
      */
     listWebhookDeliveriesWithHttpInfo(opts) {
       opts = opts || {};
@@ -283,7 +285,7 @@ export default class WebhooksApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [WebhookDelivery];
+      let returnType = ListWebhookDeliveriesResponse;
 
       return this.apiClient.callApi(
         '/webhooks/deliveries', 'GET',
@@ -294,12 +296,12 @@ export default class WebhooksApi {
 
     /**
      * List webhook deliveries
-     * List webhook deliveries for the authenticated user&#x27;s subscriptions
+     * List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.
      * @param {Object} opts Optional parameters
      * @param {String} opts.subscriptionId Filter by subscription ID
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/WebhookDelivery>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListWebhookDeliveriesResponse}
      */
     listWebhookDeliveries(opts) {
       return this.listWebhookDeliveriesWithHttpInfo(opts)
@@ -311,12 +313,12 @@ export default class WebhooksApi {
 
     /**
      * List webhook subscriptions
-     * List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
+     * List all webhook subscriptions. Requires administrator privileges.
      * @param {Object} opts Optional parameters
      * @param {String} opts.threatModelId Filter subscriptions by threat model ID
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/WebhookSubscription>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListWebhookSubscriptionsResponse} and HTTP response
      */
     listWebhookSubscriptionsWithHttpInfo(opts) {
       opts = opts || {};
@@ -338,7 +340,7 @@ export default class WebhooksApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [WebhookSubscription];
+      let returnType = ListWebhookSubscriptionsResponse;
 
       return this.apiClient.callApi(
         '/webhooks/subscriptions', 'GET',
@@ -349,12 +351,12 @@ export default class WebhooksApi {
 
     /**
      * List webhook subscriptions
-     * List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
+     * List all webhook subscriptions. Requires administrator privileges.
      * @param {Object} opts Optional parameters
      * @param {String} opts.threatModelId Filter subscriptions by threat model ID
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/WebhookSubscription>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListWebhookSubscriptionsResponse}
      */
     listWebhookSubscriptions(opts) {
       return this.listWebhookSubscriptionsWithHttpInfo(opts)
@@ -366,7 +368,7 @@ export default class WebhooksApi {
 
     /**
      * Test webhook subscription
-     * Send a test event to the webhook URL to verify it&#x27;s working correctly
+     * Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.
      * @param {String} webhookId Webhook subscription identifier
      * @param {Object} opts Optional parameters
      * @param {module:model/WebhookTestRequest} opts.body Webhook test request configuration
@@ -407,7 +409,7 @@ export default class WebhooksApi {
 
     /**
      * Test webhook subscription
-     * Send a test event to the webhook URL to verify it&#x27;s working correctly
+     * Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.
      * @param {<&vendorExtensions.x-jsdoc-type>} webhookId Webhook subscription identifier
      * @param {Object} opts Optional parameters
      * @param {module:model/WebhookTestRequest} opts.body Webhook test request configuration

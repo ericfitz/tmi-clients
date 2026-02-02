@@ -11,11 +11,13 @@ Method | HTTP request | Description
 [**deleteAdminGroup**](AdministrationApi.md#deleteAdminGroup) | **DELETE** /admin/groups/{internal_uuid} | Delete group
 [**deleteAdminUser**](AdministrationApi.md#deleteAdminUser) | **DELETE** /admin/users/{internal_uuid} | Delete user
 [**deleteAdministrator**](AdministrationApi.md#deleteAdministrator) | **DELETE** /admin/administrators/{id} | Delete administrator grant
+[**deleteSystemSetting**](AdministrationApi.md#deleteSystemSetting) | **DELETE** /admin/settings/{key} | Delete system setting
 [**deleteUserAPIQuota**](AdministrationApi.md#deleteUserAPIQuota) | **DELETE** /admin/quotas/users/{user_id} | Delete user API quota
 [**deleteWebhookQuota**](AdministrationApi.md#deleteWebhookQuota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota
 [**getAddonInvocationQuota**](AdministrationApi.md#getAddonInvocationQuota) | **GET** /admin/quotas/addons/{user_id} | Get addon invocation quota
 [**getAdminGroup**](AdministrationApi.md#getAdminGroup) | **GET** /admin/groups/{internal_uuid} | Get group details
 [**getAdminUser**](AdministrationApi.md#getAdminUser) | **GET** /admin/users/{internal_uuid} | Get user details
+[**getSystemSetting**](AdministrationApi.md#getSystemSetting) | **GET** /admin/settings/{key} | Get system setting
 [**getUserAPIQuota**](AdministrationApi.md#getUserAPIQuota) | **GET** /admin/quotas/users/{user_id} | Get user API quota
 [**getWebhookQuota**](AdministrationApi.md#getWebhookQuota) | **GET** /admin/quotas/webhooks/{user_id} | Get webhook quota
 [**listAddonInvocationQuotas**](AdministrationApi.md#listAddonInvocationQuotas) | **GET** /admin/quotas/addons | List all addon invocation quotas
@@ -23,12 +25,15 @@ Method | HTTP request | Description
 [**listAdminUsers**](AdministrationApi.md#listAdminUsers) | **GET** /admin/users | List users
 [**listAdministrators**](AdministrationApi.md#listAdministrators) | **GET** /admin/administrators | List administrators
 [**listGroupMembers**](AdministrationApi.md#listGroupMembers) | **GET** /admin/groups/{internal_uuid}/members | List group members
+[**listSystemSettings**](AdministrationApi.md#listSystemSettings) | **GET** /admin/settings | List system settings
 [**listUserAPIQuotas**](AdministrationApi.md#listUserAPIQuotas) | **GET** /admin/quotas/users | List all user API quotas
 [**listWebhookQuotas**](AdministrationApi.md#listWebhookQuotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
+[**migrateSystemSettings**](AdministrationApi.md#migrateSystemSettings) | **POST** /admin/settings/migrate | Migrate settings from configuration
 [**removeGroupMember**](AdministrationApi.md#removeGroupMember) | **DELETE** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
 [**updateAddonInvocationQuota**](AdministrationApi.md#updateAddonInvocationQuota) | **PUT** /admin/quotas/addons/{user_id} | Update addon invocation quota
 [**updateAdminGroup**](AdministrationApi.md#updateAdminGroup) | **PATCH** /admin/groups/{internal_uuid} | Update group metadata
 [**updateAdminUser**](AdministrationApi.md#updateAdminUser) | **PATCH** /admin/users/{internal_uuid} | Update user metadata
+[**updateSystemSetting**](AdministrationApi.md#updateSystemSetting) | **PUT** /admin/settings/{key} | Update system setting
 [**updateUserAPIQuota**](AdministrationApi.md#updateUserAPIQuota) | **PUT** /admin/quotas/users/{user_id} | Update user API quota
 [**updateWebhookQuota**](AdministrationApi.md#updateWebhookQuota) | **PUT** /admin/quotas/webhooks/{user_id} | Update webhook quota
 
@@ -342,6 +347,50 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteSystemSetting"></a>
+# **deleteSystemSetting**
+> deleteSystemSetting(key)
+
+Delete system setting
+
+Deletes a system setting. Requires administrator privileges.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+let key = "key_example"; // String | The setting key
+
+apiInstance.deleteSystemSetting(key).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **key** | **String**| The setting key | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteUserAPIQuota"></a>
 # **deleteUserAPIQuota**
 > deleteUserAPIQuota(userId)
@@ -562,6 +611,50 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getSystemSetting"></a>
+# **getSystemSetting**
+> SystemSetting getSystemSetting(key)
+
+Get system setting
+
+Returns a specific system setting by key. Requires administrator privileges.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+let key = "key_example"; // String | The setting key
+
+apiInstance.getSystemSetting(key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **key** | **String**| The setting key | 
+
+### Return type
+
+[**SystemSetting**](SystemSetting.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getUserAPIQuota"></a>
 # **getUserAPIQuota**
 > UserAPIQuota getUserAPIQuota(userId)
@@ -652,7 +745,7 @@ Name | Type | Description  | Notes
 
 <a name="listAddonInvocationQuotas"></a>
 # **listAddonInvocationQuotas**
-> [AddonInvocationQuota] listAddonInvocationQuotas(opts)
+> ListAddonQuotasResponse listAddonInvocationQuotas(opts)
 
 List all addon invocation quotas
 
@@ -686,7 +779,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[AddonInvocationQuota]**](AddonInvocationQuota.md)
+[**ListAddonQuotasResponse**](ListAddonQuotasResponse.md)
 
 ### Authorization
 
@@ -919,9 +1012,48 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listSystemSettings"></a>
+# **listSystemSettings**
+> [SystemSetting] listSystemSettings()
+
+List system settings
+
+Returns all system settings. Requires administrator privileges.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+apiInstance.listSystemSettings().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[SystemSetting]**](SystemSetting.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listUserAPIQuotas"></a>
 # **listUserAPIQuotas**
-> [UserAPIQuota] listUserAPIQuotas(opts)
+> ListUserQuotasResponse listUserAPIQuotas(opts)
 
 List all user API quotas
 
@@ -955,7 +1087,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[UserAPIQuota]**](UserAPIQuota.md)
+[**ListUserQuotasResponse**](ListUserQuotasResponse.md)
 
 ### Authorization
 
@@ -968,7 +1100,7 @@ Name | Type | Description  | Notes
 
 <a name="listWebhookQuotas"></a>
 # **listWebhookQuotas**
-> [WebhookQuota] listWebhookQuotas(opts)
+> ListWebhookQuotasResponse listWebhookQuotas(opts)
 
 List all webhook quotas
 
@@ -1002,7 +1134,52 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[WebhookQuota]**](WebhookQuota.md)
+[**ListWebhookQuotasResponse**](ListWebhookQuotasResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="migrateSystemSettings"></a>
+# **migrateSystemSettings**
+> InlineResponse20010 migrateSystemSettings(opts)
+
+Migrate settings from configuration
+
+Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don&#x27;t already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+let opts = { 
+  'overwrite': false // Boolean | If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don't already exist.
+};
+apiInstance.migrateSystemSettings(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **overwrite** | **Boolean**| If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don&#x27;t already exist. | [optional] [default to false]
+
+### Return type
+
+[**InlineResponse20010**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -1187,6 +1364,52 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUser**](AdminUser.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="updateSystemSetting"></a>
+# **updateSystemSetting**
+> SystemSetting updateSystemSetting(body, key)
+
+Update system setting
+
+Creates or updates a system setting. Requires administrator privileges.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.SystemSettingUpdate(); // SystemSettingUpdate | The system setting value to create or update
+let key = "key_example"; // String | The setting key
+
+apiInstance.updateSystemSetting(body, key).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**SystemSettingUpdate**](SystemSettingUpdate.md)| The system setting value to create or update | 
+ **key** | **String**| The setting key | 
+
+### Return type
+
+[**SystemSetting**](SystemSetting.md)
 
 ### Authorization
 

@@ -15,4 +15,8 @@ type ListAdministratorsResponse struct {
 	Administrators []Administrator `json:"administrators"`
 	// Total number of grants matching filter
 	Total int32 `json:"total"`
+	// Pagination limit
+	Limit int32 `json:"limit"`
+	// Pagination offset
+	Offset int32 `json:"offset"`
 }

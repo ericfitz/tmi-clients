@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 Bulk PATCH threats
 
-Apply JSON Patch operations to multiple threats in a single request
+Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.
 
 ### Example
 ```python
@@ -76,7 +76,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatsApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to multiple threats
+body = tmi_client.BulkPatchRequest() # BulkPatchRequest | JSON Patch operations to apply to multiple threats
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -91,7 +91,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to multiple threats | 
+ **body** | [**BulkPatchRequest**](BulkPatchRequest.md)| JSON Patch operations to apply to multiple threats | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

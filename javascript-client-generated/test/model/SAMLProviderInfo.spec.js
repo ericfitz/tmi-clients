@@ -88,6 +88,12 @@
         // expect(instance.sloUrl).to.be(expectedValueLiteral);
       });
 
+      it('should have the property initialized (base name: "initialized")', function() {
+        // TODO: update the code to test the property initialized
+        expect(instance).to.have.property('initialized');
+        // expect(instance.initialized).to.be(expectedValueLiteral);
+      });
+
     });
   });
 

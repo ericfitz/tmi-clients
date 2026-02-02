@@ -77,7 +77,13 @@ TokenRevocationRequest.TokenTypeHintEnum = {
    * value: "refresh_token"
    * @const
    */
-  refreshToken: "refresh_token"
+  refreshToken: "refresh_token",
+
+  /**
+   * value: "null"
+   * @const
+   */
+  _null: "null"
 };
 /**
  * A hint about the type of the token. If omitted, the server will attempt to determine the token type.

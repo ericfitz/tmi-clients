@@ -180,13 +180,13 @@ func (a *ThreatsApiService) BulkDeleteThreatModelThreats(ctx context.Context, th
 }
 /*
 ThreatsApiService Bulk PATCH threats
-Apply JSON Patch operations to multiple threats in a single request
+Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param body JSON Patch operations to apply to multiple threats
  * @param threatModelId Threat model identifier
 @return []Threat
 */
-func (a *ThreatsApiService) BulkPatchThreatModelThreats(ctx context.Context, body []JsonPatchDocumentInner, threatModelId string) ([]Threat, *http.Response, error) {
+func (a *ThreatsApiService) BulkPatchThreatModelThreats(ctx context.Context, body BulkPatchRequest, threatModelId string) ([]Threat, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Patch")
 		localVarPostBody   interface{}
@@ -204,7 +204,7 @@ func (a *ThreatsApiService) BulkPatchThreatModelThreats(ctx context.Context, bod
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json-patch+json"}
+	localVarHttpContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)

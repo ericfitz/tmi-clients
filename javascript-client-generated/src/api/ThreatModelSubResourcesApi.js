@@ -20,11 +20,16 @@ import AssetInput from '../model/AssetInput';
 import CreateDiagramRequest from '../model/CreateDiagramRequest';
 import DfdDiagram from '../model/DfdDiagram';
 import DfdDiagramInput from '../model/DfdDiagramInput';
-import DiagramListItem from '../model/DiagramListItem';
 import Document from '../model/Document';
 import DocumentInput from '../model/DocumentInput';
 import Error from '../model/Error';
 import JsonPatchDocumentInner from '../model/JsonPatchDocumentInner';
+import ListAssetsResponse from '../model/ListAssetsResponse';
+import ListDiagramsResponse from '../model/ListDiagramsResponse';
+import ListDocumentsResponse from '../model/ListDocumentsResponse';
+import ListNotesResponse from '../model/ListNotesResponse';
+import ListRepositoriesResponse from '../model/ListRepositoriesResponse';
+import ListThreatsResponse from '../model/ListThreatsResponse';
 import Metadata from '../model/Metadata';
 import MetadataKeyBody from '../model/MetadataKeyBody';
 import MetadataKeyBody1 from '../model/MetadataKeyBody1';
@@ -35,10 +40,10 @@ import MetadataKeyBody5 from '../model/MetadataKeyBody5';
 import MinimalDiagramModel from '../model/MinimalDiagramModel';
 import Note from '../model/Note';
 import NoteInput from '../model/NoteInput';
-import NoteListItem from '../model/NoteListItem';
 import Repository from '../model/Repository';
 import RepositoryInput from '../model/RepositoryInput';
 import Threat from '../model/Threat';
+import ThreatBulkUpdateItem from '../model/ThreatBulkUpdateItem';
 import ThreatInput from '../model/ThreatInput';
 
 /**
@@ -815,7 +820,7 @@ export default class ThreatModelSubResourcesApi {
     /**
      * Bulk update threats
      * Updates multiple threats in a single operation for the specified threat model
-     * @param {Array.<module:model/Threat>} body Array of threats to upsert in bulk
+     * @param {Array.<module:model/ThreatBulkUpdateItem>} body Array of threats to upsert in bulk
      * @param {String} threatModelId Threat model identifier
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
      */
@@ -3164,7 +3169,7 @@ export default class ThreatModelSubResourcesApi {
 
     /**
      * Get minimal diagram model for automated analysis
-     * Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+     * Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
      * @param {String} threatModelId Threat model UUID
      * @param {String} diagramId Diagram UUID
      * @param {Object} opts Optional parameters
@@ -3210,7 +3215,7 @@ export default class ThreatModelSubResourcesApi {
 
     /**
      * Get minimal diagram model for automated analysis
-     * Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+     * Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
      * @param {<&vendorExtensions.x-jsdoc-type>} threatModelId Threat model UUID
      * @param {<&vendorExtensions.x-jsdoc-type>} diagramId Diagram UUID
      * @param {Object} opts Optional parameters
@@ -3911,7 +3916,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Asset>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListAssetsResponse} and HTTP response
      */
     getThreatModelAssetsWithHttpInfo(threatModelId, opts) {
       opts = opts || {};
@@ -3937,7 +3942,7 @@ export default class ThreatModelSubResourcesApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Asset];
+      let returnType = ListAssetsResponse;
 
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/assets', 'GET',
@@ -3953,7 +3958,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Asset>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAssetsResponse}
      */
     getThreatModelAssets(threatModelId, opts) {
       return this.getThreatModelAssetsWithHttpInfo(threatModelId, opts)
@@ -4029,7 +4034,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/DiagramListItem>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListDiagramsResponse} and HTTP response
      */
     getThreatModelDiagramsWithHttpInfo(threatModelId, opts) {
       opts = opts || {};
@@ -4055,7 +4060,7 @@ export default class ThreatModelSubResourcesApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [DiagramListItem];
+      let returnType = ListDiagramsResponse;
 
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/diagrams', 'GET',
@@ -4071,7 +4076,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/DiagramListItem>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListDiagramsResponse}
      */
     getThreatModelDiagrams(threatModelId, opts) {
       return this.getThreatModelDiagramsWithHttpInfo(threatModelId, opts)
@@ -4147,7 +4152,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Document>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListDocumentsResponse} and HTTP response
      */
     getThreatModelDocumentsWithHttpInfo(threatModelId, opts) {
       opts = opts || {};
@@ -4173,7 +4178,7 @@ export default class ThreatModelSubResourcesApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Document];
+      let returnType = ListDocumentsResponse;
 
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/documents', 'GET',
@@ -4189,7 +4194,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Document>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListDocumentsResponse}
      */
     getThreatModelDocuments(threatModelId, opts) {
       return this.getThreatModelDocumentsWithHttpInfo(threatModelId, opts)
@@ -4377,7 +4382,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/NoteListItem>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListNotesResponse} and HTTP response
      */
     getThreatModelNotesWithHttpInfo(threatModelId, opts) {
       opts = opts || {};
@@ -4403,7 +4408,7 @@ export default class ThreatModelSubResourcesApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [NoteListItem];
+      let returnType = ListNotesResponse;
 
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/notes', 'GET',
@@ -4419,7 +4424,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/NoteListItem>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListNotesResponse}
      */
     getThreatModelNotes(threatModelId, opts) {
       return this.getThreatModelNotesWithHttpInfo(threatModelId, opts)
@@ -4436,7 +4441,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Repository>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListRepositoriesResponse} and HTTP response
      */
     getThreatModelRepositoriesWithHttpInfo(threatModelId, opts) {
       opts = opts || {};
@@ -4462,7 +4467,7 @@ export default class ThreatModelSubResourcesApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Repository];
+      let returnType = ListRepositoriesResponse;
 
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/repositories', 'GET',
@@ -4478,7 +4483,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Repository>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListRepositoriesResponse}
      */
     getThreatModelRepositories(threatModelId, opts) {
       return this.getThreatModelRepositoriesWithHttpInfo(threatModelId, opts)
@@ -4631,7 +4636,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Date} opts.createdBefore Filter results created before this timestamp (ISO 8601)
      * @param {Date} opts.modifiedAfter Filter results modified after this timestamp (ISO 8601)
      * @param {Date} opts.modifiedBefore Filter results modified before this timestamp (ISO 8601)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Threat>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListThreatsResponse} and HTTP response
      */
     getThreatModelThreatsWithHttpInfo(threatModelId, opts) {
       opts = opts || {};
@@ -4657,7 +4662,7 @@ export default class ThreatModelSubResourcesApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [Threat];
+      let returnType = ListThreatsResponse;
 
       return this.apiClient.callApi(
         '/threat_models/{threat_model_id}/threats', 'GET',
@@ -4691,7 +4696,7 @@ export default class ThreatModelSubResourcesApi {
      * @param {Date} opts.createdBefore Filter results created before this timestamp (ISO 8601)
      * @param {Date} opts.modifiedAfter Filter results modified after this timestamp (ISO 8601)
      * @param {Date} opts.modifiedBefore Filter results modified before this timestamp (ISO 8601)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Threat>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListThreatsResponse}
      */
     getThreatModelThreats(threatModelId, opts) {
       return this.getThreatModelThreatsWithHttpInfo(threatModelId, opts)

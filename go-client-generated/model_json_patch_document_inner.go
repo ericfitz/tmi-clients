@@ -15,5 +15,5 @@ type JsonPatchDocumentInner struct {
 	// JSON path to target
 	Path string `json:"path"`
 	// The value to use for add/replace/test operations. Can be any JSON value per RFC 6902 (string, number, boolean, object, array, or null).
-	Value *Object `json:"value,omitempty"`
+	Value *OneOfJsonPatchDocumentInnerValue `json:"value,omitempty"`
 }

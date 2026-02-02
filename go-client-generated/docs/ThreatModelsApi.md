@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListThreatModels**
-> []TmListItem ListThreatModels(ctx, optional)
+> ListThreatModelsResponse ListThreatModels(ctx, optional)
 List threat models
 
 Returns a list of threat models accessible to the authenticated user with enhanced metadata and entity counts
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]TmListItem**](TMListItem.md)
+[**ListThreatModelsResponse**](ListThreatModelsResponse.md)
 
 ### Authorization
 

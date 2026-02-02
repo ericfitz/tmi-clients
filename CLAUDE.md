@@ -223,6 +223,15 @@ Each client directory contains:
 - Auto-generated documentation in `docs/`
 - Build configuration (e.g., `go.mod`, `pom.xml`, `package.json`)
 
+## OpenAPI Specification
+
+The clients are generated from the TMI OpenAPI specification hosted at:
+```
+https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json
+```
+
+The regeneration scripts automatically download the latest specification from this URL.
+
 ## Regeneration
 
 The Python client can be regenerated from the latest OpenAPI spec using the automated script:
@@ -233,6 +242,7 @@ cd python-client-generated
 ```
 
 This script automatically:
+- Downloads the latest OpenAPI spec from GitHub
 - Generates the client with correct package name (`tmi_client`)
 - Configures Python 3.8+ requirements
 - Updates all dependencies with security fixes

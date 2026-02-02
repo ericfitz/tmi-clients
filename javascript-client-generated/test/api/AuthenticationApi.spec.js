@@ -270,18 +270,13 @@
       });
       describe('listCurrentUserClientCredentials', function() {
         it('should call listCurrentUserClientCredentials successfully', function(done) {
-          // TODO: uncomment listCurrentUserClientCredentials call and complete the assertions
+          // TODO: uncomment, update parameter values for listCurrentUserClientCredentials call and complete the assertions
           /*
+          var opts = {};
 
-          instance.listCurrentUserClientCredentials().then(function(data) {
+          instance.listCurrentUserClientCredentials(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.ClientCredentialInfo);
-            }
+            expect(data).to.be.a(TmiJsClient.ListClientCredentialsResponse);
 
             done();
           }, function(error) {

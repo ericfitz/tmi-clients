@@ -139,14 +139,14 @@ class ThreatsApi(object):
     def bulk_patch_threat_model_threats(self, body, threat_model_id, **kwargs):  # noqa: E501
         """Bulk PATCH threats  # noqa: E501
 
-        Apply JSON Patch operations to multiple threats in a single request  # noqa: E501
+        Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.bulk_patch_threat_model_threats(body, threat_model_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param list[JsonPatchDocumentInner] body: JSON Patch operations to apply to multiple threats (required)
+        :param BulkPatchRequest body: JSON Patch operations to apply to multiple threats (required)
         :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
@@ -162,14 +162,14 @@ class ThreatsApi(object):
     def bulk_patch_threat_model_threats_with_http_info(self, body, threat_model_id, **kwargs):  # noqa: E501
         """Bulk PATCH threats  # noqa: E501
 
-        Apply JSON Patch operations to multiple threats in a single request  # noqa: E501
+        Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.bulk_patch_threat_model_threats_with_http_info(body, threat_model_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param list[JsonPatchDocumentInner] body: JSON Patch operations to apply to multiple threats (required)
+        :param BulkPatchRequest body: JSON Patch operations to apply to multiple threats (required)
         :param str threat_model_id: Threat model identifier (required)
         :return: list[Threat]
                  If the method is called asynchronously,
@@ -222,7 +222,7 @@ class ThreatsApi(object):
 
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json'])  # noqa: E501
+            ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['bearerAuth']  # noqa: E501

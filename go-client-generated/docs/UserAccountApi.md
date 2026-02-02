@@ -19,7 +19,7 @@ Creates preferences for the current user. Fails with 409 Conflict if preferences
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**map[string]ModelMap**](map.md)|  | 
+  **body** | [**map[string]ModelMap**](map.md)| User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. | 
 
 ### Return type
 
@@ -71,7 +71,7 @@ Creates or replaces the current user's preferences. This is an upsert operation 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**map[string]ModelMap**](map.md)|  | 
+  **body** | [**map[string]ModelMap**](map.md)| User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. | 
 
 ### Return type
 

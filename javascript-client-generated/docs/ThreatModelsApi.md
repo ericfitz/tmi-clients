@@ -145,7 +145,7 @@ Name | Type | Description  | Notes
 
 <a name="listThreatModels"></a>
 # **listThreatModels**
-> [TMListItem] listThreatModels(opts)
+> ListThreatModelsResponse listThreatModels(opts)
 
 List threat models
 
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[TMListItem]**](TMListItem.md)
+[**ListThreatModelsResponse**](ListThreatModelsResponse.md)
 
 ### Authorization
 

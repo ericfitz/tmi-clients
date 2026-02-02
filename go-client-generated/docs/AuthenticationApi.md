@@ -429,17 +429,28 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListCurrentUserClientCredentials**
-> []ClientCredentialInfo ListCurrentUserClientCredentials(ctx, )
+> ListClientCredentialsResponse ListCurrentUserClientCredentials(ctx, optional)
 List client credentials
 
 Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
 
 ### Required Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AuthenticationApiListCurrentUserClientCredentialsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AuthenticationApiListCurrentUserClientCredentialsOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
+ **offset** | **optional.Int32**| Number of results to skip | [default to 0]
 
 ### Return type
 
-[**[]ClientCredentialInfo**](ClientCredentialInfo.md)
+[**ListClientCredentialsResponse**](ListClientCredentialsResponse.md)
 
 ### Authorization
 

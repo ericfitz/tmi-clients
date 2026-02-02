@@ -28,7 +28,7 @@ type UserAccountApiService service
 UserAccountApiService Create user preferences
 Creates preferences for the current user. Fails with 409 Conflict if preferences already exist (use PUT to update).
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
+ * @param body User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
 @return map[string]ModelMap
 */
 func (a *UserAccountApiService) CreateCurrentUserPreferences(ctx context.Context, body map[string]ModelMap) (map[string]ModelMap, *http.Response, error) {
@@ -268,6 +268,16 @@ func (a *UserAccountApiService) GetCurrentUserPreferences(ctx context.Context) (
 				newErr.model = v
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
+		if localVarHttpResponse.StatusCode == 400 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -277,7 +287,7 @@ func (a *UserAccountApiService) GetCurrentUserPreferences(ctx context.Context) (
 UserAccountApiService Update user preferences
 Creates or replaces the current user&#x27;s preferences. This is an upsert operation - creates if not exists, replaces entirely if exists.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
+ * @param body User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
 @return map[string]ModelMap
 */
 func (a *UserAccountApiService) UpdateCurrentUserPreferences(ctx context.Context, body map[string]ModelMap) (map[string]ModelMap, *http.Response, error) {

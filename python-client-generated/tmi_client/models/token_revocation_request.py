@@ -101,7 +101,7 @@ class TokenRevocationRequest(object):
         :param token_type_hint: The token_type_hint of this TokenRevocationRequest.  # noqa: E501
         :type: str
         """
-        allowed_values = ["access_token", "refresh_token"]  # noqa: E501
+        allowed_values = ["access_token", "refresh_token", ""]  # noqa: E501
         if token_type_hint not in allowed_values:
             raise ValueError(
                 "Invalid value for `token_type_hint` ({0}), must be one of {1}"  # noqa: E501

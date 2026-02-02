@@ -48,8 +48,8 @@ export default class OAuthProtectedResourceMetadata {
         obj.scopesSupported = ApiClient.convertToType(data['scopes_supported'], ['String']);
       if (data.hasOwnProperty('authorization_servers'))
         obj.authorizationServers = ApiClient.convertToType(data['authorization_servers'], ['String']);
-      if (data.hasOwnProperty('jwks_url'))
-        obj.jwksUrl = ApiClient.convertToType(data['jwks_url'], 'String');
+      if (data.hasOwnProperty('jwks_uri'))
+        obj.jwksUri = ApiClient.convertToType(data['jwks_uri'], 'String');
       if (data.hasOwnProperty('bearer_methods_supported'))
         obj.bearerMethodsSupported = ApiClient.convertToType(data['bearer_methods_supported'], ['String']);
       if (data.hasOwnProperty('resource_name'))
@@ -82,10 +82,10 @@ OAuthProtectedResourceMetadata.prototype.scopesSupported = undefined;
 OAuthProtectedResourceMetadata.prototype.authorizationServers = undefined;
 
 /**
- * URL of the protected resource's JSON Web Key Set
- * @member {String} jwksUrl
+ * URL of the protected resource's JSON Web Key Set (RFC 9728)
+ * @member {String} jwksUri
  */
-OAuthProtectedResourceMetadata.prototype.jwksUrl = undefined;
+OAuthProtectedResourceMetadata.prototype.jwksUri = undefined;
 
 /**
  * Allowed values for the <code>bearerMethodsSupported</code> property.

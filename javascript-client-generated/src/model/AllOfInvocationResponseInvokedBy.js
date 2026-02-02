@@ -31,7 +31,7 @@ export default class AllOfInvocationResponseInvokedBy extends User {
    * @param email {} User email address (required)
    * @param displayName {} User full name for display
    */
-  constructor(email, displayName, principalType, provider, providerId) {
+  constructor(email, displayName) {
     super(principalType, email, displayName, provider, providerId);
   }
 

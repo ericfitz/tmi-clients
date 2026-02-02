@@ -11,11 +11,13 @@ Method | HTTP request | Description
 [**DeleteAdminGroup**](AdministrationApi.md#DeleteAdminGroup) | **Delete** /admin/groups/{internal_uuid} | Delete group
 [**DeleteAdminUser**](AdministrationApi.md#DeleteAdminUser) | **Delete** /admin/users/{internal_uuid} | Delete user
 [**DeleteAdministrator**](AdministrationApi.md#DeleteAdministrator) | **Delete** /admin/administrators/{id} | Delete administrator grant
+[**DeleteSystemSetting**](AdministrationApi.md#DeleteSystemSetting) | **Delete** /admin/settings/{key} | Delete system setting
 [**DeleteUserAPIQuota**](AdministrationApi.md#DeleteUserAPIQuota) | **Delete** /admin/quotas/users/{user_id} | Delete user API quota
 [**DeleteWebhookQuota**](AdministrationApi.md#DeleteWebhookQuota) | **Delete** /admin/quotas/webhooks/{user_id} | Delete webhook quota
 [**GetAddonInvocationQuota**](AdministrationApi.md#GetAddonInvocationQuota) | **Get** /admin/quotas/addons/{user_id} | Get addon invocation quota
 [**GetAdminGroup**](AdministrationApi.md#GetAdminGroup) | **Get** /admin/groups/{internal_uuid} | Get group details
 [**GetAdminUser**](AdministrationApi.md#GetAdminUser) | **Get** /admin/users/{internal_uuid} | Get user details
+[**GetSystemSetting**](AdministrationApi.md#GetSystemSetting) | **Get** /admin/settings/{key} | Get system setting
 [**GetUserAPIQuota**](AdministrationApi.md#GetUserAPIQuota) | **Get** /admin/quotas/users/{user_id} | Get user API quota
 [**GetWebhookQuota**](AdministrationApi.md#GetWebhookQuota) | **Get** /admin/quotas/webhooks/{user_id} | Get webhook quota
 [**ListAddonInvocationQuotas**](AdministrationApi.md#ListAddonInvocationQuotas) | **Get** /admin/quotas/addons | List all addon invocation quotas
@@ -23,12 +25,15 @@ Method | HTTP request | Description
 [**ListAdminUsers**](AdministrationApi.md#ListAdminUsers) | **Get** /admin/users | List users
 [**ListAdministrators**](AdministrationApi.md#ListAdministrators) | **Get** /admin/administrators | List administrators
 [**ListGroupMembers**](AdministrationApi.md#ListGroupMembers) | **Get** /admin/groups/{internal_uuid}/members | List group members
+[**ListSystemSettings**](AdministrationApi.md#ListSystemSettings) | **Get** /admin/settings | List system settings
 [**ListUserAPIQuotas**](AdministrationApi.md#ListUserAPIQuotas) | **Get** /admin/quotas/users | List all user API quotas
 [**ListWebhookQuotas**](AdministrationApi.md#ListWebhookQuotas) | **Get** /admin/quotas/webhooks | List all webhook quotas
+[**MigrateSystemSettings**](AdministrationApi.md#MigrateSystemSettings) | **Post** /admin/settings/migrate | Migrate settings from configuration
 [**RemoveGroupMember**](AdministrationApi.md#RemoveGroupMember) | **Delete** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
 [**UpdateAddonInvocationQuota**](AdministrationApi.md#UpdateAddonInvocationQuota) | **Put** /admin/quotas/addons/{user_id} | Update addon invocation quota
 [**UpdateAdminGroup**](AdministrationApi.md#UpdateAdminGroup) | **Patch** /admin/groups/{internal_uuid} | Update group metadata
 [**UpdateAdminUser**](AdministrationApi.md#UpdateAdminUser) | **Patch** /admin/users/{internal_uuid} | Update user metadata
+[**UpdateSystemSetting**](AdministrationApi.md#UpdateSystemSetting) | **Put** /admin/settings/{key} | Update system setting
 [**UpdateUserAPIQuota**](AdministrationApi.md#UpdateUserAPIQuota) | **Put** /admin/quotas/users/{user_id} | Update user API quota
 [**UpdateWebhookQuota**](AdministrationApi.md#UpdateWebhookQuota) | **Put** /admin/quotas/webhooks/{user_id} | Update webhook quota
 
@@ -229,6 +234,34 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **DeleteSystemSetting**
+> DeleteSystemSetting(ctx, key)
+Delete system setting
+
+Deletes a system setting. Requires administrator privileges.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **key** | **string**| The setting key | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **DeleteUserAPIQuota**
 > DeleteUserAPIQuota(ctx, userId)
 Delete user API quota
@@ -369,6 +402,34 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetSystemSetting**
+> SystemSetting GetSystemSetting(ctx, key)
+Get system setting
+
+Returns a specific system setting by key. Requires administrator privileges.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **key** | **string**| The setting key | 
+
+### Return type
+
+[**SystemSetting**](SystemSetting.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetUserAPIQuota**
 > UserApiQuota GetUserAPIQuota(ctx, userId)
 Get user API quota
@@ -426,7 +487,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListAddonInvocationQuotas**
-> []AddonInvocationQuota ListAddonInvocationQuotas(ctx, optional)
+> ListAddonQuotasResponse ListAddonInvocationQuotas(ctx, optional)
 List all addon invocation quotas
 
 Retrieves all custom addon invocation quotas (users with non-default quotas)
@@ -447,7 +508,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]AddonInvocationQuota**](AddonInvocationQuota.md)
+[**ListAddonQuotasResponse**](ListAddonQuotasResponse.md)
 
 ### Authorization
 
@@ -618,8 +679,32 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **ListSystemSettings**
+> []SystemSetting ListSystemSettings(ctx, )
+List system settings
+
+Returns all system settings. Requires administrator privileges.
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[]SystemSetting**](SystemSetting.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **ListUserAPIQuotas**
-> []UserApiQuota ListUserAPIQuotas(ctx, optional)
+> ListUserQuotasResponse ListUserAPIQuotas(ctx, optional)
 List all user API quotas
 
 Retrieves all custom API rate limit quotas (users with non-default quotas)
@@ -640,7 +725,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]UserApiQuota**](UserAPIQuota.md)
+[**ListUserQuotasResponse**](ListUserQuotasResponse.md)
 
 ### Authorization
 
@@ -654,7 +739,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListWebhookQuotas**
-> []WebhookQuota ListWebhookQuotas(ctx, optional)
+> ListWebhookQuotasResponse ListWebhookQuotas(ctx, optional)
 List all webhook quotas
 
 Retrieves all custom webhook quotas (users with non-default quotas)
@@ -675,7 +760,41 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]WebhookQuota**](WebhookQuota.md)
+[**ListWebhookQuotasResponse**](ListWebhookQuotasResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **MigrateSystemSettings**
+> InlineResponse20010 MigrateSystemSettings(ctx, optional)
+Migrate settings from configuration
+
+Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don't already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***AdministrationApiMigrateSystemSettingsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiMigrateSystemSettingsOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **overwrite** | **optional.Bool**| If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don&#x27;t already exist. | [default to false]
+
+### Return type
+
+[**InlineResponse20010**](inline_response_200_10.md)
 
 ### Authorization
 
@@ -792,6 +911,35 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUser**](AdminUser.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateSystemSetting**
+> SystemSetting UpdateSystemSetting(ctx, body, key)
+Update system setting
+
+Creates or updates a system setting. Requires administrator privileges.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**SystemSettingUpdate**](SystemSettingUpdate.md)| The system setting value to create or update | 
+  **key** | **string**| The setting key | 
+
+### Return type
+
+[**SystemSetting**](SystemSetting.md)
 
 ### Authorization
 

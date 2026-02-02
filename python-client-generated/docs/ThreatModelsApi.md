@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_threat_models**
-> list[TMListItem] list_threat_models(limit=limit, offset=offset, owner=owner, name=name, description=description, issue_uri=issue_uri, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before, status=status, status_updated_after=status_updated_after, status_updated_before=status_updated_before)
+> ListThreatModelsResponse list_threat_models(limit=limit, offset=offset, owner=owner, name=name, description=description, issue_uri=issue_uri, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before, status=status, status_updated_after=status_updated_after, status_updated_before=status_updated_before)
 
 List threat models
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[TMListItem]**](TMListItem.md)
+[**ListThreatModelsResponse**](ListThreatModelsResponse.md)
 
 ### Authorization
 

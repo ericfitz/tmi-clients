@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 
 Bulk PATCH threats
 
-Apply JSON Patch operations to multiple threats in a single request
+Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.
 
 ### Example
 ```javascript
@@ -68,7 +68,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatsApi();
-let body = [new TmiJsClient.JsonPatchDocumentInner()]; // [JsonPatchDocumentInner] | JSON Patch operations to apply to multiple threats
+let body = new TmiJsClient.BulkPatchRequest(); // BulkPatchRequest | JSON Patch operations to apply to multiple threats
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkPatchThreatModelThreats(body, threatModelId).then((data) => {
@@ -83,7 +83,7 @@ apiInstance.bulkPatchThreatModelThreats(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to multiple threats | 
+ **body** | [**BulkPatchRequest**](BulkPatchRequest.md)| JSON Patch operations to apply to multiple threats | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -96,6 +96,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json
+ - **Content-Type**: application/json
  - **Accept**: application/json
 

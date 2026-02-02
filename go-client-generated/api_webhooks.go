@@ -28,7 +28,7 @@ var (
 type WebhooksApiService service
 /*
 WebhooksApiService Create webhook subscription
-Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
+Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param body Webhook subscription configuration
 @return WebhookSubscription
@@ -157,6 +157,16 @@ func (a *WebhooksApiService) CreateWebhookSubscription(ctx context.Context, body
 				newErr.model = v
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
+		if localVarHttpResponse.StatusCode == 503 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -164,7 +174,7 @@ func (a *WebhooksApiService) CreateWebhookSubscription(ctx context.Context, body
 }
 /*
 WebhooksApiService Delete webhook subscription
-Delete a webhook subscription. Only the owner can delete a subscription.
+Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookId Webhook subscription identifier
 
@@ -255,6 +265,16 @@ func (a *WebhooksApiService) DeleteWebhookSubscription(ctx context.Context, webh
 				newErr.model = v
 				return localVarHttpResponse, newErr
 		}
+		if localVarHttpResponse.StatusCode == 503 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarHttpResponse, newErr
+		}
 		if localVarHttpResponse.StatusCode == 429 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
@@ -282,7 +302,7 @@ func (a *WebhooksApiService) DeleteWebhookSubscription(ctx context.Context, webh
 }
 /*
 WebhooksApiService Get webhook delivery
-Get details of a specific webhook delivery
+Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param deliveryId Webhook delivery identifier
 @return WebhookDelivery
@@ -390,6 +410,16 @@ func (a *WebhooksApiService) GetWebhookDelivery(ctx context.Context, deliveryId 
 				newErr.model = v
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
+		if localVarHttpResponse.StatusCode == 503 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
 		if localVarHttpResponse.StatusCode == 429 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
@@ -417,7 +447,7 @@ func (a *WebhooksApiService) GetWebhookDelivery(ctx context.Context, deliveryId 
 }
 /*
 WebhooksApiService Get webhook subscription
-Get a specific webhook subscription by ID
+Retrieve details of a specific webhook subscription. Requires administrator privileges.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookId Webhook subscription identifier
 @return WebhookSubscription
@@ -525,6 +555,16 @@ func (a *WebhooksApiService) GetWebhookSubscription(ctx context.Context, webhook
 				newErr.model = v
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
+		if localVarHttpResponse.StatusCode == 503 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
 		if localVarHttpResponse.StatusCode == 429 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
@@ -552,13 +592,13 @@ func (a *WebhooksApiService) GetWebhookSubscription(ctx context.Context, webhook
 }
 /*
 WebhooksApiService List webhook deliveries
-List webhook deliveries for the authenticated user&#x27;s subscriptions
+List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *WebhooksApiListWebhookDeliveriesOpts - Optional Parameters:
      * @param "SubscriptionId" (optional.Interface of string) -  Filter by subscription ID
      * @param "Offset" (optional.Int32) -  Number of results to skip
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
-@return []WebhookDelivery
+@return ListWebhookDeliveriesResponse
 */
 
 type WebhooksApiListWebhookDeliveriesOpts struct {
@@ -567,13 +607,13 @@ type WebhooksApiListWebhookDeliveriesOpts struct {
     Limit optional.Int32
 }
 
-func (a *WebhooksApiService) ListWebhookDeliveries(ctx context.Context, localVarOptionals *WebhooksApiListWebhookDeliveriesOpts) ([]WebhookDelivery, *http.Response, error) {
+func (a *WebhooksApiService) ListWebhookDeliveries(ctx context.Context, localVarOptionals *WebhooksApiListWebhookDeliveriesOpts) (ListWebhookDeliveriesResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []WebhookDelivery
+		localVarReturnValue ListWebhookDeliveriesResponse
 	)
 
 	// create path and map variables
@@ -639,7 +679,7 @@ func (a *WebhooksApiService) ListWebhookDeliveries(ctx context.Context, localVar
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []WebhookDelivery
+			var v ListWebhookDeliveriesResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -659,6 +699,16 @@ func (a *WebhooksApiService) ListWebhookDeliveries(ctx context.Context, localVar
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		if localVarHttpResponse.StatusCode == 503 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
@@ -695,13 +745,13 @@ func (a *WebhooksApiService) ListWebhookDeliveries(ctx context.Context, localVar
 }
 /*
 WebhooksApiService List webhook subscriptions
-List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
+List all webhook subscriptions. Requires administrator privileges.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *WebhooksApiListWebhookSubscriptionsOpts - Optional Parameters:
      * @param "ThreatModelId" (optional.Interface of string) -  Filter subscriptions by threat model ID
      * @param "Offset" (optional.Int32) -  Number of results to skip
      * @param "Limit" (optional.Int32) -  Maximum number of results to return
-@return []WebhookSubscription
+@return ListWebhookSubscriptionsResponse
 */
 
 type WebhooksApiListWebhookSubscriptionsOpts struct {
@@ -710,13 +760,13 @@ type WebhooksApiListWebhookSubscriptionsOpts struct {
     Limit optional.Int32
 }
 
-func (a *WebhooksApiService) ListWebhookSubscriptions(ctx context.Context, localVarOptionals *WebhooksApiListWebhookSubscriptionsOpts) ([]WebhookSubscription, *http.Response, error) {
+func (a *WebhooksApiService) ListWebhookSubscriptions(ctx context.Context, localVarOptionals *WebhooksApiListWebhookSubscriptionsOpts) (ListWebhookSubscriptionsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []WebhookSubscription
+		localVarReturnValue ListWebhookSubscriptionsResponse
 	)
 
 	// create path and map variables
@@ -782,7 +832,7 @@ func (a *WebhooksApiService) ListWebhookSubscriptions(ctx context.Context, local
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []WebhookSubscription
+			var v ListWebhookSubscriptionsResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -802,6 +852,16 @@ func (a *WebhooksApiService) ListWebhookSubscriptions(ctx context.Context, local
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		if localVarHttpResponse.StatusCode == 503 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
@@ -838,7 +898,7 @@ func (a *WebhooksApiService) ListWebhookSubscriptions(ctx context.Context, local
 }
 /*
 WebhooksApiService Test webhook subscription
-Send a test event to the webhook URL to verify it&#x27;s working correctly
+Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param webhookId Webhook subscription identifier
  * @param optional nil or *WebhooksApiTestWebhookSubscriptionOpts - Optional Parameters:
@@ -950,6 +1010,16 @@ func (a *WebhooksApiService) TestWebhookSubscription(ctx context.Context, webhoo
 				return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 500 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		if localVarHttpResponse.StatusCode == 503 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {

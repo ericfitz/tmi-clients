@@ -37,11 +37,13 @@ Class | Method | HTTP request | Description
 *AdministrationApi* | [**DeleteAdminGroup**](docs/AdministrationApi.md#deleteadmingroup) | **Delete** /admin/groups/{internal_uuid} | Delete group
 *AdministrationApi* | [**DeleteAdminUser**](docs/AdministrationApi.md#deleteadminuser) | **Delete** /admin/users/{internal_uuid} | Delete user
 *AdministrationApi* | [**DeleteAdministrator**](docs/AdministrationApi.md#deleteadministrator) | **Delete** /admin/administrators/{id} | Delete administrator grant
+*AdministrationApi* | [**DeleteSystemSetting**](docs/AdministrationApi.md#deletesystemsetting) | **Delete** /admin/settings/{key} | Delete system setting
 *AdministrationApi* | [**DeleteUserAPIQuota**](docs/AdministrationApi.md#deleteuserapiquota) | **Delete** /admin/quotas/users/{user_id} | Delete user API quota
 *AdministrationApi* | [**DeleteWebhookQuota**](docs/AdministrationApi.md#deletewebhookquota) | **Delete** /admin/quotas/webhooks/{user_id} | Delete webhook quota
 *AdministrationApi* | [**GetAddonInvocationQuota**](docs/AdministrationApi.md#getaddoninvocationquota) | **Get** /admin/quotas/addons/{user_id} | Get addon invocation quota
 *AdministrationApi* | [**GetAdminGroup**](docs/AdministrationApi.md#getadmingroup) | **Get** /admin/groups/{internal_uuid} | Get group details
 *AdministrationApi* | [**GetAdminUser**](docs/AdministrationApi.md#getadminuser) | **Get** /admin/users/{internal_uuid} | Get user details
+*AdministrationApi* | [**GetSystemSetting**](docs/AdministrationApi.md#getsystemsetting) | **Get** /admin/settings/{key} | Get system setting
 *AdministrationApi* | [**GetUserAPIQuota**](docs/AdministrationApi.md#getuserapiquota) | **Get** /admin/quotas/users/{user_id} | Get user API quota
 *AdministrationApi* | [**GetWebhookQuota**](docs/AdministrationApi.md#getwebhookquota) | **Get** /admin/quotas/webhooks/{user_id} | Get webhook quota
 *AdministrationApi* | [**ListAddonInvocationQuotas**](docs/AdministrationApi.md#listaddoninvocationquotas) | **Get** /admin/quotas/addons | List all addon invocation quotas
@@ -49,12 +51,15 @@ Class | Method | HTTP request | Description
 *AdministrationApi* | [**ListAdminUsers**](docs/AdministrationApi.md#listadminusers) | **Get** /admin/users | List users
 *AdministrationApi* | [**ListAdministrators**](docs/AdministrationApi.md#listadministrators) | **Get** /admin/administrators | List administrators
 *AdministrationApi* | [**ListGroupMembers**](docs/AdministrationApi.md#listgroupmembers) | **Get** /admin/groups/{internal_uuid}/members | List group members
+*AdministrationApi* | [**ListSystemSettings**](docs/AdministrationApi.md#listsystemsettings) | **Get** /admin/settings | List system settings
 *AdministrationApi* | [**ListUserAPIQuotas**](docs/AdministrationApi.md#listuserapiquotas) | **Get** /admin/quotas/users | List all user API quotas
 *AdministrationApi* | [**ListWebhookQuotas**](docs/AdministrationApi.md#listwebhookquotas) | **Get** /admin/quotas/webhooks | List all webhook quotas
+*AdministrationApi* | [**MigrateSystemSettings**](docs/AdministrationApi.md#migratesystemsettings) | **Post** /admin/settings/migrate | Migrate settings from configuration
 *AdministrationApi* | [**RemoveGroupMember**](docs/AdministrationApi.md#removegroupmember) | **Delete** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
 *AdministrationApi* | [**UpdateAddonInvocationQuota**](docs/AdministrationApi.md#updateaddoninvocationquota) | **Put** /admin/quotas/addons/{user_id} | Update addon invocation quota
 *AdministrationApi* | [**UpdateAdminGroup**](docs/AdministrationApi.md#updateadmingroup) | **Patch** /admin/groups/{internal_uuid} | Update group metadata
 *AdministrationApi* | [**UpdateAdminUser**](docs/AdministrationApi.md#updateadminuser) | **Patch** /admin/users/{internal_uuid} | Update user metadata
+*AdministrationApi* | [**UpdateSystemSetting**](docs/AdministrationApi.md#updatesystemsetting) | **Put** /admin/settings/{key} | Update system setting
 *AdministrationApi* | [**UpdateUserAPIQuota**](docs/AdministrationApi.md#updateuserapiquota) | **Put** /admin/quotas/users/{user_id} | Update user API quota
 *AdministrationApi* | [**UpdateWebhookQuota**](docs/AdministrationApi.md#updatewebhookquota) | **Put** /admin/quotas/webhooks/{user_id} | Update webhook quota
 *AssetsApi* | [**PatchThreatModelAsset**](docs/AssetsApi.md#patchthreatmodelasset) | **Patch** /threat_models/{threat_model_id}/assets/{asset_id} | Partially update asset
@@ -81,6 +86,7 @@ Class | Method | HTTP request | Description
 *CollaborationApi* | [**EndDiagramCollaborationSession**](docs/CollaborationApi.md#enddiagramcollaborationsession) | **Delete** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | End diagram collaboration session
 *CollaborationApi* | [**GetCurrentUserSessions**](docs/CollaborationApi.md#getcurrentusersessions) | **Get** /me/sessions | List active collaboration sessions
 *CollaborationApi* | [**GetDiagramCollaborationSession**](docs/CollaborationApi.md#getdiagramcollaborationsession) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Get diagram collaboration session
+*ConfigurationApi* | [**GetClientConfig**](docs/ConfigurationApi.md#getclientconfig) | **Get** /config | Get client configuration
 *DocumentsApi* | [**PatchThreatModelDocument**](docs/DocumentsApi.md#patchthreatmodeldocument) | **Patch** /threat_models/{threat_model_id}/documents/{document_id} | Partially update document
 *GeneralApi* | [**GetApiInfo**](docs/GeneralApi.md#getapiinfo) | **Get** / | Get API information
 *NotesApi* | [**PatchThreatModelNote**](docs/NotesApi.md#patchthreatmodelnote) | **Patch** /threat_models/{threat_model_id}/notes/{note_id} | Partially update note
@@ -230,7 +236,14 @@ Class | Method | HTTP request | Description
  - [BaseDiagram](docs/BaseDiagram.md)
  - [BaseDiagramImage](docs/BaseDiagramImage.md)
  - [BaseDiagramInput](docs/BaseDiagramInput.md)
+ - [BulkPatchRequest](docs/BulkPatchRequest.md)
+ - [BulkPatchRequestPatches](docs/BulkPatchRequestPatches.md)
  - [Cell](docs/Cell.md)
+ - [ClientConfig](docs/ClientConfig.md)
+ - [ClientConfigFeatures](docs/ClientConfigFeatures.md)
+ - [ClientConfigLimits](docs/ClientConfigLimits.md)
+ - [ClientConfigOperator](docs/ClientConfigOperator.md)
+ - [ClientConfigUi](docs/ClientConfigUi.md)
  - [ClientCredentialInfo](docs/ClientCredentialInfo.md)
  - [ClientCredentialResponse](docs/ClientCredentialResponse.md)
  - [CollaborationSession](docs/CollaborationSession.md)
@@ -265,6 +278,7 @@ Class | Method | HTTP request | Description
  - [GroupMemberListResponse](docs/GroupMemberListResponse.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
+ - [InlineResponse20010](docs/InlineResponse20010.md)
  - [InlineResponse2002](docs/InlineResponse2002.md)
  - [InlineResponse2002Keys](docs/InlineResponse2002Keys.md)
  - [InlineResponse2003](docs/InlineResponse2003.md)
@@ -283,9 +297,22 @@ Class | Method | HTTP request | Description
  - [InvokeAddonRequest](docs/InvokeAddonRequest.md)
  - [InvokeAddonResponse](docs/InvokeAddonResponse.md)
  - [JsonPatchDocumentInner](docs/JsonPatchDocumentInner.md)
+ - [ListAddonQuotasResponse](docs/ListAddonQuotasResponse.md)
  - [ListAddonsResponse](docs/ListAddonsResponse.md)
  - [ListAdministratorsResponse](docs/ListAdministratorsResponse.md)
+ - [ListAssetsResponse](docs/ListAssetsResponse.md)
+ - [ListClientCredentialsResponse](docs/ListClientCredentialsResponse.md)
+ - [ListDiagramsResponse](docs/ListDiagramsResponse.md)
+ - [ListDocumentsResponse](docs/ListDocumentsResponse.md)
  - [ListInvocationsResponse](docs/ListInvocationsResponse.md)
+ - [ListNotesResponse](docs/ListNotesResponse.md)
+ - [ListRepositoriesResponse](docs/ListRepositoriesResponse.md)
+ - [ListThreatModelsResponse](docs/ListThreatModelsResponse.md)
+ - [ListThreatsResponse](docs/ListThreatsResponse.md)
+ - [ListUserQuotasResponse](docs/ListUserQuotasResponse.md)
+ - [ListWebhookDeliveriesResponse](docs/ListWebhookDeliveriesResponse.md)
+ - [ListWebhookQuotasResponse](docs/ListWebhookQuotasResponse.md)
+ - [ListWebhookSubscriptionsResponse](docs/ListWebhookSubscriptionsResponse.md)
  - [MeClientCredentialsBody](docs/MeClientCredentialsBody.md)
  - [Metadata](docs/Metadata.md)
  - [MetadataKeyBody](docs/MetadataKeyBody.md)
@@ -313,6 +340,7 @@ Class | Method | HTTP request | Description
  - [Oauth2TokenBody](docs/Oauth2TokenBody.md)
  - [OneOfCreateAdministratorRequest](docs/OneOfCreateAdministratorRequest.md)
  - [OneOfEdgeLabelPosition](docs/OneOfEdgeLabelPosition.md)
+ - [OneOfJsonPatchDocumentInnerValue](docs/OneOfJsonPatchDocumentInnerValue.md)
  - [Participant](docs/Participant.md)
  - [Point](docs/Point.md)
  - [PortConfiguration](docs/PortConfiguration.md)
@@ -326,8 +354,11 @@ Class | Method | HTTP request | Description
  - [SamlAssertionConsumerRequest](docs/SamlAssertionConsumerRequest.md)
  - [SamlProviderInfo](docs/SamlProviderInfo.md)
  - [SamlSingleLogoutRequest](docs/SamlSingleLogoutRequest.md)
+ - [SystemSetting](docs/SystemSetting.md)
+ - [SystemSettingUpdate](docs/SystemSettingUpdate.md)
  - [Threat](docs/Threat.md)
  - [ThreatBase](docs/ThreatBase.md)
+ - [ThreatBulkUpdateItem](docs/ThreatBulkUpdateItem.md)
  - [ThreatInput](docs/ThreatInput.md)
  - [ThreatModel](docs/ThreatModel.md)
  - [ThreatModelBase](docs/ThreatModelBase.md)

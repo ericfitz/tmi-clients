@@ -26,7 +26,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.UserAccountApi(tmi_client.ApiClient(configuration))
-body = NULL # dict(str, dict(str, object)) | 
+body = NULL # dict(str, dict(str, object)) | User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
 
 try:
     # Create user preferences
@@ -40,7 +40,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**dict(str, dict(str, object))**](dict.md)|  | 
+ **body** | [**dict(str, dict(str, object))**](dict.md)| User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. | 
 
 ### Return type
 
@@ -120,7 +120,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.UserAccountApi(tmi_client.ApiClient(configuration))
-body = NULL # dict(str, dict(str, object)) | 
+body = NULL # dict(str, dict(str, object)) | User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name.
 
 try:
     # Update user preferences
@@ -134,7 +134,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**dict(str, dict(str, object))**](dict.md)|  | 
+ **body** | [**dict(str, dict(str, object))**](dict.md)| User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. | 
 
 ### Return type
 

@@ -20,6 +20,8 @@ Usage:
 
 import json
 import os
+import urllib.request
+import tempfile
 from pathlib import Path
 from typing import Dict, List, Set, Any
 from collections import defaultdict
@@ -27,7 +29,8 @@ from collections import defaultdict
 # Paths
 SCRIPT_DIR = Path(__file__).parent
 CLIENT_DIR = SCRIPT_DIR.parent
-OPENAPI_SPEC_PATH = Path("/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json")
+OPENAPI_SPEC_URL = "https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json"
+OPENAPI_SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
 
 
 def load_spec() -> Dict[str, Any]:
@@ -302,13 +305,19 @@ def save_json_analysis(spec: Dict[str, Any], output_path: Path) -> None:
         json.dump(analysis, f, indent=2)
 
 
+def download_spec() -> None:
+    """Download the OpenAPI spec from GitHub."""
+    print(f"Downloading OpenAPI spec from {OPENAPI_SPEC_URL}...")
+    urllib.request.urlretrieve(OPENAPI_SPEC_URL, OPENAPI_SPEC_PATH)
+    print(f"✓ Downloaded to {OPENAPI_SPEC_PATH}")
+
+
 def main():
     """Main execution."""
     print("Loading OpenAPI specification...")
 
-    if not OPENAPI_SPEC_PATH.exists():
-        print(f"ERROR: OpenAPI spec not found at {OPENAPI_SPEC_PATH}")
-        return 1
+    # Download the spec if not present or force download
+    download_spec()
 
     spec = load_spec()
 

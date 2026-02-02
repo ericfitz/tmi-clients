@@ -112,7 +112,7 @@ go version              # Should be >= 1.21.0
 
 ### Required Files
 
-- OpenAPI spec: `/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json`
+- OpenAPI spec: Downloaded automatically from `https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json`
 - Must be valid OpenAPI 3.0+ specification
 
 ## Usage

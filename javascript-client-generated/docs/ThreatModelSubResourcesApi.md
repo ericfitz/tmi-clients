@@ -676,7 +676,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Threat()]; // [Threat] | Array of threats to upsert in bulk
+let body = [new TmiJsClient.ThreatBulkUpdateItem()]; // [ThreatBulkUpdateItem] | Array of threats to upsert in bulk
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpdateThreatModelThreats(body, threatModelId).then((data) => {
@@ -691,7 +691,7 @@ apiInstance.bulkUpdateThreatModelThreats(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Threat]**](Threat.md)| Array of threats to upsert in bulk | 
+ **body** | [**[ThreatBulkUpdateItem]**](ThreatBulkUpdateItem.md)| Array of threats to upsert in bulk | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -2451,7 +2451,7 @@ Name | Type | Description  | Notes
 
 Get minimal diagram model for automated analysis
 
-Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata. Supports JSON, YAML, and GraphML output formats.
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
 
 ### Example
 ```javascript
@@ -3012,7 +3012,7 @@ Name | Type | Description  | Notes
 
 <a name="getThreatModelAssets"></a>
 # **getThreatModelAssets**
-> [Asset] getThreatModelAssets(threatModelId, opts)
+> ListAssetsResponse getThreatModelAssets(threatModelId, opts)
 
 List assets in a threat model
 
@@ -3048,7 +3048,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Asset]**](Asset.md)
+[**ListAssetsResponse**](ListAssetsResponse.md)
 
 ### Authorization
 
@@ -3107,7 +3107,7 @@ Name | Type | Description  | Notes
 
 <a name="getThreatModelDiagrams"></a>
 # **getThreatModelDiagrams**
-> [DiagramListItem] getThreatModelDiagrams(threatModelId, opts)
+> ListDiagramsResponse getThreatModelDiagrams(threatModelId, opts)
 
 List threat model diagrams
 
@@ -3143,7 +3143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[DiagramListItem]**](DiagramListItem.md)
+[**ListDiagramsResponse**](ListDiagramsResponse.md)
 
 ### Authorization
 
@@ -3202,7 +3202,7 @@ Name | Type | Description  | Notes
 
 <a name="getThreatModelDocuments"></a>
 # **getThreatModelDocuments**
-> [Document] getThreatModelDocuments(threatModelId, opts)
+> ListDocumentsResponse getThreatModelDocuments(threatModelId, opts)
 
 List documents in a threat model
 
@@ -3238,7 +3238,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Document]**](Document.md)
+[**ListDocumentsResponse**](ListDocumentsResponse.md)
 
 ### Authorization
 
@@ -3387,7 +3387,7 @@ Name | Type | Description  | Notes
 
 <a name="getThreatModelNotes"></a>
 # **getThreatModelNotes**
-> [NoteListItem] getThreatModelNotes(threatModelId, opts)
+> ListNotesResponse getThreatModelNotes(threatModelId, opts)
 
 List notes in a threat model
 
@@ -3423,7 +3423,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[NoteListItem]**](NoteListItem.md)
+[**ListNotesResponse**](ListNotesResponse.md)
 
 ### Authorization
 
@@ -3436,7 +3436,7 @@ Name | Type | Description  | Notes
 
 <a name="getThreatModelRepositories"></a>
 # **getThreatModelRepositories**
-> [Repository] getThreatModelRepositories(threatModelId, opts)
+> ListRepositoriesResponse getThreatModelRepositories(threatModelId, opts)
 
 List sources in a threat model
 
@@ -3472,7 +3472,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Repository]**](Repository.md)
+[**ListRepositoriesResponse**](ListRepositoriesResponse.md)
 
 ### Authorization
 
@@ -3577,7 +3577,7 @@ Name | Type | Description  | Notes
 
 <a name="getThreatModelThreats"></a>
 # **getThreatModelThreats**
-> [Threat] getThreatModelThreats(threatModelId, opts)
+> ListThreatsResponse getThreatModelThreats(threatModelId, opts)
 
 List threats in a threat model
 
@@ -3649,7 +3649,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[Threat]**](Threat.md)
+[**ListThreatsResponse**](ListThreatsResponse.md)
 
 ### Authorization
 

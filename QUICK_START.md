@@ -47,8 +47,8 @@ Update the Python client to work with the latest TMI OpenAPI specification.
 # Install required tools if not present
 brew install swagger-codegen uv
 
-# Verify OpenAPI spec exists
-test -f /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json && echo "✓ Ready"
+# Test OpenAPI spec URL is accessible
+curl -fsSL https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json -o /dev/null && echo "✓ Ready"
 ```
 
 ## Step-by-Step

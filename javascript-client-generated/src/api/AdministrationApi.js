@@ -27,9 +27,15 @@ import CreateAdministratorRequest from '../model/CreateAdministratorRequest';
 import Error from '../model/Error';
 import GroupMember from '../model/GroupMember';
 import GroupMemberListResponse from '../model/GroupMemberListResponse';
+import InlineResponse20010 from '../model/InlineResponse20010';
 import InlineResponse429 from '../model/InlineResponse429';
 import InlineResponse500 from '../model/InlineResponse500';
+import ListAddonQuotasResponse from '../model/ListAddonQuotasResponse';
 import ListAdministratorsResponse from '../model/ListAdministratorsResponse';
+import ListUserQuotasResponse from '../model/ListUserQuotasResponse';
+import ListWebhookQuotasResponse from '../model/ListWebhookQuotasResponse';
+import SystemSetting from '../model/SystemSetting';
+import SystemSettingUpdate from '../model/SystemSettingUpdate';
 import UpdateAdminGroupRequest from '../model/UpdateAdminGroupRequest';
 import UpdateAdminUserRequest from '../model/UpdateAdminUserRequest';
 import UserAPIQuota from '../model/UserAPIQuota';
@@ -436,6 +442,59 @@ export default class AdministrationApi {
 
 
     /**
+     * Delete system setting
+     * Deletes a system setting. Requires administrator privileges.
+     * @param {String} key The setting key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    deleteSystemSettingWithHttpInfo(key) {
+      
+      let postBody = null;
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling deleteSystemSetting");
+      }
+
+      let pathParams = {
+        'key': key
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
+
+      let authNames = ['bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = null;
+
+      return this.apiClient.callApi(
+        '/admin/settings/{key}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Delete system setting
+     * Deletes a system setting. Requires administrator privileges.
+     * @param {<&vendorExtensions.x-jsdoc-type>} key The setting key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    deleteSystemSetting(key) {
+      return this.deleteSystemSettingWithHttpInfo(key)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Delete user API quota
      * Deletes the custom API quota for a user, reverting to system defaults
      * @param {String} userId User ID
@@ -701,6 +760,59 @@ export default class AdministrationApi {
 
 
     /**
+     * Get system setting
+     * Returns a specific system setting by key. Requires administrator privileges.
+     * @param {String} key The setting key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SystemSetting} and HTTP response
+     */
+    getSystemSettingWithHttpInfo(key) {
+      
+      let postBody = null;
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling getSystemSetting");
+      }
+
+      let pathParams = {
+        'key': key
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
+
+      let authNames = ['bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = SystemSetting;
+
+      return this.apiClient.callApi(
+        '/admin/settings/{key}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Get system setting
+     * Returns a specific system setting by key. Requires administrator privileges.
+     * @param {<&vendorExtensions.x-jsdoc-type>} key The setting key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SystemSetting}
+     */
+    getSystemSetting(key) {
+      return this.getSystemSettingWithHttpInfo(key)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * Get user API quota
      * Retrieves the API rate limit quota for a specific user
      * @param {String} userId User ID
@@ -812,7 +924,7 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/AddonInvocationQuota>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListAddonQuotasResponse} and HTTP response
      */
     listAddonInvocationQuotasWithHttpInfo(opts) {
       opts = opts || {};
@@ -834,7 +946,7 @@ export default class AdministrationApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [AddonInvocationQuota];
+      let returnType = ListAddonQuotasResponse;
 
       return this.apiClient.callApi(
         '/admin/quotas/addons', 'GET',
@@ -849,7 +961,7 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/AddonInvocationQuota>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddonQuotasResponse}
      */
     listAddonInvocationQuotas(opts) {
       return this.listAddonInvocationQuotasWithHttpInfo(opts)
@@ -1110,12 +1222,59 @@ export default class AdministrationApi {
 
 
     /**
+     * List system settings
+     * Returns all system settings. Requires administrator privileges.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/SystemSetting>} and HTTP response
+     */
+    listSystemSettingsWithHttpInfo() {
+      
+      let postBody = null;
+
+      let pathParams = {
+        
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
+
+      let authNames = ['bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [SystemSetting];
+
+      return this.apiClient.callApi(
+        '/admin/settings', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * List system settings
+     * Returns all system settings. Requires administrator privileges.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/SystemSetting>}
+     */
+    listSystemSettings() {
+      return this.listSystemSettingsWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * List all user API quotas
      * Retrieves all custom API rate limit quotas (users with non-default quotas)
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/UserAPIQuota>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListUserQuotasResponse} and HTTP response
      */
     listUserAPIQuotasWithHttpInfo(opts) {
       opts = opts || {};
@@ -1137,7 +1296,7 @@ export default class AdministrationApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [UserAPIQuota];
+      let returnType = ListUserQuotasResponse;
 
       return this.apiClient.callApi(
         '/admin/quotas/users', 'GET',
@@ -1152,7 +1311,7 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/UserAPIQuota>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserQuotasResponse}
      */
     listUserAPIQuotas(opts) {
       return this.listUserAPIQuotasWithHttpInfo(opts)
@@ -1168,7 +1327,7 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/WebhookQuota>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListWebhookQuotasResponse} and HTTP response
      */
     listWebhookQuotasWithHttpInfo(opts) {
       opts = opts || {};
@@ -1190,7 +1349,7 @@ export default class AdministrationApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [WebhookQuota];
+      let returnType = ListWebhookQuotasResponse;
 
       return this.apiClient.callApi(
         '/admin/quotas/webhooks', 'GET',
@@ -1205,10 +1364,61 @@ export default class AdministrationApi {
      * @param {Object} opts Optional parameters
      * @param {Number} opts.limit Maximum number of results to return (default to <.>)
      * @param {Number} opts.offset Number of results to skip (default to <.>)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/WebhookQuota>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListWebhookQuotasResponse}
      */
     listWebhookQuotas(opts) {
       return this.listWebhookQuotasWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Migrate settings from configuration
+     * Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don&#x27;t already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.overwrite If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don&#x27;t already exist. (default to <.>)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse20010} and HTTP response
+     */
+    migrateSystemSettingsWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+        
+      };
+      let queryParams = {
+        'overwrite': opts['overwrite']
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
+
+      let authNames = ['bearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = InlineResponse20010;
+
+      return this.apiClient.callApi(
+        '/admin/settings/migrate', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Migrate settings from configuration
+     * Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don&#x27;t already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} opts.overwrite If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don&#x27;t already exist. (default to <.>)
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse20010}
+     */
+    migrateSystemSettings(opts) {
+      return this.migrateSystemSettingsWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -1445,6 +1655,65 @@ export default class AdministrationApi {
      */
     updateAdminUser(body, internalUuid) {
       return this.updateAdminUserWithHttpInfo(body, internalUuid)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Update system setting
+     * Creates or updates a system setting. Requires administrator privileges.
+     * @param {module:model/SystemSettingUpdate} body The system setting value to create or update
+     * @param {String} key The setting key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SystemSetting} and HTTP response
+     */
+    updateSystemSettingWithHttpInfo(body, key) {
+      
+      let postBody = body;
+      // verify the required parameter 'body' is set
+      if (body === undefined || body === null) {
+        throw new Error("Missing the required parameter 'body' when calling updateSystemSetting");
+      }
+      // verify the required parameter 'key' is set
+      if (key === undefined || key === null) {
+        throw new Error("Missing the required parameter 'key' when calling updateSystemSetting");
+      }
+
+      let pathParams = {
+        'key': key
+      };
+      let queryParams = {
+        
+      };
+      let headerParams = {
+        
+      };
+      let formParams = {
+        
+      };
+
+      let authNames = ['bearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = SystemSetting;
+
+      return this.apiClient.callApi(
+        '/admin/settings/{key}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+    /**
+     * Update system setting
+     * Creates or updates a system setting. Requires administrator privileges.
+     * @param {<&vendorExtensions.x-jsdoc-type>} body The system setting value to create or update
+     * @param {<&vendorExtensions.x-jsdoc-type>} key The setting key
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SystemSetting}
+     */
+    updateSystemSetting(body, key) {
+      return this.updateSystemSettingWithHttpInfo(body, key)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -30,7 +30,7 @@ class JsonPatchDocumentInner(object):
     swagger_types = {
         'op': 'str',
         'path': 'str',
-        'value': 'object'
+        'value': 'OneOfJsonPatchDocumentInnerValue'
     }
 
     attribute_map = {
@@ -113,7 +113,7 @@ class JsonPatchDocumentInner(object):
         The value to use for add/replace/test operations. Can be any JSON value per RFC 6902 (string, number, boolean, object, array, or null).  # noqa: E501
 
         :return: The value of this JsonPatchDocumentInner.  # noqa: E501
-        :rtype: object
+        :rtype: OneOfJsonPatchDocumentInnerValue
         """
         return self._value
 
@@ -124,7 +124,7 @@ class JsonPatchDocumentInner(object):
         The value to use for add/replace/test operations. Can be any JSON value per RFC 6902 (string, number, boolean, object, array, or null).  # noqa: E501
 
         :param value: The value of this JsonPatchDocumentInner.  # noqa: E501
-        :type: object
+        :type: OneOfJsonPatchDocumentInnerValue
         """
 
         self._value = value

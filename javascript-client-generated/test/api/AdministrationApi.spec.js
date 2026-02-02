@@ -153,6 +153,22 @@
           done();
         });
       });
+      describe('deleteSystemSetting', function() {
+        it('should call deleteSystemSetting successfully', function(done) {
+          // TODO: uncomment, update parameter values for deleteSystemSetting call
+          /*
+
+          instance.deleteSystemSetting(key).then(function(data) {
+
+            done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
       describe('deleteUserAPIQuota', function() {
         it('should call deleteUserAPIQuota successfully', function(done) {
           // TODO: uncomment, update parameter values for deleteUserAPIQuota call
@@ -239,6 +255,24 @@
           done();
         });
       });
+      describe('getSystemSetting', function() {
+        it('should call getSystemSetting successfully', function(done) {
+          // TODO: uncomment, update parameter values for getSystemSetting call and complete the assertions
+          /*
+
+          instance.getSystemSetting(key).then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(TmiJsClient.SystemSetting);
+
+            done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
       describe('getUserAPIQuota', function() {
         it('should call getUserAPIQuota successfully', function(done) {
           // TODO: uncomment, update parameter values for getUserAPIQuota call and complete the assertions
@@ -283,13 +317,7 @@
 
           instance.listAddonInvocationQuotas(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.AddonInvocationQuota);
-            }
+            expect(data).to.be.a(TmiJsClient.ListAddonQuotasResponse);
 
             done();
           }, function(error) {
@@ -376,6 +404,30 @@
           done();
         });
       });
+      describe('listSystemSettings', function() {
+        it('should call listSystemSettings successfully', function(done) {
+          // TODO: uncomment listSystemSettings call and complete the assertions
+          /*
+
+          instance.listSystemSettings().then(function(data) {
+            // TODO: update response assertions
+            let dataCtr = data;
+            expect(dataCtr).to.be.an(Array);
+            expect(dataCtr).to.not.be.empty();
+            for (let p in dataCtr) {
+              let data = dataCtr[p];
+              expect(data).to.be.a(TmiJsClient.SystemSetting);
+            }
+
+            done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
       describe('listUserAPIQuotas', function() {
         it('should call listUserAPIQuotas successfully', function(done) {
           // TODO: uncomment, update parameter values for listUserAPIQuotas call and complete the assertions
@@ -384,13 +436,7 @@
 
           instance.listUserAPIQuotas(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.UserAPIQuota);
-            }
+            expect(data).to.be.a(TmiJsClient.ListUserQuotasResponse);
 
             done();
           }, function(error) {
@@ -409,13 +455,26 @@
 
           instance.listWebhookQuotas(opts).then(function(data) {
             // TODO: update response assertions
-            let dataCtr = data;
-            expect(dataCtr).to.be.an(Array);
-            expect(dataCtr).to.not.be.empty();
-            for (let p in dataCtr) {
-              let data = dataCtr[p];
-              expect(data).to.be.a(TmiJsClient.WebhookQuota);
-            }
+            expect(data).to.be.a(TmiJsClient.ListWebhookQuotasResponse);
+
+            done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
+      describe('migrateSystemSettings', function() {
+        it('should call migrateSystemSettings successfully', function(done) {
+          // TODO: uncomment, update parameter values for migrateSystemSettings call and complete the assertions
+          /*
+          var opts = {};
+
+          instance.migrateSystemSettings(opts).then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(TmiJsClient.InlineResponse20010);
 
             done();
           }, function(error) {
@@ -486,6 +545,24 @@
           instance.updateAdminUser(body, internalUuid).then(function(data) {
             // TODO: update response assertions
             expect(data).to.be.a(TmiJsClient.AdminUser);
+
+            done();
+          }, function(error) {
+            done(error);
+          });
+          */
+          // TODO: uncomment and complete method invocation above, then delete this line and the next:
+          done();
+        });
+      });
+      describe('updateSystemSetting', function() {
+        it('should call updateSystemSetting successfully', function(done) {
+          // TODO: uncomment, update parameter values for updateSystemSetting call and complete the assertions
+          /*
+
+          instance.updateSystemSetting(body, key).then(function(data) {
+            // TODO: update response assertions
+            expect(data).to.be.a(TmiJsClient.SystemSetting);
 
             done();
           }, function(error) {

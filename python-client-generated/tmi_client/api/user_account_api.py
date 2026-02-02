@@ -42,7 +42,7 @@ class UserAccountApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param dict(str, dict(str, object)) body: (required)
+        :param dict(str, dict(str, object)) body: User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. (required)
         :return: UserPreferences
                  If the method is called asynchronously,
                  returns the request thread.
@@ -64,7 +64,7 @@ class UserAccountApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param dict(str, dict(str, object)) body: (required)
+        :param dict(str, dict(str, object)) body: User preferences to create. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. (required)
         :return: UserPreferences
                  If the method is called asynchronously,
                  returns the request thread.
@@ -228,7 +228,7 @@ class UserAccountApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param dict(str, dict(str, object)) body: (required)
+        :param dict(str, dict(str, object)) body: User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. (required)
         :return: UserPreferences
                  If the method is called asynchronously,
                  returns the request thread.
@@ -250,7 +250,7 @@ class UserAccountApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param dict(str, dict(str, object)) body: (required)
+        :param dict(str, dict(str, object)) body: User preferences to create or replace. Must be valid JSON not exceeding 1KB. Client keys must follow the pattern client-id:key-name. (required)
         :return: UserPreferences
                  If the method is called asynchronously,
                  returns the request thread.

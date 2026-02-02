@@ -16,7 +16,7 @@
 import ApiClient from "../ApiClient";
 import Error from '../model/Error';
 import JsonPatchDocumentInner from '../model/JsonPatchDocumentInner';
-import TMListItem from '../model/TMListItem';
+import ListThreatModelsResponse from '../model/ListThreatModelsResponse';
 import ThreatModel from '../model/ThreatModel';
 import ThreatModelInput from '../model/ThreatModelInput';
 
@@ -217,7 +217,7 @@ export default class ThreatModelsApi {
      * @param {String} opts.status Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
      * @param {Date} opts.statusUpdatedAfter Filter threat models where status was updated after this timestamp (RFC3339)
      * @param {Date} opts.statusUpdatedBefore Filter threat models where status was updated before this timestamp (RFC3339)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/TMListItem>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ListThreatModelsResponse} and HTTP response
      */
     listThreatModelsWithHttpInfo(opts) {
       opts = opts || {};
@@ -239,7 +239,7 @@ export default class ThreatModelsApi {
       let authNames = ['bearerAuth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = [TMListItem];
+      let returnType = ListThreatModelsResponse;
 
       return this.apiClient.callApi(
         '/threat_models', 'GET',
@@ -265,7 +265,7 @@ export default class ThreatModelsApi {
      * @param {String} opts.status Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
      * @param {Date} opts.statusUpdatedAfter Filter threat models where status was updated after this timestamp (RFC3339)
      * @param {Date} opts.statusUpdatedBefore Filter threat models where status was updated before this timestamp (RFC3339)
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/TMListItem>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListThreatModelsResponse}
      */
     listThreatModels(opts) {
       return this.listThreatModelsWithHttpInfo(opts)

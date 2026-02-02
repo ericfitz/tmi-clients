@@ -8,6 +8,7 @@ from tmi_client.api.administration_api import AdministrationApi
 from tmi_client.api.assets_api import AssetsApi
 from tmi_client.api.authentication_api import AuthenticationApi
 from tmi_client.api.collaboration_api import CollaborationApi
+from tmi_client.api.configuration_api import ConfigurationApi
 from tmi_client.api.documents_api import DocumentsApi
 from tmi_client.api.general_api import GeneralApi
 from tmi_client.api.notes_api import NotesApi

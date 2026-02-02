@@ -77,6 +77,13 @@ class TestAdministrationApi(unittest.TestCase):
         """
         pass
 
+    def test_delete_system_setting(self):
+        """Test case for delete_system_setting
+
+        Delete system setting  # noqa: E501
+        """
+        pass
+
     def test_delete_user_api_quota(self):
         """Test case for delete_user_api_quota
 
@@ -109,6 +116,13 @@ class TestAdministrationApi(unittest.TestCase):
         """Test case for get_admin_user
 
         Get user details  # noqa: E501
+        """
+        pass
+
+    def test_get_system_setting(self):
+        """Test case for get_system_setting
+
+        Get system setting  # noqa: E501
         """
         pass
 
@@ -161,6 +175,13 @@ class TestAdministrationApi(unittest.TestCase):
         """
         pass
 
+    def test_list_system_settings(self):
+        """Test case for list_system_settings
+
+        List system settings  # noqa: E501
+        """
+        pass
+
     def test_list_user_api_quotas(self):
         """Test case for list_user_api_quotas
 
@@ -172,6 +193,13 @@ class TestAdministrationApi(unittest.TestCase):
         """Test case for list_webhook_quotas
 
         List all webhook quotas  # noqa: E501
+        """
+        pass
+
+    def test_migrate_system_settings(self):
+        """Test case for migrate_system_settings
+
+        Migrate settings from configuration  # noqa: E501
         """
         pass
 
@@ -200,6 +228,13 @@ class TestAdministrationApi(unittest.TestCase):
         """Test case for update_admin_user
 
         Update user metadata  # noqa: E501
+        """
+        pass
+
+    def test_update_system_setting(self):
+        """Test case for update_system_setting
+
+        Update system setting  # noqa: E501
         """
         pass
 

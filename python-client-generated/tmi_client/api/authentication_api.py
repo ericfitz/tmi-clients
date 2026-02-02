@@ -1486,7 +1486,9 @@ class AuthenticationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: list[ClientCredentialInfo]
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
+        :return: ListClientCredentialsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -1507,12 +1509,14 @@ class AuthenticationApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :return: list[ClientCredentialInfo]
+        :param int limit: Maximum number of results to return
+        :param int offset: Number of results to skip
+        :return: ListClientCredentialsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []  # noqa: E501
+        all_params = ['limit', 'offset']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1533,6 +1537,10 @@ class AuthenticationApi(object):
         path_params = {}
 
         query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))  # noqa: E501
+        if 'offset' in params:
+            query_params.append(('offset', params['offset']))  # noqa: E501
 
         header_params = {}
 
@@ -1555,7 +1563,7 @@ class AuthenticationApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[ClientCredentialInfo]',  # noqa: E501
+            response_type='ListClientCredentialsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),

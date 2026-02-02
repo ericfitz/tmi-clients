@@ -33,8 +33,9 @@ export default class SAMLProviderInfo {
    * @param metadataUrl {String} SAML service provider metadata URL
    * @param entityId {String} Service Provider entity ID
    * @param acsUrl {String} Assertion Consumer Service URL
+   * @param initialized {Boolean} Whether the SAML provider was successfully initialized and is available for authentication
    */
-  constructor(id, name, icon, authUrl, metadataUrl, entityId, acsUrl) {
+  constructor(id, name, icon, authUrl, metadataUrl, entityId, acsUrl, initialized) {
     this.id = id;
     this.name = name;
     this.icon = icon;
@@ -42,6 +43,7 @@ export default class SAMLProviderInfo {
     this.metadataUrl = metadataUrl;
     this.entityId = entityId;
     this.acsUrl = acsUrl;
+    this.initialized = initialized;
   }
 
   /**
@@ -70,6 +72,8 @@ export default class SAMLProviderInfo {
         obj.acsUrl = ApiClient.convertToType(data['acs_url'], 'String');
       if (data.hasOwnProperty('slo_url'))
         obj.sloUrl = ApiClient.convertToType(data['slo_url'], 'String');
+      if (data.hasOwnProperty('initialized'))
+        obj.initialized = ApiClient.convertToType(data['initialized'], 'Boolean');
     }
     return obj;
   }
@@ -122,4 +126,10 @@ SAMLProviderInfo.prototype.acsUrl = undefined;
  * @member {String} sloUrl
  */
 SAMLProviderInfo.prototype.sloUrl = undefined;
+
+/**
+ * Whether the SAML provider was successfully initialized and is available for authentication
+ * @member {Boolean} initialized
+ */
+SAMLProviderInfo.prototype.initialized = undefined;
 

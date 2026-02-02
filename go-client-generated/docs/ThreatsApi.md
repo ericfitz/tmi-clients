@@ -40,14 +40,14 @@ Name | Type | Description  | Notes
 > []Threat BulkPatchThreatModelThreats(ctx, body, threatModelId)
 Bulk PATCH threats
 
-Apply JSON Patch operations to multiple threats in a single request
+Apply JSON Patch operations to multiple threats. Each patch specifies a threat ID and an array of RFC 6902 operations to apply.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]JsonPatchDocumentInner**](JsonPatchDocument_inner.md)| JSON Patch operations to apply to multiple threats | 
+  **body** | [**BulkPatchRequest**](BulkPatchRequest.md)| JSON Patch operations to apply to multiple threats | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

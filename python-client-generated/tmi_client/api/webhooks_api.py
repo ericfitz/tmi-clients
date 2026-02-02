@@ -35,7 +35,7 @@ class WebhooksApi(object):
     def create_webhook_subscription(self, body, **kwargs):  # noqa: E501
         """Create webhook subscription  # noqa: E501
 
-        Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.  # noqa: E501
+        Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_webhook_subscription(body, async_req=True)
@@ -57,7 +57,7 @@ class WebhooksApi(object):
     def create_webhook_subscription_with_http_info(self, body, **kwargs):  # noqa: E501
         """Create webhook subscription  # noqa: E501
 
-        Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.  # noqa: E501
+        Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.create_webhook_subscription_with_http_info(body, async_req=True)
@@ -134,7 +134,7 @@ class WebhooksApi(object):
     def delete_webhook_subscription(self, webhook_id, **kwargs):  # noqa: E501
         """Delete webhook subscription  # noqa: E501
 
-        Delete a webhook subscription. Only the owner can delete a subscription.  # noqa: E501
+        Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.delete_webhook_subscription(webhook_id, async_req=True)
@@ -156,7 +156,7 @@ class WebhooksApi(object):
     def delete_webhook_subscription_with_http_info(self, webhook_id, **kwargs):  # noqa: E501
         """Delete webhook subscription  # noqa: E501
 
-        Delete a webhook subscription. Only the owner can delete a subscription.  # noqa: E501
+        Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.delete_webhook_subscription_with_http_info(webhook_id, async_req=True)
@@ -229,7 +229,7 @@ class WebhooksApi(object):
     def get_webhook_delivery(self, delivery_id, **kwargs):  # noqa: E501
         """Get webhook delivery  # noqa: E501
 
-        Get details of a specific webhook delivery  # noqa: E501
+        Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_webhook_delivery(delivery_id, async_req=True)
@@ -251,7 +251,7 @@ class WebhooksApi(object):
     def get_webhook_delivery_with_http_info(self, delivery_id, **kwargs):  # noqa: E501
         """Get webhook delivery  # noqa: E501
 
-        Get details of a specific webhook delivery  # noqa: E501
+        Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_webhook_delivery_with_http_info(delivery_id, async_req=True)
@@ -324,7 +324,7 @@ class WebhooksApi(object):
     def get_webhook_subscription(self, webhook_id, **kwargs):  # noqa: E501
         """Get webhook subscription  # noqa: E501
 
-        Get a specific webhook subscription by ID  # noqa: E501
+        Retrieve details of a specific webhook subscription. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_webhook_subscription(webhook_id, async_req=True)
@@ -346,7 +346,7 @@ class WebhooksApi(object):
     def get_webhook_subscription_with_http_info(self, webhook_id, **kwargs):  # noqa: E501
         """Get webhook subscription  # noqa: E501
 
-        Get a specific webhook subscription by ID  # noqa: E501
+        Retrieve details of a specific webhook subscription. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_webhook_subscription_with_http_info(webhook_id, async_req=True)
@@ -419,7 +419,7 @@ class WebhooksApi(object):
     def list_webhook_deliveries(self, **kwargs):  # noqa: E501
         """List webhook deliveries  # noqa: E501
 
-        List webhook deliveries for the authenticated user's subscriptions  # noqa: E501
+        List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.list_webhook_deliveries(async_req=True)
@@ -429,7 +429,7 @@ class WebhooksApi(object):
         :param str subscription_id: Filter by subscription ID
         :param int offset: Number of results to skip
         :param int limit: Maximum number of results to return
-        :return: list[WebhookDelivery]
+        :return: ListWebhookDeliveriesResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -443,7 +443,7 @@ class WebhooksApi(object):
     def list_webhook_deliveries_with_http_info(self, **kwargs):  # noqa: E501
         """List webhook deliveries  # noqa: E501
 
-        List webhook deliveries for the authenticated user's subscriptions  # noqa: E501
+        List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.list_webhook_deliveries_with_http_info(async_req=True)
@@ -453,7 +453,7 @@ class WebhooksApi(object):
         :param str subscription_id: Filter by subscription ID
         :param int offset: Number of results to skip
         :param int limit: Maximum number of results to return
-        :return: list[WebhookDelivery]
+        :return: ListWebhookDeliveriesResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -507,7 +507,7 @@ class WebhooksApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[WebhookDelivery]',  # noqa: E501
+            response_type='ListWebhookDeliveriesResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -518,7 +518,7 @@ class WebhooksApi(object):
     def list_webhook_subscriptions(self, **kwargs):  # noqa: E501
         """List webhook subscriptions  # noqa: E501
 
-        List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.  # noqa: E501
+        List all webhook subscriptions. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.list_webhook_subscriptions(async_req=True)
@@ -528,7 +528,7 @@ class WebhooksApi(object):
         :param str threat_model_id: Filter subscriptions by threat model ID
         :param int offset: Number of results to skip
         :param int limit: Maximum number of results to return
-        :return: list[WebhookSubscription]
+        :return: ListWebhookSubscriptionsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -542,7 +542,7 @@ class WebhooksApi(object):
     def list_webhook_subscriptions_with_http_info(self, **kwargs):  # noqa: E501
         """List webhook subscriptions  # noqa: E501
 
-        List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.  # noqa: E501
+        List all webhook subscriptions. Requires administrator privileges.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.list_webhook_subscriptions_with_http_info(async_req=True)
@@ -552,7 +552,7 @@ class WebhooksApi(object):
         :param str threat_model_id: Filter subscriptions by threat model ID
         :param int offset: Number of results to skip
         :param int limit: Maximum number of results to return
-        :return: list[WebhookSubscription]
+        :return: ListWebhookSubscriptionsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -606,7 +606,7 @@ class WebhooksApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[WebhookSubscription]',  # noqa: E501
+            response_type='ListWebhookSubscriptionsResponse',  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get('async_req'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -617,7 +617,7 @@ class WebhooksApi(object):
     def test_webhook_subscription(self, webhook_id, **kwargs):  # noqa: E501
         """Test webhook subscription  # noqa: E501
 
-        Send a test event to the webhook URL to verify it's working correctly  # noqa: E501
+        Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.test_webhook_subscription(webhook_id, async_req=True)
@@ -640,7 +640,7 @@ class WebhooksApi(object):
     def test_webhook_subscription_with_http_info(self, webhook_id, **kwargs):  # noqa: E501
         """Test webhook subscription  # noqa: E501
 
-        Send a test event to the webhook URL to verify it's working correctly  # noqa: E501
+        Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.test_webhook_subscription_with_http_info(webhook_id, async_req=True)

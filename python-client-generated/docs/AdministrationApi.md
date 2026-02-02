@@ -11,11 +11,13 @@ Method | HTTP request | Description
 [**delete_admin_group**](AdministrationApi.md#delete_admin_group) | **DELETE** /admin/groups/{internal_uuid} | Delete group
 [**delete_admin_user**](AdministrationApi.md#delete_admin_user) | **DELETE** /admin/users/{internal_uuid} | Delete user
 [**delete_administrator**](AdministrationApi.md#delete_administrator) | **DELETE** /admin/administrators/{id} | Delete administrator grant
+[**delete_system_setting**](AdministrationApi.md#delete_system_setting) | **DELETE** /admin/settings/{key} | Delete system setting
 [**delete_user_api_quota**](AdministrationApi.md#delete_user_api_quota) | **DELETE** /admin/quotas/users/{user_id} | Delete user API quota
 [**delete_webhook_quota**](AdministrationApi.md#delete_webhook_quota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota
 [**get_addon_invocation_quota**](AdministrationApi.md#get_addon_invocation_quota) | **GET** /admin/quotas/addons/{user_id} | Get addon invocation quota
 [**get_admin_group**](AdministrationApi.md#get_admin_group) | **GET** /admin/groups/{internal_uuid} | Get group details
 [**get_admin_user**](AdministrationApi.md#get_admin_user) | **GET** /admin/users/{internal_uuid} | Get user details
+[**get_system_setting**](AdministrationApi.md#get_system_setting) | **GET** /admin/settings/{key} | Get system setting
 [**get_user_api_quota**](AdministrationApi.md#get_user_api_quota) | **GET** /admin/quotas/users/{user_id} | Get user API quota
 [**get_webhook_quota**](AdministrationApi.md#get_webhook_quota) | **GET** /admin/quotas/webhooks/{user_id} | Get webhook quota
 [**list_addon_invocation_quotas**](AdministrationApi.md#list_addon_invocation_quotas) | **GET** /admin/quotas/addons | List all addon invocation quotas
@@ -23,12 +25,15 @@ Method | HTTP request | Description
 [**list_admin_users**](AdministrationApi.md#list_admin_users) | **GET** /admin/users | List users
 [**list_administrators**](AdministrationApi.md#list_administrators) | **GET** /admin/administrators | List administrators
 [**list_group_members**](AdministrationApi.md#list_group_members) | **GET** /admin/groups/{internal_uuid}/members | List group members
+[**list_system_settings**](AdministrationApi.md#list_system_settings) | **GET** /admin/settings | List system settings
 [**list_user_api_quotas**](AdministrationApi.md#list_user_api_quotas) | **GET** /admin/quotas/users | List all user API quotas
 [**list_webhook_quotas**](AdministrationApi.md#list_webhook_quotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
+[**migrate_system_settings**](AdministrationApi.md#migrate_system_settings) | **POST** /admin/settings/migrate | Migrate settings from configuration
 [**remove_group_member**](AdministrationApi.md#remove_group_member) | **DELETE** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
 [**update_addon_invocation_quota**](AdministrationApi.md#update_addon_invocation_quota) | **PUT** /admin/quotas/addons/{user_id} | Update addon invocation quota
 [**update_admin_group**](AdministrationApi.md#update_admin_group) | **PATCH** /admin/groups/{internal_uuid} | Update group metadata
 [**update_admin_user**](AdministrationApi.md#update_admin_user) | **PATCH** /admin/users/{internal_uuid} | Update user metadata
+[**update_system_setting**](AdministrationApi.md#update_system_setting) | **PUT** /admin/settings/{key} | Update system setting
 [**update_user_api_quota**](AdministrationApi.md#update_user_api_quota) | **PUT** /admin/quotas/users/{user_id} | Update user API quota
 [**update_webhook_quota**](AdministrationApi.md#update_webhook_quota) | **PUT** /admin/quotas/webhooks/{user_id} | Update webhook quota
 
@@ -373,6 +378,54 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_system_setting**
+> delete_system_setting(key)
+
+Delete system setting
+
+Deletes a system setting. Requires administrator privileges.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+key = 'key_example' # str | The setting key
+
+try:
+    # Delete system setting
+    api_instance.delete_system_setting(key)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->delete_system_setting: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **key** | **str**| The setting key | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_user_api_quota**
 > delete_user_api_quota(user_id)
 
@@ -616,6 +669,55 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_system_setting**
+> SystemSetting get_system_setting(key)
+
+Get system setting
+
+Returns a specific system setting by key. Requires administrator privileges.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+key = 'key_example' # str | The setting key
+
+try:
+    # Get system setting
+    api_response = api_instance.get_system_setting(key)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->get_system_setting: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **key** | **str**| The setting key | 
+
+### Return type
+
+[**SystemSetting**](SystemSetting.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_user_api_quota**
 > UserAPIQuota get_user_api_quota(user_id)
 
@@ -715,7 +817,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_addon_invocation_quotas**
-> list[AddonInvocationQuota] list_addon_invocation_quotas(limit=limit, offset=offset)
+> ListAddonQuotasResponse list_addon_invocation_quotas(limit=limit, offset=offset)
 
 List all addon invocation quotas
 
@@ -752,7 +854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[AddonInvocationQuota]**](AddonInvocationQuota.md)
+[**ListAddonQuotasResponse**](ListAddonQuotasResponse.md)
 
 ### Authorization
 
@@ -1003,8 +1105,53 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_system_settings**
+> list[SystemSetting] list_system_settings()
+
+List system settings
+
+Returns all system settings. Requires administrator privileges.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+
+try:
+    # List system settings
+    api_response = api_instance.list_system_settings()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->list_system_settings: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**list[SystemSetting]**](SystemSetting.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **list_user_api_quotas**
-> list[UserAPIQuota] list_user_api_quotas(limit=limit, offset=offset)
+> ListUserQuotasResponse list_user_api_quotas(limit=limit, offset=offset)
 
 List all user API quotas
 
@@ -1041,7 +1188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[UserAPIQuota]**](UserAPIQuota.md)
+[**ListUserQuotasResponse**](ListUserQuotasResponse.md)
 
 ### Authorization
 
@@ -1055,7 +1202,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_webhook_quotas**
-> list[WebhookQuota] list_webhook_quotas(limit=limit, offset=offset)
+> ListWebhookQuotasResponse list_webhook_quotas(limit=limit, offset=offset)
 
 List all webhook quotas
 
@@ -1092,7 +1239,56 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[WebhookQuota]**](WebhookQuota.md)
+[**ListWebhookQuotasResponse**](ListWebhookQuotasResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **migrate_system_settings**
+> InlineResponse20010 migrate_system_settings(overwrite=overwrite)
+
+Migrate settings from configuration
+
+Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don't already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+overwrite = false # bool | If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don't already exist. (optional) (default to false)
+
+try:
+    # Migrate settings from configuration
+    api_response = api_instance.migrate_system_settings(overwrite=overwrite)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->migrate_system_settings: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **overwrite** | **bool**| If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don&#x27;t already exist. | [optional] [default to false]
+
+### Return type
+
+[**InlineResponse20010**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -1296,6 +1492,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUser**](AdminUser.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_system_setting**
+> SystemSetting update_system_setting(body, key)
+
+Update system setting
+
+Creates or updates a system setting. Requires administrator privileges.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+body = tmi_client.SystemSettingUpdate() # SystemSettingUpdate | The system setting value to create or update
+key = 'key_example' # str | The setting key
+
+try:
+    # Update system setting
+    api_response = api_instance.update_system_setting(body, key)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->update_system_setting: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**SystemSettingUpdate**](SystemSettingUpdate.md)| The system setting value to create or update | 
+ **key** | **str**| The setting key | 
+
+### Return type
+
+[**SystemSetting**](SystemSetting.md)
 
 ### Authorization
 

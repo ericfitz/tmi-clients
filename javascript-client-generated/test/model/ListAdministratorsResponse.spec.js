@@ -52,6 +52,18 @@
         // expect(instance.total).to.be(expectedValueLiteral);
       });
 
+      it('should have the property limit (base name: "limit")', function() {
+        // TODO: update the code to test the property limit
+        expect(instance).to.have.property('limit');
+        // expect(instance.limit).to.be(expectedValueLiteral);
+      });
+
+      it('should have the property offset (base name: "offset")', function() {
+        // TODO: update the code to test the property offset
+        expect(instance).to.have.property('offset');
+        // expect(instance.offset).to.be(expectedValueLiteral);
+      });
+
     });
   });
 

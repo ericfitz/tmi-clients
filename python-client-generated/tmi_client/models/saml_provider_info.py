@@ -35,7 +35,8 @@ class SAMLProviderInfo(object):
         'metadata_url': 'str',
         'entity_id': 'str',
         'acs_url': 'str',
-        'slo_url': 'str'
+        'slo_url': 'str',
+        'initialized': 'bool'
     }
 
     attribute_map = {
@@ -46,10 +47,11 @@ class SAMLProviderInfo(object):
         'metadata_url': 'metadata_url',
         'entity_id': 'entity_id',
         'acs_url': 'acs_url',
-        'slo_url': 'slo_url'
+        'slo_url': 'slo_url',
+        'initialized': 'initialized'
     }
 
-    def __init__(self, id=None, name=None, icon=None, auth_url=None, metadata_url=None, entity_id=None, acs_url=None, slo_url=None, **kwargs):  # noqa: E501
+    def __init__(self, id=None, name=None, icon=None, auth_url=None, metadata_url=None, entity_id=None, acs_url=None, slo_url=None, initialized=None, **kwargs):  # noqa: E501
         """SAMLProviderInfo - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._name = None
@@ -59,6 +61,7 @@ class SAMLProviderInfo(object):
         self._entity_id = None
         self._acs_url = None
         self._slo_url = None
+        self._initialized = None
         self.discriminator = None
         self.id = id
         self.name = name
@@ -69,6 +72,7 @@ class SAMLProviderInfo(object):
         self.acs_url = acs_url
         if slo_url is not None:
             self.slo_url = slo_url
+        self.initialized = initialized
 
     @property
     def id(self):
@@ -267,6 +271,31 @@ class SAMLProviderInfo(object):
         """
 
         self._slo_url = slo_url
+
+    @property
+    def initialized(self):
+        """Gets the initialized of this SAMLProviderInfo.  # noqa: E501
+
+        Whether the SAML provider was successfully initialized and is available for authentication  # noqa: E501
+
+        :return: The initialized of this SAMLProviderInfo.  # noqa: E501
+        :rtype: bool
+        """
+        return self._initialized
+
+    @initialized.setter
+    def initialized(self, initialized):
+        """Sets the initialized of this SAMLProviderInfo.
+
+        Whether the SAML provider was successfully initialized and is available for authentication  # noqa: E501
+
+        :param initialized: The initialized of this SAMLProviderInfo.  # noqa: E501
+        :type: bool
+        """
+        if initialized is None:
+            raise ValueError("Invalid value for `initialized`, must not be `None`")  # noqa: E501
+
+        self._initialized = initialized
 
     def to_dict(self):
         """Returns the model properties as a dict"""

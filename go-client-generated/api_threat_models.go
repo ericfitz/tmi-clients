@@ -453,7 +453,7 @@ Returns a list of threat models accessible to the authenticated user with enhanc
      * @param "Status" (optional.String) -  Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
      * @param "StatusUpdatedAfter" (optional.Time) -  Filter threat models where status was updated after this timestamp (RFC3339)
      * @param "StatusUpdatedBefore" (optional.Time) -  Filter threat models where status was updated before this timestamp (RFC3339)
-@return []TmListItem
+@return ListThreatModelsResponse
 */
 
 type ThreatModelsApiListThreatModelsOpts struct {
@@ -472,13 +472,13 @@ type ThreatModelsApiListThreatModelsOpts struct {
     StatusUpdatedBefore optional.Time
 }
 
-func (a *ThreatModelsApiService) ListThreatModels(ctx context.Context, localVarOptionals *ThreatModelsApiListThreatModelsOpts) ([]TmListItem, *http.Response, error) {
+func (a *ThreatModelsApiService) ListThreatModels(ctx context.Context, localVarOptionals *ThreatModelsApiListThreatModelsOpts) (ListThreatModelsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []TmListItem
+		localVarReturnValue ListThreatModelsResponse
 	)
 
 	// create path and map variables
@@ -574,7 +574,7 @@ func (a *ThreatModelsApiService) ListThreatModels(ctx context.Context, localVarO
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []TmListItem
+			var v ListThreatModelsResponse
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()

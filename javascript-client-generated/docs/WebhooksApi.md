@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Create webhook subscription
 
-Create a new webhook subscription. The subscription will be in pending_verification status until the challenge is completed.
+Create a new webhook subscription. Requires administrator privileges. The subscription will be in pending_verification status until the challenge is completed.
 
 ### Example
 ```javascript
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 Delete webhook subscription
 
-Delete a webhook subscription. Only the owner can delete a subscription.
+Delete a webhook subscription and all its associated deliveries. Requires administrator privileges.
 
 ### Example
 ```javascript
@@ -106,7 +106,7 @@ null (empty response body)
 
 Get webhook delivery
 
-Get details of a specific webhook delivery
+Retrieve details of a specific webhook delivery including payload and delivery attempts. Requires administrator privileges.
 
 ### Example
 ```javascript
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 Get webhook subscription
 
-Get a specific webhook subscription by ID
+Retrieve details of a specific webhook subscription. Requires administrator privileges.
 
 ### Example
 ```javascript
@@ -190,11 +190,11 @@ Name | Type | Description  | Notes
 
 <a name="listWebhookDeliveries"></a>
 # **listWebhookDeliveries**
-> [WebhookDelivery] listWebhookDeliveries(opts)
+> ListWebhookDeliveriesResponse listWebhookDeliveries(opts)
 
 List webhook deliveries
 
-List webhook deliveries for the authenticated user&#x27;s subscriptions
+List webhook deliveries. Requires administrator privileges. Optionally filter by subscription_id.
 
 ### Example
 ```javascript
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[WebhookDelivery]**](WebhookDelivery.md)
+[**ListWebhookDeliveriesResponse**](ListWebhookDeliveriesResponse.md)
 
 ### Authorization
 
@@ -239,11 +239,11 @@ Name | Type | Description  | Notes
 
 <a name="listWebhookSubscriptions"></a>
 # **listWebhookSubscriptions**
-> [WebhookSubscription] listWebhookSubscriptions(opts)
+> ListWebhookSubscriptionsResponse listWebhookSubscriptions(opts)
 
 List webhook subscriptions
 
-List all webhook subscriptions owned by the authenticated user. Optionally filter by threat_model_id.
+List all webhook subscriptions. Requires administrator privileges.
 
 ### Example
 ```javascript
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[WebhookSubscription]**](WebhookSubscription.md)
+[**ListWebhookSubscriptionsResponse**](ListWebhookSubscriptionsResponse.md)
 
 ### Authorization
 
@@ -292,7 +292,7 @@ Name | Type | Description  | Notes
 
 Test webhook subscription
 
-Send a test event to the webhook URL to verify it&#x27;s working correctly
+Send a test event to the webhook endpoint. Requires administrator privileges. Returns a delivery ID that can be used to track the test delivery status.
 
 ### Example
 ```javascript
