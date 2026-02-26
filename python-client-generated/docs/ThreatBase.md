@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **asset_id** | **str** | Unique identifier of the associated asset (if applicable) (UUID) | [optional] 
 **cwe_id** | **list[str]** | CWE (Common Weakness Enumeration) identifiers associated with this threat | [optional] 
 **cvss** | [**list[CVSSScore]**](CVSSScore.md) | CVSS scoring information for this threat | [optional] 
+**include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

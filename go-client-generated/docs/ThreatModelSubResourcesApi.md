@@ -15,16 +15,23 @@ Method | HTTP request | Description
 [**BulkCreateThreatModelMetadata**](ThreatModelSubResourcesApi.md#BulkCreateThreatModelMetadata) | **Post** /threat_models/{threat_model_id}/metadata/bulk | Bulk create threat model metadata
 [**BulkCreateThreatModelRepositories**](ThreatModelSubResourcesApi.md#BulkCreateThreatModelRepositories) | **Post** /threat_models/{threat_model_id}/repositories/bulk | Bulk create sources
 [**BulkCreateThreatModelThreats**](ThreatModelSubResourcesApi.md#BulkCreateThreatModelThreats) | **Post** /threat_models/{threat_model_id}/threats/bulk | Bulk create threats
-[**BulkUpdateNoteMetadata**](ThreatModelSubResourcesApi.md#BulkUpdateNoteMetadata) | **Put** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk update note metadata
+[**BulkReplaceDiagramMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceDiagramMetadata) | **Put** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk replace diagram metadata
+[**BulkReplaceDocumentMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceDocumentMetadata) | **Put** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk replace document metadata
+[**BulkReplaceNoteMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceNoteMetadata) | **Put** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk replace note metadata
+[**BulkReplaceRepositoryMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceRepositoryMetadata) | **Put** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk replace repository metadata
+[**BulkReplaceThreatMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceThreatMetadata) | **Put** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk replace threat metadata
+[**BulkReplaceThreatModelAssetMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceThreatModelAssetMetadata) | **Put** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk replace asset metadata
+[**BulkReplaceThreatModelMetadata**](ThreatModelSubResourcesApi.md#BulkReplaceThreatModelMetadata) | **Put** /threat_models/{threat_model_id}/metadata/bulk | Bulk replace threat model metadata
 [**BulkUpdateThreatModelThreats**](ThreatModelSubResourcesApi.md#BulkUpdateThreatModelThreats) | **Put** /threat_models/{threat_model_id}/threats/bulk | Bulk update threats
-[**BulkUpsertDiagramMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertDiagramMetadata) | **Put** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk upsert diagram metadata
-[**BulkUpsertDocumentMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertDocumentMetadata) | **Put** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk upsert document metadata
-[**BulkUpsertRepositoryMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertRepositoryMetadata) | **Put** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk upsert repository metadata
-[**BulkUpsertThreatMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertThreatMetadata) | **Put** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk upsert threat metadata
-[**BulkUpsertThreatModelAssetMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelAssetMetadata) | **Put** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk upsert asset metadata
+[**BulkUpsertDiagramMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertDiagramMetadata) | **Patch** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk upsert diagram metadata
+[**BulkUpsertDocumentMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertDocumentMetadata) | **Patch** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk upsert document metadata
+[**BulkUpsertNoteMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertNoteMetadata) | **Patch** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk upsert note metadata
+[**BulkUpsertRepositoryMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertRepositoryMetadata) | **Patch** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk upsert repository metadata
+[**BulkUpsertThreatMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertThreatMetadata) | **Patch** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk upsert threat metadata
+[**BulkUpsertThreatModelAssetMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelAssetMetadata) | **Patch** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk upsert asset metadata
 [**BulkUpsertThreatModelAssets**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelAssets) | **Put** /threat_models/{threat_model_id}/assets/bulk | Bulk upsert assets
 [**BulkUpsertThreatModelDocuments**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelDocuments) | **Put** /threat_models/{threat_model_id}/documents/bulk | Bulk upsert documents
-[**BulkUpsertThreatModelMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelMetadata) | **Put** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
+[**BulkUpsertThreatModelMetadata**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelMetadata) | **Patch** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
 [**BulkUpsertThreatModelRepositories**](ThreatModelSubResourcesApi.md#BulkUpsertThreatModelRepositories) | **Put** /threat_models/{threat_model_id}/repositories/bulk | Bulk upsert repositories
 [**CreateDiagramMetadata**](ThreatModelSubResourcesApi.md#CreateDiagramMetadata) | **Post** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Create diagram metadata
 [**CreateDocumentMetadata**](ThreatModelSubResourcesApi.md#CreateDocumentMetadata) | **Post** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Create document metadata
@@ -99,7 +106,7 @@ Method | HTTP request | Description
 > []Metadata BulkCreateDiagramMetadata(ctx, body, threatModelId, diagramId)
 Bulk create diagram metadata
 
-Creates multiple metadata entries in a single operation for the specified diagram
+Creates multiple metadata entries in a single operation for the specified diagram. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -129,7 +136,7 @@ Name | Type | Description  | Notes
 > []Metadata BulkCreateDocumentMetadata(ctx, body, threatModelId, documentId)
 Bulk create document metadata
 
-Creates multiple metadata entries in a single operation for the specified document
+Creates multiple metadata entries in a single operation for the specified document. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -159,7 +166,7 @@ Name | Type | Description  | Notes
 > []Metadata BulkCreateNoteMetadata(ctx, body, threatModelId, noteId)
 Bulk create note metadata
 
-Creates multiple metadata key-value pairs for the specified note
+Creates multiple metadata key-value pairs for the specified note. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -189,7 +196,7 @@ Name | Type | Description  | Notes
 > []Metadata BulkCreateRepositoryMetadata(ctx, body, threatModelId, repositoryId)
 Bulk create source metadata
 
-Creates multiple metadata entries in a single operation for the specified source reference
+Creates multiple metadata entries in a single operation for the specified source reference. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -219,7 +226,7 @@ Name | Type | Description  | Notes
 > []Metadata BulkCreateThreatMetadata(ctx, body, threatModelId, threatId)
 Bulk create threat metadata
 
-Creates multiple metadata entries in a single operation for the specified threat
+Creates multiple metadata entries in a single operation for the specified threat. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -249,7 +256,7 @@ Name | Type | Description  | Notes
 > []Metadata BulkCreateThreatModelAssetMetadata(ctx, body, threatModelId, assetId)
 Bulk create asset metadata
 
-Creates multiple metadata key-value pairs for the specified asset
+Creates multiple metadata key-value pairs for the specified asset. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -337,7 +344,7 @@ Name | Type | Description  | Notes
 > []Metadata BulkCreateThreatModelMetadata(ctx, body, threatModelId)
 Bulk create threat model metadata
 
-Creates multiple metadata entries in a single operation for the specified threat model
+Creates multiple metadata entries in a single operation for the specified threat model. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Required Parameters
 
@@ -420,20 +427,199 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **BulkUpdateNoteMetadata**
-> []Metadata BulkUpdateNoteMetadata(ctx, body, threatModelId, noteId)
-Bulk update note metadata
+# **BulkReplaceDiagramMetadata**
+> []Metadata BulkReplaceDiagramMetadata(ctx, body, threatModelId, diagramId)
+Bulk replace diagram metadata
 
-Updates multiple metadata entries for the specified note in a single operation
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **diagramId** | [**string**](.md)| Diagram identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkReplaceDocumentMetadata**
+> []Metadata BulkReplaceDocumentMetadata(ctx, body, threatModelId, documentId)
+Bulk replace document metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **documentId** | [**string**](.md)| Document identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkReplaceNoteMetadata**
+> []Metadata BulkReplaceNoteMetadata(ctx, body, threatModelId, noteId)
+Bulk replace note metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **noteId** | [**string**](.md)| Note identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkReplaceRepositoryMetadata**
+> []Metadata BulkReplaceRepositoryMetadata(ctx, body, threatModelId, repositoryId)
+Bulk replace repository metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **repositoryId** | [**string**](.md)| Repository identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkReplaceThreatMetadata**
+> []Metadata BulkReplaceThreatMetadata(ctx, body, threatModelId, threatId)
+Bulk replace threat metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **threatId** | [**string**](.md)| Threat identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkReplaceThreatModelAssetMetadata**
+> []Metadata BulkReplaceThreatModelAssetMetadata(ctx, body, threatModelId, assetId)
+Bulk replace asset metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **assetId** | [**string**](.md)| Asset identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkReplaceThreatModelMetadata**
+> []Metadata BulkReplaceThreatModelMetadata(ctx, body, threatModelId)
+Bulk replace threat model metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -483,14 +669,14 @@ Name | Type | Description  | Notes
 > []Metadata BulkUpsertDiagramMetadata(ctx, body, threatModelId, diagramId)
 Bulk upsert diagram metadata
 
-Creates or updates multiple metadata key-value pairs for the specified diagram
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **diagramId** | [**string**](.md)| Diagram identifier | 
 
@@ -513,16 +699,46 @@ Name | Type | Description  | Notes
 > []Metadata BulkUpsertDocumentMetadata(ctx, body, threatModelId, documentId)
 Bulk upsert document metadata
 
-Creates or updates multiple metadata key-value pairs for the specified document
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **documentId** | [**string**](.md)| Document identifier | 
+
+### Return type
+
+[**[]Metadata**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **BulkUpsertNoteMetadata**
+> []Metadata BulkUpsertNoteMetadata(ctx, body, threatModelId, noteId)
+Bulk upsert note metadata
+
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+  **noteId** | [**string**](.md)| Note identifier | 
 
 ### Return type
 
@@ -543,14 +759,14 @@ Name | Type | Description  | Notes
 > []Metadata BulkUpsertRepositoryMetadata(ctx, body, threatModelId, repositoryId)
 Bulk upsert repository metadata
 
-Creates or updates multiple metadata key-value pairs for the specified repository
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **repositoryId** | [**string**](.md)| Repository identifier | 
 
@@ -573,14 +789,14 @@ Name | Type | Description  | Notes
 > []Metadata BulkUpsertThreatMetadata(ctx, body, threatModelId, threatId)
 Bulk upsert threat metadata
 
-Creates or updates multiple metadata key-value pairs for the specified threat
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **threatId** | [**string**](.md)| Threat identifier | 
 
@@ -603,14 +819,14 @@ Name | Type | Description  | Notes
 > []Metadata BulkUpsertThreatModelAssetMetadata(ctx, body, threatModelId, assetId)
 Bulk upsert asset metadata
 
-Creates or updates multiple metadata key-value pairs for the specified asset
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
   **assetId** | [**string**](.md)| Asset identifier | 
 
@@ -691,14 +907,14 @@ Name | Type | Description  | Notes
 > []Metadata BulkUpsertThreatModelMetadata(ctx, body, threatModelId)
 Bulk upsert threat model metadata
 
-Creates or updates multiple metadata key-value pairs for the specified threat model
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**[]Metadata**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+  **body** | [**[]Metadata**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
   **threatModelId** | [**string**](.md)| Threat model identifier | 
 
 ### Return type
@@ -749,7 +965,7 @@ Name | Type | Description  | Notes
 > Metadata CreateDiagramMetadata(ctx, body, threatModelId, diagramId)
 Create diagram metadata
 
-Creates a new metadata entry for the specified diagram
+Creates a new metadata entry for the specified diagram. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 
@@ -779,7 +995,7 @@ Name | Type | Description  | Notes
 > Metadata CreateDocumentMetadata(ctx, body, threatModelId, documentId)
 Create document metadata
 
-Creates new metadata entry for the specified document
+Creates new metadata entry for the specified document. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 
@@ -809,7 +1025,7 @@ Name | Type | Description  | Notes
 > Metadata CreateNoteMetadata(ctx, body, threatModelId, noteId)
 Create note metadata
 
-Creates new metadata entry for the specified note
+Creates new metadata entry for the specified note. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 
@@ -839,7 +1055,7 @@ Name | Type | Description  | Notes
 > Metadata CreateRepositoryMetadata(ctx, body, threatModelId, repositoryId)
 Create source metadata
 
-Creates new metadata entry for the specified source reference
+Creates new metadata entry for the specified source reference. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 
@@ -869,7 +1085,7 @@ Name | Type | Description  | Notes
 > Metadata CreateThreatMetadata(ctx, body, threatModelId, threatId)
 Create threat metadata
 
-Creates new metadata entry for the specified threat
+Creates new metadata entry for the specified threat. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 
@@ -928,7 +1144,7 @@ Name | Type | Description  | Notes
 > Metadata CreateThreatModelAssetMetadata(ctx, body, threatModelId, assetId)
 Add metadata to an asset
 
-Adds a new metadata key-value pair to the specified asset
+Adds a new metadata key-value pair to the specified asset. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 
@@ -1016,7 +1232,7 @@ Name | Type | Description  | Notes
 > Metadata CreateThreatModelMetadata(ctx, body, threatModelId)
 Create threat model metadata
 
-Creates new metadata entry for the specified threat model
+Creates new metadata entry for the specified threat model. Returns 409 Conflict if the key already exists.
 
 ### Required Parameters
 

@@ -14,3 +14,4 @@ Name | Type | Description | Notes
 **notes** | [**[Note]**](Note.md) | List of notes associated with the threat model | [optional] 
 **assets** | [**[ExtendedAsset]**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] 
 **statusUpdated** | **Date** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] 
+**isConfidential** | **Boolean** | Whether this threat model is confidential (set at creation, read-only after) | [optional] 

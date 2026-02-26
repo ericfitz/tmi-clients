@@ -15,16 +15,23 @@ Method | HTTP request | Description
 [**bulk_create_threat_model_metadata**](ThreatModelSubResourcesApi.md#bulk_create_threat_model_metadata) | **POST** /threat_models/{threat_model_id}/metadata/bulk | Bulk create threat model metadata
 [**bulk_create_threat_model_repositories**](ThreatModelSubResourcesApi.md#bulk_create_threat_model_repositories) | **POST** /threat_models/{threat_model_id}/repositories/bulk | Bulk create sources
 [**bulk_create_threat_model_threats**](ThreatModelSubResourcesApi.md#bulk_create_threat_model_threats) | **POST** /threat_models/{threat_model_id}/threats/bulk | Bulk create threats
-[**bulk_update_note_metadata**](ThreatModelSubResourcesApi.md#bulk_update_note_metadata) | **PUT** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk update note metadata
+[**bulk_replace_diagram_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_diagram_metadata) | **PUT** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk replace diagram metadata
+[**bulk_replace_document_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_document_metadata) | **PUT** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk replace document metadata
+[**bulk_replace_note_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_note_metadata) | **PUT** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk replace note metadata
+[**bulk_replace_repository_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_repository_metadata) | **PUT** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk replace repository metadata
+[**bulk_replace_threat_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_threat_metadata) | **PUT** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk replace threat metadata
+[**bulk_replace_threat_model_asset_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_threat_model_asset_metadata) | **PUT** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk replace asset metadata
+[**bulk_replace_threat_model_metadata**](ThreatModelSubResourcesApi.md#bulk_replace_threat_model_metadata) | **PUT** /threat_models/{threat_model_id}/metadata/bulk | Bulk replace threat model metadata
 [**bulk_update_threat_model_threats**](ThreatModelSubResourcesApi.md#bulk_update_threat_model_threats) | **PUT** /threat_models/{threat_model_id}/threats/bulk | Bulk update threats
-[**bulk_upsert_diagram_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_diagram_metadata) | **PUT** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk upsert diagram metadata
-[**bulk_upsert_document_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_document_metadata) | **PUT** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk upsert document metadata
-[**bulk_upsert_repository_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_repository_metadata) | **PUT** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk upsert repository metadata
-[**bulk_upsert_threat_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_metadata) | **PUT** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk upsert threat metadata
-[**bulk_upsert_threat_model_asset_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_asset_metadata) | **PUT** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk upsert asset metadata
+[**bulk_upsert_diagram_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_diagram_metadata) | **PATCH** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk upsert diagram metadata
+[**bulk_upsert_document_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_document_metadata) | **PATCH** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk upsert document metadata
+[**bulk_upsert_note_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_note_metadata) | **PATCH** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk upsert note metadata
+[**bulk_upsert_repository_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_repository_metadata) | **PATCH** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk upsert repository metadata
+[**bulk_upsert_threat_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_metadata) | **PATCH** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk upsert threat metadata
+[**bulk_upsert_threat_model_asset_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_asset_metadata) | **PATCH** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk upsert asset metadata
 [**bulk_upsert_threat_model_assets**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_assets) | **PUT** /threat_models/{threat_model_id}/assets/bulk | Bulk upsert assets
 [**bulk_upsert_threat_model_documents**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_documents) | **PUT** /threat_models/{threat_model_id}/documents/bulk | Bulk upsert documents
-[**bulk_upsert_threat_model_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_metadata) | **PUT** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
+[**bulk_upsert_threat_model_metadata**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_metadata) | **PATCH** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
 [**bulk_upsert_threat_model_repositories**](ThreatModelSubResourcesApi.md#bulk_upsert_threat_model_repositories) | **PUT** /threat_models/{threat_model_id}/repositories/bulk | Bulk upsert repositories
 [**create_diagram_metadata**](ThreatModelSubResourcesApi.md#create_diagram_metadata) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Create diagram metadata
 [**create_document_metadata**](ThreatModelSubResourcesApi.md#create_document_metadata) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Create document metadata
@@ -100,7 +107,7 @@ Method | HTTP request | Description
 
 Bulk create diagram metadata
 
-Creates multiple metadata entries in a single operation for the specified diagram
+Creates multiple metadata entries in a single operation for the specified diagram. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -153,7 +160,7 @@ Name | Type | Description  | Notes
 
 Bulk create document metadata
 
-Creates multiple metadata entries in a single operation for the specified document
+Creates multiple metadata entries in a single operation for the specified document. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -206,7 +213,7 @@ Name | Type | Description  | Notes
 
 Bulk create note metadata
 
-Creates multiple metadata key-value pairs for the specified note
+Creates multiple metadata key-value pairs for the specified note. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -259,7 +266,7 @@ Name | Type | Description  | Notes
 
 Bulk create source metadata
 
-Creates multiple metadata entries in a single operation for the specified source reference
+Creates multiple metadata entries in a single operation for the specified source reference. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -312,7 +319,7 @@ Name | Type | Description  | Notes
 
 Bulk create threat metadata
 
-Creates multiple metadata entries in a single operation for the specified threat
+Creates multiple metadata entries in a single operation for the specified threat. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -365,7 +372,7 @@ Name | Type | Description  | Notes
 
 Bulk create asset metadata
 
-Creates multiple metadata key-value pairs for the specified asset
+Creates multiple metadata key-value pairs for the specified asset. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -520,7 +527,7 @@ Name | Type | Description  | Notes
 
 Bulk create threat model metadata
 
-Creates multiple metadata entries in a single operation for the specified threat model
+Creates multiple metadata entries in a single operation for the specified threat model. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```python
@@ -668,12 +675,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **bulk_update_note_metadata**
-> list[Metadata] bulk_update_note_metadata(body, threat_model_id, note_id)
+# **bulk_replace_diagram_metadata**
+> list[Metadata] bulk_replace_diagram_metadata(body, threat_model_id, diagram_id)
 
-Bulk update note metadata
+Bulk replace diagram metadata
 
-Updates multiple metadata entries for the specified note in a single operation
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
 ```python
@@ -686,25 +693,341 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
 try:
-    # Bulk update note metadata
-    api_response = api_instance.bulk_update_note_metadata(body, threat_model_id, note_id)
+    # Bulk replace diagram metadata
+    api_response = api_instance.bulk_replace_diagram_metadata(body, threat_model_id, diagram_id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_update_note_metadata: %s\n" % e)
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_diagram_metadata: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **diagram_id** | [**str**](.md)| Diagram identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_replace_document_metadata**
+> list[Metadata] bulk_replace_document_metadata(body, threat_model_id, document_id)
+
+Bulk replace document metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+
+try:
+    # Bulk replace document metadata
+    api_response = api_instance.bulk_replace_document_metadata(body, threat_model_id, document_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_document_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **document_id** | [**str**](.md)| Document identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_replace_note_metadata**
+> list[Metadata] bulk_replace_note_metadata(body, threat_model_id, note_id)
+
+Bulk replace note metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+
+try:
+    # Bulk replace note metadata
+    api_response = api_instance.bulk_replace_note_metadata(body, threat_model_id, note_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_note_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **note_id** | [**str**](.md)| Note identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_replace_repository_metadata**
+> list[Metadata] bulk_replace_repository_metadata(body, threat_model_id, repository_id)
+
+Bulk replace repository metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+
+try:
+    # Bulk replace repository metadata
+    api_response = api_instance.bulk_replace_repository_metadata(body, threat_model_id, repository_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_repository_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **repository_id** | [**str**](.md)| Repository identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_replace_threat_metadata**
+> list[Metadata] bulk_replace_threat_metadata(body, threat_model_id, threat_id)
+
+Bulk replace threat metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+
+try:
+    # Bulk replace threat metadata
+    api_response = api_instance.bulk_replace_threat_metadata(body, threat_model_id, threat_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_id** | [**str**](.md)| Threat identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_replace_threat_model_asset_metadata**
+> list[Metadata] bulk_replace_threat_model_asset_metadata(body, threat_model_id, asset_id)
+
+Bulk replace asset metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+
+try:
+    # Bulk replace asset metadata
+    api_response = api_instance.bulk_replace_threat_model_asset_metadata(body, threat_model_id, asset_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_model_asset_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **asset_id** | [**str**](.md)| Asset identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_replace_threat_model_metadata**
+> list[Metadata] bulk_replace_threat_model_metadata(body, threat_model_id)
+
+Bulk replace threat model metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+
+try:
+    # Bulk replace threat model metadata
+    api_response = api_instance.bulk_replace_threat_model_metadata(body, threat_model_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_model_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -777,7 +1100,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert diagram metadata
 
-Creates or updates multiple metadata key-value pairs for the specified diagram
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```python
@@ -790,7 +1113,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
 
@@ -806,7 +1129,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **diagram_id** | [**str**](.md)| Diagram identifier | 
 
@@ -830,7 +1153,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert document metadata
 
-Creates or updates multiple metadata key-value pairs for the specified document
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```python
@@ -843,7 +1166,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
 
@@ -859,9 +1182,62 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **document_id** | [**str**](.md)| Document identifier | 
+
+### Return type
+
+[**list[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_upsert_note_metadata**
+> list[Metadata] bulk_upsert_note_metadata(body, threat_model_id, note_id)
+
+Bulk upsert note metadata
+
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+
+try:
+    # Bulk upsert note metadata
+    api_response = api_instance.bulk_upsert_note_metadata(body, threat_model_id, note_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_note_metadata: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **note_id** | [**str**](.md)| Note identifier | 
 
 ### Return type
 
@@ -883,7 +1259,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert repository metadata
 
-Creates or updates multiple metadata key-value pairs for the specified repository
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```python
@@ -896,7 +1272,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
 
@@ -912,7 +1288,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **repository_id** | [**str**](.md)| Repository identifier | 
 
@@ -936,7 +1312,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert threat metadata
 
-Creates or updates multiple metadata key-value pairs for the specified threat
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```python
@@ -949,7 +1325,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
 
@@ -965,7 +1341,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **threat_id** | [**str**](.md)| Threat identifier | 
 
@@ -989,7 +1365,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert asset metadata
 
-Creates or updates multiple metadata key-value pairs for the specified asset
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```python
@@ -1002,7 +1378,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
 
@@ -1018,7 +1394,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **asset_id** | [**str**](.md)| Asset identifier | 
 
@@ -1144,7 +1520,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert threat model metadata
 
-Creates or updates multiple metadata key-value pairs for the specified threat model
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```python
@@ -1157,7 +1533,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to upsert
+body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 
 try:
@@ -1172,7 +1548,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1246,7 +1622,7 @@ Name | Type | Description  | Notes
 
 Create diagram metadata
 
-Creates a new metadata entry for the specified diagram
+Creates a new metadata entry for the specified diagram. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python
@@ -1299,7 +1675,7 @@ Name | Type | Description  | Notes
 
 Create document metadata
 
-Creates new metadata entry for the specified document
+Creates new metadata entry for the specified document. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python
@@ -1352,7 +1728,7 @@ Name | Type | Description  | Notes
 
 Create note metadata
 
-Creates new metadata entry for the specified note
+Creates new metadata entry for the specified note. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python
@@ -1405,7 +1781,7 @@ Name | Type | Description  | Notes
 
 Create source metadata
 
-Creates new metadata entry for the specified source reference
+Creates new metadata entry for the specified source reference. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python
@@ -1458,7 +1834,7 @@ Name | Type | Description  | Notes
 
 Create threat metadata
 
-Creates new metadata entry for the specified threat
+Creates new metadata entry for the specified threat. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python
@@ -1562,7 +1938,7 @@ Name | Type | Description  | Notes
 
 Add metadata to an asset
 
-Adds a new metadata key-value pair to the specified asset
+Adds a new metadata key-value pair to the specified asset. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python
@@ -1717,7 +2093,7 @@ Name | Type | Description  | Notes
 
 Create threat model metadata
 
-Creates new metadata entry for the specified threat model
+Creates new metadata entry for the specified threat model. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```python

@@ -9,3 +9,4 @@ Name | Type | Description | Notes
 **id** | **String** | Unique identifier for the note | 
 **createdAt** | **Date** | Creation timestamp (RFC3339) | [optional] 
 **modifiedAt** | **Date** | Last modification timestamp (RFC3339) | [optional] 
+**includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]

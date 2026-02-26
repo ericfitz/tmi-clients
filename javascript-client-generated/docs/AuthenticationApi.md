@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**initiateSAMLLogin**](AuthenticationApi.md#initiateSAMLLogin) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspectToken**](AuthenticationApi.md#introspectToken) | **POST** /oauth2/introspect | Token Introspection
 [**listCurrentUserClientCredentials**](AuthenticationApi.md#listCurrentUserClientCredentials) | **GET** /me/client_credentials | List client credentials
+[**listMyGroupMembers**](AuthenticationApi.md#listMyGroupMembers) | **GET** /me/groups/{internal_uuid}/members | List members of my group
+[**listMyGroups**](AuthenticationApi.md#listMyGroups) | **GET** /me/groups | List my groups
 [**processSAMLLogout**](AuthenticationApi.md#processSAMLLogout) | **GET** /saml/slo | SAML Single Logout
 [**processSAMLLogoutPost**](AuthenticationApi.md#processSAMLLogoutPost) | **POST** /saml/slo | SAML Single Logout (POST)
 [**processSAMLResponse**](AuthenticationApi.md#processSAMLResponse) | **POST** /saml/acs | SAML Assertion Consumer Service
@@ -226,7 +228,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/x-www-form-urlencoded
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 
 <a name="getAuthProviders"></a>
 # **getAuthProviders**
@@ -647,6 +649,94 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listMyGroupMembers"></a>
+# **listMyGroupMembers**
+> GroupMemberListResponse listMyGroupMembers(internalUuid, opts)
+
+List members of my group
+
+Returns a paginated list of members for a group that the authenticated user belongs to. Only effective members (direct or via nested group membership) can list a group&#x27;s members. Admin audit fields (added_by, notes) are redacted from the response.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AuthenticationApi();
+let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
+let opts = { 
+  'limit': 50, // Number | Maximum number of results to return
+  'offset': 0 // Number | Number of results to skip
+};
+apiInstance.listMyGroupMembers(internalUuid, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
+ **limit** | **Number**| Maximum number of results to return | [optional] [default to 50]
+ **offset** | **Number**| Number of results to skip | [optional] [default to 0]
+
+### Return type
+
+[**GroupMemberListResponse**](GroupMemberListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listMyGroups"></a>
+# **listMyGroups**
+> MyGroupListResponse listMyGroups()
+
+List my groups
+
+Returns the TMI-managed groups that the authenticated user belongs to. Returns direct memberships only (excludes the implicit everyone pseudo-group). Each group includes its internal_uuid which can be used to query group members via GET /me/groups/{internal_uuid}/members.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AuthenticationApi();
+apiInstance.listMyGroups().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MyGroupListResponse**](MyGroupListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="processSAMLLogout"></a>
 # **processSAMLLogout**
 > InlineResponse2008 processSAMLLogout(sAMLRequest)
@@ -868,5 +958,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/x-www-form-urlencoded, application/json
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 

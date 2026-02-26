@@ -4,8 +4,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **session_id** | **str** | Unique identifier for the session (UUID) | 
-**host** | **str** | Email address of the session host | 
-**presenter** | **str** | Email address of the current presenter | [optional] 
+**host** | **AllOfCollaborationSessionHost** | User hosting the collaboration session | 
+**presenter** | **AllOfCollaborationSessionPresenter** | User currently presenting (may be null if no active presenter) | [optional] 
 **threat_model_id** | **str** | Unique identifier of the associated threat model (UUID) | 
 **threat_model_name** | **str** | Name of the associated threat model | 
 **diagram_id** | **str** | Unique identifier of the associated diagram (UUID) | 

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **updateVector** | **Number** | Server-managed monotonic version counter, incremented on each diagram update | [optional] 
 **image** | [**BaseDiagramImage**](BaseDiagramImage.md) |  | [optional] 
 **description** | **String** | Optional description of the diagram | [optional] 
+**includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

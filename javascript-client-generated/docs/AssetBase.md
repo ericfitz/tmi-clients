@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **criticality** | **String** | Criticality level of the asset | [optional] 
 **classification** | **[String]** | Classification tags for the asset | [optional] 
 **sensitivity** | **String** | Sensitivity label for the asset | [optional] 
+**includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Notes** | [**[]Note**](Note.md) | List of notes associated with the threat model | [optional] [default to null]
 **Assets** | [**[]ExtendedAsset**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] [default to null]
 **StatusUpdated** | [**time.Time**](time.Time.md) | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [default to null]
+**IsConfidential** | **bool** | Whether this threat model is confidential (set at creation, read-only after) | [optional] [default to null]
 **Name** | **string** | Name of the threat model | [default to null]
 **Description** | **string** | Description of the threat model | [optional] [default to null]
 **Owner** | [***Object**](.md) | User who owns the threat model (can be null for orphaned models) | [default to null]
@@ -23,6 +24,8 @@ Name | Type | Description | Notes
 **IssueUri** | **string** | URL to an issue in an issue tracking system for this threat model | [optional] [default to null]
 **Status** | **string** | Status of the threat model in the organization&#x27;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] [default to null]
 **Alias** | **[]string** | Alternative names or identifiers for the threat model | [optional] [default to null]
+**SecurityReviewer** | [***interface{}**](interface{}.md) | Security reviewer assigned to this threat model. When set, the security reviewer is automatically added to the authorization list with the owner role. The security reviewer&#x27;s owner role cannot be removed via authorization changes while they remain assigned as security reviewer. To change the security reviewer&#x27;s authorization, first unassign them as security reviewer. | [optional] [default to null]
+**ProjectId** | **string** | Optional reference to the project this threat model belongs to | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

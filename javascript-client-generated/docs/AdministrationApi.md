@@ -6,11 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addGroupMember**](AdministrationApi.md#addGroupMember) | **POST** /admin/groups/{internal_uuid}/members | Add member to group
 [**createAdminGroup**](AdministrationApi.md#createAdminGroup) | **POST** /admin/groups | Create provider-independent group
-[**createAdministrator**](AdministrationApi.md#createAdministrator) | **POST** /admin/administrators | Create administrator grant
 [**deleteAddonInvocationQuota**](AdministrationApi.md#deleteAddonInvocationQuota) | **DELETE** /admin/quotas/addons/{user_id} | Delete addon invocation quota
 [**deleteAdminGroup**](AdministrationApi.md#deleteAdminGroup) | **DELETE** /admin/groups/{internal_uuid} | Delete group
 [**deleteAdminUser**](AdministrationApi.md#deleteAdminUser) | **DELETE** /admin/users/{internal_uuid} | Delete user
-[**deleteAdministrator**](AdministrationApi.md#deleteAdministrator) | **DELETE** /admin/administrators/{id} | Delete administrator grant
 [**deleteSystemSetting**](AdministrationApi.md#deleteSystemSetting) | **DELETE** /admin/settings/{key} | Delete system setting
 [**deleteUserAPIQuota**](AdministrationApi.md#deleteUserAPIQuota) | **DELETE** /admin/quotas/users/{user_id} | Delete user API quota
 [**deleteWebhookQuota**](AdministrationApi.md#deleteWebhookQuota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota
@@ -23,13 +21,14 @@ Method | HTTP request | Description
 [**listAddonInvocationQuotas**](AdministrationApi.md#listAddonInvocationQuotas) | **GET** /admin/quotas/addons | List all addon invocation quotas
 [**listAdminGroups**](AdministrationApi.md#listAdminGroups) | **GET** /admin/groups | List groups
 [**listAdminUsers**](AdministrationApi.md#listAdminUsers) | **GET** /admin/users | List users
-[**listAdministrators**](AdministrationApi.md#listAdministrators) | **GET** /admin/administrators | List administrators
 [**listGroupMembers**](AdministrationApi.md#listGroupMembers) | **GET** /admin/groups/{internal_uuid}/members | List group members
 [**listSystemSettings**](AdministrationApi.md#listSystemSettings) | **GET** /admin/settings | List system settings
 [**listUserAPIQuotas**](AdministrationApi.md#listUserAPIQuotas) | **GET** /admin/quotas/users | List all user API quotas
 [**listWebhookQuotas**](AdministrationApi.md#listWebhookQuotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
 [**migrateSystemSettings**](AdministrationApi.md#migrateSystemSettings) | **POST** /admin/settings/migrate | Migrate settings from configuration
-[**removeGroupMember**](AdministrationApi.md#removeGroupMember) | **DELETE** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
+[**reencryptSystemSettings**](AdministrationApi.md#reencryptSystemSettings) | **POST** /admin/settings/reencrypt | Re-encrypt all system settings
+[**removeGroupMember**](AdministrationApi.md#removeGroupMember) | **DELETE** /admin/groups/{internal_uuid}/members/{member_uuid} | Remove member from group
+[**transferAdminUserOwnership**](AdministrationApi.md#transferAdminUserOwnership) | **POST** /admin/users/{internal_uuid}/transfer | Transfer user ownership to another user
 [**updateAddonInvocationQuota**](AdministrationApi.md#updateAddonInvocationQuota) | **PUT** /admin/quotas/addons/{user_id} | Update addon invocation quota
 [**updateAdminGroup**](AdministrationApi.md#updateAdminGroup) | **PATCH** /admin/groups/{internal_uuid} | Update group metadata
 [**updateAdminUser**](AdministrationApi.md#updateAdminUser) | **PATCH** /admin/users/{internal_uuid} | Update user metadata
@@ -117,50 +116,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminGroup**](AdminGroup.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="createAdministrator"></a>
-# **createAdministrator**
-> Administrator createAdministrator(body)
-
-Create administrator grant
-
-Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.
-
-### Example
-```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
-
-
-let apiInstance = new TmiJsClient.AdministrationApi();
-let body = new TmiJsClient.CreateAdministratorRequest(); // CreateAdministratorRequest | Administrator creation request
-
-apiInstance.createAdministrator(body).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)| Administrator creation request | 
-
-### Return type
-
-[**Administrator**](Administrator.md)
 
 ### Authorization
 
@@ -289,50 +244,6 @@ apiInstance.deleteAdminUser(internalUuid).then(() => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="deleteAdministrator"></a>
-# **deleteAdministrator**
-> deleteAdministrator(id)
-
-Delete administrator grant
-
-Revokes administrator privileges. Users cannot revoke their own privileges or privileges for groups they belong to.
-
-### Example
-```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
-
-
-let apiInstance = new TmiJsClient.AdministrationApi();
-let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Administrator grant ID
-
-apiInstance.deleteAdministrator(id).then(() => {
-  console.log('API called successfully.');
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**String**](.md)| Administrator grant ID | 
 
 ### Return type
 
@@ -845,7 +756,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 
 <a name="listAdminUsers"></a>
 # **listAdminUsers**
@@ -900,59 +811,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUserListResponse**](AdminUserListResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="listAdministrators"></a>
-# **listAdministrators**
-> ListAdministratorsResponse listAdministrators(opts)
-
-List administrators
-
-Returns a list of administrator grants with optional filtering by provider, user, or group
-
-### Example
-```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
-
-
-let apiInstance = new TmiJsClient.AdministrationApi();
-let opts = { 
-  'provider': "provider_example", // String | Filter by OAuth/SAML provider
-  'userId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter by user ID
-  'groupId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter by group ID
-  'limit': 50, // Number | Maximum number of results to return
-  'offset': 0 // Number | Number of results to skip
-};
-apiInstance.listAdministrators(opts).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provider** | **String**| Filter by OAuth/SAML provider | [optional] 
- **userId** | [**String**](.md)| Filter by user ID | [optional] 
- **groupId** | [**String**](.md)| Filter by group ID | [optional] 
- **limit** | **Number**| Maximum number of results to return | [optional] [default to 50]
- **offset** | **Number**| Number of results to skip | [optional] [default to 0]
-
-### Return type
-
-[**ListAdministratorsResponse**](ListAdministratorsResponse.md)
 
 ### Authorization
 
@@ -1190,13 +1048,52 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="reencryptSystemSettings"></a>
+# **reencryptSystemSettings**
+> InlineResponse20011 reencryptSystemSettings()
+
+Re-encrypt all system settings
+
+Re-encrypts all system settings with the current encryption key. Use this after rotating the encryption key or when first enabling encryption on existing settings. Requires administrator privileges. Settings that cannot be decrypted are reported as errors but do not prevent other settings from being processed.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+apiInstance.reencryptSystemSettings().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**InlineResponse20011**](InlineResponse20011.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="removeGroupMember"></a>
 # **removeGroupMember**
-> removeGroupMember(internalUuid, userUuid)
+> removeGroupMember(internalUuid, memberUuid, opts)
 
 Remove member from group
 
-Removes a user from a group. Cannot remove members from the special &#x27;everyone&#x27; pseudo-group.
+Removes a user or nested group from a group. Use the subject_type query parameter to specify whether the member is a user (default) or a group. Cannot remove members from the special &#x27;everyone&#x27; pseudo-group.
 
 ### Example
 ```javascript
@@ -1206,9 +1103,11 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 let apiInstance = new TmiJsClient.AdministrationApi();
 let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
-let userUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user to remove
-
-apiInstance.removeGroupMember(internalUuid, userUuid).then(() => {
+let memberUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group)
+let opts = { 
+  'subjectType': "user" // String | Type of member to remove: 'user' (default) for a user member, 'group' for a nested group member
+};
+apiInstance.removeGroupMember(internalUuid, memberUuid, opts).then(() => {
   console.log('API called successfully.');
 }, (error) => {
   console.error(error);
@@ -1221,7 +1120,8 @@ apiInstance.removeGroupMember(internalUuid, userUuid).then(() => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
- **userUuid** | [**String**](.md)| Internal system UUID of the user to remove | 
+ **memberUuid** | [**String**](.md)| Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group) | 
+ **subjectType** | **String**| Type of member to remove: &#x27;user&#x27; (default) for a user member, &#x27;group&#x27; for a nested group member | [optional] [default to user]
 
 ### Return type
 
@@ -1234,6 +1134,52 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="transferAdminUserOwnership"></a>
+# **transferAdminUserOwnership**
+> TransferOwnershipResult transferAdminUserOwnership(body, internalUuid)
+
+Transfer user ownership to another user
+
+Transfers ownership of all threat models and survey responses owned by the specified user to the target user. The source user is downgraded to writer role on all transferred items. Requires administrator privileges.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.AdministrationApi();
+let body = new TmiJsClient.TransferOwnershipRequest(); // TransferOwnershipRequest | Ownership transfer request specifying the target user
+let internalUuid = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal system UUID of the user
+
+apiInstance.transferAdminUserOwnership(body, internalUuid).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**TransferOwnershipRequest**](TransferOwnershipRequest.md)| Ownership transfer request specifying the target user | 
+ **internalUuid** | [**String**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**TransferOwnershipResult**](TransferOwnershipResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="updateAddonInvocationQuota"></a>

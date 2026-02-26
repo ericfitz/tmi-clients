@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**initiate_saml_login**](AuthenticationApi.md#initiate_saml_login) | **GET** /saml/{provider}/login | Initiate SAML authentication
 [**introspect_token**](AuthenticationApi.md#introspect_token) | **POST** /oauth2/introspect | Token Introspection
 [**list_current_user_client_credentials**](AuthenticationApi.md#list_current_user_client_credentials) | **GET** /me/client_credentials | List client credentials
+[**list_my_group_members**](AuthenticationApi.md#list_my_group_members) | **GET** /me/groups/{internal_uuid}/members | List members of my group
+[**list_my_groups**](AuthenticationApi.md#list_my_groups) | **GET** /me/groups | List my groups
 [**process_saml_logout**](AuthenticationApi.md#process_saml_logout) | **GET** /saml/slo | SAML Single Logout
 [**process_saml_logout_post**](AuthenticationApi.md#process_saml_logout_post) | **POST** /saml/slo | SAML Single Logout (POST)
 [**process_saml_response**](AuthenticationApi.md#process_saml_response) | **POST** /saml/acs | SAML Assertion Consumer Service
@@ -226,7 +228,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/x-www-form-urlencoded
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -705,6 +707,104 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_my_group_members**
+> GroupMemberListResponse list_my_group_members(internal_uuid, limit=limit, offset=offset)
+
+List members of my group
+
+Returns a paginated list of members for a group that the authenticated user belongs to. Only effective members (direct or via nested group membership) can list a group's members. Admin audit fields (added_by, notes) are redacted from the response.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
+limit = 50 # int | Maximum number of results to return (optional) (default to 50)
+offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+try:
+    # List members of my group
+    api_response = api_instance.list_my_group_members(internal_uuid, limit=limit, offset=offset)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->list_my_group_members: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
+ **limit** | **int**| Maximum number of results to return | [optional] [default to 50]
+ **offset** | **int**| Number of results to skip | [optional] [default to 0]
+
+### Return type
+
+[**GroupMemberListResponse**](GroupMemberListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_my_groups**
+> MyGroupListResponse list_my_groups()
+
+List my groups
+
+Returns the TMI-managed groups that the authenticated user belongs to. Returns direct memberships only (excludes the implicit everyone pseudo-group). Each group includes its internal_uuid which can be used to query group members via GET /me/groups/{internal_uuid}/members.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
+
+try:
+    # List my groups
+    api_response = api_instance.list_my_groups()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthenticationApi->list_my_groups: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**MyGroupListResponse**](MyGroupListResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **process_saml_logout**
 > InlineResponse2008 process_saml_logout(saml_request)
 
@@ -949,7 +1049,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/x-www-form-urlencoded, application/json
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

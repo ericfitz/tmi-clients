@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **type** | **String** | Source code repository type | [optional] 
 **parameters** | [**RepositoryBaseParameters**](RepositoryBaseParameters.md) |  | [optional] 
 **uri** | **String** | URL to retrieve the referenced source code | 
+**includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

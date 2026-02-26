@@ -1,0 +1,4 @@
+[rules]
+"unresolved-reference" = "ignore"
+"unresolved-import" = "ignore"
+"unresolved-attribute" = "ignore"

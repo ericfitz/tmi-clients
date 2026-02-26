@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **id** | **str** | Unique identifier for the note | 
 **created_at** | **datetime** | Creation timestamp (RFC3339) | [optional] 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] 
+**include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

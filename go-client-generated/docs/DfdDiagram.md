@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **UpdateVector** | **int64** | Server-managed monotonic version counter, incremented on each diagram update | [optional] [default to null]
 **Image** | [***BaseDiagramImage**](BaseDiagram_image.md) |  | [optional] [default to null]
 **Description** | **string** | Optional description of the diagram | [optional] [default to null]
+**IncludeInReport** | **bool** | Whether this item should be included in generated reports | [optional] [default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

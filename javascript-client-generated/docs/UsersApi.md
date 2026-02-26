@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteUserAccount**](UsersApi.md#deleteUserAccount) | **DELETE** /me | Delete authenticated user account and all data
 [**logoutCurrentUser**](UsersApi.md#logoutCurrentUser) | **POST** /me/logout | Logout current user
+[**transferCurrentUserOwnership**](UsersApi.md#transferCurrentUserOwnership) | **POST** /me/transfer | Transfer ownership of all owned resources
 
 <a name="deleteUserAccount"></a>
 # **deleteUserAccount**
@@ -89,5 +90,49 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="transferCurrentUserOwnership"></a>
+# **transferCurrentUserOwnership**
+> TransferOwnershipResult transferCurrentUserOwnership(body)
+
+Transfer ownership of all owned resources
+
+Transfers ownership of all threat models and survey responses owned by the current user to the specified target user. The current user is downgraded to writer role on all transferred items.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.UsersApi();
+let body = new TmiJsClient.TransferOwnershipRequest(); // TransferOwnershipRequest | Ownership transfer request specifying the target user
+
+apiInstance.transferCurrentUserOwnership(body).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**TransferOwnershipRequest**](TransferOwnershipRequest.md)| Ownership transfer request specifying the target user | 
+
+### Return type
+
+[**TransferOwnershipResult**](TransferOwnershipResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 

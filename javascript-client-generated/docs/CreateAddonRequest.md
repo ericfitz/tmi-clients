@@ -21,4 +21,6 @@ Name | Type | Description | Notes
 * `note` (value: `"note"`)
 * `repository` (value: `"repository"`)
 * `metadata` (value: `"metadata"`)
+* `survey` (value: `"survey"`)
+* `surveyResponse` (value: `"survey_response"`)
 

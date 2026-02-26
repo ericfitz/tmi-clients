@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **metadata** | [**[Metadata]**](Metadata.md) | Key-value pairs for additional diagram metadata | [optional] 
 **image** | [**BaseDiagramImage**](BaseDiagramImage.md) |  | [optional] 
 **description** | **String** | Optional description of the diagram | [optional] 
+**includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

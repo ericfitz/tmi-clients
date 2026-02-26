@@ -6,11 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddGroupMember**](AdministrationApi.md#AddGroupMember) | **Post** /admin/groups/{internal_uuid}/members | Add member to group
 [**CreateAdminGroup**](AdministrationApi.md#CreateAdminGroup) | **Post** /admin/groups | Create provider-independent group
-[**CreateAdministrator**](AdministrationApi.md#CreateAdministrator) | **Post** /admin/administrators | Create administrator grant
 [**DeleteAddonInvocationQuota**](AdministrationApi.md#DeleteAddonInvocationQuota) | **Delete** /admin/quotas/addons/{user_id} | Delete addon invocation quota
 [**DeleteAdminGroup**](AdministrationApi.md#DeleteAdminGroup) | **Delete** /admin/groups/{internal_uuid} | Delete group
 [**DeleteAdminUser**](AdministrationApi.md#DeleteAdminUser) | **Delete** /admin/users/{internal_uuid} | Delete user
-[**DeleteAdministrator**](AdministrationApi.md#DeleteAdministrator) | **Delete** /admin/administrators/{id} | Delete administrator grant
 [**DeleteSystemSetting**](AdministrationApi.md#DeleteSystemSetting) | **Delete** /admin/settings/{key} | Delete system setting
 [**DeleteUserAPIQuota**](AdministrationApi.md#DeleteUserAPIQuota) | **Delete** /admin/quotas/users/{user_id} | Delete user API quota
 [**DeleteWebhookQuota**](AdministrationApi.md#DeleteWebhookQuota) | **Delete** /admin/quotas/webhooks/{user_id} | Delete webhook quota
@@ -23,13 +21,14 @@ Method | HTTP request | Description
 [**ListAddonInvocationQuotas**](AdministrationApi.md#ListAddonInvocationQuotas) | **Get** /admin/quotas/addons | List all addon invocation quotas
 [**ListAdminGroups**](AdministrationApi.md#ListAdminGroups) | **Get** /admin/groups | List groups
 [**ListAdminUsers**](AdministrationApi.md#ListAdminUsers) | **Get** /admin/users | List users
-[**ListAdministrators**](AdministrationApi.md#ListAdministrators) | **Get** /admin/administrators | List administrators
 [**ListGroupMembers**](AdministrationApi.md#ListGroupMembers) | **Get** /admin/groups/{internal_uuid}/members | List group members
 [**ListSystemSettings**](AdministrationApi.md#ListSystemSettings) | **Get** /admin/settings | List system settings
 [**ListUserAPIQuotas**](AdministrationApi.md#ListUserAPIQuotas) | **Get** /admin/quotas/users | List all user API quotas
 [**ListWebhookQuotas**](AdministrationApi.md#ListWebhookQuotas) | **Get** /admin/quotas/webhooks | List all webhook quotas
 [**MigrateSystemSettings**](AdministrationApi.md#MigrateSystemSettings) | **Post** /admin/settings/migrate | Migrate settings from configuration
-[**RemoveGroupMember**](AdministrationApi.md#RemoveGroupMember) | **Delete** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
+[**ReencryptSystemSettings**](AdministrationApi.md#ReencryptSystemSettings) | **Post** /admin/settings/reencrypt | Re-encrypt all system settings
+[**RemoveGroupMember**](AdministrationApi.md#RemoveGroupMember) | **Delete** /admin/groups/{internal_uuid}/members/{member_uuid} | Remove member from group
+[**TransferAdminUserOwnership**](AdministrationApi.md#TransferAdminUserOwnership) | **Post** /admin/users/{internal_uuid}/transfer | Transfer user ownership to another user
 [**UpdateAddonInvocationQuota**](AdministrationApi.md#UpdateAddonInvocationQuota) | **Put** /admin/quotas/addons/{user_id} | Update addon invocation quota
 [**UpdateAdminGroup**](AdministrationApi.md#UpdateAdminGroup) | **Patch** /admin/groups/{internal_uuid} | Update group metadata
 [**UpdateAdminUser**](AdministrationApi.md#UpdateAdminUser) | **Patch** /admin/users/{internal_uuid} | Update user metadata
@@ -82,34 +81,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminGroup**](AdminGroup.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **CreateAdministrator**
-> Administrator CreateAdministrator(ctx, body)
-Create administrator grant
-
-Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)| Administrator creation request | 
-
-### Return type
-
-[**Administrator**](Administrator.md)
 
 ### Authorization
 
@@ -190,34 +161,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **DeleteAdministrator**
-> DeleteAdministrator(ctx, id)
-Delete administrator grant
-
-Revokes administrator privileges. Users cannot revoke their own privileges or privileges for groups they belong to.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **id** | [**string**](.md)| Administrator grant ID | 
 
 ### Return type
 
@@ -557,7 +500,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -592,44 +535,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUserListResponse**](AdminUserListResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **ListAdministrators**
-> ListAdministratorsResponse ListAdministrators(ctx, optional)
-List administrators
-
-Returns a list of administrator grants with optional filtering by provider, user, or group
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AdministrationApiListAdministratorsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AdministrationApiListAdministratorsOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provider** | **optional.String**| Filter by OAuth/SAML provider | 
- **userId** | [**optional.Interface of string**](.md)| Filter by user ID | 
- **groupId** | [**optional.Interface of string**](.md)| Filter by group ID | 
- **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
- **offset** | **optional.Int32**| Number of results to skip | [default to 0]
-
-### Return type
-
-[**ListAdministratorsResponse**](ListAdministratorsResponse.md)
 
 ### Authorization
 
@@ -807,11 +712,35 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **ReencryptSystemSettings**
+> InlineResponse20011 ReencryptSystemSettings(ctx, )
+Re-encrypt all system settings
+
+Re-encrypts all system settings with the current encryption key. Use this after rotating the encryption key or when first enabling encryption on existing settings. Requires administrator privileges. Settings that cannot be decrypted are reported as errors but do not prevent other settings from being processed.
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**InlineResponse20011**](inline_response_200_11.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **RemoveGroupMember**
-> RemoveGroupMember(ctx, internalUuid, userUuid)
+> RemoveGroupMember(ctx, internalUuid, memberUuid, optional)
 Remove member from group
 
-Removes a user from a group. Cannot remove members from the special 'everyone' pseudo-group.
+Removes a user or nested group from a group. Use the subject_type query parameter to specify whether the member is a user (default) or a group. Cannot remove members from the special 'everyone' pseudo-group.
 
 ### Required Parameters
 
@@ -819,7 +748,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
-  **userUuid** | [**string**](.md)| Internal system UUID of the user to remove | 
+  **memberUuid** | [**string**](.md)| Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group) | 
+ **optional** | ***AdministrationApiRemoveGroupMemberOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a AdministrationApiRemoveGroupMemberOpts struct
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **subjectType** | **optional.String**| Type of member to remove: &#x27;user&#x27; (default) for a user member, &#x27;group&#x27; for a nested group member | [default to user]
 
 ### Return type
 
@@ -832,6 +770,35 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **TransferAdminUserOwnership**
+> TransferOwnershipResult TransferAdminUserOwnership(ctx, body, internalUuid)
+Transfer user ownership to another user
+
+Transfers ownership of all threat models and survey responses owned by the specified user to the target user. The source user is downgraded to writer role on all transferred items. Requires administrator privileges.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**TransferOwnershipRequest**](TransferOwnershipRequest.md)| Ownership transfer request specifying the target user | 
+  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**TransferOwnershipResult**](TransferOwnershipResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

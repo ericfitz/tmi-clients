@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **description** | **str** | Description of the threat model | [optional] 
 **created_at** | **datetime** | Creation timestamp (RFC3339) | 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | 
-**owner** | **str** | Email address of the current owner | 
-**created_by** | **str** | Email address, name or identifier of the creator | 
+**owner** | **AllOfTMListItemOwner** | User who owns the threat model | 
+**created_by** | **AllOfTMListItemCreatedBy** | User who created the threat model | 
 **threat_model_framework** | **str** | The framework used for this threat model | 
 **document_count** | **int** | Number of documents associated with this threat model | 
 **repo_count** | **int** | Number of source code repository entries associated with this threat model | 
@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **note_count** | **int** | Number of notes associated with this threat model | 
 **status** | **str** | Status of the threat model in the organization&#x27;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
 **status_updated** | **datetime** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] 
+**security_reviewer** | **AllOfTMListItemSecurityReviewer** | Security reviewer assigned to this threat model. The assigned security reviewer automatically has the owner role on this threat model. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

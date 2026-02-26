@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **authorization** | [**list[Authorization]**](Authorization.md) | List of users and their roles for this threat model | [optional] 
 **metadata** | [**list[Metadata]**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] 
 **issue_uri** | **str** | URL to an issue in an issue tracking system for this threat model | [optional] 
+**is_confidential** | **bool** | If true, threat model is marked as confidential. Can only be set at creation. | [optional] [default to False]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,11 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_group_member**](AdministrationApi.md#add_group_member) | **POST** /admin/groups/{internal_uuid}/members | Add member to group
 [**create_admin_group**](AdministrationApi.md#create_admin_group) | **POST** /admin/groups | Create provider-independent group
-[**create_administrator**](AdministrationApi.md#create_administrator) | **POST** /admin/administrators | Create administrator grant
 [**delete_addon_invocation_quota**](AdministrationApi.md#delete_addon_invocation_quota) | **DELETE** /admin/quotas/addons/{user_id} | Delete addon invocation quota
 [**delete_admin_group**](AdministrationApi.md#delete_admin_group) | **DELETE** /admin/groups/{internal_uuid} | Delete group
 [**delete_admin_user**](AdministrationApi.md#delete_admin_user) | **DELETE** /admin/users/{internal_uuid} | Delete user
-[**delete_administrator**](AdministrationApi.md#delete_administrator) | **DELETE** /admin/administrators/{id} | Delete administrator grant
 [**delete_system_setting**](AdministrationApi.md#delete_system_setting) | **DELETE** /admin/settings/{key} | Delete system setting
 [**delete_user_api_quota**](AdministrationApi.md#delete_user_api_quota) | **DELETE** /admin/quotas/users/{user_id} | Delete user API quota
 [**delete_webhook_quota**](AdministrationApi.md#delete_webhook_quota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota
@@ -23,13 +21,14 @@ Method | HTTP request | Description
 [**list_addon_invocation_quotas**](AdministrationApi.md#list_addon_invocation_quotas) | **GET** /admin/quotas/addons | List all addon invocation quotas
 [**list_admin_groups**](AdministrationApi.md#list_admin_groups) | **GET** /admin/groups | List groups
 [**list_admin_users**](AdministrationApi.md#list_admin_users) | **GET** /admin/users | List users
-[**list_administrators**](AdministrationApi.md#list_administrators) | **GET** /admin/administrators | List administrators
 [**list_group_members**](AdministrationApi.md#list_group_members) | **GET** /admin/groups/{internal_uuid}/members | List group members
 [**list_system_settings**](AdministrationApi.md#list_system_settings) | **GET** /admin/settings | List system settings
 [**list_user_api_quotas**](AdministrationApi.md#list_user_api_quotas) | **GET** /admin/quotas/users | List all user API quotas
 [**list_webhook_quotas**](AdministrationApi.md#list_webhook_quotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
 [**migrate_system_settings**](AdministrationApi.md#migrate_system_settings) | **POST** /admin/settings/migrate | Migrate settings from configuration
-[**remove_group_member**](AdministrationApi.md#remove_group_member) | **DELETE** /admin/groups/{internal_uuid}/members/{user_uuid} | Remove member from group
+[**reencrypt_system_settings**](AdministrationApi.md#reencrypt_system_settings) | **POST** /admin/settings/reencrypt | Re-encrypt all system settings
+[**remove_group_member**](AdministrationApi.md#remove_group_member) | **DELETE** /admin/groups/{internal_uuid}/members/{member_uuid} | Remove member from group
+[**transfer_admin_user_ownership**](AdministrationApi.md#transfer_admin_user_ownership) | **POST** /admin/users/{internal_uuid}/transfer | Transfer user ownership to another user
 [**update_addon_invocation_quota**](AdministrationApi.md#update_addon_invocation_quota) | **PUT** /admin/quotas/addons/{user_id} | Update addon invocation quota
 [**update_admin_group**](AdministrationApi.md#update_admin_group) | **PATCH** /admin/groups/{internal_uuid} | Update group metadata
 [**update_admin_user**](AdministrationApi.md#update_admin_user) | **PATCH** /admin/users/{internal_uuid} | Update user metadata
@@ -125,55 +124,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminGroup**](AdminGroup.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **create_administrator**
-> Administrator create_administrator(body)
-
-Create administrator grant
-
-Grants administrator privileges to a user or group for a specific provider. Exactly one of email, provider_user_id, or group_name must be specified.
-
-### Example
-```python
-from __future__ import print_function
-import time
-import tmi_client
-from tmi_client.rest import ApiException
-from pprint import pprint
-
-
-# create an instance of the API class
-api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-body = tmi_client.CreateAdministratorRequest() # CreateAdministratorRequest | Administrator creation request
-
-try:
-    # Create administrator grant
-    api_response = api_instance.create_administrator(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AdministrationApi->create_administrator: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**CreateAdministratorRequest**](CreateAdministratorRequest.md)| Administrator creation request | 
-
-### Return type
-
-[**Administrator**](Administrator.md)
 
 ### Authorization
 
@@ -314,54 +264,6 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **delete_administrator**
-> delete_administrator(id)
-
-Delete administrator grant
-
-Revokes administrator privileges. Users cannot revoke their own privileges or privileges for groups they belong to.
-
-### Example
-```python
-from __future__ import print_function
-import time
-import tmi_client
-from tmi_client.rest import ApiException
-from pprint import pprint
-
-
-# create an instance of the API class
-api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Administrator grant ID
-
-try:
-    # Delete administrator grant
-    api_instance.delete_administrator(id)
-except ApiException as e:
-    print("Exception when calling AdministrationApi->delete_administrator: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Administrator grant ID | 
 
 ### Return type
 
@@ -924,7 +826,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -983,63 +885,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUserListResponse**](AdminUserListResponse.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **list_administrators**
-> ListAdministratorsResponse list_administrators(provider=provider, user_id=user_id, group_id=group_id, limit=limit, offset=offset)
-
-List administrators
-
-Returns a list of administrator grants with optional filtering by provider, user, or group
-
-### Example
-```python
-from __future__ import print_function
-import time
-import tmi_client
-from tmi_client.rest import ApiException
-from pprint import pprint
-
-
-# create an instance of the API class
-api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
-provider = 'provider_example' # str | Filter by OAuth/SAML provider (optional)
-user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by user ID (optional)
-group_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by group ID (optional)
-limit = 50 # int | Maximum number of results to return (optional) (default to 50)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-
-try:
-    # List administrators
-    api_response = api_instance.list_administrators(provider=provider, user_id=user_id, group_id=group_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AdministrationApi->list_administrators: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **provider** | **str**| Filter by OAuth/SAML provider | [optional] 
- **user_id** | [**str**](.md)| Filter by user ID | [optional] 
- **group_id** | [**str**](.md)| Filter by group ID | [optional] 
- **limit** | **int**| Maximum number of results to return | [optional] [default to 50]
- **offset** | **int**| Number of results to skip | [optional] [default to 0]
-
-### Return type
-
-[**ListAdministratorsResponse**](ListAdministratorsResponse.md)
 
 ### Authorization
 
@@ -1301,12 +1146,57 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **reencrypt_system_settings**
+> InlineResponse20011 reencrypt_system_settings()
+
+Re-encrypt all system settings
+
+Re-encrypts all system settings with the current encryption key. Use this after rotating the encryption key or when first enabling encryption on existing settings. Requires administrator privileges. Settings that cannot be decrypted are reported as errors but do not prevent other settings from being processed.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+
+try:
+    # Re-encrypt all system settings
+    api_response = api_instance.reencrypt_system_settings()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->reencrypt_system_settings: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**InlineResponse20011**](InlineResponse20011.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **remove_group_member**
-> remove_group_member(internal_uuid, user_uuid)
+> remove_group_member(internal_uuid, member_uuid, subject_type=subject_type)
 
 Remove member from group
 
-Removes a user from a group. Cannot remove members from the special 'everyone' pseudo-group.
+Removes a user or nested group from a group. Use the subject_type query parameter to specify whether the member is a user (default) or a group. Cannot remove members from the special 'everyone' pseudo-group.
 
 ### Example
 ```python
@@ -1320,11 +1210,12 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
 internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
-user_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user to remove
+member_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group)
+subject_type = 'user' # str | Type of member to remove: 'user' (default) for a user member, 'group' for a nested group member (optional) (default to user)
 
 try:
     # Remove member from group
-    api_instance.remove_group_member(internal_uuid, user_uuid)
+    api_instance.remove_group_member(internal_uuid, member_uuid, subject_type=subject_type)
 except ApiException as e:
     print("Exception when calling AdministrationApi->remove_group_member: %s\n" % e)
 ```
@@ -1334,7 +1225,8 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
- **user_uuid** | [**str**](.md)| Internal system UUID of the user to remove | 
+ **member_uuid** | [**str**](.md)| Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group) | 
+ **subject_type** | **str**| Type of member to remove: &#x27;user&#x27; (default) for a user member, &#x27;group&#x27; for a nested group member | [optional] [default to user]
 
 ### Return type
 
@@ -1347,6 +1239,57 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **transfer_admin_user_ownership**
+> TransferOwnershipResult transfer_admin_user_ownership(body, internal_uuid)
+
+Transfer user ownership to another user
+
+Transfers ownership of all threat models and survey responses owned by the specified user to the target user. The source user is downgraded to writer role on all transferred items. Requires administrator privileges.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
+body = tmi_client.TransferOwnershipRequest() # TransferOwnershipRequest | Ownership transfer request specifying the target user
+internal_uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal system UUID of the user
+
+try:
+    # Transfer user ownership to another user
+    api_response = api_instance.transfer_admin_user_ownership(body, internal_uuid)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AdministrationApi->transfer_admin_user_ownership: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**TransferOwnershipRequest**](TransferOwnershipRequest.md)| Ownership transfer request specifying the target user | 
+ **internal_uuid** | [**str**](.md)| Internal system UUID of the user | 
+
+### Return type
+
+[**TransferOwnershipResult**](TransferOwnershipResult.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

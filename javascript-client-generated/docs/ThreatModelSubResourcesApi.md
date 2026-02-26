@@ -15,16 +15,23 @@ Method | HTTP request | Description
 [**bulkCreateThreatModelMetadata**](ThreatModelSubResourcesApi.md#bulkCreateThreatModelMetadata) | **POST** /threat_models/{threat_model_id}/metadata/bulk | Bulk create threat model metadata
 [**bulkCreateThreatModelRepositories**](ThreatModelSubResourcesApi.md#bulkCreateThreatModelRepositories) | **POST** /threat_models/{threat_model_id}/repositories/bulk | Bulk create sources
 [**bulkCreateThreatModelThreats**](ThreatModelSubResourcesApi.md#bulkCreateThreatModelThreats) | **POST** /threat_models/{threat_model_id}/threats/bulk | Bulk create threats
-[**bulkUpdateNoteMetadata**](ThreatModelSubResourcesApi.md#bulkUpdateNoteMetadata) | **PUT** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk update note metadata
+[**bulkReplaceDiagramMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceDiagramMetadata) | **PUT** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk replace diagram metadata
+[**bulkReplaceDocumentMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceDocumentMetadata) | **PUT** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk replace document metadata
+[**bulkReplaceNoteMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceNoteMetadata) | **PUT** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk replace note metadata
+[**bulkReplaceRepositoryMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceRepositoryMetadata) | **PUT** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk replace repository metadata
+[**bulkReplaceThreatMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceThreatMetadata) | **PUT** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk replace threat metadata
+[**bulkReplaceThreatModelAssetMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceThreatModelAssetMetadata) | **PUT** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk replace asset metadata
+[**bulkReplaceThreatModelMetadata**](ThreatModelSubResourcesApi.md#bulkReplaceThreatModelMetadata) | **PUT** /threat_models/{threat_model_id}/metadata/bulk | Bulk replace threat model metadata
 [**bulkUpdateThreatModelThreats**](ThreatModelSubResourcesApi.md#bulkUpdateThreatModelThreats) | **PUT** /threat_models/{threat_model_id}/threats/bulk | Bulk update threats
-[**bulkUpsertDiagramMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertDiagramMetadata) | **PUT** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk upsert diagram metadata
-[**bulkUpsertDocumentMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertDocumentMetadata) | **PUT** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk upsert document metadata
-[**bulkUpsertRepositoryMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertRepositoryMetadata) | **PUT** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk upsert repository metadata
-[**bulkUpsertThreatMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertThreatMetadata) | **PUT** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk upsert threat metadata
-[**bulkUpsertThreatModelAssetMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelAssetMetadata) | **PUT** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk upsert asset metadata
+[**bulkUpsertDiagramMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertDiagramMetadata) | **PATCH** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk upsert diagram metadata
+[**bulkUpsertDocumentMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertDocumentMetadata) | **PATCH** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk upsert document metadata
+[**bulkUpsertNoteMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertNoteMetadata) | **PATCH** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk upsert note metadata
+[**bulkUpsertRepositoryMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertRepositoryMetadata) | **PATCH** /threat_models/{threat_model_id}/repositories/{repository_id}/metadata/bulk | Bulk upsert repository metadata
+[**bulkUpsertThreatMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertThreatMetadata) | **PATCH** /threat_models/{threat_model_id}/threats/{threat_id}/metadata/bulk | Bulk upsert threat metadata
+[**bulkUpsertThreatModelAssetMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelAssetMetadata) | **PATCH** /threat_models/{threat_model_id}/assets/{asset_id}/metadata/bulk | Bulk upsert asset metadata
 [**bulkUpsertThreatModelAssets**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelAssets) | **PUT** /threat_models/{threat_model_id}/assets/bulk | Bulk upsert assets
 [**bulkUpsertThreatModelDocuments**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelDocuments) | **PUT** /threat_models/{threat_model_id}/documents/bulk | Bulk upsert documents
-[**bulkUpsertThreatModelMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelMetadata) | **PUT** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
+[**bulkUpsertThreatModelMetadata**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelMetadata) | **PATCH** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
 [**bulkUpsertThreatModelRepositories**](ThreatModelSubResourcesApi.md#bulkUpsertThreatModelRepositories) | **PUT** /threat_models/{threat_model_id}/repositories/bulk | Bulk upsert repositories
 [**createDiagramMetadata**](ThreatModelSubResourcesApi.md#createDiagramMetadata) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Create diagram metadata
 [**createDocumentMetadata**](ThreatModelSubResourcesApi.md#createDocumentMetadata) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Create document metadata
@@ -101,7 +108,7 @@ Method | HTTP request | Description
 
 Bulk create diagram metadata
 
-Creates multiple metadata entries in a single operation for the specified diagram
+Creates multiple metadata entries in a single operation for the specified diagram. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -149,7 +156,7 @@ Name | Type | Description  | Notes
 
 Bulk create document metadata
 
-Creates multiple metadata entries in a single operation for the specified document
+Creates multiple metadata entries in a single operation for the specified document. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -197,7 +204,7 @@ Name | Type | Description  | Notes
 
 Bulk create note metadata
 
-Creates multiple metadata key-value pairs for the specified note
+Creates multiple metadata key-value pairs for the specified note. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -245,7 +252,7 @@ Name | Type | Description  | Notes
 
 Bulk create source metadata
 
-Creates multiple metadata entries in a single operation for the specified source reference
+Creates multiple metadata entries in a single operation for the specified source reference. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -293,7 +300,7 @@ Name | Type | Description  | Notes
 
 Bulk create threat metadata
 
-Creates multiple metadata entries in a single operation for the specified threat
+Creates multiple metadata entries in a single operation for the specified threat. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -341,7 +348,7 @@ Name | Type | Description  | Notes
 
 Bulk create asset metadata
 
-Creates multiple metadata key-value pairs for the specified asset
+Creates multiple metadata key-value pairs for the specified asset. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -481,7 +488,7 @@ Name | Type | Description  | Notes
 
 Bulk create threat model metadata
 
-Creates multiple metadata entries in a single operation for the specified threat model
+Creates multiple metadata entries in a single operation for the specified threat model. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
 ```javascript
@@ -613,13 +620,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="bulkUpdateNoteMetadata"></a>
-# **bulkUpdateNoteMetadata**
-> [Metadata] bulkUpdateNoteMetadata(body, threatModelId, noteId)
+<a name="bulkReplaceDiagramMetadata"></a>
+# **bulkReplaceDiagramMetadata**
+> [Metadata] bulkReplaceDiagramMetadata(body, threatModelId, diagramId)
 
-Bulk update note metadata
+Bulk replace diagram metadata
 
-Updates multiple metadata entries for the specified note in a single operation
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
 ```javascript
@@ -628,11 +635,11 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
-let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
+let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
-apiInstance.bulkUpdateNoteMetadata(body, threatModelId, noteId).then((data) => {
+apiInstance.bulkReplaceDiagramMetadata(body, threatModelId, diagramId).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -644,9 +651,295 @@ apiInstance.bulkUpdateNoteMetadata(body, threatModelId, noteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **diagramId** | [**String**](.md)| Diagram identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkReplaceDocumentMetadata"></a>
+# **bulkReplaceDocumentMetadata**
+> [Metadata] bulkReplaceDocumentMetadata(body, threatModelId, documentId)
+
+Bulk replace document metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
+
+apiInstance.bulkReplaceDocumentMetadata(body, threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **documentId** | [**String**](.md)| Document identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkReplaceNoteMetadata"></a>
+# **bulkReplaceNoteMetadata**
+> [Metadata] bulkReplaceNoteMetadata(body, threatModelId, noteId)
+
+Bulk replace note metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
+
+apiInstance.bulkReplaceNoteMetadata(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **noteId** | [**String**](.md)| Note identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkReplaceRepositoryMetadata"></a>
+# **bulkReplaceRepositoryMetadata**
+> [Metadata] bulkReplaceRepositoryMetadata(body, threatModelId, repositoryId)
+
+Bulk replace repository metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
+
+apiInstance.bulkReplaceRepositoryMetadata(body, threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **repositoryId** | [**String**](.md)| Repository identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkReplaceThreatMetadata"></a>
+# **bulkReplaceThreatMetadata**
+> [Metadata] bulkReplaceThreatMetadata(body, threatModelId, threatId)
+
+Bulk replace threat metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
+
+apiInstance.bulkReplaceThreatMetadata(body, threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **threatId** | [**String**](.md)| Threat identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkReplaceThreatModelAssetMetadata"></a>
+# **bulkReplaceThreatModelAssetMetadata**
+> [Metadata] bulkReplaceThreatModelAssetMetadata(body, threatModelId, assetId)
+
+Bulk replace asset metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
+
+apiInstance.bulkReplaceThreatModelAssetMetadata(body, threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **assetId** | [**String**](.md)| Asset identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkReplaceThreatModelMetadata"></a>
+# **bulkReplaceThreatModelMetadata**
+> [Metadata] bulkReplaceThreatModelMetadata(body, threatModelId)
+
+Bulk replace threat model metadata
+
+Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+
+apiInstance.bulkReplaceThreatModelMetadata(body, threatModelId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
 
@@ -713,7 +1006,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert diagram metadata
 
-Creates or updates multiple metadata key-value pairs for the specified diagram
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```javascript
@@ -722,7 +1015,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
 
@@ -738,7 +1031,7 @@ apiInstance.bulkUpsertDiagramMetadata(body, threatModelId, diagramId).then((data
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **diagramId** | [**String**](.md)| Diagram identifier | 
 
@@ -761,7 +1054,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert document metadata
 
-Creates or updates multiple metadata key-value pairs for the specified document
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```javascript
@@ -770,7 +1063,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
 
@@ -786,9 +1079,57 @@ apiInstance.bulkUpsertDocumentMetadata(body, threatModelId, documentId).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **documentId** | [**String**](.md)| Document identifier | 
+
+### Return type
+
+[**[Metadata]**](Metadata.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="bulkUpsertNoteMetadata"></a>
+# **bulkUpsertNoteMetadata**
+> [Metadata] bulkUpsertNoteMetadata(body, threatModelId, noteId)
+
+Bulk upsert note metadata
+
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
+
+apiInstance.bulkUpsertNoteMetadata(body, threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **noteId** | [**String**](.md)| Note identifier | 
 
 ### Return type
 
@@ -809,7 +1150,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert repository metadata
 
-Creates or updates multiple metadata key-value pairs for the specified repository
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```javascript
@@ -818,7 +1159,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
 
@@ -834,7 +1175,7 @@ apiInstance.bulkUpsertRepositoryMetadata(body, threatModelId, repositoryId).then
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **repositoryId** | [**String**](.md)| Repository identifier | 
 
@@ -857,7 +1198,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert threat metadata
 
-Creates or updates multiple metadata key-value pairs for the specified threat
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```javascript
@@ -866,7 +1207,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
 
@@ -882,7 +1223,7 @@ apiInstance.bulkUpsertThreatMetadata(body, threatModelId, threatId).then((data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **threatId** | [**String**](.md)| Threat identifier | 
 
@@ -905,7 +1246,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert asset metadata
 
-Creates or updates multiple metadata key-value pairs for the specified asset
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```javascript
@@ -914,7 +1255,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
 
@@ -930,7 +1271,7 @@ apiInstance.bulkUpsertThreatModelAssetMetadata(body, threatModelId, assetId).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **assetId** | [**String**](.md)| Asset identifier | 
 
@@ -1045,7 +1386,7 @@ Name | Type | Description  | Notes
 
 Bulk upsert threat model metadata
 
-Creates or updates multiple metadata key-value pairs for the specified threat model
+Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
 ```javascript
@@ -1054,7 +1395,7 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
-let body = [new TmiJsClient.Metadata()]; // [Metadata] | Bulk metadata key-value pairs to upsert
+let body = [new TmiJsClient.Metadata()]; // [Metadata] | Metadata key-value pairs to create or update (merge)
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 
 apiInstance.bulkUpsertThreatModelMetadata(body, threatModelId).then((data) => {
@@ -1069,7 +1410,7 @@ apiInstance.bulkUpsertThreatModelMetadata(body, threatModelId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to upsert | 
+ **body** | [**[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
  **threatModelId** | [**String**](.md)| Threat model identifier | 
 
 ### Return type
@@ -1137,7 +1478,7 @@ Name | Type | Description  | Notes
 
 Create diagram metadata
 
-Creates a new metadata entry for the specified diagram
+Creates a new metadata entry for the specified diagram. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript
@@ -1185,7 +1526,7 @@ Name | Type | Description  | Notes
 
 Create document metadata
 
-Creates new metadata entry for the specified document
+Creates new metadata entry for the specified document. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript
@@ -1233,7 +1574,7 @@ Name | Type | Description  | Notes
 
 Create note metadata
 
-Creates new metadata entry for the specified note
+Creates new metadata entry for the specified note. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript
@@ -1281,7 +1622,7 @@ Name | Type | Description  | Notes
 
 Create source metadata
 
-Creates new metadata entry for the specified source reference
+Creates new metadata entry for the specified source reference. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript
@@ -1329,7 +1670,7 @@ Name | Type | Description  | Notes
 
 Create threat metadata
 
-Creates new metadata entry for the specified threat
+Creates new metadata entry for the specified threat. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript
@@ -1423,7 +1764,7 @@ Name | Type | Description  | Notes
 
 Add metadata to an asset
 
-Adds a new metadata key-value pair to the specified asset
+Adds a new metadata key-value pair to the specified asset. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript
@@ -1563,7 +1904,7 @@ Name | Type | Description  | Notes
 
 Create threat model metadata
 
-Creates new metadata entry for the specified threat model
+Creates new metadata entry for the specified threat model. Returns 409 Conflict if the key already exists.
 
 ### Example
 ```javascript

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Type_** | **string** | Source code repository type | [optional] [default to null]
 **Parameters** | [***RepositoryBaseParameters**](RepositoryBase_parameters.md) |  | [optional] [default to null]
 **Uri** | **string** | URL to retrieve the referenced source code | [default to null]
+**IncludeInReport** | **bool** | Whether this item should be included in generated reports | [optional] [default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

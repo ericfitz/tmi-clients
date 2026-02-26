@@ -14,8 +14,13 @@ from tmi_client.api.general_api import GeneralApi
 from tmi_client.api.notes_api import NotesApi
 from tmi_client.api.o_auth_discovery_api import OAuthDiscoveryApi
 from tmi_client.api.oidc_discovery_api import OIDCDiscoveryApi
+from tmi_client.api.projects_api import ProjectsApi
 from tmi_client.api.repositories_api import RepositoriesApi
 from tmi_client.api.saml_api import SAMLApi
+from tmi_client.api.survey_administration_api import SurveyAdministrationApi
+from tmi_client.api.survey_intake_api import SurveyIntakeApi
+from tmi_client.api.survey_triage_api import SurveyTriageApi
+from tmi_client.api.teams_api import TeamsApi
 from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResourcesApi
 from tmi_client.api.threat_models_api import ThreatModelsApi
 from tmi_client.api.threats_api import ThreatsApi
