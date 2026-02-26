@@ -69,47 +69,44 @@ def analyze_paths(spec: Dict[str, Any]) -> Dict[str, Any]:
     """Analyze API paths and operations."""
     paths = spec.get("paths", {})
 
-    analysis = {
-        "total_paths": len(paths),
-        "paths_by_tag": defaultdict(list),
-        "operations_by_method": defaultdict(int),
-        "all_paths": sorted(paths.keys()),
-    }
+    paths_by_tag: Dict[str, List[Dict[str, str]]] = defaultdict(list)
+    operations_by_method: Dict[str, int] = defaultdict(int)
 
     for path, operations in paths.items():
         for method, operation in operations.items():
             if method in ["get", "post", "put", "patch", "delete"]:
-                analysis["operations_by_method"][method.upper()] += 1
+                operations_by_method[method.upper()] += 1
 
                 # Group by tags
                 tags = operation.get("tags", ["untagged"])
                 for tag in tags:
-                    analysis["paths_by_tag"][tag].append({
+                    paths_by_tag[tag].append({
                         "path": path,
                         "method": method.upper(),
                         "operationId": operation.get("operationId", ""),
                         "summary": operation.get("summary", ""),
                     })
 
-    return analysis
+    return {
+        "total_paths": len(paths),
+        "paths_by_tag": paths_by_tag,
+        "operations_by_method": operations_by_method,
+        "all_paths": sorted(paths.keys()),
+    }
 
 
 def analyze_schemas(spec: Dict[str, Any]) -> Dict[str, Any]:
     """Analyze component schemas."""
     schemas = spec.get("components", {}).get("schemas", {})
 
-    analysis = {
-        "total_schemas": len(schemas),
-        "schema_names": sorted(schemas.keys()),
-        "schemas_with_discriminator": [],
-        "schemas_with_readonly": [],
-        "schemas_with_required": [],
-    }
+    schemas_with_discriminator: List[Dict[str, Any]] = []
+    schemas_with_readonly: List[Dict[str, Any]] = []
+    schemas_with_required: List[Dict[str, Any]] = []
 
     for schema_name, schema_def in schemas.items():
         # Check for discriminator
         if "discriminator" in schema_def:
-            analysis["schemas_with_discriminator"].append({
+            schemas_with_discriminator.append({
                 "name": schema_name,
                 "discriminator": schema_def["discriminator"],
             })
@@ -121,19 +118,25 @@ def analyze_schemas(spec: Dict[str, Any]) -> Dict[str, Any]:
             if prop_def.get("readOnly", False)
         ]
         if readonly_fields:
-            analysis["schemas_with_readonly"].append({
+            schemas_with_readonly.append({
                 "name": schema_name,
                 "readonly_fields": readonly_fields,
             })
 
         # Check for required fields
         if schema_def.get("required"):
-            analysis["schemas_with_required"].append({
+            schemas_with_required.append({
                 "name": schema_name,
                 "required_fields": schema_def["required"],
             })
 
-    return analysis
+    return {
+        "total_schemas": len(schemas),
+        "schema_names": sorted(schemas.keys()),
+        "schemas_with_discriminator": schemas_with_discriminator,
+        "schemas_with_readonly": schemas_with_readonly,
+        "schemas_with_required": schemas_with_required,
+    }
 
 
 def compare_with_current(spec: Dict[str, Any]) -> Dict[str, Any]:

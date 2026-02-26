@@ -24,7 +24,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
@@ -38,7 +38,7 @@ class ValidationError(Exception):
 
 
 class Validator:
-    def __init__(self, backup_dir: Path = None):
+    def __init__(self, backup_dir: Optional[Path] = None):
         self.backup_dir = backup_dir
         self.errors: List[str] = []
         self.warnings: List[str] = []
