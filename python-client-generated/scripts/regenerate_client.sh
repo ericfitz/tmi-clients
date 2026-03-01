@@ -8,19 +8,19 @@ set -e  # Exit on error
 #
 # AUTOMATIC DEFAULTS APPLIED:
 # - Package name: tmi_client (not swagger_client)
-# - Python version: 3.8+ only (Python 2.x and 3.7 dropped)
-# - Modern dependencies with latest Python 3.8+ compatible versions:
+# - Python version: 3.9+ only (Python 2.x and 3.7 dropped)
+# - Modern dependencies with latest Python 3.9+ compatible versions:
 #   * certifi >= 2025.11.12 (was 14.05.14)
 #   * six >= 1.17.0 (was 1.10)
 #   * python-dateutil >= 2.9.0.post0 (was 2.5.3)
-#   * setuptools >= 75.3.2 (was 21.0.0 - CVE fix, Python 3.8+ compatible)
-#   * urllib3 >= 2.2.3 (was 1.15.1 - CVE fixes, Python 3.8+ compatible)
-#   * pytest >= 8.3.5 (was using nose, Python 3.8+ compatible)
-#   * pytest-cov >= 5.0.0 (Python 3.8+ compatible)
-#   * pytest-randomly >= 3.15.0 (Python 3.8+ compatible)
+#   * setuptools >= 78.1.1 (was 21.0.0 - CVE fix, Python 3.9+ compatible)
+#   * urllib3 >= 2.6.3 (was 1.15.1 - CVE fixes, Python 3.9+ compatible)
+#   * pytest >= 8.3.5 (was using nose, Python 3.9+ compatible)
+#   * pytest-cov >= 5.0.0 (Python 3.9+ compatible)
+#   * pytest-randomly >= 3.15.0 (Python 3.9+ compatible)
 # - Testing: pytest (not nose), tox for multi-version testing
 # - Modern packaging: pyproject.toml + setup.py
-# - Tox configuration: Tests against Python 3.8-3.14
+# - Tox configuration: Tests against Python 3.9-3.14
 # - Constructor patches: DfdDiagram and DfdDiagramInput type preservation
 #
 # USAGE:
@@ -44,7 +44,7 @@ echo "Working directory: $PYTHON_CLIENT_DIR"
 echo ""
 echo "Automatic defaults:"
 echo "  - Package: tmi_client"
-echo "  - Python: 3.8+"
+echo "  - Python: 3.9+"
 echo "  - Dependencies: Modern with CVE fixes"
 echo "  - Testing: pytest"
 echo ""
@@ -241,14 +241,14 @@ echo ""
 echo "Step 5: Applying modern Python 3.x configuration..."
 
 # Always create fresh pyproject.toml with current best practices
-echo "  Creating pyproject.toml with Python 3.8+ requirements..."
+echo "  Creating pyproject.toml with Python 3.9+ requirements..."
 cat > "$CLIENT_DIR/pyproject.toml" << 'EOF'
 [project]
 name = "tmi-client"
 version = "1.0.0"
 description = "TMI API Python Client"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "Apache-2.0"}
 keywords = ["TMI", "Threat Modeling", "API", "OpenAPI"]
 authors = [
@@ -259,7 +259,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -272,8 +271,8 @@ dependencies = [
     "certifi >= 2025.11.12",
     "six >= 1.17.0",
     "python-dateutil >= 2.9.0.post0",
-    "setuptools >= 75.3.2",
-    "urllib3 >= 2.2.3",
+    "setuptools >= 78.1.1",
+    "urllib3 >= 2.6.3",
 ]
 
 [project.optional-dependencies]
@@ -313,25 +312,25 @@ exclude_lines = [
 ]
 EOF
 
-# Update setup.py with modern dependencies (Python 3.8+ only)
-echo "  Updating setup.py for Python 3.8+ with modern dependencies..."
+# Update setup.py with modern dependencies (Python 3.9+ only)
+echo "  Updating setup.py for Python 3.9+ with modern dependencies..."
 if [ -f "$CLIENT_DIR/setup.py" ]; then
-    # Update Python version requirement - Python 3.8+ only
-    sed -i.bak 's/python_requires="[^"]*"/python_requires=">=3.8"/' "$CLIENT_DIR/setup.py"
+    # Update Python version requirement - Python 3.9+ only
+    sed -i.bak 's/python_requires="[^"]*"/python_requires=">=3.9"/' "$CLIENT_DIR/setup.py"
 
-    # Update dependencies to latest Python 3.8+ compatible versions
+    # Update dependencies to latest Python 3.9+ compatible versions
     sed -i.bak 's/"certifi[^"]*"/"certifi>=2025.11.12"/' "$CLIENT_DIR/setup.py"
     sed -i.bak 's/"six[^"]*"/"six>=1.17.0"/' "$CLIENT_DIR/setup.py"
     sed -i.bak 's/"python-dateutil[^"]*"/"python-dateutil>=2.9.0.post0"/' "$CLIENT_DIR/setup.py"
-    sed -i.bak 's/"urllib3[^"]*"/"urllib3>=2.2.3"/' "$CLIENT_DIR/setup.py"
+    sed -i.bak 's/"urllib3[^"]*"/"urllib3>=2.6.3"/' "$CLIENT_DIR/setup.py"
 
     # Add setuptools if not present, or update if present
     if grep -q '"setuptools' "$CLIENT_DIR/setup.py"; then
-        sed -i.bak 's/"setuptools[^"]*"/"setuptools>=75.3.2"/' "$CLIENT_DIR/setup.py"
+        sed -i.bak 's/"setuptools[^"]*"/"setuptools>=78.1.1"/' "$CLIENT_DIR/setup.py"
     fi
 
     rm -f "$CLIENT_DIR/setup.py.bak"
-    echo -e "${GREEN}  ✓ setup.py updated for Python 3.8+${NC}"
+    echo -e "${GREEN}  ✓ setup.py updated for Python 3.9+${NC}"
 fi
 
 # Update requirements.txt
@@ -340,8 +339,8 @@ cat > "$CLIENT_DIR/requirements.txt" << 'EOF'
 certifi >= 2025.11.12
 six >= 1.17.0
 python-dateutil >= 2.9.0.post0
-setuptools >= 75.3.2
-urllib3 >= 2.2.3
+setuptools >= 78.1.1
+urllib3 >= 2.6.3
 EOF
 echo -e "${GREEN}  ✓ requirements.txt updated${NC}"
 
@@ -358,7 +357,7 @@ echo -e "${GREEN}  ✓ test-requirements.txt updated${NC}"
 echo "  Updating tox.ini..."
 cat > "$CLIENT_DIR/tox.ini" << 'EOF'
 [tox]
-envlist = py38,py39,py310,py311,py312,py313,py314
+envlist = py39,py310,py311,py312,py313,py314
 
 [testenv]
 deps=-r{toxinidir}/requirements.txt
@@ -443,13 +442,13 @@ cat >> docs/developer/REGENERATION_REPORT.md << 'EOF'
 - ✓ DfdDiagramInput constructor fixed (type parameter preservation)
 
 ### 3. Modern Python Configuration
-- ✓ Python 3.8+ requirement
-- ✓ Updated dependencies (latest Python 3.8+ compatible versions):
+- ✓ Python 3.9+ requirement
+- ✓ Updated dependencies (latest Python 3.9+ compatible versions):
   - certifi >= 2025.11.12
   - six >= 1.17.0
   - python-dateutil >= 2.9.0.post0
-  - setuptools >= 75.3.2
-  - urllib3 >= 2.2.3
+  - setuptools >= 78.1.1
+  - urllib3 >= 2.6.3
   - pytest >= 8.3.5
   - pytest-cov >= 5.0.0
   - pytest-randomly >= 3.15.0

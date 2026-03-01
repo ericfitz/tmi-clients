@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # /// script
-# requires-python = ">=3.8"
+# requires-python = ">=3.9"
 # dependencies = []
 # ///
 
@@ -89,7 +89,7 @@ class Validator:
         return len(self.errors) == 0
 
     def validate_python_version(self) -> bool:
-        """Verify Python 3.8+ requirements."""
+        """Verify Python 3.9+ requirements."""
         print("\n" + "=" * 80)
         print("Validating Python Version Requirements")
         print("=" * 80)
@@ -98,10 +98,10 @@ class Validator:
         pyproject_file = CLIENT_DIR / "pyproject.toml"
         if pyproject_file.exists():
             content = pyproject_file.read_text()
-            if 'requires-python = ">=3.8"' in content:
-                self.success("pyproject.toml requires Python 3.8+")
+            if 'requires-python = ">=3.9"' in content:
+                self.success("pyproject.toml requires Python 3.9+")
             else:
-                self.error("pyproject.toml does not require Python 3.8+")
+                self.error("pyproject.toml does not require Python 3.9+")
         else:
             self.warning("pyproject.toml not found")
 
@@ -109,10 +109,10 @@ class Validator:
         setup_file = CLIENT_DIR / "setup.py"
         if setup_file.exists():
             content = setup_file.read_text()
-            if 'python_requires=">=3.8"' in content or "python_requires='>=3.8'" in content:
-                self.success("setup.py requires Python 3.8+")
+            if 'python_requires=">=3.9"' in content or "python_requires='>=3.9'" in content:
+                self.success("setup.py requires Python 3.9+")
             else:
-                self.error("setup.py does not require Python 3.8+")
+                self.error("setup.py does not require Python 3.9+")
         else:
             self.warning("setup.py not found")
 
