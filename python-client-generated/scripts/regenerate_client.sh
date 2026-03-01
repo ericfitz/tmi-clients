@@ -396,7 +396,7 @@ echo "  Installing dependencies..."
 uv pip install -e . --quiet 2>&1 | grep -v "Resolved" || true
 
 echo "  Running auto-generated tests..."
-if uv run --with pytest python3 -m pytest test/ -v --tb=short 2>&1 | tee ../test_output.log; then
+if uv run --with pytest python3 -m pytest test/ -v --tb=short 2>&1 | tee test_output.log; then
     echo -e "${GREEN}  ✓ Auto-generated tests passed${NC}"
 else
     echo -e "${YELLOW}  ⚠ Some auto-generated tests failed - see test_output.log${NC}"
@@ -408,7 +408,7 @@ echo ""
 # Step 9: Run integration test
 echo "Step 8: Running integration test..."
 if [ -f "test_diagram_fixes.py" ]; then
-    if uv run test_diagram_fixes.py 2>&1 | tee ../integration_test_output.log; then
+    if uv run test_diagram_fixes.py 2>&1 | tee integration_test_output.log; then
         echo -e "${GREEN}  ✓ Integration test passed${NC}"
     else
         echo -e "${YELLOW}  ⚠ Integration test failed - may need updates for cell schema changes${NC}"
@@ -418,11 +418,11 @@ else
     echo -e "${YELLOW}  ⚠ Integration test file not found${NC}"
 fi
 
-cd ..
 echo ""
 
 # Step 10: Generate summary report
 echo "Step 9: Generating summary report..."
+mkdir -p docs/developer
 cat > docs/developer/REGENERATION_REPORT.md << 'EOF'
 # Python Client Regeneration Report
 

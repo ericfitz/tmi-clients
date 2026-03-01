@@ -95,6 +95,11 @@ cp -f "$CLIENT_DIR/.swagger-codegen-ignore" .regeneration_backup/ 2>/dev/null ||
 cp -rf "$CLIENT_DIR/docs/developer" .regeneration_backup/ 2>/dev/null || true
 # Backup any custom test files
 find "$CLIENT_DIR" -name "*_test.go" -exec cp {} .regeneration_backup/ \; 2>/dev/null || true
+# Backup custom model files that swagger-codegen doesn't generate
+# These provide type definitions (Object, CellData, ModelMap) required for compilation
+for f in model_object.go model_cell_data.go model_model_map.go; do
+    cp -f "$CLIENT_DIR/$f" .regeneration_backup/ 2>/dev/null || true
+done
 echo -e "${GREEN}✓ Custom files backed up${NC}"
 echo ""
 
@@ -173,7 +178,61 @@ if ls .regeneration_backup/*_test.go 1> /dev/null 2>&1; then
     echo "  ✓ Restored custom test files"
 fi
 
+# Restore custom model files (Object, CellData, ModelMap type definitions)
+for f in model_object.go model_cell_data.go model_model_map.go; do
+    if [ -f ".regeneration_backup/$f" ]; then
+        cp ".regeneration_backup/$f" "$CLIENT_DIR/"
+        echo "  ✓ Restored custom model: $f"
+    fi
+done
+
 echo -e "${GREEN}✓ Custom files restored${NC}"
+echo ""
+
+# Step 5b: Apply codegen patches
+echo "Step 5b: Applying codegen patches..."
+
+# Patch: RevokeToken uses form params, not body (swagger-codegen bug)
+# The codegen incorrectly generates `localVarPostBody = &body` for the
+# /oauth2/revoke endpoint, but `body` is not a parameter. The endpoint
+# uses form-encoded params (token, token_type_hint, client_id, client_secret).
+if [ -f "$CLIENT_DIR/api_authentication.go" ]; then
+    if grep -q 'func (a \*AuthenticationApiService) RevokeToken' "$CLIENT_DIR/api_authentication.go"; then
+        # Find the RevokeToken function's "body params" block and replace with form params
+        python3 -c "
+import re, sys
+with open('$CLIENT_DIR/api_authentication.go', 'r') as f:
+    content = f.read()
+
+# Match the body params block that follows the text/plain Accept header in RevokeToken
+# We identify it by the unique combination of text/plain Accept + body params
+old = '''	// body params
+	localVarPostBody = &body'''
+
+new = '''	// form params
+	localVarFormParams.Add(\"token\", parameterToString(token, \"\"))
+	localVarFormParams.Add(\"token_type_hint\", parameterToString(tokenTypeHint, \"\"))
+	if clientId != \"\" {
+		localVarFormParams.Add(\"client_id\", parameterToString(clientId, \"\"))
+	}
+	if clientSecret != \"\" {
+		localVarFormParams.Add(\"client_secret\", parameterToString(clientSecret, \"\"))
+	}'''
+
+# Only replace the last occurrence (RevokeToken is last function with this pattern)
+idx = content.rfind(old)
+if idx >= 0:
+    content = content[:idx] + new + content[idx+len(old):]
+    with open('$CLIENT_DIR/api_authentication.go', 'w') as f:
+        f.write(content)
+    print('  patched')
+else:
+    print('  not needed')
+"
+        echo -e "${GREEN}  ✓ RevokeToken form params patch applied${NC}"
+    fi
+fi
+echo -e "${GREEN}✓ Patches applied${NC}"
 echo ""
 
 # Step 6: Tidy dependencies
