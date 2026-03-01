@@ -27,7 +27,7 @@ export default class NoteBase {
    * @alias module:model/NoteBase
    * @class
    * @param name {String} Note name
-   * @param content {String} Note content in markdown format
+   * @param content {String} Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
    */
   constructor(name, content) {
     this.name = name;
@@ -64,7 +64,7 @@ export default class NoteBase {
 NoteBase.prototype.name = undefined;
 
 /**
- * Note content in markdown format
+ * Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
  * @member {String} content
  */
 NoteBase.prototype.content = undefined;

@@ -29,7 +29,7 @@ export default class NoteInput extends NoteBase {
    * @class
    * @extends module:model/NoteBase
    * @param name {} Note name
-   * @param content {} Note content in markdown format
+   * @param content {} Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
    */
   constructor(name, content) {
     super(name, content);

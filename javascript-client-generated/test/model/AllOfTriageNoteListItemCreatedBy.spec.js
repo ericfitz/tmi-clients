@@ -32,11 +32,14 @@
   describe('(package)', function() {
     describe('AllOfTriageNoteListItemCreatedBy', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.AllOfTriageNoteListItemCreatedBy();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.AllOfTriageNoteListItemCreatedBy.constructFromObject({
+          email: 'test@example.com',
+          display_name: 'Test User'
+        });
       });
 
       it('should create an instance of AllOfTriageNoteListItemCreatedBy', function() {
-        // TODO: update the code to test AllOfTriageNoteListItemCreatedBy
         expect(instance).to.be.a(TmiJsClient.AllOfTriageNoteListItemCreatedBy);
       });
 

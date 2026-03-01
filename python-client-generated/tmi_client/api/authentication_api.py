@@ -2145,6 +2145,131 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
+    def revoke_token(self, token, token_type_hint, client_id, client_secret, **kwargs):  # noqa: E501
+        """Revoke token  # noqa: E501
+
+        Revokes an OAuth 2.0 token per RFC 7009. The token to revoke is passed in the request body. Supports both access tokens and refresh tokens. Authentication is required via Bearer token in the Authorization header OR client credentials (client_id/client_secret) in the request body. Per RFC 7009, the response is always 200 OK regardless of whether the token was valid, to prevent token existence disclosure.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.revoke_token(token, token_type_hint, client_id, client_secret, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str token: (required)
+        :param str token_type_hint: (required)
+        :param str client_id: (required)
+        :param str client_secret: (required)
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('async_req'):
+            return self.revoke_token_with_http_info(token, token_type_hint, client_id, client_secret, **kwargs)  # noqa: E501
+        else:
+            (data) = self.revoke_token_with_http_info(token, token_type_hint, client_id, client_secret, **kwargs)  # noqa: E501
+            return data
+
+    def revoke_token_with_http_info(self, token, token_type_hint, client_id, client_secret, **kwargs):  # noqa: E501
+        """Revoke token  # noqa: E501
+
+        Revokes an OAuth 2.0 token per RFC 7009. The token to revoke is passed in the request body. Supports both access tokens and refresh tokens. Authentication is required via Bearer token in the Authorization header OR client credentials (client_id/client_secret) in the request body. Per RFC 7009, the response is always 200 OK regardless of whether the token was valid, to prevent token existence disclosure.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.revoke_token_with_http_info(token, token_type_hint, client_id, client_secret, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str token: (required)
+        :param str token_type_hint: (required)
+        :param str client_id: (required)
+        :param str client_secret: (required)
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['token', 'token_type_hint', 'client_id', 'client_secret']  # noqa: E501
+        all_params.append('async_req')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in six.iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method revoke_token" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'token' is set
+        if ('token' not in params or
+                params['token'] is None):
+            raise ValueError("Missing the required parameter `token` when calling `revoke_token`")  # noqa: E501
+        # verify the required parameter 'token_type_hint' is set
+        if ('token_type_hint' not in params or
+                params['token_type_hint'] is None):
+            raise ValueError("Missing the required parameter `token_type_hint` when calling `revoke_token`")  # noqa: E501
+        # verify the required parameter 'client_id' is set
+        if ('client_id' not in params or
+                params['client_id'] is None):
+            raise ValueError("Missing the required parameter `client_id` when calling `revoke_token`")  # noqa: E501
+        # verify the required parameter 'client_secret' is set
+        if ('client_secret' not in params or
+                params['client_secret'] is None):
+            raise ValueError("Missing the required parameter `client_secret` when calling `revoke_token`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'token' in params:
+            form_params.append(('token', params['token']))  # noqa: E501
+        if 'token_type_hint' in params:
+            form_params.append(('token_type_hint', params['token_type_hint']))  # noqa: E501
+        if 'client_id' in params:
+            form_params.append(('client_id', params['client_id']))  # noqa: E501
+        if 'client_secret' in params:
+            form_params.append(('client_secret', params['client_secret']))  # noqa: E501
+
+        body_params = None
+        if 'body' in params:
+            body_params = params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json', 'text/plain'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/x-www-form-urlencoded', 'application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/oauth2/revoke', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get('async_req'),
+            _return_http_data_only=params.get('_return_http_data_only'),
+            _preload_content=params.get('_preload_content', True),
+            _request_timeout=params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
     def revoke_token(self, body, **kwargs):  # noqa: E501
         """Revoke token  # noqa: E501
 

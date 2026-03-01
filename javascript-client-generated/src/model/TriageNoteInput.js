@@ -29,7 +29,7 @@ export default class TriageNoteInput extends TriageNoteBase {
    * @class
    * @extends module:model/TriageNoteBase
    * @param name {} Triage note name
-   * @param content {} Triage note content in markdown format
+   * @param content {} Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
    */
   constructor(name, content) {
     super(name, content);

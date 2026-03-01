@@ -31,7 +31,7 @@ export default class Note extends NoteBase {
    * @extends module:model/NoteBase
    * @param id {} Unique identifier for the note
    * @param name {} Note name
-   * @param content {} Note content in markdown format
+   * @param content {} Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
    */
   constructor(id, name, content) {
     super(name, content);

@@ -32,11 +32,17 @@
   describe('(package)', function() {
     describe('UserWithAdminStatus', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.UserWithAdminStatus();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.UserWithAdminStatus.constructFromObject({
+          email: 'test@example.com',
+          display_name: 'Test User',
+          is_admin: true,
+          is_security_reviewer: false,
+          groups: []
+        });
       });
 
       it('should create an instance of UserWithAdminStatus', function() {
-        // TODO: update the code to test UserWithAdminStatus
         expect(instance).to.be.a(TmiJsClient.UserWithAdminStatus);
       });
 

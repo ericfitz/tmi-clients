@@ -32,11 +32,14 @@
   describe('(package)', function() {
     describe('AllOfThreatModelBaseSecurityReviewer', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.AllOfThreatModelBaseSecurityReviewer();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.AllOfThreatModelBaseSecurityReviewer.constructFromObject({
+          email: 'test@example.com',
+          display_name: 'Test User'
+        });
       });
 
       it('should create an instance of AllOfThreatModelBaseSecurityReviewer', function() {
-        // TODO: update the code to test AllOfThreatModelBaseSecurityReviewer
         expect(instance).to.be.a(TmiJsClient.AllOfThreatModelBaseSecurityReviewer);
       });
 

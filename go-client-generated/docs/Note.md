@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CreatedAt** | [**time.Time**](time.Time.md) | Creation timestamp (RFC3339) | [optional] [default to null]
 **ModifiedAt** | [**time.Time**](time.Time.md) | Last modification timestamp (RFC3339) | [optional] [default to null]
 **Name** | **string** | Note name | [default to null]
-**Content** | **string** | Note content in markdown format | [default to null]
+**Content** | **string** | Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped. | [default to null]
 **Description** | **string** | Description of note purpose or context | [optional] [default to null]
 **IncludeInReport** | **bool** | Whether this item should be included in generated reports | [optional] [default to true]
 

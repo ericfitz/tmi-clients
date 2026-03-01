@@ -32,11 +32,11 @@
   describe('(package)', function() {
     describe('RelationshipType', function() {
       beforeEach(function() {
-        instance = TmiJsClient.RelationshipType;
+        // RelationshipType is exported as {RelationshipType}, so access the nested enum
+        instance = TmiJsClient.RelationshipType.RelationshipType;
       });
 
       it('should create an instance of RelationshipType', function() {
-        // TODO: update the code to test RelationshipType
         expect(instance).to.be.a('object');
       });
 

@@ -79,4 +79,4 @@ const RelationshipType = {
   }
 };
 
-export default RelationshipType;
+export default {RelationshipType};

@@ -30,7 +30,7 @@ export default class TriageNote extends TriageNoteBase {
    * @extends module:model/TriageNoteBase
    * @param id {} Sequential identifier for the triage note within its survey response
    * @param name {} Triage note name
-   * @param content {} Triage note content in markdown format
+   * @param content {} Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
    */
   constructor(id, name, content) {
     super(name, content);

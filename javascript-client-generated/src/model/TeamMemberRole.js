@@ -67,4 +67,4 @@ const TeamMemberRole = {
   }
 };
 
-export default TeamMemberRole;
+export default {TeamMemberRole};

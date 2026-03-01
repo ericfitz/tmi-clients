@@ -217,4 +217,4 @@ const WebhookEventType = {
   }
 };
 
-export default WebhookEventType;
+export default {WebhookEventType};

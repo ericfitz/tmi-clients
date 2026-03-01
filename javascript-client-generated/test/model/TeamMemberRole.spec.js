@@ -32,11 +32,11 @@
   describe('(package)', function() {
     describe('TeamMemberRole', function() {
       beforeEach(function() {
-        instance = TmiJsClient.TeamMemberRole;
+        // TeamMemberRole is exported as {TeamMemberRole}, so access the nested enum
+        instance = TmiJsClient.TeamMemberRole.TeamMemberRole;
       });
 
       it('should create an instance of TeamMemberRole', function() {
-        // TODO: update the code to test TeamMemberRole
         expect(instance).to.be.a('object');
       });
 

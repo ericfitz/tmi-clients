@@ -27,7 +27,7 @@ export default class TriageNoteBase {
    * @alias module:model/TriageNoteBase
    * @class
    * @param name {String} Triage note name
-   * @param content {String} Triage note content in markdown format
+   * @param content {String} Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
    */
   constructor(name, content) {
     this.name = name;
@@ -60,7 +60,7 @@ export default class TriageNoteBase {
 TriageNoteBase.prototype.name = undefined;
 
 /**
- * Triage note content in markdown format
+ * Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
  * @member {String} content
  */
 TriageNoteBase.prototype.content = undefined;

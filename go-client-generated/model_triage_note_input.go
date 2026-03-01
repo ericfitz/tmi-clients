@@ -13,6 +13,6 @@ package tmiclient
 type TriageNoteInput struct {
 	// Triage note name
 	Name string `json:"name"`
-	// Triage note content in markdown format
+	// Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
 	Content string `json:"content"`
 }

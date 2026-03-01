@@ -32,7 +32,7 @@ export default class AllOfSurveyListItemCreatedBy extends User {
    * @param displayName {} User full name for display
    */
   constructor(email, displayName) {
-    super(undefined, email, displayName, undefined, undefined);
+    super(principalType, email, displayName, provider, providerId);
   }
 
   /**
@@ -44,7 +44,8 @@ export default class AllOfSurveyListItemCreatedBy extends User {
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new AllOfSurveyListItemCreatedBy();
+      // Create object without calling constructor to avoid required parameter issues
+      obj = obj || Object.create(AllOfSurveyListItemCreatedBy.prototype);
       User.constructFromObject(data, obj);
     }
     return obj;

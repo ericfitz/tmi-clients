@@ -32,11 +32,14 @@
   describe('(package)', function() {
     describe('AllOfCollaborationSessionHost', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.AllOfCollaborationSessionHost();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.AllOfCollaborationSessionHost.constructFromObject({
+          email: 'test@example.com',
+          display_name: 'Test User'
+        });
       });
 
       it('should create an instance of AllOfCollaborationSessionHost', function() {
-        // TODO: update the code to test AllOfCollaborationSessionHost
         expect(instance).to.be.a(TmiJsClient.AllOfCollaborationSessionHost);
       });
 

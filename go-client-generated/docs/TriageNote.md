@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ModifiedAt** | [**time.Time**](time.Time.md) | Last modification timestamp (RFC3339) | [optional] [default to null]
 **ModifiedBy** | [***interface{}**](interface{}.md) | User who last modified this triage note | [optional] [default to null]
 **Name** | **string** | Triage note name | [default to null]
-**Content** | **string** | Triage note content in markdown format | [default to null]
+**Content** | **string** | Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped. | [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

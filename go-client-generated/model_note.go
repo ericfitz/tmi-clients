@@ -24,7 +24,7 @@ type Note struct {
 	ModifiedAt time.Time `json:"modified_at,omitempty"`
 	// Note name
 	Name string `json:"name"`
-	// Note content in markdown format
+	// Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
 	Content string `json:"content"`
 	// Description of note purpose or context
 	Description string `json:"description,omitempty"`

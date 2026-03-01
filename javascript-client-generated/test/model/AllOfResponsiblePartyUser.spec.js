@@ -32,11 +32,14 @@
   describe('(package)', function() {
     describe('AllOfResponsiblePartyUser', function() {
       beforeEach(function() {
-        instance = new TmiJsClient.AllOfResponsiblePartyUser();
+        // Use constructFromObject as the constructor requires parameters from parent class
+        instance = TmiJsClient.AllOfResponsiblePartyUser.constructFromObject({
+          email: 'test@example.com',
+          display_name: 'Test User'
+        });
       });
 
       it('should create an instance of AllOfResponsiblePartyUser', function() {
-        // TODO: update the code to test AllOfResponsiblePartyUser
         expect(instance).to.be.a(TmiJsClient.AllOfResponsiblePartyUser);
       });
 

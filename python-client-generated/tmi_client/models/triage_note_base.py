@@ -74,7 +74,7 @@ class TriageNoteBase(object):
     def content(self):
         """Gets the content of this TriageNoteBase.  # noqa: E501
 
-        Triage note content in markdown format  # noqa: E501
+        Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.  # noqa: E501
 
         :return: The content of this TriageNoteBase.  # noqa: E501
         :rtype: str
@@ -85,7 +85,7 @@ class TriageNoteBase(object):
     def content(self, content):
         """Sets the content of this TriageNoteBase.
 
-        Triage note content in markdown format  # noqa: E501
+        Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.  # noqa: E501
 
         :param content: The content of this TriageNoteBase.  # noqa: E501
         :type: str

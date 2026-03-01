@@ -32,7 +32,7 @@ export default class AllOfTMListItemCreatedBy extends User {
    * @param displayName {} User full name for display
    */
   constructor(email, displayName) {
-    super(undefined, email, displayName, undefined, undefined);
+    super(principalType, email, displayName, provider, providerId);
   }
 
   /**
@@ -44,7 +44,8 @@ export default class AllOfTMListItemCreatedBy extends User {
    */
   static constructFromObject(data, obj) {
     if (data) {
-      obj = obj || new AllOfTMListItemCreatedBy();
+      // Create object without calling constructor to avoid required parameter issues
+      obj = obj || Object.create(AllOfTMListItemCreatedBy.prototype);
       User.constructFromObject(data, obj);
     }
     return obj;

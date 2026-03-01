@@ -95498,7 +95498,7 @@ components:
         image:
           $ref: "#/components/schemas/BaseDiagram_image"
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Optional description of the diagram
@@ -95549,7 +95549,7 @@ components:
         image:
           $ref: "#/components/schemas/BaseDiagram_image"
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Optional description of the diagram
@@ -96257,7 +96257,7 @@ components:
           enum:
           - DFD-1.0.0
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Optional description of the diagram
@@ -96327,7 +96327,7 @@ components:
           type: string
           description: Name of the threat model
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the threat model
@@ -96680,7 +96680,7 @@ components:
           x-oapi-codegen-extra-tags:
             binding: required
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the threat model
@@ -96786,7 +96786,7 @@ components:
           type: string
           description: Name of the threat model
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the threat model and its purpose
@@ -96849,7 +96849,7 @@ components:
           type: string
           description: Name of the threat
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the threat and risk to the organization
@@ -96935,7 +96935,7 @@ components:
           nullable: true
         cwe_id:
           maxItems: 50
-          minItems: 1
+          minItems: 0
           uniqueItems: true
           type: array
           description: CWE (Common Weakness Enumeration) identifiers associated with
@@ -96947,7 +96947,7 @@ components:
             type: string
         cvss:
           maxItems: 10
-          minItems: 1
+          minItems: 0
           type: array
           description: CVSS scoring information for this threat
           items:
@@ -97238,7 +97238,7 @@ components:
           x-oapi-codegen-extra-tags:
             binding: required
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the asset
@@ -97312,7 +97312,7 @@ components:
           x-oapi-codegen-extra-tags:
             binding: required
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of document purpose or content
@@ -97369,15 +97369,17 @@ components:
           x-oapi-codegen-extra-tags:
             binding: required
         content:
-          maxLength: 65536
+          maxLength: 262144
           minLength: 1
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
-          description: Note content in markdown format
+          description: "Note content in markdown format. Safe inline HTML (tables,\
+            \ SVG, formatting) is allowed and sanitized server-side; dangerous elements\
+            \ (script, iframe, event handlers) are stripped."
           x-oapi-codegen-extra-tags:
             binding: required
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of note purpose or context
@@ -97417,7 +97419,7 @@ components:
           x-oapi-codegen-extra-tags:
             binding: required
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of note purpose or context
@@ -97474,7 +97476,7 @@ components:
           type: string
           description: Name for the source code reference
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the referenced source code
@@ -97841,7 +97843,7 @@ components:
           description: UUID of the associated webhook subscription
           format: uuid
         description:
-          maxLength: 1024
+          maxLength: 2048
           minLength: 0
           type: string
           description: Description of what the add-on does
@@ -98629,7 +98631,7 @@ components:
           type: string
           description: Human-readable group name
         description:
-          maxLength: 1000
+          maxLength: 2048
           type: string
           description: Group description
         first_used:
@@ -98733,7 +98735,7 @@ components:
           type: string
           description: Human-readable group name
         description:
-          maxLength: 1000
+          maxLength: 2048
           type: string
           description: Optional group description
       additionalProperties: false
@@ -98751,7 +98753,7 @@ components:
           type: string
           description: Updated human-readable group name
         description:
-          maxLength: 1000
+          maxLength: 2048
           type: string
           description: Updated group description
       additionalProperties: false
@@ -98971,7 +98973,7 @@ components:
           description: Internal UUID of the user to add to the group
           format: uuid
         notes:
-          maxLength: 1000
+          maxLength: 2048
           type: string
           description: Optional notes about this membership
         subject_type:
@@ -99715,7 +99717,7 @@ components:
           - bool
           - json
         description:
-          maxLength: 1024
+          maxLength: 2048
           type: string
           description: Human-readable description of the setting
         modified_at:
@@ -99754,7 +99756,7 @@ components:
           - bool
           - json
         description:
-          maxLength: 1024
+          maxLength: 2048
           type: string
           description: Human-readable description of the setting
       additionalProperties: false
@@ -100815,7 +100817,7 @@ components:
           x-oapi-codegen-extra-tags:
             binding: required
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Description of the survey and its purpose
@@ -100890,7 +100892,7 @@ components:
           type: string
           description: Name of the survey
         description:
-          maxLength: 1024
+          maxLength: 2048
           type: string
           description: Description of the survey
         version:
@@ -101100,7 +101102,9 @@ components:
           minLength: 1
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
-          description: Triage note content in markdown format
+          description: "Triage note content in markdown format. Safe inline HTML (tables,\
+            \ SVG, formatting) is allowed and sanitized server-side; dangerous elements\
+            \ (script, iframe, event handlers) are stripped."
           x-oapi-codegen-extra-tags:
             binding: required
       description: Base fields for TriageNote (user-writable only)
@@ -101413,7 +101417,7 @@ components:
           description: Team name
           example: Platform Engineering
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Team description
@@ -101538,7 +101542,7 @@ components:
           maxLength: 256
           type: string
         description:
-          maxLength: 1024
+          maxLength: 2048
           type: string
           nullable: true
         status:
@@ -101624,7 +101628,7 @@ components:
           description: Project name
           example: API Gateway Modernization
         description:
-          maxLength: 1024
+          maxLength: 2048
           pattern: "^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"
           type: string
           description: Project description
@@ -101749,7 +101753,7 @@ components:
           maxLength: 256
           type: string
         description:
-          maxLength: 1024
+          maxLength: 2048
           type: string
           nullable: true
         status:
