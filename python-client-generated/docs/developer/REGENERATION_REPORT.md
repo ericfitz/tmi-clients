@@ -1,12 +1,12 @@
 # Python Client Regeneration Report
 
 ## Date
-Wed Nov 12 14:34:19 EST 2025
+Sat Feb 28 23:13:24 EST 2026
 
 ## Changes Applied
 
 ### 1. Client Regenerated
-- Source: `/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json`
+- Source: `https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json`
 - Generator: swagger-codegen 3.0.75
 - Package: tmi_client v1.0.0
 
@@ -16,12 +16,15 @@ Wed Nov 12 14:34:19 EST 2025
 
 ### 3. Modern Python Configuration
 - ✓ Python 3.8+ requirement
-- ✓ Updated dependencies:
-  - certifi >= 2024.2.2 (security fixes)
-  - six >= 1.16.0
-  - python-dateutil >= 2.9.0
-  - setuptools >= 70.0.0 (RCE vulnerability fix)
-  - urllib3 >= 2.0.0 (CVE fixes)
+- ✓ Updated dependencies (latest Python 3.8+ compatible versions):
+  - certifi >= 2025.11.12
+  - six >= 1.17.0
+  - python-dateutil >= 2.9.0.post0
+  - setuptools >= 75.3.2
+  - urllib3 >= 2.2.3
+  - pytest >= 8.3.5
+  - pytest-cov >= 5.0.0
+  - pytest-randomly >= 3.15.0
 - ✓ pyproject.toml with UV support
 - ✓ pytest-based testing infrastructure
 
@@ -38,13 +41,13 @@ Wed Nov 12 14:34:19 EST 2025
 ## Files Modified
 
 ### Generated API Classes
-- Total API classes: 15
+- Total API classes: 25
 
 ### Generated Model Classes
-- Total model classes: 107
+- Total model classes: 231
 
 ### Test Files
-- Total test files: 121
+- Total test files: 255
 
 ## Next Steps
 
