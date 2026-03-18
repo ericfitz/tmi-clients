@@ -366,6 +366,19 @@ def main(spec_path: str | None = None) -> int:
         print_warning(f"Some tests failed (exit code: {test_result.returncode}) — see test_output.log")
         had_issues = True
 
+    # Build dist/ (needed by integration test which imports from dist/)
+    build_result = run_command(
+        ["npm", "run", "build"],
+        cwd=CLIENT_DIR,
+        capture=True,
+        error_context="npm run build failed.\n  Check .babelrc and src/ for issues.",
+    )
+    if build_result.returncode == 0:
+        print_success("Built dist/ from src/")
+    else:
+        print_warning("npm run build failed — integration test may fail")
+        had_issues = True
+
     # Integration test
     integration_test = CLIENT_DIR / "test_diagram_fixes.js"
     if integration_test.is_file():
