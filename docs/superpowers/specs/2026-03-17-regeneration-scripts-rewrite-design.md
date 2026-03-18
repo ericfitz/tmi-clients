@@ -13,6 +13,12 @@ The current bash scripts contain significant duplicated logic, inline Python pat
 - Structured error handling with actionable messages
 - Easier maintenance and extension
 
+### Behavior changes from bash originals
+
+- **No auto-installation of tools.** The bash Python script auto-installed `swagger-codegen` via Homebrew if missing. The new scripts fail with an actionable install hint instead. Auto-installing tools is risky and surprising.
+- **Standardized exit codes.** The bash scripts had inconsistent exit behavior (Python exited 0 always, Go exited with build status, JS exited with test status). The new scripts use a consistent 0/1/2 convention.
+- **Standardized report location.** The Python bash script wrote the report to `docs/developer/REGENERATION_REPORT.md`; all three now write to the client root directory.
+
 ## File Layout
 
 ### New files (repo root)
@@ -42,9 +48,13 @@ tmi-clients/
 
 ## Shared Module: `regen_common.py`
 
+### Constants
+
+- `DEFAULT_SPEC_URL` — `"https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json"`. Each language script uses this as the default; it can be overridden by passing a local spec path.
+
 ### Spec Management
 
-- `download_spec(url: str, dest: Path) -> None` — Download OpenAPI spec from URL. On failure: prints the URL, HTTP status, and suggests checking network connectivity or whether the URL has changed.
+- `download_spec(url: str, dest: Path) -> None` — Download OpenAPI spec from URL using `urllib.request.urlretrieve` (stdlib, no external dependencies). On failure: prints the URL, HTTP status, and suggests checking network connectivity or whether the URL has changed.
 - `copy_local_spec(src: Path, dest: Path) -> None` — Copy a local spec file. On failure: prints the resolved path and whether the file exists.
 
 ### Prerequisites
@@ -58,7 +68,7 @@ tmi-clients/
 
 ### Code Generation
 
-- `run_codegen(spec_path: Path, language: str, output_dir: Path, config_file: Path, template_dir: Path | None = None) -> None` — Invoke `swagger-codegen generate`. On failure: prints the full command, suggests checking the spec file for validity (`swagger-codegen validate`), and whether the config JSON is correct.
+- `run_codegen(spec_path: Path, language: str, output_dir: Path, config_file: Path, template_dir: Path | None = None) -> None` — Invoke `swagger-codegen generate`. The `-t` flag is only passed when `template_dir` is provided (currently only the Python client uses custom templates; Go and JS pass `None`). On failure: prints the full command, suggests checking the spec file for validity (`swagger-codegen validate`), and whether the config JSON is correct.
 
 ### File Patching
 
@@ -66,6 +76,8 @@ tmi-clients/
 - `patch_file_exact(file_path: Path, old_text: str, new_text: str, description: str = "") -> bool` — Exact string replacement. Returns True if found and replaced. On no-match: prints a warning with a snippet of the expected text and suggests the codegen output may have changed.
 
 Both patch functions accept a `description` parameter (e.g., "DfdDiagram constructor type preservation") used in success/warning messages to make output readable without knowing the implementation details.
+
+These utilities handle simple patches (regex substitution, exact string replacement). Complex multi-file patches that require iterating over files, inspecting other files, or rewriting entire file contents live as functions in the language-specific script, not in `regen_common.py`. See the JavaScript section for examples.
 
 ### Backup / Restore
 
@@ -124,6 +136,7 @@ Each language script follows the same flow:
 # requires-python = ">=3.9"
 # dependencies = []
 # ///
+from __future__ import annotations
 
 def main(spec_path: str | None = None) -> int:
     # 1. Print banner
@@ -152,6 +165,12 @@ if __name__ == "__main__":
 ### Python (`regenerate_python.py`)
 
 **Prerequisites:** `swagger-codegen`, `uv`
+
+**Files cleaned before codegen:**
+- `tmi_client/` (entire directory)
+- `test/` (entire directory)
+- `docs/*.md` (auto-generated docs, but `docs/developer/` is preserved)
+- `.gitignore`, `.travis.yml`, `git_push.sh`, `README.md`
 
 **Patches:**
 1. DfdDiagram constructor — insert `kwargs['type'] = type` before `BaseDiagram.__init__`
@@ -182,6 +201,12 @@ if __name__ == "__main__":
 
 **Prerequisites:** `swagger-codegen`, `go` (>= 1.21)
 
+**Files cleaned before codegen:**
+- `model_*.go`, `api_*.go`, `client.go`, `configuration.go`, `response.go`, `utils.go`
+- `api/` directory
+- `docs/` directory
+- `README.md`, `git_push.sh`, `.travis.yml`
+
 **Patches:**
 1. RevokeToken form params — replace `localVarPostBody = &body` with form parameter additions in `api_authentication.go`
 
@@ -189,7 +214,7 @@ if __name__ == "__main__":
 - `go.mod` — patch module path and Go version, or create fresh if missing
 
 **Custom files backed up/restored:**
-- `go.mod`, `go.sum`, `.swagger-codegen-ignore`, `docs/developer/`, `*_test.go`, `model_object.go`, `model_cell_data.go`, `model_model_map.go`
+- `go.mod`, `go.sum` (backed up for rollback; `go mod tidy` regenerates it, but having the pre-regen version aids debugging), `.swagger-codegen-ignore`, `docs/developer/`, `*_test.go`, `model_object.go`, `model_cell_data.go`, `model_model_map.go`
 
 **Build & test:**
 - `go mod tidy`
@@ -203,17 +228,26 @@ if __name__ == "__main__":
 
 **Prerequisites:** `swagger-codegen`, `node` (>= 18)
 
-**Patches:**
-1. AllOf enum inheritance — scan `src/model/AllOf*.js`, detect classes extending `const` enum objects, rewrite as non-extending classes
-2. Enum export unwrapping — fix `export default {EnumName};` to `export default EnumName;` across `src/model/*.js`
-3. Subclass constructor parameter forwarding — parse constructor/super() signatures, add missing params to constructor
+**Files cleaned before codegen:**
+- `src/` directory
+- `test/api/`, `test/model/` directories
+- `docs/` directory
+- `README.md`, `git_push.sh`, `mocha.opts`, `.travis.yml`
+
+**Patches (implemented as functions in `regenerate_js.py`, not via `regen_common` utilities):**
+
+1. **AllOf enum inheritance** — This is a multi-file patch. For each `src/model/AllOf*.js` file: extract the parent class name from the `extends` clause, read the parent file, check if the parent is a `const` enum object (not a class). If so, rewrite the AllOf file as a non-extending class with a passthrough `constructFromObject`. This cannot be expressed as a simple regex — it requires cross-file inspection.
+
+2. **Enum export unwrapping** — Simple regex across `src/model/*.js`: replace `export default {EnumName};` with `export default EnumName;`. Uses `patch_file_regex` from `regen_common`.
+
+3. **Subclass constructor parameter forwarding** — For each `src/model/*.js`: parse the `constructor(...)` and `super(...)` argument lists with regex, find arguments passed to `super()` that are missing from the constructor signature, and add them. This is implemented as a function in `regenerate_js.py` since it requires per-file structural analysis.
 
 **Config files written:**
 - `package.json` (written fresh with modern deps)
 - `.babelrc` (written fresh)
 
 **Custom files backed up/restored:**
-- `package.json`, `.babelrc`, `test_diagram_fixes.js`, `.swagger-codegen-ignore`, `PRE_REGENERATION_AUDIT.md`, `docs/developer/`, `scripts/`
+- `package.json`, `.babelrc`, `test_diagram_fixes.js`, `.swagger-codegen-ignore`, `PRE_REGENERATION_AUDIT.md`, `docs/developer/`, `scripts/swagger-codegen-config.json` (the config file specifically, not the entire scripts directory — the old bash script is being deleted, not restored)
 
 **Build & test:**
 - `npm install`
@@ -232,12 +266,17 @@ All three scripts use the same exit code convention:
 | 1 | Fatal error — script could not complete (missing prereqs, codegen failure, spec download failure) |
 | 2 | Completed with issues — patches that didn't match, test failures, or build failures |
 
+**Rule of thumb:** Any failure before codegen completes (steps 1-6) is exit code 1. Any failure after codegen completes (steps 7-14: patches, config, tests, build) is exit code 2. The script always runs to completion for exit code 2, so the user can inspect all results.
+
 ## CLAUDE.md Updates
 
 After implementation, update `CLAUDE.md` at the repo root to reflect:
 - New script locations and names
 - `uv run ./regenerate_python.py [spec_path]` usage
 - Removal of bash scripts
+- Update Python version references from 3.8 to 3.9 where applicable
+
+All scripts use `from __future__ import annotations` to enable `str | None` syntax on Python 3.9.
 
 ## Non-Goals
 
