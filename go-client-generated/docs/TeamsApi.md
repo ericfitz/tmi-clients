@@ -22,8 +22,6 @@ Method | HTTP request | Description
 > []Metadata BulkCreateTeamMetadata(ctx, body, teamId)
 Bulk create team metadata
 
-Create multiple metadata key-value pairs for the specified team in a single request.
-
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -51,8 +49,6 @@ Name | Type | Description  | Notes
 > []Metadata BulkReplaceTeamMetadata(ctx, body, teamId)
 Bulk replace team metadata
 
-Replace all metadata for the specified team with the provided key-value pairs.
-
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -79,8 +75,6 @@ Name | Type | Description  | Notes
 # **BulkUpsertTeamMetadata**
 > []Metadata BulkUpsertTeamMetadata(ctx, body, teamId)
 Bulk upsert team metadata
-
-Create or update multiple metadata key-value pairs for the specified team in a single request.
 
 ### Required Parameters
 
@@ -137,8 +131,6 @@ Name | Type | Description  | Notes
 > Metadata CreateTeamMetadata(ctx, body, teamId)
 Create team metadata
 
-Create a new metadata key-value pair for the specified team.
-
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -193,8 +185,6 @@ Name | Type | Description  | Notes
 # **DeleteTeamMetadata**
 > DeleteTeamMetadata(ctx, teamId, key)
 Delete team metadata
-
-Delete a metadata key-value pair from the specified team.
 
 ### Required Parameters
 
@@ -251,8 +241,6 @@ Name | Type | Description  | Notes
 > []Metadata GetTeamMetadata(ctx, teamId)
 Get team metadata
 
-Retrieve all metadata key-value pairs associated with the specified team.
-
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -295,7 +283,7 @@ Name | Type | Description  | Notes
  **limit** | **optional.Int32**| Maximum number of results per page | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
  **name** | **optional.String**| Filter by team name (partial match) | 
- **status** | **optional.String**| Filter by team lifecycle status (exact match, comma-separated for multiple). Valid values: active, on_hold, winding_down, archived, forming, merging, splitting | 
+ **status** | **optional.String**| Filter by status (exact match, comma-separated for multiple) | 
  **memberUserId** | [**optional.Interface of string**](.md)| Filter teams that include this user as a member | 
  **relatedTo** | [**optional.Interface of string**](.md)| Include teams related to this team ID | 
  **relationship** | [**optional.Interface of RelationshipType**](.md)| Filter related teams by relationship type. Only used with related_to. | 
@@ -377,8 +365,6 @@ Name | Type | Description  | Notes
 # **UpdateTeamMetadata**
 > Metadata UpdateTeamMetadata(ctx, body, teamId, key)
 Update team metadata
-
-Update the value of an existing metadata key for the specified team.
 
 ### Required Parameters
 

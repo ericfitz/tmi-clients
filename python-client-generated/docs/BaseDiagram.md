@@ -13,9 +13,6 @@ Name | Type | Description | Notes
 **image** | [**BaseDiagramImage**](BaseDiagramImage.md) |  | [optional] 
 **description** | **str** | Optional description of the diagram | [optional] 
 **include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
-**timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
-**deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] 
-**color_palette** | [**list[ColorPaletteEntry]**](ColorPaletteEntry.md) | Custom color palette for diagram elements, ordered by position | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

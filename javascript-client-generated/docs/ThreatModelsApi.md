@@ -9,7 +9,6 @@ Method | HTTP request | Description
 [**getThreatModel**](ThreatModelsApi.md#getThreatModel) | **GET** /threat_models/{threat_model_id} | Retrieve a threat model
 [**listThreatModels**](ThreatModelsApi.md#listThreatModels) | **GET** /threat_models | List threat models
 [**patchThreatModel**](ThreatModelsApi.md#patchThreatModel) | **PATCH** /threat_models/{threat_model_id} | Partially update a threat model
-[**restoreThreatModel**](ThreatModelsApi.md#restoreThreatModel) | **POST** /threat_models/{threat_model_id}/restore | Restore a soft-deleted threat model
 [**updateThreatModel**](ThreatModelsApi.md#updateThreatModel) | **PUT** /threat_models/{threat_model_id} | Update a threat model
 
 <a name="createThreatModel"></a>
@@ -163,17 +162,16 @@ let opts = {
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
   'owner': "owner_example", // String | Filter by owner name or email
-  'name': "name_example", // String | Filter by name (case-insensitive substring match)
+  'name': "name_example", // String | Filter by threat model name (partial match)
   'description': "description_example", // String | Filter by threat model description (partial match)
   'issueUri': "issueUri_example", // String | Filter by issue URI (partial match)
   'createdAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results created after this timestamp (ISO 8601)
   'createdBefore': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results created before this timestamp (ISO 8601)
   'modifiedAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results modified after this timestamp (ISO 8601)
   'modifiedBefore': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results modified before this timestamp (ISO 8601)
-  'status': ["status_example"], // [String] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated
+  'status': "status_example", // String | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
   'statusUpdatedAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter threat models where status was updated after this timestamp (RFC3339)
-  'statusUpdatedBefore': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter threat models where status was updated before this timestamp (RFC3339)
-  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
+  'statusUpdatedBefore': new Date("2013-10-20T19:20:30+01:00") // Date | Filter threat models where status was updated before this timestamp (RFC3339)
 };
 apiInstance.listThreatModels(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -190,17 +188,16 @@ Name | Type | Description  | Notes
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
  **owner** | **String**| Filter by owner name or email | [optional] 
- **name** | **String**| Filter by name (case-insensitive substring match) | [optional] 
+ **name** | **String**| Filter by threat model name (partial match) | [optional] 
  **description** | **String**| Filter by threat model description (partial match) | [optional] 
  **issueUri** | **String**| Filter by issue URI (partial match) | [optional] 
  **createdAfter** | **Date**| Filter results created after this timestamp (ISO 8601) | [optional] 
  **createdBefore** | **Date**| Filter results created before this timestamp (ISO 8601) | [optional] 
  **modifiedAfter** | **Date**| Filter results modified after this timestamp (ISO 8601) | [optional] 
  **modifiedBefore** | **Date**| Filter results modified before this timestamp (ISO 8601) | [optional] 
- **status** | [**[String]**](String.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
+ **status** | **String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
  **statusUpdatedAfter** | **Date**| Filter threat models where status was updated after this timestamp (RFC3339) | [optional] 
  **statusUpdatedBefore** | **Date**| Filter threat models where status was updated before this timestamp (RFC3339) | [optional] 
- **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -260,50 +257,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json
- - **Accept**: application/json
-
-<a name="restoreThreatModel"></a>
-# **restoreThreatModel**
-> ThreatModel restoreThreatModel(threatModelId)
-
-Restore a soft-deleted threat model
-
-Restores a soft-deleted threat model and all its soft-deleted children (diagrams, threats, assets, documents, notes, repositories). Restricted to owner role or administrators.
-
-### Example
-```javascript
-import {TmiJsClient} from 'tmi-js-client';
-let defaultClient = TmiJsClient.ApiClient.instance;
-
-
-let apiInstance = new TmiJsClient.ThreatModelsApi();
-let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
-
-apiInstance.restoreThreatModel(threatModelId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **threatModelId** | [**String**](.md)| Threat model identifier | 
-
-### Return type
-
-[**ThreatModel**](ThreatModel.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="updateThreatModel"></a>

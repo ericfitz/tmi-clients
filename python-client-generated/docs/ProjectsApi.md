@@ -23,8 +23,6 @@ Method | HTTP request | Description
 
 Bulk create project metadata
 
-Create multiple metadata key-value pairs for the specified project in a single request.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -74,8 +72,6 @@ Name | Type | Description  | Notes
 
 Bulk replace project metadata
 
-Replace all metadata for the specified project with the provided key-value pairs.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -124,8 +120,6 @@ Name | Type | Description  | Notes
 > list[Metadata] bulk_upsert_project_metadata(body, project_id)
 
 Bulk upsert project metadata
-
-Create or update multiple metadata key-value pairs for the specified project in a single request.
 
 ### Example
 ```python
@@ -225,8 +219,6 @@ Name | Type | Description  | Notes
 
 Create project metadata
 
-Create a new metadata key-value pair for the specified project.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -324,8 +316,6 @@ void (empty response body)
 
 Delete project metadata
 
-Delete a metadata key-value pair from the specified project.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -422,8 +412,6 @@ Name | Type | Description  | Notes
 > list[Metadata] get_project_metadata(project_id)
 
 Get project metadata
-
-Retrieve all metadata key-value pairs associated with the specified project.
 
 ### Example
 ```python
@@ -636,8 +624,6 @@ Name | Type | Description  | Notes
 > Metadata update_project_metadata(body, project_id, key)
 
 Update project metadata
-
-Update the value of an existing metadata key for the specified project.
 
 ### Example
 ```python

@@ -776,7 +776,6 @@ let apiInstance = new TmiJsClient.AdministrationApi();
 let opts = { 
   'provider': "provider_example", // String | Filter by OAuth/SAML provider
   'email': "email_example", // String | Filter by email (case-insensitive substring match)
-  'name': "name_example", // String | Filter by name (case-insensitive substring match)
   'createdAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter users created after this timestamp (RFC3339)
   'createdBefore': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter users created before this timestamp (RFC3339)
   'lastLoginAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter users who logged in after this timestamp (RFC3339)
@@ -800,7 +799,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider** | **String**| Filter by OAuth/SAML provider | [optional] 
  **email** | **String**| Filter by email (case-insensitive substring match) | [optional] 
- **name** | **String**| Filter by name (case-insensitive substring match) | [optional] 
  **createdAfter** | **Date**| Filter users created after this timestamp (RFC3339) | [optional] 
  **createdBefore** | **Date**| Filter users created before this timestamp (RFC3339) | [optional] 
  **lastLoginAfter** | **Date**| Filter users who logged in after this timestamp (RFC3339) | [optional] 

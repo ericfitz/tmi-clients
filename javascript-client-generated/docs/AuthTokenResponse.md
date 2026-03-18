@@ -11,5 +11,5 @@ Name | Type | Description | Notes
 <a name="TokenTypeEnum"></a>
 ## Enum: TokenTypeEnum
 
-* `bearer` (value: `"bearer"`)
+* `bearer` (value: `"Bearer"`)
 

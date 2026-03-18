@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **ResponsibleParties** | [**[]ResponsibleParty**](ResponsibleParty.md) | Responsible parties for this project | [optional] [default to null]
 **RelatedProjects** | [**[]RelatedProject**](RelatedProject.md) | Relationships to other projects | [optional] [default to null]
 **Uri** | **string** | URL or reference to internal project page | [optional] [default to null]
-**Status** | **string** | Project lifecycle status. Defaults to &#x27;active&#x27; if not provided or set to null. | [optional] [default to null]
+**Status** | **string** | Project status (lifecycle, archival, deprecation, etc.) | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

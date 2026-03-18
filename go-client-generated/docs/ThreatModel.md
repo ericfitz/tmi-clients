@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **Assets** | [**[]ExtendedAsset**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] [default to null]
 **StatusUpdated** | [**time.Time**](time.Time.md) | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [default to null]
 **IsConfidential** | **bool** | Whether this threat model is confidential (set at creation, read-only after) | [optional] [default to null]
-**DeletedAt** | [**time.Time**](time.Time.md) | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [default to null]
 **Name** | **string** | Name of the threat model | [default to null]
 **Description** | **string** | Description of the threat model | [optional] [default to null]
 **Owner** | [***Object**](.md) | User who owns the threat model (can be null for orphaned models) | [default to null]

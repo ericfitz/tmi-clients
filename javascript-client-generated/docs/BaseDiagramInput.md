@@ -9,8 +9,6 @@ Name | Type | Description | Notes
 **image** | [**BaseDiagramImage**](BaseDiagramImage.md) |  | [optional] 
 **description** | **String** | Optional description of the diagram | [optional] 
 **includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
-**timmyEnabled** | **Boolean** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]
-**colorPalette** | [**[ColorPaletteEntry]**](ColorPaletteEntry.md) | Custom color palette for diagram elements, ordered by position | [optional] 
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

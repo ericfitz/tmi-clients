@@ -9,8 +9,6 @@ Name | Type | Description | Notes
 **Description** | **string** | Human-readable description of the setting | [optional] [default to null]
 **ModifiedAt** | [**time.Time**](time.Time.md) | When the setting was last modified | [optional] [default to null]
 **ModifiedBy** | **string** | UUID of the user who last modified the setting | [optional] [default to null]
-**Source** | **string** | Where the effective value of this setting comes from. Server-managed, not writable. | [optional] [default to null]
-**ReadOnly** | **bool** | Whether this setting can be modified via the API. True when source is not database. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

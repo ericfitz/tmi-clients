@@ -88,12 +88,6 @@ Method | HTTP request | Description
 [**GetThreatModelThreats**](ThreatModelSubResourcesApi.md#GetThreatModelThreats) | **Get** /threat_models/{threat_model_id}/threats | List threats in a threat model
 [**PatchThreatModelDiagram**](ThreatModelSubResourcesApi.md#PatchThreatModelDiagram) | **Patch** /threat_models/{threat_model_id}/diagrams/{diagram_id} | Partially update a diagram
 [**PatchThreatModelThreat**](ThreatModelSubResourcesApi.md#PatchThreatModelThreat) | **Patch** /threat_models/{threat_model_id}/threats/{threat_id} | Partially update a threat
-[**RestoreAsset**](ThreatModelSubResourcesApi.md#RestoreAsset) | **Post** /threat_models/{threat_model_id}/assets/{asset_id}/restore | Restore a soft-deleted asset
-[**RestoreDiagram**](ThreatModelSubResourcesApi.md#RestoreDiagram) | **Post** /threat_models/{threat_model_id}/diagrams/{diagram_id}/restore | Restore a soft-deleted diagram
-[**RestoreDocument**](ThreatModelSubResourcesApi.md#RestoreDocument) | **Post** /threat_models/{threat_model_id}/documents/{document_id}/restore | Restore a soft-deleted document
-[**RestoreNote**](ThreatModelSubResourcesApi.md#RestoreNote) | **Post** /threat_models/{threat_model_id}/notes/{note_id}/restore | Restore a soft-deleted note
-[**RestoreRepository**](ThreatModelSubResourcesApi.md#RestoreRepository) | **Post** /threat_models/{threat_model_id}/repositories/{repository_id}/restore | Restore a soft-deleted repository
-[**RestoreThreat**](ThreatModelSubResourcesApi.md#RestoreThreat) | **Post** /threat_models/{threat_model_id}/threats/{threat_id}/restore | Restore a soft-deleted threat
 [**UpdateDiagramMetadataByKey**](ThreatModelSubResourcesApi.md#UpdateDiagramMetadataByKey) | **Put** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Update diagram metadata by key
 [**UpdateDocumentMetadataByKey**](ThreatModelSubResourcesApi.md#UpdateDocumentMetadataByKey) | **Put** /threat_models/{threat_model_id}/documents/{document_id}/metadata/{key} | Update document metadata by key
 [**UpdateNoteMetadataByKey**](ThreatModelSubResourcesApi.md#UpdateNoteMetadataByKey) | **Put** /threat_models/{threat_model_id}/notes/{note_id}/metadata/{key} | Update note metadata by key
@@ -2175,7 +2169,6 @@ Name | Type | Description  | Notes
 
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
- **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -2242,7 +2235,6 @@ Name | Type | Description  | Notes
 
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
- **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -2309,7 +2301,6 @@ Name | Type | Description  | Notes
 
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
- **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -2433,7 +2424,6 @@ Name | Type | Description  | Notes
 
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
- **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -2471,7 +2461,6 @@ Name | Type | Description  | Notes
 
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
- **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -2568,13 +2557,12 @@ Name | Type | Description  | Notes
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
  **sort** | **optional.String**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [default to created_at:desc]
- **name** | **optional.String**| Filter by name (case-insensitive substring match) | 
+ **name** | **optional.String**| Filter by threat model name (partial match) | 
  **description** | **optional.String**| Filter by threat model description (partial match) | 
- **threatType** | [**optional.Interface of []string**](string.md)| Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | 
- **severity** | [**optional.Interface of []string**](string.md)| Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity&#x3D;high&amp;severity&#x3D;critical | 
- **priority** | [**optional.Interface of []string**](string.md)| Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority&#x3D;high&amp;priority&#x3D;critical | 
- **status** | [**optional.Interface of []string**](string.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | 
- **mitigated** | **optional.Bool**| Filter by mitigated status (exact match) | 
+ **threatType** | [**optional.Interface of []string**](string.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | 
+ **severity** | **optional.String**| Filter by severity level (exact match) | 
+ **priority** | **optional.String**| Filter by priority (exact match) | 
+ **status** | **optional.String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | 
  **diagramId** | [**optional.Interface of string**](.md)| Filter by diagram ID (exact match) | 
  **cellId** | [**optional.Interface of string**](.md)| Filter by cell ID (exact match) | 
  **scoreGt** | **optional.Float64**| Filter threats with score greater than this value | 
@@ -2586,7 +2574,6 @@ Name | Type | Description  | Notes
  **createdBefore** | **optional.Time**| Filter results created before this timestamp (ISO 8601) | 
  **modifiedAfter** | **optional.Time**| Filter results modified after this timestamp (ISO 8601) | 
  **modifiedBefore** | **optional.Time**| Filter results modified before this timestamp (ISO 8601) | 
- **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -2659,180 +2646,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **RestoreAsset**
-> Asset RestoreAsset(ctx, threatModelId, assetId)
-Restore a soft-deleted asset
-
-Restores a soft-deleted asset within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Threat model identifier | 
-  **assetId** | [**string**](.md)| Asset identifier | 
-
-### Return type
-
-[**Asset**](Asset.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **RestoreDiagram**
-> DfdDiagram RestoreDiagram(ctx, threatModelId, diagramId)
-Restore a soft-deleted diagram
-
-Restores a soft-deleted diagram within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Threat model identifier | 
-  **diagramId** | [**string**](.md)| Diagram identifier | 
-
-### Return type
-
-[**DfdDiagram**](DfdDiagram.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **RestoreDocument**
-> Document RestoreDocument(ctx, threatModelId, documentId)
-Restore a soft-deleted document
-
-Restores a soft-deleted document within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Threat model identifier | 
-  **documentId** | [**string**](.md)| Document identifier | 
-
-### Return type
-
-[**Document**](Document.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **RestoreNote**
-> Note RestoreNote(ctx, threatModelId, noteId)
-Restore a soft-deleted note
-
-Restores a soft-deleted note within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Threat model identifier | 
-  **noteId** | [**string**](.md)| Note identifier | 
-
-### Return type
-
-[**Note**](Note.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **RestoreRepository**
-> Repository RestoreRepository(ctx, threatModelId, repositoryId)
-Restore a soft-deleted repository
-
-Restores a soft-deleted repository within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Threat model identifier | 
-  **repositoryId** | [**string**](.md)| Repository identifier | 
-
-### Return type
-
-[**Repository**](Repository.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **RestoreThreat**
-> Threat RestoreThreat(ctx, threatModelId, threatId)
-Restore a soft-deleted threat
-
-Restores a soft-deleted threat within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **threatModelId** | [**string**](.md)| Threat model identifier | 
-  **threatId** | [**string**](.md)| Threat identifier | 
-
-### Return type
-
-[**Threat**](Threat.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

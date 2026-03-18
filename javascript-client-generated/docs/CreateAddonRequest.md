@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **icon** | **String** | Icon identifier (Material Symbols or FontAwesome format) | [optional] 
 **objects** | **[String]** | TMI object types this add-on can operate on | [optional] 
 **threatModelId** | **String** | Optional: Scope add-on to specific threat model | [optional] 
-**parameters** | [**[AddonParameter]**](AddonParameter.md) | Typed parameter declarations for client UI generation. Each parameter defines a name, type, and type-specific configuration that clients use to render appropriate input controls. | [optional] 
 
 <a name="[ObjectsEnum]"></a>
 ## Enum: [ObjectsEnum]

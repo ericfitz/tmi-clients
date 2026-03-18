@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **parameters** | [**RepositoryBaseParameters**](RepositoryBaseParameters.md) |  | [optional] 
 **uri** | **String** | URL to retrieve the referenced source code | 
 **includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
-**timmyEnabled** | **Boolean** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum

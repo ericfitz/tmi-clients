@@ -7,4 +7,3 @@ Name | Type | Description | Notes
 **description** | **String** | Description of document purpose or content | [optional] 
 **uri** | **String** | URL location of the document | 
 **includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
-**timmyEnabled** | **Boolean** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]

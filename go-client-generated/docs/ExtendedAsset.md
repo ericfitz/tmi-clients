@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **ModifiedAt** | [**time.Time**](time.Time.md) | Last modification timestamp (ISO3339) | [default to null]
 **Id** | **string** | Unique identifier for the asset | [default to null]
 **Metadata** | [**[]Metadata**](Metadata.md) | Optional metadata key-value pairs | [optional] [default to null]
-**DeletedAt** | [**time.Time**](time.Time.md) | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

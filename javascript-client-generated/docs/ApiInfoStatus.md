@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 <a name="CodeEnum"></a>
 ## Enum: CodeEnum
 
-* `ok` (value: `"ok"`)
-* `degraded` (value: `"degraded"`)
-* `error` (value: `"error"`)
+* `OK` (value: `"OK"`)
+* `DEGRADED` (value: `"DEGRADED"`)
+* `ERROR` (value: `"ERROR"`)
 

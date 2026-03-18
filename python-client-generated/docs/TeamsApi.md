@@ -23,8 +23,6 @@ Method | HTTP request | Description
 
 Bulk create team metadata
 
-Create multiple metadata key-value pairs for the specified team in a single request.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -74,8 +72,6 @@ Name | Type | Description  | Notes
 
 Bulk replace team metadata
 
-Replace all metadata for the specified team with the provided key-value pairs.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -124,8 +120,6 @@ Name | Type | Description  | Notes
 > list[Metadata] bulk_upsert_team_metadata(body, team_id)
 
 Bulk upsert team metadata
-
-Create or update multiple metadata key-value pairs for the specified team in a single request.
 
 ### Example
 ```python
@@ -225,8 +219,6 @@ Name | Type | Description  | Notes
 
 Create team metadata
 
-Create a new metadata key-value pair for the specified team.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -323,8 +315,6 @@ void (empty response body)
 > delete_team_metadata(team_id, key)
 
 Delete team metadata
-
-Delete a metadata key-value pair from the specified team.
 
 ### Example
 ```python
@@ -423,8 +413,6 @@ Name | Type | Description  | Notes
 
 Get team metadata
 
-Retrieve all metadata key-value pairs associated with the specified team.
-
 ### Example
 ```python
 from __future__ import print_function
@@ -488,7 +476,7 @@ api_instance = tmi_client.TeamsApi(tmi_client.ApiClient(configuration))
 limit = 20 # int | Maximum number of results per page (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
 name = 'name_example' # str | Filter by team name (partial match) (optional)
-status = 'status_example' # str | Filter by team lifecycle status (exact match, comma-separated for multiple). Valid values: active, on_hold, winding_down, archived, forming, merging, splitting (optional)
+status = 'status_example' # str | Filter by status (exact match, comma-separated for multiple) (optional)
 member_user_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter teams that include this user as a member (optional)
 related_to = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Include teams related to this team ID (optional)
 relationship = tmi_client.RelationshipType() # RelationshipType | Filter related teams by relationship type. Only used with related_to. (optional)
@@ -509,7 +497,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| Maximum number of results per page | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
  **name** | **str**| Filter by team name (partial match) | [optional] 
- **status** | **str**| Filter by team lifecycle status (exact match, comma-separated for multiple). Valid values: active, on_hold, winding_down, archived, forming, merging, splitting | [optional] 
+ **status** | **str**| Filter by status (exact match, comma-separated for multiple) | [optional] 
  **member_user_id** | [**str**](.md)| Filter teams that include this user as a member | [optional] 
  **related_to** | [**str**](.md)| Include teams related to this team ID | [optional] 
  **relationship** | [**RelationshipType**](.md)| Filter related teams by relationship type. Only used with related_to. | [optional] 
@@ -636,8 +624,6 @@ Name | Type | Description  | Notes
 > Metadata update_team_metadata(body, team_id, key)
 
 Update team metadata
-
-Update the value of an existing metadata key for the specified team.
 
 ### Example
 ```python

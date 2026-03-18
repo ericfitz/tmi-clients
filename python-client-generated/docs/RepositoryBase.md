@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **parameters** | [**RepositoryBaseParameters**](RepositoryBaseParameters.md) |  | [optional] 
 **uri** | **str** | URL to retrieve the referenced source code | 
 **include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
-**timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

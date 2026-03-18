@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | [default to null]
 **Name** | **string** |  | [default to null]
 **Description** | **string** |  | [optional] [default to null]
-**Status** | **AllOfProjectListItemStatus** | Project lifecycle status. | [optional] [default to null]
+**Status** | **string** |  | [optional] [default to null]
 **TeamId** | **string** |  | [default to null]
 **TeamName** | **string** | Name of the associated team | [optional] [default to null]
 **CreatedAt** | [**time.Time**](time.Time.md) |  | [default to null]

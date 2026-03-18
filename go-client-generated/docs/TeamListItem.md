@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | [default to null]
 **Name** | **string** |  | [default to null]
 **Description** | **string** |  | [optional] [default to null]
-**Status** | **AllOfTeamListItemStatus** | Team lifecycle status. Defaults to &#x27;active&#x27; if not provided or set to null. | [optional] [default to null]
+**Status** | **string** |  | [optional] [default to null]
 **MemberCount** | **int32** | Number of team members | [optional] [default to null]
 **ProjectCount** | **int32** | Number of projects associated with this team | [optional] [default to null]
 **CreatedAt** | [**time.Time**](time.Time.md) |  | [default to null]

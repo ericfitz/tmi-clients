@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
- **status** | [**optional.Interface of []string**](string.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | 
+ **status** | **optional.String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | 
  **addonId** | [**optional.Interface of string**](.md)| Filter by add-on | 
 
 ### Return type
