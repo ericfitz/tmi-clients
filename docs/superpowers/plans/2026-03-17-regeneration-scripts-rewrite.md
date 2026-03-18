@@ -1043,6 +1043,7 @@ Key path notes:
 """Regenerate the TMI Go client from the OpenAPI spec."""
 from __future__ import annotations
 
+import shutil
 import sys
 from pathlib import Path
 
@@ -1230,7 +1231,6 @@ def main(spec_path: str | None = None) -> int:
     restored_dev = CLIENT_DIR / "developer"
     target_dev = CLIENT_DIR / "docs" / "developer"
     if restored_dev.is_dir():
-        import shutil
         target_dev.parent.mkdir(parents=True, exist_ok=True)
         if target_dev.exists():
             shutil.rmtree(target_dev)
@@ -1685,12 +1685,15 @@ def main(spec_path: str | None = None) -> int:
     write_file(CLIENT_DIR / ".babelrc", BABELRC)
     print_success("Created .babelrc")
 
-    # 9. Restore custom files
+    # 9. Restore custom files (package.json and .babelrc from backup overwrite
+    # the freshly written versions from step 8, preserving user customizations)
     print_step(8, "Restoring custom files")
     restore_files(
         backup_dir=BACKUP_DIR,
         dest_dir=CLIENT_DIR,
         files=[
+            "package.json",
+            ".babelrc",
             "test_diagram_fixes.js",
             ".swagger-codegen-ignore",
             "PRE_REGENERATION_AUDIT.md",
