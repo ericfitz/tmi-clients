@@ -24,7 +24,7 @@ The Python client is the primary focus. It uses modern Python packaging with bot
 ```python
 #!/usr/bin/env python3
 # /// script
-# requires-python = ">=3.8"
+# requires-python = ">=3.9"
 # dependencies = [
 #     "tmi-client",
 #     "six",
@@ -65,11 +65,11 @@ uv run python3 -c "import tmi_client; print('Success')"
 
 ### Multi-version Testing
 
-Use tox to test the client against all supported Python versions (3.8-3.14):
+Use tox to test the client against all supported Python versions (3.9-3.14):
 
 ```bash
 cd python-client-generated
-tox  # Tests against Python 3.8-3.14
+tox  # Tests against Python 3.9-3.14
 
 # Test specific Python version
 tox -e py311
@@ -206,9 +206,20 @@ Python client documentation is organized in `python-client-generated/docs/develo
 - `REGENERATION_README.md` - Complete guide for regenerating the client
 - `REGENERATION_REPORT.md` - Technical details of the latest regeneration
 
-Scripts are in `python-client-generated/scripts/`:
-- `regenerate_client.sh` - Automated regeneration with intelligent defaults
-- `swagger-codegen-config.json` - Code generator configuration
+Regeneration scripts are at the repo root:
+- `regenerate_python.py` - Python client regeneration
+- `regenerate_go.py` - Go client regeneration
+- `regenerate_js.py` - JavaScript client regeneration
+- `regen_common.py` - Shared utilities for all regeneration scripts
+
+Codegen config files remain in each client's `scripts/` directory:
+- `python-client-generated/scripts/swagger-codegen-config.json`
+- `go-client-generated/scripts/swagger-codegen-config.json`
+- `javascript-client-generated/scripts/swagger-codegen-config.json`
+
+Analysis and validation scripts (Python client only):
+- `python-client-generated/scripts/analyze_spec_changes.py`
+- `python-client-generated/scripts/validate_regeneration.py`
 
 Tests:
 - `python-client-generated/test_diagram_fixes.py` - Integration test verifying all fixes work correctly
@@ -233,20 +244,32 @@ The regeneration scripts automatically download the latest specification from th
 
 ## Regeneration
 
-The Python client can be regenerated from the latest OpenAPI spec using the automated script:
+All three clients can be regenerated from the latest OpenAPI spec using Python scripts at the repo root:
 
 ```bash
-cd python-client-generated
-./scripts/regenerate_client.sh
+# Regenerate Python client
+python3 regenerate_python.py
+
+# Regenerate Go client
+python3 regenerate_go.py
+
+# Regenerate JavaScript client
+python3 regenerate_js.py
+
+# Use a local spec file instead of downloading from GitHub
+python3 regenerate_python.py path/to/tmi-openapi.json
 ```
 
-This script automatically:
-- Downloads the latest OpenAPI spec from GitHub
-- Generates the client with correct package name (`tmi_client`)
-- Configures Python 3.8+ requirements
-- Updates all dependencies with security fixes
-- Applies constructor patches automatically
-- Runs all tests (239 auto-generated + integration tests)
-- Generates comprehensive reports
+Each script automatically:
+- Downloads the latest OpenAPI spec from GitHub (or uses a local file)
+- Runs swagger-codegen with language-specific configuration
+- Applies codegen bug fix patches (constructor fixes, auth settings, etc.)
+- Writes modern config files (pyproject.toml, go.mod, package.json, etc.)
+- Backs up and restores custom files
+- Runs tests and generates a `REGENERATION_REPORT.md`
+
+**Exit codes:** 0 = success, 1 = fatal error (codegen failed), 2 = completed with issues (test failures or patch warnings).
+
+**Requirements:** `swagger-codegen` (brew install swagger-codegen), plus `uv` for Python, `go` for Go, or `node` for JavaScript.
 
 See `python-client-generated/docs/developer/REGENERATION_README.md` for complete documentation on the regeneration process, customization options, and CI/CD integration.
