@@ -48,6 +48,8 @@ tmi-clients/
 
 ## Shared Module: `regen_common.py`
 
+All four Python files (`regen_common.py` and the three language scripts) use `from __future__ import annotations` at the top to enable modern type hint syntax (`str | None`, `list[str]`, `dict[str, str]`) on Python 3.9.
+
 ### Constants
 
 - `DEFAULT_SPEC_URL` — `"https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json"`. Each language script uses this as the default; it can be overridden by passing a local spec path.
@@ -68,7 +70,7 @@ tmi-clients/
 
 ### Code Generation
 
-- `run_codegen(spec_path: Path, language: str, output_dir: Path, config_file: Path, template_dir: Path | None = None) -> None` — Invoke `swagger-codegen generate`. The `-t` flag is only passed when `template_dir` is provided (currently only the Python client uses custom templates; Go and JS pass `None`). On failure: prints the full command, suggests checking the spec file for validity (`swagger-codegen validate`), and whether the config JSON is correct.
+- `run_codegen(spec_path: Path, language: str, output_dir: Path, config_file: Path, template_dir: Path | None = None) -> None` — Invoke `swagger-codegen generate`. The `language` parameter is the swagger-codegen `-l` value: `"python"`, `"go"`, or `"javascript"`. The `-t` flag is only passed when `template_dir` is provided (currently only the Python client uses custom templates; Go and JS pass `None`). On failure: prints the full command, suggests checking the spec file for validity (`swagger-codegen validate`), and whether the config JSON is correct.
 
 ### File Patching
 
@@ -169,7 +171,7 @@ if __name__ == "__main__":
 **Files cleaned before codegen:**
 - `tmi_client/` (entire directory)
 - `test/` (entire directory)
-- `docs/*.md` (auto-generated docs, but `docs/developer/` is preserved)
+- `docs/*.md` (glob only matches files directly in `docs/`, not subdirectories — so `docs/developer/` is naturally preserved)
 - `.gitignore`, `.travis.yml`, `git_push.sh`, `README.md`
 
 **Patches:**
@@ -179,15 +181,16 @@ if __name__ == "__main__":
 4. Node constructor — insert `kwargs['shape'] = shape` before `Cell.__init__`
 5. Configuration.auth_settings() — replace empty `return {}` with bearerAuth implementation
 
-**Config files written:**
-- `pyproject.toml` (full content)
+**Config files written (step 8, before restore):**
+- `pyproject.toml` (written fresh with full content — this is the fallback if no backup exists)
 - `setup.py` (patched in-place for version/deps)
 - `requirements.txt` (written fresh)
 - `test-requirements.txt` (written fresh)
 - `tox.ini` (written fresh)
 
-**Custom files backed up/restored:**
-- `pyproject.toml`, `test_diagram_fixes.py`, `.swagger-codegen-ignore`
+**Custom files backed up (step 4) / restored (step 9):**
+- `pyproject.toml` — if a backup exists, the restore in step 9 overwrites the freshly written version from step 8. This is intentional: the user's `pyproject.toml` may have customizations beyond what the script generates. The step 8 write ensures a valid file exists even on first run.
+- `test_diagram_fixes.py`, `.swagger-codegen-ignore`
 
 **Codegen uses custom templates:** `custom-templates/python/`
 
@@ -214,7 +217,7 @@ if __name__ == "__main__":
 - `go.mod` — patch module path and Go version, or create fresh if missing
 
 **Custom files backed up/restored:**
-- `go.mod`, `go.sum` (backed up for rollback; `go mod tidy` regenerates it, but having the pre-regen version aids debugging), `.swagger-codegen-ignore`, `docs/developer/`, `*_test.go`, `model_object.go`, `model_cell_data.go`, `model_model_map.go`
+- `go.mod`, `go.sum` (backed up for rollback; `go mod tidy` regenerates it, but having the pre-regen version aids debugging), `.swagger-codegen-ignore`, `docs/developer/`, `*_test.go` (swagger-codegen does not generate Go test files, so these are all custom; they are backed up and restored around the clean step), `model_object.go`, `model_cell_data.go`, `model_model_map.go`
 
 **Build & test:**
 - `go mod tidy`
