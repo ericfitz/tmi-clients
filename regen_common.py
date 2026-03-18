@@ -435,10 +435,9 @@ def write_file(path: str | Path, content: str) -> None:
     print_success(f"Wrote {path}")
 
 
-def clean_paths(paths: list[str | Path]) -> None:
+def clean_paths(paths: list[Path]) -> None:
     """Remove files and directories in *paths*, skipping non-existent entries."""
     for p in paths:
-        p = Path(p)
         if p.is_file():
             p.unlink()
             print_success(f"Removed file {p}")

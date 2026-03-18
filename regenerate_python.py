@@ -216,6 +216,35 @@ def apply_patches(had_issues: bool) -> bool:
     ):
         had_issues = True
 
+    # 6. Remove duplicate revoke_token methods (swagger-codegen bug)
+    # Codegen generates two pairs: form-params-based (token, token_type_hint, ...)
+    # and body-based (body). The body-based version is correct; the form-params
+    # version is dead code that references the overwritten signature.
+    auth_api = CLIENT_DIR / "tmi_client" / "api" / "authentication_api.py"
+    if auth_api.is_file():
+        import re as _re
+        content = auth_api.read_text()
+        # Remove the first revoke_token(self, token, token_type_hint, ...) and its
+        # companion revoke_token_with_http_info(self, token, token_type_hint, ...)
+        # by matching from the form-params def up to (but not including) the
+        # body-based def revoke_token(self, body, ...).
+        new_content = _re.sub(
+            r'    def revoke_token\(self, token, token_type_hint.*?(?=    def revoke_token\(self, body)',
+            '',
+            content,
+            count=1,
+            flags=_re.DOTALL,
+        )
+        if new_content != content:
+            auth_api.write_text(new_content)
+            print_success("  Removed duplicate revoke_token form-params methods (codegen bug)")
+        else:
+            print_warning(
+                "Duplicate revoke_token patch did not match.\n"
+                "  File: authentication_api.py\n"
+                "  The codegen may no longer produce duplicate methods."
+            )
+
     return had_issues
 
 
