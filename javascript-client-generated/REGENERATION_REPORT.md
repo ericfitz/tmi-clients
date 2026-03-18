@@ -1,6 +1,6 @@
 # TMI JavaScript Client Regeneration Report
 
-Generated: 2026-03-17 22:01:31
+Generated: 2026-03-17 22:42:43
 
 ## Configuration
 
@@ -10,13 +10,13 @@ Generated: 2026-03-17 22:01:31
 
 ## Files Generated
 
-- Source files: 256
-- Test files: 255
+- Source files: 272
+- Test files: 271
 
 ## Patches Applied
 
-- AllOf enum inheritance fixes: 0
-- Enum export unwrapping fixes: 3
+- AllOf enum inheritance fixes: 4
+- Enum export unwrapping fixes: 5
 - Constructor parameter forwarding fixes: 15
 
 ## Test Results

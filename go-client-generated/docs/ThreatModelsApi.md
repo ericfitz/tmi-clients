@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetThreatModel**](ThreatModelsApi.md#GetThreatModel) | **Get** /threat_models/{threat_model_id} | Retrieve a threat model
 [**ListThreatModels**](ThreatModelsApi.md#ListThreatModels) | **Get** /threat_models | List threat models
 [**PatchThreatModel**](ThreatModelsApi.md#PatchThreatModel) | **Patch** /threat_models/{threat_model_id} | Partially update a threat model
+[**RestoreThreatModel**](ThreatModelsApi.md#RestoreThreatModel) | **Post** /threat_models/{threat_model_id}/restore | Restore a soft-deleted threat model
 [**UpdateThreatModel**](ThreatModelsApi.md#UpdateThreatModel) | **Put** /threat_models/{threat_model_id} | Update a threat model
 
 # **CreateThreatModel**
@@ -115,16 +116,17 @@ Name | Type | Description  | Notes
  **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
  **owner** | **optional.String**| Filter by owner name or email | 
- **name** | **optional.String**| Filter by threat model name (partial match) | 
+ **name** | **optional.String**| Filter by name (case-insensitive substring match) | 
  **description** | **optional.String**| Filter by threat model description (partial match) | 
  **issueUri** | **optional.String**| Filter by issue URI (partial match) | 
  **createdAfter** | **optional.Time**| Filter results created after this timestamp (ISO 8601) | 
  **createdBefore** | **optional.Time**| Filter results created before this timestamp (ISO 8601) | 
  **modifiedAfter** | **optional.Time**| Filter results modified after this timestamp (ISO 8601) | 
  **modifiedBefore** | **optional.Time**| Filter results modified before this timestamp (ISO 8601) | 
- **status** | **optional.String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | 
+ **status** | [**optional.Interface of []string**](string.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | 
  **statusUpdatedAfter** | **optional.Time**| Filter threat models where status was updated after this timestamp (RFC3339) | 
  **statusUpdatedBefore** | **optional.Time**| Filter threat models where status was updated before this timestamp (RFC3339) | 
+ **includeDeleted** | **optional.Bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [default to false]
 
 ### Return type
 
@@ -173,6 +175,34 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **RestoreThreatModel**
+> ThreatModel RestoreThreatModel(ctx, threatModelId)
+Restore a soft-deleted threat model
+
+Restores a soft-deleted threat model and all its soft-deleted children (diagrams, threats, assets, documents, notes, repositories). Restricted to owner role or administrators.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **threatModelId** | [**string**](.md)| Threat model identifier | 
+
+### Return type
+
+[**ThreatModel**](ThreatModel.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

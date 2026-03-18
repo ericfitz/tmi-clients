@@ -1,6 +1,6 @@
 # TMI Go Client Regeneration Report
 
-Generated: 2026-03-17 22:00:30
+Generated: 2026-03-17 22:42:30
 
 ## Configuration
 
@@ -11,8 +11,8 @@ Generated: 2026-03-17 22:00:30
 
 ## Files Generated
 
-- Model files: 228
-- API files: 24
+- Model files: 242
+- API files: 26
 
 ## Build Results
 

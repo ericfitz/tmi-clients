@@ -9,4 +9,4 @@ Name | Type | Description | Notes
 **responsibleParties** | [**[ResponsibleParty]**](ResponsibleParty.md) | Responsible parties for this project | [optional] 
 **relatedProjects** | [**[RelatedProject]**](RelatedProject.md) | Relationships to other projects | [optional] 
 **uri** | **String** | URL or reference to internal project page | [optional] 
-**status** | **String** | Project status (lifecycle, archival, deprecation, etc.) | [optional] 
+**status** | **AllOfProjectBaseStatus** | Project lifecycle status. Defaults to &#x27;active&#x27; if not provided or set to null. | [optional] 

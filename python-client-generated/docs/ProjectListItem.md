@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **name** | **str** |  | 
 **description** | **str** |  | [optional] 
-**status** | **str** |  | [optional] 
+**status** | **AllOfProjectListItemStatus** | Project lifecycle status. | [optional] 
 **team_id** | **str** |  | 
 **team_name** | **str** | Name of the associated team | [optional] 
 **created_at** | **datetime** |  | 

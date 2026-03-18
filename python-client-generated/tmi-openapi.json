@@ -3,7 +3,7 @@
   "info": {
     "title": "TMI (Threat Modeling Improved) API",
     "description": "A RESTful API for collaborative threat modeling with full X6 graph library compatibility. This API provides schemas that align with AntV X6 cell object models for seamless integration with modern diagramming libraries. Supports OAuth 2.0 authentication with client callback integration for seamless single-page application authentication flows.\n\n## API Design v1.1.0\n\n### Authorization Model\nTMI uses hierarchical authorization: access control is defined at the ThreatModel level via the authorization field (readers, writers, owners). All child resources (Assets, Diagrams, Documents, Notes, Repositories, Threats) inherit permissions from their parent ThreatModel. This simplifies permission management and ensures consistent access control.\n\n### Bulk Operations\nNotes and Diagrams do not support bulk operations due to their unique creation workflows and lack of valid bulk use cases. All other resources (Threats, Assets, Documents, Repositories) support full bulk operations: POST (create), PUT (upsert), PATCH (partial update), DELETE (batch delete).\n\nAll resources support bulk metadata operations regardless of resource-level bulk support.\n\n### List Response Strategy\n- ThreatModels return summary information (TMListItem) because they contain many child objects that can be large.\n- Diagrams return summary information (DiagramListItem) because diagram data (cells, images) can be large.\n- Notes return summary information (NoteListItem) because the content field can be large.\n- Threats, Assets, Documents, Repositories return full schemas as they are relatively small and static.\n\n### PATCH Support\nAll resources support PATCH for partial updates using JSON Patch (RFC 6902). This is particularly useful for:\n- Assets: Array field updates (affected_assets, trust_boundaries) ensuring no duplicates\n- Notes: Updating name/description without changing content field\n- All resources: Efficient updates without full object replacement\n",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "contact": {
       "name": "TMI Development Team",
       "url": "https://github.com/ericfitz/tmi",
@@ -44,9 +44,9 @@
               "code": {
                 "type": "string",
                 "enum": [
-                  "OK",
-                  "DEGRADED",
-                  "ERROR"
+                  "ok",
+                  "degraded",
+                  "error"
                 ],
                 "description": "Status code indicating system health: OK (all components healthy), DEGRADED (server up but database or Redis unhealthy), ERROR (critical failure)",
                 "pattern": "^[a-zA-Z0-9_-]*$",
@@ -66,7 +66,7 @@
             ],
             "additionalProperties": false,
             "example": {
-              "code": "OK",
+              "code": "ok",
               "time": "2026-01-17T12:00:00Z"
             }
           },
@@ -180,7 +180,7 @@
         ],
         "example": {
           "status": {
-            "code": "OK",
+            "code": "ok",
             "time": "2025-04-09T12:00:00Z"
           },
           "service": {
@@ -356,6 +356,15 @@
                 "description": "Last modification timestamp (RFC3339)",
                 "readOnly": true,
                 "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+              },
+              "deleted_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+                "maxLength": 32,
+                "readOnly": true,
+                "nullable": true,
+                "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
               }
             }
           }
@@ -376,7 +385,8 @@
           "created_at": "2024-01-17T14:00:00Z",
           "modified_at": "2024-01-17T14:00:00Z",
           "uri": "https://example.com/docs/security-policy.pdf",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "BaseDiagram": {
@@ -470,6 +480,29 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+            "maxLength": 32,
+            "readOnly": true,
+            "nullable": true,
+            "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+          },
+          "color_palette": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ColorPaletteEntry"
+            },
+            "description": "Custom color palette for diagram elements, ordered by position",
+            "nullable": true,
+            "maxItems": 8
           }
         },
         "required": [
@@ -492,7 +525,8 @@
           "description": "High-level system architecture diagram",
           "created_at": "2024-01-15T10:00:00Z",
           "modified_at": "2024-01-15T10:00:00Z",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "BaseDiagramInput": {
@@ -556,6 +590,20 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
+          },
+          "color_palette": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ColorPaletteEntry"
+            },
+            "description": "Custom color palette for diagram elements, ordered by position",
+            "nullable": true,
+            "maxItems": 8
           }
         },
         "required": [
@@ -572,7 +620,8 @@
           "type": "DFD-1.0.0",
           "name": "New Architecture Diagram",
           "description": "Draft architecture for microservices migration",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "DfdDiagram": {
@@ -642,7 +691,8 @@
               "height": 70
             }
           ],
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         },
         "description": "Data Flow Diagram with cells, edges, and visual styling for JointJS rendering"
       },
@@ -710,7 +760,8 @@
               "height": 60
             }
           ],
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         },
         "description": "Input schema for creating or updating a Data Flow Diagram"
       },
@@ -977,7 +1028,7 @@
           },
           {
             "type": "object",
-            "description": "A diagram edge representing a connection or data flow between nodes. Fully compatible with X6 Edge objects and supports X6 routing algorithms (manhattan, orth, oneSide, metro, er), connector styles (normal, rounded, smooth, jumpover), custom markup, tools, and convenience properties (label, style) for easier integration.",
+            "description": "A diagram edge representing a connection or data flow between nodes. Fully compatible with X6 Edge objects and supports X6 routing algorithms (manhattan, orth, one_side, metro, er), connector styles (normal, rounded, smooth, jumpover), custom markup, tools, and convenience properties (label, style) for easier integration.",
             "required": [
               "source",
               "target"
@@ -1179,11 +1230,46 @@
                 "type": "boolean",
                 "description": "Whether this threat model is confidential (set at creation, read-only after)",
                 "readOnly": true
+              },
+              "deleted_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+                "maxLength": 32,
+                "readOnly": true,
+                "nullable": true,
+                "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
               }
             }
           }
         ],
-        "description": "A threat model containing diagrams, threats, documents, and other security analysis artifacts"
+        "description": "A threat model containing diagrams, threats, documents, and other security analysis artifacts",
+        "example": {
+          "id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+          "name": "Payment Service Threat Model",
+          "description": "Threat model for the payment processing service",
+          "owner": {
+            "principal_type": "user",
+            "provider": "google",
+            "provider_id": "alice@example.com",
+            "display_name": "Alice Johnson",
+            "email": "alice@example.com"
+          },
+          "authorization": [
+            {
+              "principal_type": "user",
+              "provider": "google",
+              "provider_id": "alice@example.com",
+              "display_name": "Alice Johnson",
+              "email": "alice@example.com",
+              "role": "owner"
+            }
+          ],
+          "threat_model_framework": "STRIDE",
+          "status": "in_progress",
+          "created_at": "2026-01-10T08:00:00Z",
+          "modified_at": "2026-01-15T10:30:00Z"
+        }
       },
       "Threat": {
         "allOf": [
@@ -1225,6 +1311,15 @@
                 "maxLength": 32,
                 "readOnly": true,
                 "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+              },
+              "deleted_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+                "maxLength": 32,
+                "readOnly": true,
+                "nullable": true,
+                "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
               }
             }
           }
@@ -1248,7 +1343,8 @@
           "threat_type": [
             "spoofing"
           ],
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         },
         "description": "A security threat identified during threat modeling, with severity, status, and mitigation details"
       },
@@ -1309,7 +1405,6 @@
             "description": "Metadata value",
             "minLength": 1,
             "maxLength": 1024,
-            "pattern": "^[^<>]*$",
             "x-oapi-codegen-extra-tags": {
               "binding": "required"
             }
@@ -1410,7 +1505,7 @@
           "token_type": {
             "type": "string",
             "enum": [
-              "Bearer"
+              "bearer"
             ],
             "description": "Token type",
             "maxLength": 1000
@@ -1429,7 +1524,7 @@
         "example": {
           "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
           "refresh_token": "def456...",
-          "token_type": "Bearer",
+          "token_type": "bearer",
           "expires_in": 3600
         },
         "additionalProperties": false
@@ -1626,6 +1721,20 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+            "maxLength": 32,
+            "readOnly": true,
+            "nullable": true,
+            "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
           }
         },
         "required": [
@@ -1644,7 +1753,8 @@
           "created_at": "2025-01-15T10:30:00Z",
           "modified_at": "2025-01-15T14:22:00Z",
           "image": null,
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "TMListItem": {
@@ -1770,6 +1880,15 @@
             "description": "Security reviewer assigned to this threat model. The assigned security reviewer automatically has the owner role on this threat model.",
             "nullable": true,
             "type": "object"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+            "maxLength": 32,
+            "readOnly": true,
+            "nullable": true,
+            "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
           }
         },
         "required": [
@@ -2272,7 +2391,7 @@
             "enum": [
               "normal",
               "orth",
-              "oneSide",
+              "one_side",
               "manhattan",
               "metro",
               "er"
@@ -2292,7 +2411,7 @@
                 "enum": [
                   "normal",
                   "orth",
-                  "oneSide",
+                  "one_side",
                   "manhattan",
                   "metro",
                   "er"
@@ -2748,6 +2867,11 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
           }
         },
         "required": [
@@ -2770,7 +2894,8 @@
               "score": 9.8
             }
           ],
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "ThreatInput": {
@@ -2795,7 +2920,8 @@
           "threat_type": [
             "spoofing"
           ],
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "User": {
@@ -2957,6 +3083,15 @@
                 "description": "Last modification timestamp (RFC3339)",
                 "readOnly": true,
                 "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+              },
+              "deleted_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+                "maxLength": 32,
+                "readOnly": true,
+                "nullable": true,
+                "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
               }
             }
           }
@@ -2977,7 +3112,8 @@
           "created_at": "2024-01-15T10:00:00Z",
           "modified_at": "2024-01-15T10:00:00Z",
           "uri": "https://github.com/example/repo",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "Note": {
@@ -3024,10 +3160,27 @@
                 "description": "Last modification timestamp (RFC3339)",
                 "readOnly": true,
                 "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+              },
+              "deleted_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+                "maxLength": 32,
+                "readOnly": true,
+                "nullable": true,
+                "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
               }
             }
           }
-        ]
+        ],
+        "example": {
+          "id": "d4e5f6a7-b8c9-0123-defa-23456789abcd",
+          "name": "Security Review Notes",
+          "content": "Reviewed authentication flow. Identified potential session fixation risk.",
+          "description": "Notes from initial security review session",
+          "created_at": "2026-01-12T11:00:00Z",
+          "modified_at": "2026-01-13T16:00:00Z"
+        }
       },
       "Asset": {
         "description": "Complete Asset schema with server-generated fields",
@@ -3073,10 +3226,32 @@
                 "description": "Last modification timestamp (RFC3339)",
                 "readOnly": true,
                 "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+              },
+              "deleted_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+                "maxLength": 32,
+                "readOnly": true,
+                "nullable": true,
+                "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
               }
             }
           }
-        ]
+        ],
+        "example": {
+          "id": "c3d4e5f6-a7b8-9012-cdef-123456789abc",
+          "name": "Customer Database",
+          "type": "data",
+          "description": "Primary PostgreSQL database storing customer PII",
+          "classification": [
+            "confidential"
+          ],
+          "criticality": "high",
+          "sensitivity": "high",
+          "created_at": "2026-01-11T09:00:00Z",
+          "modified_at": "2026-01-14T14:00:00Z"
+        }
       },
       "ExtendedAsset": {
         "allOf": [
@@ -3187,6 +3362,11 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
           }
         },
         "example": {
@@ -3194,7 +3374,8 @@
           "type": "data",
           "description": "PostgreSQL database storing customer payment information",
           "criticality": "high",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "AssetInput": {
@@ -3208,7 +3389,8 @@
           "name": "User Database",
           "type": "data",
           "description": "Primary database storing user credentials",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "DocumentBase": {
@@ -3250,13 +3432,19 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
           }
         },
         "example": {
           "name": "Payment System Architecture",
           "uri": "https://docs.example.com/architecture/payment-system.pdf",
           "description": "High-level architecture diagram and documentation",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "DocumentInput": {
@@ -3278,7 +3466,8 @@
             }
           ],
           "uri": "https://example.com/docs/security-policy.pdf",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "NoteBase": {
@@ -3320,12 +3509,18 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
           }
         },
         "example": {
           "name": "Security Review Notes",
           "content": "Reviewed payment flow with security team. Key findings:\n- Need additional input validation\n- Consider rate limiting on payment endpoint",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "NoteInput": {
@@ -3338,7 +3533,8 @@
         "example": {
           "name": "Security Analysis Notes",
           "content": "Initial security analysis of the authentication flow.",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "NoteListItem": {
@@ -3403,6 +3599,20 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.",
+            "maxLength": 32,
+            "readOnly": true,
+            "nullable": true,
+            "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
           }
         },
         "additionalProperties": false,
@@ -3411,7 +3621,8 @@
           "name": "Security Review Notes",
           "created_at": "2024-01-17T14:30:00Z",
           "modified_at": "2024-01-17T15:00:00Z",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "RepositoryBase": {
@@ -3490,12 +3701,18 @@
             "type": "boolean",
             "description": "Whether this item should be included in generated reports",
             "default": true
+          },
+          "timmy_enabled": {
+            "type": "boolean",
+            "description": "Whether the Timmy AI assistant is enabled for this entity",
+            "default": true
           }
         },
         "example": {
           "uri": "https://github.com/example/payment-service",
           "description": "Main repository for payment processing service",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "RepositoryInput": {
@@ -3517,7 +3734,8 @@
             }
           ],
           "uri": "https://github.com/example/repo",
-          "include_in_report": true
+          "include_in_report": true,
+          "timmy_enabled": true
         }
       },
       "WebhookSubscription": {
@@ -3932,6 +4150,14 @@
             "type": "string",
             "format": "uuid",
             "description": "Optional: Scope add-on to specific threat model"
+          },
+          "parameters": {
+            "type": "array",
+            "description": "Typed parameter declarations for client UI generation. Each parameter defines a name, type, and type-specific configuration that clients use to render appropriate input controls.",
+            "items": {
+              "$ref": "#/components/schemas/AddonParameter"
+            },
+            "maxItems": 20
           }
         },
         "example": {
@@ -3943,6 +4169,27 @@
           "objects": [
             "threat_model",
             "diagram"
+          ],
+          "parameters": [
+            {
+              "name": "scan_model",
+              "type": "enum",
+              "description": "AI model to use for security analysis",
+              "required": true,
+              "enum_values": [
+                "claude-sonnet",
+                "claude-opus",
+                "gpt-4"
+              ],
+              "default_value": "claude-sonnet"
+            },
+            {
+              "name": "verbose",
+              "type": "boolean",
+              "description": "Enable verbose output",
+              "required": false,
+              "default_value": "true"
+            }
           ]
         },
         "additionalProperties": false,
@@ -3996,6 +4243,14 @@
             "type": "string",
             "format": "uuid",
             "description": "Threat model scope (if scoped)"
+          },
+          "parameters": {
+            "type": "array",
+            "description": "Typed parameter declarations for client UI generation. Each parameter defines a name, type, and type-specific configuration that clients use to render appropriate input controls.",
+            "items": {
+              "$ref": "#/components/schemas/AddonParameter"
+            },
+            "maxItems": 20
           }
         },
         "example": {
@@ -4090,7 +4345,7 @@
             "format": "uuid",
             "description": "Optional: Specific object ID to operate on"
           },
-          "payload": {
+          "data": {
             "type": "object",
             "description": "User-provided data for the add-on (max 1KB JSON-serialized)",
             "additionalProperties": true
@@ -4100,13 +4355,13 @@
           "threat_model_id": "660e8400-e29b-41d4-a716-446655440001",
           "object_type": "diagram",
           "object_id": "880e8400-e29b-41d4-a716-446655440003",
-          "payload": {
+          "data": {
             "scan_type": "full",
             "include_recommendations": true
           }
         },
         "additionalProperties": false,
-        "description": "Request to invoke an addon with parameters and payload"
+        "description": "Request to invoke an addon with parameters and data"
       },
       "InvokeAddonResponse": {
         "type": "object",
@@ -4189,10 +4444,6 @@
             ],
             "description": "User who triggered the invocation"
           },
-          "payload": {
-            "type": "string",
-            "description": "JSON-encoded payload"
-          },
           "status": {
             "type": "string",
             "enum": [
@@ -4222,6 +4473,10 @@
             "type": "string",
             "format": "date-time",
             "description": "Last status update timestamp"
+          },
+          "data": {
+            "type": "string",
+            "description": "JSON-encoded data"
           }
         },
         "example": {
@@ -6360,6 +6615,22 @@
             "type": "string",
             "format": "uuid",
             "description": "UUID of the user who last modified the setting"
+          },
+          "source": {
+            "type": "string",
+            "description": "Where the effective value of this setting comes from. Server-managed, not writable.",
+            "enum": [
+              "database",
+              "config",
+              "environment",
+              "vault"
+            ],
+            "readOnly": true
+          },
+          "read_only": {
+            "type": "boolean",
+            "description": "Whether this setting can be modified via the API. True when source is not database.",
+            "readOnly": true
           }
         },
         "required": [
@@ -6374,7 +6645,9 @@
           "type": "int",
           "description": "Maximum API requests per minute per user",
           "modified_at": "2026-01-15T10:30:00Z",
-          "modified_by": "550e8400-e29b-41d4-a716-446655440000"
+          "modified_by": "550e8400-e29b-41d4-a716-446655440000",
+          "source": "database",
+          "read_only": false
         }
       },
       "SystemSettingUpdate": {
@@ -8410,11 +8683,15 @@
             "example": "platform-eng@example.com"
           },
           "status": {
-            "type": "string",
-            "maxLength": 128,
-            "pattern": "^[^\\x00-\\x1F]*$",
-            "description": "Team status (lifecycle, archival, deprecation, etc.)",
-            "example": "active"
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TeamStatus"
+              }
+            ],
+            "description": "Team lifecycle status. Defaults to 'active' if not provided or set to null.",
+            "example": "active",
+            "type": "string"
           }
         }
       },
@@ -8530,9 +8807,15 @@
             "nullable": true
           },
           "status": {
-            "type": "string",
-            "maxLength": 128,
-            "nullable": true
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TeamStatus"
+              }
+            ],
+            "description": "Team lifecycle status. Defaults to 'active' if not provided or set to null.",
+            "example": "active",
+            "type": "string"
           },
           "member_count": {
             "type": "integer",
@@ -8662,11 +8945,15 @@
             "example": "https://wiki.example.com/projects/api-gateway"
           },
           "status": {
-            "type": "string",
-            "maxLength": 128,
-            "pattern": "^[^\\x00-\\x1F]*$",
-            "description": "Project status (lifecycle, archival, deprecation, etc.)",
-            "example": "active"
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProjectStatus"
+              }
+            ],
+            "description": "Project lifecycle status. Defaults to 'active' if not provided or set to null.",
+            "example": "active",
+            "type": "string"
           }
         }
       },
@@ -8794,9 +9081,15 @@
             "nullable": true
           },
           "status": {
-            "type": "string",
-            "maxLength": 128,
-            "nullable": true
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ProjectStatus"
+              }
+            ],
+            "description": "Project lifecycle status.",
+            "example": "active",
+            "type": "string"
           },
           "team_id": {
             "type": "string",
@@ -8904,6 +9197,449 @@
           ],
           "total": 1
         }
+      },
+      "AuditActor": {
+        "type": "object",
+        "description": "Denormalized user information stored with audit entries. Persists after user deletion.",
+        "required": [
+          "email",
+          "provider",
+          "provider_id",
+          "display_name"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email at the time of the action"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Identity provider (e.g., google, github, tmi)"
+          },
+          "provider_id": {
+            "type": "string",
+            "description": "Provider-specific user identifier"
+          },
+          "display_name": {
+            "type": "string",
+            "description": "User display name at the time of the action"
+          }
+        }
+      },
+      "AuditEntry": {
+        "type": "object",
+        "description": "An entry in the audit trail recording a mutation to an entity",
+        "required": [
+          "id",
+          "threat_model_id",
+          "object_type",
+          "object_id",
+          "change_type",
+          "actor",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the audit entry",
+            "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          },
+          "threat_model_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the threat model this audit entry belongs to"
+          },
+          "object_type": {
+            "type": "string",
+            "enum": [
+              "threat_model",
+              "diagram",
+              "threat",
+              "asset",
+              "document",
+              "note",
+              "repository"
+            ],
+            "description": "Type of the entity that was mutated"
+          },
+          "object_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the entity that was mutated"
+          },
+          "version": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Version number. Null if the version snapshot has been pruned and rollback is no longer available."
+          },
+          "change_type": {
+            "type": "string",
+            "enum": [
+              "created",
+              "updated",
+              "patched",
+              "deleted",
+              "rolled_back",
+              "restored"
+            ],
+            "description": "Type of mutation"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/AuditActor"
+          },
+          "change_summary": {
+            "type": "string",
+            "nullable": true,
+            "description": "Human-readable summary of what changed"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the mutation occurred"
+          }
+        },
+        "example": {
+          "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+          "object_type": "threat_model",
+          "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+          "version": 3,
+          "change_type": "updated",
+          "actor": {
+            "email": "alice@example.com",
+            "provider": "google",
+            "provider_id": "google-12345",
+            "display_name": "Alice"
+          },
+          "change_summary": "Updated threat model description",
+          "created_at": "2026-01-15T10:30:00Z"
+        }
+      },
+      "ListAuditTrailResponse": {
+        "type": "object",
+        "description": "Paginated list of audit trail entries",
+        "required": [
+          "audit_entries",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "audit_entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "maxItems": 100,
+            "example": [
+              {
+                "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+                "object_type": "threat_model",
+                "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+                "version": 3,
+                "change_type": "updated",
+                "actor": {
+                  "email": "alice@example.com",
+                  "provider": "google",
+                  "provider_id": "google-12345",
+                  "display_name": "Alice"
+                },
+                "change_summary": "Updated threat model description",
+                "created_at": "2026-01-15T10:30:00Z"
+              }
+            ]
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of matching audit entries"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of entries returned"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Offset from the beginning of the result set"
+          }
+        },
+        "example": {
+          "audit_entries": [
+            {
+              "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+              "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+              "object_type": "threat_model",
+              "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+              "version": 3,
+              "change_type": "updated",
+              "actor": {
+                "email": "alice@example.com",
+                "provider": "google",
+                "provider_id": "google-12345",
+                "display_name": "Alice"
+              },
+              "change_summary": "Updated threat model description",
+              "created_at": "2026-01-15T10:30:00Z"
+            }
+          ],
+          "total": 42,
+          "limit": 20,
+          "offset": 0
+        }
+      },
+      "RollbackResponse": {
+        "type": "object",
+        "description": "Result of a rollback operation",
+        "required": [
+          "audit_entry"
+        ],
+        "properties": {
+          "restored_entity": {
+            "type": "object",
+            "description": "The entity restored to its previous state",
+            "example": {
+              "id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+              "name": "Payment Service Threat Model",
+              "description": "Threat model for the payment processing service",
+              "owner": {
+                "principal_type": "user",
+                "provider": "google",
+                "provider_id": "alice@example.com",
+                "display_name": "Alice Johnson",
+                "email": "alice@example.com"
+              },
+              "authorization": [
+                {
+                  "principal_type": "user",
+                  "provider": "google",
+                  "provider_id": "alice@example.com",
+                  "display_name": "Alice Johnson",
+                  "email": "alice@example.com",
+                  "role": "owner"
+                }
+              ],
+              "threat_model_framework": "STRIDE",
+              "status": "in_progress",
+              "created_at": "2026-01-10T08:00:00Z",
+              "modified_at": "2026-01-15T10:30:00Z"
+            }
+          },
+          "audit_entry": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AuditEntry"
+              }
+            ],
+            "description": "The new audit entry recording the rollback"
+          }
+        },
+        "example": {
+          "restored_entity": {
+            "id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+            "name": "Payment Service Threat Model",
+            "description": "Threat model for the payment processing service",
+            "owner": {
+              "principal_type": "user",
+              "provider": "google",
+              "provider_id": "alice@example.com",
+              "display_name": "Alice Johnson",
+              "email": "alice@example.com"
+            },
+            "authorization": [
+              {
+                "principal_type": "user",
+                "provider": "google",
+                "provider_id": "alice@example.com",
+                "display_name": "Alice Johnson",
+                "email": "alice@example.com",
+                "role": "owner"
+              }
+            ],
+            "threat_model_framework": "STRIDE",
+            "status": "in_progress",
+            "created_at": "2026-01-10T08:00:00Z",
+            "modified_at": "2026-01-15T10:30:00Z"
+          },
+          "audit_entry": {
+            "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+            "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+            "object_type": "threat_model",
+            "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+            "version": 4,
+            "change_type": "rolled_back",
+            "actor": {
+              "email": "alice@example.com",
+              "provider": "google",
+              "provider_id": "google-12345",
+              "display_name": "Alice"
+            },
+            "change_summary": "Rolled back to version 3",
+            "created_at": "2026-01-15T11:00:00Z"
+          }
+        }
+      },
+      "AddonParameter": {
+        "type": "object",
+        "description": "Typed parameter declaration for an add-on, used to drive client UI generation",
+        "required": [
+          "name",
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Parameter name (used as key in invocation data payload)",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+          },
+          "type": {
+            "type": "string",
+            "description": "Parameter type determining client UI control",
+            "enum": [
+              "enum",
+              "boolean",
+              "string",
+              "number",
+              "metadata_key"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description for UI display",
+            "maxLength": 512
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the parameter must be provided on invocation",
+            "default": false
+          },
+          "enum_values": {
+            "type": "array",
+            "description": "Allowed values (applicable when type is 'enum')",
+            "items": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "maxItems": 50
+          },
+          "default_value": {
+            "type": "string",
+            "description": "Default value if not provided by user",
+            "maxLength": 256
+          },
+          "metadata_key": {
+            "type": "string",
+            "description": "Metadata key name to auto-populate from TMI object (applicable when type is 'metadata_key')",
+            "maxLength": 256,
+            "pattern": "^[a-zA-Z0-9_./:-]+$"
+          },
+          "number_min": {
+            "type": "number",
+            "description": "Minimum allowed value (applicable when type is 'number')"
+          },
+          "number_max": {
+            "type": "number",
+            "description": "Maximum allowed value (applicable when type is 'number')"
+          },
+          "string_max_length": {
+            "type": "integer",
+            "description": "Maximum string length (applicable when type is 'string')",
+            "minimum": 1,
+            "maximum": 10000
+          },
+          "string_validation_regex": {
+            "type": "string",
+            "description": "Regular expression for string validation (applicable when type is 'string')",
+            "maxLength": 256
+          }
+        },
+        "example": {
+          "name": "model",
+          "type": "enum",
+          "description": "AI model to use for analysis",
+          "required": true,
+          "enum_values": [
+            "anthropic/claude-opus-4-6",
+            "anthropic/claude-sonnet-4-6",
+            "openai/gpt-5.3-codex"
+          ],
+          "default_value": "anthropic/claude-sonnet-4-6"
+        }
+      },
+      "ColorPaletteEntry": {
+        "type": "object",
+        "required": [
+          "position",
+          "color"
+        ],
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8,
+            "description": "Display order position (1-8)"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$",
+            "minLength": 4,
+            "maxLength": 7,
+            "description": "Hex color value (#RGB or #RRGGBB), stored as lowercase #RRGGBB"
+          }
+        },
+        "description": "A color entry in a diagram color palette with explicit position for ordering"
+      },
+      "WsTicketResponse": {
+        "type": "object",
+        "required": [
+          "ticket"
+        ],
+        "properties": {
+          "ticket": {
+            "type": "string",
+            "description": "Short-lived, single-use authentication ticket for WebSocket connection",
+            "example": "tmi_ws_abc123def456"
+          }
+        },
+        "description": "Response containing a short-lived, single-use authentication ticket for WebSocket connection",
+        "example": {
+          "ticket": "tmi_ws_abc123def456"
+        }
+      },
+      "ProjectStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "planning",
+          "on_hold",
+          "cancelled",
+          "in_development",
+          "in_review",
+          "mvp",
+          "limited_availability",
+          "general_availability",
+          "deprecated",
+          "end_of_life",
+          "archived"
+        ],
+        "description": "Project lifecycle status. Defaults to 'active' if not provided or set to null."
+      },
+      "TeamStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "on_hold",
+          "winding_down",
+          "archived",
+          "forming",
+          "merging",
+          "splitting"
+        ],
+        "description": "Team lifecycle status. Defaults to 'active' if not provided or set to null."
       }
     },
     "responses": {
@@ -9586,7 +10322,7 @@
           "maxLength": 256,
           "pattern": "^[^\\x00-\\x1F]*$"
         },
-        "description": "Filter by threat model name (partial match)"
+        "description": "Filter by name (case-insensitive substring match)"
       },
       "DescriptionQueryParam": {
         "name": "description",
@@ -9612,11 +10348,23 @@
         "name": "status",
         "in": "query",
         "schema": {
-          "type": "string",
-          "maxLength": 256,
-          "pattern": "^[^\\x00-\\x1F]*$"
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "example": [
+            "identified",
+            "mitigated"
+          ]
         },
-        "description": "Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values."
+        "description": "Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated",
+        "style": "form",
+        "explode": true,
+        "example": [
+          "identified",
+          "mitigated"
+        ]
       },
       "StatusUpdatedAfterQueryParam": {
         "name": "status_updated_after",
@@ -9665,7 +10413,7 @@
             "tampering"
           ]
         },
-        "description": "Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing",
+        "description": "Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type=Tampering&threat_type=Spoofing",
         "style": "form",
         "explode": true,
         "example": [
@@ -9677,29 +10425,45 @@
         "name": "severity",
         "in": "query",
         "schema": {
-          "type": "string",
-          "enum": [
-            "Unknown",
-            "None",
-            "Low",
-            "Medium",
-            "High",
-            "Critical"
-          ],
-          "maxLength": 1000,
-          "pattern": "^[^\\x00-\\x1F]*$"
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "informational",
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "maxItems": 50
         },
-        "description": "Filter by severity level (exact match)"
+        "description": "Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity=high&severity=critical",
+        "style": "form",
+        "explode": true
       },
       "PriorityQueryParam": {
         "name": "priority",
         "in": "query",
         "schema": {
-          "type": "string",
-          "maxLength": 256,
-          "pattern": "^[^\\x00-\\x1F]*$"
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "example": [
+            "high",
+            "critical"
+          ]
         },
-        "description": "Filter by priority (exact match)"
+        "description": "Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority=high&priority=critical",
+        "style": "form",
+        "explode": true,
+        "example": [
+          "high",
+          "critical"
+        ]
       },
       "DiagramIdQueryParam": {
         "name": "diagram_id",
@@ -9977,7 +10741,8 @@
           "enum": [
             "created_at",
             "last_login",
-            "email"
+            "email",
+            "name"
           ],
           "default": "created_at"
         },
@@ -10138,6 +10903,99 @@
           "minimum": 1
         },
         "description": "Triage note identifier (sequential within survey response)"
+      },
+      "AuditEntryId": {
+        "name": "entry_id",
+        "in": "path",
+        "required": true,
+        "description": "Unique identifier of the audit entry",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "AuditObjectType": {
+        "name": "object_type",
+        "in": "query",
+        "required": false,
+        "description": "Filter by object type",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "threat_model",
+            "diagram",
+            "threat",
+            "asset",
+            "document",
+            "note",
+            "repository"
+          ]
+        }
+      },
+      "AuditChangeType": {
+        "name": "change_type",
+        "in": "query",
+        "required": false,
+        "description": "Filter by change type",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "created",
+            "updated",
+            "patched",
+            "deleted",
+            "rolled_back",
+            "restored"
+          ]
+        }
+      },
+      "AuditActorEmail": {
+        "name": "actor_email",
+        "in": "query",
+        "required": false,
+        "description": "Filter by actor email",
+        "schema": {
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "AuditAfter": {
+        "name": "after",
+        "in": "query",
+        "required": false,
+        "description": "Filter entries after this timestamp (ISO 8601)",
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "AuditBefore": {
+        "name": "before",
+        "in": "query",
+        "required": false,
+        "description": "Filter entries before this timestamp (ISO 8601)",
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "MitigatedQueryParam": {
+        "name": "mitigated",
+        "in": "query",
+        "schema": {
+          "type": "boolean"
+        },
+        "description": "Filter by mitigated status (exact match)"
+      },
+      "IncludeDeletedQueryParam": {
+        "name": "include_deleted",
+        "in": "query",
+        "description": "Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
       }
     }
   },
@@ -12630,6 +13488,9 @@
           },
           {
             "$ref": "#/components/parameters/StatusUpdatedBeforeQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -13638,6 +14499,9 @@
             "$ref": "#/components/parameters/StatusQueryParam"
           },
           {
+            "$ref": "#/components/parameters/MitigatedQueryParam"
+          },
+          {
             "$ref": "#/components/parameters/DiagramIdQueryParam"
           },
           {
@@ -13669,6 +14533,9 @@
           },
           {
             "$ref": "#/components/parameters/ModifiedBefore"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -16193,6 +17060,9 @@
           },
           {
             "$ref": "#/components/parameters/PaginationOffset"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -18480,6 +19350,9 @@
           },
           {
             "$ref": "#/components/parameters/PaginationOffset"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -21814,6 +22687,9 @@
           },
           {
             "$ref": "#/components/parameters/PaginationOffset"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -24447,6 +25323,9 @@
           },
           {
             "$ref": "#/components/parameters/PaginationOffset"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -26327,6 +27206,9 @@
           },
           {
             "$ref": "#/components/parameters/PaginationOffset"
+          },
+          {
+            "$ref": "#/components/parameters/IncludeDeletedQueryParam"
           }
         ],
         "responses": {
@@ -33772,6 +34654,9 @@
           },
           {
             "$ref": "#/components/parameters/EmailQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/NameQueryParam"
           },
           {
             "$ref": "#/components/parameters/CreatedAfterQueryParam"
@@ -48016,7 +48901,7 @@
               "type": "string",
               "maxLength": 256
             },
-            "description": "Filter by status (exact match, comma-separated for multiple)"
+            "description": "Filter by team lifecycle status (exact match, comma-separated for multiple). Valid values: active, on_hold, winding_down, archived, forming, merging, splitting"
           },
           {
             "name": "member_user_id",
@@ -49469,7 +50354,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Retrieve all metadata key-value pairs associated with the specified team."
       },
       "post": {
         "summary": "Create team metadata",
@@ -49677,7 +50563,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Create a new metadata key-value pair for the specified team."
       }
     },
     "/teams/{team_id}/metadata/{key}": {
@@ -49864,7 +50751,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Update the value of an existing metadata key for the specified team."
       },
       "delete": {
         "summary": "Delete team metadata",
@@ -50031,7 +50919,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Delete a metadata key-value pair from the specified team."
       }
     },
     "/teams/{team_id}/metadata/bulk": {
@@ -50249,7 +51138,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Create multiple metadata key-value pairs for the specified team in a single request."
       },
       "patch": {
         "summary": "Bulk upsert team metadata",
@@ -50428,7 +51318,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Create or update multiple metadata key-value pairs for the specified team in a single request."
       },
       "put": {
         "summary": "Bulk replace team metadata",
@@ -50611,7 +51502,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Replace all metadata for the specified team with the provided key-value pairs."
       }
     },
     "/projects": {
@@ -52153,7 +53045,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Retrieve all metadata key-value pairs associated with the specified project."
       },
       "post": {
         "summary": "Create project metadata",
@@ -52361,7 +53254,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Create a new metadata key-value pair for the specified project."
       }
     },
     "/projects/{project_id}/metadata/{key}": {
@@ -52548,7 +53442,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Update the value of an existing metadata key for the specified project."
       },
       "delete": {
         "summary": "Delete project metadata",
@@ -52715,7 +53610,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Delete a metadata key-value pair from the specified project."
       }
     },
     "/projects/{project_id}/metadata/bulk": {
@@ -52933,7 +53829,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Create multiple metadata key-value pairs for the specified project in a single request."
       },
       "patch": {
         "summary": "Bulk upsert project metadata",
@@ -53112,7 +54009,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Create or update multiple metadata key-value pairs for the specified project in a single request."
       },
       "put": {
         "summary": "Bulk replace project metadata",
@@ -53295,7 +54193,8 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "description": "Replace all metadata for the specified project with the provided key-value pairs."
       }
     },
     "/me/groups": {
@@ -53450,10 +54349,14 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
           }
         },
         "x-rate-limit-tier": "user",
-        "x-rate-limit-category": "resource-operations"
+        "x-rate-limit-category": "resource-operations",
+        "x-skip-deleted-resource-check": true
       }
     },
     "/me/groups/{internal_uuid}/members": {
@@ -53721,75 +54624,2034 @@
           }
         },
         "x-rate-limit-tier": "user",
-        "x-rate-limit-category": "resource-operations"
+        "x-rate-limit-category": "resource-operations",
+        "x-skip-deleted-resource-check": true
+      }
+    },
+    "/threat_models/{threat_model_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for a threat model and all sub-objects",
+        "description": "Returns a paginated list of audit trail entries",
+        "operationId": "getThreatModelAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          },
+          {
+            "$ref": "#/components/parameters/AuditObjectType"
+          },
+          {
+            "$ref": "#/components/parameters/AuditChangeType"
+          },
+          {
+            "$ref": "#/components/parameters/AuditActorEmail"
+          },
+          {
+            "$ref": "#/components/parameters/AuditAfter"
+          },
+          {
+            "$ref": "#/components/parameters/AuditBefore"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/audit_trail/{entry_id}": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "Get a single audit trail entry",
+        "description": "Returns a single audit trail entry by ID",
+        "operationId": "getAuditEntry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/AuditEntryId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Audit trail entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditEntry"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/audit_trail/{entry_id}/rollback": {
+      "post": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "Rollback an entity to a previous version",
+        "description": "Restores an entity to the state captured in the specified audit entry's version snapshot. Creates a new audit entry recording the rollback. Returns 410 Gone if the version snapshot has been pruned.",
+        "operationId": "rollbackToVersion",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/AuditEntryId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rollback successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RollbackResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "410": {
+            "description": "Version snapshot has been pruned; rollback is no longer available",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/diagrams/{diagram_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for a diagram",
+        "description": "Returns a paginated list of audit trail entries for a specific resource",
+        "operationId": "getDiagramAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/DiagramId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/threats/{threat_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for a threat",
+        "description": "Returns a paginated list of audit trail entries for a specific resource",
+        "operationId": "getThreatAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/ThreatId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/assets/{asset_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for an asset",
+        "description": "Returns a paginated list of audit trail entries for a specific resource",
+        "operationId": "getAssetAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/AssetId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/documents/{document_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for a document",
+        "description": "Returns a paginated list of audit trail entries for a specific resource",
+        "operationId": "getDocumentAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/DocumentId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/notes/{note_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for a note",
+        "description": "Returns a paginated list of audit trail entries for a specific resource",
+        "operationId": "getNoteAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/NoteId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/repositories/{repository_id}/audit_trail": {
+      "get": {
+        "tags": [
+          "Audit Trail"
+        ],
+        "summary": "List audit trail for a repository",
+        "description": "Returns a paginated list of audit trail entries for a specific resource",
+        "operationId": "getRepositoryAuditTrail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/RepositoryId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationLimit"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationOffset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of audit trail entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Models"
+        ],
+        "summary": "Restore a soft-deleted threat model",
+        "description": "Restores a soft-deleted threat model and all its soft-deleted children (diagrams, threats, assets, documents, notes, repositories). Restricted to owner role or administrators.",
+        "operationId": "restoreThreatModel",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThreatModel"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/diagrams/{diagram_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Model Sub-Resources"
+        ],
+        "summary": "Restore a soft-deleted diagram",
+        "description": "Restores a soft-deleted diagram within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.",
+        "operationId": "restoreDiagram",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/DiagramId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DfdDiagram"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/threats/{threat_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Model Sub-Resources"
+        ],
+        "summary": "Restore a soft-deleted threat",
+        "description": "Restores a soft-deleted threat within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.",
+        "operationId": "restoreThreat",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/ThreatId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Threat"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/assets/{asset_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Model Sub-Resources"
+        ],
+        "summary": "Restore a soft-deleted asset",
+        "description": "Restores a soft-deleted asset within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.",
+        "operationId": "restoreAsset",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/AssetId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/documents/{document_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Model Sub-Resources"
+        ],
+        "summary": "Restore a soft-deleted document",
+        "description": "Restores a soft-deleted document within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.",
+        "operationId": "restoreDocument",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/DocumentId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/notes/{note_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Model Sub-Resources"
+        ],
+        "summary": "Restore a soft-deleted note",
+        "description": "Restores a soft-deleted note within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.",
+        "operationId": "restoreNote",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/NoteId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Note"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/repositories/{repository_id}/restore": {
+      "post": {
+        "tags": [
+          "Threat Model Sub-Resources"
+        ],
+        "summary": "Restore a soft-deleted repository",
+        "description": "Restores a soft-deleted repository within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.",
+        "operationId": "restoreRepository",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/RepositoryId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity restored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Repository"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Conflict - Entity is not in a deleted state, or parent threat model is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        }
+      }
+    },
+    "/ws/ticket": {
+      "get": {
+        "operationId": "getWsTicket",
+        "summary": "Get a WebSocket authentication ticket",
+        "description": "Issues a short-lived, single-use authentication ticket for establishing a WebSocket connection to a collaboration session. The ticket is scoped to the specified session and the authenticated user. Tickets expire after 30 seconds and can only be used once.",
+        "tags": [
+          "WebSocket"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The collaboration session ID the ticket is scoped to"
+          }
+        ],
+        "x-rate-limit": {
+          "scope": "user",
+          "tier": "resource-operations",
+          "limits": [
+            {
+              "type": "requests_per_minute",
+              "default": 100,
+              "configurable": true,
+              "quota_source": "user_api_quotas"
+            }
+          ]
+        },
+        "responses": {
+          "200": {
+            "description": "Ticket issued successfully",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Set to no-store to prevent caching"
+              },
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WsTicketResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid session_id parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found or user is not a participant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
       }
     }
   },
   "tags": [
-    {
-      "name": "General",
-      "description": "General API information and health check endpoints"
-    },
-    {
-      "name": "OIDC Discovery",
-      "description": "OpenID Connect (OIDC) discovery endpoints per RFC 8414"
-    },
-    {
-      "name": "OAuth Discovery",
-      "description": "OAuth 2.0 authorization server metadata per RFC 8414"
-    },
-    {
-      "name": "Authentication",
-      "description": "OAuth 2.0 and authentication endpoints including authorization, token exchange, and provider management"
-    },
-    {
-      "name": "SAML",
-      "description": "SAML 2.0 single sign-on (SSO) and single logout (SLO) endpoints"
-    },
-    {
-      "name": "Threat Models",
-      "description": "Threat model CRUD operations and management"
-    },
-    {
-      "name": "Threat Model Sub-Resources",
-      "description": "Sub-resources of threat models including diagrams, threats, assets, documents, notes, and repositories"
-    },
-    {
-      "name": "Threats",
-      "description": "Threat entity management within threat models"
-    },
-    {
-      "name": "Assets",
-      "description": "Asset entity management within threat models"
-    },
-    {
-      "name": "Documents",
-      "description": "Document entity management within threat models"
-    },
-    {
-      "name": "Notes",
-      "description": "Note entity management within threat models"
-    },
-    {
-      "name": "Repositories",
-      "description": "Source code repository linking within threat models"
-    },
-    {
-      "name": "Collaboration",
-      "description": "Real-time collaboration session management for diagrams via WebSocket"
-    },
-    {
-      "name": "Users",
-      "description": "User profile and account management"
-    },
-    {
-      "name": "User Account",
-      "description": "Current user account operations including preferences and logout"
-    },
-    {
-      "name": "webhooks",
-      "description": "Webhook subscription management for event notifications"
-    },
     {
       "name": "Addons",
       "description": "Add-on registration and invocation for extending threat modeling capabilities"
@@ -53799,8 +56661,56 @@
       "description": "Administrative endpoints for user management, groups, and quota configuration (admin-only)"
     },
     {
+      "name": "Assets",
+      "description": "Asset entity management within threat models"
+    },
+    {
+      "name": "Audit Trail",
+      "description": "Audit trail and version history for threat model entities"
+    },
+    {
+      "name": "Authentication",
+      "description": "OAuth 2.0 and authentication endpoints including authorization, token exchange, and provider management"
+    },
+    {
+      "name": "Collaboration",
+      "description": "Real-time collaboration session management for diagrams via WebSocket"
+    },
+    {
       "name": "Configuration",
       "description": "Client configuration endpoints for application settings"
+    },
+    {
+      "name": "Documents",
+      "description": "Document entity management within threat models"
+    },
+    {
+      "name": "General",
+      "description": "General API information and health check endpoints"
+    },
+    {
+      "name": "Notes",
+      "description": "Note entity management within threat models"
+    },
+    {
+      "name": "OAuth Discovery",
+      "description": "OAuth 2.0 authorization server metadata per RFC 8414"
+    },
+    {
+      "name": "OIDC Discovery",
+      "description": "OpenID Connect (OIDC) discovery endpoints per RFC 8414"
+    },
+    {
+      "name": "Projects",
+      "description": "Project management endpoints"
+    },
+    {
+      "name": "Repositories",
+      "description": "Source code repository linking within threat models"
+    },
+    {
+      "name": "SAML",
+      "description": "SAML 2.0 single sign-on (SSO) and single logout (SLO) endpoints"
     },
     {
       "name": "Survey Administration",
@@ -53819,8 +56729,32 @@
       "description": "Team management endpoints"
     },
     {
-      "name": "Projects",
-      "description": "Project management endpoints"
+      "name": "Threat Model Sub-Resources",
+      "description": "Sub-resources of threat models including diagrams, threats, assets, documents, notes, and repositories"
+    },
+    {
+      "name": "Threat Models",
+      "description": "Threat model CRUD operations and management"
+    },
+    {
+      "name": "Threats",
+      "description": "Threat entity management within threat models"
+    },
+    {
+      "name": "User Account",
+      "description": "Current user account operations including preferences and logout"
+    },
+    {
+      "name": "Users",
+      "description": "User profile and account management"
+    },
+    {
+      "name": "WebSocket",
+      "description": "WebSocket authentication and ticket management"
+    },
+    {
+      "name": "webhooks",
+      "description": "Webhook subscription management for event notifications"
     }
   ],
   "security": [

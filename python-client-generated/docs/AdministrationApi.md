@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_admin_users**
-> AdminUserListResponse list_admin_users(provider=provider, email=email, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order)
+> AdminUserListResponse list_admin_users(provider=provider, email=email, name=name, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order)
 
 List users
 
@@ -850,6 +850,7 @@ from pprint import pprint
 api_instance = tmi_client.AdministrationApi(tmi_client.ApiClient(configuration))
 provider = 'provider_example' # str | Filter by OAuth/SAML provider (optional)
 email = 'email_example' # str | Filter by email (case-insensitive substring match) (optional)
+name = 'name_example' # str | Filter by name (case-insensitive substring match) (optional)
 created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter users created after this timestamp (RFC3339) (optional)
 created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter users created before this timestamp (RFC3339) (optional)
 last_login_after = '2013-10-20T19:20:30+01:00' # datetime | Filter users who logged in after this timestamp (RFC3339) (optional)
@@ -861,7 +862,7 @@ sort_order = 'desc' # str | Sort direction (optional) (default to desc)
 
 try:
     # List users
-    api_response = api_instance.list_admin_users(provider=provider, email=email, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order)
+    api_response = api_instance.list_admin_users(provider=provider, email=email, name=name, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AdministrationApi->list_admin_users: %s\n" % e)
@@ -873,6 +874,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider** | **str**| Filter by OAuth/SAML provider | [optional] 
  **email** | **str**| Filter by email (case-insensitive substring match) | [optional] 
+ **name** | **str**| Filter by name (case-insensitive substring match) | [optional] 
  **created_after** | **datetime**| Filter users created after this timestamp (RFC3339) | [optional] 
  **created_before** | **datetime**| Filter users created before this timestamp (RFC3339) | [optional] 
  **last_login_after** | **datetime**| Filter users who logged in after this timestamp (RFC3339) | [optional] 

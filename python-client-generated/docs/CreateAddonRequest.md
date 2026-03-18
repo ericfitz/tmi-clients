@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **icon** | **str** | Icon identifier (Material Symbols or FontAwesome format) | [optional] 
 **objects** | **list[str]** | TMI object types this add-on can operate on | [optional] 
 **threat_model_id** | **str** | Optional: Scope add-on to specific threat model | [optional] 
+**parameters** | [**list[AddonParameter]**](AddonParameter.md) | Typed parameter declarations for client UI generation. Each parameter defines a name, type, and type-specific configuration that clients use to render appropriate input controls. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

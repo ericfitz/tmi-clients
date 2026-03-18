@@ -15,3 +15,4 @@ Name | Type | Description | Notes
 **assets** | [**[ExtendedAsset]**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] 
 **statusUpdated** | **Date** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] 
 **isConfidential** | **Boolean** | Whether this threat model is confidential (set at creation, read-only after) | [optional] 
+**deletedAt** | **Date** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] 

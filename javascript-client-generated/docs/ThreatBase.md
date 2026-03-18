@@ -20,3 +20,4 @@ Name | Type | Description | Notes
 **cweId** | **[String]** | CWE (Common Weakness Enumeration) identifiers associated with this threat | [optional] 
 **cvss** | [**[CVSSScore]**](CVSSScore.md) | CVSS scoring information for this threat | [optional] 
 **includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
+**timmyEnabled** | **Boolean** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]

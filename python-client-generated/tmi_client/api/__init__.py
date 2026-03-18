@@ -6,6 +6,7 @@ from __future__ import absolute_import
 from tmi_client.api.addons_api import AddonsApi
 from tmi_client.api.administration_api import AdministrationApi
 from tmi_client.api.assets_api import AssetsApi
+from tmi_client.api.audit_trail_api import AuditTrailApi
 from tmi_client.api.authentication_api import AuthenticationApi
 from tmi_client.api.collaboration_api import CollaborationApi
 from tmi_client.api.configuration_api import ConfigurationApi
@@ -26,4 +27,5 @@ from tmi_client.api.threat_models_api import ThreatModelsApi
 from tmi_client.api.threats_api import ThreatsApi
 from tmi_client.api.user_account_api import UserAccountApi
 from tmi_client.api.users_api import UsersApi
+from tmi_client.api.web_socket_api import WebSocketApi
 from tmi_client.api.webhooks_api import WebhooksApi

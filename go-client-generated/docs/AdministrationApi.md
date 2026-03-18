@@ -523,6 +523,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **provider** | **optional.String**| Filter by OAuth/SAML provider | 
  **email** | **optional.String**| Filter by email (case-insensitive substring match) | 
+ **name** | **optional.String**| Filter by name (case-insensitive substring match) | 
  **createdAfter** | **optional.Time**| Filter users created after this timestamp (RFC3339) | 
  **createdBefore** | **optional.Time**| Filter users created before this timestamp (RFC3339) | 
  **lastLoginAfter** | **optional.Time**| Filter users who logged in after this timestamp (RFC3339) | 

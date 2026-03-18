@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **classification** | **[String]** | Classification tags for the asset | [optional] 
 **sensitivity** | **String** | Sensitivity label for the asset | [optional] 
 **includeInReport** | **Boolean** | Whether this item should be included in generated reports | [optional] [default to true]
+**timmyEnabled** | **Boolean** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]
 
 <a name="TypeEnum"></a>
 ## Enum: TypeEnum
