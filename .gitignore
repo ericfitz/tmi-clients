@@ -2,3 +2,4 @@
 backups
 backups/**
 test_output.log
+__pycache__/
