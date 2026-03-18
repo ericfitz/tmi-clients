@@ -21,3 +21,4 @@ Name | Type | Description | Notes
 **status** | **String** | Status of the threat model in the organization&#x27;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
 **statusUpdated** | **Date** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] 
 **securityReviewer** | **AllOfTMListItemSecurityReviewer** | Security reviewer assigned to this threat model. The assigned security reviewer automatically has the owner role on this threat model. | [optional] 
+**deletedAt** | **Date** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] 

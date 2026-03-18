@@ -22,6 +22,8 @@ Method | HTTP request | Description
 > []Metadata BulkCreateProjectMetadata(ctx, body, projectId)
 Bulk create project metadata
 
+Create multiple metadata key-value pairs for the specified project in a single request.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -49,6 +51,8 @@ Name | Type | Description  | Notes
 > []Metadata BulkReplaceProjectMetadata(ctx, body, projectId)
 Bulk replace project metadata
 
+Replace all metadata for the specified project with the provided key-value pairs.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -75,6 +79,8 @@ Name | Type | Description  | Notes
 # **BulkUpsertProjectMetadata**
 > []Metadata BulkUpsertProjectMetadata(ctx, body, projectId)
 Bulk upsert project metadata
+
+Create or update multiple metadata key-value pairs for the specified project in a single request.
 
 ### Required Parameters
 
@@ -131,6 +137,8 @@ Name | Type | Description  | Notes
 > Metadata CreateProjectMetadata(ctx, body, projectId)
 Create project metadata
 
+Create a new metadata key-value pair for the specified project.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -186,6 +194,8 @@ Name | Type | Description  | Notes
 > DeleteProjectMetadata(ctx, projectId, key)
 Delete project metadata
 
+Delete a metadata key-value pair from the specified project.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -240,6 +250,8 @@ Name | Type | Description  | Notes
 # **GetProjectMetadata**
 > []Metadata GetProjectMetadata(ctx, projectId)
 Get project metadata
+
+Retrieve all metadata key-value pairs associated with the specified project.
 
 ### Required Parameters
 
@@ -365,6 +377,8 @@ Name | Type | Description  | Notes
 # **UpdateProjectMetadata**
 > Metadata UpdateProjectMetadata(ctx, body, projectId, key)
 Update project metadata
+
+Update the value of an existing metadata key for the specified project.
 
 ### Required Parameters
 

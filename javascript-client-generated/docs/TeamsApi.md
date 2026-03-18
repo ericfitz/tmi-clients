@@ -24,6 +24,8 @@ Method | HTTP request | Description
 
 Bulk create team metadata
 
+Create multiple metadata key-value pairs for the specified team in a single request.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -68,6 +70,8 @@ Name | Type | Description  | Notes
 
 Bulk replace team metadata
 
+Replace all metadata for the specified team with the provided key-value pairs.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -111,6 +115,8 @@ Name | Type | Description  | Notes
 > [Metadata] bulkUpsertTeamMetadata(body, teamId)
 
 Bulk upsert team metadata
+
+Create or update multiple metadata key-value pairs for the specified team in a single request.
 
 ### Example
 ```javascript
@@ -200,6 +206,8 @@ Name | Type | Description  | Notes
 
 Create team metadata
 
+Create a new metadata key-value pair for the specified team.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -287,6 +295,8 @@ null (empty response body)
 > deleteTeamMetadata(teamId, key)
 
 Delete team metadata
+
+Delete a metadata key-value pair from the specified team.
 
 ### Example
 ```javascript
@@ -376,6 +386,8 @@ Name | Type | Description  | Notes
 
 Get team metadata
 
+Retrieve all metadata key-value pairs associated with the specified team.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -431,7 +443,7 @@ let opts = {
   'limit': 20, // Number | Maximum number of results per page
   'offset': 0, // Number | Number of results to skip
   'name': "name_example", // String | Filter by team name (partial match)
-  'status': "status_example", // String | Filter by status (exact match, comma-separated for multiple)
+  'status': "status_example", // String | Filter by team lifecycle status (exact match, comma-separated for multiple). Valid values: active, on_hold, winding_down, archived, forming, merging, splitting
   'memberUserId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter teams that include this user as a member
   'relatedTo': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Include teams related to this team ID
   'relationship': new TmiJsClient.RelationshipType(), // RelationshipType | Filter related teams by relationship type. Only used with related_to.
@@ -452,7 +464,7 @@ Name | Type | Description  | Notes
  **limit** | **Number**| Maximum number of results per page | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
  **name** | **String**| Filter by team name (partial match) | [optional] 
- **status** | **String**| Filter by status (exact match, comma-separated for multiple) | [optional] 
+ **status** | **String**| Filter by team lifecycle status (exact match, comma-separated for multiple). Valid values: active, on_hold, winding_down, archived, forming, merging, splitting | [optional] 
  **memberUserId** | [**String**](.md)| Filter teams that include this user as a member | [optional] 
  **relatedTo** | [**String**](.md)| Include teams related to this team ID | [optional] 
  **relationship** | [**RelationshipType**](.md)| Filter related teams by relationship type. Only used with related_to. | [optional] 
@@ -568,6 +580,8 @@ Name | Type | Description  | Notes
 > Metadata updateTeamMetadata(body, teamId, key)
 
 Update team metadata
+
+Update the value of an existing metadata key for the specified team.
 
 ### Example
 ```javascript

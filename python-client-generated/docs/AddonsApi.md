@@ -332,7 +332,7 @@ from pprint import pprint
 api_instance = tmi_client.AddonsApi(tmi_client.ApiClient(configuration))
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
-status = 'status_example' # str | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. (optional)
+status = ['status_example'] # list[str] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated (optional)
 addon_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by add-on (optional)
 
 try:
@@ -349,7 +349,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **status** | **str**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
+ **status** | [**list[str]**](str.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
  **addon_id** | [**str**](.md)| Filter by add-on | [optional] 
 
 ### Return type

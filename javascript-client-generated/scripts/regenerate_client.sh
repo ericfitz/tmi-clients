@@ -22,12 +22,15 @@ set -e  # Exit on error
 # - Input schemas: DfdDiagramInput, BaseDiagramInput
 #
 # USAGE:
-#   ./regenerate_client.sh
+#   ./regenerate_client.sh [path/to/tmi-openapi.json]
+#
+#   If a local spec path is provided, it will be used instead of downloading
+#   from GitHub. Otherwise, the latest spec is fetched from the main branch.
 #
 # REQUIREMENTS:
 #   - swagger-codegen 3.0.75+ (install via: brew install swagger-codegen)
 #   - Node.js 18+ (install via: brew install node)
-#   - curl (for downloading OpenAPI spec)
+#   - curl (for downloading OpenAPI spec, unless local path provided)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Navigate to javascript-client-generated directory (parent of scripts/)
@@ -63,13 +66,24 @@ NC='\033[0m' # No Color
 # Check prerequisites
 echo "Checking prerequisites..."
 
-# Download the OpenAPI spec from GitHub
-echo "Downloading OpenAPI spec from $OPENAPI_SPEC_URL..."
-if ! curl -fsSL "$OPENAPI_SPEC_URL" -o "$OPENAPI_SPEC"; then
-    echo -e "${RED}ERROR: Failed to download OpenAPI spec from $OPENAPI_SPEC_URL${NC}"
-    exit 1
+# Get the OpenAPI spec: use local file if provided, otherwise download from GitHub
+if [ -n "$1" ]; then
+    LOCAL_SPEC="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+    if [ ! -f "$LOCAL_SPEC" ]; then
+        echo -e "${RED}ERROR: Local spec file not found: $1${NC}"
+        exit 1
+    fi
+    echo "Using local OpenAPI spec: $LOCAL_SPEC"
+    cp "$LOCAL_SPEC" "$OPENAPI_SPEC"
+    echo -e "${GREEN}✓ OpenAPI spec copied from local file${NC}"
+else
+    echo "Downloading OpenAPI spec from $OPENAPI_SPEC_URL..."
+    if ! curl -fsSL "$OPENAPI_SPEC_URL" -o "$OPENAPI_SPEC"; then
+        echo -e "${RED}ERROR: Failed to download OpenAPI spec from $OPENAPI_SPEC_URL${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ OpenAPI spec downloaded${NC}"
 fi
-echo -e "${GREEN}✓ OpenAPI spec downloaded${NC}"
 
 if ! command -v swagger-codegen &> /dev/null; then
     echo -e "${RED}ERROR: swagger-codegen not found. Installing via Homebrew...${NC}"
@@ -206,25 +220,66 @@ if [ -f "$DFD_DIAGRAM_INPUT_FILE" ]; then
     fi
 fi
 
+# Patch 3: Fix AllOf* classes that incorrectly extend enum types
+# swagger-codegen generates classes extending enum objects (not classes),
+# causing "Super expression must either be null or a function" errors.
+echo "  Fixing AllOf* enum inheritance issues..."
+ALLOF_ENUM_FIXED=0
+for allof_file in "$CLIENT_DIR"/src/model/AllOf*.js; do
+    [ -f "$allof_file" ] || continue
+    # Extract the parent class name from the "extends" clause
+    PARENT=$(grep 'extends ' "$allof_file" 2>/dev/null | sed 's/.*extends \([A-Za-z_][A-Za-z0-9_]*\).*/\1/' | head -1)
+    [ -z "$PARENT" ] && continue
+    PARENT_FILE="$CLIENT_DIR/src/model/$PARENT.js"
+    [ -f "$PARENT_FILE" ] || continue
+    # Check if parent is an enum (const object) rather than a class
+    if grep -q "^const $PARENT = {" "$PARENT_FILE" 2>/dev/null; then
+        CLASSNAME=$(basename "$allof_file" .js)
+        # Rewrite as a non-extending class that delegates to the enum
+        cat > "$allof_file" << EOFIX
+import ApiClient from '../ApiClient';
+import $PARENT from './$PARENT';
+
+/**
+ * The $CLASSNAME model module.
+ * @module model/$CLASSNAME
+ * @version 1.0.0
+ */
+export default class $CLASSNAME {
+  /**
+   * Constructs a <code>$CLASSNAME</code> from a plain JavaScript object.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/$CLASSNAME} obj Optional instance to populate.
+   * @return {module:model/$CLASSNAME} The populated instance.
+   */
+  static constructFromObject(data, obj) {
+    return data;
+  }
+}
+EOFIX
+        ((ALLOF_ENUM_FIXED++))
+        echo "    Fixed: $CLASSNAME (was extending enum $PARENT)"
+    fi
+done
+if [ $ALLOF_ENUM_FIXED -gt 0 ]; then
+    echo -e "  ${GREEN}✓ Fixed $ALLOF_ENUM_FIXED AllOf* enum inheritance issues${NC}"
+else
+    echo -e "  ${GREEN}✓ No AllOf* enum inheritance issues found${NC}"
+fi
+
 echo -e "${GREEN}✓ Validation and patches complete${NC}"
 echo ""
 
 # Step 5: Restore custom files
 echo "Step 5: Restoring custom files..."
 
-# Restore .babelrc if it exists
-if [ -f ".regeneration_backup/.babelrc" ]; then
-    cp .regeneration_backup/.babelrc "$CLIENT_DIR/"
-    echo "  ✓ Restored .babelrc"
-else
-    # Create default .babelrc
-    cat > "$CLIENT_DIR/.babelrc" << 'EOF'
+# Always create clean .babelrc (modern @babel/preset-env includes all proposals)
+cat > "$CLIENT_DIR/.babelrc" << 'EOF'
 {
   "presets": ["@babel/preset-env"]
 }
 EOF
-    echo "  ✓ Created default .babelrc"
-fi
+echo "  ✓ Created .babelrc"
 
 # Restore test_diagram_fixes.js if it exists
 if [ -f ".regeneration_backup/test_diagram_fixes.js" ]; then
@@ -258,13 +313,8 @@ echo ""
 # Step 6: Update package.json with modern dependencies
 echo "Step 6: Updating package.json..."
 
-# Check if backup package.json exists and has our modern dependencies
-if [ -f ".regeneration_backup/package.json" ]; then
-    cp .regeneration_backup/package.json "$CLIENT_DIR/package.json"
-    echo "  ✓ Restored custom package.json with modern dependencies"
-else
-    # Update generated package.json with modern dependencies
-    cat > "$CLIENT_DIR/package.json" << 'EOF'
+# Always create fresh package.json with current best practices
+cat > "$CLIENT_DIR/package.json" << 'EOF'
 {
   "name": "tmi-js-client",
   "version": "1.0.0",
@@ -287,6 +337,7 @@ else
     "@babel/preset-env": "^7.28.3",
     "@babel/register": "^7.28.3",
     "chai": "^5.1.2",
+    "expect.js": "^0.3.1",
     "mocha": "^11.7.4",
     "sinon": "^21.0.0"
   },
@@ -303,8 +354,7 @@ else
   ]
 }
 EOF
-    echo "  ✓ Created modern package.json"
-fi
+echo "  ✓ Created modern package.json"
 
 echo -e "${GREEN}✓ package.json updated${NC}"
 echo ""
@@ -321,8 +371,10 @@ echo ""
 
 # Step 8: Run tests
 echo "Step 8: Running tests..."
+set +e
 npm test > test_output.log 2>&1
 TEST_EXIT_CODE=$?
+set -e
 
 if [ $TEST_EXIT_CODE -eq 0 ]; then
     echo -e "${GREEN}✓ All tests passed${NC}"
@@ -336,8 +388,10 @@ fi
 # Step 9: Run integration tests (if they exist)
 echo "Step 9: Running integration tests..."
 if [ -f "$CLIENT_DIR/test_diagram_fixes.js" ]; then
+    set +e
     node test_diagram_fixes.js > integration_test_output.log 2>&1
     INTEGRATION_EXIT_CODE=$?
+    set -e
 
     if [ $INTEGRATION_EXIT_CODE -eq 0 ]; then
         echo -e "${GREEN}✓ Integration tests passed${NC}"

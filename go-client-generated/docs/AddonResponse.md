@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Icon** | **string** | Icon identifier | [optional] [default to null]
 **Objects** | **[]string** | Supported TMI object types | [optional] [default to null]
 **ThreatModelId** | **string** | Threat model scope (if scoped) | [optional] [default to null]
+**Parameters** | [**[]AddonParameter**](AddonParameter.md) | Typed parameter declarations for client UI generation. Each parameter defines a name, type, and type-specific configuration that clients use to render appropriate input controls. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

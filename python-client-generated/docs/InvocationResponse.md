@@ -9,12 +9,12 @@ Name | Type | Description | Notes
 **object_type** | **str** | Object type (if specified) | [optional] 
 **object_id** | **str** | Object ID (if specified) | [optional] 
 **invoked_by** | **AllOfInvocationResponseInvokedBy** | User who triggered the invocation | 
-**payload** | **str** | JSON-encoded payload | [optional] 
 **status** | **str** | Current status | 
 **status_percent** | **int** | Progress percentage (0-100) | 
 **status_message** | **str** | Optional status description | [optional] 
 **created_at** | **datetime** | Creation timestamp | 
 **status_updated_at** | **datetime** | Last status update timestamp | 
+**data** | **str** | JSON-encoded data | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

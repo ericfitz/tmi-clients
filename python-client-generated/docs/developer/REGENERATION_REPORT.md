@@ -1,7 +1,7 @@
 # Python Client Regeneration Report
 
 ## Date
-Sat Feb 28 23:13:24 EST 2026
+Tue Mar 17 20:58:14 EDT 2026
 
 ## Changes Applied
 
@@ -15,13 +15,13 @@ Sat Feb 28 23:13:24 EST 2026
 - ✓ DfdDiagramInput constructor fixed (type parameter preservation)
 
 ### 3. Modern Python Configuration
-- ✓ Python 3.8+ requirement
-- ✓ Updated dependencies (latest Python 3.8+ compatible versions):
+- ✓ Python 3.9+ requirement
+- ✓ Updated dependencies (latest Python 3.9+ compatible versions):
   - certifi >= 2025.11.12
   - six >= 1.17.0
   - python-dateutil >= 2.9.0.post0
-  - setuptools >= 75.3.2
-  - urllib3 >= 2.2.3
+  - setuptools >= 78.1.1
+  - urllib3 >= 2.6.3
   - pytest >= 8.3.5
   - pytest-cov >= 5.0.0
   - pytest-randomly >= 3.15.0
@@ -41,13 +41,13 @@ Sat Feb 28 23:13:24 EST 2026
 ## Files Modified
 
 ### Generated API Classes
-- Total API classes: 25
+- Total API classes: 27
 
 ### Generated Model Classes
-- Total model classes: 231
+- Total model classes: 245
 
 ### Test Files
-- Total test files: 255
+- Total test files: 271
 
 ## Next Steps
 

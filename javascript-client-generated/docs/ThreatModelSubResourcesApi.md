@@ -88,6 +88,12 @@ Method | HTTP request | Description
 [**getThreatModelThreats**](ThreatModelSubResourcesApi.md#getThreatModelThreats) | **GET** /threat_models/{threat_model_id}/threats | List threats in a threat model
 [**patchThreatModelDiagram**](ThreatModelSubResourcesApi.md#patchThreatModelDiagram) | **PATCH** /threat_models/{threat_model_id}/diagrams/{diagram_id} | Partially update a diagram
 [**patchThreatModelThreat**](ThreatModelSubResourcesApi.md#patchThreatModelThreat) | **PATCH** /threat_models/{threat_model_id}/threats/{threat_id} | Partially update a threat
+[**restoreAsset**](ThreatModelSubResourcesApi.md#restoreAsset) | **POST** /threat_models/{threat_model_id}/assets/{asset_id}/restore | Restore a soft-deleted asset
+[**restoreDiagram**](ThreatModelSubResourcesApi.md#restoreDiagram) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/restore | Restore a soft-deleted diagram
+[**restoreDocument**](ThreatModelSubResourcesApi.md#restoreDocument) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/restore | Restore a soft-deleted document
+[**restoreNote**](ThreatModelSubResourcesApi.md#restoreNote) | **POST** /threat_models/{threat_model_id}/notes/{note_id}/restore | Restore a soft-deleted note
+[**restoreRepository**](ThreatModelSubResourcesApi.md#restoreRepository) | **POST** /threat_models/{threat_model_id}/repositories/{repository_id}/restore | Restore a soft-deleted repository
+[**restoreThreat**](ThreatModelSubResourcesApi.md#restoreThreat) | **POST** /threat_models/{threat_model_id}/threats/{threat_id}/restore | Restore a soft-deleted threat
 [**updateDiagramMetadataByKey**](ThreatModelSubResourcesApi.md#updateDiagramMetadataByKey) | **PUT** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Update diagram metadata by key
 [**updateDocumentMetadataByKey**](ThreatModelSubResourcesApi.md#updateDocumentMetadataByKey) | **PUT** /threat_models/{threat_model_id}/documents/{document_id}/metadata/{key} | Update document metadata by key
 [**updateNoteMetadataByKey**](ThreatModelSubResourcesApi.md#updateNoteMetadataByKey) | **PUT** /threat_models/{threat_model_id}/notes/{note_id}/metadata/{key} | Update note metadata by key
@@ -3369,7 +3375,8 @@ let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
-  'offset': 0 // Number | Number of results to skip
+  'offset': 0, // Number | Number of results to skip
+  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
 };
 apiInstance.getThreatModelAssets(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -3386,6 +3393,7 @@ Name | Type | Description  | Notes
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
+ **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3464,7 +3472,8 @@ let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
-  'offset': 0 // Number | Number of results to skip
+  'offset': 0, // Number | Number of results to skip
+  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
 };
 apiInstance.getThreatModelDiagrams(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -3481,6 +3490,7 @@ Name | Type | Description  | Notes
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
+ **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3559,7 +3569,8 @@ let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
-  'offset': 0 // Number | Number of results to skip
+  'offset': 0, // Number | Number of results to skip
+  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
 };
 apiInstance.getThreatModelDocuments(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -3576,6 +3587,7 @@ Name | Type | Description  | Notes
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
+ **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3744,7 +3756,8 @@ let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
-  'offset': 0 // Number | Number of results to skip
+  'offset': 0, // Number | Number of results to skip
+  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
 };
 apiInstance.getThreatModelNotes(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -3761,6 +3774,7 @@ Name | Type | Description  | Notes
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
+ **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3793,7 +3807,8 @@ let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
 let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
-  'offset': 0 // Number | Number of results to skip
+  'offset': 0, // Number | Number of results to skip
+  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
 };
 apiInstance.getThreatModelRepositories(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -3810,6 +3825,7 @@ Name | Type | Description  | Notes
  **threatModelId** | [**String**](.md)| Threat model identifier | 
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
+ **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3936,12 +3952,13 @@ let opts = {
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
   'sort': "created_at:desc", // String | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc)
-  'name': "name_example", // String | Filter by threat model name (partial match)
+  'name': "name_example", // String | Filter by name (case-insensitive substring match)
   'description': "description_example", // String | Filter by threat model description (partial match)
-  'threatType': ["threatType_example"], // [String] | Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing
-  'severity': "severity_example", // String | Filter by severity level (exact match)
-  'priority': "priority_example", // String | Filter by priority (exact match)
-  'status': "status_example", // String | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
+  'threatType': ["threatType_example"], // [String] | Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type=Tampering&threat_type=Spoofing
+  'severity': ["severity_example"], // [String] | Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity=high&severity=critical
+  'priority': ["priority_example"], // [String] | Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority=high&priority=critical
+  'status': ["status_example"], // [String] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated
+  'mitigated': true, // Boolean | Filter by mitigated status (exact match)
   'diagramId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter by diagram ID (exact match)
   'cellId': "38400000-8cf0-11bd-b23e-10b96e4ef00d", // String | Filter by cell ID (exact match)
   'scoreGt': 1.2, // Number | Filter threats with score greater than this value
@@ -3952,7 +3969,8 @@ let opts = {
   'createdAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results created after this timestamp (ISO 8601)
   'createdBefore': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results created before this timestamp (ISO 8601)
   'modifiedAfter': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results modified after this timestamp (ISO 8601)
-  'modifiedBefore': new Date("2013-10-20T19:20:30+01:00") // Date | Filter results modified before this timestamp (ISO 8601)
+  'modifiedBefore': new Date("2013-10-20T19:20:30+01:00"), // Date | Filter results modified before this timestamp (ISO 8601)
+  'includeDeleted': false // Boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role.
 };
 apiInstance.getThreatModelThreats(threatModelId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -3970,12 +3988,13 @@ Name | Type | Description  | Notes
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
  **sort** | **String**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to created_at:desc]
- **name** | **String**| Filter by threat model name (partial match) | [optional] 
+ **name** | **String**| Filter by name (case-insensitive substring match) | [optional] 
  **description** | **String**| Filter by threat model description (partial match) | [optional] 
- **threatType** | [**[String]**](String.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
- **severity** | **String**| Filter by severity level (exact match) | [optional] 
- **priority** | **String**| Filter by priority (exact match) | [optional] 
- **status** | **String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
+ **threatType** | [**[String]**](String.md)| Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
+ **severity** | [**[String]**](String.md)| Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity&#x3D;high&amp;severity&#x3D;critical | [optional] 
+ **priority** | [**[String]**](String.md)| Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority&#x3D;high&amp;priority&#x3D;critical | [optional] 
+ **status** | [**[String]**](String.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
+ **mitigated** | **Boolean**| Filter by mitigated status (exact match) | [optional] 
  **diagramId** | [**String**](.md)| Filter by diagram ID (exact match) | [optional] 
  **cellId** | [**String**](.md)| Filter by cell ID (exact match) | [optional] 
  **scoreGt** | **Number**| Filter threats with score greater than this value | [optional] 
@@ -3987,6 +4006,7 @@ Name | Type | Description  | Notes
  **createdBefore** | **Date**| Filter results created before this timestamp (ISO 8601) | [optional] 
  **modifiedAfter** | **Date**| Filter results modified after this timestamp (ISO 8601) | [optional] 
  **modifiedBefore** | **Date**| Filter results modified before this timestamp (ISO 8601) | [optional] 
+ **includeDeleted** | **Boolean**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -4095,6 +4115,282 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json
+ - **Accept**: application/json
+
+<a name="restoreAsset"></a>
+# **restoreAsset**
+> Asset restoreAsset(threatModelId, assetId)
+
+Restore a soft-deleted asset
+
+Restores a soft-deleted asset within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let assetId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Asset identifier
+
+apiInstance.restoreAsset(threatModelId, assetId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **assetId** | [**String**](.md)| Asset identifier | 
+
+### Return type
+
+[**Asset**](Asset.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="restoreDiagram"></a>
+# **restoreDiagram**
+> DfdDiagram restoreDiagram(threatModelId, diagramId)
+
+Restore a soft-deleted diagram
+
+Restores a soft-deleted diagram within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let diagramId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Diagram identifier
+
+apiInstance.restoreDiagram(threatModelId, diagramId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **diagramId** | [**String**](.md)| Diagram identifier | 
+
+### Return type
+
+[**DfdDiagram**](DfdDiagram.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="restoreDocument"></a>
+# **restoreDocument**
+> Document restoreDocument(threatModelId, documentId)
+
+Restore a soft-deleted document
+
+Restores a soft-deleted document within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let documentId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Document identifier
+
+apiInstance.restoreDocument(threatModelId, documentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **documentId** | [**String**](.md)| Document identifier | 
+
+### Return type
+
+[**Document**](Document.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="restoreNote"></a>
+# **restoreNote**
+> Note restoreNote(threatModelId, noteId)
+
+Restore a soft-deleted note
+
+Restores a soft-deleted note within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let noteId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Note identifier
+
+apiInstance.restoreNote(threatModelId, noteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **noteId** | [**String**](.md)| Note identifier | 
+
+### Return type
+
+[**Note**](Note.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="restoreRepository"></a>
+# **restoreRepository**
+> Repository restoreRepository(threatModelId, repositoryId)
+
+Restore a soft-deleted repository
+
+Restores a soft-deleted repository within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let repositoryId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Repository identifier
+
+apiInstance.restoreRepository(threatModelId, repositoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **repositoryId** | [**String**](.md)| Repository identifier | 
+
+### Return type
+
+[**Repository**](Repository.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="restoreThreat"></a>
+# **restoreThreat**
+> Threat restoreThreat(threatModelId, threatId)
+
+Restore a soft-deleted threat
+
+Restores a soft-deleted threat within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```javascript
+import {TmiJsClient} from 'tmi-js-client';
+let defaultClient = TmiJsClient.ApiClient.instance;
+
+
+let apiInstance = new TmiJsClient.ThreatModelSubResourcesApi();
+let threatModelId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat model identifier
+let threatId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Threat identifier
+
+apiInstance.restoreThreat(threatModelId, threatId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threatModelId** | [**String**](.md)| Threat model identifier | 
+ **threatId** | [**String**](.md)| Threat identifier | 
+
+### Return type
+
+[**Threat**](Threat.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="updateDiagramMetadataByKey"></a>

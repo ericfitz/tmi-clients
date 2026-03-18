@@ -88,6 +88,12 @@ Method | HTTP request | Description
 [**get_threat_model_threats**](ThreatModelSubResourcesApi.md#get_threat_model_threats) | **GET** /threat_models/{threat_model_id}/threats | List threats in a threat model
 [**patch_threat_model_diagram**](ThreatModelSubResourcesApi.md#patch_threat_model_diagram) | **PATCH** /threat_models/{threat_model_id}/diagrams/{diagram_id} | Partially update a diagram
 [**patch_threat_model_threat**](ThreatModelSubResourcesApi.md#patch_threat_model_threat) | **PATCH** /threat_models/{threat_model_id}/threats/{threat_id} | Partially update a threat
+[**restore_asset**](ThreatModelSubResourcesApi.md#restore_asset) | **POST** /threat_models/{threat_model_id}/assets/{asset_id}/restore | Restore a soft-deleted asset
+[**restore_diagram**](ThreatModelSubResourcesApi.md#restore_diagram) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/restore | Restore a soft-deleted diagram
+[**restore_document**](ThreatModelSubResourcesApi.md#restore_document) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/restore | Restore a soft-deleted document
+[**restore_note**](ThreatModelSubResourcesApi.md#restore_note) | **POST** /threat_models/{threat_model_id}/notes/{note_id}/restore | Restore a soft-deleted note
+[**restore_repository**](ThreatModelSubResourcesApi.md#restore_repository) | **POST** /threat_models/{threat_model_id}/repositories/{repository_id}/restore | Restore a soft-deleted repository
+[**restore_threat**](ThreatModelSubResourcesApi.md#restore_threat) | **POST** /threat_models/{threat_model_id}/threats/{threat_id}/restore | Restore a soft-deleted threat
 [**update_diagram_metadata_by_key**](ThreatModelSubResourcesApi.md#update_diagram_metadata_by_key) | **PUT** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Update diagram metadata by key
 [**update_document_metadata_by_key**](ThreatModelSubResourcesApi.md#update_document_metadata_by_key) | **PUT** /threat_models/{threat_model_id}/documents/{document_id}/metadata/{key} | Update document metadata by key
 [**update_note_metadata_by_key**](ThreatModelSubResourcesApi.md#update_note_metadata_by_key) | **PUT** /threat_models/{threat_model_id}/notes/{note_id}/metadata/{key} | Update note metadata by key
@@ -3683,7 +3689,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_assets**
-> ListAssetsResponse get_threat_model_assets(threat_model_id, limit=limit, offset=offset)
+> ListAssetsResponse get_threat_model_assets(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
 
 List assets in a threat model
 
@@ -3703,10 +3709,11 @@ api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(config
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
+include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
 
 try:
     # List assets in a threat model
-    api_response = api_instance.get_threat_model_assets(threat_model_id, limit=limit, offset=offset)
+    api_response = api_instance.get_threat_model_assets(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_assets: %s\n" % e)
@@ -3719,6 +3726,7 @@ Name | Type | Description  | Notes
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3787,7 +3795,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_diagrams**
-> ListDiagramsResponse get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset)
+> ListDiagramsResponse get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
 
 List threat model diagrams
 
@@ -3807,10 +3815,11 @@ api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(config
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
+include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
 
 try:
     # List threat model diagrams
-    api_response = api_instance.get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset)
+    api_response = api_instance.get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_diagrams: %s\n" % e)
@@ -3823,6 +3832,7 @@ Name | Type | Description  | Notes
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -3891,7 +3901,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_documents**
-> ListDocumentsResponse get_threat_model_documents(threat_model_id, limit=limit, offset=offset)
+> ListDocumentsResponse get_threat_model_documents(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
 
 List documents in a threat model
 
@@ -3911,10 +3921,11 @@ api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(config
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
+include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
 
 try:
     # List documents in a threat model
-    api_response = api_instance.get_threat_model_documents(threat_model_id, limit=limit, offset=offset)
+    api_response = api_instance.get_threat_model_documents(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_documents: %s\n" % e)
@@ -3927,6 +3938,7 @@ Name | Type | Description  | Notes
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -4095,7 +4107,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_notes**
-> ListNotesResponse get_threat_model_notes(threat_model_id, limit=limit, offset=offset)
+> ListNotesResponse get_threat_model_notes(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
 
 List notes in a threat model
 
@@ -4115,10 +4127,11 @@ api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(config
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
+include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
 
 try:
     # List notes in a threat model
-    api_response = api_instance.get_threat_model_notes(threat_model_id, limit=limit, offset=offset)
+    api_response = api_instance.get_threat_model_notes(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_notes: %s\n" % e)
@@ -4131,6 +4144,7 @@ Name | Type | Description  | Notes
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -4148,7 +4162,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_repositories**
-> ListRepositoriesResponse get_threat_model_repositories(threat_model_id, limit=limit, offset=offset)
+> ListRepositoriesResponse get_threat_model_repositories(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
 
 List sources in a threat model
 
@@ -4168,10 +4182,11 @@ api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(config
 threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
+include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
 
 try:
     # List sources in a threat model
-    api_response = api_instance.get_threat_model_repositories(threat_model_id, limit=limit, offset=offset)
+    api_response = api_instance.get_threat_model_repositories(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_repositories: %s\n" % e)
@@ -4184,6 +4199,7 @@ Name | Type | Description  | Notes
  **threat_model_id** | [**str**](.md)| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -4303,7 +4319,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_threats**
-> ListThreatsResponse get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before)
+> ListThreatsResponse get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, mitigated=mitigated, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before, include_deleted=include_deleted)
 
 List threats in a threat model
 
@@ -4324,12 +4340,13 @@ threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model id
 limit = 20 # int | Maximum number of results to return (optional) (default to 20)
 offset = 0 # int | Number of results to skip (optional) (default to 0)
 sort = 'created_at:desc' # str | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (optional) (default to created_at:desc)
-name = 'name_example' # str | Filter by threat model name (partial match) (optional)
+name = 'name_example' # str | Filter by name (case-insensitive substring match) (optional)
 description = 'description_example' # str | Filter by threat model description (partial match) (optional)
-threat_type = ['threat_type_example'] # list[str] | Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type=Tampering&threat_type=Spoofing (optional)
-severity = 'severity_example' # str | Filter by severity level (exact match) (optional)
-priority = 'priority_example' # str | Filter by priority (exact match) (optional)
-status = 'status_example' # str | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. (optional)
+threat_type = ['threat_type_example'] # list[str] | Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type=Tampering&threat_type=Spoofing (optional)
+severity = ['severity_example'] # list[str] | Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity=high&severity=critical (optional)
+priority = ['priority_example'] # list[str] | Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority=high&priority=critical (optional)
+status = ['status_example'] # list[str] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated (optional)
+mitigated = true # bool | Filter by mitigated status (exact match) (optional)
 diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by diagram ID (exact match) (optional)
 cell_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by cell ID (exact match) (optional)
 score_gt = 1.2 # float | Filter threats with score greater than this value (optional)
@@ -4341,10 +4358,11 @@ created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results created 
 created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results created before this timestamp (ISO 8601) (optional)
 modified_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified after this timestamp (ISO 8601) (optional)
 modified_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified before this timestamp (ISO 8601) (optional)
+include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
 
 try:
     # List threats in a threat model
-    api_response = api_instance.get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before)
+    api_response = api_instance.get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, mitigated=mitigated, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before, include_deleted=include_deleted)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_threats: %s\n" % e)
@@ -4358,12 +4376,13 @@ Name | Type | Description  | Notes
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
  **sort** | **str**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to created_at:desc]
- **name** | **str**| Filter by threat model name (partial match) | [optional] 
+ **name** | **str**| Filter by name (case-insensitive substring match) | [optional] 
  **description** | **str**| Filter by threat model description (partial match) | [optional] 
- **threat_type** | [**list[str]**](str.md)| Filter by threat types (AND logic). Threat must contain ALL specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
- **severity** | **str**| Filter by severity level (exact match) | [optional] 
- **priority** | **str**| Filter by priority (exact match) | [optional] 
- **status** | **str**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
+ **threat_type** | [**list[str]**](str.md)| Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
+ **severity** | [**list[str]**](str.md)| Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity&#x3D;high&amp;severity&#x3D;critical | [optional] 
+ **priority** | [**list[str]**](str.md)| Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority&#x3D;high&amp;priority&#x3D;critical | [optional] 
+ **status** | [**list[str]**](str.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
+ **mitigated** | **bool**| Filter by mitigated status (exact match) | [optional] 
  **diagram_id** | [**str**](.md)| Filter by diagram ID (exact match) | [optional] 
  **cell_id** | [**str**](.md)| Filter by cell ID (exact match) | [optional] 
  **score_gt** | **float**| Filter threats with score greater than this value | [optional] 
@@ -4375,6 +4394,7 @@ Name | Type | Description  | Notes
  **created_before** | **datetime**| Filter results created before this timestamp (ISO 8601) | [optional] 
  **modified_after** | **datetime**| Filter results modified after this timestamp (ISO 8601) | [optional] 
  **modified_before** | **datetime**| Filter results modified before this timestamp (ISO 8601) | [optional] 
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
 
 ### Return type
 
@@ -4493,6 +4513,312 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **restore_asset**
+> Asset restore_asset(threat_model_id, asset_id)
+
+Restore a soft-deleted asset
+
+Restores a soft-deleted asset within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+
+try:
+    # Restore a soft-deleted asset
+    api_response = api_instance.restore_asset(threat_model_id, asset_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->restore_asset: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **asset_id** | [**str**](.md)| Asset identifier | 
+
+### Return type
+
+[**Asset**](Asset.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **restore_diagram**
+> DfdDiagram restore_diagram(threat_model_id, diagram_id)
+
+Restore a soft-deleted diagram
+
+Restores a soft-deleted diagram within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+
+try:
+    # Restore a soft-deleted diagram
+    api_response = api_instance.restore_diagram(threat_model_id, diagram_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->restore_diagram: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **diagram_id** | [**str**](.md)| Diagram identifier | 
+
+### Return type
+
+[**DfdDiagram**](DfdDiagram.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **restore_document**
+> Document restore_document(threat_model_id, document_id)
+
+Restore a soft-deleted document
+
+Restores a soft-deleted document within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+
+try:
+    # Restore a soft-deleted document
+    api_response = api_instance.restore_document(threat_model_id, document_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->restore_document: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **document_id** | [**str**](.md)| Document identifier | 
+
+### Return type
+
+[**Document**](Document.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **restore_note**
+> Note restore_note(threat_model_id, note_id)
+
+Restore a soft-deleted note
+
+Restores a soft-deleted note within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+
+try:
+    # Restore a soft-deleted note
+    api_response = api_instance.restore_note(threat_model_id, note_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->restore_note: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **note_id** | [**str**](.md)| Note identifier | 
+
+### Return type
+
+[**Note**](Note.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **restore_repository**
+> Repository restore_repository(threat_model_id, repository_id)
+
+Restore a soft-deleted repository
+
+Restores a soft-deleted repository within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+
+try:
+    # Restore a soft-deleted repository
+    api_response = api_instance.restore_repository(threat_model_id, repository_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->restore_repository: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **repository_id** | [**str**](.md)| Repository identifier | 
+
+### Return type
+
+[**Repository**](Repository.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **restore_threat**
+> Threat restore_threat(threat_model_id, threat_id)
+
+Restore a soft-deleted threat
+
+Restores a soft-deleted threat within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import tmi_client
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
+threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+
+try:
+    # Restore a soft-deleted threat
+    api_response = api_instance.restore_threat(threat_model_id, threat_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ThreatModelSubResourcesApi->restore_threat: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_id** | [**str**](.md)| Threat identifier | 
+
+### Return type
+
+[**Threat**](Threat.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

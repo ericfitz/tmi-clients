@@ -1,9 +1,9 @@
 # TMI Go Client Regeneration Report
 
-**Date**: 2026-02-28 23:14:20
+**Date**: 2026-03-17 20:58:29
 **OpenAPI Spec**: /Users/efitz/Projects/tmi-clients/go-client-generated/tmi-openapi.json
 **Swagger Codegen**: 3.0.78
-**Go Version**: go version go1.26.0 darwin/arm64
+**Go Version**: go version go1.26.1 darwin/arm64
 
 ## Configuration
 
@@ -17,9 +17,9 @@
 ### Files Generated
 
 ```
-     231 model files
-      24 API files
-     252 documentation files
+     245 model files
+      26 API files
+     268 documentation files
 ```
 
 ### Dependencies
@@ -138,6 +138,7 @@ Status: ⚠️ NOT FOUND
 addons
 administration
 assets
+audit_trail
 authentication
 collaboration
 configuration
@@ -158,6 +159,7 @@ threat_models
 threats
 user_account
 users
+web_socket
 webhooks
 ```
 

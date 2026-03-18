@@ -24,6 +24,8 @@ Method | HTTP request | Description
 
 Bulk create project metadata
 
+Create multiple metadata key-value pairs for the specified project in a single request.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -68,6 +70,8 @@ Name | Type | Description  | Notes
 
 Bulk replace project metadata
 
+Replace all metadata for the specified project with the provided key-value pairs.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -111,6 +115,8 @@ Name | Type | Description  | Notes
 > [Metadata] bulkUpsertProjectMetadata(body, projectId)
 
 Bulk upsert project metadata
+
+Create or update multiple metadata key-value pairs for the specified project in a single request.
 
 ### Example
 ```javascript
@@ -200,6 +206,8 @@ Name | Type | Description  | Notes
 
 Create project metadata
 
+Create a new metadata key-value pair for the specified project.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -288,6 +296,8 @@ null (empty response body)
 
 Delete project metadata
 
+Delete a metadata key-value pair from the specified project.
+
 ### Example
 ```javascript
 import {TmiJsClient} from 'tmi-js-client';
@@ -375,6 +385,8 @@ Name | Type | Description  | Notes
 > [Metadata] getProjectMetadata(projectId)
 
 Get project metadata
+
+Retrieve all metadata key-value pairs associated with the specified project.
 
 ### Example
 ```javascript
@@ -568,6 +580,8 @@ Name | Type | Description  | Notes
 > Metadata updateProjectMetadata(body, projectId, key)
 
 Update project metadata
+
+Update the value of an existing metadata key for the specified project.
 
 ### Example
 ```javascript

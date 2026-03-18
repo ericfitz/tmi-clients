@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **RelatedTeams** | [**[]RelatedTeam**](RelatedTeam.md) | Relationships to other teams | [optional] [default to null]
 **Uri** | **string** | URL or reference to internal team page | [optional] [default to null]
 **EmailAddress** | **string** | Team email address | [optional] [default to null]
-**Status** | **string** | Team status (lifecycle, archival, deprecation, etc.) | [optional] [default to null]
+**Status** | **AllOfTeamBaseStatus** | Team lifecycle status. Defaults to &#x27;active&#x27; if not provided or set to null. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

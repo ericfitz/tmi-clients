@@ -302,7 +302,7 @@ let apiInstance = new TmiJsClient.AddonsApi();
 let opts = { 
   'limit': 20, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
-  'status': "status_example", // String | Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values.
+  'status': ["status_example"], // [String] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated
   'addonId': "38400000-8cf0-11bd-b23e-10b96e4ef00d" // String | Filter by add-on
 };
 apiInstance.listInvocations(opts).then((data) => {
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Number**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
- **status** | **String**| Filter by status value (exact match). To filter by multiple statuses, use multiple status parameters or comma-separated values. | [optional] 
+ **status** | [**[String]**](String.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
  **addonId** | [**String**](.md)| Filter by add-on | [optional] 
 
 ### Return type

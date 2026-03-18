@@ -10,4 +10,4 @@ Name | Type | Description | Notes
 **relatedTeams** | [**[RelatedTeam]**](RelatedTeam.md) | Relationships to other teams | [optional] 
 **uri** | **String** | URL or reference to internal team page | [optional] 
 **emailAddress** | **String** | Team email address | [optional] 
-**status** | **String** | Team status (lifecycle, archival, deprecation, etc.) | [optional] 
+**status** | **AllOfTeamBaseStatus** | Team lifecycle status. Defaults to &#x27;active&#x27; if not provided or set to null. | [optional] 

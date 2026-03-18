@@ -17,12 +17,15 @@ set -e  # Exit on error
 # - Enum class prefix enabled
 #
 # USAGE:
-#   ./regenerate_client.sh
+#   ./regenerate_client.sh [path/to/tmi-openapi.json]
+#
+#   If a local spec path is provided, it will be used instead of downloading
+#   from GitHub. Otherwise, the latest spec is fetched from the main branch.
 #
 # REQUIREMENTS:
 #   - swagger-codegen 3.0.75+ (install via: brew install swagger-codegen)
 #   - Go 1.21+ (install via: brew install go)
-#   - curl (for downloading OpenAPI spec)
+#   - curl (for downloading OpenAPI spec, unless local path provided)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Navigate to go-client-generated directory (parent of scripts/)
@@ -58,13 +61,24 @@ NC='\033[0m' # No Color
 # Check prerequisites
 echo "Checking prerequisites..."
 
-# Download the OpenAPI spec from GitHub
-echo "Downloading OpenAPI spec from $OPENAPI_SPEC_URL..."
-if ! curl -fsSL "$OPENAPI_SPEC_URL" -o "$OPENAPI_SPEC"; then
-    echo -e "${RED}ERROR: Failed to download OpenAPI spec from $OPENAPI_SPEC_URL${NC}"
-    exit 1
+# Get the OpenAPI spec: use local file if provided, otherwise download from GitHub
+if [ -n "$1" ]; then
+    LOCAL_SPEC="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+    if [ ! -f "$LOCAL_SPEC" ]; then
+        echo -e "${RED}ERROR: Local spec file not found: $1${NC}"
+        exit 1
+    fi
+    echo "Using local OpenAPI spec: $LOCAL_SPEC"
+    cp "$LOCAL_SPEC" "$OPENAPI_SPEC"
+    echo -e "${GREEN}✓ OpenAPI spec copied from local file${NC}"
+else
+    echo "Downloading OpenAPI spec from $OPENAPI_SPEC_URL..."
+    if ! curl -fsSL "$OPENAPI_SPEC_URL" -o "$OPENAPI_SPEC"; then
+        echo -e "${RED}ERROR: Failed to download OpenAPI spec from $OPENAPI_SPEC_URL${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ OpenAPI spec downloaded${NC}"
 fi
-echo -e "${GREEN}✓ OpenAPI spec downloaded${NC}"
 
 if ! command -v swagger-codegen &> /dev/null; then
     echo -e "${RED}ERROR: swagger-codegen not found. Installing via Homebrew...${NC}"
