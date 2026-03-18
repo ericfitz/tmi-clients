@@ -69,7 +69,7 @@ test('DfdDiagram constructor has correct parameters', () => {
 
 // Test 3: Verify DfdDiagram type preservation
 test('DfdDiagram preserves type parameter', () => {
-  const DfdDiagram = require('./dist/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram').default;
 
   const cells = [
     { id: 'node1', shape: 'process', x: 100, y: 100 }
@@ -97,7 +97,7 @@ test('DfdDiagram preserves type parameter', () => {
 
 // Test 4: Check if DfdDiagramInput exists (should after regeneration)
 try {
-  const DfdDiagramInput = require('./dist/model/DfdDiagramInput');
+  const DfdDiagramInput = require('./dist/model/DfdDiagramInput').default;
 
   test('DfdDiagramInput class exists', () => {
     assert(DfdDiagramInput, 'DfdDiagramInput class should exist');
@@ -121,8 +121,8 @@ try {
 
     const input = new DfdDiagramInput(
       'DFD-1.0.0',      // type
-      'Test Diagram',   // name
-      cells             // cells
+      cells,             // cells
+      'Test Diagram'    // name
       // NO id, created_at, modified_at
     );
 
@@ -140,7 +140,7 @@ try {
 
 // Test 5: Check if BaseDiagramInput exists (should after regeneration)
 try {
-  const BaseDiagramInput = require('./dist/model/BaseDiagramInput');
+  const BaseDiagramInput = require('./dist/model/BaseDiagramInput').default;
 
   test('BaseDiagramInput class exists', () => {
     assert(BaseDiagramInput, 'BaseDiagramInput class should exist');
@@ -164,7 +164,7 @@ const webhookModels = [
 
 webhookModels.forEach(modelName => {
   try {
-    const Model = require(`./src/model/${modelName}`);
+    const Model = require(`./dist/model/${modelName}`).default;
     test(`${modelName} class exists`, () => {
       assert(Model, `${modelName} should exist`);
     });
@@ -189,7 +189,7 @@ const removedClasses = [
 
 removedClasses.forEach(className => {
   try {
-    require(`./src/model/${className}`);
+    require(`./dist/model/${className}`);
     warn(
       `${className} still exists`,
       'This class should be removed in the latest OpenAPI spec (cell simplification). It still exists, indicating client may need regeneration.'
@@ -204,7 +204,7 @@ removedClasses.forEach(className => {
 
 // Test 8: Verify inline cell objects work
 test('Inline cell objects work correctly', () => {
-  const DfdDiagram = require('./dist/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram').default;
 
   // Create a diagram with inline cell attributes
   const cells = [
@@ -261,7 +261,7 @@ test('Inline cell objects work correctly', () => {
 
 // Test 9: Check for WebhooksApi (if regenerated)
 try {
-  const GeneralApi = require('./dist/tmi-client/GeneralApi');
+  const GeneralApi = require('./dist/tmi-client/GeneralApi').default;
 
   test('GeneralApi exists (for webhooks)', () => {
     assert(GeneralApi, 'GeneralApi should exist');
@@ -299,7 +299,7 @@ try {
 
 // Test 10: Verify TypeEnum for DfdDiagram
 test('DfdDiagram.TypeEnum exists and contains DFD-1.0.0', () => {
-  const DfdDiagram = require('./dist/model/DfdDiagram');
+  const DfdDiagram = require('./dist/model/DfdDiagram').default;
 
   assert(DfdDiagram.TypeEnum, 'DfdDiagram should have TypeEnum');
   assert(
@@ -310,14 +310,14 @@ test('DfdDiagram.TypeEnum exists and contains DFD-1.0.0', () => {
 
 // Test 11: Verify BaseDiagram exists
 test('BaseDiagram class exists', () => {
-  const BaseDiagram = require('./dist/model/BaseDiagram');
+  const BaseDiagram = require('./dist/model/BaseDiagram').default;
   assert(BaseDiagram, 'BaseDiagram class should exist');
   assert(typeof BaseDiagram === 'function', 'BaseDiagram should be a constructor');
 });
 
 // Test 12: Verify CreateDiagramRequest exists
 test('CreateDiagramRequest class exists', () => {
-  const CreateDiagramRequest = require('./dist/model/CreateDiagramRequest');
+  const CreateDiagramRequest = require('./dist/model/CreateDiagramRequest').default;
   assert(CreateDiagramRequest, 'CreateDiagramRequest should exist');
 
   const request = new CreateDiagramRequest('Test Diagram', 'DFD-1.0.0');
@@ -327,7 +327,7 @@ test('CreateDiagramRequest class exists', () => {
 
 // Test 13: Verify ThreatModelSubResourcesApi exists
 test('ThreatModelSubResourcesApi exists', () => {
-  const ThreatModelSubResourcesApi = require('./dist/tmi-client/ThreatModelSubResourcesApi');
+  const ThreatModelSubResourcesApi = require('./dist/tmi-client/ThreatModelSubResourcesApi').default;
   assert(ThreatModelSubResourcesApi, 'ThreatModelSubResourcesApi should exist');
 
   const api = new ThreatModelSubResourcesApi();
@@ -347,7 +347,7 @@ const adminModels = [
 
 adminModels.forEach(modelName => {
   try {
-    const Model = require(`./src/model/${modelName}`);
+    const Model = require(`./dist/model/${modelName}`).default;
     test(`${modelName} class exists`, () => {
       assert(Model, `${modelName} should exist`);
     });
@@ -369,7 +369,7 @@ const addonModels = [
 
 addonModels.forEach(modelName => {
   try {
-    const Model = require(`./src/model/${modelName}`);
+    const Model = require(`./dist/model/${modelName}`).default;
     test(`${modelName} class exists`, () => {
       assert(Model, `${modelName} should exist`);
     });
@@ -392,7 +392,7 @@ console.log('========================================\n');
 
 if (warnings > 0) {
   console.log('Note: Warnings indicate features that will be available after regeneration.');
-  console.log('Run: ./scripts/regenerate_client.sh\n');
+  console.log('Run: python3 regenerate_js.py\n');
 }
 
 if (failed > 0) {
