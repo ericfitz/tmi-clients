@@ -267,6 +267,69 @@ else
     echo -e "  ${GREEN}✓ No AllOf* enum inheritance issues found${NC}"
 fi
 
+# Patch 4: Fix enum model files that wrap export in extra object
+# swagger-codegen generates `export default {EnumName}` instead of `export default EnumName`,
+# causing tests to find properties nested one level too deep.
+echo "  Fixing enum export wrapping..."
+ENUM_EXPORT_FIXED=0
+for model_file in "$CLIENT_DIR"/src/model/*.js; do
+    [ -f "$model_file" ] || continue
+    BASENAME=$(basename "$model_file" .js)
+    if grep -q "^export default {${BASENAME}};" "$model_file" 2>/dev/null; then
+        sed -i.bak "s/^export default {${BASENAME}};/export default ${BASENAME};/" "$model_file"
+        rm -f "${model_file}.bak"
+        ((ENUM_EXPORT_FIXED++))
+        echo "    Fixed: $BASENAME (unwrapped enum export)"
+    fi
+done
+if [ $ENUM_EXPORT_FIXED -gt 0 ]; then
+    echo -e "  ${GREEN}✓ Fixed $ENUM_EXPORT_FIXED enum export wrapping issues${NC}"
+else
+    echo -e "  ${GREEN}✓ No enum export wrapping issues found${NC}"
+fi
+
+# Patch 5: Fix subclass constructors with missing parent parameters
+# swagger-codegen generates constructors that call super() with variables not in the
+# constructor signature (e.g., principalType, provider, providerId for User subclasses).
+echo "  Fixing subclass constructor parameter forwarding..."
+python3 << 'PYTHON_CTOR_PATCH'
+import glob, re, os
+
+fixed = 0
+for filepath in sorted(glob.glob("src/model/*.js")):
+    with open(filepath) as f:
+        content = f.read()
+
+    ctor_m = re.search(r'  constructor\(([^)]*)\)\s*\{', content)
+    super_m = re.search(r'    super\(([^)]*)\);', content)
+    if not ctor_m or not super_m:
+        continue
+
+    ctor_args = [a.strip() for a in ctor_m.group(1).split(',') if a.strip()]
+    super_args = [a.strip() for a in super_m.group(1).split(',') if a.strip()]
+
+    # Find super args missing from constructor
+    missing = [a for a in super_args if a not in ctor_args]
+    if not missing:
+        continue
+
+    # Add missing args to constructor (after existing args)
+    all_args = ctor_args + missing
+    new_ctor = f"  constructor({', '.join(all_args)}) {{"
+    new_content = content[:ctor_m.start()] + new_ctor + content[ctor_m.end():]
+
+    with open(filepath, 'w') as f:
+        f.write(new_content)
+
+    basename = os.path.basename(filepath).replace('.js', '')
+    print(f"    Fixed: {basename} constructor")
+    fixed += 1
+
+print(f"  CTOR_FIXED={fixed}")
+PYTHON_CTOR_PATCH
+
+echo -e "  ${GREEN}✓ Constructor parameter forwarding patch complete${NC}"
+
 echo -e "${GREEN}✓ Validation and patches complete${NC}"
 echo ""
 

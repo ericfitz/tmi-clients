@@ -73,4 +73,4 @@ const TeamStatus = {
   }
 };
 
-export default {TeamStatus};
+export default TeamStatus;

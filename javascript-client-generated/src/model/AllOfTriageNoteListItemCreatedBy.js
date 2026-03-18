@@ -31,7 +31,7 @@ export default class AllOfTriageNoteListItemCreatedBy extends User {
    * @param email {} User email address (required)
    * @param displayName {} User full name for display
    */
-  constructor(email, displayName) {
+  constructor(email, displayName, principalType, provider, providerId) {
     super(principalType, email, displayName, provider, providerId);
   }
 

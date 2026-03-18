@@ -1,6 +1,6 @@
 # TMI JavaScript Client Regeneration Report
 
-**Date**: 2026-03-17 21:04:12
+**Date**: 2026-03-17 21:12:31
 **OpenAPI Spec**: /Users/efitz/Projects/tmi-clients/javascript-client-generated/tmi-openapi.json
 **Swagger Codegen**: 3.0.78
 **Node.js**: v22.22.1
@@ -49,8 +49,8 @@
 
 ### Unit Tests
 
-Exit Code: 79
-Status: ❌ FAILED
+Exit Code: 0
+Status: ✅ PASSED
 
 See `test_output.log` for full details.
 
@@ -93,7 +93,7 @@ See `integration_test_output.log` for full details.
 ## Next Steps
 
 1. ✅ Review `REGENERATION_REPORT.md` (this file)
-2. ❌ Review test results in `test_output.log`
+2. ✅ Review test results in `test_output.log`
 3. ✅ Review `docs/developer/MIGRATION_GUIDE.md` for API changes
 4. ⚠️ Manually verify constructor patches in:
    - src/model/DfdDiagram.js
@@ -112,7 +112,7 @@ See `integration_test_output.log` for full details.
 
 ## Summary
 
-⚠️ **Regeneration completed with test failures**
+✅ **Regeneration completed successfully**
 
 The JavaScript client has been regenerated from the latest OpenAPI specification.
 All modern dependencies and security updates have been applied.

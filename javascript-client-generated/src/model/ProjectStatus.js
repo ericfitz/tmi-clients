@@ -103,4 +103,4 @@ const ProjectStatus = {
   }
 };
 
-export default {ProjectStatus};
+export default ProjectStatus;

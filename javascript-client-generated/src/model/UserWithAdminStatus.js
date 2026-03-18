@@ -35,7 +35,7 @@ export default class UserWithAdminStatus extends User {
    * @param email {} User email address (required)
    * @param displayName {} User full name for display
    */
-  constructor(isAdmin, isSecurityReviewer, groups, email, displayName) {
+  constructor(isAdmin, isSecurityReviewer, groups, email, displayName, principalType, provider, providerId) {
     super(principalType, email, displayName, provider, providerId);
     this.isAdmin = isAdmin;
     this.isSecurityReviewer = isSecurityReviewer;
