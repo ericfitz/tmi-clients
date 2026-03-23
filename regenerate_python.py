@@ -17,6 +17,7 @@ from regen_common import (
     copy_local_spec,
     count_files,
     download_spec,
+    extract_spec_version,
     generate_report,
     patch_file_exact,
     patch_file_regex,
@@ -41,10 +42,13 @@ BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
 
 # --- Config file contents ---
 
+# Version placeholder — replaced at regeneration time by extract_spec_version()
+_VERSION_PLACEHOLDER = "0.0.0-dev"
+
 PYPROJECT_TOML = """\
 [project]
 name = "tmi-client"
-version = "1.0.0"
+version = "0.0.0-dev"
 description = "TMI API Python Client"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -82,9 +86,9 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/threagile/tmi-clients"
-Repository = "https://github.com/threagile/tmi-clients"
-Documentation = "https://github.com/threagile/tmi-clients/tree/main/python-client-generated"
+Homepage = "https://github.com/ericfitz/tmi-clients"
+Repository = "https://github.com/ericfitz/tmi-clients"
+Documentation = "https://github.com/ericfitz/tmi-clients/tree/main/python-client-generated"
 
 [build-system]
 requires = ["setuptools>=70.0.0", "wheel"]
@@ -299,6 +303,9 @@ def main(spec_path: str | None = None) -> int:
     else:
         download_spec(DEFAULT_SPEC_URL, SPEC_PATH)
 
+    # 3b. Extract version from spec
+    spec_version = extract_spec_version(SPEC_PATH)
+
     # 4. Backup
     print_step(3, "Backing up custom files")
     backup_files(
@@ -348,8 +355,9 @@ def main(spec_path: str | None = None) -> int:
 
     # 8. Write config files
     print_step(7, "Applying modern Python 3.x configuration")
-    write_file(CLIENT_DIR / "pyproject.toml", PYPROJECT_TOML)
-    print_success("pyproject.toml created")
+    write_file(CLIENT_DIR / "pyproject.toml",
+               PYPROJECT_TOML.replace(_VERSION_PLACEHOLDER, spec_version))
+    print_success(f"pyproject.toml created (version {spec_version})")
 
     had_issues = patch_setup_py(had_issues)
 
@@ -426,7 +434,7 @@ def main(spec_path: str | None = None) -> int:
             "### Client Regenerated\n"
             f"- Source: `{DEFAULT_SPEC_URL}`\n"
             "- Generator: swagger-codegen 3.0.75\n"
-            "- Package: tmi_client v1.0.0\n\n"
+            f"- Package: tmi_client v{spec_version}\n\n"
             "### Constructor Patches Applied\n"
             "- DfdDiagram constructor fixed (type parameter preservation)\n"
             "- DfdDiagramInput constructor fixed (type parameter preservation)\n"

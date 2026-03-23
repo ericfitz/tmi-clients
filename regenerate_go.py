@@ -19,6 +19,7 @@ from regen_common import (
     copy_local_spec,
     count_files,
     download_spec,
+    extract_spec_version,
     generate_report,
     patch_file_exact,
     patch_file_regex,
@@ -39,7 +40,7 @@ CONFIG_FILE = CLIENT_DIR / "scripts" / "swagger-codegen-config.json"
 SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
 BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
 
-GO_MODULE_PATH = "github.com/efitz/tmi-clients/go-client-generated"
+GO_MODULE_PATH = "github.com/ericfitz/tmi-clients/go-client-generated"
 GO_VERSION = "1.21"
 
 FRESH_GO_MOD = f"""\
@@ -91,6 +92,9 @@ def main(spec_path: str | None = None) -> int:
         copy_local_spec(Path(spec_path), SPEC_PATH)
     else:
         download_spec(DEFAULT_SPEC_URL, SPEC_PATH)
+
+    # 3b. Extract version from spec
+    spec_version = extract_spec_version(SPEC_PATH)
 
     # 4. Backup
     print_step(3, "Backing up custom files")
@@ -267,6 +271,7 @@ def main(spec_path: str | None = None) -> int:
         {"heading": "Configuration", "content": (
             f"- Package Name: tmiclient\n"
             f"- Module Path: {GO_MODULE_PATH}\n"
+            f"- API Version: {spec_version}\n"
             f"- Go Version: {GO_VERSION}+\n"
             f"- Config File: {CONFIG_FILE}"
         )},

@@ -20,6 +20,7 @@ from regen_common import (
     copy_local_spec,
     count_files,
     download_spec,
+    extract_spec_version,
     generate_report,
     patch_file_regex,
     print_banner,
@@ -39,11 +40,13 @@ CONFIG_FILE = CLIENT_DIR / "scripts" / "swagger-codegen-config.json"
 SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
 BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
 
+_VERSION_PLACEHOLDER = "0.0.0-dev"
+
 PACKAGE_JSON = """\
 {
-  "name": "tmi-js-client",
-  "version": "1.0.0",
-  "description": "JavaScript client for TMI (Threat Modeling Improved) API v1.0.0",
+  "name": "@tmiclient/client",
+  "version": "0.0.0-dev",
+  "description": "JavaScript client for TMI (Threat Modeling Improved) API",
   "license": "Apache-2.0",
   "main": "src/index.js",
   "scripts": {
@@ -68,7 +71,7 @@ PACKAGE_JSON = """\
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/threagile/tmi-clients.git"
+    "url": "https://github.com/ericfitz/tmi-clients.git"
   },
   "keywords": [
     "tmi",
@@ -203,7 +206,7 @@ def main(spec_path: str | None = None) -> int:
 
     # 1. Banner
     print_banner("TMI JavaScript Client Regeneration", {
-        "Package": "tmi-js-client",
+        "Package": "@tmiclient/client",
         "Node.js": "18+",
         "Dependencies": "Modern with CVE fixes",
         "Testing": "Mocha + Chai",
@@ -222,6 +225,9 @@ def main(spec_path: str | None = None) -> int:
         copy_local_spec(Path(spec_path), SPEC_PATH)
     else:
         download_spec(DEFAULT_SPEC_URL, SPEC_PATH)
+
+    # 3b. Extract version from spec
+    spec_version = extract_spec_version(SPEC_PATH)
 
     # 4. Backup
     print_step(3, "Backing up custom files")
@@ -300,8 +306,9 @@ def main(spec_path: str | None = None) -> int:
 
     # 8. Write config files
     print_step(7, "Updating package.json")
-    write_file(CLIENT_DIR / "package.json", PACKAGE_JSON)
-    print_success("Created modern package.json")
+    write_file(CLIENT_DIR / "package.json",
+               PACKAGE_JSON.replace(_VERSION_PLACEHOLDER, spec_version))
+    print_success(f"Created modern package.json (version {spec_version})")
 
     write_file(CLIENT_DIR / ".babelrc", BABELRC)
     print_success("Created .babelrc")
@@ -405,8 +412,8 @@ def main(spec_path: str | None = None) -> int:
 
     report = generate_report("TMI JavaScript Client Regeneration Report", [
         {"heading": "Configuration", "content": (
-            "- Package Name: tmi-js-client\n"
-            "- Version: 1.0.0\n"
+            "- Package Name: @tmi/client\n"
+            f"- Version: {spec_version}\n"
             f"- Config File: {CONFIG_FILE}"
         )},
         {"heading": "Files Generated", "content": (

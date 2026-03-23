@@ -2,6 +2,7 @@
 """Shared utilities for TMI client regeneration scripts."""
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -170,6 +171,27 @@ def download_spec(url: str, dest: str | Path) -> None:
         )
         sys.exit(1)
     print_success(f"Spec downloaded to {dest}")
+
+
+def extract_spec_version(spec_path: str | Path) -> str:
+    """Extract the API version from an OpenAPI spec file.
+
+    Reads ``info.version`` from the JSON spec. Returns the version string
+    (e.g. ``"1.3.0"``).  Exits with an error if the file cannot be parsed
+    or the version field is missing.
+    """
+    spec_path = Path(spec_path)
+    try:
+        data = json.loads(spec_path.read_text(encoding="utf-8"))
+        version = data["info"]["version"]
+    except (json.JSONDecodeError, KeyError, FileNotFoundError) as exc:
+        print_error(
+            f"Could not extract version from spec: {spec_path}\n"
+            f"  Error: {exc}"
+        )
+        sys.exit(1)
+    print_success(f"Spec version: {version}")
+    return version
 
 
 def copy_local_spec(src: str | Path, dest: str | Path) -> None:

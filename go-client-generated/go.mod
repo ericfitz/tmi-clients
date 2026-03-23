@@ -1,4 +1,4 @@
-module github.com/efitz/tmi-clients/go-client-generated
+module github.com/ericfitz/tmi-clients/go-client-generated
 
 go 1.24.0
 

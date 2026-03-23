@@ -13,7 +13,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "tmi-client"
-VERSION = "1.0.0"
+VERSION = "1.3.0"
 # To install the library, run the following
 #
 # python setup.py install
@@ -28,7 +28,7 @@ setup(
     version=VERSION,
     description="TMI (Threat Modeling Improved) API",
     author_email="api@tmi.local.dev",
-    url="https://github.com/threagile/tmi-clients",
+    url="https://github.com/ericfitz/tmi-clients",
     keywords=["Swagger", "TMI (Threat Modeling Improved) API"],
     install_requires=REQUIRES,
     packages=find_packages(),
