@@ -258,45 +258,45 @@ class AuthenticationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def delete_current_user_client_credential(self, id, **kwargs):  # noqa: E501
+    def delete_current_user_client_credential(self, credential_id, **kwargs):  # noqa: E501
         """Delete client credential  # noqa: E501
 
         Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_current_user_client_credential(id, async_req=True)
+        >>> thread = api.delete_current_user_client_credential(credential_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str id: Administrator grant ID (required)
+        :param str credential_id: Internal UUID of the client credential (the \"id\" field from the list response, not the \"client_id\") (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async_req'):
-            return self.delete_current_user_client_credential_with_http_info(id, **kwargs)  # noqa: E501
+            return self.delete_current_user_client_credential_with_http_info(credential_id, **kwargs)  # noqa: E501
         else:
-            (data) = self.delete_current_user_client_credential_with_http_info(id, **kwargs)  # noqa: E501
+            (data) = self.delete_current_user_client_credential_with_http_info(credential_id, **kwargs)  # noqa: E501
             return data
 
-    def delete_current_user_client_credential_with_http_info(self, id, **kwargs):  # noqa: E501
+    def delete_current_user_client_credential_with_http_info(self, credential_id, **kwargs):  # noqa: E501
         """Delete client credential  # noqa: E501
 
         Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_current_user_client_credential_with_http_info(id, async_req=True)
+        >>> thread = api.delete_current_user_client_credential_with_http_info(credential_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str id: Administrator grant ID (required)
+        :param str credential_id: Internal UUID of the client credential (the \"id\" field from the list response, not the \"client_id\") (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['id']  # noqa: E501
+        all_params = ['credential_id']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -311,16 +311,16 @@ class AuthenticationApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'id' is set
-        if ('id' not in params or
-                params['id'] is None):
-            raise ValueError("Missing the required parameter `id` when calling `delete_current_user_client_credential`")  # noqa: E501
+        # verify the required parameter 'credential_id' is set
+        if ('credential_id' not in params or
+                params['credential_id'] is None):
+            raise ValueError("Missing the required parameter `credential_id` when calling `delete_current_user_client_credential`")  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'id' in params:
-            path_params['id'] = params['id']  # noqa: E501
+        if 'credential_id' in params:
+            path_params['credential_id'] = params['credential_id']  # noqa: E501
 
         query_params = []
 
@@ -338,7 +338,7 @@ class AuthenticationApi(object):
         auth_settings = ['bearerAuth']  # noqa: E501
 
         return self.api_client.call_api(
-            '/me/client_credentials/{id}', 'DELETE',
+            '/me/client_credentials/{credential_id}', 'DELETE',
             path_params,
             query_params,
             header_params,

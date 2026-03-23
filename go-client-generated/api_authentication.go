@@ -322,10 +322,10 @@ func (a *AuthenticationApiService) CreateCurrentUserClientCredential(ctx context
 AuthenticationApiService Delete client credential
 Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id Administrator grant ID
+ * @param credentialId Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;)
 
 */
-func (a *AuthenticationApiService) DeleteCurrentUserClientCredential(ctx context.Context, id string) (*http.Response, error) {
+func (a *AuthenticationApiService) DeleteCurrentUserClientCredential(ctx context.Context, credentialId string) (*http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -335,8 +335,8 @@ func (a *AuthenticationApiService) DeleteCurrentUserClientCredential(ctx context
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/me/client_credentials/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", fmt.Sprintf("%v", id), -1)
+	localVarPath := a.client.cfg.BasePath + "/me/client_credentials/{credential_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"credential_id"+"}", fmt.Sprintf("%v", credentialId), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

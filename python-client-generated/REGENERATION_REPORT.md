@@ -1,6 +1,6 @@
 # Python Client Regeneration Report
 
-Generated: 2026-03-17 22:42:23
+Generated: 2026-03-22 22:50:41
 
 ## Changes Applied
 
@@ -24,9 +24,9 @@ Generated: 2026-03-17 22:42:23
 
 ## Files Generated
 
-- API classes: 27
-- Model classes: 245
-- Test files: 271
+- API classes: 28
+- Model classes: 248
+- Test files: 275
 
 ## Test Results
 

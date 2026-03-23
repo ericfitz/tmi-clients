@@ -186,19 +186,19 @@ export default class AuthenticationApi {
     /**
      * Delete client credential
      * Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
-     * @param {String} id Administrator grant ID
+     * @param {String} credentialId Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteCurrentUserClientCredentialWithHttpInfo(id) {
+    deleteCurrentUserClientCredentialWithHttpInfo(credentialId) {
       
       let postBody = null;
-      // verify the required parameter 'id' is set
-      if (id === undefined || id === null) {
-        throw new Error("Missing the required parameter 'id' when calling deleteCurrentUserClientCredential");
+      // verify the required parameter 'credentialId' is set
+      if (credentialId === undefined || credentialId === null) {
+        throw new Error("Missing the required parameter 'credentialId' when calling deleteCurrentUserClientCredential");
       }
 
       let pathParams = {
-        'id': id
+        'credential_id': credentialId
       };
       let queryParams = {
         
@@ -216,7 +216,7 @@ export default class AuthenticationApi {
       let returnType = null;
 
       return this.apiClient.callApi(
-        '/me/client_credentials/{id}', 'DELETE',
+        '/me/client_credentials/{credential_id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -225,11 +225,11 @@ export default class AuthenticationApi {
     /**
      * Delete client credential
      * Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
-     * @param {<&vendorExtensions.x-jsdoc-type>} id Administrator grant ID
+     * @param {<&vendorExtensions.x-jsdoc-type>} credentialId Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;)
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    deleteCurrentUserClientCredential(id) {
-      return this.deleteCurrentUserClientCredentialWithHttpInfo(id)
+    deleteCurrentUserClientCredential(credentialId) {
+      return this.deleteCurrentUserClientCredentialWithHttpInfo(credentialId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_admin_users**
-> AdminUserListResponse list_admin_users(provider=provider, email=email, name=name, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order)
+> AdminUserListResponse list_admin_users(provider=provider, email=email, name=name, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order, automation=automation)
 
 List users
 
@@ -859,10 +859,11 @@ limit = 50 # int | Maximum number of results to return (optional) (default to 50
 offset = 0 # int | Number of results to skip (optional) (default to 0)
 sort_by = 'created_at' # str | Field to sort by (optional) (default to created_at)
 sort_order = 'desc' # str | Sort direction (optional) (default to desc)
+automation = true # bool | Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts. (optional)
 
 try:
     # List users
-    api_response = api_instance.list_admin_users(provider=provider, email=email, name=name, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order)
+    api_response = api_instance.list_admin_users(provider=provider, email=email, name=name, created_after=created_after, created_before=created_before, last_login_after=last_login_after, last_login_before=last_login_before, limit=limit, offset=offset, sort_by=sort_by, sort_order=sort_order, automation=automation)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling AdministrationApi->list_admin_users: %s\n" % e)
@@ -883,6 +884,7 @@ Name | Type | Description  | Notes
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
  **sort_by** | **str**| Field to sort by | [optional] [default to created_at]
  **sort_order** | **str**| Sort direction | [optional] [default to desc]
+ **automation** | **bool**| Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts. | [optional] 
 
 ### Return type
 

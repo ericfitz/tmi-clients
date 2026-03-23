@@ -75,7 +75,7 @@
           // TODO: uncomment, update parameter values for deleteCurrentUserClientCredential call
           /*
 
-          instance.deleteCurrentUserClientCredential(id).then(function(data) {
+          instance.deleteCurrentUserClientCredential(credentialId).then(function(data) {
 
             done();
           }, function(error) {

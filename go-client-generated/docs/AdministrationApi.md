@@ -532,6 +532,7 @@ Name | Type | Description  | Notes
  **offset** | **optional.Int32**| Number of results to skip | [default to 0]
  **sortBy** | **optional.String**| Field to sort by | [default to created_at]
  **sortOrder** | **optional.String**| Sort direction | [default to desc]
+ **automation** | **optional.Bool**| Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts. | 
 
 ### Return type
 

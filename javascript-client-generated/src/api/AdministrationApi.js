@@ -943,6 +943,7 @@ export default class AdministrationApi {
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {module:model/String} opts.sortBy Field to sort by (default to <.>)
      * @param {module:model/String} opts.sortOrder Sort direction (default to <.>)
+     * @param {Boolean} opts.automation Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AdminUserListResponse} and HTTP response
      */
     listAdminUsersWithHttpInfo(opts) {
@@ -953,7 +954,7 @@ export default class AdministrationApi {
         
       };
       let queryParams = {
-        'provider': opts['provider'],'email': opts['email'],'name': opts['name'],'created_after': opts['createdAfter'],'created_before': opts['createdBefore'],'last_login_after': opts['lastLoginAfter'],'last_login_before': opts['lastLoginBefore'],'limit': opts['limit'],'offset': opts['offset'],'sort_by': opts['sortBy'],'sort_order': opts['sortOrder']
+        'provider': opts['provider'],'email': opts['email'],'name': opts['name'],'created_after': opts['createdAfter'],'created_before': opts['createdBefore'],'last_login_after': opts['lastLoginAfter'],'last_login_before': opts['lastLoginBefore'],'limit': opts['limit'],'offset': opts['offset'],'sort_by': opts['sortBy'],'sort_order': opts['sortOrder'],'automation': opts['automation']
       };
       let headerParams = {
         
@@ -989,6 +990,7 @@ export default class AdministrationApi {
      * @param {Number} opts.offset Number of results to skip (default to <.>)
      * @param {module:model/String} opts.sortBy Field to sort by (default to <.>)
      * @param {module:model/String} opts.sortOrder Sort direction (default to <.>)
+     * @param {Boolean} opts.automation Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AdminUserListResponse}
      */
     listAdminUsers(opts) {

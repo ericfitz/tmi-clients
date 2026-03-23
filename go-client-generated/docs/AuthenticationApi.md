@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AuthorizeOAuthProvider**](AuthenticationApi.md#AuthorizeOAuthProvider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
 [**CreateCurrentUserClientCredential**](AuthenticationApi.md#CreateCurrentUserClientCredential) | **Post** /me/client_credentials | Create client credential
-[**DeleteCurrentUserClientCredential**](AuthenticationApi.md#DeleteCurrentUserClientCredential) | **Delete** /me/client_credentials/{id} | Delete client credential
+[**DeleteCurrentUserClientCredential**](AuthenticationApi.md#DeleteCurrentUserClientCredential) | **Delete** /me/client_credentials/{credential_id} | Delete client credential
 [**ExchangeOAuthCode**](AuthenticationApi.md#ExchangeOAuthCode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**GetAuthProviders**](AuthenticationApi.md#GetAuthProviders) | **Get** /oauth2/providers | List available OAuth providers
 [**GetCurrentUser**](AuthenticationApi.md#GetCurrentUser) | **Get** /oauth2/userinfo | Get current user information
@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **DeleteCurrentUserClientCredential**
-> DeleteCurrentUserClientCredential(ctx, id)
+> DeleteCurrentUserClientCredential(ctx, credentialId)
 Delete client credential
 
 Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
@@ -108,7 +108,7 @@ Permanently deletes a client credential. All tokens issued with this credential 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **id** | [**string**](.md)| Administrator grant ID | 
+  **credentialId** | [**string**](.md)| Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;) | 
 
 ### Return type
 

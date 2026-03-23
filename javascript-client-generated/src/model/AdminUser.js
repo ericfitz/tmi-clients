@@ -80,6 +80,8 @@ export default class AdminUser {
         obj.groups = ApiClient.convertToType(data['groups'], ['String']);
       if (data.hasOwnProperty('active_threat_models'))
         obj.activeThreatModels = ApiClient.convertToType(data['active_threat_models'], 'Number');
+      if (data.hasOwnProperty('automation'))
+        obj.automation = ApiClient.convertToType(data['automation'], 'Boolean');
     }
     return obj;
   }
@@ -156,4 +158,10 @@ AdminUser.prototype.groups = undefined;
  * @member {Number} activeThreatModels
  */
 AdminUser.prototype.activeThreatModels = undefined;
+
+/**
+ * Whether this is an automation/service account. Server-managed: set to true only when an automation account is created via the admin API. Nullable; null and false are equivalent.
+ * @member {Boolean} automation
+ */
+AdminUser.prototype.automation = undefined;
 

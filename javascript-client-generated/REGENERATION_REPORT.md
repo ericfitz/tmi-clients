@@ -1,6 +1,6 @@
 # TMI JavaScript Client Regeneration Report
 
-Generated: 2026-03-17 22:42:43
+Generated: 2026-03-22 22:50:44
 
 ## Configuration
 
@@ -10,8 +10,8 @@ Generated: 2026-03-17 22:42:43
 
 ## Files Generated
 
-- Source files: 272
-- Test files: 271
+- Source files: 276
+- Test files: 275
 
 ## Patches Applied
 

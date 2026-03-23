@@ -30,6 +30,10 @@ Class | Method | HTTP request | Description
 *AddonsApi* | [**ListAddons**](docs/AddonsApi.md#listaddons) | **Get** /addons | List add-ons
 *AddonsApi* | [**ListInvocations**](docs/AddonsApi.md#listinvocations) | **Get** /invocations | List invocations
 *AddonsApi* | [**UpdateInvocationStatus**](docs/AddonsApi.md#updateinvocationstatus) | **Post** /invocations/{id}/status | Update invocation status
+*AdminUsersApi* | [**CreateAdminUserClientCredential**](docs/AdminUsersApi.md#createadminuserclientcredential) | **Post** /admin/users/{internal_uuid}/client_credentials | Create a client credential for an automation user
+*AdminUsersApi* | [**CreateAutomationAccount**](docs/AdminUsersApi.md#createautomationaccount) | **Post** /admin/users/automation | Create an automation (service) account
+*AdminUsersApi* | [**DeleteAdminUserClientCredential**](docs/AdminUsersApi.md#deleteadminuserclientcredential) | **Delete** /admin/users/{internal_uuid}/client_credentials/{credential_id} | Delete a client credential for an automation user
+*AdminUsersApi* | [**ListAdminUserClientCredentials**](docs/AdminUsersApi.md#listadminuserclientcredentials) | **Get** /admin/users/{internal_uuid}/client_credentials | List client credentials for an automation user
 *AdministrationApi* | [**AddGroupMember**](docs/AdministrationApi.md#addgroupmember) | **Post** /admin/groups/{internal_uuid}/members | Add member to group
 *AdministrationApi* | [**CreateAdminGroup**](docs/AdministrationApi.md#createadmingroup) | **Post** /admin/groups | Create provider-independent group
 *AdministrationApi* | [**DeleteAddonInvocationQuota**](docs/AdministrationApi.md#deleteaddoninvocationquota) | **Delete** /admin/quotas/addons/{user_id} | Delete addon invocation quota
@@ -73,7 +77,7 @@ Class | Method | HTTP request | Description
 *AuditTrailApi* | [**RollbackToVersion**](docs/AuditTrailApi.md#rollbacktoversion) | **Post** /threat_models/{threat_model_id}/audit_trail/{entry_id}/rollback | Rollback an entity to a previous version
 *AuthenticationApi* | [**AuthorizeOAuthProvider**](docs/AuthenticationApi.md#authorizeoauthprovider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
 *AuthenticationApi* | [**CreateCurrentUserClientCredential**](docs/AuthenticationApi.md#createcurrentuserclientcredential) | **Post** /me/client_credentials | Create client credential
-*AuthenticationApi* | [**DeleteCurrentUserClientCredential**](docs/AuthenticationApi.md#deletecurrentuserclientcredential) | **Delete** /me/client_credentials/{id} | Delete client credential
+*AuthenticationApi* | [**DeleteCurrentUserClientCredential**](docs/AuthenticationApi.md#deletecurrentuserclientcredential) | **Delete** /me/client_credentials/{credential_id} | Delete client credential
 *AuthenticationApi* | [**ExchangeOAuthCode**](docs/AuthenticationApi.md#exchangeoauthcode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
 *AuthenticationApi* | [**GetAuthProviders**](docs/AuthenticationApi.md#getauthproviders) | **Get** /oauth2/providers | List available OAuth providers
 *AuthenticationApi* | [**GetCurrentUser**](docs/AuthenticationApi.md#getcurrentuser) | **Get** /oauth2/userinfo | Get current user information
@@ -362,6 +366,8 @@ Class | Method | HTTP request | Description
  - [ComponentHealth](docs/ComponentHealth.md)
  - [CreateAddonRequest](docs/CreateAddonRequest.md)
  - [CreateAdminGroupRequest](docs/CreateAdminGroupRequest.md)
+ - [CreateAutomationAccountRequest](docs/CreateAutomationAccountRequest.md)
+ - [CreateAutomationAccountResponse](docs/CreateAutomationAccountResponse.md)
  - [CreateDiagramRequest](docs/CreateDiagramRequest.md)
  - [CreateThreatModelFromSurveyResponse](docs/CreateThreatModelFromSurveyResponse.md)
  - [CvssScore](docs/CvssScore.md)
@@ -408,6 +414,7 @@ Class | Method | HTTP request | Description
  - [InlineResponse409](docs/InlineResponse409.md)
  - [InlineResponse429](docs/InlineResponse429.md)
  - [InlineResponse500](docs/InlineResponse500.md)
+ - [InternalUuidClientCredentialsBody](docs/InternalUuidClientCredentialsBody.md)
  - [InvocationResponse](docs/InvocationResponse.md)
  - [InvokeAddonRequest](docs/InvokeAddonRequest.md)
  - [InvokeAddonResponse](docs/InvokeAddonResponse.md)

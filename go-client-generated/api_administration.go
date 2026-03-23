@@ -2311,6 +2311,7 @@ Returns a paginated list of users with optional filtering by provider, email, an
      * @param "Offset" (optional.Int32) -  Number of results to skip
      * @param "SortBy" (optional.String) -  Field to sort by
      * @param "SortOrder" (optional.String) -  Sort direction
+     * @param "Automation" (optional.Bool) -  Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts.
 @return AdminUserListResponse
 */
 
@@ -2326,6 +2327,7 @@ type AdministrationApiListAdminUsersOpts struct {
     Offset optional.Int32
     SortBy optional.String
     SortOrder optional.String
+    Automation optional.Bool
 }
 
 func (a *AdministrationApiService) ListAdminUsers(ctx context.Context, localVarOptionals *AdministrationApiListAdminUsersOpts) (AdminUserListResponse, *http.Response, error) {
@@ -2376,6 +2378,9 @@ func (a *AdministrationApiService) ListAdminUsers(ctx context.Context, localVarO
 	}
 	if localVarOptionals != nil && localVarOptionals.SortOrder.IsSet() {
 		localVarQueryParams.Add("sort_order", parameterToString(localVarOptionals.SortOrder.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Automation.IsSet() {
+		localVarQueryParams.Add("automation", parameterToString(localVarOptionals.Automation.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

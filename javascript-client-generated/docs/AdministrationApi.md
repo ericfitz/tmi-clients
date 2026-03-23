@@ -784,7 +784,8 @@ let opts = {
   'limit': 50, // Number | Maximum number of results to return
   'offset': 0, // Number | Number of results to skip
   'sortBy': "created_at", // String | Field to sort by
-  'sortOrder': "desc" // String | Sort direction
+  'sortOrder': "desc", // String | Sort direction
+  'automation': true // Boolean | Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts.
 };
 apiInstance.listAdminUsers(opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -809,6 +810,7 @@ Name | Type | Description  | Notes
  **offset** | **Number**| Number of results to skip | [optional] [default to 0]
  **sortBy** | **String**| Field to sort by | [optional] [default to created_at]
  **sortOrder** | **String**| Sort direction | [optional] [default to desc]
+ **automation** | **Boolean**| Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts. | [optional] 
 
 ### Return type
 

@@ -112,6 +112,12 @@
         // expect(instance.activeThreatModels).to.be(expectedValueLiteral);
       });
 
+      it('should have the property automation (base name: "automation")', function() {
+        // TODO: update the code to test the property automation
+        expect(instance).to.have.property('automation');
+        // expect(instance.automation).to.be(expectedValueLiteral);
+      });
+
     });
   });
 

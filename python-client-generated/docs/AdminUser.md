@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **is_admin** | **bool** | Whether the user has administrator privileges (enriched) | [optional] 
 **groups** | **list[str]** | List of group names the user belongs to (enriched) | [optional] 
 **active_threat_models** | **int** | Number of active threat models owned by user (enriched) | [optional] 
+**automation** | **bool** | Whether this is an automation/service account. Server-managed: set to true only when an automation account is created via the admin API. Nullable; null and false are equivalent. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -38,4 +38,6 @@ type AdminUser struct {
 	Groups []string `json:"groups,omitempty"`
 	// Number of active threat models owned by user (enriched)
 	ActiveThreatModels int32 `json:"active_threat_models,omitempty"`
+	// Whether this is an automation/service account. Server-managed: set to true only when an automation account is created via the admin API. Nullable; null and false are equivalent.
+	Automation bool `json:"automation,omitempty"`
 }

@@ -76,6 +76,8 @@ from tmi_client.models.color_palette_entry import ColorPaletteEntry
 from tmi_client.models.component_health import ComponentHealth
 from tmi_client.models.create_addon_request import CreateAddonRequest
 from tmi_client.models.create_admin_group_request import CreateAdminGroupRequest
+from tmi_client.models.create_automation_account_request import CreateAutomationAccountRequest
+from tmi_client.models.create_automation_account_response import CreateAutomationAccountResponse
 from tmi_client.models.create_diagram_request import CreateDiagramRequest
 from tmi_client.models.create_threat_model_from_survey_response import CreateThreatModelFromSurveyResponse
 from tmi_client.models.deletion_challenge import DeletionChallenge
@@ -124,6 +126,7 @@ from tmi_client.models.inline_response2009 import InlineResponse2009
 from tmi_client.models.inline_response409 import InlineResponse409
 from tmi_client.models.inline_response429 import InlineResponse429
 from tmi_client.models.inline_response500 import InlineResponse500
+from tmi_client.models.internal_uuid_client_credentials_body import InternalUuidClientCredentialsBody
 from tmi_client.models.invocation_response import InvocationResponse
 from tmi_client.models.invoke_addon_request import InvokeAddonRequest
 from tmi_client.models.invoke_addon_response import InvokeAddonResponse

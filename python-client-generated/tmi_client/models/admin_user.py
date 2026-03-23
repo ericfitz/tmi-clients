@@ -39,7 +39,8 @@ class AdminUser(object):
         'last_login': 'datetime',
         'is_admin': 'bool',
         'groups': 'list[str]',
-        'active_threat_models': 'int'
+        'active_threat_models': 'int',
+        'automation': 'bool'
     }
 
     attribute_map = {
@@ -54,10 +55,11 @@ class AdminUser(object):
         'last_login': 'last_login',
         'is_admin': 'is_admin',
         'groups': 'groups',
-        'active_threat_models': 'active_threat_models'
+        'active_threat_models': 'active_threat_models',
+        'automation': 'automation'
     }
 
-    def __init__(self, internal_uuid=None, provider=None, provider_user_id=None, email=None, name=None, email_verified=None, created_at=None, modified_at=None, last_login=None, is_admin=None, groups=None, active_threat_models=None, **kwargs):  # noqa: E501
+    def __init__(self, internal_uuid=None, provider=None, provider_user_id=None, email=None, name=None, email_verified=None, created_at=None, modified_at=None, last_login=None, is_admin=None, groups=None, active_threat_models=None, automation=None, **kwargs):  # noqa: E501
         """AdminUser - a model defined in Swagger"""  # noqa: E501
         self._internal_uuid = None
         self._provider = None
@@ -71,6 +73,7 @@ class AdminUser(object):
         self._is_admin = None
         self._groups = None
         self._active_threat_models = None
+        self._automation = None
         self.discriminator = None
         self.internal_uuid = internal_uuid
         self.provider = provider
@@ -88,6 +91,8 @@ class AdminUser(object):
             self.groups = groups
         if active_threat_models is not None:
             self.active_threat_models = active_threat_models
+        if automation is not None:
+            self.automation = automation
 
     @property
     def internal_uuid(self):
@@ -380,6 +385,29 @@ class AdminUser(object):
         """
 
         self._active_threat_models = active_threat_models
+
+    @property
+    def automation(self):
+        """Gets the automation of this AdminUser.  # noqa: E501
+
+        Whether this is an automation/service account. Server-managed: set to true only when an automation account is created via the admin API. Nullable; null and false are equivalent.  # noqa: E501
+
+        :return: The automation of this AdminUser.  # noqa: E501
+        :rtype: bool
+        """
+        return self._automation
+
+    @automation.setter
+    def automation(self, automation):
+        """Sets the automation of this AdminUser.
+
+        Whether this is an automation/service account. Server-managed: set to true only when an automation account is created via the admin API. Nullable; null and false are equivalent.  # noqa: E501
+
+        :param automation: The automation of this AdminUser.  # noqa: E501
+        :type: bool
+        """
+
+        self._automation = automation
 
     def to_dict(self):
         """Returns the model properties as a dict"""

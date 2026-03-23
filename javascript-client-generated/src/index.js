@@ -76,6 +76,8 @@ import ColorPaletteEntry from './model/ColorPaletteEntry';
 import ComponentHealth from './model/ComponentHealth';
 import CreateAddonRequest from './model/CreateAddonRequest';
 import CreateAdminGroupRequest from './model/CreateAdminGroupRequest';
+import CreateAutomationAccountRequest from './model/CreateAutomationAccountRequest';
+import CreateAutomationAccountResponse from './model/CreateAutomationAccountResponse';
 import CreateDiagramRequest from './model/CreateDiagramRequest';
 import CreateThreatModelFromSurveyResponse from './model/CreateThreatModelFromSurveyResponse';
 import DeletionChallenge from './model/DeletionChallenge';
@@ -124,6 +126,7 @@ import InlineResponse2009 from './model/InlineResponse2009';
 import InlineResponse409 from './model/InlineResponse409';
 import InlineResponse429 from './model/InlineResponse429';
 import InlineResponse500 from './model/InlineResponse500';
+import InternalUuidClientCredentialsBody from './model/InternalUuidClientCredentialsBody';
 import InvocationResponse from './model/InvocationResponse';
 import InvokeAddonRequest from './model/InvokeAddonRequest';
 import InvokeAddonResponse from './model/InvokeAddonResponse';
@@ -259,6 +262,7 @@ import WebhookTestRequest from './model/WebhookTestRequest';
 import WebhookTestResponse from './model/WebhookTestResponse';
 import WsTicketResponse from './model/WsTicketResponse';
 import AddonsApi from './api/AddonsApi';
+import AdminUsersApi from './api/AdminUsersApi';
 import AdministrationApi from './api/AdministrationApi';
 import AssetsApi from './api/AssetsApi';
 import AuditTrailApi from './api/AuditTrailApi';
@@ -696,6 +700,18 @@ export {
     CreateAdminGroupRequest,
 
     /**
+     * The CreateAutomationAccountRequest model constructor.
+     * @property {module:model/CreateAutomationAccountRequest}
+     */
+    CreateAutomationAccountRequest,
+
+    /**
+     * The CreateAutomationAccountResponse model constructor.
+     * @property {module:model/CreateAutomationAccountResponse}
+     */
+    CreateAutomationAccountResponse,
+
+    /**
      * The CreateDiagramRequest model constructor.
      * @property {module:model/CreateDiagramRequest}
      */
@@ -982,6 +998,12 @@ export {
      * @property {module:model/InlineResponse500}
      */
     InlineResponse500,
+
+    /**
+     * The InternalUuidClientCredentialsBody model constructor.
+     * @property {module:model/InternalUuidClientCredentialsBody}
+     */
+    InternalUuidClientCredentialsBody,
 
     /**
      * The InvocationResponse model constructor.
@@ -1792,6 +1814,12 @@ export {
     * @property {module:api/AddonsApi}
     */
     AddonsApi,
+
+    /**
+    * The AdminUsersApi service constructor.
+    * @property {module:api/AdminUsersApi}
+    */
+    AdminUsersApi,
 
     /**
     * The AdministrationApi service constructor.

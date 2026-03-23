@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 # import apis into api package
 from tmi_client.api.addons_api import AddonsApi
+from tmi_client.api.admin___users_api import AdminUsersApi
 from tmi_client.api.administration_api import AdministrationApi
 from tmi_client.api.assets_api import AssetsApi
 from tmi_client.api.audit_trail_api import AuditTrailApi

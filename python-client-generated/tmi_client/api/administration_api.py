@@ -1609,6 +1609,7 @@ class AdministrationApi(object):
         :param int offset: Number of results to skip
         :param str sort_by: Field to sort by
         :param str sort_order: Sort direction
+        :param bool automation: Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts.
         :return: AdminUserListResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1641,12 +1642,13 @@ class AdministrationApi(object):
         :param int offset: Number of results to skip
         :param str sort_by: Field to sort by
         :param str sort_order: Sort direction
+        :param bool automation: Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts.
         :return: AdminUserListResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['provider', 'email', 'name', 'created_after', 'created_before', 'last_login_after', 'last_login_before', 'limit', 'offset', 'sort_by', 'sort_order']  # noqa: E501
+        all_params = ['provider', 'email', 'name', 'created_after', 'created_before', 'last_login_after', 'last_login_before', 'limit', 'offset', 'sort_by', 'sort_order', 'automation']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -1689,6 +1691,8 @@ class AdministrationApi(object):
             query_params.append(('sort_by', params['sort_by']))  # noqa: E501
         if 'sort_order' in params:
             query_params.append(('sort_order', params['sort_order']))  # noqa: E501
+        if 'automation' in params:
+            query_params.append(('automation', params['automation']))  # noqa: E501
 
         header_params = {}
 

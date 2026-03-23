@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorizeOAuthProvider**](AuthenticationApi.md#authorizeOAuthProvider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
 [**createCurrentUserClientCredential**](AuthenticationApi.md#createCurrentUserClientCredential) | **POST** /me/client_credentials | Create client credential
-[**deleteCurrentUserClientCredential**](AuthenticationApi.md#deleteCurrentUserClientCredential) | **DELETE** /me/client_credentials/{id} | Delete client credential
+[**deleteCurrentUserClientCredential**](AuthenticationApi.md#deleteCurrentUserClientCredential) | **DELETE** /me/client_credentials/{credential_id} | Delete client credential
 [**exchangeOAuthCode**](AuthenticationApi.md#exchangeOAuthCode) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**getAuthProviders**](AuthenticationApi.md#getAuthProviders) | **GET** /oauth2/providers | List available OAuth providers
 [**getCurrentUser**](AuthenticationApi.md#getCurrentUser) | **GET** /oauth2/userinfo | Get current user information
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 <a name="deleteCurrentUserClientCredential"></a>
 # **deleteCurrentUserClientCredential**
-> deleteCurrentUserClientCredential(id)
+> deleteCurrentUserClientCredential(credentialId)
 
 Delete client credential
 
@@ -140,9 +140,9 @@ let defaultClient = TmiJsClient.ApiClient.instance;
 
 
 let apiInstance = new TmiJsClient.AuthenticationApi();
-let id = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Administrator grant ID
+let credentialId = "38400000-8cf0-11bd-b23e-10b96e4ef00d"; // String | Internal UUID of the client credential (the \"id\" field from the list response, not the \"client_id\")
 
-apiInstance.deleteCurrentUserClientCredential(id).then(() => {
+apiInstance.deleteCurrentUserClientCredential(credentialId).then(() => {
   console.log('API called successfully.');
 }, (error) => {
   console.error(error);
@@ -154,7 +154,7 @@ apiInstance.deleteCurrentUserClientCredential(id).then(() => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**String**](.md)| Administrator grant ID | 
+ **credentialId** | [**String**](.md)| Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;) | 
 
 ### Return type
 

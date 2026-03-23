@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorize_o_auth_provider**](AuthenticationApi.md#authorize_o_auth_provider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
 [**create_current_user_client_credential**](AuthenticationApi.md#create_current_user_client_credential) | **POST** /me/client_credentials | Create client credential
-[**delete_current_user_client_credential**](AuthenticationApi.md#delete_current_user_client_credential) | **DELETE** /me/client_credentials/{id} | Delete client credential
+[**delete_current_user_client_credential**](AuthenticationApi.md#delete_current_user_client_credential) | **DELETE** /me/client_credentials/{credential_id} | Delete client credential
 [**exchange_o_auth_code**](AuthenticationApi.md#exchange_o_auth_code) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
 [**get_auth_providers**](AuthenticationApi.md#get_auth_providers) | **GET** /oauth2/providers | List available OAuth providers
 [**get_current_user**](AuthenticationApi.md#get_current_user) | **GET** /oauth2/userinfo | Get current user information
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_current_user_client_credential**
-> delete_current_user_client_credential(id)
+> delete_current_user_client_credential(credential_id)
 
 Delete client credential
 
@@ -152,11 +152,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = tmi_client.AuthenticationApi(tmi_client.ApiClient(configuration))
-id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Administrator grant ID
+credential_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Internal UUID of the client credential (the \"id\" field from the list response, not the \"client_id\")
 
 try:
     # Delete client credential
-    api_instance.delete_current_user_client_credential(id)
+    api_instance.delete_current_user_client_credential(credential_id)
 except ApiException as e:
     print("Exception when calling AuthenticationApi->delete_current_user_client_credential: %s\n" % e)
 ```
@@ -165,7 +165,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Administrator grant ID | 
+ **credential_id** | [**str**](.md)| Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;) | 
 
 ### Return type
 
