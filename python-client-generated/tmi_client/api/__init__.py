@@ -1,10 +1,8 @@
-from __future__ import absolute_import
-
 # flake8: noqa
 
 # import apis into api package
 from tmi_client.api.addons_api import AddonsApi
-from tmi_client.api.admin___users_api import AdminUsersApi
+from tmi_client.api.admin_users_api import AdminUsersApi
 from tmi_client.api.administration_api import AdministrationApi
 from tmi_client.api.assets_api import AssetsApi
 from tmi_client.api.audit_trail_api import AuditTrailApi
@@ -26,7 +24,11 @@ from tmi_client.api.teams_api import TeamsApi
 from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResourcesApi
 from tmi_client.api.threat_models_api import ThreatModelsApi
 from tmi_client.api.threats_api import ThreatsApi
+from tmi_client.api.timmy_administration_api import TimmyAdministrationApi
+from tmi_client.api.timmy_chat_api import TimmyChatApi
 from tmi_client.api.user_account_api import UserAccountApi
 from tmi_client.api.users_api import UsersApi
 from tmi_client.api.web_socket_api import WebSocketApi
+from tmi_client.api.webhook_deliveries_api import WebhookDeliveriesApi
 from tmi_client.api.webhooks_api import WebhooksApi
+

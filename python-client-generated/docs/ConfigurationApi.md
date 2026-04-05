@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_client_config**](ConfigurationApi.md#get_client_config) | **GET** /config | Get client configuration
 
+
 # **get_client_config**
 > ClientConfig get_client_config()
 
@@ -14,25 +15,39 @@ Get client configuration
 Returns configuration settings for client applications such as tmi-ux. This endpoint is public and cacheable.
 
 ### Example
+
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.client_config import ClientConfig
 from tmi_client.rest import ApiException
 from pprint import pprint
 
-# create an instance of the API class
-api_instance = tmi_client.ConfigurationApi()
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-try:
-    # Get client configuration
-    api_response = api_instance.get_client_config()
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ConfigurationApi->get_client_config: %s\n" % e)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ConfigurationApi(api_client)
+
+    try:
+        # Get client configuration
+        api_response = api_instance.get_client_config()
+        print("The response of ConfigurationApi->get_client_config:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ConfigurationApi->get_client_config: %s\n" % e)
 ```
 
+
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -47,6 +62,15 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Client configuration |  * Cache-Control - Cache control directive for the response <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid request parameters |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

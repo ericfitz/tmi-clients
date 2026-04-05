@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**get_threat_model_audit_trail**](AuditTrailApi.md#get_threat_model_audit_trail) | **GET** /threat_models/{threat_model_id}/audit_trail | List audit trail for a threat model and all sub-objects
 [**rollback_to_version**](AuditTrailApi.md#rollback_to_version) | **POST** /threat_models/{threat_model_id}/audit_trail/{entry_id}/rollback | Rollback an entity to a previous version
 
+
 # **get_asset_audit_trail**
 > ListAuditTrailResponse get_asset_audit_trail(threat_model_id, asset_id, limit=limit, offset=offset)
 
@@ -22,35 +23,58 @@ List audit trail for an asset
 Returns a paginated list of audit trail entries for a specific resource
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for an asset
-    api_response = api_instance.get_asset_audit_trail(threat_model_id, asset_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_asset_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+    try:
+        # List audit trail for an asset
+        api_response = api_instance.get_asset_audit_trail(threat_model_id, asset_id, limit=limit, offset=offset)
+        print("The response of AuditTrailApi->get_asset_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_asset_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -67,6 +91,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_audit_entry**
@@ -77,33 +113,56 @@ Get a single audit trail entry
 Returns a single audit trail entry by ID
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.audit_entry import AuditEntry
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-entry_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the audit entry
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a single audit trail entry
-    api_response = api_instance.get_audit_entry(threat_model_id, entry_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_audit_entry: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    entry_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Unique identifier of the audit entry
+
+    try:
+        # Get a single audit trail entry
+        api_response = api_instance.get_audit_entry(threat_model_id, entry_id)
+        print("The response of AuditTrailApi->get_audit_entry:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_audit_entry: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **entry_id** | [**str**](.md)| Unique identifier of the audit entry | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **entry_id** | **UUID**| Unique identifier of the audit entry | 
 
 ### Return type
 
@@ -118,6 +177,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Audit trail entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_diagram_audit_trail**
@@ -128,35 +199,58 @@ List audit trail for a diagram
 Returns a paginated list of audit trail entries for a specific resource
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for a diagram
-    api_response = api_instance.get_diagram_audit_trail(threat_model_id, diagram_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_diagram_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+    try:
+        # List audit trail for a diagram
+        api_response = api_instance.get_diagram_audit_trail(threat_model_id, diagram_id, limit=limit, offset=offset)
+        print("The response of AuditTrailApi->get_diagram_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_diagram_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -172,6 +266,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -183,35 +289,58 @@ List audit trail for a document
 Returns a paginated list of audit trail entries for a specific resource
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for a document
-    api_response = api_instance.get_document_audit_trail(threat_model_id, document_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_document_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+    try:
+        # List audit trail for a document
+        api_response = api_instance.get_document_audit_trail(threat_model_id, document_id, limit=limit, offset=offset)
+        print("The response of AuditTrailApi->get_document_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_document_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -227,6 +356,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -238,35 +379,58 @@ List audit trail for a note
 Returns a paginated list of audit trail entries for a specific resource
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for a note
-    api_response = api_instance.get_note_audit_trail(threat_model_id, note_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_note_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+    try:
+        # List audit trail for a note
+        api_response = api_instance.get_note_audit_trail(threat_model_id, note_id, limit=limit, offset=offset)
+        print("The response of AuditTrailApi->get_note_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_note_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -282,6 +446,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -293,35 +469,58 @@ List audit trail for a repository
 Returns a paginated list of audit trail entries for a specific resource
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for a repository
-    api_response = api_instance.get_repository_audit_trail(threat_model_id, repository_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_repository_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+    try:
+        # List audit trail for a repository
+        api_response = api_instance.get_repository_audit_trail(threat_model_id, repository_id, limit=limit, offset=offset)
+        print("The response of AuditTrailApi->get_repository_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_repository_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -337,6 +536,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -348,35 +559,58 @@ List audit trail for a threat
 Returns a paginated list of audit trail entries for a specific resource
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for a threat
-    api_response = api_instance.get_threat_audit_trail(threat_model_id, threat_id, limit=limit, offset=offset)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_threat_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+
+    try:
+        # List audit trail for a threat
+        api_response = api_instance.get_threat_audit_trail(threat_model_id, threat_id, limit=limit, offset=offset)
+        print("The response of AuditTrailApi->get_threat_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_threat_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
 
@@ -393,6 +627,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_audit_trail**
@@ -403,38 +649,61 @@ List audit trail for a threat model and all sub-objects
 Returns a paginated list of audit trail entries
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-object_type = 'object_type_example' # str | Filter by object type (optional)
-change_type = 'change_type_example' # str | Filter by change type (optional)
-actor_email = 'actor_email_example' # str | Filter by actor email (optional)
-after = '2013-10-20T19:20:30+01:00' # datetime | Filter entries after this timestamp (ISO 8601) (optional)
-before = '2013-10-20T19:20:30+01:00' # datetime | Filter entries before this timestamp (ISO 8601) (optional)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List audit trail for a threat model and all sub-objects
-    api_response = api_instance.get_threat_model_audit_trail(threat_model_id, limit=limit, offset=offset, object_type=object_type, change_type=change_type, actor_email=actor_email, after=after, before=before)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->get_threat_model_audit_trail: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    object_type = 'object_type_example' # str | Filter by object type (optional)
+    change_type = 'change_type_example' # str | Filter by change type (optional)
+    actor_email = 'actor_email_example' # str | Filter by actor email (optional)
+    after = '2013-10-20T19:20:30+01:00' # datetime | Filter entries after this timestamp (ISO 8601) (optional)
+    before = '2013-10-20T19:20:30+01:00' # datetime | Filter entries before this timestamp (ISO 8601) (optional)
+
+    try:
+        # List audit trail for a threat model and all sub-objects
+        api_response = api_instance.get_threat_model_audit_trail(threat_model_id, limit=limit, offset=offset, object_type=object_type, change_type=change_type, actor_email=actor_email, after=after, before=before)
+        print("The response of AuditTrailApi->get_threat_model_audit_trail:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->get_threat_model_audit_trail: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
  **object_type** | **str**| Filter by object type | [optional] 
@@ -456,6 +725,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of audit trail entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **rollback_to_version**
@@ -466,33 +747,56 @@ Rollback an entity to a previous version
 Restores an entity to the state captured in the specified audit entry's version snapshot. Creates a new audit entry recording the rollback. Returns 410 Gone if the version snapshot has been pruned.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.rollback_response import RollbackResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.AuditTrailApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-entry_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Unique identifier of the audit entry
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Rollback an entity to a previous version
-    api_response = api_instance.rollback_to_version(threat_model_id, entry_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditTrailApi->rollback_to_version: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.AuditTrailApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    entry_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Unique identifier of the audit entry
+
+    try:
+        # Rollback an entity to a previous version
+        api_response = api_instance.rollback_to_version(threat_model_id, entry_id)
+        print("The response of AuditTrailApi->rollback_to_version:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditTrailApi->rollback_to_version: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **entry_id** | [**str**](.md)| Unique identifier of the audit entry | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **entry_id** | **UUID**| Unique identifier of the audit entry | 
 
 ### Return type
 
@@ -506,6 +810,19 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Rollback successful |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**410** | Version snapshot has been pruned; rollback is no longer available |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

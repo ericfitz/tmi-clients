@@ -42,56 +42,56 @@ BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
 # --- Patches ---
 
 
-def patch_uuid_regex_validators(had_issues: bool) -> bool:
-    """Fix openapi-generator bug: regex validators on UUID fields fail because
-    Pydantic parses the value to a UUID object before the validator runs.
+def patch_regex_validators(had_issues: bool) -> bool:
+    """Fix openapi-generator bug: regex validators on non-string fields fail
+    because Pydantic parses values to native types (UUID, datetime, etc.)
+    before field validators run.
 
-    The fix: insert ``value = str(value)`` at the start of each validator
-    function that applies re.match() to a UUID-typed field.
+    The fix: insert a string conversion at the start of each validator
+    function that applies re.match() to a value that may not be a string.
+    Uses isoformat() for datetime objects and str() for everything else.
     """
     models_dir = CLIENT_DIR / "tmi_client" / "models"
     if not models_dir.is_dir():
-        print_warning("Models directory not found — skipping UUID validator patch")
+        print_warning("Models directory not found — skipping regex validator patch")
         return True
 
     patched_count = 0
+    conversion_line = "        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)\n"
+
     for model_file in sorted(models_dir.glob("*.py")):
         content = model_file.read_text(encoding="utf-8")
-
-        # Find UUID fields
-        uuid_fields = set(re.findall(r"(\w+):\s*(?:Optional\[)?(?:Annotated\[)?UUID", content))
-        if not uuid_fields:
+        if "re.match" not in content:
             continue
 
         new_content = content
-        for field_name in uuid_fields:
-            # Find validator functions for this field that use re.match
-            pattern = (
-                rf"(@field_validator\('{field_name}'\)\s*\n"
-                rf"    def \w+\(cls, value\):\s*\n)"
-                rf"(        \"\"\".*?\"\"\"\s*\n)"
-            )
-            matches = list(re.finditer(pattern, new_content))
-            for m in matches:
-                # Check if this validator uses re.match
-                rest = new_content[m.end():]
-                if "re.match" not in rest[:500]:
-                    continue
+        # Find all @field_validator functions that use re.match
+        pattern = (
+            r"(@field_validator\('\w+'\)\s*\n"
+            r"    def \w+\(cls, value\):\s*\n)"
+            r"(        \"\"\".*?\"\"\"\s*\n)"
+        )
+        matches = list(re.finditer(pattern, new_content))
+        # Process in reverse order so insert offsets don't shift
+        for m in reversed(matches):
+            # Check if this validator uses re.match
+            rest = new_content[m.end():m.end() + 500]
+            if "re.match" not in rest:
+                continue
 
-                # Insert str(value) conversion after the docstring
-                insert_point = m.end()
-                insert_text = "        value = str(value)\n"
-                if insert_text not in new_content[insert_point:insert_point + 100]:
-                    new_content = new_content[:insert_point] + insert_text + new_content[insert_point:]
-                    patched_count += 1
+            # Insert string conversion after the docstring
+            insert_point = m.end()
+            if conversion_line not in new_content[insert_point:insert_point + 200]:
+                new_content = new_content[:insert_point] + conversion_line + new_content[insert_point:]
+                patched_count += 1
 
         if new_content != content:
             model_file.write_text(new_content, encoding="utf-8")
 
     if patched_count > 0:
-        print_success(f"UUID regex validator patch: {patched_count} validators fixed")
+        print_success(f"Regex validator patch: {patched_count} validators fixed")
     else:
-        print_warning("UUID regex validator patch: no validators needed fixing")
+        print_warning("Regex validator patch: no validators needed fixing")
 
     return had_issues
 
@@ -172,7 +172,7 @@ def main(spec_path: str | None = None) -> int:
 
     # 7. Apply patches
     print_step(6, "Applying patches")
-    had_issues = patch_uuid_regex_validators(had_issues)
+    had_issues = patch_regex_validators(had_issues)
     print_success("Patches applied")
 
     # 8. Restore custom files
@@ -244,9 +244,9 @@ def main(spec_path: str | None = None) -> int:
             f"- Package: tmi_client v{spec_version}\n"
             "- Models: Pydantic v2 with full type hints\n\n"
             "### Patches Applied\n"
-            "- UUID regex validator fix (openapi-generator bug: "
-            "regex validators on UUID fields fail because Pydantic parses "
-            "the value to UUID before the validator runs)\n\n"
+            "- Regex validator fix (openapi-generator bug: "
+            "regex validators on non-string fields like UUID and datetime fail "
+            "because Pydantic parses the value before the validator runs)\n\n"
             "### Generated Configuration\n"
             "- pyproject.toml with Pydantic v2 dependencies\n"
             "- Python 3.9+ requirement\n"
@@ -280,7 +280,7 @@ def main(spec_path: str | None = None) -> int:
     print_summary({
         "Client": "regenerated with openapi-generator",
         "Models": "Pydantic v2 with type hints",
-        "Patches": "UUID regex fix" + (" (with warnings)" if had_issues else ""),
+        "Patches": "regex validator fix" + (" (with warnings)" if had_issues else ""),
         "Tests": "see logs for results",
         "Report": "REGENERATION_REPORT.md",
     })

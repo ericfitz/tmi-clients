@@ -108,47 +108,71 @@ Method | HTTP request | Description
 [**update_threat_model_repository**](ThreatModelSubResourcesApi.md#update_threat_model_repository) | **PUT** /threat_models/{threat_model_id}/repositories/{repository_id} | Update a source reference
 [**update_threat_model_threat**](ThreatModelSubResourcesApi.md#update_threat_model_threat) | **PUT** /threat_models/{threat_model_id}/threats/{threat_id} | Update a threat
 
+
 # **bulk_create_diagram_metadata**
-> list[Metadata] bulk_create_diagram_metadata(body, threat_model_id, diagram_id)
+> List[Metadata] bulk_create_diagram_metadata(threat_model_id, diagram_id, metadata)
 
 Bulk create diagram metadata
 
 Creates multiple metadata entries in a single operation for the specified diagram. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create diagram metadata
-    api_response = api_instance.bulk_create_diagram_metadata(body, threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_diagram_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create diagram metadata
+        api_response = api_instance.bulk_create_diagram_metadata(threat_model_id, diagram_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_diagram_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_diagram_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -159,49 +183,85 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entries created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_document_metadata**
-> list[Metadata] bulk_create_document_metadata(body, threat_model_id, document_id)
+> List[Metadata] bulk_create_document_metadata(threat_model_id, document_id, metadata)
 
 Bulk create document metadata
 
 Creates multiple metadata entries in a single operation for the specified document. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create document metadata
-    api_response = api_instance.bulk_create_document_metadata(body, threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_document_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create document metadata
+        api_response = api_instance.bulk_create_document_metadata(threat_model_id, document_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_document_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_document_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -212,49 +272,85 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entries created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_note_metadata**
-> list[Metadata] bulk_create_note_metadata(body, threat_model_id, note_id)
+> List[Metadata] bulk_create_note_metadata(threat_model_id, note_id, metadata)
 
 Bulk create note metadata
 
 Creates multiple metadata key-value pairs for the specified note. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create note metadata
-    api_response = api_instance.bulk_create_note_metadata(body, threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_note_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create note metadata
+        api_response = api_instance.bulk_create_note_metadata(threat_model_id, note_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_note_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_note_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -265,49 +361,85 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_repository_metadata**
-> list[Metadata] bulk_create_repository_metadata(body, threat_model_id, repository_id)
+> List[Metadata] bulk_create_repository_metadata(threat_model_id, repository_id, metadata)
 
 Bulk create source metadata
 
 Creates multiple metadata entries in a single operation for the specified source reference. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create source metadata
-    api_response = api_instance.bulk_create_repository_metadata(body, threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_repository_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create source metadata
+        api_response = api_instance.bulk_create_repository_metadata(threat_model_id, repository_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_repository_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_repository_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -318,49 +450,85 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entries created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_metadata**
-> list[Metadata] bulk_create_threat_metadata(body, threat_model_id, threat_id)
+> List[Metadata] bulk_create_threat_metadata(threat_model_id, threat_id, metadata)
 
 Bulk create threat metadata
 
 Creates multiple metadata entries in a single operation for the specified threat. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create threat metadata
-    api_response = api_instance.bulk_create_threat_metadata(body, threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create threat metadata
+        api_response = api_instance.bulk_create_threat_metadata(threat_model_id, threat_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -371,49 +539,85 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entries created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_model_asset_metadata**
-> list[Metadata] bulk_create_threat_model_asset_metadata(body, threat_model_id, asset_id)
+> List[Metadata] bulk_create_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
 
 Bulk create asset metadata
 
 Creates multiple metadata key-value pairs for the specified asset. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create asset metadata
-    api_response = api_instance.bulk_create_threat_model_asset_metadata(body, threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create asset metadata
+        api_response = api_instance.bulk_create_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_model_asset_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -424,47 +628,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_model_assets**
-> list[Asset] bulk_create_threat_model_assets(body, threat_model_id)
+> List[Asset] bulk_create_threat_model_assets(threat_model_id, asset_base)
 
 Bulk create assets
 
 Creates multiple assets within the specified threat model (maximum 50 per request)
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.asset import Asset
+from tmi_client.models.asset_base import AssetBase
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.AssetBase()] # list[AssetBase] | Array of assets to create in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create assets
-    api_response = api_instance.bulk_create_threat_model_assets(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_assets: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_base = [{"name":"API Gateway","type":"software","description":"Main API gateway service"},{"name":"Redis Cache","type":"infrastructure","description":"Caching layer"}] # List[AssetBase] | Array of assets to create in bulk
+
+    try:
+        # Bulk create assets
+        api_response = api_instance.bulk_create_threat_model_assets(threat_model_id, asset_base)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_model_assets:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_assets: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[AssetBase]**](AssetBase.md)| Array of assets to create in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_base** | [**List[AssetBase]**](AssetBase.md)| Array of assets to create in bulk | 
 
 ### Return type
 
-[**list[Asset]**](Asset.md)
+[**List[Asset]**](Asset.md)
 
 ### Authorization
 
@@ -475,47 +716,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Assets created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_model_documents**
-> list[Document] bulk_create_threat_model_documents(body, threat_model_id)
+> List[Document] bulk_create_threat_model_documents(threat_model_id, document)
 
 Bulk create documents
 
 Creates multiple documents in a single operation for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.document import Document
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Document()] # list[Document] | Array of documents to create in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create documents
-    api_response = api_instance.bulk_create_threat_model_documents(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_documents: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document = [{"id":"770e8400-e29b-41d4-a716-446655440009","name":"Threat Model Report","uri":"https://docs.example.com/threat-report-v1.pdf","description":"Comprehensive threat assessment document","threat_model_id":"550e8400-e29b-41d4-a716-446655440000","created_at":"2025-01-10T09:00:00Z","modified_at":"2025-01-10T09:00:00Z"},{"name":"Security Requirements","description":"Security requirements and compliance standards","metadata":[{"key":"classification","value":"internal"},{"key":"department","value":"security"}],"uri":"https://docs.company.com/security.pdf","id":"550e8400-e29b-41d4-a716-446655440001"}] # List[Document] | Array of documents to create in bulk
+
+    try:
+        # Bulk create documents
+        api_response = api_instance.bulk_create_threat_model_documents(threat_model_id, document)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_model_documents:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_documents: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Document]**](Document.md)| Array of documents to create in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document** | [**List[Document]**](Document.md)| Array of documents to create in bulk | 
 
 ### Return type
 
-[**list[Document]**](Document.md)
+[**List[Document]**](Document.md)
 
 ### Authorization
 
@@ -526,47 +802,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Documents created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_model_metadata**
-> list[Metadata] bulk_create_threat_model_metadata(body, threat_model_id)
+> List[Metadata] bulk_create_threat_model_metadata(threat_model_id, metadata)
 
 Bulk create threat model metadata
 
 Creates multiple metadata entries in a single operation for the specified threat model. Returns 409 Conflict if any of the specified keys already exist.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Bulk metadata key-value pairs to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create threat model metadata
-    api_response = api_instance.bulk_create_threat_model_metadata(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Bulk metadata key-value pairs to create
+
+    try:
+        # Bulk create threat model metadata
+        api_response = api_instance.bulk_create_threat_model_metadata(threat_model_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_model_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Bulk metadata key-value pairs to create | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -577,47 +888,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entries created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - One or more metadata keys already exist for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_model_repositories**
-> list[Repository] bulk_create_threat_model_repositories(body, threat_model_id)
+> List[Repository] bulk_create_threat_model_repositories(threat_model_id, repository)
 
 Bulk create sources
 
 Creates multiple source references in a single operation for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.repository import Repository
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Repository()] # list[Repository] | Array of repositorys to create in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create sources
-    api_response = api_instance.bulk_create_threat_model_repositories(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_repositories: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository = [{"id":"990e8400-e29b-41d4-a716-446655440012","name":"API Repository","uri":"https://github.com/example/api","description":"Backend API source code","threat_model_id":"550e8400-e29b-41d4-a716-446655440000","created_at":"2025-01-12T08:00:00Z","modified_at":"2025-01-12T08:00:00Z"},{"name":"Database Connection Pool","description":"Database connection management","metadata":[{"key":"type","value":"infrastructure"},{"key":"criticality","value":"high"}],"uri":"https://github.com/company/repo/blob/main/db/pool.go","id":"550e8400-e29b-41d4-a716-446655440001"}] # List[Repository] | Array of repositorys to create in bulk
+
+    try:
+        # Bulk create sources
+        api_response = api_instance.bulk_create_threat_model_repositories(threat_model_id, repository)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_model_repositories:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_repositories: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Repository]**](Repository.md)| Array of repositorys to create in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository** | [**List[Repository]**](Repository.md)| Array of repositorys to create in bulk | 
 
 ### Return type
 
-[**list[Repository]**](Repository.md)
+[**List[Repository]**](Repository.md)
 
 ### Authorization
 
@@ -628,47 +975,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Sources created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_create_threat_model_threats**
-> list[Threat] bulk_create_threat_model_threats(body, threat_model_id)
+> List[Threat] bulk_create_threat_model_threats(threat_model_id, threat)
 
 Bulk create threats
 
 Creates multiple threats in a single operation for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.threat import Threat
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Threat()] # list[Threat] | Array of threats to create in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk create threats
-    api_response = api_instance.bulk_create_threat_model_threats(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_threats: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat = [{"name":"SQL Injection Attack","description":"Attacker injects malicious SQL code through user input","metadata":[{"key":"category","value":"injection"},{"key":"stride","value":"tampering"}],"threat_type":["spoofing"]},{"name":"Cross-Site Scripting (XSS)","threat_type":["information-disclosure"],"description":"Malicious scripts executed in user's browser","severity":"Medium","status":"identified"}] # List[Threat] | Array of threats to create in bulk
+
+    try:
+        # Bulk create threats
+        api_response = api_instance.bulk_create_threat_model_threats(threat_model_id, threat)
+        print("The response of ThreatModelSubResourcesApi->bulk_create_threat_model_threats:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_create_threat_model_threats: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Threat]**](Threat.md)| Array of threats to create in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat** | [**List[Threat]**](Threat.md)| Array of threats to create in bulk | 
 
 ### Return type
 
-[**list[Threat]**](Threat.md)
+[**List[Threat]**](Threat.md)
 
 ### Authorization
 
@@ -679,49 +1061,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Threats created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_diagram_metadata**
-> list[Metadata] bulk_replace_diagram_metadata(body, threat_model_id, diagram_id)
+> List[Metadata] bulk_replace_diagram_metadata(threat_model_id, diagram_id, metadata)
 
 Bulk replace diagram metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace diagram metadata
-    api_response = api_instance.bulk_replace_diagram_metadata(body, threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_diagram_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace diagram metadata
+        api_response = api_instance.bulk_replace_diagram_metadata(threat_model_id, diagram_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_diagram_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_diagram_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -732,49 +1149,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_document_metadata**
-> list[Metadata] bulk_replace_document_metadata(body, threat_model_id, document_id)
+> List[Metadata] bulk_replace_document_metadata(threat_model_id, document_id, metadata)
 
 Bulk replace document metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace document metadata
-    api_response = api_instance.bulk_replace_document_metadata(body, threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_document_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace document metadata
+        api_response = api_instance.bulk_replace_document_metadata(threat_model_id, document_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_document_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_document_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -785,49 +1237,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_note_metadata**
-> list[Metadata] bulk_replace_note_metadata(body, threat_model_id, note_id)
+> List[Metadata] bulk_replace_note_metadata(threat_model_id, note_id, metadata)
 
 Bulk replace note metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace note metadata
-    api_response = api_instance.bulk_replace_note_metadata(body, threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_note_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace note metadata
+        api_response = api_instance.bulk_replace_note_metadata(threat_model_id, note_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_note_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_note_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -838,49 +1325,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_repository_metadata**
-> list[Metadata] bulk_replace_repository_metadata(body, threat_model_id, repository_id)
+> List[Metadata] bulk_replace_repository_metadata(threat_model_id, repository_id, metadata)
 
 Bulk replace repository metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace repository metadata
-    api_response = api_instance.bulk_replace_repository_metadata(body, threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_repository_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace repository metadata
+        api_response = api_instance.bulk_replace_repository_metadata(threat_model_id, repository_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_repository_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_repository_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -891,49 +1413,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_threat_metadata**
-> list[Metadata] bulk_replace_threat_metadata(body, threat_model_id, threat_id)
+> List[Metadata] bulk_replace_threat_metadata(threat_model_id, threat_id, metadata)
 
 Bulk replace threat metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace threat metadata
-    api_response = api_instance.bulk_replace_threat_metadata(body, threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace threat metadata
+        api_response = api_instance.bulk_replace_threat_metadata(threat_model_id, threat_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_threat_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -944,49 +1501,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_threat_model_asset_metadata**
-> list[Metadata] bulk_replace_threat_model_asset_metadata(body, threat_model_id, asset_id)
+> List[Metadata] bulk_replace_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
 
 Bulk replace asset metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace asset metadata
-    api_response = api_instance.bulk_replace_threat_model_asset_metadata(body, threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace asset metadata
+        api_response = api_instance.bulk_replace_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_threat_model_asset_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -997,47 +1589,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_replace_threat_model_metadata**
-> list[Metadata] bulk_replace_threat_model_metadata(body, threat_model_id)
+> List[Metadata] bulk_replace_threat_model_metadata(threat_model_id, metadata)
 
 Bulk replace threat model metadata
 
 Replaces all metadata for the entity. All existing metadata is deleted and replaced with the provided set. To clear all metadata, send an empty array.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk replace threat model metadata
-    api_response = api_instance.bulk_replace_threat_model_metadata(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_model_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Complete set of metadata key-value pairs to replace existing metadata
+
+    try:
+        # Bulk replace threat model metadata
+        api_response = api_instance.bulk_replace_threat_model_metadata(threat_model_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_replace_threat_model_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_replace_threat_model_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Complete set of metadata key-value pairs to replace existing metadata | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1048,47 +1675,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata replaced successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_update_threat_model_threats**
-> list[Threat] bulk_update_threat_model_threats(body, threat_model_id)
+> List[Threat] bulk_update_threat_model_threats(threat_model_id, threat_bulk_update_item)
 
 Bulk update threats
 
 Updates multiple threats in a single operation for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.threat import Threat
+from tmi_client.models.threat_bulk_update_item import ThreatBulkUpdateItem
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.ThreatBulkUpdateItem()] # list[ThreatBulkUpdateItem] | Array of threats to upsert in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk update threats
-    api_response = api_instance.bulk_update_threat_model_threats(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_update_threat_model_threats: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_bulk_update_item = [{"id":"750e8400-e29b-41d4-a716-446655440001","name":"Updated SQL Injection Attack","description":"Updated description for SQL injection vulnerability","impact":"High","likelihood":"Low","risk_rating":"Medium","metadata":[{"key":"category","value":"injection"},{"key":"mitigation","value":"parameterized-queries"}],"threat_type":["tampering"]}] # List[ThreatBulkUpdateItem] | Array of threats to upsert in bulk
+
+    try:
+        # Bulk update threats
+        api_response = api_instance.bulk_update_threat_model_threats(threat_model_id, threat_bulk_update_item)
+        print("The response of ThreatModelSubResourcesApi->bulk_update_threat_model_threats:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_update_threat_model_threats: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[ThreatBulkUpdateItem]**](ThreatBulkUpdateItem.md)| Array of threats to upsert in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_bulk_update_item** | [**List[ThreatBulkUpdateItem]**](ThreatBulkUpdateItem.md)| Array of threats to upsert in bulk | 
 
 ### Return type
 
-[**list[Threat]**](Threat.md)
+[**List[Threat]**](Threat.md)
 
 ### Authorization
 
@@ -1099,49 +1762,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Threats updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_diagram_metadata**
-> list[Metadata] bulk_upsert_diagram_metadata(body, threat_model_id, diagram_id)
+> List[Metadata] bulk_upsert_diagram_metadata(threat_model_id, diagram_id, metadata)
 
 Bulk upsert diagram metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert diagram metadata
-    api_response = api_instance.bulk_upsert_diagram_metadata(body, threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_diagram_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert diagram metadata
+        api_response = api_instance.bulk_upsert_diagram_metadata(threat_model_id, diagram_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_diagram_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_diagram_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1152,49 +1850,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_document_metadata**
-> list[Metadata] bulk_upsert_document_metadata(body, threat_model_id, document_id)
+> List[Metadata] bulk_upsert_document_metadata(threat_model_id, document_id, metadata)
 
 Bulk upsert document metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert document metadata
-    api_response = api_instance.bulk_upsert_document_metadata(body, threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_document_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert document metadata
+        api_response = api_instance.bulk_upsert_document_metadata(threat_model_id, document_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_document_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_document_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1205,49 +1938,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_note_metadata**
-> list[Metadata] bulk_upsert_note_metadata(body, threat_model_id, note_id)
+> List[Metadata] bulk_upsert_note_metadata(threat_model_id, note_id, metadata)
 
 Bulk upsert note metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert note metadata
-    api_response = api_instance.bulk_upsert_note_metadata(body, threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_note_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert note metadata
+        api_response = api_instance.bulk_upsert_note_metadata(threat_model_id, note_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_note_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_note_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1258,49 +2026,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_repository_metadata**
-> list[Metadata] bulk_upsert_repository_metadata(body, threat_model_id, repository_id)
+> List[Metadata] bulk_upsert_repository_metadata(threat_model_id, repository_id, metadata)
 
 Bulk upsert repository metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert repository metadata
-    api_response = api_instance.bulk_upsert_repository_metadata(body, threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_repository_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert repository metadata
+        api_response = api_instance.bulk_upsert_repository_metadata(threat_model_id, repository_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_repository_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_repository_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1311,49 +2114,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_threat_metadata**
-> list[Metadata] bulk_upsert_threat_metadata(body, threat_model_id, threat_id)
+> List[Metadata] bulk_upsert_threat_metadata(threat_model_id, threat_id, metadata)
 
 Bulk upsert threat metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert threat metadata
-    api_response = api_instance.bulk_upsert_threat_metadata(body, threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert threat metadata
+        api_response = api_instance.bulk_upsert_threat_metadata(threat_model_id, threat_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_threat_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1364,49 +2202,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_threat_model_asset_metadata**
-> list[Metadata] bulk_upsert_threat_model_asset_metadata(body, threat_model_id, asset_id)
+> List[Metadata] bulk_upsert_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
 
 Bulk upsert asset metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert asset metadata
-    api_response = api_instance.bulk_upsert_threat_model_asset_metadata(body, threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert asset metadata
+        api_response = api_instance.bulk_upsert_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_threat_model_asset_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1417,47 +2290,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_threat_model_assets**
-> list[Asset] bulk_upsert_threat_model_assets(body, threat_model_id)
+> List[Asset] bulk_upsert_threat_model_assets(threat_model_id, asset)
 
 Bulk upsert assets
 
 Create or update multiple assets in a single request
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.asset import Asset
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Asset()] # list[Asset] | Array of assets to upsert in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert assets
-    api_response = api_instance.bulk_upsert_threat_model_assets(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_assets: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset = [{"id":"550e8400-e29b-41d4-a716-446655440001","name":"API Gateway Updated","type":"software","description":"Updated gateway service"}] # List[Asset] | Array of assets to upsert in bulk
+
+    try:
+        # Bulk upsert assets
+        api_response = api_instance.bulk_upsert_threat_model_assets(threat_model_id, asset)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_threat_model_assets:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_assets: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Asset]**](Asset.md)| Array of assets to upsert in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset** | [**List[Asset]**](Asset.md)| Array of assets to upsert in bulk | 
 
 ### Return type
 
-[**list[Asset]**](Asset.md)
+[**List[Asset]**](Asset.md)
 
 ### Authorization
 
@@ -1468,47 +2376,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Assets created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_threat_model_documents**
-> list[Document] bulk_upsert_threat_model_documents(body, threat_model_id)
+> List[Document] bulk_upsert_threat_model_documents(threat_model_id, document)
 
 Bulk upsert documents
 
 Create or update multiple documents in a single request
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.document import Document
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Document()] # list[Document] | Array of documents to upsert in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert documents
-    api_response = api_instance.bulk_upsert_threat_model_documents(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_documents: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document = [{"id":"770e8400-e29b-41d4-a716-446655440010","name":"Threat Model Report Updated","uri":"https://docs.example.com/threat-report-v2.pdf","description":"Updated threat assessment document","threat_model_id":"550e8400-e29b-41d4-a716-446655440000","created_at":"2025-01-10T09:00:00Z","modified_at":"2025-01-10T09:00:00Z"},{"name":"Security Requirements","description":"Security requirements and compliance standards","metadata":[{"key":"classification","value":"internal"},{"key":"department","value":"security"}],"uri":"https://docs.company.com/security.pdf","id":"550e8400-e29b-41d4-a716-446655440001"}] # List[Document] | Array of documents to upsert in bulk
+
+    try:
+        # Bulk upsert documents
+        api_response = api_instance.bulk_upsert_threat_model_documents(threat_model_id, document)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_threat_model_documents:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_documents: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Document]**](Document.md)| Array of documents to upsert in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document** | [**List[Document]**](Document.md)| Array of documents to upsert in bulk | 
 
 ### Return type
 
-[**list[Document]**](Document.md)
+[**List[Document]**](Document.md)
 
 ### Authorization
 
@@ -1519,47 +2462,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Documents created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_threat_model_metadata**
-> list[Metadata] bulk_upsert_threat_model_metadata(body, threat_model_id)
+> List[Metadata] bulk_upsert_threat_model_metadata(threat_model_id, metadata)
 
 Bulk upsert threat model metadata
 
 Creates or updates only the provided metadata keys. Keys not included in the request are left unchanged. This is a merge/upsert operation.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Metadata()] # list[Metadata] | Metadata key-value pairs to create or update (merge)
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert threat model metadata
-    api_response = api_instance.bulk_upsert_threat_model_metadata(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    metadata = [tmi_client.Metadata()] # List[Metadata] | Metadata key-value pairs to create or update (merge)
+
+    try:
+        # Bulk upsert threat model metadata
+        api_response = api_instance.bulk_upsert_threat_model_metadata(threat_model_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_threat_model_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **metadata** | [**List[Metadata]**](Metadata.md)| Metadata key-value pairs to create or update (merge) | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -1570,47 +2548,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata upserted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_upsert_threat_model_repositories**
-> list[Repository] bulk_upsert_threat_model_repositories(body, threat_model_id)
+> List[Repository] bulk_upsert_threat_model_repositories(threat_model_id, repository)
 
 Bulk upsert repositories
 
 Create or update multiple repositories in a single request
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.repository import Repository
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.Repository()] # list[Repository] | Array of repositorys to upsert in bulk
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Bulk upsert repositories
-    api_response = api_instance.bulk_upsert_threat_model_repositories(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_repositories: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository = [{"id":"990e8400-e29b-41d4-a716-446655440013","name":"API Repository Updated","uri":"https://github.com/example/api-v2","description":"Updated backend API source code","threat_model_id":"550e8400-e29b-41d4-a716-446655440000","created_at":"2025-01-12T08:00:00Z","modified_at":"2025-01-12T08:00:00Z"},{"name":"Database Connection Pool","description":"Database connection management","metadata":[{"key":"type","value":"infrastructure"},{"key":"criticality","value":"high"}],"uri":"https://github.com/company/repo/blob/main/db/pool.go","id":"550e8400-e29b-41d4-a716-446655440001"}] # List[Repository] | Array of repositorys to upsert in bulk
+
+    try:
+        # Bulk upsert repositories
+        api_response = api_instance.bulk_upsert_threat_model_repositories(threat_model_id, repository)
+        print("The response of ThreatModelSubResourcesApi->bulk_upsert_threat_model_repositories:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->bulk_upsert_threat_model_repositories: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[Repository]**](Repository.md)| Array of repositorys to upsert in bulk | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository** | [**List[Repository]**](Repository.md)| Array of repositorys to upsert in bulk | 
 
 ### Return type
 
-[**list[Repository]**](Repository.md)
+[**List[Repository]**](Repository.md)
 
 ### Authorization
 
@@ -1621,45 +2634,80 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Sources created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_diagram_metadata**
-> Metadata create_diagram_metadata(body, threat_model_id, diagram_id)
+> Metadata create_diagram_metadata(threat_model_id, diagram_id, metadata)
 
 Create diagram metadata
 
 Creates a new metadata entry for the specified diagram. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create diagram metadata
-    api_response = api_instance.create_diagram_metadata(body, threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_diagram_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Create diagram metadata
+        api_response = api_instance.create_diagram_metadata(threat_model_id, diagram_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_diagram_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_diagram_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -1674,45 +2722,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entry created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_document_metadata**
-> Metadata create_document_metadata(body, threat_model_id, document_id)
+> Metadata create_document_metadata(threat_model_id, document_id, metadata)
 
 Create document metadata
 
 Creates new metadata entry for the specified document. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create document metadata
-    api_response = api_instance.create_document_metadata(body, threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_document_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Create document metadata
+        api_response = api_instance.create_document_metadata(threat_model_id, document_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_document_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_document_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -1727,45 +2811,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entry created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_note_metadata**
-> Metadata create_note_metadata(body, threat_model_id, note_id)
+> Metadata create_note_metadata(threat_model_id, note_id, metadata)
 
 Create note metadata
 
 Creates new metadata entry for the specified note. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create note metadata
-    api_response = api_instance.create_note_metadata(body, threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_note_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Create note metadata
+        api_response = api_instance.create_note_metadata(threat_model_id, note_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_note_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_note_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -1780,45 +2900,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entry created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_repository_metadata**
-> Metadata create_repository_metadata(body, threat_model_id, repository_id)
+> Metadata create_repository_metadata(threat_model_id, repository_id, metadata)
 
 Create source metadata
 
 Creates new metadata entry for the specified source reference. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create source metadata
-    api_response = api_instance.create_repository_metadata(body, threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_repository_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Create source metadata
+        api_response = api_instance.create_repository_metadata(threat_model_id, repository_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_repository_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_repository_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -1833,45 +2989,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entry created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_metadata**
-> Metadata create_threat_metadata(body, threat_model_id, threat_id)
+> Metadata create_threat_metadata(threat_model_id, threat_id, metadata)
 
 Create threat metadata
 
 Creates new metadata entry for the specified threat. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create threat metadata
-    api_response = api_instance.create_threat_metadata(body, threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Create threat metadata
+        api_response = api_instance.create_threat_metadata(threat_model_id, threat_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_threat_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -1886,43 +3078,80 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entry created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_asset**
-> Asset create_threat_model_asset(body, threat_model_id)
+> Asset create_threat_model_asset(threat_model_id, asset_input)
 
 Create a new asset
 
 Creates a new asset within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.asset import Asset
+from tmi_client.models.asset_input import AssetInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AssetInput() # AssetInput | Asset creation data
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create a new asset
-    api_response = api_instance.create_threat_model_asset(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_asset: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_input = tmi_client.AssetInput() # AssetInput | Asset creation data
+
+    try:
+        # Create a new asset
+        api_response = api_instance.create_threat_model_asset(threat_model_id, asset_input)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_asset:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_asset: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AssetInput**](AssetInput.md)| Asset creation data | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_input** | [**AssetInput**](AssetInput.md)| Asset creation data | 
 
 ### Return type
 
@@ -1937,45 +3166,80 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Asset created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_asset_metadata**
-> Metadata create_threat_model_asset_metadata(body, threat_model_id, asset_id)
+> Metadata create_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
 
 Add metadata to an asset
 
 Adds a new metadata key-value pair to the specified asset. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Add metadata to an asset
-    api_response = api_instance.create_threat_model_asset_metadata(body, threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Add metadata to an asset
+        api_response = api_instance.create_threat_model_asset_metadata(threat_model_id, asset_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_asset_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -1990,43 +3254,80 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_diagram**
-> DfdDiagram create_threat_model_diagram(body, threat_model_id)
+> DfdDiagram create_threat_model_diagram(threat_model_id, create_diagram_request)
 
 Create a new diagram
 
 Creates a new diagram within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.create_diagram_request import CreateDiagramRequest
+from tmi_client.models.dfd_diagram import DfdDiagram
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.CreateDiagramRequest() # CreateDiagramRequest | Diagram creation data
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create a new diagram
-    api_response = api_instance.create_threat_model_diagram(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_diagram: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    create_diagram_request = tmi_client.CreateDiagramRequest() # CreateDiagramRequest | Diagram creation data
+
+    try:
+        # Create a new diagram
+        api_response = api_instance.create_threat_model_diagram(threat_model_id, create_diagram_request)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_diagram:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_diagram: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateDiagramRequest**](CreateDiagramRequest.md)| Diagram creation data | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **create_diagram_request** | [**CreateDiagramRequest**](CreateDiagramRequest.md)| Diagram creation data | 
 
 ### Return type
 
@@ -2041,43 +3342,79 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Diagram created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_document**
-> Document create_threat_model_document(body, threat_model_id)
+> Document create_threat_model_document(threat_model_id, document_input)
 
 Create a new document
 
 Creates a new document within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.document import Document
+from tmi_client.models.document_input import DocumentInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.DocumentInput() # DocumentInput | Document creation data
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create a new document
-    api_response = api_instance.create_threat_model_document(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_document: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_input = {"name":"Security Requirements","description":"Application security requirements specification","uri":"https://docs.example.com/security-requirements.pdf"} # DocumentInput | Document creation data
+
+    try:
+        # Create a new document
+        api_response = api_instance.create_threat_model_document(threat_model_id, document_input)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_document:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_document: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DocumentInput**](DocumentInput.md)| Document creation data | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_input** | [**DocumentInput**](DocumentInput.md)| Document creation data | 
 
 ### Return type
 
@@ -2092,43 +3429,78 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Document created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_metadata**
-> Metadata create_threat_model_metadata(body, threat_model_id)
+> Metadata create_threat_model_metadata(threat_model_id, metadata)
 
 Create threat model metadata
 
 Creates new metadata entry for the specified threat model. Returns 409 Conflict if the key already exists.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create threat model metadata
-    api_response = api_instance.create_threat_model_metadata(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    metadata = tmi_client.Metadata() # Metadata | Metadata key-value pair to create
+
+    try:
+        # Create threat model metadata
+        api_response = api_instance.create_threat_model_metadata(threat_model_id, metadata)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata key-value pair to create | 
 
 ### Return type
 
@@ -2143,43 +3515,80 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Metadata entry created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Metadata key already exists for this entity |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_note**
-> Note create_threat_model_note(body, threat_model_id)
+> Note create_threat_model_note(threat_model_id, note_input)
 
 Create a new note
 
 Creates a new note within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.note import Note
+from tmi_client.models.note_input import NoteInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.NoteInput() # NoteInput | Note creation data
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create a new note
-    api_response = api_instance.create_threat_model_note(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_note: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_input = tmi_client.NoteInput() # NoteInput | Note creation data
+
+    try:
+        # Create a new note
+        api_response = api_instance.create_threat_model_note(threat_model_id, note_input)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_note:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_note: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NoteInput**](NoteInput.md)| Note creation data | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_input** | [**NoteInput**](NoteInput.md)| Note creation data | 
 
 ### Return type
 
@@ -2194,43 +3603,79 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Note created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_repository**
-> Repository create_threat_model_repository(body, threat_model_id)
+> Repository create_threat_model_repository(threat_model_id, repository_input)
 
 Create a new source reference
 
 Creates a new source code reference within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.repository import Repository
+from tmi_client.models.repository_input import RepositoryInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.RepositoryInput() # RepositoryInput | Repository creation data
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create a new source reference
-    api_response = api_instance.create_threat_model_repository(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_repository: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_input = tmi_client.RepositoryInput() # RepositoryInput | Repository creation data
+
+    try:
+        # Create a new source reference
+        api_response = api_instance.create_threat_model_repository(threat_model_id, repository_input)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_repository:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_repository: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RepositoryInput**](RepositoryInput.md)| Repository creation data | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_input** | [**RepositoryInput**](RepositoryInput.md)| Repository creation data | 
 
 ### Return type
 
@@ -2245,43 +3690,79 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Source reference created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_threat_model_threat**
-> Threat create_threat_model_threat(body, threat_model_id)
+> Threat create_threat_model_threat(threat_model_id, threat_input)
 
 Create a new threat
 
 Creates a new threat within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.threat import Threat
+from tmi_client.models.threat_input import ThreatInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatInput() # ThreatInput | Threat creation data
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Create a new threat
-    api_response = api_instance.create_threat_model_threat(body, threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_threat: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_input = tmi_client.ThreatInput() # ThreatInput | Threat creation data
+
+    try:
+        # Create a new threat
+        api_response = api_instance.create_threat_model_threat(threat_model_id, threat_input)
+        print("The response of ThreatModelSubResourcesApi->create_threat_model_threat:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->create_threat_model_threat: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatInput**](ThreatInput.md)| Threat creation data | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_input** | [**ThreatInput**](ThreatInput.md)| Threat creation data | 
 
 ### Return type
 
@@ -2296,6 +3777,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Threat created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_diagram_metadata_by_key**
@@ -2306,33 +3799,54 @@ Delete diagram metadata by key
 Removes a specific metadata entry for the diagram by key
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete diagram metadata by key
-    api_instance.delete_diagram_metadata_by_key(threat_model_id, diagram_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_diagram_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete diagram metadata by key
+        api_instance.delete_diagram_metadata_by_key(threat_model_id, diagram_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_diagram_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2347,6 +3861,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata entry deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2358,33 +3884,54 @@ Delete document metadata by key
 Deletes a specific metadata entry by key for the specified document
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete document metadata by key
-    api_instance.delete_document_metadata_by_key(threat_model_id, document_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_document_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete document metadata by key
+        api_instance.delete_document_metadata_by_key(threat_model_id, document_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_document_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2399,6 +3946,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata entry deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2410,33 +3969,54 @@ Delete note metadata by key
 Deletes a specific metadata entry by key for the specified note
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete note metadata by key
-    api_instance.delete_note_metadata_by_key(threat_model_id, note_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_note_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete note metadata by key
+        api_instance.delete_note_metadata_by_key(threat_model_id, note_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_note_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2451,6 +4031,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata entry deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2462,33 +4054,54 @@ Delete source metadata by key
 Deletes a specific metadata entry by key for the specified source reference
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete source metadata by key
-    api_instance.delete_repository_metadata_by_key(threat_model_id, repository_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_repository_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete source metadata by key
+        api_instance.delete_repository_metadata_by_key(threat_model_id, repository_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_repository_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2503,6 +4116,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata entry deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2514,33 +4139,54 @@ Delete threat metadata by key
 Deletes a specific metadata entry by key for the specified threat
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete threat metadata by key
-    api_instance.delete_threat_metadata_by_key(threat_model_id, threat_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete threat metadata by key
+        api_instance.delete_threat_metadata_by_key(threat_model_id, threat_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2555,6 +4201,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata entry deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2566,32 +4224,53 @@ Delete an asset
 Deletes an asset from the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete an asset
-    api_instance.delete_threat_model_asset(threat_model_id, asset_id)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_asset: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+
+    try:
+        # Delete an asset
+        api_instance.delete_threat_model_asset(threat_model_id, asset_id)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_asset: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
 
 ### Return type
 
@@ -2605,6 +4284,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Asset deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2616,33 +4307,54 @@ Delete asset metadata
 Deletes a metadata key-value pair from the specified asset
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete asset metadata
-    api_instance.delete_threat_model_asset_metadata(threat_model_id, asset_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete asset metadata
+        api_instance.delete_threat_model_asset_metadata(threat_model_id, asset_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2657,6 +4369,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2668,32 +4392,53 @@ Delete a diagram
 Permanently removes a diagram from the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete a diagram
-    api_instance.delete_threat_model_diagram(threat_model_id, diagram_id)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_diagram: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+
+    try:
+        # Delete a diagram
+        api_instance.delete_threat_model_diagram(threat_model_id, diagram_id)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_diagram: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
 
 ### Return type
 
@@ -2707,6 +4452,19 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Diagram deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Cannot delete diagram while collaboration session is active |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2718,32 +4476,53 @@ Delete a document
 Deletes a specific document from the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete a document
-    api_instance.delete_threat_model_document(threat_model_id, document_id)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_document: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+
+    try:
+        # Delete a document
+        api_instance.delete_threat_model_document(threat_model_id, document_id)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_document: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
 
 ### Return type
 
@@ -2758,6 +4537,18 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Document deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_threat_model_metadata_by_key**
@@ -2768,31 +4559,52 @@ Delete threat model metadata by key
 Deletes a specific metadata entry by key for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete threat model metadata by key
-    api_instance.delete_threat_model_metadata_by_key(threat_model_id, key)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Delete threat model metadata by key
+        api_instance.delete_threat_model_metadata_by_key(threat_model_id, key)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -2808,6 +4620,18 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Metadata entry deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_threat_model_note**
@@ -2818,32 +4642,53 @@ Delete a note
 Deletes a specific note from the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete a note
-    api_instance.delete_threat_model_note(threat_model_id, note_id)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_note: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+
+    try:
+        # Delete a note
+        api_instance.delete_threat_model_note(threat_model_id, note_id)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_note: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
 
 ### Return type
 
@@ -2857,6 +4702,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Note deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2868,32 +4725,53 @@ Delete a source reference
 Deletes a specific source code reference from the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete a source reference
-    api_instance.delete_threat_model_repository(threat_model_id, repository_id)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_repository: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+
+    try:
+        # Delete a source reference
+        api_instance.delete_threat_model_repository(threat_model_id, repository_id)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_repository: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
 
 ### Return type
 
@@ -2907,6 +4785,18 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Source reference deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2918,32 +4808,53 @@ Delete a threat
 Deletes a specific threat from the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Delete a threat
-    api_instance.delete_threat_model_threat(threat_model_id, threat_id)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_threat: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+
+    try:
+        # Delete a threat
+        api_instance.delete_threat_model_threat(threat_model_id, threat_id)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->delete_threat_model_threat: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
 
 ### Return type
 
@@ -2958,47 +4869,82 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Threat deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_diagram_metadata**
-> list[Metadata] get_diagram_metadata(threat_model_id, diagram_id)
+> List[Metadata] get_diagram_metadata(threat_model_id, diagram_id)
 
 Get diagram metadata
 
 Retrieves all metadata entries for the specified diagram
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get diagram metadata
-    api_response = api_instance.get_diagram_metadata(threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_diagram_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+
+    try:
+        # Get diagram metadata
+        api_response = api_instance.get_diagram_metadata(threat_model_id, diagram_id)
+        print("The response of ThreatModelSubResourcesApi->get_diagram_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_diagram_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -3008,6 +4954,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of metadata entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3019,34 +4977,57 @@ Get diagram metadata by key
 Retrieves a specific metadata entry for the diagram by key
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get diagram metadata by key
-    api_response = api_instance.get_diagram_metadata_by_key(threat_model_id, diagram_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_diagram_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get diagram metadata by key
+        api_response = api_instance.get_diagram_metadata_by_key(threat_model_id, diagram_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_diagram_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_diagram_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -3062,6 +5043,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_diagram_model**
@@ -3069,37 +5062,62 @@ Name | Type | Description  | Notes
 
 Get minimal diagram model for automated analysis
 
-Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.  Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
+Returns a minimal representation of the diagram optimized for automated threat modeling. Strips all visual styling, layout, and rendering properties. Includes threat model context, computed parent-child relationships, and flattened metadata.
+
+Content negotiation: Use the Accept header (application/json, application/x-yaml, application/xml) or the ?format query parameter. Query parameter takes precedence if both are specified. Default: application/json.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.minimal_diagram_model import MinimalDiagramModel
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model UUID
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram UUID
-format = 'json' # str | Output format for the diagram model (case-insensitive). Defaults to json if not specified. (optional) (default to json)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get minimal diagram model for automated analysis
-    api_response = api_instance.get_diagram_model(threat_model_id, diagram_id, format=format)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_diagram_model: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model UUID
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram UUID
+    format = json # str | Output format for the diagram model (case-insensitive). Defaults to json if not specified. (optional) (default to json)
+
+    try:
+        # Get minimal diagram model for automated analysis
+        api_response = api_instance.get_diagram_model(threat_model_id, diagram_id, format=format)
+        print("The response of ThreatModelSubResourcesApi->get_diagram_model:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_diagram_model: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model UUID | 
- **diagram_id** | [**str**](.md)| Diagram UUID | 
+ **threat_model_id** | **UUID**| Threat model UUID | 
+ **diagram_id** | **UUID**| Diagram UUID | 
  **format** | **str**| Output format for the diagram model (case-insensitive). Defaults to json if not specified. | [optional] [default to json]
 
 ### Return type
@@ -3115,47 +5133,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/x-yaml, application/xml
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Minimal diagram model successfully retrieved in requested format |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid UUID format or invalid format parameter |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Unauthorized - authentication required |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Forbidden - insufficient permissions (requires at least reader role) |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Threat model or diagram not found, or diagram not associated with threat model |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Rate limit exceeded |  * X-RateLimit-Limit - Request limit per window <br>  * X-RateLimit-Remaining - Remaining requests in current window <br>  * X-RateLimit-Reset - Unix timestamp when limit resets <br>  * Retry-After - Seconds until retry allowed <br>  |
+**500** | Internal server error (e.g., serialization failure) |  -  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_document_metadata**
-> list[Metadata] get_document_metadata(threat_model_id, document_id)
+> List[Metadata] get_document_metadata(threat_model_id, document_id)
 
 Get document metadata
 
 Returns all metadata key-value pairs for the specified document
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get document metadata
-    api_response = api_instance.get_document_metadata(threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_document_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+
+    try:
+        # Get document metadata
+        api_response = api_instance.get_document_metadata(threat_model_id, document_id)
+        print("The response of ThreatModelSubResourcesApi->get_document_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_document_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -3165,6 +5218,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Document metadata list |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3176,34 +5241,57 @@ Get document metadata by key
 Returns a specific metadata entry by key for the specified document
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get document metadata by key
-    api_response = api_instance.get_document_metadata_by_key(threat_model_id, document_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_document_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get document metadata by key
+        api_response = api_instance.get_document_metadata_by_key(threat_model_id, document_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_document_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_document_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -3219,47 +5307,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_note_metadata**
-> list[Metadata] get_note_metadata(threat_model_id, note_id)
+> List[Metadata] get_note_metadata(threat_model_id, note_id)
 
 Get note metadata
 
 Returns all metadata key-value pairs for the specified note
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get note metadata
-    api_response = api_instance.get_note_metadata(threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_note_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+
+    try:
+        # Get note metadata
+        api_response = api_instance.get_note_metadata(threat_model_id, note_id)
+        print("The response of ThreatModelSubResourcesApi->get_note_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_note_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -3269,6 +5392,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Note metadata list |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3280,34 +5415,57 @@ Get note metadata by key
 Returns a specific metadata entry by key for the specified note
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get note metadata by key
-    api_response = api_instance.get_note_metadata_by_key(threat_model_id, note_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_note_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get note metadata by key
+        api_response = api_instance.get_note_metadata_by_key(threat_model_id, note_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_note_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_note_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -3323,47 +5481,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_repository_metadata**
-> list[Metadata] get_repository_metadata(threat_model_id, repository_id)
+> List[Metadata] get_repository_metadata(threat_model_id, repository_id)
 
 Get source metadata
 
 Returns all metadata key-value pairs for the specified source reference
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get source metadata
-    api_response = api_instance.get_repository_metadata(threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_repository_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+
+    try:
+        # Get source metadata
+        api_response = api_instance.get_repository_metadata(threat_model_id, repository_id)
+        print("The response of ThreatModelSubResourcesApi->get_repository_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_repository_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -3373,6 +5566,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Source metadata list |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3384,34 +5589,57 @@ Get source metadata by key
 Returns a specific metadata entry by key for the specified source reference
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get source metadata by key
-    api_response = api_instance.get_repository_metadata_by_key(threat_model_id, repository_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_repository_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get source metadata by key
+        api_response = api_instance.get_repository_metadata_by_key(threat_model_id, repository_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_repository_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_repository_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -3427,47 +5655,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_metadata**
-> list[Metadata] get_threat_metadata(threat_model_id, threat_id)
+> List[Metadata] get_threat_metadata(threat_model_id, threat_id)
 
 Get threat metadata
 
 Returns all metadata key-value pairs for the specified threat
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get threat metadata
-    api_response = api_instance.get_threat_metadata(threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+
+    try:
+        # Get threat metadata
+        api_response = api_instance.get_threat_metadata(threat_model_id, threat_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -3477,6 +5740,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Threat metadata list |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3488,34 +5763,57 @@ Get threat metadata by key
 Returns a specific metadata entry by key for the specified threat
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get threat metadata by key
-    api_response = api_instance.get_threat_metadata_by_key(threat_model_id, threat_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get threat metadata by key
+        api_response = api_instance.get_threat_metadata_by_key(threat_model_id, threat_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_threat_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -3531,6 +5829,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_asset**
@@ -3541,33 +5851,56 @@ Get a specific asset
 Returns a single asset by its ID
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.asset import Asset
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a specific asset
-    api_response = api_instance.get_threat_model_asset(threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_asset: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+
+    try:
+        # Get a specific asset
+        api_response = api_instance.get_threat_model_asset(threat_model_id, asset_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_asset:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_asset: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
 
 ### Return type
 
@@ -3582,47 +5915,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Asset details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_asset_metadata**
-> list[Metadata] get_threat_model_asset_metadata(threat_model_id, asset_id)
+> List[Metadata] get_threat_model_asset_metadata(threat_model_id, asset_id)
 
 Get all metadata for an asset
 
 Returns all metadata key-value pairs for the specified asset
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get all metadata for an asset
-    api_response = api_instance.get_threat_model_asset_metadata(threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+
+    try:
+        # Get all metadata for an asset
+        api_response = api_instance.get_threat_model_asset_metadata(threat_model_id, asset_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_asset_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -3632,6 +6000,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Asset metadata |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3643,34 +6023,57 @@ Get specific metadata for an asset
 Returns a single metadata value by its key
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get specific metadata for an asset
-    api_response = api_instance.get_threat_model_asset_metadata_by_key(threat_model_id, asset_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_asset_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get specific metadata for an asset
+        api_response = api_instance.get_threat_model_asset_metadata_by_key(threat_model_id, asset_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_asset_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_asset_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -3686,6 +6089,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata value |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_assets**
@@ -3696,37 +6111,60 @@ List assets in a threat model
 Returns a paginated list of assets within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_assets_response import ListAssetsResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List assets in a threat model
-    api_response = api_instance.get_threat_model_assets(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_assets: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    include_deleted = False # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to False)
+
+    try:
+        # List assets in a threat model
+        api_response = api_instance.get_threat_model_assets(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_assets:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_assets: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to False]
 
 ### Return type
 
@@ -3741,6 +6179,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of assets |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_diagram**
@@ -3751,33 +6201,56 @@ Get a specific diagram
 Retrieves a specific diagram from the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.dfd_diagram import DfdDiagram
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a specific diagram
-    api_response = api_instance.get_threat_model_diagram(threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_diagram: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+
+    try:
+        # Get a specific diagram
+        api_response = api_instance.get_threat_model_diagram(threat_model_id, diagram_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_diagram:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_diagram: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
 
 ### Return type
 
@@ -3792,6 +6265,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Diagram details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_diagrams**
@@ -3802,37 +6287,60 @@ List threat model diagrams
 Returns all diagrams associated with a specific threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_diagrams_response import ListDiagramsResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List threat model diagrams
-    api_response = api_instance.get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_diagrams: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    include_deleted = False # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to False)
+
+    try:
+        # List threat model diagrams
+        api_response = api_instance.get_threat_model_diagrams(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_diagrams:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_diagrams: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to False]
 
 ### Return type
 
@@ -3847,6 +6355,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of diagrams |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_document**
@@ -3857,33 +6377,56 @@ Get a specific document
 Returns details of a specific document within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.document import Document
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a specific document
-    api_response = api_instance.get_threat_model_document(threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_document: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+
+    try:
+        # Get a specific document
+        api_response = api_instance.get_threat_model_document(threat_model_id, document_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_document:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_document: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
 
 ### Return type
 
@@ -3898,6 +6441,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Document details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_documents**
@@ -3908,37 +6463,60 @@ List documents in a threat model
 Returns a paginated list of documents within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_documents_response import ListDocumentsResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List documents in a threat model
-    api_response = api_instance.get_threat_model_documents(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_documents: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    include_deleted = False # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to False)
+
+    try:
+        # List documents in a threat model
+        api_response = api_instance.get_threat_model_documents(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_documents:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_documents: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to False]
 
 ### Return type
 
@@ -3953,45 +6531,80 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of documents |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_metadata**
-> list[Metadata] get_threat_model_metadata(threat_model_id)
+> List[Metadata] get_threat_model_metadata(threat_model_id)
 
 Get threat model metadata
 
 Returns all metadata key-value pairs for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get threat model metadata
-    api_response = api_instance.get_threat_model_metadata(threat_model_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+
+    try:
+        # Get threat model metadata
+        api_response = api_instance.get_threat_model_metadata(threat_model_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
 
 ### Return type
 
-[**list[Metadata]**](Metadata.md)
+[**List[Metadata]**](Metadata.md)
 
 ### Authorization
 
@@ -4001,6 +6614,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Threat model metadata list |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4012,32 +6637,55 @@ Get threat model metadata by key
 Returns a specific metadata entry by key for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get threat model metadata by key
-    api_response = api_instance.get_threat_model_metadata_by_key(threat_model_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    key = 'key_example' # str | Metadata key
+
+    try:
+        # Get threat model metadata by key
+        api_response = api_instance.get_threat_model_metadata_by_key(threat_model_id, key)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **key** | **str**| Metadata key | 
 
 ### Return type
@@ -4053,6 +6701,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_note**
@@ -4063,33 +6723,56 @@ Get a specific note
 Returns details of a specific note within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.note import Note
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a specific note
-    api_response = api_instance.get_threat_model_note(threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_note: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+
+    try:
+        # Get a specific note
+        api_response = api_instance.get_threat_model_note(threat_model_id, note_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_note:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_note: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
 
 ### Return type
 
@@ -4104,6 +6787,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Note details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_notes**
@@ -4114,37 +6809,60 @@ List notes in a threat model
 Returns a paginated list of notes within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_notes_response import ListNotesResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List notes in a threat model
-    api_response = api_instance.get_threat_model_notes(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_notes: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    include_deleted = False # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to False)
+
+    try:
+        # List notes in a threat model
+        api_response = api_instance.get_threat_model_notes(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_notes:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_notes: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to False]
 
 ### Return type
 
@@ -4159,6 +6877,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of notes |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_repositories**
@@ -4169,37 +6899,60 @@ List sources in a threat model
 Returns a paginated list of source code references within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_repositories_response import ListRepositoriesResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List sources in a threat model
-    api_response = api_instance.get_threat_model_repositories(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_repositories: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    include_deleted = False # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to False)
+
+    try:
+        # List sources in a threat model
+        api_response = api_instance.get_threat_model_repositories(threat_model_id, limit=limit, offset=offset, include_deleted=include_deleted)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_repositories:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_repositories: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to False]
 
 ### Return type
 
@@ -4214,6 +6967,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of source code references |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_repository**
@@ -4224,33 +6989,56 @@ Get a specific source reference
 Returns details of a specific source code reference within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.repository import Repository
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a specific source reference
-    api_response = api_instance.get_threat_model_repository(threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_repository: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+
+    try:
+        # Get a specific source reference
+        api_response = api_instance.get_threat_model_repository(threat_model_id, repository_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_repository:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_repository: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
 
 ### Return type
 
@@ -4265,6 +7053,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Source reference details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_threat**
@@ -4275,33 +7075,56 @@ Get a specific threat
 Returns details of a specific threat within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.threat import Threat
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Get a specific threat
-    api_response = api_instance.get_threat_model_threat(threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_threat: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+
+    try:
+        # Get a specific threat
+        api_response = api_instance.get_threat_model_threat(threat_model_id, threat_id)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_threat:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_threat: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
 
 ### Return type
 
@@ -4316,6 +7139,18 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Threat details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_threat_model_threats**
@@ -4326,65 +7161,88 @@ List threats in a threat model
 Returns a paginated list of threats within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.list_threats_response import ListThreatsResponse
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-limit = 20 # int | Maximum number of results to return (optional) (default to 20)
-offset = 0 # int | Number of results to skip (optional) (default to 0)
-sort = 'created_at:desc' # str | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (optional) (default to created_at:desc)
-name = 'name_example' # str | Filter by name (case-insensitive substring match) (optional)
-description = 'description_example' # str | Filter by threat model description (partial match) (optional)
-threat_type = ['threat_type_example'] # list[str] | Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type=Tampering&threat_type=Spoofing (optional)
-severity = ['severity_example'] # list[str] | Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity=high&severity=critical (optional)
-priority = ['priority_example'] # list[str] | Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority=high&priority=critical (optional)
-status = ['status_example'] # list[str] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated (optional)
-mitigated = true # bool | Filter by mitigated status (exact match) (optional)
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by diagram ID (exact match) (optional)
-cell_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Filter by cell ID (exact match) (optional)
-score_gt = 1.2 # float | Filter threats with score greater than this value (optional)
-score_lt = 1.2 # float | Filter threats with score less than this value (optional)
-score_eq = 1.2 # float | Filter threats with score equal to this value (optional)
-score_ge = 1.2 # float | Filter threats with score greater than or equal to this value (optional)
-score_le = 1.2 # float | Filter threats with score less than or equal to this value (optional)
-created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results created after this timestamp (ISO 8601) (optional)
-created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results created before this timestamp (ISO 8601) (optional)
-modified_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified after this timestamp (ISO 8601) (optional)
-modified_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified before this timestamp (ISO 8601) (optional)
-include_deleted = false # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to false)
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # List threats in a threat model
-    api_response = api_instance.get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, mitigated=mitigated, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before, include_deleted=include_deleted)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_threats: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    limit = 20 # int | Maximum number of results to return (optional) (default to 20)
+    offset = 0 # int | Number of results to skip (optional) (default to 0)
+    sort = 'created_at:desc' # str | Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) (optional) (default to 'created_at:desc')
+    name = 'name_example' # str | Filter by name (case-insensitive substring match) (optional)
+    description = 'description_example' # str | Filter by threat model description (partial match) (optional)
+    threat_type = ['[\"spoofing\",\"tampering\"]'] # List[str] | Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type=Tampering&threat_type=Spoofing (optional)
+    severity = ['severity_example'] # List[str] | Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity=high&severity=critical (optional)
+    priority = ['[\"high\",\"critical\"]'] # List[str] | Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority=high&priority=critical (optional)
+    status = ['[\"identified\",\"mitigated\"]'] # List[str] | Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status=identified&status=mitigated (optional)
+    mitigated = True # bool | Filter by mitigated status (exact match) (optional)
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Filter by diagram ID (exact match) (optional)
+    cell_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Filter by cell ID (exact match) (optional)
+    score_gt = 3.4 # float | Filter threats with score greater than this value (optional)
+    score_lt = 3.4 # float | Filter threats with score less than this value (optional)
+    score_eq = 3.4 # float | Filter threats with score equal to this value (optional)
+    score_ge = 3.4 # float | Filter threats with score greater than or equal to this value (optional)
+    score_le = 3.4 # float | Filter threats with score less than or equal to this value (optional)
+    created_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results created after this timestamp (ISO 8601) (optional)
+    created_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results created before this timestamp (ISO 8601) (optional)
+    modified_after = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified after this timestamp (ISO 8601) (optional)
+    modified_before = '2013-10-20T19:20:30+01:00' # datetime | Filter results modified before this timestamp (ISO 8601) (optional)
+    include_deleted = False # bool | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional) (default to False)
+
+    try:
+        # List threats in a threat model
+        api_response = api_instance.get_threat_model_threats(threat_model_id, limit=limit, offset=offset, sort=sort, name=name, description=description, threat_type=threat_type, severity=severity, priority=priority, status=status, mitigated=mitigated, diagram_id=diagram_id, cell_id=cell_id, score_gt=score_gt, score_lt=score_lt, score_eq=score_eq, score_ge=score_ge, score_le=score_le, created_after=created_after, created_before=created_before, modified_after=modified_after, modified_before=modified_before, include_deleted=include_deleted)
+        print("The response of ThreatModelSubResourcesApi->get_threat_model_threats:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->get_threat_model_threats: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **sort** | **str**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to created_at:desc]
+ **sort** | **str**| Sort order (e.g., created_at:desc, name:asc, severity:desc, score:desc) | [optional] [default to &#39;created_at:desc&#39;]
  **name** | **str**| Filter by name (case-insensitive substring match) | [optional] 
  **description** | **str**| Filter by threat model description (partial match) | [optional] 
- **threat_type** | [**list[str]**](str.md)| Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
- **severity** | [**list[str]**](str.md)| Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity&#x3D;high&amp;severity&#x3D;critical | [optional] 
- **priority** | [**list[str]**](str.md)| Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority&#x3D;high&amp;priority&#x3D;critical | [optional] 
- **status** | [**list[str]**](str.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
+ **threat_type** | [**List[str]**](str.md)| Filter by threat types (OR logic). Returns threats matching ANY of the specified types. Example: ?threat_type&#x3D;Tampering&amp;threat_type&#x3D;Spoofing | [optional] 
+ **severity** | [**List[str]**](str.md)| Filter by severity level (OR logic). Returns threats matching ANY of the specified severities. Example: ?severity&#x3D;high&amp;severity&#x3D;critical | [optional] 
+ **priority** | [**List[str]**](str.md)| Filter by priority (OR logic). Returns threats matching ANY of the specified priorities. Example: ?priority&#x3D;high&amp;priority&#x3D;critical | [optional] 
+ **status** | [**List[str]**](str.md)| Filter by status (OR logic). Returns threats matching ANY of the specified statuses. Example: ?status&#x3D;identified&amp;status&#x3D;mitigated | [optional] 
  **mitigated** | **bool**| Filter by mitigated status (exact match) | [optional] 
- **diagram_id** | [**str**](.md)| Filter by diagram ID (exact match) | [optional] 
- **cell_id** | [**str**](.md)| Filter by cell ID (exact match) | [optional] 
+ **diagram_id** | **UUID**| Filter by diagram ID (exact match) | [optional] 
+ **cell_id** | **UUID**| Filter by cell ID (exact match) | [optional] 
  **score_gt** | **float**| Filter threats with score greater than this value | [optional] 
  **score_lt** | **float**| Filter threats with score less than this value | [optional] 
  **score_eq** | **float**| Filter threats with score equal to this value | [optional] 
@@ -4394,7 +7252,7 @@ Name | Type | Description  | Notes
  **created_before** | **datetime**| Filter results created before this timestamp (ISO 8601) | [optional] 
  **modified_after** | **datetime**| Filter results modified after this timestamp (ISO 8601) | [optional] 
  **modified_before** | **datetime**| Filter results modified before this timestamp (ISO 8601) | [optional] 
- **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to false]
+ **include_deleted** | **bool**| Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [optional] [default to False]
 
 ### Return type
 
@@ -4409,45 +7267,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of threats |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_threat_model_diagram**
-> DfdDiagram patch_threat_model_diagram(body, threat_model_id, diagram_id)
+> DfdDiagram patch_threat_model_diagram(threat_model_id, diagram_id, json_patch_document_inner)
 
 Partially update a diagram
 
 Apply JSON Patch operations to update specific parts of a diagram
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.dfd_diagram import DfdDiagram
+from tmi_client.models.json_patch_document_inner import JsonPatchDocumentInner
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to the diagram
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Partially update a diagram
-    api_response = api_instance.patch_threat_model_diagram(body, threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->patch_threat_model_diagram: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    json_patch_document_inner = [{"op":"replace","path":"/name","value":"Updated Diagram Name"}] # List[JsonPatchDocumentInner] | JSON Patch operations to apply to the diagram
+
+    try:
+        # Partially update a diagram
+        api_response = api_instance.patch_threat_model_diagram(threat_model_id, diagram_id, json_patch_document_inner)
+        print("The response of ThreatModelSubResourcesApi->patch_threat_model_diagram:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->patch_threat_model_diagram: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the diagram | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
+ **json_patch_document_inner** | [**List[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the diagram | 
 
 ### Return type
 
@@ -4462,45 +7356,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Diagram updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**422** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Cannot modify diagram while collaboration session is active |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_threat_model_threat**
-> Threat patch_threat_model_threat(body, threat_model_id, threat_id)
+> Threat patch_threat_model_threat(threat_model_id, threat_id, json_patch_document_inner)
 
 Partially update a threat
 
 Applies JSON patch operations to a specific threat within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.json_patch_document_inner import JsonPatchDocumentInner
+from tmi_client.models.threat import Threat
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = [tmi_client.JsonPatchDocumentInner()] # list[JsonPatchDocumentInner] | JSON Patch operations to apply to the threat
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Partially update a threat
-    api_response = api_instance.patch_threat_model_threat(body, threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->patch_threat_model_threat: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    json_patch_document_inner = [{"op":"replace","path":"/name","value":"Updated SQL Injection Threat"},{"op":"replace","path":"/severity","value":"Critical"},{"op":"replace","path":"/description","value":"Updated description with more details"}] # List[JsonPatchDocumentInner] | JSON Patch operations to apply to the threat
+
+    try:
+        # Partially update a threat
+        api_response = api_instance.patch_threat_model_threat(threat_model_id, threat_id, json_patch_document_inner)
+        print("The response of ThreatModelSubResourcesApi->patch_threat_model_threat:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->patch_threat_model_threat: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**list[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the threat | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
+ **json_patch_document_inner** | [**List[JsonPatchDocumentInner]**](JsonPatchDocumentInner.md)| JSON Patch operations to apply to the threat | 
 
 ### Return type
 
@@ -4514,6 +7446,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Threat patched successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4525,33 +7469,56 @@ Restore a soft-deleted asset
 Restores a soft-deleted asset within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.asset import Asset
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Restore a soft-deleted asset
-    api_response = api_instance.restore_asset(threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->restore_asset: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+
+    try:
+        # Restore a soft-deleted asset
+        api_response = api_instance.restore_asset(threat_model_id, asset_id)
+        print("The response of ThreatModelSubResourcesApi->restore_asset:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->restore_asset: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
 
 ### Return type
 
@@ -4565,6 +7532,19 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Entity restored successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Entity is not in a deleted state, or parent threat model is deleted |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4576,33 +7556,56 @@ Restore a soft-deleted diagram
 Restores a soft-deleted diagram within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.dfd_diagram import DfdDiagram
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Restore a soft-deleted diagram
-    api_response = api_instance.restore_diagram(threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->restore_diagram: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+
+    try:
+        # Restore a soft-deleted diagram
+        api_response = api_instance.restore_diagram(threat_model_id, diagram_id)
+        print("The response of ThreatModelSubResourcesApi->restore_diagram:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->restore_diagram: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
 
 ### Return type
 
@@ -4617,6 +7620,19 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Entity restored successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Entity is not in a deleted state, or parent threat model is deleted |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restore_document**
@@ -4627,33 +7643,56 @@ Restore a soft-deleted document
 Restores a soft-deleted document within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.document import Document
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Restore a soft-deleted document
-    api_response = api_instance.restore_document(threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->restore_document: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+
+    try:
+        # Restore a soft-deleted document
+        api_response = api_instance.restore_document(threat_model_id, document_id)
+        print("The response of ThreatModelSubResourcesApi->restore_document:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->restore_document: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
 
 ### Return type
 
@@ -4668,6 +7707,19 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Entity restored successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Entity is not in a deleted state, or parent threat model is deleted |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restore_note**
@@ -4678,33 +7730,56 @@ Restore a soft-deleted note
 Restores a soft-deleted note within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.note import Note
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Restore a soft-deleted note
-    api_response = api_instance.restore_note(threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->restore_note: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+
+    try:
+        # Restore a soft-deleted note
+        api_response = api_instance.restore_note(threat_model_id, note_id)
+        print("The response of ThreatModelSubResourcesApi->restore_note:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->restore_note: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
 
 ### Return type
 
@@ -4719,6 +7794,19 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Entity restored successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Entity is not in a deleted state, or parent threat model is deleted |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restore_repository**
@@ -4729,33 +7817,56 @@ Restore a soft-deleted repository
 Restores a soft-deleted repository within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.repository import Repository
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Restore a soft-deleted repository
-    api_response = api_instance.restore_repository(threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->restore_repository: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+
+    try:
+        # Restore a soft-deleted repository
+        api_response = api_instance.restore_repository(threat_model_id, repository_id)
+        print("The response of ThreatModelSubResourcesApi->restore_repository:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->restore_repository: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
 
 ### Return type
 
@@ -4770,6 +7881,19 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Entity restored successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Entity is not in a deleted state, or parent threat model is deleted |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **restore_threat**
@@ -4780,33 +7904,56 @@ Restore a soft-deleted threat
 Restores a soft-deleted threat within a threat model. The parent threat model must not be deleted; returns 409 if it is. Restricted to owner role or administrators.
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.threat import Threat
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Restore a soft-deleted threat
-    api_response = api_instance.restore_threat(threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->restore_threat: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+
+    try:
+        # Restore a soft-deleted threat
+        api_response = api_instance.restore_threat(threat_model_id, threat_id)
+        print("The response of ThreatModelSubResourcesApi->restore_threat:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->restore_threat: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
 
 ### Return type
 
@@ -4821,47 +7968,84 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Entity restored successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**409** | Conflict - Entity is not in a deleted state, or parent threat model is deleted |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_diagram_metadata_by_key**
-> Metadata update_diagram_metadata_by_key(body, threat_model_id, diagram_id, key)
+> Metadata update_diagram_metadata_by_key(threat_model_id, diagram_id, key, update_diagram_metadata_by_key_request)
 
 Update diagram metadata by key
 
 Updates or creates a metadata entry for the diagram with the specified key
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
+from tmi_client.models.update_diagram_metadata_by_key_request import UpdateDiagramMetadataByKeyRequest
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody4() # MetadataKeyBody4 | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update diagram metadata by key
-    api_response = api_instance.update_diagram_metadata_by_key(body, threat_model_id, diagram_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_diagram_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    key = 'key_example' # str | Metadata key
+    update_diagram_metadata_by_key_request = {"value":"example-metadata-value"} # UpdateDiagramMetadataByKeyRequest | Metadata value to set
+
+    try:
+        # Update diagram metadata by key
+        api_response = api_instance.update_diagram_metadata_by_key(threat_model_id, diagram_id, key, update_diagram_metadata_by_key_request)
+        print("The response of ThreatModelSubResourcesApi->update_diagram_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_diagram_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody4**](MetadataKeyBody4.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
  **key** | **str**| Metadata key | 
+ **update_diagram_metadata_by_key_request** | [**UpdateDiagramMetadataByKeyRequest**](UpdateDiagramMetadataByKeyRequest.md)| Metadata value to set | 
 
 ### Return type
 
@@ -4876,47 +8060,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_document_metadata_by_key**
-> Metadata update_document_metadata_by_key(body, threat_model_id, document_id, key)
+> Metadata update_document_metadata_by_key(threat_model_id, document_id, key, update_threat_metadata_by_key_request)
 
 Update document metadata by key
 
 Updates a specific metadata entry by key for the specified document
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
+from tmi_client.models.update_threat_metadata_by_key_request import UpdateThreatMetadataByKeyRequest
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody1() # MetadataKeyBody1 | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update document metadata by key
-    api_response = api_instance.update_document_metadata_by_key(body, threat_model_id, document_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_document_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    key = 'key_example' # str | Metadata key
+    update_threat_metadata_by_key_request = {"value":"example-metadata-value"} # UpdateThreatMetadataByKeyRequest | Metadata value to set
+
+    try:
+        # Update document metadata by key
+        api_response = api_instance.update_document_metadata_by_key(threat_model_id, document_id, key, update_threat_metadata_by_key_request)
+        print("The response of ThreatModelSubResourcesApi->update_document_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_document_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody1**](MetadataKeyBody1.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
  **key** | **str**| Metadata key | 
+ **update_threat_metadata_by_key_request** | [**UpdateThreatMetadataByKeyRequest**](UpdateThreatMetadataByKeyRequest.md)| Metadata value to set | 
 
 ### Return type
 
@@ -4931,47 +8151,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_note_metadata_by_key**
-> Metadata update_note_metadata_by_key(body, threat_model_id, note_id, key)
+> Metadata update_note_metadata_by_key(threat_model_id, note_id, key, update_threat_metadata_by_key_request)
 
 Update note metadata by key
 
 Updates a specific metadata entry by key for the specified note
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
+from tmi_client.models.update_threat_metadata_by_key_request import UpdateThreatMetadataByKeyRequest
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody5() # MetadataKeyBody5 | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update note metadata by key
-    api_response = api_instance.update_note_metadata_by_key(body, threat_model_id, note_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_note_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    key = 'key_example' # str | Metadata key
+    update_threat_metadata_by_key_request = {"value":"example-metadata-value"} # UpdateThreatMetadataByKeyRequest | Metadata value to set
+
+    try:
+        # Update note metadata by key
+        api_response = api_instance.update_note_metadata_by_key(threat_model_id, note_id, key, update_threat_metadata_by_key_request)
+        print("The response of ThreatModelSubResourcesApi->update_note_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_note_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody5**](MetadataKeyBody5.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
  **key** | **str**| Metadata key | 
+ **update_threat_metadata_by_key_request** | [**UpdateThreatMetadataByKeyRequest**](UpdateThreatMetadataByKeyRequest.md)| Metadata value to set | 
 
 ### Return type
 
@@ -4986,47 +8242,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_repository_metadata_by_key**
-> Metadata update_repository_metadata_by_key(body, threat_model_id, repository_id, key)
+> Metadata update_repository_metadata_by_key(threat_model_id, repository_id, key, update_threat_metadata_by_key_request)
 
 Update source metadata by key
 
 Updates a specific metadata entry by key for the specified source reference
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
+from tmi_client.models.update_threat_metadata_by_key_request import UpdateThreatMetadataByKeyRequest
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody2() # MetadataKeyBody2 | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update source metadata by key
-    api_response = api_instance.update_repository_metadata_by_key(body, threat_model_id, repository_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_repository_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    key = 'key_example' # str | Metadata key
+    update_threat_metadata_by_key_request = {"value":"example-metadata-value"} # UpdateThreatMetadataByKeyRequest | Metadata value to set
+
+    try:
+        # Update source metadata by key
+        api_response = api_instance.update_repository_metadata_by_key(threat_model_id, repository_id, key, update_threat_metadata_by_key_request)
+        print("The response of ThreatModelSubResourcesApi->update_repository_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_repository_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody2**](MetadataKeyBody2.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
  **key** | **str**| Metadata key | 
+ **update_threat_metadata_by_key_request** | [**UpdateThreatMetadataByKeyRequest**](UpdateThreatMetadataByKeyRequest.md)| Metadata value to set | 
 
 ### Return type
 
@@ -5041,47 +8333,83 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_metadata_by_key**
-> Metadata update_threat_metadata_by_key(body, threat_model_id, threat_id, key)
+> Metadata update_threat_metadata_by_key(threat_model_id, threat_id, key, update_threat_metadata_by_key_request)
 
 Update threat metadata by key
 
 Updates a specific metadata entry by key for the specified threat
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
+from tmi_client.models.update_threat_metadata_by_key_request import UpdateThreatMetadataByKeyRequest
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody() # MetadataKeyBody | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update threat metadata by key
-    api_response = api_instance.update_threat_metadata_by_key(body, threat_model_id, threat_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    key = 'key_example' # str | Metadata key
+    update_threat_metadata_by_key_request = {"value":"example-metadata-value"} # UpdateThreatMetadataByKeyRequest | Metadata value to set
+
+    try:
+        # Update threat metadata by key
+        api_response = api_instance.update_threat_metadata_by_key(threat_model_id, threat_id, key, update_threat_metadata_by_key_request)
+        print("The response of ThreatModelSubResourcesApi->update_threat_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody**](MetadataKeyBody.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
  **key** | **str**| Metadata key | 
+ **update_threat_metadata_by_key_request** | [**UpdateThreatMetadataByKeyRequest**](UpdateThreatMetadataByKeyRequest.md)| Metadata value to set | 
 
 ### Return type
 
@@ -5096,45 +8424,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_asset**
-> Asset update_threat_model_asset(body, threat_model_id, asset_id)
+> Asset update_threat_model_asset(threat_model_id, asset_id, asset_input)
 
 Update an asset
 
 Updates an existing asset within the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.asset import Asset
+from tmi_client.models.asset_input import AssetInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.AssetInput() # AssetInput | Complete asset data for replacement
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update an asset
-    api_response = api_instance.update_threat_model_asset(body, threat_model_id, asset_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_asset: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    asset_input = tmi_client.AssetInput() # AssetInput | Complete asset data for replacement
+
+    try:
+        # Update an asset
+        api_response = api_instance.update_threat_model_asset(threat_model_id, asset_id, asset_input)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_asset:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_asset: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AssetInput**](AssetInput.md)| Complete asset data for replacement | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
+ **asset_input** | [**AssetInput**](AssetInput.md)| Complete asset data for replacement | 
 
 ### Return type
 
@@ -5149,47 +8513,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Asset updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_asset_metadata**
-> Metadata update_threat_model_asset_metadata(body, threat_model_id, asset_id, key)
+> Metadata update_threat_model_asset_metadata(threat_model_id, asset_id, key, metadata)
 
 Update asset metadata
 
 Updates an existing metadata value by its key
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.Metadata() # Metadata | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-asset_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Asset identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update asset metadata
-    api_response = api_instance.update_threat_model_asset_metadata(body, threat_model_id, asset_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_asset_metadata: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    asset_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Asset identifier
+    key = 'key_example' # str | Metadata key
+    metadata = tmi_client.Metadata() # Metadata | Metadata value to set
+
+    try:
+        # Update asset metadata
+        api_response = api_instance.update_threat_model_asset_metadata(threat_model_id, asset_id, key, metadata)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_asset_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_asset_metadata: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**Metadata**](Metadata.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **asset_id** | [**str**](.md)| Asset identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **asset_id** | **UUID**| Asset identifier | 
  **key** | **str**| Metadata key | 
+ **metadata** | [**Metadata**](Metadata.md)| Metadata value to set | 
 
 ### Return type
 
@@ -5204,45 +8603,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_diagram**
-> DfdDiagram update_threat_model_diagram(body, threat_model_id, diagram_id)
+> DfdDiagram update_threat_model_diagram(threat_model_id, diagram_id, dfd_diagram_input)
 
 Update a diagram
 
 Completely replaces a diagram with new data. Use DfdDiagramInput schema which excludes readOnly fields (id, created_at, modified_at, update_vector).
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.dfd_diagram import DfdDiagram
+from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.DfdDiagramInput() # DfdDiagramInput | Complete diagram data for replacement
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-diagram_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Diagram identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update a diagram
-    api_response = api_instance.update_threat_model_diagram(body, threat_model_id, diagram_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_diagram: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram identifier
+    dfd_diagram_input = tmi_client.DfdDiagramInput() # DfdDiagramInput | Complete diagram data for replacement
+
+    try:
+        # Update a diagram
+        api_response = api_instance.update_threat_model_diagram(threat_model_id, diagram_id, dfd_diagram_input)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_diagram:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_diagram: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DfdDiagramInput**](DfdDiagramInput.md)| Complete diagram data for replacement | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **diagram_id** | [**str**](.md)| Diagram identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **diagram_id** | **UUID**| Diagram identifier | 
+ **dfd_diagram_input** | [**DfdDiagramInput**](DfdDiagramInput.md)| Complete diagram data for replacement | 
 
 ### Return type
 
@@ -5257,45 +8692,82 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Diagram updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**409** | Conflict - Cannot modify diagram while collaboration session is active |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_document**
-> Document update_threat_model_document(body, threat_model_id, document_id)
+> Document update_threat_model_document(threat_model_id, document_id, document_input)
 
 Update a document
 
 Updates a specific document within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.document import Document
+from tmi_client.models.document_input import DocumentInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.DocumentInput() # DocumentInput | Complete document data for replacement
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-document_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Document identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update a document
-    api_response = api_instance.update_threat_model_document(body, threat_model_id, document_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_document: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Document identifier
+    document_input = tmi_client.DocumentInput() # DocumentInput | Complete document data for replacement
+
+    try:
+        # Update a document
+        api_response = api_instance.update_threat_model_document(threat_model_id, document_id, document_input)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_document:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_document: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**DocumentInput**](DocumentInput.md)| Complete document data for replacement | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **document_id** | [**str**](.md)| Document identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **document_id** | **UUID**| Document identifier | 
+ **document_input** | [**DocumentInput**](DocumentInput.md)| Complete document data for replacement | 
 
 ### Return type
 
@@ -5310,45 +8782,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Document updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_metadata_by_key**
-> Metadata update_threat_model_metadata_by_key(body, threat_model_id, key)
+> Metadata update_threat_model_metadata_by_key(threat_model_id, key, update_threat_metadata_by_key_request)
 
 Update threat model metadata by key
 
 Updates a specific metadata entry by key for the specified threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.metadata import Metadata
+from tmi_client.models.update_threat_metadata_by_key_request import UpdateThreatMetadataByKeyRequest
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.MetadataKeyBody3() # MetadataKeyBody3 | Metadata value to set
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-key = 'key_example' # str | Metadata key
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update threat model metadata by key
-    api_response = api_instance.update_threat_model_metadata_by_key(body, threat_model_id, key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_metadata_by_key: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    key = 'key_example' # str | Metadata key
+    update_threat_metadata_by_key_request = {"value":"example-metadata-value"} # UpdateThreatMetadataByKeyRequest | Metadata value to set
+
+    try:
+        # Update threat model metadata by key
+        api_response = api_instance.update_threat_model_metadata_by_key(threat_model_id, key, update_threat_metadata_by_key_request)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_metadata_by_key:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_metadata_by_key: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**MetadataKeyBody3**](MetadataKeyBody3.md)| Metadata value to set | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
  **key** | **str**| Metadata key | 
+ **update_threat_metadata_by_key_request** | [**UpdateThreatMetadataByKeyRequest**](UpdateThreatMetadataByKeyRequest.md)| Metadata value to set | 
 
 ### Return type
 
@@ -5363,45 +8871,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metadata entry updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_note**
-> Note update_threat_model_note(body, threat_model_id, note_id)
+> Note update_threat_model_note(threat_model_id, note_id, note_input)
 
 Update a note
 
 Updates a specific note within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.note import Note
+from tmi_client.models.note_input import NoteInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.NoteInput() # NoteInput | Complete note data for replacement
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-note_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Note identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update a note
-    api_response = api_instance.update_threat_model_note(body, threat_model_id, note_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_note: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    note_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Note identifier
+    note_input = tmi_client.NoteInput() # NoteInput | Complete note data for replacement
+
+    try:
+        # Update a note
+        api_response = api_instance.update_threat_model_note(threat_model_id, note_id, note_input)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_note:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_note: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**NoteInput**](NoteInput.md)| Complete note data for replacement | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **note_id** | [**str**](.md)| Note identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **note_id** | **UUID**| Note identifier | 
+ **note_input** | [**NoteInput**](NoteInput.md)| Complete note data for replacement | 
 
 ### Return type
 
@@ -5416,45 +8960,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Note updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_repository**
-> Repository update_threat_model_repository(body, threat_model_id, repository_id)
+> Repository update_threat_model_repository(threat_model_id, repository_id, repository_input)
 
 Update a source reference
 
 Updates a specific source code reference within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.repository import Repository
+from tmi_client.models.repository_input import RepositoryInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.RepositoryInput() # RepositoryInput | Complete repository data for replacement
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-repository_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Repository identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update a source reference
-    api_response = api_instance.update_threat_model_repository(body, threat_model_id, repository_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_repository: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    repository_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Repository identifier
+    repository_input = tmi_client.RepositoryInput() # RepositoryInput | Complete repository data for replacement
+
+    try:
+        # Update a source reference
+        api_response = api_instance.update_threat_model_repository(threat_model_id, repository_id, repository_input)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_repository:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_repository: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RepositoryInput**](RepositoryInput.md)| Complete repository data for replacement | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **repository_id** | [**str**](.md)| Repository identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **repository_id** | **UUID**| Repository identifier | 
+ **repository_input** | [**RepositoryInput**](RepositoryInput.md)| Complete repository data for replacement | 
 
 ### Return type
 
@@ -5469,45 +9049,81 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Source reference updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_threat_model_threat**
-> Threat update_threat_model_threat(body, threat_model_id, threat_id)
+> Threat update_threat_model_threat(threat_model_id, threat_id, threat_input)
 
 Update a threat
 
 Updates a specific threat within the threat model
 
 ### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
 ```python
-from __future__ import print_function
-import time
 import tmi_client
+from tmi_client.models.threat import Threat
+from tmi_client.models.threat_input import ThreatInput
 from tmi_client.rest import ApiException
 from pprint import pprint
 
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
 
-# create an instance of the API class
-api_instance = tmi_client.ThreatModelSubResourcesApi(tmi_client.ApiClient(configuration))
-body = tmi_client.ThreatInput() # ThreatInput | Complete threat data for replacement
-threat_model_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat model identifier
-threat_id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # str | Threat identifier
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
 
-try:
-    # Update a threat
-    api_response = api_instance.update_threat_model_threat(body, threat_model_id, threat_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_threat: %s\n" % e)
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    threat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat identifier
+    threat_input = tmi_client.ThreatInput() # ThreatInput | Complete threat data for replacement
+
+    try:
+        # Update a threat
+        api_response = api_instance.update_threat_model_threat(threat_model_id, threat_id, threat_input)
+        print("The response of ThreatModelSubResourcesApi->update_threat_model_threat:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ThreatModelSubResourcesApi->update_threat_model_threat: %s\n" % e)
 ```
+
+
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**ThreatInput**](ThreatInput.md)| Complete threat data for replacement | 
- **threat_model_id** | [**str**](.md)| Threat model identifier | 
- **threat_id** | [**str**](.md)| Threat identifier | 
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **threat_id** | **UUID**| Threat identifier | 
+ **threat_input** | [**ThreatInput**](ThreatInput.md)| Complete threat data for replacement | 
 
 ### Return type
 
@@ -5521,6 +9137,18 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Threat updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

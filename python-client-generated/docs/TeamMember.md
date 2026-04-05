@@ -1,12 +1,33 @@
 # TeamMember
 
+A member of a team with their role
+
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_id** | **str** | UUID of the team member user | 
-**user** | **AllOfTeamMemberUser** | Resolved user details (read-only, populated by server) | [optional] 
+**user_id** | **UUID** | UUID of the team member user | 
+**user** | [**User**](User.md) | Resolved user details (read-only, populated by server) | [optional] [readonly] 
 **role** | [**TeamMemberRole**](TeamMemberRole.md) |  | [optional] 
-**custom_role** | **str** | Custom role description when role is &#x27;other&#x27; | [optional] 
+**custom_role** | **str** | Custom role description when role is &#39;other&#39; | [optional] 
 
+## Example
+
+```python
+from tmi_client.models.team_member import TeamMember
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TeamMember from a JSON string
+team_member_instance = TeamMember.from_json(json)
+# print the JSON string representation of the object
+print(TeamMember.to_json())
+
+# convert the object into a dict
+team_member_dict = team_member_instance.to_dict()
+# create an instance of TeamMember from a dict
+team_member_from_dict = TeamMember.from_dict(team_member_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
 
