@@ -1,0 +1,6 @@
+# OpenAPI Generator Ignore
+# https://openapi-generator.tech
+
+# Custom files that should not be overwritten by codegen
+test_diagram_fixes.py
+docs/developer/**

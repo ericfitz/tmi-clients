@@ -3,5 +3,4 @@ backups
 backups/**
 test_output.log
 __pycache__/
-spike-openapi-generator/**
-
+python-client-generated/.openapi-generator/
