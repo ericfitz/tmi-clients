@@ -3,9 +3,10 @@
 # requires-python = ">=3.9"
 # dependencies = []
 # ///
-"""Regenerate the TMI Python client from the OpenAPI spec."""
+"""Regenerate the TMI Python client from the OpenAPI spec using openapi-generator."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -19,8 +20,6 @@ from regen_common import (
     download_spec,
     extract_spec_version,
     generate_report,
-    patch_file_exact,
-    patch_file_regex,
     print_banner,
     print_error,
     print_step,
@@ -28,271 +27,93 @@ from regen_common import (
     print_summary,
     print_warning,
     restore_files,
-    run_codegen,
+    run_codegen_openapi_generator,
     run_command,
     write_file,
 )
 
 REPO_ROOT = Path(__file__).resolve().parent
 CLIENT_DIR = REPO_ROOT / "python-client-generated"
-CONFIG_FILE = CLIENT_DIR / "scripts" / "swagger-codegen-config.json"
-TEMPLATE_DIR = CLIENT_DIR / "custom-templates" / "python"
+CONFIG_FILE = CLIENT_DIR / "scripts" / "openapi-generator-config.json"
 SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
 BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
-
-# --- Config file contents ---
-
-# Version placeholder — replaced at regeneration time by extract_spec_version()
-_VERSION_PLACEHOLDER = "0.0.0-dev"
-
-PYPROJECT_TOML = """\
-[project]
-name = "tmi-client"
-version = "0.0.0-dev"
-description = "TMI API Python Client"
-readme = "README.md"
-requires-python = ">=3.9"
-license = {text = "Apache-2.0"}
-keywords = ["TMI", "Threat Modeling", "API", "OpenAPI"]
-authors = [
-    {name = "TMI Contributors"}
-]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
-]
-
-dependencies = [
-    "certifi >= 2025.11.12",
-    "six >= 1.17.0",
-    "python-dateutil >= 2.9.0.post0",
-    "setuptools >= 78.1.1",
-    "urllib3 >= 2.6.3",
-]
-
-[project.optional-dependencies]
-test = [
-    "pytest >= 8.3.5",
-    "pytest-cov >= 5.0.0",
-    "pytest-randomly >= 3.15.0",
-]
-
-[project.urls]
-Homepage = "https://github.com/ericfitz/tmi-clients"
-Repository = "https://github.com/ericfitz/tmi-clients"
-Documentation = "https://github.com/ericfitz/tmi-clients/tree/main/python-client-generated"
-
-[build-system]
-requires = ["setuptools>=70.0.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.pytest.ini_options]
-testpaths = ["test"]
-python_files = "test_*.py"
-python_classes = "Test*"
-python_functions = "test_*"
-addopts = "-v --strict-markers"
-
-[tool.coverage.run]
-source = ["tmi_client"]
-omit = ["*/test/*", "*/tests/*"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-]
-"""
-
-REQUIREMENTS_TXT = """\
-certifi >= 2025.11.12
-six >= 1.17.0
-python-dateutil >= 2.9.0.post0
-setuptools >= 78.1.1
-urllib3 >= 2.6.3
-"""
-
-TEST_REQUIREMENTS_TXT = """\
-pytest >= 8.3.5
-pytest-cov >= 5.0.0
-pytest-randomly >= 3.15.0
-"""
-
-TOX_INI = """\
-[tox]
-envlist = py39,py310,py311,py312,py313,py314
-
-[testenv]
-deps=-r{toxinidir}/requirements.txt
-     -r{toxinidir}/test-requirements.txt
-
-commands=
-   pytest test/ -v --tb=short {posargs}
-"""
-
-AUTH_SETTINGS_OLD = """\
-    def auth_settings(self):
-        \"\"\"Gets Auth Settings dict for api client.
-
-        :return: The Auth Settings information dict.
-        \"\"\"
-        return {
-        }"""
-
-AUTH_SETTINGS_NEW = """\
-    def auth_settings(self):
-        \"\"\"Gets Auth Settings dict for api client.
-
-        :return: The Auth Settings information dict.
-        \"\"\"
-        auth = {}
-        if 'bearerAuth' in self.api_key:
-            auth['bearerAuth'] = {
-                'type': 'api_key',
-                'in': 'header',
-                'key': 'Authorization',
-                'value': self.get_api_key_with_prefix('bearerAuth')
-            }
-        return auth"""
 
 
 # --- Patches ---
 
-def apply_constructor_patch(file_path: Path, parent_class: str, param_name: str, description: str) -> bool:
-    """Insert kwargs[param_name] = param_name before ParentClass.__init__ call."""
-    return patch_file_regex(
-        file_path,
-        pattern=rf"(        ){parent_class}\.__init__\(self",
-        replacement=rf"\1kwargs['{param_name}'] = {param_name}  # PATCH: Pass {param_name} to parent to prevent overwrite\n\1{parent_class}.__init__(self",
-        description=description,
-    )
 
+def patch_uuid_regex_validators(had_issues: bool) -> bool:
+    """Fix openapi-generator bug: regex validators on UUID fields fail because
+    Pydantic parses the value to a UUID object before the validator runs.
 
-def apply_patches(had_issues: bool) -> bool:
-    """Apply all Python client patches. Returns updated had_issues flag."""
-    models = CLIENT_DIR / "tmi_client" / "models"
+    The fix: insert ``value = str(value)`` at the start of each validator
+    function that applies re.match() to a UUID-typed field.
+    """
+    models_dir = CLIENT_DIR / "tmi_client" / "models"
+    if not models_dir.is_dir():
+        print_warning("Models directory not found — skipping UUID validator patch")
+        return True
 
-    # 1. DfdDiagram constructor
-    if not apply_constructor_patch(
-        models / "dfd_diagram.py", "BaseDiagram", "type",
-        "DfdDiagram constructor type preservation",
-    ):
-        had_issues = True
+    patched_count = 0
+    for model_file in sorted(models_dir.glob("*.py")):
+        content = model_file.read_text(encoding="utf-8")
 
-    # 2. DfdDiagramInput constructor
-    if not apply_constructor_patch(
-        models / "dfd_diagram_input.py", "BaseDiagramInput", "type",
-        "DfdDiagramInput constructor type preservation",
-    ):
-        had_issues = True
+        # Find UUID fields
+        uuid_fields = set(re.findall(r"(\w+):\s*(?:Optional\[)?(?:Annotated\[)?UUID", content))
+        if not uuid_fields:
+            continue
 
-    # 3. Edge constructor
-    if not apply_constructor_patch(
-        models / "edge.py", "Cell", "shape",
-        "Edge constructor shape preservation",
-    ):
-        had_issues = True
-
-    # 4. Node constructor
-    if not apply_constructor_patch(
-        models / "node.py", "Cell", "shape",
-        "Node constructor shape preservation",
-    ):
-        had_issues = True
-
-    # 5. Configuration.auth_settings()
-    if not patch_file_exact(
-        CLIENT_DIR / "tmi_client" / "configuration.py",
-        AUTH_SETTINGS_OLD,
-        AUTH_SETTINGS_NEW,
-        "Configuration.auth_settings() bearerAuth implementation",
-    ):
-        had_issues = True
-
-    # 6. Remove duplicate revoke_token methods (swagger-codegen bug)
-    # Codegen generates two pairs: form-params-based (token, token_type_hint, ...)
-    # and body-based (body). The body-based version is correct; the form-params
-    # version is dead code that references the overwritten signature.
-    auth_api = CLIENT_DIR / "tmi_client" / "api" / "authentication_api.py"
-    if auth_api.is_file():
-        import re as _re
-        content = auth_api.read_text()
-        # Remove the first revoke_token(self, token, token_type_hint, ...) and its
-        # companion revoke_token_with_http_info(self, token, token_type_hint, ...)
-        # by matching from the form-params def up to (but not including) the
-        # body-based def revoke_token(self, body, ...).
-        new_content = _re.sub(
-            r'    def revoke_token\(self, token, token_type_hint.*?(?=    def revoke_token\(self, body)',
-            '',
-            content,
-            count=1,
-            flags=_re.DOTALL,
-        )
-        if new_content != content:
-            auth_api.write_text(new_content)
-            print_success("  Removed duplicate revoke_token form-params methods (codegen bug)")
-        else:
-            print_warning(
-                "Duplicate revoke_token patch did not match.\n"
-                "  File: authentication_api.py\n"
-                "  The codegen may no longer produce duplicate methods."
+        new_content = content
+        for field_name in uuid_fields:
+            # Find validator functions for this field that use re.match
+            pattern = (
+                rf"(@field_validator\('{field_name}'\)\s*\n"
+                rf"    def \w+\(cls, value\):\s*\n)"
+                rf"(        \"\"\".*?\"\"\"\s*\n)"
             )
+            matches = list(re.finditer(pattern, new_content))
+            for m in matches:
+                # Check if this validator uses re.match
+                rest = new_content[m.end():]
+                if "re.match" not in rest[:500]:
+                    continue
 
-    return had_issues
+                # Insert str(value) conversion after the docstring
+                insert_point = m.end()
+                insert_text = "        value = str(value)\n"
+                if insert_text not in new_content[insert_point:insert_point + 100]:
+                    new_content = new_content[:insert_point] + insert_text + new_content[insert_point:]
+                    patched_count += 1
 
+        if new_content != content:
+            model_file.write_text(new_content, encoding="utf-8")
 
-def patch_setup_py(had_issues: bool) -> bool:
-    """Patch setup.py for Python 3.9+ and modern deps."""
-    setup_py = CLIENT_DIR / "setup.py"
-    if not setup_py.is_file():
-        print_warning("setup.py not found — skipping patches")
-        return had_issues
+    if patched_count > 0:
+        print_success(f"UUID regex validator patch: {patched_count} validators fixed")
+    else:
+        print_warning("UUID regex validator patch: no validators needed fixing")
 
-    patches = [
-        (r'python_requires="[^"]*"', 'python_requires=">=3.9"'),
-        (r'"certifi[^"]*"', '"certifi>=2025.11.12"'),
-        (r'"six[^"]*"', '"six>=1.17.0"'),
-        (r'"python-dateutil[^"]*"', '"python-dateutil>=2.9.0.post0"'),
-        (r'"urllib3[^"]*"', '"urllib3>=2.6.3"'),
-    ]
-    for pattern, replacement in patches:
-        patch_file_regex(setup_py, pattern, replacement, f"setup.py: {replacement}")
-
-    # Update setuptools if present
-    patch_file_regex(setup_py, r'"setuptools[^"]*"', '"setuptools>=78.1.1"',
-                     "setup.py: setuptools version")
-
-    print_success("setup.py updated for Python 3.9+")
     return had_issues
 
 
 # --- Main ---
 
+
 def main(spec_path: str | None = None) -> int:
     had_issues = False
 
     # 1. Banner
-    print_banner("TMI Python Client Regeneration", {
+    print_banner("TMI Python Client Regeneration (openapi-generator)", {
         "Package": "tmi_client",
         "Python": "3.9+",
-        "Dependencies": "Modern with CVE fixes",
+        "Generator": "openapi-generator 7.x",
+        "Models": "Pydantic v2",
         "Testing": "pytest",
     })
 
     # 2. Prerequisites
     print_step(1, "Checking prerequisites")
-    check_prerequisite("swagger-codegen", "brew install swagger-codegen")
+    check_prerequisite("openapi-generator", "brew install openapi-generator")
     check_prerequisite("uv", "brew install uv")
     print_success("All prerequisites met")
 
@@ -310,9 +131,8 @@ def main(spec_path: str | None = None) -> int:
     print_step(3, "Backing up custom files")
     backup_files(
         files=[
-            CLIENT_DIR / "pyproject.toml",
             CLIENT_DIR / "test_diagram_fixes.py",
-            CLIENT_DIR / ".swagger-codegen-ignore",
+            CLIENT_DIR / ".openapi-generator-ignore",
         ],
         dirs=[],
         backup_dir=BACKUP_DIR,
@@ -324,10 +144,13 @@ def main(spec_path: str | None = None) -> int:
     clean_paths([
         CLIENT_DIR / "tmi_client",
         CLIENT_DIR / "test",
+        CLIENT_DIR / ".openapi-generator",
     ])
     # Clean docs/*.md but not docs/developer/
-    for md in (CLIENT_DIR / "docs").glob("*.md"):
-        md.unlink()
+    docs_dir = CLIENT_DIR / "docs"
+    if docs_dir.is_dir():
+        for md in docs_dir.glob("*.md"):
+            md.unlink()
     clean_paths([
         CLIENT_DIR / ".gitignore",
         CLIENT_DIR / ".travis.yml",
@@ -337,50 +160,34 @@ def main(spec_path: str | None = None) -> int:
     print_success("Client directory cleaned")
 
     # 6. Run codegen
-    print_step(5, "Running swagger-codegen")
-    run_codegen(
+    print_step(5, "Running openapi-generator")
+    run_codegen_openapi_generator(
         spec_path=SPEC_PATH,
-        language="python",
+        generator="python",
         output_dir=CLIENT_DIR,
         config_file=CONFIG_FILE,
-        template_dir=TEMPLATE_DIR,
     )
 
     # --- Past this point, failures are exit code 2, not 1 ---
 
     # 7. Apply patches
-    print_step(6, "Applying constructor patches")
-    had_issues = apply_patches(had_issues)
-    print_success("Constructor patches applied")
+    print_step(6, "Applying patches")
+    had_issues = patch_uuid_regex_validators(had_issues)
+    print_success("Patches applied")
 
-    # 8. Write config files
-    print_step(7, "Applying modern Python 3.x configuration")
-    write_file(CLIENT_DIR / "pyproject.toml",
-               PYPROJECT_TOML.replace(_VERSION_PLACEHOLDER, spec_version))
-    print_success(f"pyproject.toml created (version {spec_version})")
-
-    had_issues = patch_setup_py(had_issues)
-
-    write_file(CLIENT_DIR / "requirements.txt", REQUIREMENTS_TXT)
-    print_success("requirements.txt updated")
-
-    write_file(CLIENT_DIR / "test-requirements.txt", TEST_REQUIREMENTS_TXT)
-    print_success("test-requirements.txt updated")
-
-    write_file(CLIENT_DIR / "tox.ini", TOX_INI)
-    print_success("tox.ini updated")
-
-    # 9. Restore custom files (pyproject.toml from backup overwrites the one just written)
-    print_step(8, "Restoring custom files")
+    # 8. Restore custom files
+    print_step(7, "Restoring custom files")
     restore_files(
         backup_dir=BACKUP_DIR,
         dest_dir=CLIENT_DIR,
-        files=["pyproject.toml", "test_diagram_fixes.py", ".swagger-codegen-ignore"],
+        files=["test_diagram_fixes.py", ".openapi-generator-ignore"],
         dirs=[],
     )
+    # Note: we do NOT restore pyproject.toml — openapi-generator produces
+    # a good one with pydantic deps that we want to keep.
 
-    # 10. Install deps
-    print_step(9, "Installing dependencies")
+    # 9. Install deps
+    print_step(8, "Installing dependencies")
     result = run_command(
         ["uv", "pip", "install", "-e", ".", "--quiet"],
         cwd=CLIENT_DIR,
@@ -390,8 +197,8 @@ def main(spec_path: str | None = None) -> int:
         print_warning("Dependency installation had issues")
         had_issues = True
 
-    # 11. Run tests
-    print_step(10, "Running tests")
+    # 10. Run tests
+    print_step(9, "Running tests")
     result = run_command(
         ["uv", "run", "--with", "pytest", "python3", "-m", "pytest", "test/", "-v", "--tb=short"],
         cwd=CLIENT_DIR,
@@ -423,8 +230,8 @@ def main(spec_path: str | None = None) -> int:
     else:
         print_warning("Integration test file not found")
 
-    # 12. Generate report
-    print_step(11, "Generating summary report")
+    # 11. Generate report
+    print_step(10, "Generating summary report")
     api_count = count_files(CLIENT_DIR / "tmi_client" / "api", "*.py")
     model_count = count_files(CLIENT_DIR / "tmi_client" / "models", "*.py")
     test_count = count_files(CLIENT_DIR / "test", "*.py")
@@ -433,19 +240,18 @@ def main(spec_path: str | None = None) -> int:
         {"heading": "Changes Applied", "content": (
             "### Client Regenerated\n"
             f"- Source: `{DEFAULT_SPEC_URL}`\n"
-            "- Generator: swagger-codegen 3.0.75\n"
-            f"- Package: tmi_client v{spec_version}\n\n"
-            "### Constructor Patches Applied\n"
-            "- DfdDiagram constructor fixed (type parameter preservation)\n"
-            "- DfdDiagramInput constructor fixed (type parameter preservation)\n"
-            "- Edge constructor fixed (shape parameter preservation)\n"
-            "- Node constructor fixed (shape parameter preservation)\n"
-            "- Configuration.auth_settings() fixed (bearerAuth implementation)\n\n"
-            "### Modern Python Configuration\n"
+            "- Generator: openapi-generator 7.x\n"
+            f"- Package: tmi_client v{spec_version}\n"
+            "- Models: Pydantic v2 with full type hints\n\n"
+            "### Patches Applied\n"
+            "- UUID regex validator fix (openapi-generator bug: "
+            "regex validators on UUID fields fail because Pydantic parses "
+            "the value to UUID before the validator runs)\n\n"
+            "### Generated Configuration\n"
+            "- pyproject.toml with Pydantic v2 dependencies\n"
             "- Python 3.9+ requirement\n"
-            "- Updated dependencies (latest Python 3.9+ compatible versions)\n"
-            "- pyproject.toml with UV support\n"
-            "- pytest-based testing infrastructure"
+            "- pytest-based testing infrastructure\n"
+            "- mypy configuration for type checking"
         )},
         {"heading": "Files Generated", "content": (
             f"- API classes: {api_count}\n"
@@ -459,21 +265,22 @@ def main(spec_path: str | None = None) -> int:
             "1. Review this report\n"
             "2. Check test_output.log for test failures\n"
             "3. Update documentation files\n"
-            "4. Test webhook endpoints"
+            "4. Test against live API endpoints"
         )},
     ])
     write_file(CLIENT_DIR / "REGENERATION_REPORT.md", report)
     print_success("Summary report generated: REGENERATION_REPORT.md")
 
-    # 13. Cleanup
-    print_step(12, "Cleaning up")
+    # 12. Cleanup
+    print_step(11, "Cleaning up")
     clean_paths([BACKUP_DIR])
     print_success("Cleanup complete")
 
-    # 14. Summary
+    # 13. Summary
     print_summary({
-        "Client": "regenerated from latest OpenAPI spec",
-        "Patches": "applied" if not had_issues else "applied with warnings",
+        "Client": "regenerated with openapi-generator",
+        "Models": "Pydantic v2 with type hints",
+        "Patches": "UUID regex fix" + (" (with warnings)" if had_issues else ""),
         "Tests": "see logs for results",
         "Report": "REGENERATION_REPORT.md",
     })
