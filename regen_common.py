@@ -292,6 +292,39 @@ def run_codegen(
     print_success(f"Code generation complete → {output_dir}")
 
 
+def run_codegen_openapi_generator(
+    spec_path: str | Path,
+    generator: str,
+    output_dir: str | Path,
+    config_file: str | Path | None = None,
+) -> None:
+    """Invoke openapi-generator to generate a client.
+
+    Exits with code 1 if code generation fails.
+    """
+    cmd: list[str] = [
+        "openapi-generator",
+        "generate",
+        "-i", str(spec_path),
+        "-g", generator,
+        "-o", str(output_dir),
+    ]
+    if config_file is not None:
+        cmd.extend(["-c", str(config_file)])
+
+    print(f"  Running: {' '.join(cmd)}")
+    result = run_command(cmd, error_context="openapi-generator generate")
+    if result.returncode != 0:
+        print_error(
+            "Code generation failed.\n"
+            f"  Command: {' '.join(cmd)}\n"
+            f"  Exit code: {result.returncode}\n"
+            "  Check the openapi-generator output above for details."
+        )
+        sys.exit(1)
+    print_success(f"Code generation complete → {output_dir}")
+
+
 # ---------------------------------------------------------------------------
 # File patching
 # ---------------------------------------------------------------------------
