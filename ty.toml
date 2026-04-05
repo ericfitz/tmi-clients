@@ -1,3 +1,6 @@
+[src]
+exclude = ["python-client-generated/tmi_client/", "go-client-generated/", "javascript-client-generated/"]
+
 [rules]
 "unresolved-reference" = "ignore"
 "unresolved-import" = "ignore"
