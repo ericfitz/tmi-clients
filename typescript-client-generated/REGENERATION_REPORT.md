@@ -1,6 +1,6 @@
 # TMI TypeScript Client Regeneration Report
 
-Generated: 2026-04-05 21:16:25
+Generated: 2026-04-05 21:18:23
 
 ## Configuration
 
