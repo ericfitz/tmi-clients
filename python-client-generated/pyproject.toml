@@ -1,24 +1,45 @@
 [project]
-name = "tmi_client"
+name = "tmi-client"
 version = "1.0.0"
 description = "TMI (Threat Modeling Improved) API"
 authors = [
-  {name = "TMI Development Team",email = "api@tmi.local.dev"},
+  {name = "TMI Development Team", email = "eric@tmi.dev"},
 ]
-license = { text = "Apache 2.0" }
+license = "Apache-2.0"
 readme = "README.md"
-keywords = ["OpenAPI", "OpenAPI-Generator", "TMI (Threat Modeling Improved) API"]
+keywords = ["OpenAPI", "OpenAPI-Generator", "TMI", "threat-modeling", "security"]
 requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Security",
+  "Typing :: Typed",
+]
 
 dependencies = [
-  "urllib3 (>=2.6.3,<3.0.0)",
-  "python-dateutil (>=2.8.2)",
-  "pydantic (>=2.11)",
-  "typing-extensions (>=4.7.1)",
+  "urllib3 >=2.6.3,<3.0.0",
+  "python-dateutil >=2.8.2",
+  "pydantic >=2.11",
+  "typing-extensions >=4.7.1",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest >=7.2.1",
+  "pytest-cov >=2.8.1",
 ]
 
 [project.urls]
-Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
+Homepage = "https://github.com/ericfitz/tmi-clients"
+Repository = "https://github.com/ericfitz/tmi-clients"
+Issues = "https://github.com/ericfitz/tmi-clients/issues"
 
 [tool.poetry]
 requires-poetry = ">=2.0"
