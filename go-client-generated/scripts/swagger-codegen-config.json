@@ -1,6 +1,6 @@
 {
   "packageName": "tmiclient",
-  "packageVersion": "1.4.0",
+  "packageVersion": "1.3.0",
   "enumClassPrefix": true,
   "withGoCodegenComment": true,
   "withXml": false,

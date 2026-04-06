@@ -2,6 +2,7 @@
 """Shared utilities for TMI client regeneration scripts."""
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -13,10 +14,50 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 
-DEFAULT_SPEC_URL = (
+_SPEC_URL_TEMPLATE = (
     "https://raw.githubusercontent.com/ericfitz/tmi/"
-    "refs/heads/main/api-schema/tmi-openapi.json"
+    "refs/heads/{branch}/api-schema/tmi-openapi.json"
 )
+DEFAULT_SPEC_BRANCH = "main"
+DEFAULT_SPEC_URL = _SPEC_URL_TEMPLATE.format(branch=DEFAULT_SPEC_BRANCH)
+
+
+def spec_url_for_branch(branch: str) -> str:
+    """Return the raw GitHub URL for the OpenAPI spec on *branch*."""
+    return _SPEC_URL_TEMPLATE.format(branch=branch)
+
+
+def parse_regen_args(description: str) -> argparse.Namespace:
+    """Parse common CLI arguments for regeneration scripts.
+
+    Returns a namespace with ``spec_path`` (str | None) and
+    ``branch`` (str | None).
+    """
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument(
+        "spec_path",
+        nargs="?",
+        default=None,
+        help="Path to a local OpenAPI spec file (overrides --branch)",
+    )
+    parser.add_argument(
+        "--branch", "-b",
+        default=None,
+        help=(
+            f"Git branch of ericfitz/tmi to fetch the spec from "
+            f"(default: {DEFAULT_SPEC_BRANCH})"
+        ),
+    )
+    return parser.parse_args()
+
+
+def resolve_spec_url(branch: str | None) -> str:
+    """Return the spec URL for the given branch, or the default."""
+    if branch:
+        url = spec_url_for_branch(branch)
+        print_success(f"Using spec from branch: {branch}")
+        return url
+    return DEFAULT_SPEC_URL
 
 # ANSI color codes
 _RED = "\033[0;31m"

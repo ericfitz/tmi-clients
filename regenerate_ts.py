@@ -22,11 +22,13 @@ from regen_common import (
     download_spec,
     extract_spec_version,
     generate_report,
+    parse_regen_args,
     print_banner,
     print_step,
     print_success,
     print_summary,
     print_warning,
+    resolve_spec_url,
     restore_files,
     run_codegen_openapi_generator,
     run_command,
@@ -203,7 +205,7 @@ def patch_missing_token_request(had_issues: bool) -> bool:
 # --- Main ---
 
 
-def main(spec_path: str | None = None) -> int:
+def main(spec_path: str | None = None, branch: str | None = None) -> int:
     had_issues = False
 
     # 1. Banner
@@ -227,7 +229,8 @@ def main(spec_path: str | None = None) -> int:
     if spec_path:
         copy_local_spec(Path(spec_path), SPEC_PATH)
     else:
-        download_spec(DEFAULT_SPEC_URL, SPEC_PATH)
+        spec_url = resolve_spec_url(branch)
+        download_spec(spec_url, SPEC_PATH)
 
     # 3b. Extract version from spec and update codegen config
     spec_version = extract_spec_version(SPEC_PATH)
@@ -403,5 +406,5 @@ def main(spec_path: str | None = None) -> int:
 
 
 if __name__ == "__main__":
-    spec = sys.argv[1] if len(sys.argv) > 1 else None
-    sys.exit(main(spec))
+    args = parse_regen_args("Regenerate the TMI TypeScript client from the OpenAPI spec.")
+    sys.exit(main(spec_path=args.spec_path, branch=args.branch))
