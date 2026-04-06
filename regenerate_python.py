@@ -96,6 +96,40 @@ def patch_regex_validators(had_issues: bool) -> bool:
     return had_issues
 
 
+def patch_urllib3_minimum_version(had_issues: bool) -> bool:
+    """Bump urllib3 minimum version to >=2.6.3 across all dependency files.
+
+    openapi-generator defaults to urllib3 >= 2.1.0, but versions before 2.6.3
+    have HIGH-severity CVEs (decompression-bomb bypass, unbounded decompression
+    chain).  This patch updates pyproject.toml, setup.py, and requirements.txt.
+    """
+    min_version = "2.6.3"
+    old_pattern = re.compile(r"urllib3\s*>=?\s*[\d.]+")
+    files_patched = 0
+
+    for rel_path in ["pyproject.toml", "setup.py", "requirements.txt"]:
+        filepath = CLIENT_DIR / rel_path
+        if not filepath.is_file():
+            continue
+        content = filepath.read_text(encoding="utf-8")
+        new_content = old_pattern.sub(f"urllib3 >= {min_version}", content)
+        # pyproject.toml uses PEP 508 with parens
+        new_content = new_content.replace(
+            f'"urllib3 >= {min_version},',
+            f'"urllib3 (>={min_version},',
+        )
+        if new_content != content:
+            filepath.write_text(new_content, encoding="utf-8")
+            files_patched += 1
+
+    if files_patched > 0:
+        print_success(f"urllib3 minimum version patch: {files_patched} files updated to >= {min_version}")
+    else:
+        print_success(f"urllib3 minimum version already >= {min_version}")
+
+    return had_issues
+
+
 def patch_test_return_types(had_issues: bool) -> bool:
     """Fix openapi-generator bug: generated test stubs declare a return type
     on make_instance() but the body is commented out, so the function always
@@ -206,6 +240,7 @@ def main(spec_path: str | None = None) -> int:
     print_step(6, "Applying patches")
     had_issues = patch_regex_validators(had_issues)
     had_issues = patch_test_return_types(had_issues)
+    had_issues = patch_urllib3_minimum_version(had_issues)
     print_success("Patches applied")
 
     # 8. Restore custom files
@@ -282,7 +317,9 @@ def main(spec_path: str | None = None) -> int:
             "because Pydantic parses the value before the validator runs)\n"
             "- Test return-type fix (openapi-generator bug: "
             "make_instance() stubs declare a model return type but body is "
-            "commented out, causing type-checker errors)\n\n"
+            "commented out, causing type-checker errors)\n"
+            "- urllib3 minimum version bump to >= 2.6.3 "
+            "(CVE fixes for decompression-bomb and redirect vulnerabilities)\n\n"
             "### Generated Configuration\n"
             "- pyproject.toml with Pydantic v2 dependencies\n"
             "- Python 3.9+ requirement\n"
