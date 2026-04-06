@@ -7,9 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This repository contains auto-generated API clients for the TMI (Threat Modeling Improved) API in multiple languages:
 - **Python** (`python-client-generated/`) - Package name: `tmi_client`
 - **Go** (`go-client-generated/`)
-- **JavaScript** (`javascript-client-generated/`)
+- **TypeScript** (`typescript-client-generated/`) - Package name: `@tmiclient/client`
 
-Clients are generated from the TMI OpenAPI specification using openapi-generator 7.x (Python) and swagger-codegen 3.0.75 (Go, JavaScript).
+Clients are generated from the TMI OpenAPI specification using openapi-generator 7.x (Python, TypeScript) and swagger-codegen 3.0.75 (Go).
 
 ## Python Client Development
 
@@ -120,7 +120,7 @@ The API uses separate schemas for input and output:
 
 ### Client Structure
 
-Each language client follows the codegen structure (openapi-generator for Python, swagger-codegen for Go and JavaScript):
+Each language client follows the codegen structure (openapi-generator for Python and TypeScript, swagger-codegen for Go):
 ```
 <lang>-client-generated/
 ├── api/               # API endpoint classes
@@ -208,13 +208,13 @@ Python client documentation is organized in `python-client-generated/docs/develo
 Regeneration scripts are at the repo root:
 - `regenerate_python.py` - Python client regeneration
 - `regenerate_go.py` - Go client regeneration
-- `regenerate_js.py` - JavaScript client regeneration
+- `regenerate_ts.py` - TypeScript client regeneration
 - `regen_common.py` - Shared utilities for all regeneration scripts
 
 Codegen config files remain in each client's `scripts/` directory:
 - `python-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
 - `go-client-generated/scripts/swagger-codegen-config.json` (swagger-codegen)
-- `javascript-client-generated/scripts/swagger-codegen-config.json` (swagger-codegen)
+- `typescript-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
 
 Analysis and validation scripts (Python client only):
 - `python-client-generated/scripts/analyze_spec_changes.py`
@@ -225,7 +225,7 @@ Tests:
 
 ## Multi-Language Support
 
-While this repository contains clients for Go and JavaScript, they are currently auto-generated without custom patches. The Python client is the most mature and has been enhanced with bug fixes and modern tooling.
+While this repository contains clients for Go and TypeScript, they are currently auto-generated with minimal patches for codegen bugs. The Python client is the most mature and has been enhanced with bug fixes and modern tooling.
 
 Each client directory contains:
 - Language-specific README with usage examples
@@ -252,8 +252,8 @@ python3 regenerate_python.py
 # Regenerate Go client
 python3 regenerate_go.py
 
-# Regenerate JavaScript client
-python3 regenerate_js.py
+# Regenerate TypeScript client
+python3 regenerate_ts.py
 
 # Use a local spec file instead of downloading from GitHub
 python3 regenerate_python.py path/to/tmi-openapi.json
@@ -261,8 +261,8 @@ python3 regenerate_python.py path/to/tmi-openapi.json
 
 Each script automatically:
 - Downloads the latest OpenAPI spec from GitHub (or uses a local file)
-- Runs openapi-generator (Python) or swagger-codegen (Go, JavaScript) with language-specific configuration
-- Applies codegen bug fix patches (UUID/datetime regex validator for Python; constructor fixes, auth settings, etc. for Go/JavaScript)
+- Runs openapi-generator (Python, TypeScript) or swagger-codegen (Go) with language-specific configuration
+- Applies codegen bug fix patches (UUID/datetime regex validator for Python; optional-extends and TokenRequest for TypeScript; constructor fixes, auth settings, etc. for Go)
 - Writes modern config files (pyproject.toml, go.mod, package.json, etc.)
 - Backs up and restores custom files
 - Runs tests and generates a `REGENERATION_REPORT.md`
@@ -271,6 +271,6 @@ The Python client generates Pydantic v2 models with full type hints.
 
 **Exit codes:** 0 = success, 1 = fatal error (codegen failed), 2 = completed with issues (test failures or patch warnings).
 
-**Requirements:** `openapi-generator` (brew install openapi-generator) for Python; `swagger-codegen` (brew install swagger-codegen) for Go and JavaScript; plus `uv` for Python, `go` for Go, or `node` for JavaScript.
+**Requirements:** `openapi-generator` (brew install openapi-generator) for Python and TypeScript; `swagger-codegen` (brew install swagger-codegen) for Go; plus `uv` for Python, `go` for Go, or `node` for TypeScript.
 
 See `python-client-generated/docs/developer/REGENERATION_README.md` for complete documentation on the regeneration process, customization options, and CI/CD integration.
