@@ -20,6 +20,7 @@ from regen_common import (
     download_spec,
     extract_spec_version,
     generate_report,
+    patch_file_regex,
     print_banner,
     print_error,
     print_step,
@@ -29,6 +30,7 @@ from regen_common import (
     restore_files,
     run_codegen_openapi_generator,
     run_command,
+    update_json_version,
     write_file,
 )
 
@@ -190,8 +192,9 @@ def main(spec_path: str | None = None) -> int:
     else:
         download_spec(DEFAULT_SPEC_URL, SPEC_PATH)
 
-    # 3b. Extract version from spec
+    # 3b. Extract version from spec and update codegen config
     spec_version = extract_spec_version(SPEC_PATH)
+    update_json_version(CONFIG_FILE, "packageVersion", spec_version)
 
     # 4. Backup
     print_step(3, "Backing up custom files")
@@ -235,6 +238,21 @@ def main(spec_path: str | None = None) -> int:
     )
 
     # --- Past this point, failures are exit code 2, not 1 ---
+
+    # 6b. Stamp spec version into generated files
+    print_step(6, "Stamping spec version into package files")
+    patch_file_regex(
+        CLIENT_DIR / "pyproject.toml",
+        r'^version = ".*"',
+        f'version = "{spec_version}"',
+        "pyproject.toml version",
+    )
+    patch_file_regex(
+        CLIENT_DIR / "setup.py",
+        r'^VERSION = ".*"',
+        f'VERSION = "{spec_version}"',
+        "setup.py version",
+    )
 
     # 7. Apply patches
     print_step(6, "Applying patches")

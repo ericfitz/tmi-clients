@@ -30,6 +30,7 @@ from regen_common import (
     restore_files,
     run_codegen_openapi_generator,
     run_command,
+    update_json_version,
     write_file,
 )
 
@@ -228,8 +229,9 @@ def main(spec_path: str | None = None) -> int:
     else:
         download_spec(DEFAULT_SPEC_URL, SPEC_PATH)
 
-    # 3b. Extract version from spec
+    # 3b. Extract version from spec and update codegen config
     spec_version = extract_spec_version(SPEC_PATH)
+    update_json_version(CONFIG_FILE, "npmVersion", spec_version)
 
     # 4. Backup
     print_step(3, "Backing up custom files")

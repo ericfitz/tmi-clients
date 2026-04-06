@@ -194,6 +194,22 @@ def extract_spec_version(spec_path: str | Path) -> str:
     return version
 
 
+def update_json_version(file_path: str | Path, key: str, version: str) -> None:
+    """Update a version field in a JSON file.
+
+    *key* is the top-level key to update (e.g. ``"packageVersion"``).
+    """
+    file_path = Path(file_path)
+    data = json.loads(file_path.read_text(encoding="utf-8"))
+    old = data.get(key)
+    data[key] = version
+    file_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    if old != version:
+        print_success(f"Updated {file_path.name}: {key} {old} → {version}")
+    else:
+        print_success(f"{file_path.name}: {key} already {version}")
+
+
 def copy_local_spec(src: str | Path, dest: str | Path) -> None:
     """Copy a local spec file from *src* to *dest*."""
     src = Path(src)
