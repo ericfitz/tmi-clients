@@ -26,7 +26,7 @@ class TestListDocumentsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ListDocumentsResponse:
+    def make_instance(self, include_optional) -> None:
         """Test ListDocumentsResponse
             include_optional is a boolean, when False only required
             params are included, when True both required and

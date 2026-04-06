@@ -26,7 +26,7 @@ class TestNodeAttrs(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> NodeAttrs:
+    def make_instance(self, include_optional) -> None:
         """Test NodeAttrs
             include_optional is a boolean, when False only required
             params are included, when True both required and

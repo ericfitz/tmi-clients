@@ -26,7 +26,7 @@ class TestListClientCredentialsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ListClientCredentialsResponse:
+    def make_instance(self, include_optional) -> None:
         """Test ListClientCredentialsResponse
             include_optional is a boolean, when False only required
             params are included, when True both required and

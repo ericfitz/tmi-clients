@@ -26,7 +26,7 @@ class TestEdgeAttrs(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> EdgeAttrs:
+    def make_instance(self, include_optional) -> None:
         """Test EdgeAttrs
             include_optional is a boolean, when False only required
             params are included, when True both required and

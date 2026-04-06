@@ -26,7 +26,7 @@ class TestThreatModelBase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ThreatModelBase:
+    def make_instance(self, include_optional) -> None:
         """Test ThreatModelBase
             include_optional is a boolean, when False only required
             params are included, when True both required and

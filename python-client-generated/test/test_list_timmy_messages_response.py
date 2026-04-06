@@ -26,7 +26,7 @@ class TestListTimmyMessagesResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ListTimmyMessagesResponse:
+    def make_instance(self, include_optional) -> None:
         """Test ListTimmyMessagesResponse
             include_optional is a boolean, when False only required
             params are included, when True both required and

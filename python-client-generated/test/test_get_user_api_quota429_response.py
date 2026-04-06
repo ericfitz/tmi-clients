@@ -26,7 +26,7 @@ class TestGetUserAPIQuota429Response(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> GetUserAPIQuota429Response:
+    def make_instance(self, include_optional) -> None:
         """Test GetUserAPIQuota429Response
             include_optional is a boolean, when False only required
             params are included, when True both required and

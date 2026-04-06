@@ -26,7 +26,7 @@ class TestListSurveysResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ListSurveysResponse:
+    def make_instance(self, include_optional) -> None:
         """Test ListSurveysResponse
             include_optional is a boolean, when False only required
             params are included, when True both required and

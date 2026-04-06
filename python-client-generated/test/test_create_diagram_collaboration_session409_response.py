@@ -26,7 +26,7 @@ class TestCreateDiagramCollaborationSession409Response(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> CreateDiagramCollaborationSession409Response:
+    def make_instance(self, include_optional) -> None:
         """Test CreateDiagramCollaborationSession409Response
             include_optional is a boolean, when False only required
             params are included, when True both required and

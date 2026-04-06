@@ -26,7 +26,7 @@ class TestTeamListItem(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> TeamListItem:
+    def make_instance(self, include_optional) -> None:
         """Test TeamListItem
             include_optional is a boolean, when False only required
             params are included, when True both required and

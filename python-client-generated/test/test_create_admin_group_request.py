@@ -26,7 +26,7 @@ class TestCreateAdminGroupRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> CreateAdminGroupRequest:
+    def make_instance(self, include_optional) -> None:
         """Test CreateAdminGroupRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and

@@ -26,7 +26,7 @@ class TestReencryptSystemSettings200ResponseErrorsInner(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ReencryptSystemSettings200ResponseErrorsInner:
+    def make_instance(self, include_optional) -> None:
         """Test ReencryptSystemSettings200ResponseErrorsInner
             include_optional is a boolean, when False only required
             params are included, when True both required and

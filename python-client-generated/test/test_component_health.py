@@ -26,7 +26,7 @@ class TestComponentHealth(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ComponentHealth:
+    def make_instance(self, include_optional) -> None:
         """Test ComponentHealth
             include_optional is a boolean, when False only required
             params are included, when True both required and

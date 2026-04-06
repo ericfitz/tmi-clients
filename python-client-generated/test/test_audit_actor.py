@@ -26,7 +26,7 @@ class TestAuditActor(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AuditActor:
+    def make_instance(self, include_optional) -> None:
         """Test AuditActor
             include_optional is a boolean, when False only required
             params are included, when True both required and

@@ -26,7 +26,7 @@ class TestError(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> Error:
+    def make_instance(self, include_optional) -> None:
         """Test Error
             include_optional is a boolean, when False only required
             params are included, when True both required and

@@ -96,6 +96,38 @@ def patch_regex_validators(had_issues: bool) -> bool:
     return had_issues
 
 
+def patch_test_return_types(had_issues: bool) -> bool:
+    """Fix openapi-generator bug: generated test stubs declare a return type
+    on make_instance() but the body is commented out, so the function always
+    returns None.  Change the annotation to ``-> None`` so type checkers
+    (ty, mypy) don't report invalid-return-type errors.
+    """
+    test_dir = CLIENT_DIR / "test"
+    if not test_dir.is_dir():
+        print_warning("Test directory not found — skipping test return-type patch")
+        return True
+
+    patched_count = 0
+    pattern = re.compile(
+        r"def make_instance\(self, include_optional\) -> [A-Za-z0-9_]+:"
+    )
+    replacement = "def make_instance(self, include_optional) -> None:"
+
+    for test_file in sorted(test_dir.glob("*.py")):
+        content = test_file.read_text(encoding="utf-8")
+        new_content, n = pattern.subn(replacement, content)
+        if n > 0:
+            test_file.write_text(new_content, encoding="utf-8")
+            patched_count += n
+
+    if patched_count > 0:
+        print_success(f"Test return-type patch: {patched_count} methods fixed")
+    else:
+        print_warning("Test return-type patch: no methods needed fixing")
+
+    return had_issues
+
+
 # --- Main ---
 
 
@@ -173,6 +205,7 @@ def main(spec_path: str | None = None) -> int:
     # 7. Apply patches
     print_step(6, "Applying patches")
     had_issues = patch_regex_validators(had_issues)
+    had_issues = patch_test_return_types(had_issues)
     print_success("Patches applied")
 
     # 8. Restore custom files
@@ -246,7 +279,10 @@ def main(spec_path: str | None = None) -> int:
             "### Patches Applied\n"
             "- Regex validator fix (openapi-generator bug: "
             "regex validators on non-string fields like UUID and datetime fail "
-            "because Pydantic parses the value before the validator runs)\n\n"
+            "because Pydantic parses the value before the validator runs)\n"
+            "- Test return-type fix (openapi-generator bug: "
+            "make_instance() stubs declare a model return type but body is "
+            "commented out, causing type-checker errors)\n\n"
             "### Generated Configuration\n"
             "- pyproject.toml with Pydantic v2 dependencies\n"
             "- Python 3.9+ requirement\n"

@@ -26,7 +26,7 @@ class TestResponsibleParty(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ResponsibleParty:
+    def make_instance(self, include_optional) -> None:
         """Test ResponsibleParty
             include_optional is a boolean, when False only required
             params are included, when True both required and

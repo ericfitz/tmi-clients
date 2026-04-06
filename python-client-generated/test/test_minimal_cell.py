@@ -26,7 +26,7 @@ class TestMinimalCell(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> MinimalCell:
+    def make_instance(self, include_optional) -> None:
         """Test MinimalCell
             include_optional is a boolean, when False only required
             params are included, when True both required and
