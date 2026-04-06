@@ -4,3 +4,4 @@ backups/**
 test_output.log
 __pycache__/
 python-client-generated/.openapi-generator/
+docs/superpowers/**
