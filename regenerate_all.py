@@ -26,7 +26,6 @@ from regen_common import (
     print_success,
     print_summary,
     print_warning,
-    run_command,
     spec_url_for_branch,
     spec_url_for_tag,
 )
@@ -170,17 +169,31 @@ def download_and_validate_spec(entry: dict, dest_dir: Path) -> Path | None:
     return spec_path
 
 
-def prune_stale_versions(lang_dir: Path, active_versions: list[str]) -> list[str]:
+def prune_stale_versions(
+    lang_dir: Path,
+    active_versions: list[str],
+    is_go: bool = False,
+) -> list[str]:
     """Remove versioned subdirectories not in *active_versions*.
 
     Only removes directories whose name starts with ``v`` followed by a digit
-    (e.g. ``v1.2.0``).  Returns the list of pruned directory names.
+    (e.g. ``v1.2.0`` or ``v1_2_0``).  Returns the list of pruned directory
+    names.
+
+    For Go clients (*is_go=True*), active directories use underscores instead
+    of dots (``v1_4_0``) because Go's module system rejects dotted version
+    path elements.  Old dotted directories are also pruned.
     """
     pruned: list[str] = []
     if not lang_dir.is_dir():
         return pruned
 
-    active_set = {f"v{v}" for v in active_versions}
+    # Build the set of directory names that should be kept.
+    active_set: set[str] = set()
+    for v in active_versions:
+        active_set.add(f"v{v}")                     # dotted (Python/TS)
+        if is_go:
+            active_set.add(f"v{v.replace('.', '_')}") # underscored (Go)
 
     for child in sorted(lang_dir.iterdir()):
         if not child.is_dir():
@@ -300,7 +313,9 @@ def main() -> int:
         print_step(4, "Pruning stale version directories")
         for lang in languages:
             lang_dir = LANGUAGES[lang]["directory"]
-            pruned = prune_stale_versions(lang_dir, all_version_strings)
+            pruned = prune_stale_versions(
+                lang_dir, all_version_strings, is_go=(lang == "go"),
+            )
             if pruned:
                 for d in pruned:
                     results[f"pruned:{lang}/{d}"] = "REMOVED"

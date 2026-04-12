@@ -39,6 +39,15 @@ CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 GO_VERSION = "1.21"
 
 
+def _go_version_dir(version: str) -> str:
+    """Convert a dotted version like ``1.4.0`` to a Go-safe directory name like ``v1_4_0``.
+
+    Go's module system rejects path elements matching a dotted version pattern
+    (e.g. ``v1.4.0``) unless they are a major-version suffix (``/v2``, ``/v3``).
+    """
+    return f"v{version.replace('.', '_')}"
+
+
 # --- Patches ---
 
 
@@ -76,28 +85,33 @@ def patch_missing_time_import(client_dir: Path, had_issues: bool) -> bool:
 
 
 def patch_test_module_path(client_dir: Path, go_module_path: str, had_issues: bool) -> bool:
-    """Fix openapi-generator bug: test stubs import GIT_USER_ID/GIT_REPO_ID.
+    """Fix openapi-generator bug: test stubs use wrong import path.
 
-    The Go generator hardcodes a placeholder module path in test files
-    regardless of gitUserId/gitRepoId config.  Replace it with the real
-    module path.
+    The Go generator may emit either the literal placeholder
+    ``github.com/GIT_USER_ID/GIT_REPO_ID`` or the path built from the
+    ``gitUserId``/``gitRepoId`` config values (which omits the versioned
+    subdirectory).  Replace both with the real module path.
     """
     test_dir = client_dir / "test"
     if not test_dir.is_dir():
         print_warning("Test directory not found — skipping test module path patch")
         return had_issues
 
-    placeholder = "github.com/GIT_USER_ID/GIT_REPO_ID"
+    placeholders = [
+        "github.com/GIT_USER_ID/GIT_REPO_ID",
+        "github.com/ericfitz/tmi-clients/go-client-generated",
+    ]
     patched_count = 0
 
     for test_file in sorted(test_dir.glob("*.go")):
         content = test_file.read_text(encoding="utf-8")
-        if placeholder not in content:
-            continue
-        test_file.write_text(
-            content.replace(placeholder, go_module_path), encoding="utf-8"
-        )
-        patched_count += 1
+        new_content = content
+        for placeholder in placeholders:
+            if placeholder in new_content and placeholder != go_module_path:
+                new_content = new_content.replace(placeholder, go_module_path)
+        if new_content != content:
+            test_file.write_text(new_content, encoding="utf-8")
+            patched_count += 1
 
     if patched_count > 0:
         print_success(f"Test module path patch: {patched_count} files fixed")
@@ -141,12 +155,13 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     # 1. Extract version from spec and compute output directory
     spec_version = extract_spec_version(Path(spec_path))
 
-    go_module_path = f"github.com/ericfitz/tmi-clients/go-client-generated/v{spec_version}"
+    version_dir = _go_version_dir(spec_version)
+    go_module_path = f"github.com/ericfitz/tmi-clients/go-client-generated/{version_dir}"
 
     if output_dir:
         client_dir = Path(output_dir)
     else:
-        client_dir = LANG_DIR / f"v{spec_version}"
+        client_dir = LANG_DIR / version_dir
 
     client_dir.mkdir(parents=True, exist_ok=True)
     spec_dest = client_dir / "tmi-openapi.json"

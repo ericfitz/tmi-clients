@@ -23,7 +23,17 @@ python-client-generated/
   v1.4.0/            # Client generated from dev/1.4.0 branch
 ```
 
-The same structure applies to `go-client-generated/` and `typescript-client-generated/`.
+The same structure applies to `typescript-client-generated/`.
+
+**Go uses underscores instead of dots** in version directory names (e.g. `v1_4_0` instead of `v1.4.0`) because Go's module system rejects path elements matching a dotted version pattern unless they are a major-version suffix (`/v2`, `/v3`, etc.):
+
+```
+go-client-generated/
+  scripts/           # Shared codegen config
+  v1_2_1/            # Client generated from release/1.2.0 branch
+  v1_3_0/            # Client generated from main branch
+  v1_4_0/            # Client generated from dev/1.4.0 branch
+```
 
 Version definitions live in `versions.json` at the repo root, which declares each version, its source branch, and which version is the latest.
 
@@ -252,12 +262,12 @@ Each client version directory contains:
 
 ### Go Module Path
 
-Go module paths include the version directory:
+Go module paths include the version directory with underscores (not dots):
 ```
-github.com/ericfitz/tmi-clients/go-client-generated/v<version>
+github.com/ericfitz/tmi-clients/go-client-generated/v<major>_<minor>_<patch>
 ```
 
-For example: `github.com/ericfitz/tmi-clients/go-client-generated/v1.4.0`
+For example: `github.com/ericfitz/tmi-clients/go-client-generated/v1_4_0`
 
 ## OpenAPI Specification
 
@@ -295,7 +305,7 @@ The per-language scripts can also be called directly. They require `--spec` to p
 
 ```bash
 python3 regenerate_python.py --spec path/to/tmi-openapi.json --output-dir python-client-generated/v1.4.0
-python3 regenerate_go.py --spec path/to/tmi-openapi.json --output-dir go-client-generated/v1.4.0
+python3 regenerate_go.py --spec path/to/tmi-openapi.json --output-dir go-client-generated/v1_4_0
 python3 regenerate_ts.py --spec path/to/tmi-openapi.json --output-dir typescript-client-generated/v1.4.0
 ```
 
