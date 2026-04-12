@@ -62,6 +62,7 @@ class TestThreat(unittest.TestCase):
                     ],
                 include_in_report = True,
                 timmy_enabled = True,
+                ssvc = {"vector":"SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/","decision":"Immediate","methodology":"Supplier"},
                 id = '2ECB020842930cc01FFCCf-Ee150AC32DcAEc8a83DDD7dBF7567C88195ffcea31C1b7dCBC78DEacF0EA282B47feD6d3dA-FFF9545Be98904E6Ea0E19c0Df4c8dFCF8D577bFC48763F474F07D5c99aEC-c1B2E2B626CB508AEcfc0DD5-fDA8A7bFB9A4060eAf297f7cD76bc7939fb0E225975a1294d2C66d153097199E828A660Ce5CCc93',
                 threat_model_id = '2ECB020842930cc01FFCCf-Ee150AC32DcAEc8a83DDD7dBF7567C88195ffcea31C1b7dCBC78DEacF0EA282B47feD6d3dA-FFF9545Be98904E6Ea0E19c0Df4c8dFCF8D577bFC48763F474F07D5c99aEC-c1B2E2B626CB508AEcfc0DD5-fDA8A7bFB9A4060eAf297f7cD76bc7939fb0E225975a1294d2C66d153097199E828A660Ce5CCc93',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),

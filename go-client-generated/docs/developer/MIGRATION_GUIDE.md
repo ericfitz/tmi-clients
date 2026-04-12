@@ -6,8 +6,8 @@ This guide documents changes made to the TMI OpenAPI specification and Go client
 
 **Version**: Generated from tmi-openapi.json v1.0.0
 **Package**: tmiclient v1.0.0
-**Module**: github.com/efitz/tmi-clients/go-client-generated
-**Language**: Go 1.21+
+**Module**: github.com/ericfitz/tmi-clients/go-client-generated
+**Language**: Go 1.24+
 
 ## Summary of Changes
 
@@ -15,8 +15,8 @@ This guide documents changes made to the TMI OpenAPI specification and Go client
 
 1. **✅ Input Schema Support** - Separate input/output types for PUT/PATCH operations
 2. **🆕 Webhook API Support** - 8 new endpoints for webhook subscriptions and deliveries  
-3. **⬆️ Go 1.21+ Required** - Modern Go features and security
-4. **🔒 Security Updates** - Latest oauth2 v0.32.0 with security fixes
+3. **⬆️ Go 1.24+ Required** - Modern Go features and security
+4. **🔒 Security Updates** - Latest oauth2 v0.35.0 with security fixes
 
 ---
 
@@ -71,9 +71,9 @@ fmt.Printf("Updated: %s at %s\n", *result.Id, *result.ModifiedAt)
 
 ```go
 // go.mod
-module github.com/efitz/tmi-clients/go-client-generated
+module github.com/ericfitz/tmi-clients/go-client-generated
 
-go 1.21
+go 1.24
 ```
 
 **Why upgrade?**
@@ -111,7 +111,7 @@ TMI now supports webhooks for real-time event notifications.
 ```go
 import (
     "context"
-    tmiclient "github.com/efitz/tmi-clients/go-client-generated"
+    tmiclient "github.com/ericfitz/tmi-clients/go-client-generated"
 )
 
 ctx := context.Background()
@@ -204,7 +204,7 @@ func verifySignature(payload []byte, signature, secret string) bool {
 ```go
 import (
     "context"
-    tmiclient "github.com/efitz/tmi-clients/go-client-generated"
+    tmiclient "github.com/ericfitz/tmi-clients/go-client-generated"
 )
 
 ctx := context.Background()
@@ -331,7 +331,7 @@ require (
 ```go
 require (
     github.com/antihax/optional v1.0.0
-    golang.org/x/oauth2 v0.32.0      // ✅ Latest
+    golang.org/x/oauth2 v0.35.0      // ✅ Latest
 )
 ```
 
@@ -352,7 +352,7 @@ govulncheck ./...
 
 ### For All Users
 
-- [ ] Update to Go 1.21+ (if not already)
+- [ ] Update to Go 1.24+ (if not already)
 - [ ] Run `go get -u && go mod tidy` to update dependencies
 - [ ] Replace `Diagram`/`DfdDiagram` with `DfdDiagramInput` in PUT/PATCH calls
 - [ ] Remove `Id`, `CreatedAt`, `ModifiedAt` from update requests
@@ -404,8 +404,8 @@ func int32Ptr(i int32) *int32 {
 
 ### Regenerating the Client
 ```bash
-cd go-client-generated
-./scripts/regenerate_client.sh
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_go.py
 ```
 
 ## License

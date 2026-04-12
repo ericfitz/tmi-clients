@@ -10,6 +10,7 @@ from tmi_client.api.authentication_api import AuthenticationApi
 from tmi_client.api.collaboration_api import CollaborationApi
 from tmi_client.api.configuration_api import ConfigurationApi
 from tmi_client.api.documents_api import DocumentsApi
+from tmi_client.api.embedding_automation_api import EmbeddingAutomationApi
 from tmi_client.api.general_api import GeneralApi
 from tmi_client.api.notes_api import NotesApi
 from tmi_client.api.o_auth_discovery_api import OAuthDiscoveryApi

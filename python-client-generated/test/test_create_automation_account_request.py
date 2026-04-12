@@ -37,7 +37,7 @@ class TestCreateAutomationAccountRequest(unittest.TestCase):
         if include_optional:
             return CreateAutomationAccountRequest(
                 name = 'AWfRPSSEW@gFbDSx9mxCScjDL CXmk01',
-                email = ''
+                email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb'
             )
         else:
             return CreateAutomationAccountRequest(

@@ -12,9 +12,9 @@ Name | Type
 `parent` | string
 `children` | Array&lt;string&gt;
 `labels` | Array&lt;string&gt;
-`dataAssetIds` | Array&lt;string&gt;
 `metadata` | { [key: string]: string; }
 `security_boundary` | boolean
+`data_asset_ids` | Array&lt;string&gt;
 `source` | [EdgeTerminal](EdgeTerminal.md)
 `target` | [EdgeTerminal](EdgeTerminal.md)
 
@@ -30,9 +30,9 @@ const example = {
   "parent": null,
   "children": null,
   "labels": null,
-  "dataAssetIds": null,
   "metadata": null,
   "security_boundary": null,
+  "data_asset_ids": null,
   "source": null,
   "target": null,
 } satisfies MinimalCell

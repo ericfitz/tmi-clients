@@ -61,7 +61,8 @@ class TestThreatBase(unittest.TestCase):
                     {"vector":"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H","score":9.8}
                     ],
                 include_in_report = True,
-                timmy_enabled = True
+                timmy_enabled = True,
+                ssvc = {"vector":"SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/","decision":"Immediate","methodology":"Supplier"}
             )
         else:
             return ThreatBase(

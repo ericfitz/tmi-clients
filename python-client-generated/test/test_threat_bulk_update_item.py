@@ -62,6 +62,7 @@ class TestThreatBulkUpdateItem(unittest.TestCase):
                     ],
                 include_in_report = True,
                 timmy_enabled = True,
+                ssvc = {"vector":"SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/","decision":"Immediate","methodology":"Supplier"},
                 id = '62ECB020-8429-30cc-01FF-CCfeEe150AC3'
             )
         else:

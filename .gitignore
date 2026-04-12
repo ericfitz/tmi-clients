@@ -8,3 +8,5 @@ docs/superpowers/**
 dist/
 *.egg-info/
 .pypirc
+REGENERATION_REPORT.md
+REGENERATION_PLAN.md

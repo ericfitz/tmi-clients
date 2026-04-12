@@ -17,7 +17,7 @@ This document describes the complete process for regenerating the Python client 
 
 ## Overview
 
-The Python client is auto-generated from the TMI OpenAPI specification using swagger-codegen 3.0.75. The regeneration process includes:
+The Python client is auto-generated from the TMI OpenAPI specification using openapi-generator 7.x. The regeneration process includes:
 
 - Analyzing spec changes
 - Creating backups
@@ -33,14 +33,14 @@ The Python client is auto-generated from the TMI OpenAPI specification using swa
 ### Tools Required
 
 ```bash
-# Install swagger-codegen
-brew install swagger-codegen
+# Install openapi-generator
+brew install openapi-generator
 
 # Install uv (Python package manager)
 brew install uv
 
 # Verify installations
-swagger-codegen version  # Should be 3.0.75
+openapi-generator version  # Should be 7.x
 uv --version
 ```
 
@@ -95,52 +95,30 @@ cat docs/developer/REGENERATION_IMPACT.md
 
 **Time:** 10 minutes
 
-### Step 3: Create Backup
-
-**Purpose:** Enable rollback if regeneration fails.
-
-```bash
-cd python-client-generated
-./scripts/backup_before_regen.sh
-```
-
-**Output:**
-- Timestamped backup directory in `../backups/`
-- Compressed archive of entire client
-- Pre-regeneration snapshot
-- API/model inventories
-- Restore script
-
-**Verify Backup:**
-```bash
-# Check backup was created
-ls -lh ../backups/pre-regen-*/client_backup.tar.gz
-
-# Review snapshot
-cat ../backups/pre-regen-*/PRE_REGEN_SNAPSHOT.md
-```
-
-**Time:** 5 minutes
-
-### Step 4: Run Regeneration
+### Step 3: Run Regeneration
 
 **Purpose:** Generate new client code from OpenAPI spec.
 
 ```bash
-cd python-client-generated
-./scripts/regenerate_client.sh
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_python.py
+```
+
+Or use a local spec file:
+```bash
+python3 regenerate_python.py path/to/tmi-openapi.json
 ```
 
 **What This Does:**
-1. Validates prerequisites
+1. Downloads the latest OpenAPI spec from GitHub (or uses local file)
 2. Backs up critical files
 3. Cleans client directory
-4. Runs swagger-codegen
-5. Applies constructor patches
-6. Updates configuration files
+4. Runs openapi-generator with config from `python-client-generated/scripts/openapi-generator-config.json`
+5. Applies codegen bug-fix patches (UUID/datetime regex validator)
+6. Writes modern config files (`pyproject.toml`)
 7. Restores custom files
 8. Runs tests
-9. Generates report
+9. Generates `REGENERATION_REPORT.md`
 
 **Duration:** 10-15 minutes
 
@@ -151,7 +129,7 @@ cd python-client-generated
 - ✓ Configuration files updated
 - ⚠️ Test failures (expected if breaking changes)
 
-### Step 5: Validate Regeneration
+### Step 4: Validate Regeneration
 
 **Purpose:** Verify regeneration was successful.
 
@@ -176,7 +154,7 @@ uv run scripts/validate_regeneration.py
 
 **Time:** 5 minutes
 
-### Step 6: Run Tests
+### Step 5: Run Tests
 
 **Purpose:** Ensure generated code works correctly.
 
@@ -201,7 +179,7 @@ uv run python3 -c "import tmi_client; print('✓ Import successful')"
 
 **Time:** 15-30 minutes (including fixing any issues)
 
-### Step 7: Review Generated Code
+### Step 6: Review Generated Code
 
 **Purpose:** Spot-check critical generated code.
 
@@ -221,7 +199,7 @@ ls -1 python-client-generated/tmi_client/api/
 
 **Time:** 10 minutes
 
-### Step 8: Update Documentation
+### Step 7: Update Documentation
 
 **Purpose:** Document changes for users.
 
@@ -241,7 +219,7 @@ cat docs/developer/REGENERATION_REPORT.md
 
 **Time:** 30-60 minutes
 
-### Step 9: Commit Changes
+### Step 8: Commit Changes
 
 **Purpose:** Save regenerated client to version control.
 
@@ -298,40 +276,27 @@ uv run scripts/analyze_spec_changes.py
 
 ---
 
-### backup_before_regen.sh
-
-**Purpose:** Create comprehensive backup before regeneration
-
-**Usage:**
-```bash
-./scripts/backup_before_regen.sh
-```
-
-**Output:**
-- `../backups/pre-regen-TIMESTAMP/` directory
-- Compressed archive
-- Snapshot report
-- Restore script
-
-**When to Use:** Immediately before regeneration
-
----
-
-### regenerate_client.sh
+### regenerate_python.py (repo root)
 
 **Purpose:** Regenerate client from OpenAPI spec
 
 **Usage:**
 ```bash
-./scripts/regenerate_client.sh
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_python.py
+# Or with local spec:
+python3 regenerate_python.py path/to/tmi-openapi.json
 ```
 
 **Features:**
-- Automatic defaults (Python 3.8+, modern dependencies)
-- Constructor patch application
-- Configuration file updates
-- Test execution
-- Report generation
+- Downloads latest spec from GitHub (or uses local file)
+- Runs openapi-generator with language-specific config
+- Applies codegen bug-fix patches
+- Writes modern config files (pyproject.toml)
+- Backs up and restores custom files
+- Runs tests and generates REGENERATION_REPORT.md
+
+**Exit codes:** 0 = success, 1 = fatal error, 2 = completed with issues
 
 **When to Use:** To regenerate client from spec
 
@@ -379,25 +344,25 @@ See [POST_REGEN_CHECKLIST.md](../../backups/pre-regen-TIMESTAMP/POST_REGEN_CHECK
 
 ## Troubleshooting
 
-### swagger-codegen Fails
+### openapi-generator Fails
 
-**Symptom:** `swagger-codegen generate` returns non-zero exit code
+**Symptom:** `openapi-generator generate` returns non-zero exit code
 
 **Causes:**
 - Invalid OpenAPI spec
-- Missing swagger-codegen
+- Missing openapi-generator
 - Incorrect config file
 
 **Solutions:**
 ```bash
 # Validate spec
-swagger-codegen validate -i /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json
+openapi-generator validate -i python-client-generated/tmi-openapi.json
 
-# Reinstall swagger-codegen
-brew reinstall swagger-codegen
+# Reinstall openapi-generator
+brew reinstall openapi-generator
 
 # Check config file
-cat scripts/swagger-codegen-config.json
+cat python-client-generated/scripts/openapi-generator-config.json
 ```
 
 ### Constructor Patches Not Applied
@@ -506,15 +471,14 @@ git clean -fd
 ### Before Regeneration
 
 1. **Always analyze first:** Run `analyze_spec_changes.py`
-2. **Always backup:** Run `backup_before_regen.sh`
-3. **Read the impact assessment:** Review `REGENERATION_IMPACT.md`
+2. **Read the impact assessment:** Review `REGENERATION_IMPACT.md`
 4. **Commit current state:** `git commit -m "pre-regeneration checkpoint"`
 
 ### During Regeneration
 
 1. **Monitor output:** Watch for errors and warnings
 2. **Don't skip steps:** Follow the script flow
-3. **Capture logs:** Redirect output if needed: `./regenerate_client.sh 2>&1 | tee regen.log`
+3. **Capture logs:** Redirect output if needed: `python3 regenerate_python.py 2>&1 | tee regen.log`
 
 ### After Regeneration
 

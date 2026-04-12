@@ -1079,7 +1079,7 @@ async function example() {
   const api = new SurveyIntakeApi(config);
 
   const body = {
-    // string | Filter by response status (optional)
+    // string | Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review). (optional)
     status: status_example,
     // string | Filter by survey ID (optional)
     surveyId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
@@ -1116,7 +1116,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **status** | `string` | Filter by response status | [Optional] [Defaults to `undefined`] |
+| **status** | `string` | Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status&#x3D;submitted,ready_for_review). | [Optional] [Defaults to `undefined`] |
 | **surveyId** | `string` | Filter by survey ID | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` | Maximum number of results to return | [Optional] [Defaults to `20`] |
 | **offset** | `number` | Number of results to skip | [Optional] [Defaults to `0`] |
@@ -1321,6 +1321,7 @@ example().catch(console.error);
 | **409** | Conflict - invalid status for edit |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **422** | Unprocessable Entity. Returned when a status transition has unmet requirements — for example, transitioning to needs_revision requires revision_notes to be set on the survey response. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

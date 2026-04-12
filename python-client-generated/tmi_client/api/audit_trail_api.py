@@ -2313,7 +2313,7 @@ class AuditTrailApi:
         offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
         object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
         change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
-        actor_email: Annotated[Optional[StrictStr], Field(description="Filter by actor email")] = None,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
         after: Annotated[Optional[datetime], Field(description="Filter entries after this timestamp (ISO 8601)")] = None,
         before: Annotated[Optional[datetime], Field(description="Filter entries before this timestamp (ISO 8601)")] = None,
         _request_timeout: Union[
@@ -2414,7 +2414,7 @@ class AuditTrailApi:
         offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
         object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
         change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
-        actor_email: Annotated[Optional[StrictStr], Field(description="Filter by actor email")] = None,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
         after: Annotated[Optional[datetime], Field(description="Filter entries after this timestamp (ISO 8601)")] = None,
         before: Annotated[Optional[datetime], Field(description="Filter entries before this timestamp (ISO 8601)")] = None,
         _request_timeout: Union[
@@ -2515,7 +2515,7 @@ class AuditTrailApi:
         offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
         object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
         change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
-        actor_email: Annotated[Optional[StrictStr], Field(description="Filter by actor email")] = None,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
         after: Annotated[Optional[datetime], Field(description="Filter entries after this timestamp (ISO 8601)")] = None,
         before: Annotated[Optional[datetime], Field(description="Filter entries before this timestamp (ISO 8601)")] = None,
         _request_timeout: Union[

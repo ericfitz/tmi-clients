@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **cvss** | [**List[CVSSScore]**](CVSSScore.md) | CVSS scoring information for this threat | [optional] 
 **include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
 **timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
+**ssvc** | [**SSVCScore**](SSVCScore.md) | SSVC (Stakeholder-Specific Vulnerability Categorization) assessment result. Optional structured decision from CISA/CERT-CC SSVC framework. | [optional] 
 **id** | **UUID** | Unique identifier of the threat to update (required for bulk updates) | 
 
 ## Example

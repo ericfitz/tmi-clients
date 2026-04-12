@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0"
+__version__ = "1.4.0"
 
 # Define package exports
 __all__ = [
@@ -28,6 +28,7 @@ __all__ = [
     "CollaborationApi",
     "ConfigurationApi",
     "DocumentsApi",
+    "EmbeddingAutomationApi",
     "GeneralApi",
     "NotesApi",
     "OAuthDiscoveryApi",
@@ -139,6 +140,12 @@ __all__ = [
     "EdgeRouterOneOf",
     "EdgeRouterOneOfArgs",
     "EdgeTerminal",
+    "EmbeddingConfig",
+    "EmbeddingDeleteResponse",
+    "EmbeddingIngestionItem",
+    "EmbeddingIngestionRequest",
+    "EmbeddingIngestionResponse",
+    "EmbeddingProviderConfig",
     "Error",
     "ErrorDetails",
     "ExchangeOAuthCodeRequest",
@@ -186,7 +193,6 @@ __all__ = [
     "ListWebhookQuotasResponse",
     "ListWebhookSubscriptionsResponse",
     "Metadata",
-    "MigrateSystemSettings200Response",
     "MinimalCell",
     "MinimalDiagramModel",
     "MinimalEdge",
@@ -220,6 +226,7 @@ __all__ = [
     "ProjectStatus",
     "ReencryptSystemSettings200Response",
     "ReencryptSystemSettings200ResponseErrorsInner",
+    "RefreshTimmySources200Response",
     "RelatedProject",
     "RelatedTeam",
     "RelationshipType",
@@ -227,9 +234,12 @@ __all__ = [
     "RepositoryBase",
     "RepositoryBaseParameters",
     "RepositoryInput",
+    "RequestDocumentAccess200Response",
     "ResponsibleParty",
     "RollbackResponse",
     "SAMLProviderInfo",
+    "SSVCScore",
+    "SkippedSource",
     "Survey",
     "SurveyBase",
     "SurveyInput",
@@ -307,6 +317,7 @@ from tmi_client.api.authentication_api import AuthenticationApi as Authenticatio
 from tmi_client.api.collaboration_api import CollaborationApi as CollaborationApi
 from tmi_client.api.configuration_api import ConfigurationApi as ConfigurationApi
 from tmi_client.api.documents_api import DocumentsApi as DocumentsApi
+from tmi_client.api.embedding_automation_api import EmbeddingAutomationApi as EmbeddingAutomationApi
 from tmi_client.api.general_api import GeneralApi as GeneralApi
 from tmi_client.api.notes_api import NotesApi as NotesApi
 from tmi_client.api.o_auth_discovery_api import OAuthDiscoveryApi as OAuthDiscoveryApi
@@ -422,6 +433,12 @@ from tmi_client.models.edge_router import EdgeRouter as EdgeRouter
 from tmi_client.models.edge_router_one_of import EdgeRouterOneOf as EdgeRouterOneOf
 from tmi_client.models.edge_router_one_of_args import EdgeRouterOneOfArgs as EdgeRouterOneOfArgs
 from tmi_client.models.edge_terminal import EdgeTerminal as EdgeTerminal
+from tmi_client.models.embedding_config import EmbeddingConfig as EmbeddingConfig
+from tmi_client.models.embedding_delete_response import EmbeddingDeleteResponse as EmbeddingDeleteResponse
+from tmi_client.models.embedding_ingestion_item import EmbeddingIngestionItem as EmbeddingIngestionItem
+from tmi_client.models.embedding_ingestion_request import EmbeddingIngestionRequest as EmbeddingIngestionRequest
+from tmi_client.models.embedding_ingestion_response import EmbeddingIngestionResponse as EmbeddingIngestionResponse
+from tmi_client.models.embedding_provider_config import EmbeddingProviderConfig as EmbeddingProviderConfig
 from tmi_client.models.error import Error as Error
 from tmi_client.models.error_details import ErrorDetails as ErrorDetails
 from tmi_client.models.exchange_o_auth_code_request import ExchangeOAuthCodeRequest as ExchangeOAuthCodeRequest
@@ -469,7 +486,6 @@ from tmi_client.models.list_webhook_deliveries_response import ListWebhookDelive
 from tmi_client.models.list_webhook_quotas_response import ListWebhookQuotasResponse as ListWebhookQuotasResponse
 from tmi_client.models.list_webhook_subscriptions_response import ListWebhookSubscriptionsResponse as ListWebhookSubscriptionsResponse
 from tmi_client.models.metadata import Metadata as Metadata
-from tmi_client.models.migrate_system_settings200_response import MigrateSystemSettings200Response as MigrateSystemSettings200Response
 from tmi_client.models.minimal_cell import MinimalCell as MinimalCell
 from tmi_client.models.minimal_diagram_model import MinimalDiagramModel as MinimalDiagramModel
 from tmi_client.models.minimal_edge import MinimalEdge as MinimalEdge
@@ -503,6 +519,7 @@ from tmi_client.models.project_note_list_item import ProjectNoteListItem as Proj
 from tmi_client.models.project_status import ProjectStatus as ProjectStatus
 from tmi_client.models.reencrypt_system_settings200_response import ReencryptSystemSettings200Response as ReencryptSystemSettings200Response
 from tmi_client.models.reencrypt_system_settings200_response_errors_inner import ReencryptSystemSettings200ResponseErrorsInner as ReencryptSystemSettings200ResponseErrorsInner
+from tmi_client.models.refresh_timmy_sources200_response import RefreshTimmySources200Response as RefreshTimmySources200Response
 from tmi_client.models.related_project import RelatedProject as RelatedProject
 from tmi_client.models.related_team import RelatedTeam as RelatedTeam
 from tmi_client.models.relationship_type import RelationshipType as RelationshipType
@@ -510,9 +527,12 @@ from tmi_client.models.repository import Repository as Repository
 from tmi_client.models.repository_base import RepositoryBase as RepositoryBase
 from tmi_client.models.repository_base_parameters import RepositoryBaseParameters as RepositoryBaseParameters
 from tmi_client.models.repository_input import RepositoryInput as RepositoryInput
+from tmi_client.models.request_document_access200_response import RequestDocumentAccess200Response as RequestDocumentAccess200Response
 from tmi_client.models.responsible_party import ResponsibleParty as ResponsibleParty
 from tmi_client.models.rollback_response import RollbackResponse as RollbackResponse
 from tmi_client.models.saml_provider_info import SAMLProviderInfo as SAMLProviderInfo
+from tmi_client.models.ssvc_score import SSVCScore as SSVCScore
+from tmi_client.models.skipped_source import SkippedSource as SkippedSource
 from tmi_client.models.survey import Survey as Survey
 from tmi_client.models.survey_base import SurveyBase as SurveyBase
 from tmi_client.models.survey_input import SurveyInput as SurveyInput

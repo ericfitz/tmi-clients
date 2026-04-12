@@ -1,13 +1,13 @@
 
 # InvokeAddonResponse
 
-Response from addon invocation including result or invocation ID
+Response from addon invocation including delivery ID
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`invocation_id` | string
+`delivery_id` | string
 `status` | string
 `created_at` | Date
 
@@ -18,7 +18,7 @@ import type { InvokeAddonResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "invocation_id": null,
+  "delivery_id": null,
   "status": null,
   "created_at": null,
 } satisfies InvokeAddonResponse

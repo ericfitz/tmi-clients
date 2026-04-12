@@ -9,14 +9,20 @@ All URIs are relative to *https://api.tmi.dev*
 | [**bulkUpsertProjectMetadata**](ProjectsApi.md#bulkupsertprojectmetadata) | **PATCH** /projects/{project_id}/metadata/bulk | Bulk upsert project metadata |
 | [**createProject**](ProjectsApi.md#createproject) | **POST** /projects | Create a project |
 | [**createProjectMetadata**](ProjectsApi.md#createprojectmetadata) | **POST** /projects/{project_id}/metadata | Create project metadata |
+| [**createProjectNote**](ProjectsApi.md#createprojectnote) | **POST** /projects/{project_id}/notes | Create a new project note |
 | [**deleteProject**](ProjectsApi.md#deleteproject) | **DELETE** /projects/{project_id} | Delete a project |
 | [**deleteProjectMetadata**](ProjectsApi.md#deleteprojectmetadata) | **DELETE** /projects/{project_id}/metadata/{key} | Delete project metadata |
+| [**deleteProjectNote**](ProjectsApi.md#deleteprojectnote) | **DELETE** /projects/{project_id}/notes/{project_note_id} | Delete a project note |
 | [**getProject**](ProjectsApi.md#getproject) | **GET** /projects/{project_id} | Get a project |
 | [**getProjectMetadata**](ProjectsApi.md#getprojectmetadata) | **GET** /projects/{project_id}/metadata | Get project metadata |
+| [**getProjectNote**](ProjectsApi.md#getprojectnote) | **GET** /projects/{project_id}/notes/{project_note_id} | Get a specific project note |
+| [**listProjectNotes**](ProjectsApi.md#listprojectnotes) | **GET** /projects/{project_id}/notes | List notes in a project |
 | [**listProjects**](ProjectsApi.md#listprojects) | **GET** /projects | List projects |
 | [**patchProject**](ProjectsApi.md#patchproject) | **PATCH** /projects/{project_id} | Patch a project |
+| [**patchProjectNote**](ProjectsApi.md#patchprojectnote) | **PATCH** /projects/{project_id}/notes/{project_note_id} | Partially update a project note |
 | [**updateProject**](ProjectsApi.md#updateproject) | **PUT** /projects/{project_id} | Update a project |
 | [**updateProjectMetadata**](ProjectsApi.md#updateprojectmetadata) | **PUT** /projects/{project_id}/metadata/{key} | Update project metadata |
+| [**updateProjectNote**](ProjectsApi.md#updateprojectnote) | **PUT** /projects/{project_id}/notes/{project_note_id} | Update a project note |
 
 
 
@@ -415,6 +421,86 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## createProjectNote
+
+> ProjectNote createProjectNote(projectId, body)
+
+Create a new project note
+
+Creates a new note within the specified project
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProjectsApi,
+} from '@tmiclient/client';
+import type { CreateProjectNoteRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProjectsApi(config);
+
+  const body = {
+    // string | Project UUID
+    projectId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // TeamProjectNoteBase | Project note creation data
+    body: {"name":"Architecture Decision Record","content":"# ADR: Authentication Redesign\n\nContext and decision details."},
+  } satisfies CreateProjectNoteRequest;
+
+  try {
+    const data = await api.createProjectNote(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **projectId** | `string` | Project UUID | [Defaults to `undefined`] |
+| **body** | `TeamProjectNoteBase` | Project note creation data | |
+
+### Return type
+
+[**ProjectNote**](ProjectNote.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Project note created successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## deleteProject
 
 > deleteProject(projectId)
@@ -572,6 +658,86 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## deleteProjectNote
+
+> deleteProjectNote(projectId, projectNoteId)
+
+Delete a project note
+
+Deletes a specific note from the project
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProjectsApi,
+} from '@tmiclient/client';
+import type { DeleteProjectNoteRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProjectsApi(config);
+
+  const body = {
+    // string | Project UUID
+    projectId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Project note identifier
+    projectNoteId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteProjectNoteRequest;
+
+  try {
+    const data = await api.deleteProjectNote(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **projectId** | `string` | Project UUID | [Defaults to `undefined`] |
+| **projectNoteId** | `string` | Project note identifier | [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Project note deleted successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getProject
 
 > Project getProject(projectId)
@@ -721,6 +887,169 @@ example().catch(console.error);
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **400** | Bad Request - Invalid parameters or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getProjectNote
+
+> ProjectNote getProjectNote(projectId, projectNoteId)
+
+Get a specific project note
+
+Returns details of a specific note within the project
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProjectsApi,
+} from '@tmiclient/client';
+import type { GetProjectNoteRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProjectsApi(config);
+
+  const body = {
+    // string | Project UUID
+    projectId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Project note identifier
+    projectNoteId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetProjectNoteRequest;
+
+  try {
+    const data = await api.getProjectNote(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **projectId** | `string` | Project UUID | [Defaults to `undefined`] |
+| **projectNoteId** | `string` | Project note identifier | [Defaults to `undefined`] |
+
+### Return type
+
+[**ProjectNote**](ProjectNote.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Project note details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listProjectNotes
+
+> ListProjectNotesResponse listProjectNotes(projectId, limit, offset)
+
+List notes in a project
+
+Returns a paginated list of notes within the specified project
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProjectsApi,
+} from '@tmiclient/client';
+import type { ListProjectNotesRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProjectsApi(config);
+
+  const body = {
+    // string | Project UUID
+    projectId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // number | Maximum number of results to return (optional)
+    limit: 56,
+    // number | Number of results to skip (optional)
+    offset: 56,
+  } satisfies ListProjectNotesRequest;
+
+  try {
+    const data = await api.listProjectNotes(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **projectId** | `string` | Project UUID | [Defaults to `undefined`] |
+| **limit** | `number` | Maximum number of results to return | [Optional] [Defaults to `20`] |
+| **offset** | `number` | Number of results to skip | [Optional] [Defaults to `0`] |
+
+### Return type
+
+[**ListProjectNotesResponse**](ListProjectNotesResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | List of project notes |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -902,6 +1231,89 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## patchProjectNote
+
+> ProjectNote patchProjectNote(projectId, projectNoteId, jsonPatchDocumentInner)
+
+Partially update a project note
+
+Apply JSON Patch operations to partially update a project note
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProjectsApi,
+} from '@tmiclient/client';
+import type { PatchProjectNoteRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProjectsApi(config);
+
+  const body = {
+    // string | Project UUID
+    projectId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Project note identifier
+    projectNoteId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // Array<JsonPatchDocumentInner> | JSON Patch operations to apply to the project note
+    jsonPatchDocumentInner: [{"op":"replace","path":"/name","value":"Updated ADR Title"}],
+  } satisfies PatchProjectNoteRequest;
+
+  try {
+    const data = await api.patchProjectNote(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **projectId** | `string` | Project UUID | [Defaults to `undefined`] |
+| **projectNoteId** | `string` | Project note identifier | [Defaults to `undefined`] |
+| **jsonPatchDocumentInner** | `Array<JsonPatchDocumentInner>` | JSON Patch operations to apply to the project note | |
+
+### Return type
+
+[**ProjectNote**](ProjectNote.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json-patch+json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully patched project note |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## updateProject
 
 > Project updateProject(projectId, body)
@@ -1059,6 +1471,89 @@ example().catch(console.error);
 | **400** | Invalid input |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Unauthorized |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Project or key not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateProjectNote
+
+> ProjectNote updateProjectNote(projectId, projectNoteId, body)
+
+Update a project note
+
+Updates a specific note within the project
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProjectsApi,
+} from '@tmiclient/client';
+import type { UpdateProjectNoteRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProjectsApi(config);
+
+  const body = {
+    // string | Project UUID
+    projectId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Project note identifier
+    projectNoteId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // TeamProjectNoteBase | Complete project note data for replacement
+    body: {"name":"Architecture Decision Record (Updated)","content":"# ADR: Authentication Redesign\n\nUpdated context and decision details."},
+  } satisfies UpdateProjectNoteRequest;
+
+  try {
+    const data = await api.updateProjectNote(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **projectId** | `string` | Project UUID | [Defaults to `undefined`] |
+| **projectNoteId** | `string` | Project note identifier | [Defaults to `undefined`] |
+| **body** | `TeamProjectNoteBase` | Complete project note data for replacement | |
+
+### Return type
+
+[**ProjectNote**](ProjectNote.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Project note updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 

@@ -62,7 +62,7 @@ async function example() {
     clientCallback: http://localhost:4200/oauth2/callback,
     // string | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
     state: random_state_abc123,
-    // string | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. (optional)
+    // string | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens. (optional)
     loginHint: alice,
   } satisfies AuthorizeOAuthProviderRequest;
 
@@ -89,7 +89,7 @@ example().catch(console.error);
 | **idp** | `string` | OAuth provider identifier. Defaults to \&#39;tmi\&#39; provider in non-production builds if not specified. | [Optional] [Defaults to `undefined`] |
 | **clientCallback** | `string` | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [Optional] [Defaults to `undefined`] |
 | **state** | `string` | CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [Optional] [Defaults to `undefined`] |
-| **loginHint** | `string` | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [Optional] [Defaults to `undefined`] |
+| **loginHint** | `string` | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -123,7 +123,7 @@ No authorization required
 
 Create client credential
 
-Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
+Creates a new OAuth 2.0 client credential for machine-to-machine authentication. Only administrators and security reviewers can create credentials. Service accounts cannot use this endpoint. The client_secret is ONLY returned once at creation and cannot be retrieved later.
 
 ### Example
 
@@ -186,7 +186,7 @@ example().catch(console.error);
 | **201** | Created - Resource successfully created |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Unauthorized - missing or invalid JWT token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-| **403** | Forbidden - quota exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - insufficient privileges (requires administrator or security reviewer role) or quota exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |

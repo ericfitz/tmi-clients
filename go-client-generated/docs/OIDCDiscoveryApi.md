@@ -1,25 +1,61 @@
-# {{classname}}
+# \OIDCDiscoveryAPI
 
 All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetJWKS**](OIDCDiscoveryApi.md#GetJWKS) | **Get** /.well-known/jwks.json | JSON Web Key Set
-[**GetOAuthAuthorizationServerMetadata**](OIDCDiscoveryApi.md#GetOAuthAuthorizationServerMetadata) | **Get** /.well-known/oauth-authorization-server | OAuth 2.0 Authorization Server Metadata
-[**GetOpenIDConfiguration**](OIDCDiscoveryApi.md#GetOpenIDConfiguration) | **Get** /.well-known/openid-configuration | OpenID Connect Discovery Configuration
+[**GetJWKS**](OIDCDiscoveryAPI.md#GetJWKS) | **Get** /.well-known/jwks.json | JSON Web Key Set
+[**GetOAuthAuthorizationServerMetadata**](OIDCDiscoveryAPI.md#GetOAuthAuthorizationServerMetadata) | **Get** /.well-known/oauth-authorization-server | OAuth 2.0 Authorization Server Metadata
+[**GetOpenIDConfiguration**](OIDCDiscoveryAPI.md#GetOpenIDConfiguration) | **Get** /.well-known/openid-configuration | OpenID Connect Discovery Configuration
 
-# **GetJWKS**
-> InlineResponse2002 GetJWKS(ctx, )
+
+
+## GetJWKS
+
+> GetJWKS200Response GetJWKS(ctx).Execute()
+
 JSON Web Key Set
 
-Returns the JSON Web Key Set (JWKS) for JWT signature verification
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OIDCDiscoveryAPI.GetJWKS(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OIDCDiscoveryAPI.GetJWKS``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetJWKS`: GetJWKS200Response
+	fmt.Fprintf(os.Stdout, "Response from `OIDCDiscoveryAPI.GetJWKS`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetJWKSRequest struct via the builder pattern
+
 
 ### Return type
 
-[**InlineResponse2002**](inline_response_200_2.md)
+[**GetJWKS200Response**](GetJWKS200Response.md)
 
 ### Authorization
 
@@ -27,23 +63,60 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetOAuthAuthorizationServerMetadata**
-> InlineResponse2001 GetOAuthAuthorizationServerMetadata(ctx, )
+
+## GetOAuthAuthorizationServerMetadata
+
+> GetOAuthAuthorizationServerMetadata200Response GetOAuthAuthorizationServerMetadata(ctx).Execute()
+
 OAuth 2.0 Authorization Server Metadata
 
-Returns OAuth 2.0 authorization server metadata as per RFC 8414
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OIDCDiscoveryAPI.GetOAuthAuthorizationServerMetadata(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OIDCDiscoveryAPI.GetOAuthAuthorizationServerMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOAuthAuthorizationServerMetadata`: GetOAuthAuthorizationServerMetadata200Response
+	fmt.Fprintf(os.Stdout, "Response from `OIDCDiscoveryAPI.GetOAuthAuthorizationServerMetadata`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOAuthAuthorizationServerMetadataRequest struct via the builder pattern
+
 
 ### Return type
 
-[**InlineResponse2001**](inline_response_200_1.md)
+[**GetOAuthAuthorizationServerMetadata200Response**](GetOAuthAuthorizationServerMetadata200Response.md)
 
 ### Authorization
 
@@ -51,23 +124,60 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetOpenIDConfiguration**
-> InlineResponse200 GetOpenIDConfiguration(ctx, )
+
+## GetOpenIDConfiguration
+
+> GetOpenIDConfiguration200Response GetOpenIDConfiguration(ctx).Execute()
+
 OpenID Connect Discovery Configuration
 
-Returns OpenID Connect provider configuration metadata as per RFC 8414
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OIDCDiscoveryAPI.GetOpenIDConfiguration(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OIDCDiscoveryAPI.GetOpenIDConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOpenIDConfiguration`: GetOpenIDConfiguration200Response
+	fmt.Fprintf(os.Stdout, "Response from `OIDCDiscoveryAPI.GetOpenIDConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOpenIDConfigurationRequest struct via the builder pattern
+
 
 ### Return type
 
-[**InlineResponse200**](inline_response_200.md)
+[**GetOpenIDConfiguration200Response**](GetOpenIDConfiguration200Response.md)
 
 ### Authorization
 
@@ -75,8 +185,10 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

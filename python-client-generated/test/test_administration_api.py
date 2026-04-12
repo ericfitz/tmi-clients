@@ -174,13 +174,6 @@ class TestAdministrationApi(unittest.TestCase):
         """
         pass
 
-    def test_migrate_system_settings(self) -> None:
-        """Test case for migrate_system_settings
-
-        Migrate settings from configuration
-        """
-        pass
-
     def test_reencrypt_system_settings(self) -> None:
         """Test case for reencrypt_system_settings
 

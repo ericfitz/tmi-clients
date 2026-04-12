@@ -40,7 +40,7 @@ class TestUser(unittest.TestCase):
                 provider = 'EbUUGjjNSwg0_bs9ZayIMrKdgNvb6gvxmPb9GcsM61ate1RA89q3w1l4eH4XxEz-5aw',
                 provider_id = 'Q+a4YUKiC 8pO_kmb|~K 60',
                 display_name = 'jUR,rZ#UM/?R,Fp^l6$ARj0',
-                email = ''
+                email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb'
             )
         else:
             return User(
@@ -48,7 +48,7 @@ class TestUser(unittest.TestCase):
                 provider = 'EbUUGjjNSwg0_bs9ZayIMrKdgNvb6gvxmPb9GcsM61ate1RA89q3w1l4eH4XxEz-5aw',
                 provider_id = 'Q+a4YUKiC 8pO_kmb|~K 60',
                 display_name = 'jUR,rZ#UM/?R,Fp^l6$ARj0',
-                email = '',
+                email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb',
         )
         """
 

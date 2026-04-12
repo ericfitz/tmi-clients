@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,11 +29,19 @@ class AuditActor(BaseModel):
     """
     Denormalized user information stored with audit entries. Persists after user deletion.
     """ # noqa: E501
-    email: StrictStr = Field(description="User email at the time of the action")
+    email: Annotated[str, Field(strict=True, max_length=254)] = Field(description="User email at the time of the action")
     provider: StrictStr = Field(description="Identity provider (e.g., google, github, tmi)")
     provider_id: StrictStr = Field(description="Provider-specific user identifier")
     display_name: StrictStr = Field(description="User display name at the time of the action")
     __properties: ClassVar[List[str]] = ["email", "provider", "provider_id", "display_name"]
+
+    @field_validator('email')
+    def email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

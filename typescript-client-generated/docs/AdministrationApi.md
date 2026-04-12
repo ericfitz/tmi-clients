@@ -25,7 +25,6 @@ All URIs are relative to *https://api.tmi.dev*
 | [**listSystemSettings**](AdministrationApi.md#listsystemsettings) | **GET** /admin/settings | List system settings |
 | [**listUserAPIQuotas**](AdministrationApi.md#listuserapiquotas) | **GET** /admin/quotas/users | List all user API quotas |
 | [**listWebhookQuotas**](AdministrationApi.md#listwebhookquotas) | **GET** /admin/quotas/webhooks | List all webhook quotas |
-| [**migrateSystemSettings**](AdministrationApi.md#migratesystemsettings) | **POST** /admin/settings/migrate | Migrate settings from configuration |
 | [**reencryptSystemSettings**](AdministrationApi.md#reencryptsystemsettings) | **POST** /admin/settings/reencrypt | Re-encrypt all system settings |
 | [**removeGroupMember**](AdministrationApi.md#removegroupmember) | **DELETE** /admin/groups/{internal_uuid}/members/{member_uuid} | Remove member from group |
 | [**transferAdminUserOwnership**](AdministrationApi.md#transferadminuserownership) | **POST** /admin/users/{internal_uuid}/transfer | Transfer user ownership to another user |
@@ -1707,82 +1706,6 @@ example().catch(console.error);
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
-## migrateSystemSettings
-
-> MigrateSystemSettings200Response migrateSystemSettings(overwrite)
-
-Migrate settings from configuration
-
-Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don\&#39;t already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
-
-### Example
-
-```ts
-import {
-  Configuration,
-  AdministrationApi,
-} from '@tmiclient/client';
-import type { MigrateSystemSettingsRequest } from '@tmiclient/client';
-
-async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new AdministrationApi(config);
-
-  const body = {
-    // boolean | If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don\'t already exist. (optional)
-    overwrite: true,
-  } satisfies MigrateSystemSettingsRequest;
-
-  try {
-    const data = await api.migrateSystemSettings(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **overwrite** | `boolean` | If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don\&#39;t already exist. | [Optional] [Defaults to `false`] |
-
-### Return type
-
-[**MigrateSystemSettings200Response**](MigrateSystemSettings200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Settings migration completed successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-| **401** | Unauthorized - Invalid or missing authentication token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-| **403** | Forbidden - Insufficient permissions |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-| **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-| **400** | Invalid request body or parameters |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

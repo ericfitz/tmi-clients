@@ -25,7 +25,6 @@ Method | HTTP request | Description
 [**list_system_settings**](AdministrationApi.md#list_system_settings) | **GET** /admin/settings | List system settings
 [**list_user_api_quotas**](AdministrationApi.md#list_user_api_quotas) | **GET** /admin/quotas/users | List all user API quotas
 [**list_webhook_quotas**](AdministrationApi.md#list_webhook_quotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
-[**migrate_system_settings**](AdministrationApi.md#migrate_system_settings) | **POST** /admin/settings/migrate | Migrate settings from configuration
 [**reencrypt_system_settings**](AdministrationApi.md#reencrypt_system_settings) | **POST** /admin/settings/reencrypt | Re-encrypt all system settings
 [**remove_group_member**](AdministrationApi.md#remove_group_member) | **DELETE** /admin/groups/{internal_uuid}/members/{member_uuid} | Remove member from group
 [**transfer_admin_user_ownership**](AdministrationApi.md#transfer_admin_user_ownership) | **POST** /admin/users/{internal_uuid}/transfer | Transfer user ownership to another user
@@ -1819,89 +1818,6 @@ Name | Type | Description  | Notes
 **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **migrate_system_settings**
-> MigrateSystemSettings200Response migrate_system_settings(overwrite=overwrite)
-
-Migrate settings from configuration
-
-Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don't already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.
-
-### Example
-
-* Bearer (JWT) Authentication (bearerAuth):
-
-```python
-import tmi_client
-from tmi_client.models.migrate_system_settings200_response import MigrateSystemSettings200Response
-from tmi_client.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.tmi.dev
-# See configuration.py for a list of all supported configuration parameters.
-configuration = tmi_client.Configuration(
-    host = "https://api.tmi.dev"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): bearerAuth
-configuration = tmi_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with tmi_client.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = tmi_client.AdministrationApi(api_client)
-    overwrite = False # bool | If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don't already exist. (optional) (default to False)
-
-    try:
-        # Migrate settings from configuration
-        api_response = api_instance.migrate_system_settings(overwrite=overwrite)
-        print("The response of AdministrationApi->migrate_system_settings:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling AdministrationApi->migrate_system_settings: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **overwrite** | **bool**| If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don&#39;t already exist. | [optional] [default to False]
-
-### Return type
-
-[**MigrateSystemSettings200Response**](MigrateSystemSettings200Response.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Settings migration completed successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-**401** | Unauthorized - Invalid or missing authentication token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-**403** | Forbidden - Insufficient permissions |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-**400** | Invalid request body or parameters |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

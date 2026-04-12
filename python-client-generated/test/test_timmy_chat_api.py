@@ -69,6 +69,13 @@ class TestTimmyChatApi(unittest.TestCase):
         """
         pass
 
+    def test_refresh_timmy_sources(self) -> None:
+        """Test case for refresh_timmy_sources
+
+        Refresh session sources
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

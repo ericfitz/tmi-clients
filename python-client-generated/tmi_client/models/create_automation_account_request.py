@@ -30,7 +30,7 @@ class CreateAutomationAccountRequest(BaseModel):
     Request body for creating an automation (service) account
     """ # noqa: E501
     name: Annotated[str, Field(min_length=2, strict=True, max_length=64)] = Field(description="Short identifier for the automation account (2-64 characters). Used to construct the account name, email, and provider ID. Must start with a letter and end with a letter or digit.")
-    email: Optional[Annotated[str, Field(strict=True, max_length=320)]] = Field(default=None, description="Optional custom email address. If not provided, defaults to tmi-automation-{normalized_name}@tmi.local.")
+    email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Optional custom email address. If not provided, defaults to tmi-automation-{normalized_name}@tmi.local.")
     __properties: ClassVar[List[str]] = ["name", "email"]
 
     @field_validator('name')
@@ -39,6 +39,17 @@ class CreateAutomationAccountRequest(BaseModel):
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[a-zA-Z][a-zA-Z0-9 _.@-]*[a-zA-Z0-9]$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9 _.@-]*[a-zA-Z0-9]$/")
+        return value
+
+    @field_validator('email')
+    def email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
         return value
 
     model_config = ConfigDict(

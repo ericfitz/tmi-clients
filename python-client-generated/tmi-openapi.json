@@ -365,6 +365,25 @@
                 "readOnly": true,
                 "nullable": true,
                 "pattern": "^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"
+              },
+              "access_status": {
+                "type": "string",
+                "enum": [
+                  "accessible",
+                  "pending_access",
+                  "auth_required",
+                  "unknown"
+                ],
+                "default": "unknown",
+                "description": "Access validation status for external content providers",
+                "readOnly": true
+              },
+              "content_source": {
+                "type": "string",
+                "nullable": true,
+                "description": "Content provider that handles this documents URI (e.g., google_drive, http)",
+                "example": "google_drive",
+                "readOnly": true
               }
             }
           }
@@ -386,7 +405,9 @@
           "modified_at": "2024-01-17T14:00:00Z",
           "uri": "https://example.com/docs/security-policy.pdf",
           "include_in_report": true,
-          "timmy_enabled": true
+          "timmy_enabled": true,
+          "access_status": "accessible",
+          "content_source": "http"
         }
       },
       "BaseDiagram": {
@@ -1344,7 +1365,12 @@
             "spoofing"
           ],
           "include_in_report": true,
-          "timmy_enabled": true
+          "timmy_enabled": true,
+          "ssvc": {
+            "vector": "SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/",
+            "decision": "Immediate",
+            "methodology": "Supplier"
+          }
         },
         "description": "A security threat identified during threat modeling, with severity, status, and mitigation details"
       },
@@ -2942,6 +2968,15 @@
             "type": "boolean",
             "description": "Whether the Timmy AI assistant is enabled for this entity",
             "default": true
+          },
+          "ssvc": {
+            "description": "SSVC (Stakeholder-Specific Vulnerability Categorization) assessment result. Optional structured decision from CISA/CERT-CC SSVC framework.",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SSVCScore"
+              }
+            ]
           }
         },
         "required": [
@@ -2965,7 +3000,12 @@
             }
           ],
           "include_in_report": true,
-          "timmy_enabled": true
+          "timmy_enabled": true,
+          "ssvc": {
+            "vector": "SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/",
+            "decision": "Immediate",
+            "methodology": "Supplier"
+          }
         }
       },
       "ThreatInput": {
@@ -3018,7 +3058,8 @@
                 "type": "string",
                 "format": "email",
                 "description": "User email address (required)",
-                "maxLength": 320
+                "maxLength": 254,
+                "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
               },
               "display_name": {
                 "type": "string",
@@ -4551,7 +4592,8 @@
             "type": "string",
             "format": "email",
             "description": "Email address (required for users, optional for groups)",
-            "maxLength": 320
+            "maxLength": 254,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           }
         },
         "example": {
@@ -4832,7 +4874,8 @@
             "type": "string",
             "format": "email",
             "description": "User email address",
-            "maxLength": 320
+            "maxLength": 254,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "name": {
             "type": "string",
@@ -4961,8 +5004,9 @@
           "email": {
             "type": "string",
             "format": "email",
-            "maxLength": 320,
-            "description": "Updated email address"
+            "maxLength": 254,
+            "description": "Updated email address",
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "name": {
             "type": "string",
@@ -5299,7 +5343,9 @@
             "type": "string",
             "format": "email",
             "description": "Email address of the user",
-            "nullable": true
+            "nullable": true,
+            "maxLength": 254,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "user_name": {
             "type": "string",
@@ -5326,7 +5372,9 @@
             "type": "string",
             "format": "email",
             "description": "Email of the administrator who added this member",
-            "nullable": true
+            "nullable": true,
+            "maxLength": 254,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "added_at": {
             "type": "string",
@@ -8564,10 +8612,11 @@
           "email_address": {
             "type": "string",
             "format": "email",
-            "maxLength": 320,
+            "maxLength": 254,
             "description": "Team email address",
             "example": "platform-eng@example.com",
-            "nullable": true
+            "nullable": true,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "status": {
             "nullable": true,
@@ -9128,7 +9177,9 @@
           "email": {
             "type": "string",
             "format": "email",
-            "description": "User email at the time of the action"
+            "description": "User email at the time of the action",
+            "maxLength": 254,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "provider": {
             "type": "string",
@@ -9576,7 +9627,8 @@
             "type": "string",
             "format": "email",
             "description": "Optional custom email address. If not provided, defaults to tmi-automation-{normalized_name}@tmi.local.",
-            "maxLength": 320
+            "maxLength": 254,
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           }
         },
         "additionalProperties": false,
@@ -10442,6 +10494,223 @@
             "description": "Total number of sessions rejected due to resource constraints"
           }
         }
+      },
+      "SSVCScore": {
+        "type": "object",
+        "description": "SSVC (Stakeholder-Specific Vulnerability Categorization) assessment result",
+        "properties": {
+          "vector": {
+            "type": "string",
+            "description": "SSVC vector string following CERT/CC convention (e.g., SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/)",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[A-Za-z0-9/:._-]+$"
+          },
+          "decision": {
+            "type": "string",
+            "description": "SSVC decision outcome",
+            "enum": [
+              "Defer",
+              "Scheduled",
+              "Out-of-Cycle",
+              "Immediate"
+            ]
+          },
+          "methodology": {
+            "type": "string",
+            "description": "The SSVC stakeholder perspective used for assessment",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9 _-]+$"
+          }
+        },
+        "required": [
+          "vector",
+          "decision",
+          "methodology"
+        ],
+        "additionalProperties": false,
+        "example": {
+          "vector": "SSVCv2/E:A/U:S/T:T/P:S/2026-04-08/",
+          "decision": "Immediate",
+          "methodology": "Supplier"
+        }
+      },
+      "SkippedSource": {
+        "type": "object",
+        "required": [
+          "entity_id",
+          "name",
+          "reason"
+        ],
+        "properties": {
+          "entity_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID of the skipped entity"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the skipped entity"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why this entity was skipped"
+          }
+        }
+      },
+      "EmbeddingProviderConfig": {
+        "type": "object",
+        "required": [
+          "provider",
+          "model"
+        ],
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "Embedding provider name",
+            "example": "openai"
+          },
+          "model": {
+            "type": "string",
+            "description": "Embedding model name",
+            "example": "text-embedding-3-small"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "Embedding provider API key"
+          },
+          "base_url": {
+            "type": "string",
+            "description": "Custom base URL for self-hosted endpoints",
+            "example": ""
+          }
+        }
+      },
+      "EmbeddingConfig": {
+        "type": "object",
+        "required": [
+          "text_embedding"
+        ],
+        "properties": {
+          "text_embedding": {
+            "$ref": "#/components/schemas/EmbeddingProviderConfig"
+          },
+          "code_embedding": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EmbeddingProviderConfig"
+              }
+            ],
+            "nullable": true,
+            "description": "Code embedding config. Null if not configured."
+          }
+        }
+      },
+      "EmbeddingIngestionItem": {
+        "type": "object",
+        "required": [
+          "entity_type",
+          "entity_id",
+          "chunk_index",
+          "chunk_text",
+          "content_hash",
+          "embedding_model",
+          "embedding_dim",
+          "vector"
+        ],
+        "properties": {
+          "entity_type": {
+            "type": "string",
+            "description": "Entity type (e.g., repository, asset)"
+          },
+          "entity_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Entity UUID"
+          },
+          "chunk_index": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Sequential chunk number"
+          },
+          "chunk_text": {
+            "type": "string",
+            "description": "Original text of the chunk"
+          },
+          "content_hash": {
+            "type": "string",
+            "description": "SHA256 hash of the original content"
+          },
+          "embedding_model": {
+            "type": "string",
+            "description": "Model used to generate the embedding"
+          },
+          "embedding_dim": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Embedding vector dimension"
+          },
+          "vector": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "description": "Embedding vector",
+            "maxItems": 4096
+          }
+        }
+      },
+      "EmbeddingIngestionRequest": {
+        "type": "object",
+        "required": [
+          "index_type",
+          "embeddings"
+        ],
+        "properties": {
+          "index_type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "code"
+            ],
+            "description": "Target index type"
+          },
+          "embeddings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmbeddingIngestionItem"
+            },
+            "minItems": 1,
+            "description": "Batch of pre-computed embeddings",
+            "maxItems": 1000
+          }
+        }
+      },
+      "EmbeddingIngestionResponse": {
+        "type": "object",
+        "required": [
+          "ingested"
+        ],
+        "properties": {
+          "ingested": {
+            "type": "integer",
+            "description": "Number of embeddings ingested"
+          }
+        }
+      },
+      "EmbeddingDeleteResponse": {
+        "type": "object",
+        "required": [
+          "deleted"
+        ],
+        "properties": {
+          "deleted": {
+            "type": "integer",
+            "description": "Number of embeddings deleted"
+          }
+        }
       }
     },
     "responses": {
@@ -11049,12 +11318,12 @@
         "name": "login_hint",
         "in": "query",
         "required": false,
-        "description": "User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.",
+        "description": "User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.",
         "schema": {
           "type": "string",
-          "pattern": "^[a-zA-Z0-9-]{3,20}$",
+          "pattern": "^[a-zA-Z0-9._%+-]+$",
           "example": "alice",
-          "maxLength": 1000
+          "maxLength": 254
         }
       },
       "ScopeQueryParam": {
@@ -11623,7 +11892,7 @@
       "SurveyResponseStatusQueryParam": {
         "name": "status",
         "in": "query",
-        "description": "Filter by response status",
+        "description": "Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).",
         "schema": {
           "type": "string",
           "maxLength": 256,
@@ -11739,7 +12008,9 @@
         "description": "Filter by actor email",
         "schema": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "maxLength": 254,
+          "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
         }
       },
       "AuditAfter": {
@@ -40049,224 +40320,6 @@
         ]
       }
     },
-    "/admin/settings/migrate": {
-      "post": {
-        "tags": [
-          "Administration"
-        ],
-        "summary": "Migrate settings from configuration",
-        "description": "Migrates settings from the server configuration (config file or environment variables) to the database. When overwrite is false (default), only settings that don't already exist in the database are added. When overwrite is true, all settings are imported, overwriting existing values. Requires administrator privileges.",
-        "operationId": "migrateSystemSettings",
-        "parameters": [
-          {
-            "name": "overwrite",
-            "in": "query",
-            "description": "If true, overwrite existing settings in the database with values from configuration. If false or omitted, only add settings that don't already exist.",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Settings migration completed successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "migrated": {
-                      "type": "integer",
-                      "description": "Number of settings migrated (created or updated)",
-                      "example": 5
-                    },
-                    "skipped": {
-                      "type": "integer",
-                      "description": "Number of settings skipped (already exist and overwrite=false)",
-                      "example": 2
-                    },
-                    "settings": {
-                      "type": "array",
-                      "description": "List of settings that were migrated",
-                      "items": {
-                        "$ref": "#/components/schemas/SystemSetting"
-                      },
-                      "maxItems": 100,
-                      "example": [
-                        {
-                          "key": "rate_limit.requests_per_minute",
-                          "value": "60",
-                          "type": "int",
-                          "description": "Maximum API requests per minute",
-                          "modified_at": "2024-01-15T10:00:00Z"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "migrated",
-                    "skipped",
-                    "settings"
-                  ]
-                },
-                "example": {
-                  "migrated": 5,
-                  "skipped": 2,
-                  "settings": [
-                    {
-                      "key": "rate_limit.requests_per_minute",
-                      "value": "60",
-                      "type": "int",
-                      "description": "Maximum API requests per minute",
-                      "modified_at": "2024-01-15T10:00:00Z"
-                    }
-                  ]
-                }
-              }
-            },
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Maximum number of requests allowed in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 1000
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests remaining in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 999
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Unix epoch seconds when the rate limit window resets",
-                "schema": {
-                  "type": "integer",
-                  "example": 1735689600
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - Invalid or missing authentication token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Maximum number of requests allowed in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 1000
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests remaining in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 999
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Unix epoch seconds when the rate limit window resets",
-                "schema": {
-                  "type": "integer",
-                  "example": 1735689600
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden - Insufficient permissions",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            },
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Maximum number of requests allowed in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 1000
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests remaining in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 999
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Unix epoch seconds when the rate limit window resets",
-                "schema": {
-                  "type": "integer",
-                  "example": 1735689600
-                }
-              }
-            }
-          },
-          "500": {
-            "$ref": "#/components/responses/Error"
-          },
-          "400": {
-            "description": "Invalid request body or parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "example": {
-                  "error": "invalid_request",
-                  "error_description": "Invalid request body"
-                }
-              }
-            },
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Maximum number of requests allowed in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 1000
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests remaining in the current time window",
-                "schema": {
-                  "type": "integer",
-                  "example": 999
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Unix epoch seconds when the rate limit window resets",
-                "schema": {
-                  "type": "integer",
-                  "example": 1735689600
-                }
-              }
-            }
-          },
-          "429": {
-            "$ref": "#/components/responses/TooManyRequests"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
     "/admin/settings/{key}": {
       "get": {
         "tags": [
@@ -60901,6 +60954,558 @@
           ]
         }
       }
+    },
+    "/threat_models/{threat_model_id}/chat/sessions/{session_id}/refresh_sources": {
+      "post": {
+        "operationId": "refreshTimmySources",
+        "summary": "Refresh session sources",
+        "description": "Re-scans sources for an active Timmy session, picking up any documents whose access status has changed.",
+        "tags": [
+          "Timmy Chat"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/SessionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sources refreshed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "source_count": {
+                      "type": "integer"
+                    },
+                    "skipped_sources": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SkippedSource"
+                      },
+                      "maxItems": 1000
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/threat_models/{threat_model_id}/documents/{document_id}/request_access": {
+      "post": {
+        "operationId": "requestDocumentAccess",
+        "summary": "Request document access",
+        "description": "Re-sends the access request for a document with pending_access status.",
+        "tags": [
+          "Documents"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/DocumentId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Access request sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "409": {
+            "description": "Document is not in pending_access status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Content source not configured or does not support access requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/automation/embeddings/{threat_model_id}/config": {
+      "get": {
+        "tags": [
+          "Embedding Automation"
+        ],
+        "summary": "Get embedding provider configuration",
+        "description": "Returns embedding model configuration including API keys for automation tools. Requires embedding-automation group membership.",
+        "operationId": "getEmbeddingConfig",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Embedding provider configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddingConfig"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/automation/embeddings/{threat_model_id}": {
+      "post": {
+        "tags": [
+          "Embedding Automation"
+        ],
+        "summary": "Ingest pre-computed embeddings",
+        "description": "Accepts a batch of pre-computed embedding vectors and stores them in the specified index. Requires embedding-automation group membership.",
+        "operationId": "ingestEmbeddings",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbeddingIngestionRequest"
+              }
+            }
+          },
+          "description": "Batch of pre-computed embeddings to ingest"
+        },
+        "responses": {
+          "201": {
+            "description": "Embeddings ingested successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddingIngestionResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Embedding Automation"
+        ],
+        "summary": "Delete embeddings",
+        "description": "Bulk delete embeddings with query parameter filters. At least one filter is required. Requires embedding-automation group membership.",
+        "operationId": "deleteEmbeddings",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ThreatModelId"
+          },
+          {
+            "name": "entity_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by entity type"
+          },
+          {
+            "name": "entity_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filter by entity UUID"
+          },
+          {
+            "name": "index_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "text",
+                "code"
+              ]
+            },
+            "description": "Filter by index type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Embeddings deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddingDeleteResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - At least one filter parameter is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
     }
   },
   "tags": [
@@ -61023,6 +61628,10 @@
     {
       "name": "Timmy Administration",
       "description": "Timmy AI assistant administration and monitoring"
+    },
+    {
+      "name": "Embedding Automation",
+      "description": "Endpoints for external embedding automation tools to manage embedding vectors"
     }
   ],
   "security": [

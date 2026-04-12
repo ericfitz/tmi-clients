@@ -136,8 +136,8 @@ Authorization: Bearer your_jwt_token
 
 ## Regeneration Script
 
-The fix is automatically applied by the regeneration script at:
-- `scripts/regenerate_client.sh` (lines 182-224)
+The fix is automatically applied by the regeneration script at the repo root:
+- `regenerate_python.py`
 
 When you regenerate the client in the future, this patch will be automatically applied.
 
@@ -145,8 +145,8 @@ When you regenerate the client in the future, this patch will be automatically a
 
 - Original issue: `/Users/efitz/Projects/tmi-tf/WORKAROUND-auth-settings.md`
 - Test script: `test_auth_settings_fix.py`
-- Regeneration script: `scripts/regenerate_client.sh`
-- Main regeneration report: `/Users/efitz/Projects/tmi-clients/REGENERATION_REPORT.md`
+- Regeneration script: `regenerate_python.py` (at repo root)
+- Main regeneration report: `REGENERATION_REPORT.md`
 
 ## Questions?
 

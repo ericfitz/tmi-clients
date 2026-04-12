@@ -2099,7 +2099,7 @@ class SurveyTriageApi:
     @validate_call
     def list_triage_survey_responses(
         self,
-        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status")] = None,
+        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).")] = None,
         survey_id: Annotated[Optional[UUID], Field(description="Filter by survey ID")] = None,
         is_confidential: Annotated[Optional[StrictBool], Field(description="Filter by secret_project flag")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
@@ -2126,7 +2126,7 @@ class SurveyTriageApi:
 
         Returns a paginated list of survey responses for security engineers to triage. Filter by status=submitted to see the triage queue.
 
-        :param status: Filter by response status
+        :param status: Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).
         :type status: str
         :param survey_id: Filter by survey ID
         :type survey_id: UUID
@@ -2207,7 +2207,7 @@ class SurveyTriageApi:
     @validate_call
     def list_triage_survey_responses_with_http_info(
         self,
-        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status")] = None,
+        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).")] = None,
         survey_id: Annotated[Optional[UUID], Field(description="Filter by survey ID")] = None,
         is_confidential: Annotated[Optional[StrictBool], Field(description="Filter by secret_project flag")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
@@ -2234,7 +2234,7 @@ class SurveyTriageApi:
 
         Returns a paginated list of survey responses for security engineers to triage. Filter by status=submitted to see the triage queue.
 
-        :param status: Filter by response status
+        :param status: Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).
         :type status: str
         :param survey_id: Filter by survey ID
         :type survey_id: UUID
@@ -2315,7 +2315,7 @@ class SurveyTriageApi:
     @validate_call
     def list_triage_survey_responses_without_preload_content(
         self,
-        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status")] = None,
+        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).")] = None,
         survey_id: Annotated[Optional[UUID], Field(description="Filter by survey ID")] = None,
         is_confidential: Annotated[Optional[StrictBool], Field(description="Filter by secret_project flag")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
@@ -2342,7 +2342,7 @@ class SurveyTriageApi:
 
         Returns a paginated list of survey responses for security engineers to triage. Filter by status=submitted to see the triage queue.
 
-        :param status: Filter by response status
+        :param status: Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).
         :type status: str
         :param survey_id: Filter by survey ID
         :type survey_id: UUID

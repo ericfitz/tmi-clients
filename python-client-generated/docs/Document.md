@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Creation timestamp (RFC3339) | [optional] [readonly] 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**access_status** | **str** | Access validation status for external content providers | [optional] [readonly] [default to 'unknown']
+**content_source** | **str** | Content provider that handles this documents URI (e.g., google_drive, http) | [optional] [readonly] 
 
 ## Example
 

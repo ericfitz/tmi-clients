@@ -25,6 +25,7 @@ Name | Type
 `cvss` | [Array&lt;CVSSScore&gt;](CVSSScore.md)
 `include_in_report` | boolean
 `timmy_enabled` | boolean
+`ssvc` | [SSVCScore](SSVCScore.md)
 `id` | string
 `threat_model_id` | string
 `created_at` | Date
@@ -56,6 +57,7 @@ const example = {
   "cvss": null,
   "include_in_report": null,
   "timmy_enabled": null,
+  "ssvc": null,
   "id": null,
   "threat_model_id": null,
   "created_at": null,

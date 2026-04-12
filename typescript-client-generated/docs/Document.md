@@ -17,6 +17,8 @@ Name | Type
 `created_at` | Date
 `modified_at` | Date
 `deleted_at` | Date
+`access_status` | string
+`content_source` | string
 
 ## Example
 
@@ -35,6 +37,8 @@ const example = {
   "created_at": null,
   "modified_at": null,
   "deleted_at": null,
+  "access_status": null,
+  "content_source": google_drive,
 } satisfies Document
 
 console.log(example)

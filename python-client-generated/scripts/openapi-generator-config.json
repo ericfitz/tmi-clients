@@ -1,7 +1,7 @@
 {
   "packageName": "tmi_client",
   "projectName": "tmi-client",
-  "packageVersion": "1.3.0",
+  "packageVersion": "1.4.0",
   "packageUrl": "https://github.com/threagile/tmi-clients",
   "sortParamsByRequiredFlag": true,
   "hideGenerationTimestamp": false,

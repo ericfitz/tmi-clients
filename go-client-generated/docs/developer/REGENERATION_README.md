@@ -5,11 +5,11 @@ This directory contains automated tools for regenerating the TMI Go client from 
 ## Quick Start
 
 ```bash
-cd go-client-generated
-./scripts/regenerate_client.sh
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_go.py
 ```
 
-That's it! The script automatically applies all modern Go configurations and dependency updates.
+That's it! The script automatically downloads the latest spec, runs swagger-codegen, applies patches, and verifies the build.
 
 ## Automatic Defaults
 
@@ -17,14 +17,14 @@ The regeneration process automatically applies these intelligent defaults:
 
 ### Package Configuration
 - **Package name**: `tmiclient`
-- **Module path**: `github.com/efitz/tmi-clients/go-client-generated`
+- **Module path**: `github.com/ericfitz/tmi-clients/go-client-generated`
 - **Package version**: `1.0.0`
 - **Enum class prefix**: `true` (for type safety)
 - **go.mod enabled**: `true` (modern module support)
 
 ### Go Version
-- **Minimum Go**: `1.21+`
-- **Recommended**: Go 1.21 or higher for LTS support
+- **Minimum Go**: `1.24+`
+- **Recommended**: Go 1.24 or higher for LTS support
 - **Reason**: Modern generics support, performance improvements, security fixes
 
 ### Dependency Versions (Modern & Secure)
@@ -33,7 +33,7 @@ All dependencies are automatically managed via go.mod:
 
 | Package | Version | Reason |
 |---------|---------|--------|
-| `golang.org/x/oauth2` | v0.32.0+ | Latest OAuth2 support, security fixes |
+| `golang.org/x/oauth2` | v0.35.0+ | Latest OAuth2 support, security fixes |
 | `github.com/antihax/optional` | v1.0.0 | Optional parameter support |
 
 ### Code Generation Settings
@@ -75,24 +75,25 @@ The script handles:
 
 ### Regeneration Script
 
-#### `scripts/regenerate_client.sh`
+#### `regenerate_go.py` (at repo root)
 **Purpose**: Fully automated regeneration with all updates.
 
 **What it does**:
-1. ✅ Validates prerequisites (swagger-codegen, Go 1.21+)
+1. ✅ Downloads latest OpenAPI spec from GitHub (or uses local file)
 2. ✅ Backs up custom files (go.mod, tests, docs)
 3. ✅ Cleans generated Go files
 4. ✅ Runs swagger-codegen with configuration
-5. ✅ Updates go.mod with correct module path and Go version
-6. ✅ Runs `go mod tidy` to update dependencies
-7. ✅ Verifies build with `go build ./...`
-8. ✅ Runs tests if they exist
-9. ✅ Runs integration tests if they exist
-10. ✅ Generates summary report
+5. ✅ Applies codegen bug-fix patches
+6. ✅ Updates go.mod with correct module path and Go version
+7. ✅ Runs `go mod tidy` to update dependencies
+8. ✅ Verifies build with `go build ./...`
+9. ✅ Runs tests if they exist
+10. ✅ Generates REGENERATION_REPORT.md
 
 **Exit codes**:
 - `0`: Success - build passed
-- `1`: Failure - build failed, check logs
+- `1`: Fatal error - codegen failed
+- `2`: Completed with issues
 
 ## Prerequisites
 
@@ -102,12 +103,12 @@ The script handles:
 # Install swagger-codegen
 brew install swagger-codegen
 
-# Install Go 1.21+
+# Install Go 1.24+
 brew install go
 
 # Verify installations
 swagger-codegen version  # Should be >= 3.0.75
-go version              # Should be >= 1.21.0
+go version              # Should be >= 1.24.0
 ```
 
 ### Required Files
@@ -120,8 +121,12 @@ go version              # Should be >= 1.21.0
 ### Basic Regeneration
 
 ```bash
-# From the go-client-generated directory
-./scripts/regenerate_client.sh
+# From the repo root
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_go.py
+
+# Or with a local spec file
+python3 regenerate_go.py path/to/tmi-openapi.json
 ```
 
 ### Verify Results
@@ -200,19 +205,9 @@ Edit `scripts/swagger-codegen-config.json`:
 }
 ```
 
-### Change Module Path
+### Change Module Path or Go Version
 
-Edit `scripts/regenerate_client.sh` around line 109:
-```bash
-sed -i.bak 's|module .*|module github.com/your-org/tmi-go-client|' "$CLIENT_DIR/go.mod"
-```
-
-### Change Go Minimum Version
-
-Edit `scripts/regenerate_client.sh` around line 112:
-```bash
-sed -i.bak 's|go [0-9.]*|go 1.22|' "$CLIENT_DIR/go.mod"
-```
+Edit `regenerate_go.py` at the repo root to adjust the module path or Go version settings.
 
 ### Add Custom Dependencies
 
@@ -237,9 +232,9 @@ Check that the spec exists:
 ls -lh /Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json
 ```
 
-If it's in a different location, edit `scripts/regenerate_client.sh` line 27:
+You can pass a local spec file directly:
 ```bash
-OPENAPI_SPEC="/path/to/your/tmi-openapi.json"
+python3 regenerate_go.py path/to/your/tmi-openapi.json
 ```
 
 ### "Go not found" or version too old
@@ -277,7 +272,7 @@ go build ./...
 If you get import errors, verify `go.mod` has correct module path:
 ```bash
 # Should be:
-module github.com/efitz/tmi-clients/go-client-generated
+module github.com/ericfitz/tmi-clients/go-client-generated
 ```
 
 ## CI/CD Integration
@@ -301,7 +296,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: '1.24'
 
       - name: Install swagger-codegen
         run: |
@@ -309,9 +304,7 @@ jobs:
           echo "alias swagger-codegen='java -jar swagger-codegen-cli.jar'" >> ~/.bashrc
 
       - name: Regenerate client
-        run: |
-          cd go-client-generated
-          ./scripts/regenerate_client.sh
+        run: python3 regenerate_go.py
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v5
@@ -325,7 +318,7 @@ jobs:
 
 ### 1.0.0 (2025-01-12)
 - Initial automated regeneration script
-- Go 1.21+ support
+- Go 1.24+ support
 - Modern dependency management
 - Webhook API support
 - Input schema support

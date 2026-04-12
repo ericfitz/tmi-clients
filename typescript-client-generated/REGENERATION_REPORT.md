@@ -1,19 +1,19 @@
 # TMI TypeScript Client Regeneration Report
 
-Generated: 2026-04-05 21:18:23
+Generated: 2026-04-11 21:10:20
 
 ## Configuration
 
 - Package: @tmiclient/client
-- Version: 1.3.0
+- Version: 1.4.0
 - Generator: openapi-generator 7.x (typescript-fetch)
 - Target: ES2022
 - HTTP Client: native fetch
 
 ## Files Generated
 
-- API classes: 28
-- Model classes: 221
+- API classes: 32
+- Model classes: 247
 
 ## Patches Applied
 

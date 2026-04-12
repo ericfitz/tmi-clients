@@ -56,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 These separate input schemas solve the critical issue where PUT/PATCH operations required readOnly fields (ID, CreatedAt, ModifiedAt), which should never be in request bodies.
 
 #### Regeneration Infrastructure
-- **Automated regeneration script**: `scripts/regenerate_client.sh`
+- **Automated regeneration script**: `regenerate_go.py` (at repo root)
   - One-command regeneration from OpenAPI spec
   - Automatic dependency updates via go mod tidy
   - Build verification
@@ -102,15 +102,15 @@ input := tmiclient.DfdDiagramInput{
 #### Dependency Updates
 
 **Runtime Dependencies**:
-- `golang.org/x/oauth2`: Updated to `v0.32.0`
+- `golang.org/x/oauth2`: Updated to `v0.35.0`
   - **Security**: Latest OAuth2 implementation with security fixes
   - **Features**: Improved token refresh, better error handling
 - `github.com/antihax/optional`: `v1.0.0`
   - **Stability**: Stable release for optional parameters
 
 #### Module Configuration
-- **Module path**: `github.com/efitz/tmi-clients/go-client-generated`
-- **Go version**: `1.21+` (LTS support, modern features)
+- **Module path**: `github.com/ericfitz/tmi-clients/go-client-generated`
+- **Go version**: `1.24+`
 - **Build system**: go.mod with automatic dependency management
 
 ### Fixed
@@ -193,7 +193,7 @@ See [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for detailed migration instructions
 
 ### Quick Migration Checklist
 
-- [ ] Update to Go 1.21+ (if not already)
+- [ ] Update to Go 1.24+ (if not already)
 - [ ] Run `go get -u && go mod tidy` to update dependencies
 - [ ] Replace `Diagram` with `DfdDiagramInput` in PUT/PATCH calls
 - [ ] Remove `Id`, `CreatedAt`, `ModifiedAt` from update requests
@@ -206,7 +206,7 @@ See [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for detailed migration instructions
 
 ```bash
 # Update module
-go get github.com/efitz/tmi-clients/go-client-generated@v1.0.0
+go get github.com/ericfitz/tmi-clients/go-client-generated@v1.0.0
 
 # Tidy dependencies
 go mod tidy
@@ -219,13 +219,13 @@ go test ./...
 ### Dependency Compatibility
 
 **Minimum versions**:
-- Go: 1.21.0+
-- golang.org/x/oauth2: v0.32.0+
+- Go: 1.24.0+
+- golang.org/x/oauth2: v0.35.0+
 - github.com/antihax/optional: v1.0.0
 
 **Tested with**:
-- Go: 1.21, 1.22, 1.23
-- oauth2: v0.32.0
+- Go: 1.24
+- oauth2: v0.35.0
 
 ## Known Issues
 
@@ -262,7 +262,7 @@ This is the first major release with automated regeneration support.
 To regenerate the client from the latest OpenAPI spec:
 ```bash
 cd go-client-generated
-./scripts/regenerate_client.sh
+python3 regenerate_go.py
 ```
 
 See [REGENERATION_README.md](REGENERATION_README.md) for details.
@@ -273,4 +273,4 @@ Apache-2.0
 
 ---
 
-[1.0.0]: https://github.com/efitz/tmi-clients/releases/tag/go-v1.0.0
+[1.0.0]: https://github.com/ericfitz/tmi-clients/releases/tag/go-v1.0.0

@@ -1,4 +1,4 @@
-# @tmiclient/client@1.0.0
+# @tmiclient/client@1.4.0
 
 A TypeScript SDK client for the api.tmi.dev API.
 
@@ -57,11 +57,8 @@ All URIs are relative to *https://api.tmi.dev*
 *AddonsApi* | [**createAddon**](docs/AddonsApi.md#createaddonoperation) | **POST** /addons | Create add-on
 *AddonsApi* | [**deleteAddon**](docs/AddonsApi.md#deleteaddon) | **DELETE** /addons/{id} | Delete add-on
 *AddonsApi* | [**getAddon**](docs/AddonsApi.md#getaddon) | **GET** /addons/{id} | Get add-on
-*AddonsApi* | [**getInvocation**](docs/AddonsApi.md#getinvocation) | **GET** /invocations/{id} | Get invocation
 *AddonsApi* | [**invokeAddon**](docs/AddonsApi.md#invokeaddonoperation) | **POST** /addons/{id}/invoke | Invoke add-on
 *AddonsApi* | [**listAddons**](docs/AddonsApi.md#listaddons) | **GET** /addons | List add-ons
-*AddonsApi* | [**listInvocations**](docs/AddonsApi.md#listinvocations) | **GET** /invocations | List invocations
-*AddonsApi* | [**updateInvocationStatus**](docs/AddonsApi.md#updateinvocationstatusoperation) | **POST** /invocations/{id}/status | Update invocation status
 *AdminUsersApi* | [**createAdminUserClientCredential**](docs/AdminUsersApi.md#createadminuserclientcredential) | **POST** /admin/users/{internal_uuid}/client_credentials | Create a client credential for an automation user
 *AdminUsersApi* | [**createAutomationAccount**](docs/AdminUsersApi.md#createautomationaccountoperation) | **POST** /admin/users/automation | Create an automation (service) account
 *AdminUsersApi* | [**deleteAdminUserClientCredential**](docs/AdminUsersApi.md#deleteadminuserclientcredential) | **DELETE** /admin/users/{internal_uuid}/client_credentials/{credential_id} | Delete a client credential for an automation user
@@ -87,7 +84,6 @@ All URIs are relative to *https://api.tmi.dev*
 *AdministrationApi* | [**listSystemSettings**](docs/AdministrationApi.md#listsystemsettings) | **GET** /admin/settings | List system settings
 *AdministrationApi* | [**listUserAPIQuotas**](docs/AdministrationApi.md#listuserapiquotas) | **GET** /admin/quotas/users | List all user API quotas
 *AdministrationApi* | [**listWebhookQuotas**](docs/AdministrationApi.md#listwebhookquotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
-*AdministrationApi* | [**migrateSystemSettings**](docs/AdministrationApi.md#migratesystemsettings) | **POST** /admin/settings/migrate | Migrate settings from configuration
 *AdministrationApi* | [**reencryptSystemSettings**](docs/AdministrationApi.md#reencryptsystemsettings) | **POST** /admin/settings/reencrypt | Re-encrypt all system settings
 *AdministrationApi* | [**removeGroupMember**](docs/AdministrationApi.md#removegroupmember) | **DELETE** /admin/groups/{internal_uuid}/members/{member_uuid} | Remove member from group
 *AdministrationApi* | [**transferAdminUserOwnership**](docs/AdministrationApi.md#transferadminuserownership) | **POST** /admin/users/{internal_uuid}/transfer | Transfer user ownership to another user
@@ -134,6 +130,10 @@ All URIs are relative to *https://api.tmi.dev*
 *CollaborationApi* | [**getDiagramCollaborationSession**](docs/CollaborationApi.md#getdiagramcollaborationsession) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Get diagram collaboration session
 *ConfigurationApi* | [**getClientConfig**](docs/ConfigurationApi.md#getclientconfig) | **GET** /config | Get client configuration
 *DocumentsApi* | [**patchThreatModelDocument**](docs/DocumentsApi.md#patchthreatmodeldocument) | **PATCH** /threat_models/{threat_model_id}/documents/{document_id} | Partially update document
+*DocumentsApi* | [**requestDocumentAccess**](docs/DocumentsApi.md#requestdocumentaccess) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/request_access | Request document access
+*EmbeddingAutomationApi* | [**deleteEmbeddings**](docs/EmbeddingAutomationApi.md#deleteembeddings) | **DELETE** /automation/embeddings/{threat_model_id} | Delete embeddings
+*EmbeddingAutomationApi* | [**getEmbeddingConfig**](docs/EmbeddingAutomationApi.md#getembeddingconfig) | **GET** /automation/embeddings/{threat_model_id}/config | Get embedding provider configuration
+*EmbeddingAutomationApi* | [**ingestEmbeddings**](docs/EmbeddingAutomationApi.md#ingestembeddings) | **POST** /automation/embeddings/{threat_model_id} | Ingest pre-computed embeddings
 *GeneralApi* | [**getApiInfo**](docs/GeneralApi.md#getapiinfo) | **GET** / | Get API information
 *NotesApi* | [**patchThreatModelNote**](docs/NotesApi.md#patchthreatmodelnote) | **PATCH** /threat_models/{threat_model_id}/notes/{note_id} | Partially update note
 *OAuthDiscoveryApi* | [**getOAuthProtectedResourceMetadata**](docs/OAuthDiscoveryApi.md#getoauthprotectedresourcemetadata) | **GET** /.well-known/oauth-protected-resource | OAuth 2.0 Protected Resource Metadata
@@ -145,14 +145,20 @@ All URIs are relative to *https://api.tmi.dev*
 *ProjectsApi* | [**bulkUpsertProjectMetadata**](docs/ProjectsApi.md#bulkupsertprojectmetadata) | **PATCH** /projects/{project_id}/metadata/bulk | Bulk upsert project metadata
 *ProjectsApi* | [**createProject**](docs/ProjectsApi.md#createproject) | **POST** /projects | Create a project
 *ProjectsApi* | [**createProjectMetadata**](docs/ProjectsApi.md#createprojectmetadata) | **POST** /projects/{project_id}/metadata | Create project metadata
+*ProjectsApi* | [**createProjectNote**](docs/ProjectsApi.md#createprojectnote) | **POST** /projects/{project_id}/notes | Create a new project note
 *ProjectsApi* | [**deleteProject**](docs/ProjectsApi.md#deleteproject) | **DELETE** /projects/{project_id} | Delete a project
 *ProjectsApi* | [**deleteProjectMetadata**](docs/ProjectsApi.md#deleteprojectmetadata) | **DELETE** /projects/{project_id}/metadata/{key} | Delete project metadata
+*ProjectsApi* | [**deleteProjectNote**](docs/ProjectsApi.md#deleteprojectnote) | **DELETE** /projects/{project_id}/notes/{project_note_id} | Delete a project note
 *ProjectsApi* | [**getProject**](docs/ProjectsApi.md#getproject) | **GET** /projects/{project_id} | Get a project
 *ProjectsApi* | [**getProjectMetadata**](docs/ProjectsApi.md#getprojectmetadata) | **GET** /projects/{project_id}/metadata | Get project metadata
+*ProjectsApi* | [**getProjectNote**](docs/ProjectsApi.md#getprojectnote) | **GET** /projects/{project_id}/notes/{project_note_id} | Get a specific project note
+*ProjectsApi* | [**listProjectNotes**](docs/ProjectsApi.md#listprojectnotes) | **GET** /projects/{project_id}/notes | List notes in a project
 *ProjectsApi* | [**listProjects**](docs/ProjectsApi.md#listprojects) | **GET** /projects | List projects
 *ProjectsApi* | [**patchProject**](docs/ProjectsApi.md#patchproject) | **PATCH** /projects/{project_id} | Patch a project
+*ProjectsApi* | [**patchProjectNote**](docs/ProjectsApi.md#patchprojectnote) | **PATCH** /projects/{project_id}/notes/{project_note_id} | Partially update a project note
 *ProjectsApi* | [**updateProject**](docs/ProjectsApi.md#updateproject) | **PUT** /projects/{project_id} | Update a project
 *ProjectsApi* | [**updateProjectMetadata**](docs/ProjectsApi.md#updateprojectmetadata) | **PUT** /projects/{project_id}/metadata/{key} | Update project metadata
+*ProjectsApi* | [**updateProjectNote**](docs/ProjectsApi.md#updateprojectnote) | **PUT** /projects/{project_id}/notes/{project_note_id} | Update a project note
 *RepositoriesApi* | [**patchThreatModelRepository**](docs/RepositoriesApi.md#patchthreatmodelrepository) | **PATCH** /threat_models/{threat_model_id}/repositories/{repository_id} | Partially update repository
 *SAMLApi* | [**listSAMLUsers**](docs/SAMLApi.md#listsamlusers) | **GET** /saml/providers/{idp}/users | List SAML users for UI autocomplete
 *SurveyAdministrationApi* | [**bulkCreateAdminSurveyMetadata**](docs/SurveyAdministrationApi.md#bulkcreateadminsurveymetadata) | **POST** /admin/surveys/{survey_id}/metadata/bulk | Bulk create metadata for a survey
@@ -201,14 +207,20 @@ All URIs are relative to *https://api.tmi.dev*
 *TeamsApi* | [**bulkUpsertTeamMetadata**](docs/TeamsApi.md#bulkupsertteammetadata) | **PATCH** /teams/{team_id}/metadata/bulk | Bulk upsert team metadata
 *TeamsApi* | [**createTeam**](docs/TeamsApi.md#createteam) | **POST** /teams | Create a team
 *TeamsApi* | [**createTeamMetadata**](docs/TeamsApi.md#createteammetadata) | **POST** /teams/{team_id}/metadata | Create team metadata
+*TeamsApi* | [**createTeamNote**](docs/TeamsApi.md#createteamnote) | **POST** /teams/{team_id}/notes | Create a new team note
 *TeamsApi* | [**deleteTeam**](docs/TeamsApi.md#deleteteam) | **DELETE** /teams/{team_id} | Delete a team
 *TeamsApi* | [**deleteTeamMetadata**](docs/TeamsApi.md#deleteteammetadata) | **DELETE** /teams/{team_id}/metadata/{key} | Delete team metadata
+*TeamsApi* | [**deleteTeamNote**](docs/TeamsApi.md#deleteteamnote) | **DELETE** /teams/{team_id}/notes/{team_note_id} | Delete a team note
 *TeamsApi* | [**getTeam**](docs/TeamsApi.md#getteam) | **GET** /teams/{team_id} | Get a team
 *TeamsApi* | [**getTeamMetadata**](docs/TeamsApi.md#getteammetadata) | **GET** /teams/{team_id}/metadata | Get team metadata
+*TeamsApi* | [**getTeamNote**](docs/TeamsApi.md#getteamnote) | **GET** /teams/{team_id}/notes/{team_note_id} | Get a specific team note
+*TeamsApi* | [**listTeamNotes**](docs/TeamsApi.md#listteamnotes) | **GET** /teams/{team_id}/notes | List notes in a team
 *TeamsApi* | [**listTeams**](docs/TeamsApi.md#listteams) | **GET** /teams | List teams
 *TeamsApi* | [**patchTeam**](docs/TeamsApi.md#patchteam) | **PATCH** /teams/{team_id} | Patch a team
+*TeamsApi* | [**patchTeamNote**](docs/TeamsApi.md#patchteamnote) | **PATCH** /teams/{team_id}/notes/{team_note_id} | Partially update a team note
 *TeamsApi* | [**updateTeam**](docs/TeamsApi.md#updateteam) | **PUT** /teams/{team_id} | Update a team
 *TeamsApi* | [**updateTeamMetadata**](docs/TeamsApi.md#updateteammetadata) | **PUT** /teams/{team_id}/metadata/{key} | Update team metadata
+*TeamsApi* | [**updateTeamNote**](docs/TeamsApi.md#updateteamnote) | **PUT** /teams/{team_id}/notes/{team_note_id} | Update a team note
 *ThreatModelSubResourcesApi* | [**bulkCreateDiagramMetadata**](docs/ThreatModelSubResourcesApi.md#bulkcreatediagrammetadata) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/bulk | Bulk create diagram metadata
 *ThreatModelSubResourcesApi* | [**bulkCreateDocumentMetadata**](docs/ThreatModelSubResourcesApi.md#bulkcreatedocumentmetadata) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/metadata/bulk | Bulk create document metadata
 *ThreatModelSubResourcesApi* | [**bulkCreateNoteMetadata**](docs/ThreatModelSubResourcesApi.md#bulkcreatenotemetadata) | **POST** /threat_models/{threat_model_id}/notes/{note_id}/metadata/bulk | Bulk create note metadata
@@ -321,6 +333,15 @@ All URIs are relative to *https://api.tmi.dev*
 *ThreatModelsApi* | [**updateThreatModel**](docs/ThreatModelsApi.md#updatethreatmodel) | **PUT** /threat_models/{threat_model_id} | Update a threat model
 *ThreatsApi* | [**bulkDeleteThreatModelThreats**](docs/ThreatsApi.md#bulkdeletethreatmodelthreats) | **DELETE** /threat_models/{threat_model_id}/threats/bulk | Bulk DELETE threats
 *ThreatsApi* | [**bulkPatchThreatModelThreats**](docs/ThreatsApi.md#bulkpatchthreatmodelthreats) | **PATCH** /threat_models/{threat_model_id}/threats/bulk | Bulk PATCH threats
+*TimmyAdministrationApi* | [**getTimmyStatus**](docs/TimmyAdministrationApi.md#gettimmystatus) | **GET** /admin/timmy/status | Get Timmy system status
+*TimmyAdministrationApi* | [**getTimmyUsage**](docs/TimmyAdministrationApi.md#gettimmyusage) | **GET** /admin/timmy/usage | Get Timmy usage statistics
+*TimmyChatApi* | [**createTimmyChatMessage**](docs/TimmyChatApi.md#createtimmychatmessage) | **POST** /threat_models/{threat_model_id}/chat/sessions/{session_id}/messages | Send a message to Timmy
+*TimmyChatApi* | [**createTimmyChatSession**](docs/TimmyChatApi.md#createtimmychatsession) | **POST** /threat_models/{threat_model_id}/chat/sessions | Create a new Timmy chat session
+*TimmyChatApi* | [**deleteTimmyChatSession**](docs/TimmyChatApi.md#deletetimmychatsession) | **DELETE** /threat_models/{threat_model_id}/chat/sessions/{session_id} | Delete a Timmy chat session
+*TimmyChatApi* | [**getTimmyChatSession**](docs/TimmyChatApi.md#gettimmychatsession) | **GET** /threat_models/{threat_model_id}/chat/sessions/{session_id} | Get a Timmy chat session
+*TimmyChatApi* | [**listTimmyChatMessages**](docs/TimmyChatApi.md#listtimmychatmessages) | **GET** /threat_models/{threat_model_id}/chat/sessions/{session_id}/messages | List messages in a Timmy chat session
+*TimmyChatApi* | [**listTimmyChatSessions**](docs/TimmyChatApi.md#listtimmychatsessions) | **GET** /threat_models/{threat_model_id}/chat/sessions | List Timmy chat sessions
+*TimmyChatApi* | [**refreshTimmySources**](docs/TimmyChatApi.md#refreshtimmysources) | **POST** /threat_models/{threat_model_id}/chat/sessions/{session_id}/refresh_sources | Refresh session sources
 *UserAccountApi* | [**createCurrentUserPreferences**](docs/UserAccountApi.md#createcurrentuserpreferences) | **POST** /me/preferences | Create user preferences
 *UserAccountApi* | [**getCurrentUserPreferences**](docs/UserAccountApi.md#getcurrentuserpreferences) | **GET** /me/preferences | Get user preferences
 *UserAccountApi* | [**updateCurrentUserPreferences**](docs/UserAccountApi.md#updatecurrentuserpreferences) | **PUT** /me/preferences | Update user preferences
@@ -328,13 +349,15 @@ All URIs are relative to *https://api.tmi.dev*
 *UsersApi* | [**logoutCurrentUser**](docs/UsersApi.md#logoutcurrentuser) | **POST** /me/logout | Logout current user
 *UsersApi* | [**transferCurrentUserOwnership**](docs/UsersApi.md#transfercurrentuserownership) | **POST** /me/transfer | Transfer ownership of all owned resources
 *WebSocketApi* | [**getWsTicket**](docs/WebSocketApi.md#getwsticket) | **GET** /ws/ticket | Get a WebSocket authentication ticket
-*WebhooksApi* | [**createWebhookSubscription**](docs/WebhooksApi.md#createwebhooksubscription) | **POST** /webhooks/subscriptions | Create webhook subscription
-*WebhooksApi* | [**deleteWebhookSubscription**](docs/WebhooksApi.md#deletewebhooksubscription) | **DELETE** /webhooks/subscriptions/{webhook_id} | Delete webhook subscription
-*WebhooksApi* | [**getWebhookDelivery**](docs/WebhooksApi.md#getwebhookdelivery) | **GET** /webhooks/deliveries/{delivery_id} | Get webhook delivery
-*WebhooksApi* | [**getWebhookSubscription**](docs/WebhooksApi.md#getwebhooksubscription) | **GET** /webhooks/subscriptions/{webhook_id} | Get webhook subscription
-*WebhooksApi* | [**listWebhookDeliveries**](docs/WebhooksApi.md#listwebhookdeliveries) | **GET** /webhooks/deliveries | List webhook deliveries
-*WebhooksApi* | [**listWebhookSubscriptions**](docs/WebhooksApi.md#listwebhooksubscriptions) | **GET** /webhooks/subscriptions | List webhook subscriptions
-*WebhooksApi* | [**testWebhookSubscription**](docs/WebhooksApi.md#testwebhooksubscription) | **POST** /webhooks/subscriptions/{webhook_id}/test | Test webhook subscription
+*WebhookDeliveriesApi* | [**getWebhookDeliveryStatus**](docs/WebhookDeliveriesApi.md#getwebhookdeliverystatus) | **GET** /webhook-deliveries/{delivery_id} | Get webhook delivery status
+*WebhookDeliveriesApi* | [**updateWebhookDeliveryStatus**](docs/WebhookDeliveriesApi.md#updatewebhookdeliverystatusoperation) | **POST** /webhook-deliveries/{delivery_id}/status | Update webhook delivery status
+*WebhooksApi* | [**createWebhookSubscription**](docs/WebhooksApi.md#createwebhooksubscription) | **POST** /admin/webhooks/subscriptions | Create webhook subscription
+*WebhooksApi* | [**deleteWebhookSubscription**](docs/WebhooksApi.md#deletewebhooksubscription) | **DELETE** /admin/webhooks/subscriptions/{webhook_id} | Delete webhook subscription
+*WebhooksApi* | [**getWebhookDelivery**](docs/WebhooksApi.md#getwebhookdelivery) | **GET** /admin/webhooks/deliveries/{delivery_id} | Get webhook delivery
+*WebhooksApi* | [**getWebhookSubscription**](docs/WebhooksApi.md#getwebhooksubscription) | **GET** /admin/webhooks/subscriptions/{webhook_id} | Get webhook subscription
+*WebhooksApi* | [**listWebhookDeliveries**](docs/WebhooksApi.md#listwebhookdeliveries) | **GET** /admin/webhooks/deliveries | List webhook deliveries
+*WebhooksApi* | [**listWebhookSubscriptions**](docs/WebhooksApi.md#listwebhooksubscriptions) | **GET** /admin/webhooks/subscriptions | List webhook subscriptions
+*WebhooksApi* | [**testWebhookSubscription**](docs/WebhooksApi.md#testwebhooksubscription) | **POST** /admin/webhooks/subscriptions/{webhook_id}/test | Test webhook subscription
 
 
 ### Models
@@ -388,6 +411,8 @@ All URIs are relative to *https://api.tmi.dev*
 - [CreateDiagramCollaborationSession409Response](docs/CreateDiagramCollaborationSession409Response.md)
 - [CreateDiagramRequest](docs/CreateDiagramRequest.md)
 - [CreateThreatModelFromSurveyResponse](docs/CreateThreatModelFromSurveyResponse.md)
+- [CreateTimmyMessageRequest](docs/CreateTimmyMessageRequest.md)
+- [CreateTimmySessionRequest](docs/CreateTimmySessionRequest.md)
 - [DeletionChallenge](docs/DeletionChallenge.md)
 - [DfdDiagram](docs/DfdDiagram.md)
 - [DfdDiagramAllOfCells](docs/DfdDiagramAllOfCells.md)
@@ -418,6 +443,12 @@ All URIs are relative to *https://api.tmi.dev*
 - [EdgeRouterOneOf](docs/EdgeRouterOneOf.md)
 - [EdgeRouterOneOfArgs](docs/EdgeRouterOneOfArgs.md)
 - [EdgeTerminal](docs/EdgeTerminal.md)
+- [EmbeddingConfig](docs/EmbeddingConfig.md)
+- [EmbeddingDeleteResponse](docs/EmbeddingDeleteResponse.md)
+- [EmbeddingIngestionItem](docs/EmbeddingIngestionItem.md)
+- [EmbeddingIngestionRequest](docs/EmbeddingIngestionRequest.md)
+- [EmbeddingIngestionResponse](docs/EmbeddingIngestionResponse.md)
+- [EmbeddingProviderConfig](docs/EmbeddingProviderConfig.md)
 - [ErrorDetails](docs/ErrorDetails.md)
 - [ExchangeOAuthCodeRequest](docs/ExchangeOAuthCodeRequest.md)
 - [ExtendedAsset](docs/ExtendedAsset.md)
@@ -436,7 +467,6 @@ All URIs are relative to *https://api.tmi.dev*
 - [GroupMemberListResponse](docs/GroupMemberListResponse.md)
 - [IntrospectToken200Response](docs/IntrospectToken200Response.md)
 - [IntrospectToken500Response](docs/IntrospectToken500Response.md)
-- [InvocationResponse](docs/InvocationResponse.md)
 - [InvokeAddonRequest](docs/InvokeAddonRequest.md)
 - [InvokeAddonResponse](docs/InvokeAddonResponse.md)
 - [JsonPatchDocumentInner](docs/JsonPatchDocumentInner.md)
@@ -447,22 +477,24 @@ All URIs are relative to *https://api.tmi.dev*
 - [ListClientCredentialsResponse](docs/ListClientCredentialsResponse.md)
 - [ListDiagramsResponse](docs/ListDiagramsResponse.md)
 - [ListDocumentsResponse](docs/ListDocumentsResponse.md)
-- [ListInvocationsResponse](docs/ListInvocationsResponse.md)
 - [ListNotesResponse](docs/ListNotesResponse.md)
+- [ListProjectNotesResponse](docs/ListProjectNotesResponse.md)
 - [ListProjectsResponse](docs/ListProjectsResponse.md)
 - [ListRepositoriesResponse](docs/ListRepositoriesResponse.md)
 - [ListSurveyResponsesResponse](docs/ListSurveyResponsesResponse.md)
 - [ListSurveysResponse](docs/ListSurveysResponse.md)
+- [ListTeamNotesResponse](docs/ListTeamNotesResponse.md)
 - [ListTeamsResponse](docs/ListTeamsResponse.md)
 - [ListThreatModelsResponse](docs/ListThreatModelsResponse.md)
 - [ListThreatsResponse](docs/ListThreatsResponse.md)
+- [ListTimmyMessagesResponse](docs/ListTimmyMessagesResponse.md)
+- [ListTimmySessionsResponse](docs/ListTimmySessionsResponse.md)
 - [ListTriageNotesResponse](docs/ListTriageNotesResponse.md)
 - [ListUserQuotasResponse](docs/ListUserQuotasResponse.md)
 - [ListWebhookDeliveriesResponse](docs/ListWebhookDeliveriesResponse.md)
 - [ListWebhookQuotasResponse](docs/ListWebhookQuotasResponse.md)
 - [ListWebhookSubscriptionsResponse](docs/ListWebhookSubscriptionsResponse.md)
 - [Metadata](docs/Metadata.md)
-- [MigrateSystemSettings200Response](docs/MigrateSystemSettings200Response.md)
 - [MinimalCell](docs/MinimalCell.md)
 - [MinimalDiagramModel](docs/MinimalDiagramModel.md)
 - [MinimalEdge](docs/MinimalEdge.md)
@@ -475,6 +507,8 @@ All URIs are relative to *https://api.tmi.dev*
 - [NodeAttrs](docs/NodeAttrs.md)
 - [NodeAttrsBody](docs/NodeAttrsBody.md)
 - [NodeAttrsText](docs/NodeAttrsText.md)
+- [NodeAttrsTextRefX](docs/NodeAttrsTextRefX.md)
+- [NodeAttrsTextRefY](docs/NodeAttrsTextRefY.md)
 - [Note](docs/Note.md)
 - [NoteBase](docs/NoteBase.md)
 - [NoteInput](docs/NoteInput.md)
@@ -490,9 +524,12 @@ All URIs are relative to *https://api.tmi.dev*
 - [Project](docs/Project.md)
 - [ProjectBase](docs/ProjectBase.md)
 - [ProjectListItem](docs/ProjectListItem.md)
+- [ProjectNote](docs/ProjectNote.md)
+- [ProjectNoteListItem](docs/ProjectNoteListItem.md)
 - [ProjectStatus](docs/ProjectStatus.md)
 - [ReencryptSystemSettings200Response](docs/ReencryptSystemSettings200Response.md)
 - [ReencryptSystemSettings200ResponseErrorsInner](docs/ReencryptSystemSettings200ResponseErrorsInner.md)
+- [RefreshTimmySources200Response](docs/RefreshTimmySources200Response.md)
 - [RelatedProject](docs/RelatedProject.md)
 - [RelatedTeam](docs/RelatedTeam.md)
 - [RelationshipType](docs/RelationshipType.md)
@@ -500,9 +537,12 @@ All URIs are relative to *https://api.tmi.dev*
 - [RepositoryBase](docs/RepositoryBase.md)
 - [RepositoryBaseParameters](docs/RepositoryBaseParameters.md)
 - [RepositoryInput](docs/RepositoryInput.md)
+- [RequestDocumentAccess200Response](docs/RequestDocumentAccess200Response.md)
 - [ResponsibleParty](docs/ResponsibleParty.md)
 - [RollbackResponse](docs/RollbackResponse.md)
 - [SAMLProviderInfo](docs/SAMLProviderInfo.md)
+- [SSVCScore](docs/SSVCScore.md)
+- [SkippedSource](docs/SkippedSource.md)
 - [Survey](docs/Survey.md)
 - [SurveyBase](docs/SurveyBase.md)
 - [SurveyInput](docs/SurveyInput.md)
@@ -521,6 +561,9 @@ All URIs are relative to *https://api.tmi.dev*
 - [TeamListItem](docs/TeamListItem.md)
 - [TeamMember](docs/TeamMember.md)
 - [TeamMemberRole](docs/TeamMemberRole.md)
+- [TeamNote](docs/TeamNote.md)
+- [TeamNoteListItem](docs/TeamNoteListItem.md)
+- [TeamProjectNoteBase](docs/TeamProjectNoteBase.md)
 - [TeamStatus](docs/TeamStatus.md)
 - [Threat](docs/Threat.md)
 - [ThreatBase](docs/ThreatBase.md)
@@ -529,6 +572,12 @@ All URIs are relative to *https://api.tmi.dev*
 - [ThreatModel](docs/ThreatModel.md)
 - [ThreatModelBase](docs/ThreatModelBase.md)
 - [ThreatModelInput](docs/ThreatModelInput.md)
+- [TimmyChatMessage](docs/TimmyChatMessage.md)
+- [TimmyChatSession](docs/TimmyChatSession.md)
+- [TimmyChatSessionSourceSnapshotInner](docs/TimmyChatSessionSourceSnapshotInner.md)
+- [TimmyStatusResponse](docs/TimmyStatusResponse.md)
+- [TimmyUsageRecord](docs/TimmyUsageRecord.md)
+- [TimmyUsageResponse](docs/TimmyUsageResponse.md)
 - [TokenRefreshRequest](docs/TokenRefreshRequest.md)
 - [TokenRevocationRequest](docs/TokenRevocationRequest.md)
 - [TransferOwnershipRequest](docs/TransferOwnershipRequest.md)
@@ -542,9 +591,9 @@ All URIs are relative to *https://api.tmi.dev*
 - [UpdateAdminGroupRequest](docs/UpdateAdminGroupRequest.md)
 - [UpdateAdminUserRequest](docs/UpdateAdminUserRequest.md)
 - [UpdateDiagramMetadataByKeyRequest](docs/UpdateDiagramMetadataByKeyRequest.md)
-- [UpdateInvocationStatusRequest](docs/UpdateInvocationStatusRequest.md)
-- [UpdateInvocationStatusResponse](docs/UpdateInvocationStatusResponse.md)
 - [UpdateThreatMetadataByKeyRequest](docs/UpdateThreatMetadataByKeyRequest.md)
+- [UpdateWebhookDeliveryStatusRequest](docs/UpdateWebhookDeliveryStatusRequest.md)
+- [UpdateWebhookDeliveryStatusResponse](docs/UpdateWebhookDeliveryStatusResponse.md)
 - [User](docs/User.md)
 - [UserAPIQuota](docs/UserAPIQuota.md)
 - [UserGroupMembership](docs/UserGroupMembership.md)
@@ -576,8 +625,8 @@ This TypeScript SDK client supports the [Fetch API](https://fetch.spec.whatwg.or
 and is automatically generated by the
 [OpenAPI Generator](https://openapi-generator.tech) project:
 
-- API version: `1.3.0`
-- Package version: `1.0.0`
+- API version: `1.4.0`
+- Package version: `1.4.0`
 - Generator version: `7.21.0`
 - Build package: `org.openapitools.codegen.languages.TypeScriptFetchClientCodegen`
 

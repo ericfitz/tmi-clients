@@ -59,7 +59,7 @@ with tmi_client.ApiClient(configuration) as api_client:
     idp = 'idp_example' # str | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified. (optional)
     client_callback = 'http://localhost:4200/oauth2/callback' # str | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
     state = 'random_state_abc123' # str | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
-    login_hint = 'alice' # str | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. (optional)
+    login_hint = 'alice' # str | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens. (optional)
 
     try:
         # Initiate OAuth authorization flow
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
  **idp** | **str**| OAuth provider identifier. Defaults to &#39;tmi&#39; provider in non-production builds if not specified. | [optional] 
  **client_callback** | **str**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [optional] 
  **state** | **str**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [optional] 
- **login_hint** | **str**| User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | [optional] 
+ **login_hint** | **str**| User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens. | [optional] 
 
 ### Return type
 

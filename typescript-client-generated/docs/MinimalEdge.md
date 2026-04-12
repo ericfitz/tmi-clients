@@ -12,8 +12,8 @@ Name | Type
 `source` | [EdgeTerminal](EdgeTerminal.md)
 `target` | [EdgeTerminal](EdgeTerminal.md)
 `labels` | Array&lt;string&gt;
-`dataAssetIds` | Array&lt;string&gt;
 `metadata` | { [key: string]: string; }
+`data_asset_ids` | Array&lt;string&gt;
 
 ## Example
 
@@ -27,8 +27,8 @@ const example = {
   "source": null,
   "target": null,
   "labels": null,
-  "dataAssetIds": null,
   "metadata": null,
+  "data_asset_ids": null,
 } satisfies MinimalEdge
 
 console.log(example)

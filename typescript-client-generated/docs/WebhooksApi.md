@@ -4,13 +4,13 @@ All URIs are relative to *https://api.tmi.dev*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createWebhookSubscription**](WebhooksApi.md#createwebhooksubscription) | **POST** /webhooks/subscriptions | Create webhook subscription |
-| [**deleteWebhookSubscription**](WebhooksApi.md#deletewebhooksubscription) | **DELETE** /webhooks/subscriptions/{webhook_id} | Delete webhook subscription |
-| [**getWebhookDelivery**](WebhooksApi.md#getwebhookdelivery) | **GET** /webhooks/deliveries/{delivery_id} | Get webhook delivery |
-| [**getWebhookSubscription**](WebhooksApi.md#getwebhooksubscription) | **GET** /webhooks/subscriptions/{webhook_id} | Get webhook subscription |
-| [**listWebhookDeliveries**](WebhooksApi.md#listwebhookdeliveries) | **GET** /webhooks/deliveries | List webhook deliveries |
-| [**listWebhookSubscriptions**](WebhooksApi.md#listwebhooksubscriptions) | **GET** /webhooks/subscriptions | List webhook subscriptions |
-| [**testWebhookSubscription**](WebhooksApi.md#testwebhooksubscription) | **POST** /webhooks/subscriptions/{webhook_id}/test | Test webhook subscription |
+| [**createWebhookSubscription**](WebhooksApi.md#createwebhooksubscription) | **POST** /admin/webhooks/subscriptions | Create webhook subscription |
+| [**deleteWebhookSubscription**](WebhooksApi.md#deletewebhooksubscription) | **DELETE** /admin/webhooks/subscriptions/{webhook_id} | Delete webhook subscription |
+| [**getWebhookDelivery**](WebhooksApi.md#getwebhookdelivery) | **GET** /admin/webhooks/deliveries/{delivery_id} | Get webhook delivery |
+| [**getWebhookSubscription**](WebhooksApi.md#getwebhooksubscription) | **GET** /admin/webhooks/subscriptions/{webhook_id} | Get webhook subscription |
+| [**listWebhookDeliveries**](WebhooksApi.md#listwebhookdeliveries) | **GET** /admin/webhooks/deliveries | List webhook deliveries |
+| [**listWebhookSubscriptions**](WebhooksApi.md#listwebhooksubscriptions) | **GET** /admin/webhooks/subscriptions | List webhook subscriptions |
+| [**testWebhookSubscription**](WebhooksApi.md#testwebhooksubscription) | **POST** /admin/webhooks/subscriptions/{webhook_id}/test | Test webhook subscription |
 
 
 

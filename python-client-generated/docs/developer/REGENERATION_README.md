@@ -5,10 +5,11 @@ This directory contains automated tools for regenerating the TMI Python client f
 ## Quick Start
 
 ```bash
-./regenerate_client.sh
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_python.py
 ```
 
-That's it! The script automatically applies all modern Python 3.x configurations and security updates.
+That's it! The script automatically downloads the latest spec, runs openapi-generator, applies patches, and runs tests.
 
 ## Automatic Defaults
 
@@ -67,61 +68,46 @@ The script automatically applies these bug fixes:
 
 ### Configuration Files
 
-#### `swagger-codegen-config.json`
-```json
-{
-  "packageName": "tmi_client",
-  "projectName": "tmi-client",
-  "packageVersion": "1.0.0",
-  "packageUrl": "https://github.com/threagile/tmi-clients",
-  "sortParamsByRequiredFlag": true,
-  "hideGenerationTimestamp": false,
-  "library": "urllib3",
-  "modelPropertyNaming": "snake_case"
-}
-```
+#### `scripts/openapi-generator-config.json`
 
-**Purpose**: Tells swagger-codegen how to generate the client with correct naming.
+**Purpose**: Tells openapi-generator how to generate the client with correct naming and settings.
 
 ### Regeneration Script
 
-#### `regenerate_client.sh`
+#### `regenerate_python.py` (at repo root)
 **Purpose**: Fully automated regeneration with all patches and updates.
 
 **What it does**:
-1. ✅ Validates prerequisites (swagger-codegen, uv)
-2. ✅ Backs up custom files (pyproject.toml, tests)
+1. ✅ Downloads latest OpenAPI spec from GitHub (or uses local file)
+2. ✅ Backs up custom files (docs/developer, tests)
 3. ✅ Cleans old client directory
-4. ✅ Runs swagger-codegen with configuration
-5. ✅ Applies constructor patches automatically
-6. ✅ Creates modern pyproject.toml
-7. ✅ Updates setup.py for Python 3.8+
-8. ✅ Updates all dependencies to secure versions
-9. ✅ Creates requirements.txt and test-requirements.txt
-10. ✅ Restores custom test files
-11. ✅ Runs all tests (239 auto-generated tests)
-12. ✅ Runs integration tests
-13. ✅ Generates summary report
+4. ✅ Runs openapi-generator with configuration
+5. ✅ Applies codegen bug-fix patches (UUID/datetime regex validator)
+6. ✅ Writes modern pyproject.toml
+7. ✅ Restores custom files
+8. ✅ Runs tests
+9. ✅ Generates REGENERATION_REPORT.md
 
 **Exit codes**:
 - `0`: Success - all tests passing
-- `1`: Failure - check logs
+- `1`: Fatal error - codegen failed
+- `2`: Completed with issues (test failures or patch warnings)
 
 ## Prerequisites
 
 ### Required Tools
 
 ```bash
-# Install swagger-codegen
-brew install swagger-codegen
+# Install openapi-generator
+brew install openapi-generator
 
 # Install uv (Python package manager)
 brew install uv
 
 # Verify installations
-swagger-codegen version  # Should be >= 3.0.75
+openapi-generator version  # Should be 7.x
 uv --version
-python3 --version        # Should be >= 3.8.0
+python3 --version          # Should be >= 3.9.0
 ```
 
 ### Required Files
@@ -134,22 +120,26 @@ python3 --version        # Should be >= 3.8.0
 ### Basic Regeneration
 
 ```bash
-# From the tmi-clients directory
-./regenerate_client.sh
+# From the tmi-clients repo root
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_python.py
+
+# Or with a local spec file
+python3 regenerate_python.py path/to/tmi-openapi.json
 ```
 
 ### Verify Results
 
 ```bash
 # Check the report
-cat REGENERATION_REPORT.md
+cat python-client-generated/REGENERATION_REPORT.md
 
 # Run tests manually
 cd python-client-generated
 uv run --with pytest python3 -m pytest test/ -v
 
 # Run integration tests
-uv run --with six --with certifi python3 test_diagram_fixes.py
+uv run test_diagram_fixes.py
 ```
 
 ### Output Files
@@ -201,54 +191,18 @@ All other files are regenerated from scratch.
 
 ### Change Package Version
 
-Edit `swagger-codegen-config.json`:
-```json
-{
-  "packageVersion": "1.1.0"  // Change here
-}
-```
-
-### Change Python Minimum Version
-
-Edit `regenerate_client.sh` line ~202 and pyproject.toml template:
-```bash
-# In script
-sed -i.bak 's/python_requires="[^"]*"/python_requires=">=3.9"/' ...
-
-# In pyproject.toml template (line ~127)
-requires-python = ">=3.9"
-```
-
-### Add Custom Dependencies
-
-Edit the pyproject.toml template in `regenerate_client.sh` (around line 127):
-```toml
-dependencies = [
-    "certifi >= 2024.2.2",
-    "six >= 1.16.0",
-    "your-custom-package >= 1.0.0",  # Add here
-]
-```
+The version is automatically extracted from the OpenAPI spec's `info.version` field during regeneration. To override, edit `scripts/openapi-generator-config.json`.
 
 ### Add Custom Patches
 
-Edit `regenerate_client.sh` around line 92 (after DfdDiagramInput patch):
-```bash
-# Add your custom patch
-CUSTOM_FILE="$CLIENT_DIR/tmi_client/models/your_model.py"
-if [ -f "$CUSTOM_FILE" ]; then
-    echo "  Patching YourModel..."
-    sed -i.bak 's/old_pattern/new_pattern/' "$CUSTOM_FILE"
-    rm -f "${CUSTOM_FILE}.bak"
-fi
-```
+Edit `regenerate_python.py` to add new patch functions. See existing `patch_regex_validators()` as an example.
 
 ## Troubleshooting
 
-### "swagger-codegen not found"
+### "openapi-generator not found"
 
 ```bash
-brew install swagger-codegen
+brew install openapi-generator
 ```
 
 ### "Failed to download OpenAPI spec"
@@ -258,7 +212,7 @@ Check that the URL is accessible:
 curl -fsSL https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json -o /dev/null
 ```
 
-If the URL has changed, edit `regenerate_client.sh` and update the `OPENAPI_SPEC_URL` variable.
+Or use a local spec file: `python3 regenerate_python.py path/to/tmi-openapi.json`
 
 ### "uv not found"
 
@@ -275,7 +229,7 @@ brew install uv
 
 ### Constructor Patches Not Applied
 
-Check the sed patterns in the script (lines 92-115). The patterns may need adjustment if swagger-codegen output format changes.
+Check the patch functions in `regenerate_python.py`. The regex patterns may need adjustment if openapi-generator output format changes.
 
 Verify patch was applied:
 ```bash
@@ -307,10 +261,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install swagger-codegen uv
+          brew install openapi-generator uv
 
       - name: Regenerate client
-        run: ./regenerate_client.sh
+        run: python3 regenerate_python.py
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v5

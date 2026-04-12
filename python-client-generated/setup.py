@@ -20,10 +20,10 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "tmi-client"
-VERSION = "1.3.0"
+VERSION = "1.4.0"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
-    "urllib3 >= 2.6.3, < 3.0.0",
+    "urllib3 (>=2.6.3, < 3.0.0)",
     "python-dateutil >= 2.8.2",
     "pydantic >= 2.11",
     "typing-extensions >= 4.7.1",
@@ -34,8 +34,8 @@ setup(
     version=VERSION,
     description="TMI (Threat Modeling Improved) API",
     author="TMI Development Team",
-    author_email="eric@tmi.dev",
-    url="https://github.com/ericfitz/tmi-clients",
+    author_email="api@tmi.local.dev",
+    url="https://github.com/threagile/tmi-clients",
     keywords=["OpenAPI", "OpenAPI-Generator", "TMI (Threat Modeling Improved) API"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),

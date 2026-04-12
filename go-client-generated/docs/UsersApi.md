@@ -1,31 +1,62 @@
-# {{classname}}
+# \UsersAPI
 
 All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUserAccount**](UsersApi.md#DeleteUserAccount) | **Delete** /me | Delete authenticated user account and all data
-[**LogoutCurrentUser**](UsersApi.md#LogoutCurrentUser) | **Post** /me/logout | Logout current user
-[**TransferCurrentUserOwnership**](UsersApi.md#TransferCurrentUserOwnership) | **Post** /me/transfer | Transfer ownership of all owned resources
+[**DeleteUserAccount**](UsersAPI.md#DeleteUserAccount) | **Delete** /me | Delete authenticated user account and all data
+[**LogoutCurrentUser**](UsersAPI.md#LogoutCurrentUser) | **Post** /me/logout | Logout current user
+[**TransferCurrentUserOwnership**](UsersAPI.md#TransferCurrentUserOwnership) | **Post** /me/transfer | Transfer ownership of all owned resources
 
-# **DeleteUserAccount**
-> DeletionChallenge DeleteUserAccount(ctx, optional)
+
+
+## DeleteUserAccount
+
+> DeletionChallenge DeleteUserAccount(ctx).Challenge(challenge).Execute()
+
 Delete authenticated user account and all data
 
-Two-step deletion process: 1. First call (no challenge parameter) - Returns challenge string 2. Second call (with challenge parameter) - Confirms deletion  Ownership behavior: - Shared threat models: Transfers ownership to another owner from authorization list - Unshared threat models: Deletes completely along with all child resources
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	challenge := "challenge_example" // string | Challenge string from first request (step 2 only). Must match exactly. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UsersAPI.DeleteUserAccount(context.Background()).Challenge(challenge).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.DeleteUserAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteUserAccount`: DeletionChallenge
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.DeleteUserAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserAccountRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***UsersApiDeleteUserAccountOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a UsersApiDeleteUserAccountOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **challenge** | **optional.String**| Challenge string from first request (step 2 only). Must match exactly. | 
+ **challenge** | **string** | Challenge string from first request (step 2 only). Must match exactly. | 
 
 ### Return type
 
@@ -37,19 +68,54 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **LogoutCurrentUser**
-> LogoutCurrentUser(ctx, )
+
+## LogoutCurrentUser
+
+> LogoutCurrentUser(ctx).Execute()
+
 Logout current user
 
-Revokes the authenticated user's current JWT token. This is a convenience endpoint that automatically revokes the token used to authenticate the request, without requiring the token to be passed in the request body. The token is immediately added to the blacklist and cannot be used for further requests.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UsersAPI.LogoutCurrentUser(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.LogoutCurrentUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLogoutCurrentUserRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -61,23 +127,61 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **TransferCurrentUserOwnership**
-> TransferOwnershipResult TransferCurrentUserOwnership(ctx, body)
+
+## TransferCurrentUserOwnership
+
+> TransferOwnershipResult TransferCurrentUserOwnership(ctx).TransferOwnershipRequest(transferOwnershipRequest).Execute()
+
 Transfer ownership of all owned resources
 
-Transfers ownership of all threat models and survey responses owned by the current user to the specified target user. The current user is downgraded to writer role on all transferred items.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	transferOwnershipRequest := *openapiclient.NewTransferOwnershipRequest("550e8400-e29b-41d4-a716-446655440000") // TransferOwnershipRequest | Ownership transfer request specifying the target user
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UsersAPI.TransferCurrentUserOwnership(context.Background()).TransferOwnershipRequest(transferOwnershipRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersAPI.TransferCurrentUserOwnership``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TransferCurrentUserOwnership`: TransferOwnershipResult
+	fmt.Fprintf(os.Stdout, "Response from `UsersAPI.TransferCurrentUserOwnership`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTransferCurrentUserOwnershipRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**TransferOwnershipRequest**](TransferOwnershipRequest.md)| Ownership transfer request specifying the target user | 
+ **transferOwnershipRequest** | [**TransferOwnershipRequest**](TransferOwnershipRequest.md) | Ownership transfer request specifying the target user | 
 
 ### Return type
 
@@ -89,8 +193,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

@@ -11,8 +11,8 @@ Name | Type
 `fontSize` | number
 `fill` | string
 `fontFamily` | string
-`refX` | number
-`refY` | number
+`refX` | [NodeAttrsTextRefX](NodeAttrsTextRefX.md)
+`refY` | [NodeAttrsTextRefY](NodeAttrsTextRefY.md)
 `refDx` | number
 `refDy` | number
 `textAnchor` | string

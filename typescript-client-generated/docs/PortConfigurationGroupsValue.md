@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `position` | string
+`attrs` | object
 
 ## Example
 
@@ -16,6 +17,7 @@ import type { PortConfigurationGroupsValue } from '@tmiclient/client'
 // TODO: Update the object below with actual values
 const example = {
   "position": null,
+  "attrs": null,
 } satisfies PortConfigurationGroupsValue
 
 console.log(example)

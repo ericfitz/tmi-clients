@@ -3887,7 +3887,7 @@ class SurveyIntakeApi:
     @validate_call
     def list_intake_survey_responses(
         self,
-        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status")] = None,
+        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).")] = None,
         survey_id: Annotated[Optional[UUID], Field(description="Filter by survey ID")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
         offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
@@ -3913,7 +3913,7 @@ class SurveyIntakeApi:
 
         Returns a paginated list of the current user's survey responses.
 
-        :param status: Filter by response status
+        :param status: Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).
         :type status: str
         :param survey_id: Filter by survey ID
         :type survey_id: UUID
@@ -3991,7 +3991,7 @@ class SurveyIntakeApi:
     @validate_call
     def list_intake_survey_responses_with_http_info(
         self,
-        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status")] = None,
+        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).")] = None,
         survey_id: Annotated[Optional[UUID], Field(description="Filter by survey ID")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
         offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
@@ -4017,7 +4017,7 @@ class SurveyIntakeApi:
 
         Returns a paginated list of the current user's survey responses.
 
-        :param status: Filter by response status
+        :param status: Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).
         :type status: str
         :param survey_id: Filter by survey ID
         :type survey_id: UUID
@@ -4095,7 +4095,7 @@ class SurveyIntakeApi:
     @validate_call
     def list_intake_survey_responses_without_preload_content(
         self,
-        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status")] = None,
+        status: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).")] = None,
         survey_id: Annotated[Optional[UUID], Field(description="Filter by survey ID")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
         offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
@@ -4121,7 +4121,7 @@ class SurveyIntakeApi:
 
         Returns a paginated list of the current user's survey responses.
 
-        :param status: Filter by response status
+        :param status: Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review).
         :type status: str
         :param survey_id: Filter by survey ID
         :type survey_id: UUID

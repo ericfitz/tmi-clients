@@ -24,6 +24,7 @@ from typing_extensions import Annotated
 from uuid import UUID
 from tmi_client.models.cvss_score import CVSSScore
 from tmi_client.models.metadata import Metadata
+from tmi_client.models.ssvc_score import SSVCScore
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -50,8 +51,9 @@ class ThreatBulkUpdateItem(BaseModel):
     cvss: Optional[Annotated[List[CVSSScore], Field(min_length=0, max_length=10)]] = Field(default=None, description="CVSS scoring information for this threat")
     include_in_report: Optional[StrictBool] = Field(default=True, description="Whether this item should be included in generated reports")
     timmy_enabled: Optional[StrictBool] = Field(default=True, description="Whether the Timmy AI assistant is enabled for this entity")
+    ssvc: Optional[SSVCScore] = Field(default=None, description="SSVC (Stakeholder-Specific Vulnerability Categorization) assessment result. Optional structured decision from CISA/CERT-CC SSVC framework.")
     id: UUID = Field(description="Unique identifier of the threat to update (required for bulk updates)")
-    __properties: ClassVar[List[str]] = ["name", "description", "mitigation", "diagram_id", "cell_id", "severity", "score", "priority", "mitigated", "status", "threat_type", "metadata", "issue_uri", "asset_id", "cwe_id", "cvss", "include_in_report", "timmy_enabled", "id"]
+    __properties: ClassVar[List[str]] = ["name", "description", "mitigation", "diagram_id", "cell_id", "severity", "score", "priority", "mitigated", "status", "threat_type", "metadata", "issue_uri", "asset_id", "cwe_id", "cvss", "include_in_report", "timmy_enabled", "ssvc", "id"]
 
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
@@ -221,6 +223,9 @@ class ThreatBulkUpdateItem(BaseModel):
                 if _item_cvss:
                     _items.append(_item_cvss.to_dict())
             _dict['cvss'] = _items
+        # override the default output from pydantic by calling `to_dict()` of ssvc
+        if self.ssvc:
+            _dict['ssvc'] = self.ssvc.to_dict()
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
@@ -271,6 +276,11 @@ class ThreatBulkUpdateItem(BaseModel):
         if self.asset_id is None and "asset_id" in self.model_fields_set:
             _dict['asset_id'] = None
 
+        # set to None if ssvc (nullable) is None
+        # and model_fields_set contains the field
+        if self.ssvc is None and "ssvc" in self.model_fields_set:
+            _dict['ssvc'] = None
+
         return _dict
 
     @classmethod
@@ -301,6 +311,7 @@ class ThreatBulkUpdateItem(BaseModel):
             "cvss": [CVSSScore.from_dict(_item) for _item in obj["cvss"]] if obj.get("cvss") is not None else None,
             "include_in_report": obj.get("include_in_report") if obj.get("include_in_report") is not None else True,
             "timmy_enabled": obj.get("timmy_enabled") if obj.get("timmy_enabled") is not None else True,
+            "ssvc": SSVCScore.from_dict(obj["ssvc"]) if obj.get("ssvc") is not None else None,
             "id": obj.get("id")
         })
         return _obj

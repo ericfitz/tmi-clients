@@ -10,13 +10,18 @@ Name | Type
 `id` | string
 `subscription_id` | string
 `event_type` | [WebhookEventType](WebhookEventType.md)
-`payload` | object
+`payload` | { [key: string]: any; }
 `status` | string
 `attempts` | number
 `next_retry_at` | Date
 `last_error` | string
 `created_at` | Date
 `delivered_at` | Date
+`status_percent` | number
+`status_message` | string
+`last_activity_at` | Date
+`addon_id` | string
+`invoked_by` | [User](User.md)
 
 ## Example
 
@@ -35,6 +40,11 @@ const example = {
   "last_error": null,
   "created_at": null,
   "delivered_at": null,
+  "status_percent": null,
+  "status_message": null,
+  "last_activity_at": null,
+  "addon_id": null,
+  "invoked_by": null,
 } satisfies WebhookDelivery
 
 console.log(example)

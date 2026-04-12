@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -29,10 +29,21 @@ class UpdateAdminUserRequest(BaseModel):
     """
     Request body for updating user metadata
     """ # noqa: E501
-    email: Optional[Annotated[str, Field(strict=True, max_length=320)]] = Field(default=None, description="Updated email address")
+    email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Updated email address")
     name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Updated display name")
     email_verified: Optional[StrictBool] = Field(default=None, description="Updated email verification status")
     __properties: ClassVar[List[str]] = ["email", "name", "email_verified"]
+
+    @field_validator('email')
+    def email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

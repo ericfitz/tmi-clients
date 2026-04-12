@@ -23,6 +23,7 @@ Name | Type
 `reviewed_by` | object
 `reviewed_at` | Date
 `metadata` | [Array&lt;Metadata&gt;](Metadata.md)
+`notes` | [Array&lt;ProjectNoteListItem&gt;](ProjectNoteListItem.md)
 
 ## Example
 
@@ -47,6 +48,7 @@ const example = {
   "reviewed_by": null,
   "reviewed_at": null,
   "metadata": null,
+  "notes": null,
 } satisfies Project
 
 console.log(example)

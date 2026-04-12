@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**get_timmy_chat_session**](TimmyChatApi.md#get_timmy_chat_session) | **GET** /threat_models/{threat_model_id}/chat/sessions/{session_id} | Get a Timmy chat session
 [**list_timmy_chat_messages**](TimmyChatApi.md#list_timmy_chat_messages) | **GET** /threat_models/{threat_model_id}/chat/sessions/{session_id}/messages | List messages in a Timmy chat session
 [**list_timmy_chat_sessions**](TimmyChatApi.md#list_timmy_chat_sessions) | **GET** /threat_models/{threat_model_id}/chat/sessions | List Timmy chat sessions
+[**refresh_timmy_sources**](TimmyChatApi.md#refresh_timmy_sources) | **POST** /threat_models/{threat_model_id}/chat/sessions/{session_id}/refresh_sources | Refresh session sources
 
 
 # **create_timmy_chat_message**
@@ -531,6 +532,91 @@ Name | Type | Description  | Notes
 **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **refresh_timmy_sources**
+> RefreshTimmySources200Response refresh_timmy_sources(threat_model_id, session_id)
+
+Refresh session sources
+
+Re-scans sources for an active Timmy session, picking up any documents whose access status has changed.
+
+### Example
+
+* Bearer (JWT) Authentication (bearerAuth):
+
+```python
+import tmi_client
+from tmi_client.models.refresh_timmy_sources200_response import RefreshTimmySources200Response
+from tmi_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.tmi.dev
+# See configuration.py for a list of all supported configuration parameters.
+configuration = tmi_client.Configuration(
+    host = "https://api.tmi.dev"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): bearerAuth
+configuration = tmi_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with tmi_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = tmi_client.TimmyChatApi(api_client)
+    threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
+    session_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Chat session identifier
+
+    try:
+        # Refresh session sources
+        api_response = api_instance.refresh_timmy_sources(threat_model_id, session_id)
+        print("The response of TimmyChatApi->refresh_timmy_sources:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TimmyChatApi->refresh_timmy_sources: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **threat_model_id** | **UUID**| Threat model identifier | 
+ **session_id** | **UUID**| Chat session identifier | 
+
+### Return type
+
+[**RefreshTimmySources200Response**](RefreshTimmySources200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Sources refreshed |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+**500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

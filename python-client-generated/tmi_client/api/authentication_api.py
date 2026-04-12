@@ -63,7 +63,7 @@ class AuthenticationApi:
         idp: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.")] = None,
         client_callback: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1000)]], Field(description="Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.")] = None,
         state: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="CSRF protection state parameter. Recommended for security. Will be included in the callback response.")] = None,
-        login_hint: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1000)]], Field(description="User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.")] = None,
+        login_hint: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -93,7 +93,7 @@ class AuthenticationApi:
         :type client_callback: str
         :param state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :type state: str
-        :param login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
+        :param login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.
         :type login_hint: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -158,7 +158,7 @@ class AuthenticationApi:
         idp: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.")] = None,
         client_callback: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1000)]], Field(description="Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.")] = None,
         state: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="CSRF protection state parameter. Recommended for security. Will be included in the callback response.")] = None,
-        login_hint: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1000)]], Field(description="User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.")] = None,
+        login_hint: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -188,7 +188,7 @@ class AuthenticationApi:
         :type client_callback: str
         :param state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :type state: str
-        :param login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
+        :param login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.
         :type login_hint: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -253,7 +253,7 @@ class AuthenticationApi:
         idp: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified.")] = None,
         client_callback: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1000)]], Field(description="Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging.")] = None,
         state: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="CSRF protection state parameter. Recommended for security. Will be included in the callback response.")] = None,
-        login_hint: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1000)]], Field(description="User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.")] = None,
+        login_hint: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -283,7 +283,7 @@ class AuthenticationApi:
         :type client_callback: str
         :param state: CSRF protection state parameter. Recommended for security. Will be included in the callback response.
         :type state: str
-        :param login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only.
+        :param login_hint: User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens.
         :type login_hint: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

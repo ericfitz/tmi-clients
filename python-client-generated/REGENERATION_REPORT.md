@@ -1,6 +1,6 @@
 # Python Client Regeneration Report
 
-Generated: 2026-04-05 19:13:01
+Generated: 2026-04-11 21:10:19
 
 ## Changes Applied
 
@@ -12,6 +12,8 @@ Generated: 2026-04-05 19:13:01
 
 ### Patches Applied
 - Regex validator fix (openapi-generator bug: regex validators on non-string fields like UUID and datetime fail because Pydantic parses the value before the validator runs)
+- Test return-type fix (openapi-generator bug: make_instance() stubs declare a model return type but body is commented out, causing type-checker errors)
+- urllib3 minimum version bump to >= 2.6.3 (CVE fixes for decompression-bomb and redirect vulnerabilities)
 
 ### Generated Configuration
 - pyproject.toml with Pydantic v2 dependencies
@@ -21,9 +23,9 @@ Generated: 2026-04-05 19:13:01
 
 ## Files Generated
 
-- API classes: 31
-- Model classes: 238
-- Test files: 268
+- API classes: 32
+- Model classes: 247
+- Test files: 278
 
 ## Test Results
 

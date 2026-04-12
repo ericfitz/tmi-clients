@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
@@ -34,7 +34,7 @@ class AdminUser(BaseModel):
     internal_uuid: UUID = Field(description="Internal system UUID for the user")
     provider: Annotated[str, Field(strict=True, max_length=256)] = Field(description="OAuth/SAML provider identifier")
     provider_user_id: Annotated[str, Field(strict=True, max_length=500)] = Field(description="Provider-assigned user identifier")
-    email: Annotated[str, Field(strict=True, max_length=320)] = Field(description="User email address")
+    email: Annotated[str, Field(strict=True, max_length=254)] = Field(description="User email address")
     name: Annotated[str, Field(strict=True, max_length=256)] = Field(description="User display name")
     email_verified: StrictBool = Field(description="Whether the email has been verified")
     created_at: datetime = Field(description="Account creation timestamp")
@@ -45,6 +45,14 @@ class AdminUser(BaseModel):
     active_threat_models: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Number of active threat models owned by user (enriched)")
     automation: Optional[StrictBool] = Field(default=None, description="Whether this is an automation/service account. Server-managed: set to true only when an automation account is created via the admin API. Nullable; null and false are equivalent.")
     __properties: ClassVar[List[str]] = ["internal_uuid", "provider", "provider_user_id", "email", "name", "email_verified", "created_at", "modified_at", "last_login", "is_admin", "groups", "active_threat_models", "automation"]
+
+    @field_validator('email')
+    def email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

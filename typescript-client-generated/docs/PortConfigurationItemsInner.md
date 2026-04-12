@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `id` | string
 `group` | string
+`attrs` | object
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { PortConfigurationItemsInner } from '@tmiclient/client'
 const example = {
   "id": null,
   "group": null,
+  "attrs": null,
 } satisfies PortConfigurationItemsInner
 
 console.log(example)

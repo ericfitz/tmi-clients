@@ -95,6 +95,12 @@ from tmi_client.models.edge_router import EdgeRouter
 from tmi_client.models.edge_router_one_of import EdgeRouterOneOf
 from tmi_client.models.edge_router_one_of_args import EdgeRouterOneOfArgs
 from tmi_client.models.edge_terminal import EdgeTerminal
+from tmi_client.models.embedding_config import EmbeddingConfig
+from tmi_client.models.embedding_delete_response import EmbeddingDeleteResponse
+from tmi_client.models.embedding_ingestion_item import EmbeddingIngestionItem
+from tmi_client.models.embedding_ingestion_request import EmbeddingIngestionRequest
+from tmi_client.models.embedding_ingestion_response import EmbeddingIngestionResponse
+from tmi_client.models.embedding_provider_config import EmbeddingProviderConfig
 from tmi_client.models.error import Error
 from tmi_client.models.error_details import ErrorDetails
 from tmi_client.models.exchange_o_auth_code_request import ExchangeOAuthCodeRequest
@@ -142,7 +148,6 @@ from tmi_client.models.list_webhook_deliveries_response import ListWebhookDelive
 from tmi_client.models.list_webhook_quotas_response import ListWebhookQuotasResponse
 from tmi_client.models.list_webhook_subscriptions_response import ListWebhookSubscriptionsResponse
 from tmi_client.models.metadata import Metadata
-from tmi_client.models.migrate_system_settings200_response import MigrateSystemSettings200Response
 from tmi_client.models.minimal_cell import MinimalCell
 from tmi_client.models.minimal_diagram_model import MinimalDiagramModel
 from tmi_client.models.minimal_edge import MinimalEdge
@@ -176,6 +181,7 @@ from tmi_client.models.project_note_list_item import ProjectNoteListItem
 from tmi_client.models.project_status import ProjectStatus
 from tmi_client.models.reencrypt_system_settings200_response import ReencryptSystemSettings200Response
 from tmi_client.models.reencrypt_system_settings200_response_errors_inner import ReencryptSystemSettings200ResponseErrorsInner
+from tmi_client.models.refresh_timmy_sources200_response import RefreshTimmySources200Response
 from tmi_client.models.related_project import RelatedProject
 from tmi_client.models.related_team import RelatedTeam
 from tmi_client.models.relationship_type import RelationshipType
@@ -183,9 +189,12 @@ from tmi_client.models.repository import Repository
 from tmi_client.models.repository_base import RepositoryBase
 from tmi_client.models.repository_base_parameters import RepositoryBaseParameters
 from tmi_client.models.repository_input import RepositoryInput
+from tmi_client.models.request_document_access200_response import RequestDocumentAccess200Response
 from tmi_client.models.responsible_party import ResponsibleParty
 from tmi_client.models.rollback_response import RollbackResponse
 from tmi_client.models.saml_provider_info import SAMLProviderInfo
+from tmi_client.models.ssvc_score import SSVCScore
+from tmi_client.models.skipped_source import SkippedSource
 from tmi_client.models.survey import Survey
 from tmi_client.models.survey_base import SurveyBase
 from tmi_client.models.survey_input import SurveyInput

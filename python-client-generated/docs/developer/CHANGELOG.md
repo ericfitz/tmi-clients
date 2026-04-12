@@ -174,6 +174,6 @@ For issues or questions:
 
 **Release Date**: 2025-11-12
 **OpenAPI Spec Version**: 1.0.0
-**Generator**: swagger-codegen 3.0.75
+**Generator**: openapi-generator 7.x
 **Python Version**: >= 3.8
 **Package Name**: tmi-client (formerly swagger-client)

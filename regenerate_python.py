@@ -108,7 +108,6 @@ def patch_urllib3_minimum_version(had_issues: bool) -> bool:
     chain).  This patch updates pyproject.toml, setup.py, and requirements.txt.
     """
     min_version = "2.6.3"
-    old_pattern = re.compile(r"urllib3\s*>=?\s*[\d.]+")
     files_patched = 0
 
     for rel_path in ["pyproject.toml", "setup.py", "requirements.txt"]:
@@ -116,11 +115,18 @@ def patch_urllib3_minimum_version(had_issues: bool) -> bool:
         if not filepath.is_file():
             continue
         content = filepath.read_text(encoding="utf-8")
-        new_content = old_pattern.sub(f"urllib3 >= {min_version}", content)
-        # pyproject.toml uses PEP 508 with parens
-        new_content = new_content.replace(
-            f'"urllib3 >= {min_version},',
-            f'"urllib3 (>={min_version},',
+        # Match urllib3 version specifier in all formats:
+        #   pyproject.toml / setup.py: "urllib3 (>=1.25.3,<3.0.0)"
+        #   requirements.txt:          urllib3 >= 1.25.3
+        # Replace the lower bound while preserving upper bound and format.
+        new_content = re.sub(
+            r'(urllib3\s*)\(?>=?\s*[\d.]+(,\s*<\s*[\d.]+)?\)?',
+            lambda m: (
+                f'{m.group(1)}(>={min_version}{m.group(2) or ""})'
+                if '(' in m.group(0) or rel_path != "requirements.txt"
+                else f'{m.group(1)}>= {min_version}'
+            ),
+            content,
         )
         if new_content != content:
             filepath.write_text(new_content, encoding="utf-8")

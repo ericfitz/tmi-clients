@@ -1,58 +1,90 @@
-# {{classname}}
+# \AuthenticationAPI
 
 All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AuthorizeOAuthProvider**](AuthenticationApi.md#AuthorizeOAuthProvider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
-[**CreateCurrentUserClientCredential**](AuthenticationApi.md#CreateCurrentUserClientCredential) | **Post** /me/client_credentials | Create client credential
-[**DeleteCurrentUserClientCredential**](AuthenticationApi.md#DeleteCurrentUserClientCredential) | **Delete** /me/client_credentials/{credential_id} | Delete client credential
-[**ExchangeOAuthCode**](AuthenticationApi.md#ExchangeOAuthCode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
-[**GetAuthProviders**](AuthenticationApi.md#GetAuthProviders) | **Get** /oauth2/providers | List available OAuth providers
-[**GetCurrentUser**](AuthenticationApi.md#GetCurrentUser) | **Get** /oauth2/userinfo | Get current user information
-[**GetCurrentUserProfile**](AuthenticationApi.md#GetCurrentUserProfile) | **Get** /me | Get current user profile
-[**GetProviderGroups**](AuthenticationApi.md#GetProviderGroups) | **Get** /oauth2/providers/{idp}/groups | Get groups for identity provider
-[**GetSAMLMetadata**](AuthenticationApi.md#GetSAMLMetadata) | **Get** /saml/{provider}/metadata | Get SAML service provider metadata
-[**GetSAMLProviders**](AuthenticationApi.md#GetSAMLProviders) | **Get** /saml/providers | List available SAML providers
-[**HandleOAuthCallback**](AuthenticationApi.md#HandleOAuthCallback) | **Get** /oauth2/callback | Handle OAuth callback
-[**InitiateSAMLLogin**](AuthenticationApi.md#InitiateSAMLLogin) | **Get** /saml/{provider}/login | Initiate SAML authentication
-[**IntrospectToken**](AuthenticationApi.md#IntrospectToken) | **Post** /oauth2/introspect | Token Introspection
-[**ListCurrentUserClientCredentials**](AuthenticationApi.md#ListCurrentUserClientCredentials) | **Get** /me/client_credentials | List client credentials
-[**ListMyGroupMembers**](AuthenticationApi.md#ListMyGroupMembers) | **Get** /me/groups/{internal_uuid}/members | List members of my group
-[**ListMyGroups**](AuthenticationApi.md#ListMyGroups) | **Get** /me/groups | List my groups
-[**ProcessSAMLLogout**](AuthenticationApi.md#ProcessSAMLLogout) | **Get** /saml/slo | SAML Single Logout
-[**ProcessSAMLLogoutPost**](AuthenticationApi.md#ProcessSAMLLogoutPost) | **Post** /saml/slo | SAML Single Logout (POST)
-[**ProcessSAMLResponse**](AuthenticationApi.md#ProcessSAMLResponse) | **Post** /saml/acs | SAML Assertion Consumer Service
-[**RefreshToken**](AuthenticationApi.md#RefreshToken) | **Post** /oauth2/refresh | Refresh JWT token
-[**RevokeToken**](AuthenticationApi.md#RevokeToken) | **Post** /oauth2/revoke | Revoke token
+[**AuthorizeOAuthProvider**](AuthenticationAPI.md#AuthorizeOAuthProvider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
+[**CreateCurrentUserClientCredential**](AuthenticationAPI.md#CreateCurrentUserClientCredential) | **Post** /me/client_credentials | Create client credential
+[**DeleteCurrentUserClientCredential**](AuthenticationAPI.md#DeleteCurrentUserClientCredential) | **Delete** /me/client_credentials/{credential_id} | Delete client credential
+[**ExchangeOAuthCode**](AuthenticationAPI.md#ExchangeOAuthCode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
+[**GetAuthProviders**](AuthenticationAPI.md#GetAuthProviders) | **Get** /oauth2/providers | List available OAuth providers
+[**GetCurrentUser**](AuthenticationAPI.md#GetCurrentUser) | **Get** /oauth2/userinfo | Get current user information
+[**GetCurrentUserProfile**](AuthenticationAPI.md#GetCurrentUserProfile) | **Get** /me | Get current user profile
+[**GetProviderGroups**](AuthenticationAPI.md#GetProviderGroups) | **Get** /oauth2/providers/{idp}/groups | Get groups for identity provider
+[**GetSAMLMetadata**](AuthenticationAPI.md#GetSAMLMetadata) | **Get** /saml/{provider}/metadata | Get SAML service provider metadata
+[**GetSAMLProviders**](AuthenticationAPI.md#GetSAMLProviders) | **Get** /saml/providers | List available SAML providers
+[**HandleOAuthCallback**](AuthenticationAPI.md#HandleOAuthCallback) | **Get** /oauth2/callback | Handle OAuth callback
+[**InitiateSAMLLogin**](AuthenticationAPI.md#InitiateSAMLLogin) | **Get** /saml/{provider}/login | Initiate SAML authentication
+[**IntrospectToken**](AuthenticationAPI.md#IntrospectToken) | **Post** /oauth2/introspect | Token Introspection
+[**ListCurrentUserClientCredentials**](AuthenticationAPI.md#ListCurrentUserClientCredentials) | **Get** /me/client_credentials | List client credentials
+[**ListMyGroupMembers**](AuthenticationAPI.md#ListMyGroupMembers) | **Get** /me/groups/{internal_uuid}/members | List members of my group
+[**ListMyGroups**](AuthenticationAPI.md#ListMyGroups) | **Get** /me/groups | List my groups
+[**ProcessSAMLLogout**](AuthenticationAPI.md#ProcessSAMLLogout) | **Get** /saml/slo | SAML Single Logout
+[**ProcessSAMLLogoutPost**](AuthenticationAPI.md#ProcessSAMLLogoutPost) | **Post** /saml/slo | SAML Single Logout (POST)
+[**ProcessSAMLResponse**](AuthenticationAPI.md#ProcessSAMLResponse) | **Post** /saml/acs | SAML Assertion Consumer Service
+[**RefreshToken**](AuthenticationAPI.md#RefreshToken) | **Post** /oauth2/refresh | Refresh JWT token
+[**RevokeToken**](AuthenticationAPI.md#RevokeToken) | **Post** /oauth2/revoke | Revoke token
 
-# **AuthorizeOAuthProvider**
-> AuthorizeOAuthProvider(ctx, scope, codeChallenge, codeChallengeMethod, optional)
+
+
+## AuthorizeOAuthProvider
+
+> AuthorizeOAuthProvider(ctx).Scope(scope).CodeChallenge(codeChallenge).CodeChallengeMethod(codeChallengeMethod).Idp(idp).ClientCallback(clientCallback).State(state).LoginHint(loginHint).Execute()
+
 Initiate OAuth authorization flow
 
-Redirects user to OAuth provider's authorization page. Supports client callback URL for seamless client integration. Generates state parameter for CSRF protection.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	scope := "openid profile email" // string | OAuth 2.0 scope parameter. For OpenID Connect, must include \"openid\". Supports \"profile\" and \"email\" scopes. Other scopes are silently ignored. Space-separated values.
+	codeChallenge := "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM" // string | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
+	codeChallengeMethod := "S256" // string | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
+	idp := "idp_example" // string | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified. (optional)
+	clientCallback := "http://localhost:4200/oauth2/callback" // string | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
+	state := "random_state_abc123" // string | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
+	loginHint := "alice" // string | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.AuthorizeOAuthProvider(context.Background()).Scope(scope).CodeChallenge(codeChallenge).CodeChallengeMethod(codeChallengeMethod).Idp(idp).ClientCallback(clientCallback).State(state).LoginHint(loginHint).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.AuthorizeOAuthProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAuthorizeOAuthProviderRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **scope** | **string**| OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values. | 
-  **codeChallenge** | **string**| PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
-  **codeChallengeMethod** | **string**| PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
- **optional** | ***AuthenticationApiAuthorizeOAuthProviderOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiAuthorizeOAuthProviderOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
- **idp** | **optional.String**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | 
- **clientCallback** | **optional.String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
- **state** | **optional.String**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
- **loginHint** | **optional.String**| User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Must be 3-20 characters, alphanumeric and hyphens only. | 
+ **scope** | **string** | OAuth 2.0 scope parameter. For OpenID Connect, must include \&quot;openid\&quot;. Supports \&quot;profile\&quot; and \&quot;email\&quot; scopes. Other scopes are silently ignored. Space-separated values. | 
+ **codeChallenge** | **string** | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
+ **codeChallengeMethod** | **string** | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
+ **idp** | **string** | OAuth provider identifier. Defaults to &#39;tmi&#39; provider in non-production builds if not specified. | 
+ **clientCallback** | **string** | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
+ **state** | **string** | CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
+ **loginHint** | **string** | User identity hint for TMI OAuth provider. Allows specifying a desired user identity for testing and automation. Only supported by the TMI provider (ignored by production providers like Google, GitHub, etc.). Valid characters: letters, digits, periods, underscores, percent signs, plus signs, and hyphens. | 
 
 ### Return type
 
@@ -64,23 +96,61 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **CreateCurrentUserClientCredential**
-> ClientCredentialResponse CreateCurrentUserClientCredential(ctx, body)
+
+## CreateCurrentUserClientCredential
+
+> ClientCredentialResponse CreateCurrentUserClientCredential(ctx).CreateCurrentUserClientCredentialRequest(createCurrentUserClientCredentialRequest).Execute()
+
 Create client credential
 
-Creates a new OAuth 2.0 client credential for machine-to-machine authentication. The client_secret is ONLY returned once at creation and cannot be retrieved later.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	createCurrentUserClientCredentialRequest := *openapiclient.NewCreateCurrentUserClientCredentialRequest("CI/CD Pipeline") // CreateCurrentUserClientCredentialRequest | Client credential creation request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.CreateCurrentUserClientCredential(context.Background()).CreateCurrentUserClientCredentialRequest(createCurrentUserClientCredentialRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.CreateCurrentUserClientCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateCurrentUserClientCredential`: ClientCredentialResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.CreateCurrentUserClientCredential`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateCurrentUserClientCredentialRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**MeClientCredentialsBody**](MeClientCredentialsBody.md)| Client credential creation request | 
+ **createCurrentUserClientCredentialRequest** | [**CreateCurrentUserClientCredentialRequest**](CreateCurrentUserClientCredentialRequest.md) | Client credential creation request | 
 
 ### Return type
 
@@ -92,23 +162,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteCurrentUserClientCredential**
-> DeleteCurrentUserClientCredential(ctx, credentialId)
+
+## DeleteCurrentUserClientCredential
+
+> DeleteCurrentUserClientCredential(ctx, credentialId).Execute()
+
 Delete client credential
 
-Permanently deletes a client credential. All tokens issued with this credential will immediately become invalid.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	credentialId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Internal UUID of the client credential (the \"id\" field from the list response, not the \"client_id\")
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.DeleteCurrentUserClientCredential(context.Background(), credentialId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.DeleteCurrentUserClientCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **credentialId** | [**string**](.md)| Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;) | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**credentialId** | **string** | Internal UUID of the client credential (the \&quot;id\&quot; field from the list response, not the \&quot;client_id\&quot;) | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteCurrentUserClientCredentialRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -120,47 +230,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ExchangeOAuthCode**
-> AuthTokenResponse ExchangeOAuthCode(ctx, body, grantType, code, clientId, clientSecret, refreshToken, redirectUri, codeVerifier, state, optional)
+
+## ExchangeOAuthCode
+
+> AuthTokenResponse ExchangeOAuthCode(ctx).ExchangeOAuthCodeRequest(exchangeOAuthCodeRequest).Idp(idp).Execute()
+
 Exchange OAuth credentials for JWT tokens
 
-Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supports three grant types: (1) authorization_code for OAuth provider flows (Google, GitHub, Microsoft), (2) client_credentials for machine-to-machine authentication (RFC 6749 Section 4.4), and (3) refresh_token for token renewal. Accepts both application/json and application/x-www-form-urlencoded content types.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	exchangeOAuthCodeRequest := *openapiclient.NewExchangeOAuthCodeRequest("authorization_code") // ExchangeOAuthCodeRequest | OAuth 2.0 token exchange request parameters
+	idp := "idp_example" // string | OAuth provider identifier. Defaults to 'tmi' provider in non-production builds if not specified. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ExchangeOAuthCode(context.Background()).ExchangeOAuthCodeRequest(exchangeOAuthCodeRequest).Idp(idp).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ExchangeOAuthCode``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExchangeOAuthCode`: AuthTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ExchangeOAuthCode`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiExchangeOAuthCodeRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **body** | [**Oauth2TokenBody**](Oauth2TokenBody.md)| OAuth 2.0 token exchange request parameters | 
-  **grantType** | **string**|  | 
-  **code** | **string**|  | 
-  **clientId** | **string**|  | 
-  **clientSecret** | **string**|  | 
-  **refreshToken** | **string**|  | 
-  **redirectUri** | **string**|  | 
-  **codeVerifier** | **string**|  | 
-  **state** | **string**|  | 
- **optional** | ***AuthenticationApiExchangeOAuthCodeOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiExchangeOAuthCodeOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-
-
-
-
-
- **idp** | **optional.**| OAuth provider identifier. Defaults to &#x27;tmi&#x27; provider in non-production builds if not specified. | 
+ **exchangeOAuthCodeRequest** | [**ExchangeOAuthCodeRequest**](ExchangeOAuthCodeRequest.md) | OAuth 2.0 token exchange request parameters | 
+ **idp** | **string** | OAuth provider identifier. Defaults to &#39;tmi&#39; provider in non-production builds if not specified. | 
 
 ### Return type
 
@@ -172,23 +298,60 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/x-www-form-urlencoded
- - **Accept**: application/json, text/plain
+- **Content-Type**: application/json, application/x-www-form-urlencoded
+- **Accept**: application/json, text/plain
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetAuthProviders**
-> InlineResponse2004 GetAuthProviders(ctx, )
+
+## GetAuthProviders
+
+> GetAuthProviders200Response GetAuthProviders(ctx).Execute()
+
 List available OAuth providers
 
-Returns a list of configured OAuth providers available for authentication
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetAuthProviders(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetAuthProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuthProviders`: GetAuthProviders200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetAuthProviders`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAuthProvidersRequest struct via the builder pattern
+
 
 ### Return type
 
-[**InlineResponse2004**](inline_response_200_4.md)
+[**GetAuthProviders200Response**](GetAuthProviders200Response.md)
 
 ### Authorization
 
@@ -196,23 +359,60 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetCurrentUser**
-> InlineResponse2006 GetCurrentUser(ctx, )
+
+## GetCurrentUser
+
+> GetCurrentUser200Response GetCurrentUser(ctx).Execute()
+
 Get current user information
 
-Returns information about the currently authenticated user
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetCurrentUser(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetCurrentUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCurrentUser`: GetCurrentUser200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetCurrentUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCurrentUserRequest struct via the builder pattern
+
 
 ### Return type
 
-[**InlineResponse2006**](inline_response_200_6.md)
+[**GetCurrentUser200Response**](GetCurrentUser200Response.md)
 
 ### Authorization
 
@@ -220,19 +420,56 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetCurrentUserProfile**
-> UserWithAdminStatus GetCurrentUserProfile(ctx, )
+
+## GetCurrentUserProfile
+
+> UserWithAdminStatus GetCurrentUserProfile(ctx).Execute()
+
 Get current user profile
 
-Returns detailed information about the currently authenticated user including groups and identity provider
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetCurrentUserProfile(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetCurrentUserProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCurrentUserProfile`: UserWithAdminStatus
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetCurrentUserProfile`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCurrentUserProfileRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -244,27 +481,69 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetProviderGroups**
-> InlineResponse2005 GetProviderGroups(ctx, idp)
+
+## GetProviderGroups
+
+> GetProviderGroups200Response GetProviderGroups(ctx, idp).Execute()
+
 Get groups for identity provider
 
-Returns groups available from a specific identity provider for autocomplete and discovery
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	idp := "idp_example" // string | Identity provider ID (e.g., saml_okta, saml_azure)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetProviderGroups(context.Background(), idp).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetProviderGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProviderGroups`: GetProviderGroups200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetProviderGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **idp** | **string**| Identity provider ID (e.g., saml_okta, saml_azure) | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**idp** | **string** | Identity provider ID (e.g., saml_okta, saml_azure) | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProviderGroupsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
-[**InlineResponse2005**](inline_response_200_5.md)
+[**GetProviderGroups200Response**](GetProviderGroups200Response.md)
 
 ### Authorization
 
@@ -272,23 +551,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetSAMLMetadata**
-> string GetSAMLMetadata(ctx, provider)
+
+## GetSAMLMetadata
+
+> string GetSAMLMetadata(ctx, provider).Execute()
+
 Get SAML service provider metadata
 
-Returns the SP metadata XML for SAML configuration
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	provider := "provider_example" // string | SAML provider identifier
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetSAMLMetadata(context.Background(), provider).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetSAMLMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSAMLMetadata`: string
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetSAMLMetadata`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **provider** | **string**| SAML provider identifier | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** | SAML provider identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSAMLMetadataRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -300,23 +621,60 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/samlmetadata+xml, application/json
+- **Content-Type**: Not defined
+- **Accept**: application/samlmetadata+xml, application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetSAMLProviders**
-> InlineResponse2009 GetSAMLProviders(ctx, )
+
+## GetSAMLProviders
+
+> GetSAMLProviders200Response GetSAMLProviders(ctx).Execute()
+
 List available SAML providers
 
-Returns a list of configured SAML providers available for authentication
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.GetSAMLProviders(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.GetSAMLProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSAMLProviders`: GetSAMLProviders200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.GetSAMLProviders`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSAMLProvidersRequest struct via the builder pattern
+
 
 ### Return type
 
-[**InlineResponse2009**](inline_response_200_9.md)
+[**GetSAMLProviders200Response**](GetSAMLProviders200Response.md)
 
 ### Authorization
 
@@ -324,31 +682,63 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **HandleOAuthCallback**
-> AuthTokenResponse HandleOAuthCallback(ctx, code, optional)
+
+## HandleOAuthCallback
+
+> AuthTokenResponse HandleOAuthCallback(ctx).Code(code).State(state).Execute()
+
 Handle OAuth callback
 
-Exchanges OAuth authorization code for JWT tokens. If client_callback was provided during authorization, redirects to client with tokens. Otherwise returns tokens as JSON response.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	code := "code_example" // string | Authorization code from the OAuth provider
+	state := "random_state_abc123" // string | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.HandleOAuthCallback(context.Background()).Code(code).State(state).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.HandleOAuthCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `HandleOAuthCallback`: AuthTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.HandleOAuthCallback`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiHandleOAuthCallbackRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **code** | **string**| Authorization code from the OAuth provider | 
- **optional** | ***AuthenticationApiHandleOAuthCallbackOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiHandleOAuthCallbackOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **state** | **optional.String**| CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
+ **code** | **string** | Authorization code from the OAuth provider | 
+ **state** | **string** | CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
 
 ### Return type
 
@@ -360,31 +750,65 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **InitiateSAMLLogin**
-> InitiateSAMLLogin(ctx, provider, optional)
+
+## InitiateSAMLLogin
+
+> InitiateSAMLLogin(ctx, provider).ClientCallback(clientCallback).Execute()
+
 Initiate SAML authentication
 
-Starts SAML authentication flow by redirecting to IdP
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	provider := "provider_example" // string | SAML provider identifier
+	clientCallback := "http://localhost:4200/oauth2/callback" // string | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.InitiateSAMLLogin(context.Background(), provider).ClientCallback(clientCallback).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.InitiateSAMLLogin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **provider** | **string**| SAML provider identifier | 
- **optional** | ***AuthenticationApiInitiateSAMLLoginOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**provider** | **string** | SAML provider identifier | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiInitiateSAMLLoginOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiInitiateSAMLLoginRequest struct via the builder pattern
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **clientCallback** | **optional.String**| Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
+ **clientCallback** | **string** | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
 
 ### Return type
 
@@ -396,28 +820,67 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **IntrospectToken**
-> InlineResponse2003 IntrospectToken(ctx, token, tokenTypeHint)
+
+## IntrospectToken
+
+> IntrospectToken200Response IntrospectToken(ctx).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+
 Token Introspection
 
-Introspects a JWT token to determine its validity and metadata as per RFC 7662
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	token := "token_example" // string | The JWT token to introspect
+	tokenTypeHint := "tokenTypeHint_example" // string | Optional hint about the type of token being introspected (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.IntrospectToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.IntrospectToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `IntrospectToken`: IntrospectToken200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.IntrospectToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiIntrospectTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **token** | **string**|  | 
-  **tokenTypeHint** | **string**|  | 
+ **token** | **string** | The JWT token to introspect | 
+ **tokenTypeHint** | **string** | Optional hint about the type of token being introspected | 
 
 ### Return type
 
-[**InlineResponse2003**](inline_response_200_3.md)
+[**IntrospectToken200Response**](IntrospectToken200Response.md)
 
 ### Authorization
 
@@ -425,30 +888,63 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ListCurrentUserClientCredentials**
-> ListClientCredentialsResponse ListCurrentUserClientCredentials(ctx, optional)
+
+## ListCurrentUserClientCredentials
+
+> ListClientCredentialsResponse ListCurrentUserClientCredentials(ctx).Limit(limit).Offset(offset).Execute()
+
 List client credentials
 
-Retrieves all client credentials owned by the authenticated user. Secrets are never returned.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	limit := int32(56) // int32 | Maximum number of results to return (optional) (default to 20)
+	offset := int32(56) // int32 | Number of results to skip (optional) (default to 0)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ListCurrentUserClientCredentials(context.Background()).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ListCurrentUserClientCredentials``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListCurrentUserClientCredentials`: ListClientCredentialsResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ListCurrentUserClientCredentials`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListCurrentUserClientCredentialsRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuthenticationApiListCurrentUserClientCredentialsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiListCurrentUserClientCredentialsOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| Maximum number of results to return | [default to 20]
- **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+ **limit** | **int32** | Maximum number of results to return | [default to 20]
+ **offset** | **int32** | Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -460,32 +956,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ListMyGroupMembers**
-> GroupMemberListResponse ListMyGroupMembers(ctx, internalUuid, optional)
+
+## ListMyGroupMembers
+
+> GroupMemberListResponse ListMyGroupMembers(ctx, internalUuid).Limit(limit).Offset(offset).Execute()
+
 List members of my group
 
-Returns a paginated list of members for a group that the authenticated user belongs to. Only effective members (direct or via nested group membership) can list a group's members. Admin audit fields (added_by, notes) are redacted from the response.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	internalUuid := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Internal system UUID of the user
+	limit := int32(56) // int32 | Maximum number of results to return (optional) (default to 50)
+	offset := int32(56) // int32 | Number of results to skip (optional) (default to 0)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ListMyGroupMembers(context.Background(), internalUuid).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ListMyGroupMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListMyGroupMembers`: GroupMemberListResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ListMyGroupMembers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **internalUuid** | [**string**](.md)| Internal system UUID of the user | 
- **optional** | ***AuthenticationApiListMyGroupMembersOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**internalUuid** | **string** | Internal system UUID of the user | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiListMyGroupMembersOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListMyGroupMembersRequest struct via the builder pattern
+
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **optional.Int32**| Maximum number of results to return | [default to 50]
- **offset** | **optional.Int32**| Number of results to skip | [default to 0]
+ **limit** | **int32** | Maximum number of results to return | [default to 50]
+ **offset** | **int32** | Number of results to skip | [default to 0]
 
 ### Return type
 
@@ -497,19 +1030,56 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ListMyGroups**
-> MyGroupListResponse ListMyGroups(ctx, )
+
+## ListMyGroups
+
+> MyGroupListResponse ListMyGroups(ctx).Execute()
+
 List my groups
 
-Returns the TMI-managed groups that the authenticated user belongs to. Returns direct memberships only (excludes the implicit everyone pseudo-group). Each group includes its internal_uuid which can be used to query group members via GET /me/groups/{internal_uuid}/members.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ListMyGroups(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ListMyGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListMyGroups`: MyGroupListResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ListMyGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListMyGroupsRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -521,27 +1091,65 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ProcessSAMLLogout**
-> InlineResponse2008 ProcessSAMLLogout(ctx, sAMLRequest)
+
+## ProcessSAMLLogout
+
+> ProcessSAMLLogout200Response ProcessSAMLLogout(ctx).SAMLRequest(sAMLRequest).Execute()
+
 SAML Single Logout
 
-Handles SAML logout requests from IdP
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	sAMLRequest := "sAMLRequest_example" // string | Base64-encoded SAML logout request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ProcessSAMLLogout(context.Background()).SAMLRequest(sAMLRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ProcessSAMLLogout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProcessSAMLLogout`: ProcessSAMLLogout200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ProcessSAMLLogout`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiProcessSAMLLogoutRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **sAMLRequest** | **string**| Base64-encoded SAML logout request | 
+ **sAMLRequest** | **string** | Base64-encoded SAML logout request | 
 
 ### Return type
 
-[**InlineResponse2008**](inline_response_200_8.md)
+[**ProcessSAMLLogout200Response**](ProcessSAMLLogout200Response.md)
 
 ### Authorization
 
@@ -549,33 +1157,65 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ProcessSAMLLogoutPost**
-> InlineResponse2008 ProcessSAMLLogoutPost(ctx, optional)
+
+## ProcessSAMLLogoutPost
+
+> ProcessSAMLLogout200Response ProcessSAMLLogoutPost(ctx).SAMLRequest(sAMLRequest).Execute()
+
 SAML Single Logout (POST)
 
-Handles SAML logout requests from IdP via POST
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	sAMLRequest := "sAMLRequest_example" // string | Base64-encoded SAML logout request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ProcessSAMLLogoutPost(context.Background()).SAMLRequest(sAMLRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ProcessSAMLLogoutPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProcessSAMLLogoutPost`: ProcessSAMLLogout200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ProcessSAMLLogoutPost`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiProcessSAMLLogoutPostRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuthenticationApiProcessSAMLLogoutPostOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiProcessSAMLLogoutPostOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sAMLRequest** | **optional.**|  | 
+ **sAMLRequest** | **string** | Base64-encoded SAML logout request | 
 
 ### Return type
 
-[**InlineResponse2008**](inline_response_200_8.md)
+[**ProcessSAMLLogout200Response**](ProcessSAMLLogout200Response.md)
 
 ### Authorization
 
@@ -583,30 +1223,63 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ProcessSAMLResponse**
-> AuthTokenResponse ProcessSAMLResponse(ctx, optional)
+
+## ProcessSAMLResponse
+
+> AuthTokenResponse ProcessSAMLResponse(ctx).SAMLResponse(sAMLResponse).RelayState(relayState).Execute()
+
 SAML Assertion Consumer Service
 
-Processes SAML responses from IdP after authentication
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	sAMLResponse := "sAMLResponse_example" // string | Base64-encoded SAML response
+	relayState := "relayState_example" // string | State parameter for CSRF protection (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.ProcessSAMLResponse(context.Background()).SAMLResponse(sAMLResponse).RelayState(relayState).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ProcessSAMLResponse``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProcessSAMLResponse`: AuthTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.ProcessSAMLResponse`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiProcessSAMLResponseRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuthenticationApiProcessSAMLResponseOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiProcessSAMLResponseOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **sAMLResponse** | **optional.**|  | 
- **relayState** | **optional.**|  | 
+ **sAMLResponse** | **string** | Base64-encoded SAML response | 
+ **relayState** | **string** | State parameter for CSRF protection | 
 
 ### Return type
 
@@ -618,29 +1291,61 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **RefreshToken**
-> AuthTokenResponse RefreshToken(ctx, optional)
+
+## RefreshToken
+
+> AuthTokenResponse RefreshToken(ctx).TokenRefreshRequest(tokenRefreshRequest).Execute()
+
 Refresh JWT token
 
-Exchanges a refresh token for a new JWT access token
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	tokenRefreshRequest := *openapiclient.NewTokenRefreshRequest("8xLOxBtZp8_example_refresh_token") // TokenRefreshRequest | OAuth 2.0 token refresh request parameters (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.RefreshToken(context.Background()).TokenRefreshRequest(tokenRefreshRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.RefreshToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RefreshToken`: AuthTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.RefreshToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRefreshTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuthenticationApiRefreshTokenOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuthenticationApiRefreshTokenOpts struct
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**optional.Interface of TokenRefreshRequest**](TokenRefreshRequest.md)| OAuth 2.0 token refresh request parameters | 
+ **tokenRefreshRequest** | [**TokenRefreshRequest**](TokenRefreshRequest.md) | OAuth 2.0 token refresh request parameters | 
 
 ### Return type
 
@@ -652,31 +1357,71 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **RevokeToken**
-> interface{} RevokeToken(ctx, token, tokenTypeHint, clientId, clientSecret, body)
+
+## RevokeToken
+
+> map[string]interface{} RevokeToken(ctx).Token(token).TokenTypeHint(tokenTypeHint).ClientId(clientId).ClientSecret(clientSecret).Execute()
+
 Revoke token
 
-Revokes an OAuth 2.0 token per RFC 7009. The token to revoke is passed in the request body. Supports both access tokens and refresh tokens. Authentication is required via Bearer token in the Authorization header OR client credentials (client_id/client_secret) in the request body. Per RFC 7009, the response is always 200 OK regardless of whether the token was valid, to prevent token existence disclosure.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	token := "token_example" // string | The token to be revoked (access token or refresh token)
+	tokenTypeHint := "tokenTypeHint_example" // string | A hint about the type of the token. If omitted, the server will attempt to determine the token type. (optional)
+	clientId := "clientId_example" // string | Client identifier for client credentials authentication (alternative to Bearer token) (optional)
+	clientSecret := "clientSecret_example" // string | Client secret (required if client_id is provided) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.RevokeToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).ClientId(clientId).ClientSecret(clientSecret).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.RevokeToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RevokeToken`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.RevokeToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRevokeTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **token** | **string**|  | 
-  **tokenTypeHint** | **string**|  | 
-  **clientId** | **string**|  | 
-  **clientSecret** | **string**|  | 
-  **body** | [**TokenRevocationRequest**](TokenRevocationRequest.md)| Token revocation request per RFC 7009 | 
+ **token** | **string** | The token to be revoked (access token or refresh token) | 
+ **tokenTypeHint** | **string** | A hint about the type of the token. If omitted, the server will attempt to determine the token type. | 
+ **clientId** | **string** | Client identifier for client credentials authentication (alternative to Bearer token) | 
+ **clientSecret** | **string** | Client secret (required if client_id is provided) | 
 
 ### Return type
 
-[**interface{}**](interface{}.md)
+**map[string]interface{}**
 
 ### Authorization
 
@@ -684,8 +1429,10 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/x-www-form-urlencoded, application/json
- - **Accept**: application/json, text/plain
+- **Content-Type**: application/x-www-form-urlencoded, application/json
+- **Accept**: application/json, text/plain
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

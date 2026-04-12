@@ -34,6 +34,13 @@ class TestDocumentsApi(unittest.TestCase):
         """
         pass
 
+    def test_request_document_access(self) -> None:
+        """Test case for request_document_access
+
+        Request document access
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

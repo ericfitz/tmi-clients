@@ -1,0 +1,12 @@
+{
+  "packageName": "tmiclient",
+  "packageVersion": "1.4.0",
+  "enumClassPrefix": true,
+  "withGoMod": true,
+  "isGoSubmodule": false,
+  "generateMarshalJSON": true,
+  "generateUnmarshalJSON": true,
+  "hideGenerationTimestamp": true,
+  "gitUserId": "ericfitz",
+  "gitRepoId": "tmi-clients/go-client-generated"
+}

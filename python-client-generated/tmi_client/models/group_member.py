@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,18 +34,40 @@ class GroupMember(BaseModel):
     id: UUID = Field(description="Unique identifier for the membership record")
     group_internal_uuid: UUID = Field(description="Internal UUID of the group")
     user_internal_uuid: Optional[UUID] = Field(default=None, description="Internal UUID of the user")
-    user_email: Optional[StrictStr] = Field(default=None, description="Email address of the user")
+    user_email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Email address of the user")
     user_name: Optional[StrictStr] = Field(default=None, description="Display name of the user")
     user_provider: Optional[StrictStr] = Field(default=None, description="OAuth/SAML provider for the user")
     user_provider_user_id: Optional[StrictStr] = Field(default=None, description="Provider-specific user identifier")
     added_by_internal_uuid: Optional[UUID] = Field(default=None, description="Internal UUID of the administrator who added this member")
-    added_by_email: Optional[StrictStr] = Field(default=None, description="Email of the administrator who added this member")
+    added_by_email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Email of the administrator who added this member")
     added_at: datetime = Field(description="Timestamp when the user was added to the group (RFC3339)")
     notes: Optional[StrictStr] = Field(default=None, description="Optional notes about this membership")
     subject_type: StrictStr = Field(description="Type of member: user (direct user membership) or group (group-in-group membership)")
     member_group_internal_uuid: Optional[UUID] = Field(default=None, description="Internal UUID of the member group (when subject_type is group)")
     member_group_name: Optional[StrictStr] = Field(default=None, description="Display name of the member group (when subject_type is group)")
     __properties: ClassVar[List[str]] = ["id", "group_internal_uuid", "user_internal_uuid", "user_email", "user_name", "user_provider", "user_provider_user_id", "added_by_internal_uuid", "added_by_email", "added_at", "notes", "subject_type", "member_group_internal_uuid", "member_group_name"]
+
+    @field_validator('user_email')
+    def user_email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+        return value
+
+    @field_validator('added_by_email')
+    def added_by_email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+        return value
 
     @field_validator('subject_type')
     def subject_type_validate_enum(cls, value):

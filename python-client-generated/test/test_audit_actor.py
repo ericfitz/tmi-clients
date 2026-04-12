@@ -36,14 +36,14 @@ class TestAuditActor(unittest.TestCase):
         model = AuditActor()
         if include_optional:
             return AuditActor(
-                email = '',
+                email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb',
                 provider = '',
                 provider_id = '',
                 display_name = ''
             )
         else:
             return AuditActor(
-                email = '',
+                email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb',
                 provider = '',
                 provider_id = '',
                 display_name = '',

@@ -237,11 +237,10 @@ edge.attrs["line"]["targetMarker"]["name"] = "classic"
    - API Info classes
 
 ### Phase 2: Regeneration
-1. Update `scripts/regenerate_client.sh` if needed
-2. Run regeneration with:
+1. Run regeneration with:
    ```bash
-   cd python-client-generated
-   ./scripts/regenerate_client.sh
+   cd /Users/efitz/Projects/tmi-clients
+   python3 regenerate_python.py
    ```
 3. Verify constructor patches applied correctly
 4. Review generated code for new APIs
@@ -309,5 +308,5 @@ edge.attrs["line"]["targetMarker"]["name"] = "classic"
 
 - OpenAPI Spec: `/Users/efitz/Projects/tmi/docs/reference/apis/tmi-openapi.json`
 - Analysis Report: `docs/developer/SPEC_ANALYSIS.md`
-- Current Regeneration Script: `scripts/regenerate_client.sh`
+- Regeneration Script: `regenerate_python.py` (at repo root)
 - Current Migration Guide: `docs/developer/MIGRATION_GUIDE.md`

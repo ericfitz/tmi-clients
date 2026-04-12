@@ -3,7 +3,7 @@
 # requires-python = ">=3.9"
 # dependencies = []
 # ///
-"""Regenerate the TMI Go client from the OpenAPI spec."""
+"""Regenerate the TMI Go client from the OpenAPI spec using openapi-generator."""
 from __future__ import annotations
 
 import shutil
@@ -11,18 +11,15 @@ import sys
 from pathlib import Path
 
 from regen_common import (
-    DEFAULT_SPEC_URL,
     backup_files,
     check_prerequisite,
     check_version,
     clean_paths,
     copy_local_spec,
-    count_files,
     download_spec,
     extract_spec_version,
     generate_report,
     parse_regen_args,
-    patch_file_exact,
     patch_file_regex,
     print_banner,
     print_step,
@@ -31,7 +28,7 @@ from regen_common import (
     print_warning,
     resolve_spec_url,
     restore_files,
-    run_codegen,
+    run_codegen_openapi_generator,
     run_command,
     update_json_version,
     write_file,
@@ -39,52 +36,124 @@ from regen_common import (
 
 REPO_ROOT = Path(__file__).resolve().parent
 CLIENT_DIR = REPO_ROOT / "go-client-generated"
-CONFIG_FILE = CLIENT_DIR / "scripts" / "swagger-codegen-config.json"
+CONFIG_FILE = CLIENT_DIR / "scripts" / "openapi-generator-config.json"
 SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
 BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
 
 GO_MODULE_PATH = "github.com/ericfitz/tmi-clients/go-client-generated"
 GO_VERSION = "1.21"
 
-FRESH_GO_MOD = f"""\
-module {GO_MODULE_PATH}
 
-go {GO_VERSION}
+# --- Patches ---
 
-require (
-\tgithub.com/antihax/optional v1.0.0
-\tgolang.org/x/oauth2 v0.32.0
-)
-"""
 
-REVOKE_TOKEN_OLD = """\t// body params
-\tlocalVarPostBody = &body"""
+def patch_missing_time_import(had_issues: bool) -> bool:
+    """Fix openapi-generator bug: missing 'time' import in Go files that use time.Time.
 
-REVOKE_TOKEN_NEW = """\t// form params
-\tlocalVarFormParams.Add("token", parameterToString(token, ""))
-\tlocalVarFormParams.Add("token_type_hint", parameterToString(tokenTypeHint, ""))
-\tif clientId != "" {
-\t\tlocalVarFormParams.Add("client_id", parameterToString(clientId, ""))
-\t}
-\tif clientSecret != "" {
-\t\tlocalVarFormParams.Add("client_secret", parameterToString(clientSecret, ""))
-\t}"""
+    Some generated constructors reference ``time.Time`` but the import block
+    only includes ``encoding/json``, ``bytes``, and ``fmt``.
+    """
+    import re
+
+    patched_count = 0
+    for go_file in sorted(CLIENT_DIR.glob("model_*.go")):
+        content = go_file.read_text(encoding="utf-8")
+        if "time.Time" not in content:
+            continue
+        if '"time"' in content:
+            continue
+        # Add "time" to the import block
+        new_content = re.sub(
+            r'(import \(\n)',
+            r'\1\t"time"\n',
+            content,
+        )
+        if new_content != content:
+            go_file.write_text(new_content, encoding="utf-8")
+            patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"Missing time import patch: {patched_count} files fixed")
+    else:
+        print_success("Missing time import patch: no files needed fixing")
+
+    return had_issues
+
+
+def patch_test_module_path(had_issues: bool) -> bool:
+    """Fix openapi-generator bug: test stubs import GIT_USER_ID/GIT_REPO_ID.
+
+    The Go generator hardcodes a placeholder module path in test files
+    regardless of gitUserId/gitRepoId config.  Replace it with the real
+    module path.
+    """
+    test_dir = CLIENT_DIR / "test"
+    if not test_dir.is_dir():
+        print_warning("Test directory not found — skipping test module path patch")
+        return had_issues
+
+    placeholder = "github.com/GIT_USER_ID/GIT_REPO_ID"
+    patched_count = 0
+
+    for test_file in sorted(test_dir.glob("*.go")):
+        content = test_file.read_text(encoding="utf-8")
+        if placeholder not in content:
+            continue
+        test_file.write_text(
+            content.replace(placeholder, GO_MODULE_PATH), encoding="utf-8"
+        )
+        patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"Test module path patch: {patched_count} files fixed")
+    else:
+        print_success("Test module path patch: no files needed fixing")
+
+    return had_issues
+
+
+def patch_json_literal_defaults(had_issues: bool) -> bool:
+    """Fix openapi-generator bug: JSON literal defaults in Go constructors.
+
+    openapi-generator emits default values like ``{"_metadata":[]}`` as Go code,
+    which is invalid syntax.  Replace these with empty struct initialization.
+    """
+    import re
+
+    pattern = re.compile(
+        r'var (\w+) (\w+) = \{[^}]*\}'
+    )
+    patched_count = 0
+
+    for go_file in sorted(CLIENT_DIR.glob("model_*.go")):
+        content = go_file.read_text(encoding="utf-8")
+        new_content, n = pattern.subn(r'var \1 \2', content)
+        if n > 0:
+            go_file.write_text(new_content, encoding="utf-8")
+            patched_count += n
+
+    if patched_count > 0:
+        print_success(f"JSON literal defaults patch: {patched_count} occurrences fixed")
+    else:
+        print_success("JSON literal defaults patch: no occurrences found")
+
+    return had_issues
 
 
 def main(spec_path: str | None = None, branch: str | None = None) -> int:
     had_issues = False
 
     # 1. Banner
-    print_banner("TMI Go Client Regeneration", {
+    print_banner("TMI Go Client Regeneration (openapi-generator)", {
         "Package": "tmiclient",
         "Module": GO_MODULE_PATH,
         "Go": f"{GO_VERSION}+",
-        "Dependencies": "Modern with security updates",
+        "Generator": "openapi-generator 7.x",
     })
 
     # 2. Prerequisites
     print_step(1, "Checking prerequisites")
-    check_prerequisite("swagger-codegen", "brew install swagger-codegen")
+    check_prerequisite("openapi-generator", "brew install openapi-generator")
     check_prerequisite("go", "brew install go")
     check_version("go", ["version"], GO_VERSION, r"go(\d+\.\d+)")
     print_success("All prerequisites met")
@@ -103,18 +172,13 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
 
     # 4. Backup
     print_step(3, "Backing up custom files")
-    # Glob test files and custom model files
     test_files = list(CLIENT_DIR.glob("*_test.go"))
-    custom_models = [
-        CLIENT_DIR / f for f in ("model_object.go", "model_cell_data.go", "model_model_map.go")
-    ]
     backup_files(
         files=[
             CLIENT_DIR / "go.mod",
             CLIENT_DIR / "go.sum",
-            CLIENT_DIR / ".swagger-codegen-ignore",
+            CLIENT_DIR / ".openapi-generator-ignore",
             *test_files,
-            *custom_models,
         ],
         dirs=[CLIENT_DIR / "docs" / "developer"],
         backup_dir=BACKUP_DIR,
@@ -123,7 +187,6 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
 
     # 5. Clean
     print_step(4, "Cleaning generated files")
-    # Clean glob patterns
     clean_list: list[Path] = []
     for pattern in ("model_*.go", "api_*.go"):
         clean_list.extend(CLIENT_DIR.glob(pattern))
@@ -137,15 +200,16 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
         CLIENT_DIR / "README.md",
         CLIENT_DIR / "git_push.sh",
         CLIENT_DIR / ".travis.yml",
+        CLIENT_DIR / ".openapi-generator",
     ])
     clean_paths(clean_list)
     print_success("Generated files cleaned")
 
     # 6. Run codegen
-    print_step(5, "Running swagger-codegen")
-    run_codegen(
+    print_step(5, "Running openapi-generator")
+    run_codegen_openapi_generator(
         spec_path=SPEC_PATH,
-        language="go",
+        generator="go",
         output_dir=CLIENT_DIR,
         config_file=CONFIG_FILE,
     )
@@ -153,29 +217,13 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     # --- Past this point, failures are exit code 2, not 1 ---
 
     # 7. Apply patches
-    print_step(6, "Applying codegen patches")
-    # RevokeToken: replace body params with form params (last occurrence)
-    auth_file = CLIENT_DIR / "api_authentication.go"
-    if auth_file.is_file():
-        content = auth_file.read_text()
-        idx = content.rfind(REVOKE_TOKEN_OLD)
-        if idx >= 0:
-            content = content[:idx] + REVOKE_TOKEN_NEW + content[idx + len(REVOKE_TOKEN_OLD):]
-            auth_file.write_text(content)
-            print_success("RevokeToken form params patch applied")
-        else:
-            print_warning(
-                "RevokeToken patch did not match.\n"
-                "  File: api_authentication.go\n"
-                "  The generated code structure may have changed.\n"
-                "  Look for the RevokeToken function and check its body params block."
-            )
-            had_issues = True
-    else:
-        print_warning("api_authentication.go not found — skipping RevokeToken patch")
-        had_issues = True
+    print_step(6, "Applying patches")
+    had_issues = patch_json_literal_defaults(had_issues)
+    had_issues = patch_missing_time_import(had_issues)
+    had_issues = patch_test_module_path(had_issues)
+    print_success("Patches applied")
 
-    # 8. Patch/create go.mod
+    # 8. Patch go.mod (openapi-generator may use different module path / Go version)
     print_step(7, "Updating go.mod")
     go_mod = CLIENT_DIR / "go.mod"
     if go_mod.is_file():
@@ -185,19 +233,20 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
                          "go.mod Go version")
     else:
         print_warning("go.mod not found after codegen — creating fresh one")
-        write_file(go_mod, FRESH_GO_MOD)
+        write_file(go_mod, (
+            f"module {GO_MODULE_PATH}\n\n"
+            f"go {GO_VERSION}\n"
+        ))
         print_success("Created go.mod")
 
-    # 9. Restore custom files (NOT go.mod/go.sum — those are for rollback reference only)
+    # 9. Restore custom files
     print_step(8, "Restoring custom files")
-    # Restore test files
     test_names = [f.name for f in test_files]
-    custom_model_names = [f.name for f in custom_models]
     restore_files(
         backup_dir=BACKUP_DIR,
         dest_dir=CLIENT_DIR,
-        files=[".swagger-codegen-ignore", *test_names, *custom_model_names],
-        dirs=["developer"],  # restores to CLIENT_DIR/developer — need to handle docs/developer
+        files=[".openapi-generator-ignore", *test_names],
+        dirs=["developer"],
     )
     # Fix developer docs path (backup stores as "developer/", need it at "docs/developer/")
     restored_dev = CLIENT_DIR / "developer"
@@ -278,6 +327,7 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
             f"- Module Path: {GO_MODULE_PATH}\n"
             f"- API Version: {spec_version}\n"
             f"- Go Version: {GO_VERSION}+\n"
+            f"- Generator: openapi-generator 7.x\n"
             f"- Config File: {CONFIG_FILE}"
         )},
         {"heading": "Files Generated", "content": (
@@ -303,8 +353,9 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     clean_paths([BACKUP_DIR])
     print_success("Cleanup complete")
 
-    # 14. Summary
+    # 13. Summary
     print_summary({
+        "Client": "regenerated with openapi-generator",
         "Build": "SUCCESS" if build_result.returncode == 0 else "FAILED",
         "Tests": "PASSED" if test_result.returncode == 0 else "FAILED",
         "Report": "REGENERATION_REPORT.md",

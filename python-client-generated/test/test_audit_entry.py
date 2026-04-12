@@ -43,7 +43,7 @@ class TestAuditEntry(unittest.TestCase):
                 version = 56,
                 change_type = 'created',
                 actor = tmi_client.models.audit_actor.AuditActor(
-                    email = '', 
+                    email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb', 
                     provider = '', 
                     provider_id = '', 
                     display_name = '', ),
@@ -58,7 +58,7 @@ class TestAuditEntry(unittest.TestCase):
                 object_id = '',
                 change_type = 'created',
                 actor = tmi_client.models.audit_actor.AuditActor(
-                    email = '', 
+                    email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb', 
                     provider = '', 
                     provider_id = '', 
                     display_name = '', ),

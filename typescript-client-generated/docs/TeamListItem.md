@@ -15,6 +15,7 @@ Name | Type
 `project_count` | number
 `created_at` | Date
 `modified_at` | Date
+`note_count` | number
 
 ## Example
 
@@ -31,6 +32,7 @@ const example = {
   "project_count": null,
   "created_at": null,
   "modified_at": null,
+  "note_count": null,
 } satisfies TeamListItem
 
 console.log(example)

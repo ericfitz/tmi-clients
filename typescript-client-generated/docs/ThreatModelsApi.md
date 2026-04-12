@@ -246,7 +246,7 @@ example().catch(console.error);
 
 ## listThreatModels
 
-> ListThreatModelsResponse listThreatModels(limit, offset, owner, name, description, issueUri, createdAfter, createdBefore, modifiedAfter, modifiedBefore, status, statusUpdatedAfter, statusUpdatedBefore, includeDeleted)
+> ListThreatModelsResponse listThreatModels(limit, offset, owner, name, description, issueUri, createdAfter, createdBefore, modifiedAfter, modifiedBefore, status, statusUpdatedAfter, statusUpdatedBefore, includeDeleted, securityReviewer)
 
 List threat models
 
@@ -298,6 +298,8 @@ async function example() {
     statusUpdatedBefore: 2013-10-20T19:20:30+01:00,
     // boolean | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. (optional)
     includeDeleted: true,
+    // string | Filter by security reviewer. Plain value performs case-insensitive partial match on reviewer email or display name. Use \'is:null\' to find unassigned threat models (no security reviewer), \'is:notnull\' to find assigned ones. (optional)
+    securityReviewer: securityReviewer_example,
   } satisfies ListThreatModelsRequest;
 
   try {
@@ -331,6 +333,7 @@ example().catch(console.error);
 | **statusUpdatedAfter** | `Date` | Filter threat models where status was updated after this timestamp (RFC3339) | [Optional] [Defaults to `undefined`] |
 | **statusUpdatedBefore** | `Date` | Filter threat models where status was updated before this timestamp (RFC3339) | [Optional] [Defaults to `undefined`] |
 | **includeDeleted** | `boolean` | Include soft-deleted (tombstoned) entities in the response. Requires owner or admin role. | [Optional] [Defaults to `false`] |
+| **securityReviewer** | `string` | Filter by security reviewer. Plain value performs case-insensitive partial match on reviewer email or display name. Use \&#39;is:null\&#39; to find unassigned threat models (no security reviewer), \&#39;is:notnull\&#39; to find assigned ones. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 

@@ -188,12 +188,11 @@ docs/developer/
 
 ### Scripts Directory
 
-- [../../scripts/](../../scripts/) - All regeneration scripts
-  - `analyze_spec_changes.py` - Analyze spec
-  - `backup_before_regen.sh` - Create backup
-  - `regenerate_client.sh` - Regenerate client
+- [../../scripts/](../../scripts/) - Analysis and validation scripts
+  - `analyze_spec_changes.py` - Analyze spec changes
   - `validate_regeneration.py` - Validate output
-  - `swagger-codegen-config.json` - Codegen config
+  - `openapi-generator-config.json` - Codegen config
+- [../../../../regenerate_python.py](../../../../regenerate_python.py) - Regeneration script (at repo root)
 
 ### Main Client Docs
 
@@ -227,7 +226,7 @@ docs/developer/
 1. Check [REGENERATION_PROCESS.md](REGENERATION_PROCESS.md) → Troubleshooting section
 2. Review [REGENERATION_REPORT.md](REGENERATION_REPORT.md)
 3. Check validation output from `validate_regeneration.py`
-4. Review logs from `regenerate_client.sh`
+4. Review logs from `regenerate_python.py`
 
 ### Workflow 5: Rollback After Regeneration
 
@@ -267,9 +266,8 @@ For questions or issues:
 Scripts are located in [../../scripts/](../../scripts/):
 
 - `analyze_spec_changes.py` - Generates [SPEC_ANALYSIS.md](SPEC_ANALYSIS.md)
-- `backup_before_regen.sh` - Creates timestamped backups
-- `regenerate_client.sh` - Generates [REGENERATION_REPORT.md](REGENERATION_REPORT.md)
 - `validate_regeneration.py` - Validates regeneration success
+- `regenerate_python.py` (at repo root) - Regenerates client and generates [REGENERATION_REPORT.md](REGENERATION_REPORT.md)
 
 ## OpenAPI Specification
 

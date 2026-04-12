@@ -13,10 +13,13 @@ All developer documentation is organized in [`docs/developer/`](docs/developer/)
 - **[REGENERATION_REPORT.md](docs/developer/REGENERATION_REPORT.md)** - Latest regeneration details
 
 ### Scripts
-Automation scripts are in [`scripts/`](scripts/):
+Analysis and validation scripts are in [`scripts/`](scripts/):
 
-- **[regenerate_client.sh](scripts/regenerate_client.sh)** - Regenerate client from OpenAPI spec
-- **[swagger-codegen-config.json](scripts/swagger-codegen-config.json)** - Code generator configuration
+- **[openapi-generator-config.json](scripts/openapi-generator-config.json)** - Code generator configuration
+- **[analyze_spec_changes.py](scripts/analyze_spec_changes.py)** - Analyze OpenAPI spec changes
+- **[validate_regeneration.py](scripts/validate_regeneration.py)** - Validate regeneration output
+
+Regeneration is done via [`regenerate_python.py`](../regenerate_python.py) at the repo root.
 
 ### Tests
 - **[test_diagram_fixes.py](test_diagram_fixes.py)** - Integration tests for critical fixes
@@ -34,7 +37,8 @@ uv run --with six --with certifi python3 test_diagram_fixes.py
 
 ### Regenerating the Client
 ```bash
-./scripts/regenerate_client.sh
+cd /Users/efitz/Projects/tmi-clients
+python3 regenerate_python.py
 ```
 
 See [REGENERATION_README.md](docs/developer/REGENERATION_README.md) for detailed instructions.
@@ -58,9 +62,10 @@ python-client-generated/
 │       ├── MIGRATION_GUIDE.md
 │       ├── REGENERATION_README.md
 │       └── REGENERATION_REPORT.md
-├── scripts/                # Automation scripts
-│   ├── regenerate_client.sh
-│   └── swagger-codegen-config.json
+├── scripts/                # Analysis, validation, and config
+│   ├── analyze_spec_changes.py
+│   ├── validate_regeneration.py
+│   └── openapi-generator-config.json
 ├── tmi_client/             # Main package
 │   ├── api/                # API classes
 │   └── models/             # Data models

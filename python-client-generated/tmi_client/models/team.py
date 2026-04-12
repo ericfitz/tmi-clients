@@ -43,7 +43,7 @@ class Team(BaseModel):
     responsible_parties: Optional[Annotated[List[ResponsibleParty], Field(max_length=100)]] = Field(default=None, description="Responsible parties for this team (in lieu of owner)")
     related_teams: Optional[Annotated[List[RelatedTeam], Field(max_length=100)]] = Field(default=None, description="Relationships to other teams")
     uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL or reference to internal team page")
-    email_address: Optional[Annotated[str, Field(strict=True, max_length=320)]] = Field(default=None, description="Team email address")
+    email_address: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Team email address")
     status: Optional[TeamStatus] = Field(default=None, description="Team lifecycle status. Defaults to 'active' if not provided or set to null.")
     id: Optional[UUID] = Field(default=None, description="Unique identifier for the team (UUID)")
     created_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created the team")
@@ -73,6 +73,17 @@ class Team(BaseModel):
 
         if not re.match(r"^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
+        return value
+
+    @field_validator('email_address')
+    def email_address_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
         return value
 
     @field_validator('id')

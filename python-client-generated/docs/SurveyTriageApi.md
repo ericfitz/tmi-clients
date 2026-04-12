@@ -652,7 +652,7 @@ configuration = tmi_client.Configuration(
 with tmi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = tmi_client.SurveyTriageApi(api_client)
-    status = 'status_example' # str | Filter by response status (optional)
+    status = 'status_example' # str | Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status=submitted,ready_for_review). (optional)
     survey_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Filter by survey ID (optional)
     is_confidential = True # bool | Filter by secret_project flag (optional)
     limit = 20 # int | Maximum number of results to return (optional) (default to 20)
@@ -679,7 +679,7 @@ with tmi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **status** | **str**| Filter by response status | [optional] 
+ **status** | **str**| Filter by response status. Supports comma-separated values for multi-status filtering (e.g., status&#x3D;submitted,ready_for_review). | [optional] 
  **survey_id** | **UUID**| Filter by survey ID | [optional] 
  **is_confidential** | **bool**| Filter by secret_project flag | [optional] 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 20]

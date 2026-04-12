@@ -33,7 +33,7 @@ class User(BaseModel):
     provider: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.")
     provider_id: Annotated[str, Field(min_length=1, strict=True, max_length=500)] = Field(description="Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.")
     display_name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="User full name for display")
-    email: Annotated[str, Field(strict=True, max_length=320)] = Field(description="User email address (required)")
+    email: Annotated[str, Field(strict=True, max_length=254)] = Field(description="User email address (required)")
     __properties: ClassVar[List[str]] = ["principal_type", "provider", "provider_id", "display_name", "email"]
 
     @field_validator('principal_type')
@@ -66,6 +66,14 @@ class User(BaseModel):
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
+        return value
+
+    @field_validator('email')
+    def email_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
         return value
 
     model_config = ConfigDict(

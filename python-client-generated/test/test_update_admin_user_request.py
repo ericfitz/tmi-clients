@@ -36,7 +36,7 @@ class TestUpdateAdminUserRequest(unittest.TestCase):
         model = UpdateAdminUserRequest()
         if include_optional:
             return UpdateAdminUserRequest(
-                email = '',
+                email = 'A@9LCSLv1C1ylmgd0.Y2TA5TkIRHRRA401iz1CiIy.dNTRddzXYdswQltRTtwKQzBuNJxBelKTmfIQcBkWgeAShmXXoTaDzlkczbtHjkljEhQVqeWYqqMQZlEQb',
                 name = '',
                 email_verified = True
             )

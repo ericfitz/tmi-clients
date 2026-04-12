@@ -671,6 +671,6 @@ For issues or questions:
 
 **Migration Date**: 2025-11-12
 **OpenAPI Spec Version**: 1.0.0
-**Client Generator**: swagger-codegen 3.0.75
+**Client Generator**: openapi-generator 7.x
 **Package Version**: 1.0.0
 **Python Version**: >= 3.8

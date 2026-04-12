@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
@@ -42,7 +42,9 @@ class Document(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Creation timestamp (RFC3339)")
     modified_at: Optional[datetime] = Field(default=None, description="Last modification timestamp (RFC3339)")
     deleted_at: Optional[datetime] = Field(default=None, description="Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.")
-    __properties: ClassVar[List[str]] = ["name", "description", "uri", "include_in_report", "timmy_enabled", "id", "metadata", "created_at", "modified_at", "deleted_at"]
+    access_status: Optional[StrictStr] = Field(default='unknown', description="Access validation status for external content providers")
+    content_source: Optional[StrictStr] = Field(default=None, description="Content provider that handles this documents URI (e.g., google_drive, http)")
+    __properties: ClassVar[List[str]] = ["name", "description", "uri", "include_in_report", "timmy_enabled", "id", "metadata", "created_at", "modified_at", "deleted_at", "access_status", "content_source"]
 
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
@@ -112,6 +114,16 @@ class Document(BaseModel):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value
 
+    @field_validator('access_status')
+    def access_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['accessible', 'pending_access', 'auth_required', 'unknown']):
+            raise ValueError("must be one of enum values ('accessible', 'pending_access', 'auth_required', 'unknown')")
+        return value
+
     model_config = ConfigDict(
         validate_by_name=True,
         validate_by_alias=True,
@@ -147,6 +159,8 @@ class Document(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -154,6 +168,8 @@ class Document(BaseModel):
             "created_at",
             "modified_at",
             "deleted_at",
+            "access_status",
+            "content_source",
         ])
 
         _dict = self.model_dump(
@@ -178,6 +194,11 @@ class Document(BaseModel):
         if self.deleted_at is None and "deleted_at" in self.model_fields_set:
             _dict['deleted_at'] = None
 
+        # set to None if content_source (nullable) is None
+        # and model_fields_set contains the field
+        if self.content_source is None and "content_source" in self.model_fields_set:
+            _dict['content_source'] = None
+
         return _dict
 
     @classmethod
@@ -199,7 +220,9 @@ class Document(BaseModel):
             "metadata": [Metadata.from_dict(_item) for _item in obj["metadata"]] if obj.get("metadata") is not None else None,
             "created_at": obj.get("created_at"),
             "modified_at": obj.get("modified_at"),
-            "deleted_at": obj.get("deleted_at")
+            "deleted_at": obj.get("deleted_at"),
+            "access_status": obj.get("access_status") if obj.get("access_status") is not None else 'unknown',
+            "content_source": obj.get("content_source")
         })
         return _obj
 
