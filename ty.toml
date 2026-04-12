@@ -1,5 +1,5 @@
 [src]
-exclude = ["python-client-generated/tmi_client/", "go-client-generated/", "javascript-client-generated/"]
+exclude = ["python-client-generated/v*/", "go-client-generated/v*/", "typescript-client-generated/v*/"]
 
 [rules]
 "unresolved-reference" = "ignore"
