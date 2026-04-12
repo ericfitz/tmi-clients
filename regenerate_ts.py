@@ -12,14 +12,12 @@ import sys
 from pathlib import Path
 
 from regen_common import (
-    DEFAULT_SPEC_URL,
     backup_files,
     check_prerequisite,
     check_version,
     clean_paths,
     copy_local_spec,
     count_files,
-    download_spec,
     extract_spec_version,
     generate_report,
     parse_regen_args,
@@ -28,7 +26,6 @@ from regen_common import (
     print_success,
     print_summary,
     print_warning,
-    resolve_spec_url,
     restore_files,
     run_codegen_openapi_generator,
     run_command,
@@ -37,10 +34,8 @@ from regen_common import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parent
-CLIENT_DIR = REPO_ROOT / "typescript-client-generated"
-CONFIG_FILE = CLIENT_DIR / "scripts" / "openapi-generator-config.json"
-SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
-BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
+LANG_DIR = REPO_ROOT / "typescript-client-generated"
+CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
 _VERSION_PLACEHOLDER = "0.0.0-dev"
 
@@ -108,7 +103,7 @@ TSCONFIG_ESM = """\
 # --- Patches ---
 
 
-def patch_optional_extends(had_issues: bool) -> bool:
+def patch_optional_extends(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: allOf child interfaces declare inherited
     required properties as optional, causing TS2430/TS2345 errors.
 
@@ -123,7 +118,7 @@ def patch_optional_extends(had_issues: bool) -> bool:
     - Edge extends Cell (property: shape)
     - Node extends Cell (property: shape)
     """
-    models_dir = CLIENT_DIR / "src" / "models"
+    models_dir = client_dir / "src" / "models"
     if not models_dir.is_dir():
         print_warning("Models directory not found — skipping optional-extends patch")
         return True
@@ -161,7 +156,7 @@ def patch_optional_extends(had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_missing_token_request(had_issues: bool) -> bool:
+def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: AuthenticationApi.ts imports TokenRequest
     but no TokenRequest model is generated.
 
@@ -170,7 +165,7 @@ def patch_missing_token_request(had_issues: bool) -> bool:
     application/x-www-form-urlencoded for the token endpoint, and
     openapi-generator generates a reference to a model it never creates.
     """
-    api_file = CLIENT_DIR / "src" / "apis" / "AuthenticationApi.ts"
+    api_file = client_dir / "src" / "apis" / "AuthenticationApi.ts"
     if not api_file.is_file():
         print_warning("AuthenticationApi.ts not found — skipping TokenRequest patch")
         return had_issues
@@ -205,10 +200,22 @@ def patch_missing_token_request(had_issues: bool) -> bool:
 # --- Main ---
 
 
-def main(spec_path: str | None = None, branch: str | None = None) -> int:
+def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = False
 
-    # 1. Banner
+    # 1. Extract version from spec and compute output directory
+    spec_version = extract_spec_version(Path(spec_path))
+
+    if output_dir:
+        client_dir = Path(output_dir)
+    else:
+        client_dir = LANG_DIR / f"v{spec_version}"
+
+    client_dir.mkdir(parents=True, exist_ok=True)
+    spec_dest = client_dir / "tmi-openapi.json"
+    backup_dir = client_dir / ".regeneration_backup"
+
+    # 2. Banner
     print_banner("TMI TypeScript Client Regeneration (openapi-generator)", {
         "Package": "@tmiclient/client",
         "Node.js": "18+",
@@ -217,87 +224,82 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
         "Target": "ES2022",
     })
 
-    # 2. Prerequisites
+    # 3. Prerequisites
     print_step(1, "Checking prerequisites")
     check_prerequisite("openapi-generator", "brew install openapi-generator")
     check_prerequisite("node", "brew install node")
     check_version("node", ["-v"], "18", r"v(\d+)")
     print_success("All prerequisites met")
 
-    # 3. Spec
+    # 4. Spec
     print_step(2, "Getting OpenAPI spec")
-    if spec_path:
-        copy_local_spec(Path(spec_path), SPEC_PATH)
-    else:
-        spec_url = resolve_spec_url(branch)
-        download_spec(spec_url, SPEC_PATH)
+    copy_local_spec(Path(spec_path), spec_dest)
 
-    # 3b. Extract version from spec and update codegen config
-    spec_version = extract_spec_version(SPEC_PATH)
+    # 4b. Extract version from spec and update codegen config
     update_json_version(CONFIG_FILE, "npmVersion", spec_version)
 
-    # 4. Backup
+    # 5. Backup
     print_step(3, "Backing up custom files")
     backup_files(
         files=[
-            CLIENT_DIR / ".openapi-generator-ignore",
+            client_dir / ".openapi-generator-ignore",
         ],
-        dirs=[CLIENT_DIR / "docs" / "developer"],
-        backup_dir=BACKUP_DIR,
+        dirs=[client_dir / "docs" / "developer"],
+        backup_dir=backup_dir,
     )
     print_success("Custom files backed up")
 
-    # 5. Clean
+    # 6. Clean
     print_step(4, "Cleaning generated files")
     clean_paths([
-        CLIENT_DIR / "src",
-        CLIENT_DIR / "dist",
-        CLIENT_DIR / "docs",
-        CLIENT_DIR / ".openapi-generator",
+        client_dir / "src",
+        client_dir / "dist",
+        client_dir / "docs",
+        client_dir / ".openapi-generator",
     ])
     clean_paths([
-        CLIENT_DIR / "README.md",
-        CLIENT_DIR / ".gitignore",
-        CLIENT_DIR / ".npmignore",
+        client_dir / "README.md",
+        client_dir / ".gitignore",
+        client_dir / ".npmignore",
     ])
     print_success("Generated files cleaned")
 
-    # 6. Run codegen
+    # 7. Run codegen
     print_step(5, "Running openapi-generator")
     run_codegen_openapi_generator(
-        spec_path=SPEC_PATH,
+        spec_path=spec_dest,
         generator="typescript-fetch",
-        output_dir=CLIENT_DIR,
+        output_dir=client_dir,
         config_file=CONFIG_FILE,
     )
 
     # --- Past this point, failures are exit code 2, not 1 ---
 
-    # 7. Apply patches
+    # 8. Apply patches
     print_step(6, "Applying patches")
-    had_issues = patch_optional_extends(had_issues)
-    had_issues = patch_missing_token_request(had_issues)
+    had_issues = patch_optional_extends(client_dir, had_issues)
+    had_issues = patch_missing_token_request(client_dir, had_issues)
     print_success("Patches applied")
 
-    # 8. Write config files (overwrite openapi-generator defaults)
+    # 9. Write config files (overwrite openapi-generator defaults)
     print_step(7, "Writing package.json and tsconfig.json")
-    write_file(CLIENT_DIR / "package.json",
+    write_file(client_dir / "package.json",
                PACKAGE_JSON.replace(_VERSION_PLACEHOLDER, spec_version))
-    write_file(CLIENT_DIR / "tsconfig.json", TSCONFIG)
-    write_file(CLIENT_DIR / "tsconfig.esm.json", TSCONFIG_ESM)
+    write_file(client_dir / "tsconfig.json", TSCONFIG)
+    write_file(client_dir / "tsconfig.esm.json", TSCONFIG_ESM)
     print_success(f"Config files written (version {spec_version})")
 
-    # 9. Restore custom files
+    # 10. Restore custom files
     print_step(8, "Restoring custom files")
     restore_files(
-        backup_dir=BACKUP_DIR,
-        dest_dir=CLIENT_DIR,
+        backup_dir=backup_dir,
+        dest_dir=client_dir,
         files=[".openapi-generator-ignore"],
         dirs=["developer"],
     )
-    # Fix developer docs path (restore puts it at CLIENT_DIR/developer/)
-    restored_dev = CLIENT_DIR / "developer"
-    target_dev = CLIENT_DIR / "docs" / "developer"
+    # Fix developer docs path (restore puts it at client_dir/developer/)
+    restored_dev = client_dir / "developer"
+    target_dev = client_dir / "docs" / "developer"
     if restored_dev.is_dir():
         target_dev.parent.mkdir(parents=True, exist_ok=True)
         if target_dev.exists():
@@ -305,11 +307,11 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
         restored_dev.rename(target_dev)
         print_success("  Moved developer/ to docs/developer/")
 
-    # 10. Install dependencies
+    # 11. Install dependencies
     print_step(9, "Installing dependencies")
     result = run_command(
         ["npm", "install", "--ignore-scripts"],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         error_context="npm install failed.\n  Check package.json for syntax errors.",
     )
     if result.returncode != 0:
@@ -318,15 +320,15 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     else:
         print_success("Dependencies installed")
 
-    # 11. Build (compile TypeScript)
+    # 12. Build (compile TypeScript)
     print_step(10, "Building TypeScript")
     build_result = run_command(
         ["npx", "tsc", "--noEmit"],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         capture=True,
         error_context="TypeScript compilation failed.",
     )
-    (CLIENT_DIR / "build_output.log").write_text(build_result.stdout + build_result.stderr)
+    (client_dir / "build_output.log").write_text(build_result.stdout + build_result.stderr)
     if build_result.returncode == 0:
         print_success("TypeScript compilation succeeded (no errors)")
     else:
@@ -337,7 +339,7 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     if build_result.returncode == 0:
         dist_result = run_command(
             ["npm", "run", "build"],
-            cwd=CLIENT_DIR,
+            cwd=client_dir,
             capture=True,
             error_context="npm run build failed.",
         )
@@ -345,17 +347,17 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
             print_success("Built dist/ successfully")
         else:
             print_warning("npm run build failed — see build_output.log")
-            (CLIENT_DIR / "build_output.log").write_text(
-                (CLIENT_DIR / "build_output.log").read_text()
+            (client_dir / "build_output.log").write_text(
+                (client_dir / "build_output.log").read_text()
                 + "\n--- npm run build ---\n"
                 + dist_result.stdout + dist_result.stderr
             )
             had_issues = True
 
-    # 12. Report
+    # 13. Report
     print_step(11, "Generating regeneration report")
-    api_count = count_files(CLIENT_DIR / "src" / "apis", "*.ts")
-    model_count = count_files(CLIENT_DIR / "src" / "models", "*.ts")
+    api_count = count_files(client_dir / "src" / "apis", "*.ts")
+    model_count = count_files(client_dir / "src" / "models", "*.ts")
 
     report = generate_report("TMI TypeScript Client Regeneration Report", [
         {"heading": "Configuration", "content": (
@@ -386,17 +388,18 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
             "3. Test against live API endpoints"
         )},
     ])
-    write_file(CLIENT_DIR / "REGENERATION_REPORT.md", report)
+    write_file(client_dir / "REGENERATION_REPORT.md", report)
     print_success("Regeneration report created: REGENERATION_REPORT.md")
 
-    # 13. Cleanup
+    # 14. Cleanup
     print_step(12, "Cleaning up")
-    clean_paths([BACKUP_DIR])
+    clean_paths([backup_dir])
     print_success("Cleanup complete")
 
-    # 14. Summary
+    # 15. Summary
     print_summary({
         "Client": "regenerated with openapi-generator (typescript-fetch)",
+        "Output": str(client_dir),
         "Target": "ES2022",
         "Build": "PASSED" if build_result.returncode == 0 else "FAILED",
         "Report": "REGENERATION_REPORT.md",
@@ -407,4 +410,4 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
 
 if __name__ == "__main__":
     args = parse_regen_args("Regenerate the TMI TypeScript client from the OpenAPI spec.")
-    sys.exit(main(spec_path=args.spec_path, branch=args.branch))
+    sys.exit(main(spec_path=args.spec, output_dir=args.output_dir))

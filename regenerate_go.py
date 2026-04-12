@@ -16,7 +16,6 @@ from regen_common import (
     check_version,
     clean_paths,
     copy_local_spec,
-    download_spec,
     extract_spec_version,
     generate_report,
     parse_regen_args,
@@ -26,7 +25,6 @@ from regen_common import (
     print_success,
     print_summary,
     print_warning,
-    resolve_spec_url,
     restore_files,
     run_codegen_openapi_generator,
     run_command,
@@ -35,19 +33,16 @@ from regen_common import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parent
-CLIENT_DIR = REPO_ROOT / "go-client-generated"
-CONFIG_FILE = CLIENT_DIR / "scripts" / "openapi-generator-config.json"
-SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
-BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
+LANG_DIR = REPO_ROOT / "go-client-generated"
+CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
-GO_MODULE_PATH = "github.com/ericfitz/tmi-clients/go-client-generated"
 GO_VERSION = "1.21"
 
 
 # --- Patches ---
 
 
-def patch_missing_time_import(had_issues: bool) -> bool:
+def patch_missing_time_import(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: missing 'time' import in Go files that use time.Time.
 
     Some generated constructors reference ``time.Time`` but the import block
@@ -56,7 +51,7 @@ def patch_missing_time_import(had_issues: bool) -> bool:
     import re
 
     patched_count = 0
-    for go_file in sorted(CLIENT_DIR.glob("model_*.go")):
+    for go_file in sorted(client_dir.glob("model_*.go")):
         content = go_file.read_text(encoding="utf-8")
         if "time.Time" not in content:
             continue
@@ -80,14 +75,14 @@ def patch_missing_time_import(had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_test_module_path(had_issues: bool) -> bool:
+def patch_test_module_path(client_dir: Path, go_module_path: str, had_issues: bool) -> bool:
     """Fix openapi-generator bug: test stubs import GIT_USER_ID/GIT_REPO_ID.
 
     The Go generator hardcodes a placeholder module path in test files
     regardless of gitUserId/gitRepoId config.  Replace it with the real
     module path.
     """
-    test_dir = CLIENT_DIR / "test"
+    test_dir = client_dir / "test"
     if not test_dir.is_dir():
         print_warning("Test directory not found — skipping test module path patch")
         return had_issues
@@ -100,7 +95,7 @@ def patch_test_module_path(had_issues: bool) -> bool:
         if placeholder not in content:
             continue
         test_file.write_text(
-            content.replace(placeholder, GO_MODULE_PATH), encoding="utf-8"
+            content.replace(placeholder, go_module_path), encoding="utf-8"
         )
         patched_count += 1
 
@@ -112,7 +107,7 @@ def patch_test_module_path(had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_json_literal_defaults(had_issues: bool) -> bool:
+def patch_json_literal_defaults(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: JSON literal defaults in Go constructors.
 
     openapi-generator emits default values like ``{"_metadata":[]}`` as Go code,
@@ -125,7 +120,7 @@ def patch_json_literal_defaults(had_issues: bool) -> bool:
     )
     patched_count = 0
 
-    for go_file in sorted(CLIENT_DIR.glob("model_*.go")):
+    for go_file in sorted(client_dir.glob("model_*.go")):
         content = go_file.read_text(encoding="utf-8")
         new_content, n = pattern.subn(r'var \1 \2', content)
         if n > 0:
@@ -140,117 +135,126 @@ def patch_json_literal_defaults(had_issues: bool) -> bool:
     return had_issues
 
 
-def main(spec_path: str | None = None, branch: str | None = None) -> int:
+def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = False
 
-    # 1. Banner
+    # 1. Extract version from spec and compute output directory
+    spec_version = extract_spec_version(Path(spec_path))
+
+    go_module_path = f"github.com/ericfitz/tmi-clients/go-client-generated/v{spec_version}"
+
+    if output_dir:
+        client_dir = Path(output_dir)
+    else:
+        client_dir = LANG_DIR / f"v{spec_version}"
+
+    client_dir.mkdir(parents=True, exist_ok=True)
+    spec_dest = client_dir / "tmi-openapi.json"
+    backup_dir = client_dir / ".regeneration_backup"
+
+    # 2. Banner
     print_banner("TMI Go Client Regeneration (openapi-generator)", {
         "Package": "tmiclient",
-        "Module": GO_MODULE_PATH,
+        "Module": go_module_path,
         "Go": f"{GO_VERSION}+",
         "Generator": "openapi-generator 7.x",
     })
 
-    # 2. Prerequisites
+    # 3. Prerequisites
     print_step(1, "Checking prerequisites")
     check_prerequisite("openapi-generator", "brew install openapi-generator")
     check_prerequisite("go", "brew install go")
     check_version("go", ["version"], GO_VERSION, r"go(\d+\.\d+)")
     print_success("All prerequisites met")
 
-    # 3. Spec
+    # 4. Spec
     print_step(2, "Getting OpenAPI spec")
-    if spec_path:
-        copy_local_spec(Path(spec_path), SPEC_PATH)
-    else:
-        spec_url = resolve_spec_url(branch)
-        download_spec(spec_url, SPEC_PATH)
+    copy_local_spec(Path(spec_path), spec_dest)
 
-    # 3b. Extract version from spec and update codegen config
-    spec_version = extract_spec_version(SPEC_PATH)
+    # 4b. Update codegen config with spec version
     update_json_version(CONFIG_FILE, "packageVersion", spec_version)
 
-    # 4. Backup
+    # 5. Backup
     print_step(3, "Backing up custom files")
-    test_files = list(CLIENT_DIR.glob("*_test.go"))
+    test_files = list(client_dir.glob("*_test.go"))
     backup_files(
         files=[
-            CLIENT_DIR / "go.mod",
-            CLIENT_DIR / "go.sum",
-            CLIENT_DIR / ".openapi-generator-ignore",
+            client_dir / "go.mod",
+            client_dir / "go.sum",
+            client_dir / ".openapi-generator-ignore",
             *test_files,
         ],
-        dirs=[CLIENT_DIR / "docs" / "developer"],
-        backup_dir=BACKUP_DIR,
+        dirs=[client_dir / "docs" / "developer"],
+        backup_dir=backup_dir,
     )
     print_success("Custom files backed up")
 
-    # 5. Clean
+    # 6. Clean
     print_step(4, "Cleaning generated files")
     clean_list: list[Path] = []
-    for pattern in ("model_*.go", "api_*.go"):
-        clean_list.extend(CLIENT_DIR.glob(pattern))
+    for pat in ("model_*.go", "api_*.go"):
+        clean_list.extend(client_dir.glob(pat))
     clean_list.extend([
-        CLIENT_DIR / "client.go",
-        CLIENT_DIR / "configuration.go",
-        CLIENT_DIR / "response.go",
-        CLIENT_DIR / "utils.go",
-        CLIENT_DIR / "api",
-        CLIENT_DIR / "docs",
-        CLIENT_DIR / "README.md",
-        CLIENT_DIR / "git_push.sh",
-        CLIENT_DIR / ".travis.yml",
-        CLIENT_DIR / ".openapi-generator",
+        client_dir / "client.go",
+        client_dir / "configuration.go",
+        client_dir / "response.go",
+        client_dir / "utils.go",
+        client_dir / "api",
+        client_dir / "docs",
+        client_dir / "README.md",
+        client_dir / "git_push.sh",
+        client_dir / ".travis.yml",
+        client_dir / ".openapi-generator",
     ])
     clean_paths(clean_list)
     print_success("Generated files cleaned")
 
-    # 6. Run codegen
+    # 7. Run codegen
     print_step(5, "Running openapi-generator")
     run_codegen_openapi_generator(
-        spec_path=SPEC_PATH,
+        spec_path=spec_dest,
         generator="go",
-        output_dir=CLIENT_DIR,
+        output_dir=client_dir,
         config_file=CONFIG_FILE,
     )
 
     # --- Past this point, failures are exit code 2, not 1 ---
 
-    # 7. Apply patches
+    # 8. Apply patches
     print_step(6, "Applying patches")
-    had_issues = patch_json_literal_defaults(had_issues)
-    had_issues = patch_missing_time_import(had_issues)
-    had_issues = patch_test_module_path(had_issues)
+    had_issues = patch_json_literal_defaults(client_dir, had_issues)
+    had_issues = patch_missing_time_import(client_dir, had_issues)
+    had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
     print_success("Patches applied")
 
-    # 8. Patch go.mod (openapi-generator may use different module path / Go version)
+    # 9. Patch go.mod (openapi-generator may use different module path / Go version)
     print_step(7, "Updating go.mod")
-    go_mod = CLIENT_DIR / "go.mod"
+    go_mod = client_dir / "go.mod"
     if go_mod.is_file():
-        patch_file_regex(go_mod, r"module .*", f"module {GO_MODULE_PATH}",
+        patch_file_regex(go_mod, r"module .*", f"module {go_module_path}",
                          "go.mod module path")
         patch_file_regex(go_mod, r"go [\d.]+", f"go {GO_VERSION}",
                          "go.mod Go version")
     else:
         print_warning("go.mod not found after codegen — creating fresh one")
         write_file(go_mod, (
-            f"module {GO_MODULE_PATH}\n\n"
+            f"module {go_module_path}\n\n"
             f"go {GO_VERSION}\n"
         ))
         print_success("Created go.mod")
 
-    # 9. Restore custom files
+    # 10. Restore custom files
     print_step(8, "Restoring custom files")
     test_names = [f.name for f in test_files]
     restore_files(
-        backup_dir=BACKUP_DIR,
-        dest_dir=CLIENT_DIR,
+        backup_dir=backup_dir,
+        dest_dir=client_dir,
         files=[".openapi-generator-ignore", *test_names],
         dirs=["developer"],
     )
     # Fix developer docs path (backup stores as "developer/", need it at "docs/developer/")
-    restored_dev = CLIENT_DIR / "developer"
-    target_dev = CLIENT_DIR / "docs" / "developer"
+    restored_dev = client_dir / "developer"
+    target_dev = client_dir / "docs" / "developer"
     if restored_dev.is_dir():
         target_dev.parent.mkdir(parents=True, exist_ok=True)
         if target_dev.exists():
@@ -258,11 +262,11 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
         restored_dev.rename(target_dev)
         print_success("  Moved developer/ to docs/developer/")
 
-    # 10. Go mod tidy
+    # 11. Go mod tidy
     print_step(9, "Running go mod tidy")
     result = run_command(
         ["go", "mod", "tidy"],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         error_context="go mod tidy failed.\n  Check go.mod for syntax errors.",
     )
     if result.returncode != 0:
@@ -271,15 +275,15 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     else:
         print_success("Dependencies tidied")
 
-    # 11. Build & test
+    # 12. Build & test
     print_step(10, "Verifying build")
     build_result = run_command(
         ["go", "build", "./..."],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         capture=True,
         error_context="go build failed.\n  Check build_output.log for details.",
     )
-    (CLIENT_DIR / "build_output.log").write_text(build_result.stdout + build_result.stderr)
+    (client_dir / "build_output.log").write_text(build_result.stdout + build_result.stderr)
     if build_result.returncode == 0:
         print_success("Build successful")
     else:
@@ -289,11 +293,11 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     print_step(11, "Running tests")
     test_result = run_command(
         ["go", "test", "-v", "./..."],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         capture=True,
         error_context="go test failed.",
     )
-    (CLIENT_DIR / "test_output.log").write_text(test_result.stdout + test_result.stderr)
+    (client_dir / "test_output.log").write_text(test_result.stdout + test_result.stderr)
     if test_result.returncode == 0:
         print_success("All tests passed")
     else:
@@ -301,13 +305,13 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
         had_issues = True
 
     # Integration test
-    if (CLIENT_DIR / "diagram_fixes_test.go").is_file():
+    if (client_dir / "diagram_fixes_test.go").is_file():
         int_result = run_command(
             ["go", "test", "-v", "-run", "TestDiagramFixes"],
-            cwd=CLIENT_DIR,
+            cwd=client_dir,
             capture=True,
         )
-        (CLIENT_DIR / "integration_test_output.log").write_text(
+        (client_dir / "integration_test_output.log").write_text(
             int_result.stdout + int_result.stderr
         )
         if int_result.returncode == 0:
@@ -316,15 +320,15 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
             print_warning("Integration tests failed — see integration_test_output.log")
             had_issues = True
 
-    # 12. Report
+    # 13. Report
     print_step(12, "Generating regeneration report")
-    model_count = len(list(CLIENT_DIR.glob("model_*.go")))
-    api_count = len(list(CLIENT_DIR.glob("api_*.go")))
+    model_count = len(list(client_dir.glob("model_*.go")))
+    api_count = len(list(client_dir.glob("api_*.go")))
 
     report = generate_report("TMI Go Client Regeneration Report", [
         {"heading": "Configuration", "content": (
             f"- Package Name: tmiclient\n"
-            f"- Module Path: {GO_MODULE_PATH}\n"
+            f"- Module Path: {go_module_path}\n"
             f"- API Version: {spec_version}\n"
             f"- Go Version: {GO_VERSION}+\n"
             f"- Generator: openapi-generator 7.x\n"
@@ -345,17 +349,18 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
             "3. Run: go test -v ./..."
         )},
     ])
-    write_file(CLIENT_DIR / "REGENERATION_REPORT.md", report)
+    write_file(client_dir / "REGENERATION_REPORT.md", report)
     print_success("Regeneration report created: REGENERATION_REPORT.md")
 
-    # 13. Cleanup
+    # 14. Cleanup
     print_step(13, "Cleaning up")
-    clean_paths([BACKUP_DIR])
+    clean_paths([backup_dir])
     print_success("Cleanup complete")
 
-    # 13. Summary
+    # 15. Summary
     print_summary({
         "Client": "regenerated with openapi-generator",
+        "Output": str(client_dir),
         "Build": "SUCCESS" if build_result.returncode == 0 else "FAILED",
         "Tests": "PASSED" if test_result.returncode == 0 else "FAILED",
         "Report": "REGENERATION_REPORT.md",
@@ -366,4 +371,4 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
 
 if __name__ == "__main__":
     args = parse_regen_args("Regenerate the TMI Go client from the OpenAPI spec.")
-    sys.exit(main(spec_path=args.spec_path, branch=args.branch))
+    sys.exit(main(spec_path=args.spec, output_dir=args.output_dir))

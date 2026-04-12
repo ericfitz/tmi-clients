@@ -18,46 +18,39 @@ _SPEC_URL_TEMPLATE = (
     "https://raw.githubusercontent.com/ericfitz/tmi/"
     "refs/heads/{branch}/api-schema/tmi-openapi.json"
 )
-DEFAULT_SPEC_BRANCH = "main"
-DEFAULT_SPEC_URL = _SPEC_URL_TEMPLATE.format(branch=DEFAULT_SPEC_BRANCH)
-
+_TAG_URL_TEMPLATE = (
+    "https://raw.githubusercontent.com/ericfitz/tmi/"
+    "refs/tags/{tag}/api-schema/tmi-openapi.json"
+)
 
 def spec_url_for_branch(branch: str) -> str:
     """Return the raw GitHub URL for the OpenAPI spec on *branch*."""
     return _SPEC_URL_TEMPLATE.format(branch=branch)
 
 
+def spec_url_for_tag(tag: str) -> str:
+    """Return the raw GitHub URL for the OpenAPI spec at *tag*."""
+    return _TAG_URL_TEMPLATE.format(tag=tag)
+
+
 def parse_regen_args(description: str) -> argparse.Namespace:
     """Parse common CLI arguments for regeneration scripts.
 
-    Returns a namespace with ``spec_path`` (str | None) and
-    ``branch`` (str | None).
+    Returns a namespace with ``spec`` (str, required) and
+    ``output_dir`` (str | None).
     """
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument(
-        "spec_path",
-        nargs="?",
-        default=None,
-        help="Path to a local OpenAPI spec file (overrides --branch)",
+        "--spec", "-s",
+        required=True,
+        help="Path to a local OpenAPI spec file",
     )
     parser.add_argument(
-        "--branch", "-b",
+        "--output-dir", "-o",
         default=None,
-        help=(
-            f"Git branch of ericfitz/tmi to fetch the spec from "
-            f"(default: {DEFAULT_SPEC_BRANCH})"
-        ),
+        help="Output directory for the generated client (default: language-specific)",
     )
     return parser.parse_args()
-
-
-def resolve_spec_url(branch: str | None) -> str:
-    """Return the spec URL for the given branch, or the default."""
-    if branch:
-        url = spec_url_for_branch(branch)
-        print_success(f"Using spec from branch: {branch}")
-        return url
-    return DEFAULT_SPEC_URL
 
 # ANSI color codes
 _RED = "\033[0;31m"
@@ -313,42 +306,6 @@ def run_command(
 # ---------------------------------------------------------------------------
 
 
-def run_codegen(
-    spec_path: str | Path,
-    language: str,
-    output_dir: str | Path,
-    config_file: str | Path | None = None,
-    template_dir: str | Path | None = None,
-) -> None:
-    """Invoke swagger-codegen to generate a client.
-
-    Exits with code 1 if code generation fails.
-    """
-    cmd: list[str] = [
-        "swagger-codegen",
-        "generate",
-        "-i", str(spec_path),
-        "-l", language,
-        "-o", str(output_dir),
-    ]
-    if config_file is not None:
-        cmd.extend(["-c", str(config_file)])
-    if template_dir is not None:
-        cmd.extend(["-t", str(template_dir)])
-
-    print(f"  Running: {' '.join(cmd)}")
-    result = run_command(cmd, error_context="swagger-codegen generate")
-    if result.returncode != 0:
-        print_error(
-            "Code generation failed.\n"
-            f"  Command: {' '.join(cmd)}\n"
-            f"  Exit code: {result.returncode}\n"
-            "  Check the swagger-codegen output above for details."
-        )
-        sys.exit(1)
-    print_success(f"Code generation complete → {output_dir}")
-
-
 def run_codegen_openapi_generator(
     spec_path: str | Path,
     generator: str,
@@ -418,39 +375,6 @@ def patch_file_regex(
     file_path.write_text(new_text, encoding="utf-8")
     label = description or f"regex patch on {file_path.name}"
     print_success(f"{label}: {count} replacement(s)")
-    return True
-
-
-def patch_file_exact(
-    file_path: str | Path,
-    old_text: str,
-    new_text: str,
-    description: str = "",
-) -> bool:
-    """Replace an exact string in *file_path*.
-
-    Returns ``True`` if the replacement was made.
-    """
-    file_path = Path(file_path)
-    if not file_path.is_file():
-        print_warning(
-            f"Patch target not found: {file_path}"
-            + (f" ({description})" if description else "")
-        )
-        return False
-
-    content = file_path.read_text(encoding="utf-8")
-    if old_text not in content:
-        print_warning(
-            f"Exact text not found in {file_path}"
-            + (f" ({description})" if description else "")
-        )
-        return False
-
-    content = content.replace(old_text, new_text)
-    file_path.write_text(content, encoding="utf-8")
-    label = description or f"exact patch on {file_path.name}"
-    print_success(label)
     return True
 
 

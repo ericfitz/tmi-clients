@@ -11,6 +11,22 @@ This repository contains auto-generated API clients for the TMI (Threat Modeling
 
 Clients are generated from the TMI OpenAPI specification using openapi-generator 7.x (Python, TypeScript) and swagger-codegen 3.0.75 (Go).
 
+### Multi-Version Directory Structure
+
+The repository maintains multiple API versions simultaneously. Each language client directory contains versioned subdirectories rather than a flat layout:
+
+```
+python-client-generated/
+  scripts/           # Shared codegen config (openapi-generator-config.json)
+  v1.2.1/            # Client generated from release/1.2.0 branch
+  v1.3.0/            # Client generated from main branch
+  v1.4.0/            # Client generated from dev/1.4.0 branch
+```
+
+The same structure applies to `go-client-generated/` and `typescript-client-generated/`.
+
+Version definitions live in `versions.json` at the repo root, which declares each version, its source branch, and which version is the latest.
+
 ## Python Client Development
 
 The Python client is the primary focus. It uses modern Python packaging with both `pyproject.toml` and `setup.py`.
@@ -37,10 +53,10 @@ This allows uv to automatically manage dependencies when running the script with
 
 ### Testing
 
-Run tests with pytest via uv:
+Run tests with pytest via uv. Navigate to the specific version directory first:
 
 ```bash
-cd python-client-generated
+cd python-client-generated/v1.4.0
 
 # Run all tests
 uv run --with pytest python3 -m pytest test/ -v
@@ -57,7 +73,7 @@ uv run --with pytest --with pytest-cov python3 -m pytest test/ --cov=tmi_client 
 The package uses `pyproject.toml` for dependency management with uv:
 
 ```bash
-cd python-client-generated
+cd python-client-generated/v1.4.0
 
 # Import the package (uv handles dependencies automatically)
 uv run python3 -c "import tmi_client; print('Success')"
@@ -68,7 +84,7 @@ uv run python3 -c "import tmi_client; print('Success')"
 Use tox to test the client against all supported Python versions (3.9-3.14):
 
 ```bash
-cd python-client-generated
+cd python-client-generated/v1.4.0
 tox  # Tests against Python 3.9-3.14
 
 # Test specific Python version
@@ -95,7 +111,7 @@ diagram = api.create_threat_model_diagram(request, tm_id)
 ```python
 from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 
-# ✓ CORRECT - DfdDiagramInput for updates (no readOnly fields)
+# CORRECT - DfdDiagramInput for updates (no readOnly fields)
 update = DfdDiagramInput(
     type="DFD-1.0.0",
     name="Updated Name",
@@ -120,34 +136,42 @@ The API uses separate schemas for input and output:
 
 ### Client Structure
 
-Each language client follows the codegen structure (openapi-generator for Python and TypeScript, swagger-codegen for Go):
+Each language client follows the codegen structure (openapi-generator for Python and TypeScript, swagger-codegen for Go), with versioned subdirectories:
 ```
 <lang>-client-generated/
-├── api/               # API endpoint classes
-├── models/            # Data models matching OpenAPI schemas
-├── docs/              # Auto-generated API documentation
-├── test/              # Generated unit tests
-└── README.md          # Client-specific usage guide
+├── scripts/                # Shared codegen config
+└── v<version>/             # One per version in versions.json
+    ├── <package>/          # Generated package (tmi_client, swagger, etc.)
+    │   ├── api/            # API endpoint classes
+    │   └── models/         # Data models matching OpenAPI schemas
+    ├── docs/               # Auto-generated API documentation
+    ├── test/               # Generated unit tests
+    └── README.md           # Client-specific usage guide
 ```
 
 ### Python Client Package Layout
 
 ```
 python-client-generated/
-├── tmi_client/                    # Main package
-│   ├── api/                       # API classes (17 API endpoint classes)
-│   │   └── threat_model_sub_resources_api.py  # Primary API for threat models
-│   ├── models/                    # 106+ model classes (Pydantic v2 BaseModel subclasses)
-│   │   ├── dfd_diagram.py         # Output schema (with readOnly fields)
-│   │   ├── dfd_diagram_input.py   # Input schema (no readOnly fields)
-│   │   ├── base_diagram.py        # Base class for diagrams
-│   │   └── ...
-│   ├── configuration.py           # Client configuration
-│   ├── api_client.py              # Base API client
-│   └── rest.py                    # REST utilities
-├── test/                          # 120+ generated test files
-├── pyproject.toml                 # Modern Python packaging (uv compatible)
-└── requirements.txt               # Runtime dependencies
+├── scripts/                           # Shared codegen config
+│   └── openapi-generator-config.json
+├── v1.4.0/                            # Latest version
+│   ├── tmi_client/                    # Main package
+│   │   ├── api/                       # API classes (17 API endpoint classes)
+│   │   │   └── threat_model_sub_resources_api.py  # Primary API for threat models
+│   │   ├── models/                    # 106+ model classes (Pydantic v2 BaseModel subclasses)
+│   │   │   ├── dfd_diagram.py         # Output schema (with readOnly fields)
+│   │   │   ├── dfd_diagram_input.py   # Input schema (no readOnly fields)
+│   │   │   ├── base_diagram.py        # Base class for diagrams
+│   │   │   └── ...
+│   │   ├── configuration.py           # Client configuration
+│   │   ├── api_client.py              # Base API client
+│   │   └── rest.py                    # REST utilities
+│   ├── test/                          # 120+ generated test files
+│   ├── pyproject.toml                 # Modern Python packaging (uv compatible)
+│   └── requirements.txt               # Runtime dependencies
+├── v1.3.0/                            # Previous version
+└── v1.2.1/                            # Older version
 ```
 
 ### Key API Classes
@@ -198,79 +222,109 @@ Diagrams use the AntV X6 graph library format for cells (nodes and edges). Cells
 
 ## Documentation Structure
 
-Python client documentation is organized in `python-client-generated/docs/developer/`:
-
-- `MIGRATION_GUIDE.md` - Comprehensive migration guide with webhook examples and breaking changes
-- `CHANGELOG.md` - Complete changelog for version 1.0.0
-- `REGENERATION_README.md` - Complete guide for regenerating the client
-- `REGENERATION_REPORT.md` - Technical details of the latest regeneration
-
 Regeneration scripts are at the repo root:
+- `regenerate_all.py` - Orchestrator that reads `versions.json` and calls per-language scripts for each version
 - `regenerate_python.py` - Python client regeneration
 - `regenerate_go.py` - Go client regeneration
 - `regenerate_ts.py` - TypeScript client regeneration
 - `regen_common.py` - Shared utilities for all regeneration scripts
+- `versions.json` - Declares all maintained versions, their source branches, and the latest version
 
-Codegen config files remain in each client's `scripts/` directory:
+Codegen config files are in each client's `scripts/` directory:
 - `python-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
-- `go-client-generated/scripts/swagger-codegen-config.json` (swagger-codegen)
+- `go-client-generated/scripts/openapi-generator-config.json` and `swagger-codegen-config.json` (swagger-codegen)
 - `typescript-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
 
 Analysis and validation scripts (Python client only):
 - `python-client-generated/scripts/analyze_spec_changes.py`
 - `python-client-generated/scripts/validate_regeneration.py`
 
-Tests:
-- `python-client-generated/test_diagram_fixes.py` - Integration test verifying all fixes work correctly
+Each version directory contains its own `REGENERATION_REPORT.md` with details of its last regeneration.
 
 ## Multi-Language Support
 
 While this repository contains clients for Go and TypeScript, they are currently auto-generated with minimal patches for codegen bugs. The Python client is the most mature and has been enhanced with bug fixes and modern tooling.
 
-Each client directory contains:
+Each client version directory contains:
 - Language-specific README with usage examples
 - Auto-generated documentation in `docs/`
-- Build configuration (e.g., `go.mod`, `package.json`)
+- Build configuration (e.g., `go.mod`, `package.json`, `pyproject.toml`)
+
+### Go Module Path
+
+Go module paths include the version directory:
+```
+github.com/ericfitz/tmi-clients/go-client-generated/v<version>
+```
+
+For example: `github.com/ericfitz/tmi-clients/go-client-generated/v1.4.0`
 
 ## OpenAPI Specification
 
-The clients are generated from the TMI OpenAPI specification hosted at:
+The clients are generated from the TMI OpenAPI specification. Each version in `versions.json` specifies a branch, and the regeneration scripts download the spec from that branch:
 ```
-https://raw.githubusercontent.com/ericfitz/tmi/refs/heads/main/api-schema/tmi-openapi.json
+https://raw.githubusercontent.com/ericfitz/tmi/<branch>/api-schema/tmi-openapi.json
 ```
-
-The regeneration scripts automatically download the latest specification from this URL.
 
 ## Regeneration
 
-All three clients can be regenerated from the latest OpenAPI spec using Python scripts at the repo root:
+### Orchestrator (regenerate_all.py)
+
+The primary entry point for regeneration is `regenerate_all.py`, which reads `versions.json` and calls the per-language scripts for each version:
 
 ```bash
-# Regenerate Python client
-python3 regenerate_python.py
+# Regenerate all clients for all versions
+python3 regenerate_all.py
 
-# Regenerate Go client
-python3 regenerate_go.py
+# Regenerate only Python clients (all versions)
+python3 regenerate_all.py --language python
 
-# Regenerate TypeScript client
-python3 regenerate_ts.py
+# Regenerate only a specific version (all languages)
+python3 regenerate_all.py --version 1.4.0
 
-# Use a local spec file instead of downloading from GitHub
-python3 regenerate_python.py path/to/tmi-openapi.json
+# Regenerate a specific language and version
+python3 regenerate_all.py --language go --version 1.3.0
+
+# Skip pruning of stale version directories
+python3 regenerate_all.py --no-prune
 ```
 
-Each script automatically:
-- Downloads the latest OpenAPI spec from GitHub (or uses a local file)
+### Per-Language Scripts
+
+The per-language scripts can also be called directly. They require `--spec` to point at a local OpenAPI spec file and optionally `--output-dir` to control where the generated client is written:
+
+```bash
+python3 regenerate_python.py --spec path/to/tmi-openapi.json --output-dir python-client-generated/v1.4.0
+python3 regenerate_go.py --spec path/to/tmi-openapi.json --output-dir go-client-generated/v1.4.0
+python3 regenerate_ts.py --spec path/to/tmi-openapi.json --output-dir typescript-client-generated/v1.4.0
+```
+
+### versions.json
+
+The `versions.json` file at the repo root defines which versions to maintain:
+
+```json
+{
+  "latest": "1.4.0",
+  "versions": [
+    { "version": "1.2.1", "branch": "release/1.2.0" },
+    { "version": "1.3.0", "branch": "main" },
+    { "version": "1.4.0", "branch": "dev/1.4.0" }
+  ]
+}
+```
+
+### What Each Script Does
+
+Each per-language script automatically:
 - Runs openapi-generator (Python, TypeScript) or swagger-codegen (Go) with language-specific configuration
 - Applies codegen bug fix patches (UUID/datetime regex validator for Python; optional-extends and TokenRequest for TypeScript; constructor fixes, auth settings, etc. for Go)
 - Writes modern config files (pyproject.toml, go.mod, package.json, etc.)
 - Backs up and restores custom files
-- Runs tests and generates a `REGENERATION_REPORT.md`
+- Runs tests and generates a `REGENERATION_REPORT.md` in the output directory
 
 The Python client generates Pydantic v2 models with full type hints.
 
 **Exit codes:** 0 = success, 1 = fatal error (codegen failed), 2 = completed with issues (test failures or patch warnings).
 
 **Requirements:** `openapi-generator` (brew install openapi-generator) for Python and TypeScript; `swagger-codegen` (brew install swagger-codegen) for Go; plus `uv` for Python, `go` for Go, or `node` for TypeScript.
-
-See `python-client-generated/docs/developer/REGENERATION_README.md` for complete documentation on the regeneration process, customization options, and CI/CD integration.

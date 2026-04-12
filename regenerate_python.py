@@ -11,24 +11,20 @@ import sys
 from pathlib import Path
 
 from regen_common import (
-    DEFAULT_SPEC_URL,
     backup_files,
     check_prerequisite,
     clean_paths,
     copy_local_spec,
     count_files,
-    download_spec,
     extract_spec_version,
     generate_report,
     parse_regen_args,
     patch_file_regex,
     print_banner,
-    print_error,
     print_step,
     print_success,
     print_summary,
     print_warning,
-    resolve_spec_url,
     restore_files,
     run_codegen_openapi_generator,
     run_command,
@@ -37,16 +33,14 @@ from regen_common import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parent
-CLIENT_DIR = REPO_ROOT / "python-client-generated"
-CONFIG_FILE = CLIENT_DIR / "scripts" / "openapi-generator-config.json"
-SPEC_PATH = CLIENT_DIR / "tmi-openapi.json"
-BACKUP_DIR = CLIENT_DIR / ".regeneration_backup"
+LANG_DIR = REPO_ROOT / "python-client-generated"
+CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
 
 # --- Patches ---
 
 
-def patch_regex_validators(had_issues: bool) -> bool:
+def patch_regex_validators(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: regex validators on non-string fields fail
     because Pydantic parses values to native types (UUID, datetime, etc.)
     before field validators run.
@@ -55,7 +49,7 @@ def patch_regex_validators(had_issues: bool) -> bool:
     function that applies re.match() to a value that may not be a string.
     Uses isoformat() for datetime objects and str() for everything else.
     """
-    models_dir = CLIENT_DIR / "tmi_client" / "models"
+    models_dir = client_dir / "tmi_client" / "models"
     if not models_dir.is_dir():
         print_warning("Models directory not found — skipping regex validator patch")
         return True
@@ -100,7 +94,7 @@ def patch_regex_validators(had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_urllib3_minimum_version(had_issues: bool) -> bool:
+def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
     """Bump urllib3 minimum version to >=2.6.3 across all dependency files.
 
     openapi-generator defaults to urllib3 >= 2.1.0, but versions before 2.6.3
@@ -111,7 +105,7 @@ def patch_urllib3_minimum_version(had_issues: bool) -> bool:
     files_patched = 0
 
     for rel_path in ["pyproject.toml", "setup.py", "requirements.txt"]:
-        filepath = CLIENT_DIR / rel_path
+        filepath = client_dir / rel_path
         if not filepath.is_file():
             continue
         content = filepath.read_text(encoding="utf-8")
@@ -140,13 +134,13 @@ def patch_urllib3_minimum_version(had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_test_return_types(had_issues: bool) -> bool:
+def patch_test_return_types(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: generated test stubs declare a return type
     on make_instance() but the body is commented out, so the function always
     returns None.  Change the annotation to ``-> None`` so type checkers
     (ty, mypy) don't report invalid-return-type errors.
     """
-    test_dir = CLIENT_DIR / "test"
+    test_dir = client_dir / "test"
     if not test_dir.is_dir():
         print_warning("Test directory not found — skipping test return-type patch")
         return True
@@ -175,7 +169,7 @@ def patch_test_return_types(had_issues: bool) -> bool:
 # --- Main ---
 
 
-def main(spec_path: str | None = None, branch: str | None = None) -> int:
+def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = False
 
     # 1. Banner
@@ -193,56 +187,62 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     check_prerequisite("uv", "brew install uv")
     print_success("All prerequisites met")
 
-    # 3. Download/copy spec
+    # 3. Extract version from spec and compute output directory
     print_step(2, "Getting OpenAPI spec")
-    if spec_path:
-        copy_local_spec(Path(spec_path), SPEC_PATH)
-    else:
-        spec_url = resolve_spec_url(branch)
-        download_spec(spec_url, SPEC_PATH)
+    spec_version = extract_spec_version(Path(spec_path))
 
-    # 3b. Extract version from spec and update codegen config
-    spec_version = extract_spec_version(SPEC_PATH)
+    if output_dir:
+        client_dir = Path(output_dir)
+    else:
+        client_dir = LANG_DIR / f"v{spec_version}"
+
+    client_dir.mkdir(parents=True, exist_ok=True)
+    spec_dest = client_dir / "tmi-openapi.json"
+    backup_dir = client_dir / ".regeneration_backup"
+
+    copy_local_spec(Path(spec_path), spec_dest)
+
+    # 3b. Update codegen config with spec version
     update_json_version(CONFIG_FILE, "packageVersion", spec_version)
 
     # 4. Backup
     print_step(3, "Backing up custom files")
     backup_files(
         files=[
-            CLIENT_DIR / "test_diagram_fixes.py",
-            CLIENT_DIR / ".openapi-generator-ignore",
+            client_dir / "test_diagram_fixes.py",
+            client_dir / ".openapi-generator-ignore",
         ],
         dirs=[],
-        backup_dir=BACKUP_DIR,
+        backup_dir=backup_dir,
     )
     print_success("Custom files backed up")
 
     # 5. Clean
     print_step(4, "Cleaning client directory")
     clean_paths([
-        CLIENT_DIR / "tmi_client",
-        CLIENT_DIR / "test",
-        CLIENT_DIR / ".openapi-generator",
+        client_dir / "tmi_client",
+        client_dir / "test",
+        client_dir / ".openapi-generator",
     ])
     # Clean docs/*.md but not docs/developer/
-    docs_dir = CLIENT_DIR / "docs"
+    docs_dir = client_dir / "docs"
     if docs_dir.is_dir():
         for md in docs_dir.glob("*.md"):
             md.unlink()
     clean_paths([
-        CLIENT_DIR / ".gitignore",
-        CLIENT_DIR / ".travis.yml",
-        CLIENT_DIR / "git_push.sh",
-        CLIENT_DIR / "README.md",
+        client_dir / ".gitignore",
+        client_dir / ".travis.yml",
+        client_dir / "git_push.sh",
+        client_dir / "README.md",
     ])
     print_success("Client directory cleaned")
 
     # 6. Run codegen
     print_step(5, "Running openapi-generator")
     run_codegen_openapi_generator(
-        spec_path=SPEC_PATH,
+        spec_path=spec_dest,
         generator="python",
-        output_dir=CLIENT_DIR,
+        output_dir=client_dir,
         config_file=CONFIG_FILE,
     )
 
@@ -251,13 +251,13 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     # 6b. Stamp spec version into generated files
     print_step(6, "Stamping spec version into package files")
     patch_file_regex(
-        CLIENT_DIR / "pyproject.toml",
+        client_dir / "pyproject.toml",
         r'^version = ".*"',
         f'version = "{spec_version}"',
         "pyproject.toml version",
     )
     patch_file_regex(
-        CLIENT_DIR / "setup.py",
+        client_dir / "setup.py",
         r'^VERSION = ".*"',
         f'VERSION = "{spec_version}"',
         "setup.py version",
@@ -265,16 +265,16 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
 
     # 7. Apply patches
     print_step(6, "Applying patches")
-    had_issues = patch_regex_validators(had_issues)
-    had_issues = patch_test_return_types(had_issues)
-    had_issues = patch_urllib3_minimum_version(had_issues)
+    had_issues = patch_regex_validators(client_dir, had_issues)
+    had_issues = patch_test_return_types(client_dir, had_issues)
+    had_issues = patch_urllib3_minimum_version(client_dir, had_issues)
     print_success("Patches applied")
 
     # 8. Restore custom files
     print_step(7, "Restoring custom files")
     restore_files(
-        backup_dir=BACKUP_DIR,
-        dest_dir=CLIENT_DIR,
+        backup_dir=backup_dir,
+        dest_dir=client_dir,
         files=["test_diagram_fixes.py", ".openapi-generator-ignore"],
         dirs=[],
     )
@@ -285,7 +285,7 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     print_step(8, "Installing dependencies")
     result = run_command(
         ["uv", "pip", "install", "-e", ".", "--quiet"],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         error_context="Failed to install Python client dependencies.\n  Check that uv is working and pyproject.toml is valid.",
     )
     if result.returncode != 0:
@@ -296,7 +296,7 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     print_step(9, "Running tests")
     result = run_command(
         ["uv", "run", "--with", "pytest", "python3", "-m", "pytest", "test/", "-v", "--tb=short"],
-        cwd=CLIENT_DIR,
+        cwd=client_dir,
         capture=True,
         error_context="Test execution failed.\n  Check test/ directory and dependencies.",
     )
@@ -305,14 +305,14 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
     else:
         print_warning("Some auto-generated tests failed — see test_output.log")
         had_issues = True
-    (CLIENT_DIR / "test_output.log").write_text(result.stdout + result.stderr)
+    (client_dir / "test_output.log").write_text(result.stdout + result.stderr)
 
     # Integration test
-    integration_test = CLIENT_DIR / "test_diagram_fixes.py"
+    integration_test = client_dir / "test_diagram_fixes.py"
     if integration_test.is_file():
         result = run_command(
             ["uv", "run", str(integration_test)],
-            cwd=CLIENT_DIR,
+            cwd=client_dir,
             capture=True,
             error_context="Integration test failed.",
         )
@@ -321,20 +321,20 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
         else:
             print_warning("Integration test failed — see integration_test_output.log")
             had_issues = True
-        (CLIENT_DIR / "integration_test_output.log").write_text(result.stdout + result.stderr)
+        (client_dir / "integration_test_output.log").write_text(result.stdout + result.stderr)
     else:
         print_warning("Integration test file not found")
 
     # 11. Generate report
     print_step(10, "Generating summary report")
-    api_count = count_files(CLIENT_DIR / "tmi_client" / "api", "*.py")
-    model_count = count_files(CLIENT_DIR / "tmi_client" / "models", "*.py")
-    test_count = count_files(CLIENT_DIR / "test", "*.py")
+    api_count = count_files(client_dir / "tmi_client" / "api", "*.py")
+    model_count = count_files(client_dir / "tmi_client" / "models", "*.py")
+    test_count = count_files(client_dir / "test", "*.py")
 
     report = generate_report("Python Client Regeneration Report", [
         {"heading": "Changes Applied", "content": (
             "### Client Regenerated\n"
-            f"- Source: `{DEFAULT_SPEC_URL}`\n"
+            f"- Source spec: `{spec_path}`\n"
             "- Generator: openapi-generator 7.x\n"
             f"- Package: tmi_client v{spec_version}\n"
             "- Models: Pydantic v2 with full type hints\n\n"
@@ -368,17 +368,18 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
             "4. Test against live API endpoints"
         )},
     ])
-    write_file(CLIENT_DIR / "REGENERATION_REPORT.md", report)
+    write_file(client_dir / "REGENERATION_REPORT.md", report)
     print_success("Summary report generated: REGENERATION_REPORT.md")
 
     # 12. Cleanup
     print_step(11, "Cleaning up")
-    clean_paths([BACKUP_DIR])
+    clean_paths([backup_dir])
     print_success("Cleanup complete")
 
     # 13. Summary
     print_summary({
         "Client": "regenerated with openapi-generator",
+        "Output": str(client_dir),
         "Models": "Pydantic v2 with type hints",
         "Patches": "regex validator fix" + (" (with warnings)" if had_issues else ""),
         "Tests": "see logs for results",
@@ -390,4 +391,4 @@ def main(spec_path: str | None = None, branch: str | None = None) -> int:
 
 if __name__ == "__main__":
     args = parse_regen_args("Regenerate the TMI Python client from the OpenAPI spec.")
-    sys.exit(main(spec_path=args.spec_path, branch=args.branch))
+    sys.exit(main(spec_path=args.spec, output_dir=args.output_dir))

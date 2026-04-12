@@ -1,0 +1,31 @@
+# flake8: noqa
+
+# import apis into api package
+from tmi_client.api.addons_api import AddonsApi
+from tmi_client.api.admin_users_api import AdminUsersApi
+from tmi_client.api.administration_api import AdministrationApi
+from tmi_client.api.assets_api import AssetsApi
+from tmi_client.api.audit_trail_api import AuditTrailApi
+from tmi_client.api.authentication_api import AuthenticationApi
+from tmi_client.api.collaboration_api import CollaborationApi
+from tmi_client.api.configuration_api import ConfigurationApi
+from tmi_client.api.documents_api import DocumentsApi
+from tmi_client.api.general_api import GeneralApi
+from tmi_client.api.notes_api import NotesApi
+from tmi_client.api.o_auth_discovery_api import OAuthDiscoveryApi
+from tmi_client.api.oidc_discovery_api import OIDCDiscoveryApi
+from tmi_client.api.projects_api import ProjectsApi
+from tmi_client.api.repositories_api import RepositoriesApi
+from tmi_client.api.saml_api import SAMLApi
+from tmi_client.api.survey_administration_api import SurveyAdministrationApi
+from tmi_client.api.survey_intake_api import SurveyIntakeApi
+from tmi_client.api.survey_triage_api import SurveyTriageApi
+from tmi_client.api.teams_api import TeamsApi
+from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResourcesApi
+from tmi_client.api.threat_models_api import ThreatModelsApi
+from tmi_client.api.threats_api import ThreatsApi
+from tmi_client.api.user_account_api import UserAccountApi
+from tmi_client.api.users_api import UsersApi
+from tmi_client.api.web_socket_api import WebSocketApi
+from tmi_client.api.webhooks_api import WebhooksApi
+
