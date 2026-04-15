@@ -39,9 +39,8 @@ class UpdateAdminUserRequest(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
         return value

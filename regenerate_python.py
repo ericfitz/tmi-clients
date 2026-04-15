@@ -45,9 +45,14 @@ def patch_regex_validators(client_dir: Path, had_issues: bool) -> bool:
     because Pydantic parses values to native types (UUID, datetime, etc.)
     before field validators run.
 
-    The fix: insert a string conversion at the start of each validator
-    function that applies re.match() to a value that may not be a string.
-    Uses isoformat() for datetime objects and str() for everything else.
+    The fix: insert a string conversion in each validator function that
+    applies re.match() to a value that may not be a string.  Uses
+    isoformat() for datetime objects and str() for everything else.
+
+    For nullable optional fields the generator emits a None guard
+    (``if value is None: return value``) before the re.match call.
+    The conversion must be inserted *after* that guard so that
+    ``str(None)`` doesn't defeat the check.
     """
     models_dir = client_dir / "tmi_client" / "models"
     if not models_dir.is_dir():
@@ -77,8 +82,17 @@ def patch_regex_validators(client_dir: Path, had_issues: bool) -> bool:
             if "re.match" not in rest:
                 continue
 
-            # Insert string conversion after the docstring
+            # Insert string conversion after the docstring — but if a
+            # None guard is present (nullable field), insert after it
+            # so that str(None) doesn't defeat the check.
             insert_point = m.end()
+            none_guard = re.match(
+                r"        if value is None:\s*\n            return value\s*\n",
+                rest,
+            )
+            if none_guard:
+                insert_point += none_guard.end()
+
             if conversion_line not in new_content[insert_point:insert_point + 200]:
                 new_content = new_content[:insert_point] + conversion_line + new_content[insert_point:]
                 patched_count += 1

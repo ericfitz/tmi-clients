@@ -52,9 +52,8 @@ class OAuthProtectedResourceMetadata(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
@@ -75,9 +74,8 @@ class OAuthProtectedResourceMetadata(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
@@ -87,9 +85,8 @@ class OAuthProtectedResourceMetadata(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]*$/")
         return value

@@ -40,9 +40,8 @@ class EdgeLabelAttrsText(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
@@ -52,9 +51,8 @@ class EdgeLabelAttrsText(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\( *[0-9]+ *, *[0-9]+ *, *[0-9]+ *\)|[a-z]+)$", value):
             raise ValueError(r"must validate the regular expression /^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\( *[0-9]+ *, *[0-9]+ *, *[0-9]+ *\)|[a-z]+)$/")
         return value
@@ -64,9 +62,8 @@ class EdgeLabelAttrsText(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[a-zA-Z0-9 ,\'-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9 ,'-]*$/")
         return value

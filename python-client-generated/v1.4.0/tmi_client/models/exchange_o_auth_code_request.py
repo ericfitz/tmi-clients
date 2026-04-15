@@ -51,9 +51,8 @@ class ExchangeOAuthCodeRequest(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[\x20-\x7E]+$", value):
             raise ValueError(r"must validate the regular expression /^[\x20-\x7E]+$/")
         return value
@@ -63,9 +62,8 @@ class ExchangeOAuthCodeRequest(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[a-zA-Z0-9_=-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_=-]*$/")
         return value
@@ -75,9 +73,8 @@ class ExchangeOAuthCodeRequest(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
@@ -87,9 +84,8 @@ class ExchangeOAuthCodeRequest(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[A-Za-z0-9\-._~]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9\-._~]+$/")
         return value

@@ -38,9 +38,8 @@ class DiagramListItemImage(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[A-Za-z0-9+\/]*=*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9+\/]*=*$/")
         return value

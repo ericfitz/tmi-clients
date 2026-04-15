@@ -44,9 +44,8 @@ class RepositoryBase(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
         return value
@@ -56,9 +55,8 @@ class RepositoryBase(BaseModel):
         """Validates the regular expression"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
@@ -68,9 +66,8 @@ class RepositoryBase(BaseModel):
         """Validates the enum"""
         if value is None:
             return value
+
         value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-
-
         if value not in set(['git', 'svn', 'mercurial', 'other']):
             raise ValueError("must be one of enum values ('git', 'svn', 'mercurial', 'other')")
         return value
