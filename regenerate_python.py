@@ -180,6 +180,155 @@ def patch_test_return_types(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
+def patch_oneof_return_types(client_dir: Path, had_issues: bool) -> bool:
+    """Fix type annotations in oneOf model ``to_json``/``to_dict`` methods.
+
+    openapi-generator produces ``to_json`` and ``to_dict`` methods that
+    call ``self.actual_instance.to_json()`` / ``.to_dict()`` behind a
+    ``hasattr`` guard.  Type checkers cannot narrow the type through
+    ``hasattr``, so the return value is inferred as ``object`` instead
+    of the declared return type.
+
+    Fixes:
+    - ``to_json``: wrap with ``str()`` (to_json always returns str)
+    - ``to_dict``: suppress with ``# type: ignore[return-value]``
+    """
+    models_dir = client_dir / "tmi_client" / "models"
+    if not models_dir.is_dir():
+        return had_issues
+
+    patched_count = 0
+    for model_file in sorted(models_dir.glob("*.py")):
+        content = model_file.read_text(encoding="utf-8")
+        if "actual_instance" not in content:
+            continue
+
+        new_content = re.sub(
+            r"return self\.actual_instance\.to_json\(\)$",
+            "return str(self.actual_instance.to_json())",
+            content,
+            flags=re.MULTILINE,
+        )
+        new_content = re.sub(
+            r"return self\.actual_instance\.to_dict\(\)$",
+            "return self.actual_instance.to_dict()  # type: ignore[return-value]",
+            new_content,
+            flags=re.MULTILINE,
+        )
+
+        if new_content != content:
+            model_file.write_text(new_content, encoding="utf-8")
+            patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"OneOf return-type patch: {patched_count} files fixed")
+    else:
+        print_warning("OneOf return-type patch: no files needed fixing")
+
+    return had_issues
+
+
+def patch_api_client_types(client_dir: Path, had_issues: bool) -> bool:
+    """Fix type annotation issues in the generated api_client.py.
+
+    openapi-generator produces three type-checker issues:
+    1. ``response_types_map.get()`` called without a None guard
+       (parameter is ``Optional[Dict]``)
+    2. ``response_type`` passed to ``deserialize()`` as a generic
+       type var instead of ``str``
+    3. ``param_serialize`` return tuple doesn't match
+       ``RequestSerialized`` alias due to intermediate reassignments
+    """
+    api_client = client_dir / "tmi_client" / "api_client.py"
+    if not api_client.is_file():
+        return had_issues
+
+    content = api_client.read_text(encoding="utf-8")
+    new_content = content
+
+    # Fix 1: add None guard to response_types_map.get() calls
+    new_content = re.sub(
+        r"response_type = response_types_map\.get\(str\(response_data\.status\), None\)$",
+        "response_type = response_types_map.get(str(response_data.status), None) if response_types_map is not None else None",
+        new_content,
+        count=1,
+        flags=re.MULTILINE,
+    )
+    new_content = re.sub(
+        r'response_type = response_types_map\.get\(str\(response_data\.status\)\[0\] \+ "XX", None\)$',
+        'response_type = response_types_map.get(str(response_data.status)[0] + "XX", None) if response_types_map is not None else None',
+        new_content,
+        count=1,
+        flags=re.MULTILINE,
+    )
+
+    # Fix 2: coerce response_type to str for deserialize()
+    new_content = new_content.replace(
+        "return_data = self.deserialize(response_text, response_type, content_type)",
+        "return_data = self.deserialize(response_text, str(response_type), content_type)",
+    )
+
+    # Fix 3: suppress return-type mismatch on param_serialize tuple
+    new_content = re.sub(
+        r"return method, url, header_params, body, post_params$",
+        "return method, url, header_params, body, post_params  # type: ignore[return-value]",
+        new_content,
+        count=1,
+        flags=re.MULTILINE,
+    )
+
+    if new_content != content:
+        api_client.write_text(new_content, encoding="utf-8")
+        print_success("API client type annotation patch applied")
+    else:
+        print_warning("API client type annotation patch: no changes needed")
+
+    return had_issues
+
+
+def patch_configuration_self_type(client_dir: Path, had_issues: bool) -> bool:
+    """Fix ``Self`` type annotation issues in configuration.py.
+
+    openapi-generator types the ``_default`` class variable as
+    ``ClassVar[Optional[Self]]``.  Type checkers track ``Self``
+    per-method, so ``Self@set_default`` != ``Self@get_default`` !=
+    the class-level ``Self``, causing assignment and return-type errors.
+
+    Fix: change the class variable type to ``Optional["Configuration"]``
+    and suppress the remaining return-type mismatch in ``get_default``.
+    """
+    config_file = client_dir / "tmi_client" / "configuration.py"
+    if not config_file.is_file():
+        return had_issues
+
+    content = config_file.read_text(encoding="utf-8")
+    new_content = content
+
+    # Fix the ClassVar type to avoid Self scoping issues
+    new_content = new_content.replace(
+        "_default: ClassVar[Optional[Self]] = None",
+        '_default: ClassVar[Optional["Configuration"]] = None',
+    )
+
+    # get_default returns cls._default which is Optional["Configuration"],
+    # but the return type is Self — suppress the unavoidable mismatch
+    new_content = re.sub(
+        r"return cls\._default$",
+        "return cls._default  # type: ignore[return-value]",
+        new_content,
+        count=1,
+        flags=re.MULTILINE,
+    )
+
+    if new_content != content:
+        config_file.write_text(new_content, encoding="utf-8")
+        print_success("Configuration Self type patch applied")
+    else:
+        print_warning("Configuration Self type patch: no changes needed")
+
+    return had_issues
+
+
 # --- Main ---
 
 
@@ -282,6 +431,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_regex_validators(client_dir, had_issues)
     had_issues = patch_test_return_types(client_dir, had_issues)
     had_issues = patch_urllib3_minimum_version(client_dir, had_issues)
+    had_issues = patch_oneof_return_types(client_dir, had_issues)
+    had_issues = patch_api_client_types(client_dir, had_issues)
+    had_issues = patch_configuration_self_type(client_dir, had_issues)
     print_success("Patches applied")
 
     # 8. Restore custom files
@@ -360,7 +512,13 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "make_instance() stubs declare a model return type but body is "
             "commented out, causing type-checker errors)\n"
             "- urllib3 minimum version bump to >= 2.6.3 "
-            "(CVE fixes for decompression-bomb and redirect vulnerabilities)\n\n"
+            "(CVE fixes for decompression-bomb and redirect vulnerabilities)\n"
+            "- OneOf model return-type fix (type checkers can't narrow "
+            "through hasattr guards on actual_instance)\n"
+            "- API client type annotation fix (None guards, str coercion, "
+            "return-type suppression)\n"
+            "- Configuration Self type fix (ClassVar[Optional[Self]] causes "
+            "per-method Self scope conflicts)\n\n"
             "### Generated Configuration\n"
             "- pyproject.toml with Pydantic v2 dependencies\n"
             "- Python 3.9+ requirement\n"

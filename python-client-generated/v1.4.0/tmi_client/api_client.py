@@ -246,7 +246,7 @@ class ApiClient:
             )
             url += "?" + url_query
 
-        return method, url, header_params, body, post_params
+        return method, url, header_params, body, post_params  # type: ignore[return-value]
 
 
     def call_api(
@@ -298,10 +298,10 @@ class ApiClient:
         msg = "RESTResponse.read() must be called before passing it to response_deserialize()"
         assert response_data.data is not None, msg
 
-        response_type = response_types_map.get(str(response_data.status), None)
+        response_type = response_types_map.get(str(response_data.status), None) if response_types_map is not None else None
         if not response_type and isinstance(response_data.status, int) and 100 <= response_data.status <= 599:
             # if not found, look for '1XX', '2XX', etc.
-            response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
+            response_type = response_types_map.get(str(response_data.status)[0] + "XX", None) if response_types_map is not None else None
 
         # deserialize response data
         response_text = None
@@ -318,7 +318,7 @@ class ApiClient:
                     match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
                 encoding = match.group(1) if match else "utf-8"
                 response_text = response_data.data.decode(encoding)
-                return_data = self.deserialize(response_text, response_type, content_type)
+                return_data = self.deserialize(response_text, str(response_type), content_type)
         finally:
             if not 200 <= response_data.status <= 299:
                 raise ApiException.from_response(
