@@ -9,7 +9,7 @@ This repository contains auto-generated API clients for the TMI (Threat Modeling
 - **Go** (`go-client-generated/`)
 - **TypeScript** (`typescript-client-generated/`) - Package name: `@tmiclient/client`
 
-Clients are generated from the TMI OpenAPI specification using openapi-generator 7.x (Python, TypeScript) and swagger-codegen 3.0.75 (Go).
+Clients are generated from the TMI OpenAPI specification using openapi-generator 7.x (Python, Go, TypeScript).
 
 ### Multi-Version Directory Structure
 
@@ -146,7 +146,7 @@ The API uses separate schemas for input and output:
 
 ### Client Structure
 
-Each language client follows the codegen structure (openapi-generator for Python and TypeScript, swagger-codegen for Go), with versioned subdirectories:
+Each language client follows the codegen structure (openapi-generator for Python, Go, and TypeScript), with versioned subdirectories:
 ```
 <lang>-client-generated/
 ├── scripts/                # Shared codegen config
@@ -242,7 +242,7 @@ Regeneration scripts are at the repo root:
 
 Codegen config files are in each client's `scripts/` directory:
 - `python-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
-- `go-client-generated/scripts/openapi-generator-config.json` and `swagger-codegen-config.json` (swagger-codegen)
+- `go-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
 - `typescript-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
 
 Analysis and validation scripts (Python client only):
@@ -327,7 +327,7 @@ The `versions.json` file at the repo root defines which versions to maintain:
 ### What Each Script Does
 
 Each per-language script automatically:
-- Runs openapi-generator (Python, TypeScript) or swagger-codegen (Go) with language-specific configuration
+- Runs openapi-generator with language-specific configuration
 - Applies codegen bug fix patches (UUID/datetime regex validator for Python; optional-extends and TokenRequest for TypeScript; constructor fixes, auth settings, etc. for Go)
 - Writes modern config files (pyproject.toml, go.mod, package.json, etc.)
 - Backs up and restores custom files
@@ -337,4 +337,4 @@ The Python client generates Pydantic v2 models with full type hints.
 
 **Exit codes:** 0 = success, 1 = fatal error (codegen failed), 2 = completed with issues (test failures or patch warnings).
 
-**Requirements:** `openapi-generator` (brew install openapi-generator) for Python and TypeScript; `swagger-codegen` (brew install swagger-codegen) for Go; plus `uv` for Python, `go` for Go, or `node` for TypeScript.
+**Requirements:** `openapi-generator` (brew install openapi-generator) for all languages; plus `uv` for Python, `go` for Go, or `node` for TypeScript.
