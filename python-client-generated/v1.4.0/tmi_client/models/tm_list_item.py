@@ -72,9 +72,10 @@ class TMListItem(BaseModel):
     @field_validator('description')
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
@@ -107,9 +108,9 @@ class TMListItem(BaseModel):
     @field_validator('issue_uri')
     def issue_uri_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
 
         if not re.match(r"^$|^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^$|^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
@@ -118,9 +119,10 @@ class TMListItem(BaseModel):
     @field_validator('status')
     def status_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
@@ -129,9 +131,9 @@ class TMListItem(BaseModel):
     @field_validator('status_updated')
     def status_updated_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
 
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
@@ -140,9 +142,9 @@ class TMListItem(BaseModel):
     @field_validator('deleted_at')
     def deleted_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
 
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")

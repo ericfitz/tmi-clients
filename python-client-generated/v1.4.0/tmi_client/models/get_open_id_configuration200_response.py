@@ -69,9 +69,10 @@ class GetOpenIDConfiguration200Response(BaseModel):
     @field_validator('userinfo_endpoint')
     def userinfo_endpoint_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
@@ -88,9 +89,10 @@ class GetOpenIDConfiguration200Response(BaseModel):
     @field_validator('introspection_endpoint')
     def introspection_endpoint_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")

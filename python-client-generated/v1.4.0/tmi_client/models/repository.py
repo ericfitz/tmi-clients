@@ -50,9 +50,10 @@ class Repository(BaseModel):
     @field_validator('name')
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
@@ -61,9 +62,10 @@ class Repository(BaseModel):
     @field_validator('description')
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
@@ -72,9 +74,10 @@ class Repository(BaseModel):
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if value not in set(['git', 'svn', 'mercurial', 'other']):
             raise ValueError("must be one of enum values ('git', 'svn', 'mercurial', 'other')")
@@ -99,9 +102,10 @@ class Repository(BaseModel):
     @field_validator('created_at')
     def created_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
@@ -110,9 +114,10 @@ class Repository(BaseModel):
     @field_validator('modified_at')
     def modified_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
@@ -121,9 +126,10 @@ class Repository(BaseModel):
     @field_validator('deleted_at')
     def deleted_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")

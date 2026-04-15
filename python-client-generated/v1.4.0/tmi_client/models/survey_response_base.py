@@ -43,9 +43,10 @@ class SurveyResponseBase(BaseModel):
     @field_validator('project_id')
     def project_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", value):
             raise ValueError(r"must validate the regular expression /^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/")

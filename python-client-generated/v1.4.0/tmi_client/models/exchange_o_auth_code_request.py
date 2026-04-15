@@ -49,9 +49,10 @@ class ExchangeOAuthCodeRequest(BaseModel):
     @field_validator('code')
     def code_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[\x20-\x7E]+$", value):
             raise ValueError(r"must validate the regular expression /^[\x20-\x7E]+$/")
@@ -60,9 +61,10 @@ class ExchangeOAuthCodeRequest(BaseModel):
     @field_validator('state')
     def state_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[a-zA-Z0-9_=-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_=-]*$/")
@@ -71,9 +73,10 @@ class ExchangeOAuthCodeRequest(BaseModel):
     @field_validator('redirect_uri')
     def redirect_uri_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
@@ -82,9 +85,10 @@ class ExchangeOAuthCodeRequest(BaseModel):
     @field_validator('code_verifier')
     def code_verifier_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
 
         if not re.match(r"^[A-Za-z0-9\-._~]+$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9\-._~]+$/")
