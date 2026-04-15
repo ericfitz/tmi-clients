@@ -4,6 +4,7 @@
 # dependencies = []
 # ///
 """Regenerate the TMI Go client from the OpenAPI spec using openapi-generator."""
+
 from __future__ import annotations
 
 import shutil
@@ -68,7 +69,7 @@ def patch_missing_time_import(client_dir: Path, had_issues: bool) -> bool:
             continue
         # Add "time" to the import block
         new_content = re.sub(
-            r'(import \(\n)',
+            r"(import \(\n)",
             r'\1\t"time"\n',
             content,
         )
@@ -84,11 +85,13 @@ def patch_missing_time_import(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_test_module_path(client_dir: Path, go_module_path: str, had_issues: bool) -> bool:
+def patch_test_module_path(
+    client_dir: Path, go_module_path: str, had_issues: bool
+) -> bool:
     """Fix openapi-generator bug: test stubs use wrong import path.
 
     The Go generator may emit either the literal placeholder
-    ``github.com/GIT_USER_ID/GIT_REPO_ID`` or the path built from the
+    ``github.com/ericfitz/tmi-clients`` or the path built from the
     ``gitUserId``/``gitRepoId`` config values (which omits the versioned
     subdirectory).  Replace both with the real module path.
     """
@@ -98,7 +101,7 @@ def patch_test_module_path(client_dir: Path, go_module_path: str, had_issues: bo
         return had_issues
 
     placeholders = [
-        "github.com/GIT_USER_ID/GIT_REPO_ID",
+        "github.com/ericfitz/tmi-clients",
         "github.com/ericfitz/tmi-clients/go-client-generated",
     ]
     patched_count = 0
@@ -129,14 +132,12 @@ def patch_json_literal_defaults(client_dir: Path, had_issues: bool) -> bool:
     """
     import re
 
-    pattern = re.compile(
-        r'var (\w+) (\w+) = \{[^}]*\}'
-    )
+    pattern = re.compile(r"var (\w+) (\w+) = \{[^}]*\}")
     patched_count = 0
 
     for go_file in sorted(client_dir.glob("model_*.go")):
         content = go_file.read_text(encoding="utf-8")
-        new_content, n = pattern.subn(r'var \1 \2', content)
+        new_content, n = pattern.subn(r"var \1 \2", content)
         if n > 0:
             go_file.write_text(new_content, encoding="utf-8")
             patched_count += n
@@ -156,7 +157,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     spec_version = extract_spec_version(Path(spec_path))
 
     version_dir = _go_version_dir(spec_version)
-    go_module_path = f"github.com/ericfitz/tmi-clients/go-client-generated/{version_dir}"
+    go_module_path = (
+        f"github.com/ericfitz/tmi-clients/go-client-generated/{version_dir}"
+    )
 
     if output_dir:
         client_dir = Path(output_dir)
@@ -168,12 +171,15 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     backup_dir = client_dir / ".regeneration_backup"
 
     # 2. Banner
-    print_banner("TMI Go Client Regeneration (openapi-generator)", {
-        "Package": "tmiclient",
-        "Module": go_module_path,
-        "Go": f"{GO_VERSION}+",
-        "Generator": "openapi-generator 7.x",
-    })
+    print_banner(
+        "TMI Go Client Regeneration (openapi-generator)",
+        {
+            "Package": "tmiclient",
+            "Module": go_module_path,
+            "Go": f"{GO_VERSION}+",
+            "Generator": "openapi-generator 7.x",
+        },
+    )
 
     # 3. Prerequisites
     print_step(1, "Checking prerequisites")
@@ -209,18 +215,20 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     clean_list: list[Path] = []
     for pat in ("model_*.go", "api_*.go"):
         clean_list.extend(client_dir.glob(pat))
-    clean_list.extend([
-        client_dir / "client.go",
-        client_dir / "configuration.go",
-        client_dir / "response.go",
-        client_dir / "utils.go",
-        client_dir / "api",
-        client_dir / "docs",
-        client_dir / "README.md",
-        client_dir / "git_push.sh",
-        client_dir / ".travis.yml",
-        client_dir / ".openapi-generator",
-    ])
+    clean_list.extend(
+        [
+            client_dir / "client.go",
+            client_dir / "configuration.go",
+            client_dir / "response.go",
+            client_dir / "utils.go",
+            client_dir / "api",
+            client_dir / "docs",
+            client_dir / "README.md",
+            client_dir / "git_push.sh",
+            client_dir / ".travis.yml",
+            client_dir / ".openapi-generator",
+        ]
+    )
     clean_paths(clean_list)
     print_success("Generated files cleaned")
 
@@ -246,16 +254,13 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_step(7, "Updating go.mod")
     go_mod = client_dir / "go.mod"
     if go_mod.is_file():
-        patch_file_regex(go_mod, r"module .*", f"module {go_module_path}",
-                         "go.mod module path")
-        patch_file_regex(go_mod, r"go [\d.]+", f"go {GO_VERSION}",
-                         "go.mod Go version")
+        patch_file_regex(
+            go_mod, r"module .*", f"module {go_module_path}", "go.mod module path"
+        )
+        patch_file_regex(go_mod, r"go [\d.]+", f"go {GO_VERSION}", "go.mod Go version")
     else:
         print_warning("go.mod not found after codegen — creating fresh one")
-        write_file(go_mod, (
-            f"module {go_module_path}\n\n"
-            f"go {GO_VERSION}\n"
-        ))
+        write_file(go_mod, (f"module {go_module_path}\n\ngo {GO_VERSION}\n"))
         print_success("Created go.mod")
 
     # 10. Restore custom files
@@ -298,7 +303,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         capture=True,
         error_context="go build failed.\n  Check build_output.log for details.",
     )
-    (client_dir / "build_output.log").write_text(build_result.stdout + build_result.stderr)
+    (client_dir / "build_output.log").write_text(
+        build_result.stdout + build_result.stderr
+    )
     if build_result.returncode == 0:
         print_success("Build successful")
     else:
@@ -340,30 +347,42 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     model_count = len(list(client_dir.glob("model_*.go")))
     api_count = len(list(client_dir.glob("api_*.go")))
 
-    report = generate_report("TMI Go Client Regeneration Report", [
-        {"heading": "Configuration", "content": (
-            f"- Package Name: tmiclient\n"
-            f"- Module Path: {go_module_path}\n"
-            f"- API Version: {spec_version}\n"
-            f"- Go Version: {GO_VERSION}+\n"
-            f"- Generator: openapi-generator 7.x\n"
-            f"- Config File: {CONFIG_FILE}"
-        )},
-        {"heading": "Files Generated", "content": (
-            f"- Model files: {model_count}\n"
-            f"- API files: {api_count}"
-        )},
-        {"heading": "Build Results", "content": (
-            f"- Build: {'PASS' if build_result.returncode == 0 else 'FAIL'}\n"
-            f"- Tests: {'PASS' if test_result.returncode == 0 else 'FAIL'}\n\n"
-            "See build_output.log and test_output.log for details."
-        )},
-        {"heading": "Next Steps", "content": (
-            "1. Review this report\n"
-            "2. Check build_output.log if build failed\n"
-            "3. Run: go test -v ./..."
-        )},
-    ])
+    report = generate_report(
+        "TMI Go Client Regeneration Report",
+        [
+            {
+                "heading": "Configuration",
+                "content": (
+                    f"- Package Name: tmiclient\n"
+                    f"- Module Path: {go_module_path}\n"
+                    f"- API Version: {spec_version}\n"
+                    f"- Go Version: {GO_VERSION}+\n"
+                    f"- Generator: openapi-generator 7.x\n"
+                    f"- Config File: {CONFIG_FILE}"
+                ),
+            },
+            {
+                "heading": "Files Generated",
+                "content": (f"- Model files: {model_count}\n- API files: {api_count}"),
+            },
+            {
+                "heading": "Build Results",
+                "content": (
+                    f"- Build: {'PASS' if build_result.returncode == 0 else 'FAIL'}\n"
+                    f"- Tests: {'PASS' if test_result.returncode == 0 else 'FAIL'}\n\n"
+                    "See build_output.log and test_output.log for details."
+                ),
+            },
+            {
+                "heading": "Next Steps",
+                "content": (
+                    "1. Review this report\n"
+                    "2. Check build_output.log if build failed\n"
+                    "3. Run: go test -v ./..."
+                ),
+            },
+        ],
+    )
     write_file(client_dir / "REGENERATION_REPORT.md", report)
     print_success("Regeneration report created: REGENERATION_REPORT.md")
 
@@ -373,13 +392,15 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_success("Cleanup complete")
 
     # 15. Summary
-    print_summary({
-        "Client": "regenerated with openapi-generator",
-        "Output": str(client_dir),
-        "Build": "SUCCESS" if build_result.returncode == 0 else "FAILED",
-        "Tests": "PASSED" if test_result.returncode == 0 else "FAILED",
-        "Report": "REGENERATION_REPORT.md",
-    })
+    print_summary(
+        {
+            "Client": "regenerated with openapi-generator",
+            "Output": str(client_dir),
+            "Build": "SUCCESS" if build_result.returncode == 0 else "FAILED",
+            "Tests": "PASSED" if test_result.returncode == 0 else "FAILED",
+            "Report": "REGENERATION_REPORT.md",
+        }
+    )
 
     return 2 if had_issues else 0
 
