@@ -3,9 +3,9 @@ name = "tmi_client"
 version = "1.4.0"
 description = "TMI (Threat Modeling Improved) API"
 authors = [
-  {name = "TMI Development Team",email = "api@tmi.local.dev"},
+  {name = "TMI Development Team",email = "eric@tmi.dev"},
 ]
-license = { text = "Apache 2.0" }
+license = "Apache-2.0"
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "TMI (Threat Modeling Improved) API"]
 requires-python = ">=3.9"
@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
+Repository = "https://github.com/ericfitz/tmi-clients"
 
 [tool.poetry]
 requires-poetry = ">=2.0"
