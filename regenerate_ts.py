@@ -54,7 +54,7 @@ PACKAGE_JSON = """\
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "typescript": "^5.0"
+    "typescript": "^6.0"
   },
   "repository": {
     "type": "git",
@@ -76,7 +76,9 @@ TSCONFIG = """\
     "declaration": true,
     "target": "ES2022",
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
+    "rootDir": "./src",
     "outDir": "dist",
     "typeRoots": [
       "node_modules/@types"
