@@ -71,10 +71,10 @@ class DiagramListItem(BaseModel):
     @field_validator('description')
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
@@ -98,10 +98,10 @@ class DiagramListItem(BaseModel):
     @field_validator('deleted_at')
     def deleted_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value

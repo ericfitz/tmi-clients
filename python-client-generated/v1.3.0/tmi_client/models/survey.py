@@ -58,10 +58,10 @@ class Survey(BaseModel):
     @field_validator('description')
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
@@ -77,10 +77,10 @@ class Survey(BaseModel):
     @field_validator('status')
     def status_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
@@ -88,10 +88,10 @@ class Survey(BaseModel):
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/")
         return value
@@ -99,10 +99,10 @@ class Survey(BaseModel):
     @field_validator('created_at')
     def created_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value
@@ -110,10 +110,10 @@ class Survey(BaseModel):
     @field_validator('modified_at')
     def modified_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value

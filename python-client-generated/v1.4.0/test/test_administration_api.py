@@ -37,7 +37,7 @@ class TestAdministrationApi(unittest.TestCase):
     def test_create_admin_group(self) -> None:
         """Test case for create_admin_group
 
-        Create provider-independent group
+        Create TMI built-in group
         """
         pass
 

@@ -7,7 +7,7 @@ User profile with role status and group memberships (only returned by GET /me)
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **principal_type** | **str** | Always \&quot;user\&quot; for User objects | 
-**provider** | **str** | Identity provider name (e.g., \&quot;google\&quot;, \&quot;github\&quot;, \&quot;microsoft\&quot;, \&quot;tmi\&quot;). Use \&quot;*\&quot; for provider-independent groups. | 
+**provider** | **str** | Identity provider name (e.g., \&quot;google\&quot;, \&quot;github\&quot;, \&quot;microsoft\&quot;, \&quot;tmi\&quot;). Use \&quot;tmi\&quot; for TMI built-in groups. | 
 **provider_id** | **str** | Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name. | 
 **display_name** | **str** | User full name for display | 
 **email** | **str** | User email address (required) | 

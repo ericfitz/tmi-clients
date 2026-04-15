@@ -32,7 +32,7 @@ class AdminGroup(BaseModel):
     Group object with administrative fields and enriched data
     """ # noqa: E501
     internal_uuid: UUID = Field(description="Internal system UUID for the group")
-    provider: Annotated[str, Field(strict=True, max_length=256)] = Field(description="OAuth/SAML provider identifier, or \"*\" for provider-independent groups")
+    provider: Annotated[str, Field(strict=True, max_length=256)] = Field(description="OAuth/SAML provider identifier, or \"tmi\" for TMI built-in groups")
     group_name: Annotated[str, Field(strict=True, max_length=500)] = Field(description="Provider-assigned group name")
     name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Human-readable group name")
     description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Group description")

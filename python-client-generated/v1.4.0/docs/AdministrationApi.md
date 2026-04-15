@@ -5,7 +5,7 @@ All URIs are relative to *https://api.tmi.dev*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_group_member**](AdministrationApi.md#add_group_member) | **POST** /admin/groups/{internal_uuid}/members | Add member to group
-[**create_admin_group**](AdministrationApi.md#create_admin_group) | **POST** /admin/groups | Create provider-independent group
+[**create_admin_group**](AdministrationApi.md#create_admin_group) | **POST** /admin/groups | Create TMI built-in group
 [**delete_addon_invocation_quota**](AdministrationApi.md#delete_addon_invocation_quota) | **DELETE** /admin/quotas/addons/{user_id} | Delete addon invocation quota
 [**delete_admin_group**](AdministrationApi.md#delete_admin_group) | **DELETE** /admin/groups/{internal_uuid} | Delete group
 [**delete_admin_user**](AdministrationApi.md#delete_admin_user) | **DELETE** /admin/users/{internal_uuid} | Delete user
@@ -127,9 +127,9 @@ Name | Type | Description  | Notes
 # **create_admin_group**
 > AdminGroup create_admin_group(create_admin_group_request)
 
-Create provider-independent group
+Create TMI built-in group
 
-Creates a new provider-independent group (provider="*"). These groups can be used across all providers for authorization and administration.
+Creates a new TMI built-in group (provider="tmi"). These groups can be used across all providers for authorization and administration.
 
 ### Example
 
@@ -165,7 +165,7 @@ with tmi_client.ApiClient(configuration) as api_client:
     create_admin_group_request = tmi_client.CreateAdminGroupRequest() # CreateAdminGroupRequest | Group creation request
 
     try:
-        # Create provider-independent group
+        # Create TMI built-in group
         api_response = api_instance.create_admin_group(create_admin_group_request)
         print("The response of AdministrationApi->create_admin_group:\n")
         pprint(api_response)

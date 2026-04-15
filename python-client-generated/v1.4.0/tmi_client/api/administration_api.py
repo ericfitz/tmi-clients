@@ -391,9 +391,9 @@ class AdministrationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AdminGroup:
-        """Create provider-independent group
+        """Create TMI built-in group
 
-        Creates a new provider-independent group (provider=\"*\"). These groups can be used across all providers for authorization and administration.
+        Creates a new TMI built-in group (provider=\"tmi\"). These groups can be used across all providers for authorization and administration.
 
         :param create_admin_group_request: Group creation request (required)
         :type create_admin_group_request: CreateAdminGroupRequest
@@ -464,9 +464,9 @@ class AdministrationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AdminGroup]:
-        """Create provider-independent group
+        """Create TMI built-in group
 
-        Creates a new provider-independent group (provider=\"*\"). These groups can be used across all providers for authorization and administration.
+        Creates a new TMI built-in group (provider=\"tmi\"). These groups can be used across all providers for authorization and administration.
 
         :param create_admin_group_request: Group creation request (required)
         :type create_admin_group_request: CreateAdminGroupRequest
@@ -537,9 +537,9 @@ class AdministrationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create provider-independent group
+        """Create TMI built-in group
 
-        Creates a new provider-independent group (provider=\"*\"). These groups can be used across all providers for authorization and administration.
+        Creates a new TMI built-in group (provider=\"tmi\"). These groups can be used across all providers for authorization and administration.
 
         :param create_admin_group_request: Group creation request (required)
         :type create_admin_group_request: CreateAdminGroupRequest

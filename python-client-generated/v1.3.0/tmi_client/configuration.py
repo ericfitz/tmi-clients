@@ -180,7 +180,7 @@ class Configuration:
     :Example:
     """
 
-    _default: ClassVar[Optional[Self]] = None
+    _default: ClassVar[Optional["Configuration"]] = None
 
     def __init__(
         self,
@@ -388,7 +388,7 @@ class Configuration:
         """
         if cls._default is None:
             cls._default = cls()
-        return cls._default
+        return cls._default  # type: ignore[return-value]
 
     @property
     def logger_file(self) -> Optional[str]:

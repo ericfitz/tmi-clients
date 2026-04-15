@@ -119,7 +119,7 @@ class EdgeLabelPositionOneOfOffset(BaseModel):
             return "null"
 
         if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
+            return str(self.actual_instance.to_json())
         else:
             return json.dumps(self.actual_instance)
 
@@ -129,7 +129,7 @@ class EdgeLabelPositionOneOfOffset(BaseModel):
             return None
 
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
+            return self.actual_instance.to_dict()  # type: ignore[return-value]
         else:
             # primitive type
             return self.actual_instance

@@ -36,10 +36,10 @@ class BaseDiagramImage(BaseModel):
     @field_validator('svg')
     def svg_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[A-Za-z0-9+\/]*=*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9+\/]*=*$/")
         return value

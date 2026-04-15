@@ -27,7 +27,7 @@ from pydantic_core import to_jsonable_python
 
 class CreateAdminGroupRequest(BaseModel):
     """
-    Request body for creating a provider-independent group
+    Request body for creating a TMI built-in group
     """ # noqa: E501
     group_name: Annotated[str, Field(min_length=1, strict=True, max_length=128)] = Field(description="Group identifier (alphanumeric, hyphens, underscores only)")
     name: Annotated[str, Field(min_length=1, strict=True, max_length=128)] = Field(description="Human-readable group name")

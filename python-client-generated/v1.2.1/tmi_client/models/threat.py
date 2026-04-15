@@ -67,10 +67,10 @@ class Threat(BaseModel):
     @field_validator('description')
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
@@ -78,10 +78,10 @@ class Threat(BaseModel):
     @field_validator('mitigation')
     def mitigation_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
@@ -89,10 +89,10 @@ class Threat(BaseModel):
     @field_validator('diagram_id')
     def diagram_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$/")
         return value
@@ -100,10 +100,10 @@ class Threat(BaseModel):
     @field_validator('cell_id')
     def cell_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$/")
         return value
@@ -111,10 +111,10 @@ class Threat(BaseModel):
     @field_validator('severity')
     def severity_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
@@ -122,10 +122,10 @@ class Threat(BaseModel):
     @field_validator('priority')
     def priority_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
@@ -133,10 +133,10 @@ class Threat(BaseModel):
     @field_validator('status')
     def status_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
@@ -144,10 +144,10 @@ class Threat(BaseModel):
     @field_validator('issue_uri')
     def issue_uri_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
@@ -155,10 +155,10 @@ class Threat(BaseModel):
     @field_validator('asset_id')
     def asset_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$/")
         return value
@@ -166,10 +166,10 @@ class Threat(BaseModel):
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$/")
         return value
@@ -177,10 +177,10 @@ class Threat(BaseModel):
     @field_validator('threat_model_id')
     def threat_model_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$/")
         return value
@@ -188,10 +188,10 @@ class Threat(BaseModel):
     @field_validator('created_at')
     def created_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value
@@ -199,10 +199,10 @@ class Threat(BaseModel):
     @field_validator('modified_at')
     def modified_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value

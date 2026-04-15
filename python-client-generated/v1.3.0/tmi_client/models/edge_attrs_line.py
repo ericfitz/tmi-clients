@@ -41,10 +41,10 @@ class EdgeAttrsLine(BaseModel):
     @field_validator('stroke')
     def stroke_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
             raise ValueError(r"must validate the regular expression /^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$/")
         return value
@@ -52,10 +52,10 @@ class EdgeAttrsLine(BaseModel):
     @field_validator('stroke_dasharray')
     def stroke_dasharray_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$/")
         return value

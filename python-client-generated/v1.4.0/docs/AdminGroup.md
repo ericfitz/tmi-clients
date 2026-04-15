@@ -7,7 +7,7 @@ Group object with administrative fields and enriched data
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **internal_uuid** | **UUID** | Internal system UUID for the group | 
-**provider** | **str** | OAuth/SAML provider identifier, or \&quot;*\&quot; for provider-independent groups | 
+**provider** | **str** | OAuth/SAML provider identifier, or \&quot;tmi\&quot; for TMI built-in groups | 
 **group_name** | **str** | Provider-assigned group name | 
 **name** | **str** | Human-readable group name | [optional] 
 **description** | **str** | Group description | [optional] 

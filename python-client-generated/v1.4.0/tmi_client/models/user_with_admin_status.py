@@ -31,7 +31,7 @@ class UserWithAdminStatus(BaseModel):
     User profile with role status and group memberships (only returned by GET /me)
     """ # noqa: E501
     principal_type: StrictStr = Field(description="Always \"user\" for User objects")
-    provider: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.")
+    provider: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"tmi\" for TMI built-in groups.")
     provider_id: Annotated[str, Field(min_length=1, strict=True, max_length=500)] = Field(description="Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.")
     display_name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="User full name for display")
     email: Annotated[str, Field(strict=True, max_length=254)] = Field(description="User email address (required)")

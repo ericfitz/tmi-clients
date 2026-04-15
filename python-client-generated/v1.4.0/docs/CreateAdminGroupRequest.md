@@ -1,6 +1,6 @@
 # CreateAdminGroupRequest
 
-Request body for creating a provider-independent group
+Request body for creating a TMI built-in group
 
 ## Properties
 

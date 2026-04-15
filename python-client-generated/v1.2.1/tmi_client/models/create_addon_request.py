@@ -41,10 +41,10 @@ class CreateAddonRequest(BaseModel):
     @field_validator('icon')
     def icon_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if not re.match(r"^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$", value):
             raise ValueError(r"must validate the regular expression /^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$/")
         return value

@@ -30,7 +30,7 @@ class Principal(BaseModel):
     Base identity representation for users and groups with portable, globally-unique identifiers
     """ # noqa: E501
     principal_type: StrictStr = Field(description="Type of principal: user (individual) or group")
-    provider: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.")
+    provider: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"tmi\" for TMI built-in groups.")
     provider_id: Annotated[str, Field(min_length=1, strict=True, max_length=500)] = Field(description="Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.")
     display_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=256)]] = Field(default=None, description="Human-readable display name for UI presentation")
     email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Email address (required for users, optional for groups)")
