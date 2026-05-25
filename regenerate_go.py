@@ -37,7 +37,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 LANG_DIR = REPO_ROOT / "go-client-generated"
 CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
-GO_VERSION = "1.21"
+GO_VERSION = "1.23"
 
 
 def _go_version_dir(version: str) -> str:

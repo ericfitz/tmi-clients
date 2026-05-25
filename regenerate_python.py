@@ -148,6 +148,59 @@ def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
+def patch_python_minimum_version(client_dir: Path, had_issues: bool) -> bool:
+    """Raise the minimum supported Python to >=3.10 in pyproject.toml and setup.py.
+
+    openapi-generator defaults the floor to >=3.9, but urllib3 2.7.0 — which
+    carries fixes for two HIGH-severity advisories (cross-origin header
+    forwarding in proxied redirects, decompression-bomb bypass in the streaming
+    API) — requires Python >=3.10.  Keeping a 3.9 floor forces the resolver to
+    pin urllib3 2.6.3 for the 3.9 slice, leaving 3.9 users exposed with no
+    backport available.  Raising the floor lets urllib3 resolve to 2.7.0 for
+    every supported interpreter.  The ``tox = ">= 3.9.0"`` dev dependency is a
+    tox *package* version and is intentionally left untouched.
+    """
+    min_python = "3.10"
+    files_patched = 0
+
+    # pyproject.toml: requires-python = ">=3.9"
+    pyproject = client_dir / "pyproject.toml"
+    if pyproject.is_file():
+        content = pyproject.read_text(encoding="utf-8")
+        new_content = re.sub(
+            r'(^requires-python\s*=\s*")>=\s*[\d.]+(")',
+            rf'\g<1>>={min_python}\g<2>',
+            content,
+            count=1,
+            flags=re.MULTILINE,
+        )
+        if new_content != content:
+            pyproject.write_text(new_content, encoding="utf-8")
+            files_patched += 1
+
+    # setup.py: PYTHON_REQUIRES = ">= 3.9"
+    setup_py = client_dir / "setup.py"
+    if setup_py.is_file():
+        content = setup_py.read_text(encoding="utf-8")
+        new_content = re.sub(
+            r'(^PYTHON_REQUIRES\s*=\s*")>=\s*[\d.]+(")',
+            rf'\g<1>>= {min_python}\g<2>',
+            content,
+            count=1,
+            flags=re.MULTILINE,
+        )
+        if new_content != content:
+            setup_py.write_text(new_content, encoding="utf-8")
+            files_patched += 1
+
+    if files_patched > 0:
+        print_success(f"Python minimum version patch: {files_patched} files updated to >= {min_python}")
+    else:
+        print_success(f"Python minimum version already >= {min_python}")
+
+    return had_issues
+
+
 def patch_test_return_types(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: generated test stubs declare a return type
     on make_instance() but the body is commented out, so the function always
@@ -338,7 +391,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     # 1. Banner
     print_banner("TMI Python Client Regeneration (openapi-generator)", {
         "Package": "tmi_client",
-        "Python": "3.9+",
+        "Python": "3.10+",
         "Generator": "openapi-generator 7.x",
         "Models": "Pydantic v2",
         "Testing": "pytest",
@@ -431,6 +484,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_regex_validators(client_dir, had_issues)
     had_issues = patch_test_return_types(client_dir, had_issues)
     had_issues = patch_urllib3_minimum_version(client_dir, had_issues)
+    had_issues = patch_python_minimum_version(client_dir, had_issues)
     had_issues = patch_oneof_return_types(client_dir, had_issues)
     had_issues = patch_api_client_types(client_dir, had_issues)
     had_issues = patch_configuration_self_type(client_dir, had_issues)
@@ -521,7 +575,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "per-method Self scope conflicts)\n\n"
             "### Generated Configuration\n"
             "- pyproject.toml with Pydantic v2 dependencies\n"
-            "- Python 3.9+ requirement\n"
+            "- Python 3.10+ requirement\n"
             "- pytest-based testing infrastructure\n"
             "- mypy configuration for type checking"
         )},
