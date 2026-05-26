@@ -48,6 +48,9 @@ PACKAGE_JSON = """\
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
@@ -116,6 +119,15 @@ TSCONFIG_ESM = """\
 # break `npm test` with a missing-native-binding error. This project-level
 # .npmrc re-enables optional deps regardless of the global npm config.
 NPMRC = "include=optional\n"
+
+# openapi-generator emits a .npmignore that excludes README.md, which would
+# leave the npm package page blank. Published contents are governed by the
+# "files" allowlist in package.json (dist/ only), so this .npmignore just
+# needs to not suppress the README.
+NPMIGNORE = (
+    "# Published contents are controlled by the \"files\" allowlist in package.json\n"
+    "# (dist/ only). package.json, README.md, and LICENSE are always included.\n"
+)
 
 VITEST_CONFIG = """\
 import { defineConfig } from "vitest/config";
@@ -341,6 +353,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     write_file(client_dir / "vitest.config.ts", VITEST_CONFIG)
     write_file(client_dir / "eslint.config.mjs", ESLINT_CONFIG)
     write_file(client_dir / ".npmrc", NPMRC)
+    write_file(client_dir / ".npmignore", NPMIGNORE)
     print_success(f"Config files written (version {spec_version})")
 
     # 10. Restore custom files
