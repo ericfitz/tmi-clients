@@ -36,6 +36,41 @@ REPO_ROOT = Path(__file__).resolve().parent
 LANG_DIR = REPO_ROOT / "python-client-generated"
 CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
+# ty (Astral type checker) config. The project's authoritative checker is mypy;
+# ty is stricter about a few patterns openapi-generator emits in the generated
+# package and that we do not hand-edit. Scope the rules to the generated
+# package so ty still flags them in any hand-written code. See the inline
+# comments for what each rule covers.
+TY_TOML = """\
+# ty (Astral type checker) configuration.
+#
+# The project's authoritative type checker is mypy (see [tool.mypy] in
+# pyproject.toml). ty is stricter than mypy about a few patterns that
+# openapi-generator emits in the generated tmi_client/ package and that we do
+# not hand-edit:
+#
+#   - invalid-argument-type: rest.py builds a heterogeneous `pool_args` dict
+#     (ssl.VerifyMode, str, bool, Mapping) and splats it as `**pool_args` into
+#     urllib3's PoolManager/ProxyManager/SOCKSProxyManager; ty cannot narrow the
+#     dict value type through the unpacking.
+#   - invalid-return-type: api_client.py's response_deserialize returns an
+#     ApiResponse whose type parameter ty widens to include None/Unknown.
+#   - unresolved-import: models emit a self-referential `if TYPE_CHECKING:
+#     from tmi_client.models.<self> import <Self>` forward-reference that ty
+#     reports as unresolved even though the class is defined in the same module.
+#
+# These are generated-code limitations, not runtime bugs: mypy accepts them and
+# the test suite passes. Scope the rules to the generated package only, so ty
+# still flags them in any hand-written code.
+[[overrides]]
+include = ["tmi_client/**"]
+
+[overrides.rules]
+invalid-argument-type = "ignore"
+invalid-return-type = "ignore"
+unresolved-import = "ignore"
+"""
+
 
 # --- Patches ---
 
@@ -489,6 +524,10 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_api_client_types(client_dir, had_issues)
     had_issues = patch_configuration_self_type(client_dir, had_issues)
     print_success("Patches applied")
+
+    # 7b. Write ty type-checker config (aligns ty with mypy on generated code)
+    write_file(client_dir / "ty.toml", TY_TOML)
+    print_success("Wrote ty.toml")
 
     # 8. Restore custom files
     print_step(7, "Restoring custom files")
