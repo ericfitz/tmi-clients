@@ -51,10 +51,17 @@ PACKAGE_JSON = """\
   "sideEffects": false,
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint test"
   },
   "devDependencies": {
-    "typescript": "^6.0"
+    "@eslint/js": "^10.0",
+    "eslint": "^10.0",
+    "typescript": "^6.0",
+    "typescript-eslint": "^8.60",
+    "vitest": "^3.2"
   },
   "repository": {
     "type": "git",
@@ -84,6 +91,9 @@ TSCONFIG = """\
       "node_modules/@types"
     ]
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     "dist",
     "node_modules"
@@ -99,6 +109,42 @@ TSCONFIG_ESM = """\
     "outDir": "dist/esm"
   }
 }
+"""
+
+# vitest's bundler (vite -> rollup) ships its platform binary as an optional
+# dependency. A developer/CI npm config of `omit=optional` would skip it and
+# break `npm test` with a missing-native-binding error. This project-level
+# .npmrc re-enables optional deps regardless of the global npm config.
+NPMRC = "include=optional\n"
+
+VITEST_CONFIG = """\
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    include: ["test/**/*.test.ts"],
+    environment: "node",
+  },
+});
+"""
+
+# ESLint flat config. Scoped to the hand-written test/ directory only — the
+# generated src/ carries `/* eslint-disable */` headers and is not ours to lint.
+ESLINT_CONFIG = """\
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+
+export default tseslint.config(
+  { ignores: ["dist", "node_modules", "src", "docs"] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["test/**/*.ts"],
+    languageOptions: {
+      globals: { process: "readonly" },
+    },
+  },
+);
 """
 
 
@@ -246,7 +292,10 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         files=[
             client_dir / ".openapi-generator-ignore",
         ],
-        dirs=[client_dir / "docs" / "developer"],
+        dirs=[
+            client_dir / "docs" / "developer",
+            client_dir / "test",
+        ],
         backup_dir=backup_dir,
     )
     print_success("Custom files backed up")
@@ -284,11 +333,14 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_success("Patches applied")
 
     # 9. Write config files (overwrite openapi-generator defaults)
-    print_step(7, "Writing package.json and tsconfig.json")
+    print_step(7, "Writing package.json, tsconfig.json, and test/lint configs")
     write_file(client_dir / "package.json",
                PACKAGE_JSON.replace(_VERSION_PLACEHOLDER, spec_version))
     write_file(client_dir / "tsconfig.json", TSCONFIG)
     write_file(client_dir / "tsconfig.esm.json", TSCONFIG_ESM)
+    write_file(client_dir / "vitest.config.ts", VITEST_CONFIG)
+    write_file(client_dir / "eslint.config.mjs", ESLINT_CONFIG)
+    write_file(client_dir / ".npmrc", NPMRC)
     print_success(f"Config files written (version {spec_version})")
 
     # 10. Restore custom files
@@ -297,7 +349,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         backup_dir=backup_dir,
         dest_dir=client_dir,
         files=[".openapi-generator-ignore"],
-        dirs=["developer"],
+        dirs=["developer", "test"],
     )
     # Fix developer docs path (restore puts it at client_dir/developer/)
     restored_dev = client_dir / "developer"
@@ -356,8 +408,48 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             )
             had_issues = True
 
+    # 12b. Lint (hand-written test/ only; generated src/ is eslint-disabled)
+    print_step(11, "Linting tests")
+    lint_returncode = 0
+    if (client_dir / "test").is_dir():
+        lint_result = run_command(
+            ["npm", "run", "lint"],
+            cwd=client_dir,
+            capture=True,
+            error_context="ESLint failed.",
+        )
+        lint_returncode = lint_result.returncode
+        if lint_returncode == 0:
+            print_success("Lint passed")
+        else:
+            print_warning("Lint failed — see output below")
+            print(lint_result.stdout + lint_result.stderr)
+            had_issues = True
+    else:
+        print_warning("No test/ directory — skipping lint")
+
+    # 12c. Test (Vitest unit tests)
+    print_step(12, "Running tests")
+    test_returncode = 0
+    if (client_dir / "test").is_dir():
+        test_result = run_command(
+            ["npm", "test"],
+            cwd=client_dir,
+            capture=True,
+            error_context="Vitest tests failed.",
+        )
+        test_returncode = test_result.returncode
+        if test_returncode == 0:
+            print_success("Tests passed")
+        else:
+            print_warning("Tests failed — see output below")
+            print(test_result.stdout + test_result.stderr)
+            had_issues = True
+    else:
+        print_warning("No test/ directory — skipping tests")
+
     # 13. Report
-    print_step(11, "Generating regeneration report")
+    print_step(13, "Generating regeneration report")
     api_count = count_files(client_dir / "src" / "apis", "*.ts")
     model_count = count_files(client_dir / "src" / "models", "*.ts")
 
@@ -381,7 +473,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         )},
         {"heading": "Build Results", "content": (
             f"- TypeScript compilation: "
-            f"{'PASS' if build_result.returncode == 0 else 'FAIL'}\n\n"
+            f"{'PASS' if build_result.returncode == 0 else 'FAIL'}\n"
+            f"- Lint (test/): {'PASS' if lint_returncode == 0 else 'FAIL'}\n"
+            f"- Unit tests (vitest): {'PASS' if test_returncode == 0 else 'FAIL'}\n\n"
             "See build_output.log for details."
         )},
         {"heading": "Next Steps", "content": (
@@ -394,7 +488,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_success("Regeneration report created: REGENERATION_REPORT.md")
 
     # 14. Cleanup
-    print_step(12, "Cleaning up")
+    print_step(14, "Cleaning up")
     clean_paths([backup_dir])
     print_success("Cleanup complete")
 
