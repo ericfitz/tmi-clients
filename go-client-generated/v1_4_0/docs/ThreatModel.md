@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Authorization** | [**[]Authorization**](Authorization.md) | List of users and their roles for this threat model | 
 **Metadata** | Pointer to [**[]Metadata**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] 
 **IssueUri** | Pointer to **NullableString** | URL to an issue in an issue tracking system for this threat model | [optional] 
-**Status** | Pointer to **NullableString** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
-**Alias** | Pointer to **[]string** | Alternative names or identifiers for the threat model | [optional] 
+**Status** | Pointer to **string** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;not_started\&quot;, \&quot;in_progress\&quot;, \&quot;pending_review\&quot;, \&quot;approved\&quot;, \&quot;closed\&quot;. Defaults to \&quot;not_started\&quot; on create. | [optional] [default to "not_started"]
+**Alias** | Pointer to **int32** | Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation. | [optional] [readonly] 
 **SecurityReviewer** | Pointer to [**NullableUser**](User.md) | Security reviewer assigned to this threat model. When set, the security reviewer is automatically added to the authorization list with the owner role. The security reviewer&#39;s owner role cannot be removed via authorization changes while they remain assigned as security reviewer. To change the security reviewer&#39;s authorization, first unassign them as security reviewer. | [optional] 
 **ProjectId** | Pointer to **NullableString** | Optional reference to the project this threat model belongs to | [optional] 
 **Id** | Pointer to **string** | Unique identifier for the threat model (UUID) | [optional] [readonly] 
@@ -21,13 +21,14 @@ Name | Type | Description | Notes
 **CreatedBy** | Pointer to [**User**](User.md) | User who created the threat model | [optional] [readonly] 
 **Documents** | Pointer to [**[]Document**](Document.md) | List of documents related to the threat model | [optional] [readonly] 
 **Repositories** | Pointer to [**[]Repository**](Repository.md) | List of source code repositories related to the threat model | [optional] [readonly] 
-**Diagrams** | Pointer to [**[]DfdDiagram**](DfdDiagram.md) | List of diagram objects associated with this threat model | [optional] [readonly] 
+**Diagrams** | Pointer to [**[]Diagram**](Diagram.md) | List of diagram objects associated with this threat model | [optional] [readonly] 
 **Threats** | Pointer to [**[]Threat**](Threat.md) | List of threats within the threat model | [optional] [readonly] 
 **Notes** | Pointer to [**[]Note**](Note.md) | List of notes associated with the threat model | [optional] [readonly] 
 **Assets** | Pointer to [**[]ExtendedAsset**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] [readonly] 
-**StatusUpdated** | Pointer to **NullableTime** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [readonly] 
+**StatusUpdated** | Pointer to **time.Time** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [readonly] 
 **IsConfidential** | Pointer to **bool** | Whether this threat model is confidential (set at creation, read-only after) | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**Version** | Pointer to **int32** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Methods
 
@@ -268,32 +269,22 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### SetStatusNil
-
-`func (o *ThreatModel) SetStatusNil(b bool)`
-
- SetStatusNil sets the value for Status to be an explicit nil
-
-### UnsetStatus
-`func (o *ThreatModel) UnsetStatus()`
-
-UnsetStatus ensures that no value is present for Status, not even an explicit nil
 ### GetAlias
 
-`func (o *ThreatModel) GetAlias() []string`
+`func (o *ThreatModel) GetAlias() int32`
 
 GetAlias returns the Alias field if non-nil, zero value otherwise.
 
 ### GetAliasOk
 
-`func (o *ThreatModel) GetAliasOk() (*[]string, bool)`
+`func (o *ThreatModel) GetAliasOk() (*int32, bool)`
 
 GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlias
 
-`func (o *ThreatModel) SetAlias(v []string)`
+`func (o *ThreatModel) SetAlias(v int32)`
 
 SetAlias sets Alias field to given value.
 
@@ -525,20 +516,20 @@ HasRepositories returns a boolean if a field has been set.
 
 ### GetDiagrams
 
-`func (o *ThreatModel) GetDiagrams() []DfdDiagram`
+`func (o *ThreatModel) GetDiagrams() []Diagram`
 
 GetDiagrams returns the Diagrams field if non-nil, zero value otherwise.
 
 ### GetDiagramsOk
 
-`func (o *ThreatModel) GetDiagramsOk() (*[]DfdDiagram, bool)`
+`func (o *ThreatModel) GetDiagramsOk() (*[]Diagram, bool)`
 
 GetDiagramsOk returns a tuple with the Diagrams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiagrams
 
-`func (o *ThreatModel) SetDiagrams(v []DfdDiagram)`
+`func (o *ThreatModel) SetDiagrams(v []Diagram)`
 
 SetDiagrams sets Diagrams field to given value.
 
@@ -648,16 +639,6 @@ SetStatusUpdated sets StatusUpdated field to given value.
 
 HasStatusUpdated returns a boolean if a field has been set.
 
-### SetStatusUpdatedNil
-
-`func (o *ThreatModel) SetStatusUpdatedNil(b bool)`
-
- SetStatusUpdatedNil sets the value for StatusUpdated to be an explicit nil
-
-### UnsetStatusUpdated
-`func (o *ThreatModel) UnsetStatusUpdated()`
-
-UnsetStatusUpdated ensures that no value is present for StatusUpdated, not even an explicit nil
 ### GetIsConfidential
 
 `func (o *ThreatModel) GetIsConfidential() bool`
@@ -718,6 +699,31 @@ HasDeletedAt returns a boolean if a field has been set.
 `func (o *ThreatModel) UnsetDeletedAt()`
 
 UnsetDeletedAt ensures that no value is present for DeletedAt, not even an explicit nil
+### GetVersion
+
+`func (o *ThreatModel) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *ThreatModel) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *ThreatModel) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *ThreatModel) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

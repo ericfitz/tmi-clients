@@ -20,6 +20,8 @@ Name | Type
 `created_at` | Date
 `modified_at` | Date
 `deleted_at` | Date
+`alias` | number
+`version` | number
 `threat_model_id` | string
 
 ## Example
@@ -42,6 +44,8 @@ const example = {
   "created_at": null,
   "modified_at": null,
   "deleted_at": null,
+  "alias": null,
+  "version": null,
   "threat_model_id": null,
 } satisfies ExtendedAsset
 

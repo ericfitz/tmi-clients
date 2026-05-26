@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
 **color_palette** | [**List[ColorPaletteEntry]**](ColorPaletteEntry.md) | Custom color palette for diagram elements, ordered by position | [optional] 
+**auto_generated** | **bool** | True when the diagram was created by an automation/service-account principal. Sticky from creation. | [optional] [readonly] 
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
 
 ## Example
 

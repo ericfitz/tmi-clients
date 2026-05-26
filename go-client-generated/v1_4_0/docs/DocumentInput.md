@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Uri** | **string** | URL location of the document | 
 **IncludeInReport** | Pointer to **bool** | Whether this item should be included in generated reports | [optional] [default to true]
 **TimmyEnabled** | Pointer to **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]
+**PickerRegistration** | Pointer to **map[string]interface{}** | Optional; when present, client has performed a Picker-based attachment | [optional] 
 
 ## Methods
 
@@ -154,6 +155,41 @@ SetTimmyEnabled sets TimmyEnabled field to given value.
 
 HasTimmyEnabled returns a boolean if a field has been set.
 
+### GetPickerRegistration
+
+`func (o *DocumentInput) GetPickerRegistration() map[string]interface{}`
+
+GetPickerRegistration returns the PickerRegistration field if non-nil, zero value otherwise.
+
+### GetPickerRegistrationOk
+
+`func (o *DocumentInput) GetPickerRegistrationOk() (*map[string]interface{}, bool)`
+
+GetPickerRegistrationOk returns a tuple with the PickerRegistration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPickerRegistration
+
+`func (o *DocumentInput) SetPickerRegistration(v map[string]interface{})`
+
+SetPickerRegistration sets PickerRegistration field to given value.
+
+### HasPickerRegistration
+
+`func (o *DocumentInput) HasPickerRegistration() bool`
+
+HasPickerRegistration returns a boolean if a field has been set.
+
+### SetPickerRegistrationNil
+
+`func (o *DocumentInput) SetPickerRegistrationNil(b bool)`
+
+ SetPickerRegistrationNil sets the value for PickerRegistration to be an explicit nil
+
+### UnsetPickerRegistration
+`func (o *DocumentInput) UnsetPickerRegistration()`
+
+UnsetPickerRegistration ensures that no value is present for PickerRegistration, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -16,7 +16,7 @@ import type { CreateTimmySessionRequest } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "title": null,
+  "title": Payment flow threat analysis,
 } satisfies CreateTimmySessionRequest
 
 console.log(example)

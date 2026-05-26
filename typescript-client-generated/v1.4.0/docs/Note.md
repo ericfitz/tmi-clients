@@ -17,6 +17,8 @@ Name | Type
 `created_at` | Date
 `modified_at` | Date
 `deleted_at` | Date
+`auto_generated` | boolean
+`alias` | number
 
 ## Example
 
@@ -35,6 +37,8 @@ const example = {
   "created_at": null,
   "modified_at": null,
   "deleted_at": null,
+  "auto_generated": null,
+  "alias": null,
 } satisfies Note
 
 console.log(example)

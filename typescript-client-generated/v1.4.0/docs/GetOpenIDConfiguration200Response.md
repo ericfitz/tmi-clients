@@ -17,6 +17,10 @@ Name | Type
 `scopes_supported` | Array&lt;string&gt;
 `claims_supported` | Array&lt;string&gt;
 `introspection_endpoint` | string
+`code_challenge_methods_supported` | Array&lt;string&gt;
+`grant_types_supported` | Array&lt;string&gt;
+`revocation_endpoint` | string
+`token_endpoint_auth_methods_supported` | Array&lt;string&gt;
 
 ## Example
 
@@ -36,6 +40,10 @@ const example = {
   "scopes_supported": ["openid","email","profile"],
   "claims_supported": ["sub","email","email_verified","name","given_name","family_name","picture","locale"],
   "introspection_endpoint": http://localhost:8080/oauth2/introspect,
+  "code_challenge_methods_supported": ["S256"],
+  "grant_types_supported": ["authorization_code","refresh_token","client_credentials"],
+  "revocation_endpoint": http://localhost:8080/oauth2/revoke,
+  "token_endpoint_auth_methods_supported": ["client_secret_post","none"],
 } satisfies GetOpenIDConfiguration200Response
 
 console.log(example)

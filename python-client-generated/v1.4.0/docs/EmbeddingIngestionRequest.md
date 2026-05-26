@@ -1,5 +1,6 @@
 # EmbeddingIngestionRequest
 
+Request body for submitting a batch of pre-computed embeddings into a threat model index.
 
 ## Properties
 

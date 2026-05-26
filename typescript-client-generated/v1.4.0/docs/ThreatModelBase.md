@@ -15,7 +15,7 @@ Name | Type
 `metadata` | [Array&lt;Metadata&gt;](Metadata.md)
 `issue_uri` | string
 `status` | string
-`alias` | Set&lt;string&gt;
+`alias` | number
 `security_reviewer` | [User](User.md)
 `project_id` | string
 

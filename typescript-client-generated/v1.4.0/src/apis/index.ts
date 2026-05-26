@@ -10,6 +10,7 @@ export * from './CollaborationApi';
 export * from './ConfigurationApi';
 export * from './DocumentsApi';
 export * from './EmbeddingAutomationApi';
+export * from './FeedbackApi';
 export * from './GeneralApi';
 export * from './NotesApi';
 export * from './OAuthDiscoveryApi';

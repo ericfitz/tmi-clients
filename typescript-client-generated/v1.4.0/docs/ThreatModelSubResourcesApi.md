@@ -33,6 +33,7 @@ All URIs are relative to *https://api.tmi.dev*
 | [**bulkUpsertThreatModelDocuments**](ThreatModelSubResourcesApi.md#bulkupsertthreatmodeldocuments) | **PUT** /threat_models/{threat_model_id}/documents/bulk | Bulk upsert documents |
 | [**bulkUpsertThreatModelMetadata**](ThreatModelSubResourcesApi.md#bulkupsertthreatmodelmetadata) | **PATCH** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata |
 | [**bulkUpsertThreatModelRepositories**](ThreatModelSubResourcesApi.md#bulkupsertthreatmodelrepositories) | **PUT** /threat_models/{threat_model_id}/repositories/bulk | Bulk upsert repositories |
+| [**createContentFeedback**](ThreatModelSubResourcesApi.md#createcontentfeedback) | **POST** /threat_models/{threat_model_id}/feedback | Submit content feedback on an AI-generated artifact |
 | [**createDiagramMetadata**](ThreatModelSubResourcesApi.md#creatediagrammetadata) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Create diagram metadata |
 | [**createDocumentMetadata**](ThreatModelSubResourcesApi.md#createdocumentmetadata) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Create document metadata |
 | [**createNoteMetadata**](ThreatModelSubResourcesApi.md#createnotemetadata) | **POST** /threat_models/{threat_model_id}/notes/{note_id}/metadata | Create note metadata |
@@ -59,6 +60,7 @@ All URIs are relative to *https://api.tmi.dev*
 | [**deleteThreatModelNote**](ThreatModelSubResourcesApi.md#deletethreatmodelnote) | **DELETE** /threat_models/{threat_model_id}/notes/{note_id} | Delete a note |
 | [**deleteThreatModelRepository**](ThreatModelSubResourcesApi.md#deletethreatmodelrepository) | **DELETE** /threat_models/{threat_model_id}/repositories/{repository_id} | Delete a source reference |
 | [**deleteThreatModelThreat**](ThreatModelSubResourcesApi.md#deletethreatmodelthreat) | **DELETE** /threat_models/{threat_model_id}/threats/{threat_id} | Delete a threat |
+| [**getContentFeedback**](ThreatModelSubResourcesApi.md#getcontentfeedback) | **GET** /threat_models/{threat_model_id}/feedback/{feedback_id} | Get a single content feedback entry |
 | [**getDiagramMetadata**](ThreatModelSubResourcesApi.md#getdiagrammetadata) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Get diagram metadata |
 | [**getDiagramMetadataByKey**](ThreatModelSubResourcesApi.md#getdiagrammetadatabykey) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Get diagram metadata by key |
 | [**getDiagramModel**](ThreatModelSubResourcesApi.md#getdiagrammodel) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/model | Get minimal diagram model for automated analysis |
@@ -86,6 +88,7 @@ All URIs are relative to *https://api.tmi.dev*
 | [**getThreatModelRepository**](ThreatModelSubResourcesApi.md#getthreatmodelrepository) | **GET** /threat_models/{threat_model_id}/repositories/{repository_id} | Get a specific source reference |
 | [**getThreatModelThreat**](ThreatModelSubResourcesApi.md#getthreatmodelthreat) | **GET** /threat_models/{threat_model_id}/threats/{threat_id} | Get a specific threat |
 | [**getThreatModelThreats**](ThreatModelSubResourcesApi.md#getthreatmodelthreats) | **GET** /threat_models/{threat_model_id}/threats | List threats in a threat model |
+| [**listContentFeedback**](ThreatModelSubResourcesApi.md#listcontentfeedback) | **GET** /threat_models/{threat_model_id}/feedback | List content feedback for a threat model |
 | [**patchThreatModelDiagram**](ThreatModelSubResourcesApi.md#patchthreatmodeldiagram) | **PATCH** /threat_models/{threat_model_id}/diagrams/{diagram_id} | Partially update a diagram |
 | [**patchThreatModelThreat**](ThreatModelSubResourcesApi.md#patchthreatmodelthreat) | **PATCH** /threat_models/{threat_model_id}/threats/{threat_id} | Partially update a threat |
 | [**restoreAsset**](ThreatModelSubResourcesApi.md#restoreasset) | **POST** /threat_models/{threat_model_id}/assets/{asset_id}/restore | Restore a soft-deleted asset |
@@ -2491,6 +2494,85 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## createContentFeedback
+
+> ContentFeedback createContentFeedback(threatModelId, contentFeedbackInput)
+
+Submit content feedback on an AI-generated artifact
+
+Records sentiment + optional false-positive taxonomy on a note/diagram/threat or a threat-classification field within the threat model. Reader+ on the parent threat model.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ThreatModelSubResourcesApi,
+} from '@tmiclient/client';
+import type { CreateContentFeedbackRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ThreatModelSubResourcesApi(config);
+
+  const body = {
+    // string | Threat model identifier
+    threatModelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // ContentFeedbackInput
+    contentFeedbackInput: ...,
+  } satisfies CreateContentFeedbackRequest;
+
+  try {
+    const data = await api.createContentFeedback(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
+| **contentFeedbackInput** | [ContentFeedbackInput](ContentFeedbackInput.md) |  | |
+
+### Return type
+
+[**ContentFeedback**](ContentFeedback.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Feedback recorded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad request - invalid or missing parameters |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - missing or invalid authentication credentials |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - authenticated but not authorized for this operation |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Resource not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **413** | Request body exceeds size limits |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## createDiagramMetadata
 
 > Metadata createDiagramMetadata(threatModelId, diagramId, metadata)
@@ -4615,6 +4697,81 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getContentFeedback
+
+> ContentFeedback getContentFeedback(threatModelId, feedbackId)
+
+Get a single content feedback entry
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ThreatModelSubResourcesApi,
+} from '@tmiclient/client';
+import type { GetContentFeedbackRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ThreatModelSubResourcesApi(config);
+
+  const body = {
+    // string | Threat model identifier
+    threatModelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    feedbackId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetContentFeedbackRequest;
+
+  try {
+    const data = await api.getContentFeedback(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
+| **feedbackId** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**ContentFeedback**](ContentFeedback.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Feedback entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - missing or invalid authentication credentials |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - authenticated but not authorized for this operation |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Resource not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getDiagramMetadata
 
 > Array&lt;Metadata&gt; getDiagramMetadata(threatModelId, diagramId)
@@ -5582,7 +5739,7 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Asset details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Asset details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
@@ -5911,7 +6068,7 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Diagram details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Diagram details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
@@ -6077,7 +6234,7 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Document details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Document details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
@@ -6732,7 +6889,7 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Threat details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Threat details |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
@@ -6886,9 +7043,101 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## listContentFeedback
+
+> ListContentFeedback200Response listContentFeedback(threatModelId, limit, offset, targetType, targetId, sentiment, falsePositiveReason)
+
+List content feedback for a threat model
+
+Reader+ on the parent threat model. Returns all feedback rows for the TM with filters and pagination.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ThreatModelSubResourcesApi,
+} from '@tmiclient/client';
+import type { ListContentFeedbackRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ThreatModelSubResourcesApi(config);
+
+  const body = {
+    // string | Threat model identifier
+    threatModelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // number | Maximum number of results to return (optional)
+    limit: 56,
+    // number | Number of results to skip (optional)
+    offset: 56,
+    // 'note' | 'diagram' | 'threat' | 'threat_classification' (optional)
+    targetType: targetType_example,
+    // string (optional)
+    targetId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // 'up' | 'down' (optional)
+    sentiment: sentiment_example,
+    // 'detection_misfired' | 'real_but_mitigated' | 'real_but_not_exploitable' | 'out_of_scope' | 'intended_behavior' | 'duplicate' | 'already_remediated' | 'detection_rule_flawed' (optional)
+    falsePositiveReason: falsePositiveReason_example,
+  } satisfies ListContentFeedbackRequest;
+
+  try {
+    const data = await api.listContentFeedback(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
+| **limit** | `number` | Maximum number of results to return | [Optional] [Defaults to `20`] |
+| **offset** | `number` | Number of results to skip | [Optional] [Defaults to `0`] |
+| **targetType** | `note`, `diagram`, `threat`, `threat_classification` |  | [Optional] [Defaults to `undefined`] [Enum: note, diagram, threat, threat_classification] |
+| **targetId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sentiment** | `up`, `down` |  | [Optional] [Defaults to `undefined`] [Enum: up, down] |
+| **falsePositiveReason** | `detection_misfired`, `real_but_mitigated`, `real_but_not_exploitable`, `out_of_scope`, `intended_behavior`, `duplicate`, `already_remediated`, `detection_rule_flawed` |  | [Optional] [Defaults to `undefined`] [Enum: detection_misfired, real_but_mitigated, real_but_not_exploitable, out_of_scope, intended_behavior, duplicate, already_remediated, detection_rule_flawed] |
+
+### Return type
+
+[**ListContentFeedback200Response**](ListContentFeedback200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Feedback list |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - missing or invalid authentication credentials |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - authenticated but not authorized for this operation |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Resource not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## patchThreatModelDiagram
 
-> DfdDiagram patchThreatModelDiagram(threatModelId, diagramId, jsonPatchDocumentInner)
+> DfdDiagram patchThreatModelDiagram(threatModelId, diagramId, jsonPatchDocumentInner, ifMatch)
 
 Partially update a diagram
 
@@ -6918,6 +7167,8 @@ async function example() {
     diagramId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // Array<JsonPatchDocumentInner> | JSON Patch operations to apply to the diagram
     jsonPatchDocumentInner: [{"op":"replace","path":"/name","value":"Updated Diagram Name"}],
+    // number | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \'version\' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
+    ifMatch: 56,
   } satisfies PatchThreatModelDiagramRequest;
 
   try {
@@ -6940,6 +7191,7 @@ example().catch(console.error);
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
 | **diagramId** | `string` | Diagram identifier | [Defaults to `undefined`] |
 | **jsonPatchDocumentInner** | `Array<JsonPatchDocumentInner>` | JSON Patch operations to apply to the diagram | |
+| **ifMatch** | `number` | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \&#39;version\&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -6958,7 +7210,7 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Diagram updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Diagram updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
@@ -6967,13 +7219,14 @@ example().catch(console.error);
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **409** | Conflict - Cannot modify diagram while collaboration session is active |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **428** | Precondition Required — the request did not include an If-Match header. This response is returned only when the server has flipped the RequireIfMatch config flag (planned for a future release). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## patchThreatModelThreat
 
-> Threat patchThreatModelThreat(threatModelId, threatId, jsonPatchDocumentInner)
+> Threat patchThreatModelThreat(threatModelId, threatId, jsonPatchDocumentInner, ifMatch)
 
 Partially update a threat
 
@@ -7003,6 +7256,8 @@ async function example() {
     threatId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // Array<JsonPatchDocumentInner> | JSON Patch operations to apply to the threat
     jsonPatchDocumentInner: [{"op":"replace","path":"/name","value":"Updated SQL Injection Threat"},{"op":"replace","path":"/severity","value":"Critical"},{"op":"replace","path":"/description","value":"Updated description with more details"}],
+    // number | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \'version\' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
+    ifMatch: 56,
   } satisfies PatchThreatModelThreatRequest;
 
   try {
@@ -7025,6 +7280,7 @@ example().catch(console.error);
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
 | **threatId** | `string` | Threat identifier | [Defaults to `undefined`] |
 | **jsonPatchDocumentInner** | `Array<JsonPatchDocumentInner>` | JSON Patch operations to apply to the threat | |
+| **ifMatch** | `number` | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \&#39;version\&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -7043,13 +7299,15 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Threat patched successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Threat patched successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **409** | Conflict — the supplied version does not match the resource\&#39;s current version. Refetch and retry. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **428** | Precondition Required — the request did not include an If-Match header. This response is returned only when the server has flipped the RequireIfMatch config flag (planned for a future release). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -7972,7 +8230,7 @@ example().catch(console.error);
 
 ## updateThreatModelAsset
 
-> Asset updateThreatModelAsset(threatModelId, assetId, assetInput)
+> Asset updateThreatModelAsset(threatModelId, assetId, assetInput, ifMatch)
 
 Update an asset
 
@@ -8002,6 +8260,8 @@ async function example() {
     assetId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // AssetInput | Complete asset data for replacement
     assetInput: ...,
+    // number | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \'version\' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
+    ifMatch: 56,
   } satisfies UpdateThreatModelAssetRequest;
 
   try {
@@ -8024,6 +8284,7 @@ example().catch(console.error);
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
 | **assetId** | `string` | Asset identifier | [Defaults to `undefined`] |
 | **assetInput** | [AssetInput](AssetInput.md) | Complete asset data for replacement | |
+| **ifMatch** | `number` | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \&#39;version\&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -8042,13 +8303,15 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Asset updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Asset updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **409** | Conflict — the supplied version does not match the resource\&#39;s current version. Refetch and retry. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **428** | Precondition Required — the request did not include an If-Match header. This response is returned only when the server has flipped the RequireIfMatch config flag (planned for a future release). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -8141,7 +8404,7 @@ example().catch(console.error);
 
 ## updateThreatModelDiagram
 
-> DfdDiagram updateThreatModelDiagram(threatModelId, diagramId, dfdDiagramInput)
+> DfdDiagram updateThreatModelDiagram(threatModelId, diagramId, dfdDiagramInput, ifMatch)
 
 Update a diagram
 
@@ -8171,6 +8434,8 @@ async function example() {
     diagramId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // DfdDiagramInput | Complete diagram data for replacement
     dfdDiagramInput: ...,
+    // number | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \'version\' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
+    ifMatch: 56,
   } satisfies UpdateThreatModelDiagramRequest;
 
   try {
@@ -8193,6 +8458,7 @@ example().catch(console.error);
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
 | **diagramId** | `string` | Diagram identifier | [Defaults to `undefined`] |
 | **dfdDiagramInput** | [DfdDiagramInput](DfdDiagramInput.md) | Complete diagram data for replacement | |
+| **ifMatch** | `number` | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \&#39;version\&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -8211,7 +8477,7 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Diagram updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Diagram updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
@@ -8219,13 +8485,14 @@ example().catch(console.error);
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **409** | Conflict - Cannot modify diagram while collaboration session is active |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **428** | Precondition Required — the request did not include an If-Match header. This response is returned only when the server has flipped the RequireIfMatch config flag (planned for a future release). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## updateThreatModelDocument
 
-> Document updateThreatModelDocument(threatModelId, documentId, documentInput)
+> Document updateThreatModelDocument(threatModelId, documentId, documentInput, ifMatch)
 
 Update a document
 
@@ -8255,6 +8522,8 @@ async function example() {
     documentId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // DocumentInput | Complete document data for replacement
     documentInput: ...,
+    // number | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \'version\' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
+    ifMatch: 56,
   } satisfies UpdateThreatModelDocumentRequest;
 
   try {
@@ -8277,6 +8546,7 @@ example().catch(console.error);
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
 | **documentId** | `string` | Document identifier | [Defaults to `undefined`] |
 | **documentInput** | [DocumentInput](DocumentInput.md) | Complete document data for replacement | |
+| **ifMatch** | `number` | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \&#39;version\&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -8295,13 +8565,15 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Document updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Document updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **409** | Conflict — the supplied version does not match the resource\&#39;s current version. Refetch and retry. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **428** | Precondition Required — the request did not include an If-Match header. This response is returned only when the server has flipped the RequireIfMatch config flag (planned for a future release). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -8557,7 +8829,7 @@ example().catch(console.error);
 
 ## updateThreatModelThreat
 
-> Threat updateThreatModelThreat(threatModelId, threatId, threatInput)
+> Threat updateThreatModelThreat(threatModelId, threatId, threatInput, ifMatch)
 
 Update a threat
 
@@ -8587,6 +8859,8 @@ async function example() {
     threatId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // ThreatInput | Complete threat data for replacement
     threatInput: ...,
+    // number | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \'version\' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
+    ifMatch: 56,
   } satisfies UpdateThreatModelThreatRequest;
 
   try {
@@ -8609,6 +8883,7 @@ example().catch(console.error);
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
 | **threatId** | `string` | Threat identifier | [Defaults to `undefined`] |
 | **threatInput** | [ThreatInput](ThreatInput.md) | Complete threat data for replacement | |
+| **ifMatch** | `number` | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body \&#39;version\&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
@@ -8627,13 +8902,15 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Threat updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **200** | Threat updated successfully |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * ETag - Current optimistic-locking version of the resource (RFC 7232). Echo this value back via If-Match on the next PUT/PATCH. <br>  |
 | **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **409** | Conflict — the supplied version does not match the resource\&#39;s current version. Refetch and retry. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **428** | Precondition Required — the request did not include an If-Match header. This response is returned only when the server has flipped the RequireIfMatch config flag (planned for a future release). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

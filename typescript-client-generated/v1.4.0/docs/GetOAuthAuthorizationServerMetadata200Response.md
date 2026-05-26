@@ -13,6 +13,10 @@ Name | Type
 `response_types_supported` | Array&lt;string&gt;
 `grant_types_supported` | Array&lt;string&gt;
 `token_endpoint_auth_methods_supported` | Array&lt;string&gt;
+`code_challenge_methods_supported` | Array&lt;string&gt;
+`jwks_uri` | string
+`revocation_endpoint` | string
+`scopes_supported` | Array&lt;string&gt;
 
 ## Example
 
@@ -28,6 +32,10 @@ const example = {
   "response_types_supported": ["code","token","id_token"],
   "grant_types_supported": ["authorization_code","implicit","refresh_token"],
   "token_endpoint_auth_methods_supported": ["client_secret_post","none"],
+  "code_challenge_methods_supported": ["S256"],
+  "jwks_uri": http://localhost:8080/.well-known/jwks.json,
+  "revocation_endpoint": http://localhost:8080/oauth2/revoke,
+  "scopes_supported": ["openid","email","profile"],
 } satisfies GetOAuthAuthorizationServerMetadata200Response
 
 console.log(example)

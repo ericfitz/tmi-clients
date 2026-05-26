@@ -17,7 +17,7 @@ import type { TimmyUsageResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "usage": null,
+  "usage": [],
   "total": 10,
 } satisfies TimmyUsageResponse
 

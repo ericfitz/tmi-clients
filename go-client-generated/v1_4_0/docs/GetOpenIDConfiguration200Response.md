@@ -15,6 +15,10 @@ Name | Type | Description | Notes
 **ScopesSupported** | Pointer to **[]string** |  | [optional] 
 **ClaimsSupported** | Pointer to **[]string** |  | [optional] 
 **IntrospectionEndpoint** | Pointer to **string** |  | [optional] 
+**CodeChallengeMethodsSupported** | Pointer to **[]string** |  | [optional] 
+**GrantTypesSupported** | Pointer to **[]string** |  | [optional] 
+**RevocationEndpoint** | Pointer to **string** |  | [optional] 
+**TokenEndpointAuthMethodsSupported** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -274,6 +278,106 @@ SetIntrospectionEndpoint sets IntrospectionEndpoint field to given value.
 `func (o *GetOpenIDConfiguration200Response) HasIntrospectionEndpoint() bool`
 
 HasIntrospectionEndpoint returns a boolean if a field has been set.
+
+### GetCodeChallengeMethodsSupported
+
+`func (o *GetOpenIDConfiguration200Response) GetCodeChallengeMethodsSupported() []string`
+
+GetCodeChallengeMethodsSupported returns the CodeChallengeMethodsSupported field if non-nil, zero value otherwise.
+
+### GetCodeChallengeMethodsSupportedOk
+
+`func (o *GetOpenIDConfiguration200Response) GetCodeChallengeMethodsSupportedOk() (*[]string, bool)`
+
+GetCodeChallengeMethodsSupportedOk returns a tuple with the CodeChallengeMethodsSupported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCodeChallengeMethodsSupported
+
+`func (o *GetOpenIDConfiguration200Response) SetCodeChallengeMethodsSupported(v []string)`
+
+SetCodeChallengeMethodsSupported sets CodeChallengeMethodsSupported field to given value.
+
+### HasCodeChallengeMethodsSupported
+
+`func (o *GetOpenIDConfiguration200Response) HasCodeChallengeMethodsSupported() bool`
+
+HasCodeChallengeMethodsSupported returns a boolean if a field has been set.
+
+### GetGrantTypesSupported
+
+`func (o *GetOpenIDConfiguration200Response) GetGrantTypesSupported() []string`
+
+GetGrantTypesSupported returns the GrantTypesSupported field if non-nil, zero value otherwise.
+
+### GetGrantTypesSupportedOk
+
+`func (o *GetOpenIDConfiguration200Response) GetGrantTypesSupportedOk() (*[]string, bool)`
+
+GetGrantTypesSupportedOk returns a tuple with the GrantTypesSupported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrantTypesSupported
+
+`func (o *GetOpenIDConfiguration200Response) SetGrantTypesSupported(v []string)`
+
+SetGrantTypesSupported sets GrantTypesSupported field to given value.
+
+### HasGrantTypesSupported
+
+`func (o *GetOpenIDConfiguration200Response) HasGrantTypesSupported() bool`
+
+HasGrantTypesSupported returns a boolean if a field has been set.
+
+### GetRevocationEndpoint
+
+`func (o *GetOpenIDConfiguration200Response) GetRevocationEndpoint() string`
+
+GetRevocationEndpoint returns the RevocationEndpoint field if non-nil, zero value otherwise.
+
+### GetRevocationEndpointOk
+
+`func (o *GetOpenIDConfiguration200Response) GetRevocationEndpointOk() (*string, bool)`
+
+GetRevocationEndpointOk returns a tuple with the RevocationEndpoint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRevocationEndpoint
+
+`func (o *GetOpenIDConfiguration200Response) SetRevocationEndpoint(v string)`
+
+SetRevocationEndpoint sets RevocationEndpoint field to given value.
+
+### HasRevocationEndpoint
+
+`func (o *GetOpenIDConfiguration200Response) HasRevocationEndpoint() bool`
+
+HasRevocationEndpoint returns a boolean if a field has been set.
+
+### GetTokenEndpointAuthMethodsSupported
+
+`func (o *GetOpenIDConfiguration200Response) GetTokenEndpointAuthMethodsSupported() []string`
+
+GetTokenEndpointAuthMethodsSupported returns the TokenEndpointAuthMethodsSupported field if non-nil, zero value otherwise.
+
+### GetTokenEndpointAuthMethodsSupportedOk
+
+`func (o *GetOpenIDConfiguration200Response) GetTokenEndpointAuthMethodsSupportedOk() (*[]string, bool)`
+
+GetTokenEndpointAuthMethodsSupportedOk returns a tuple with the TokenEndpointAuthMethodsSupported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTokenEndpointAuthMethodsSupported
+
+`func (o *GetOpenIDConfiguration200Response) SetTokenEndpointAuthMethodsSupported(v []string)`
+
+SetTokenEndpointAuthMethodsSupported sets TokenEndpointAuthMethodsSupported field to given value.
+
+### HasTokenEndpointAuthMethodsSupported
+
+`func (o *GetOpenIDConfiguration200Response) HasTokenEndpointAuthMethodsSupported() bool`
+
+HasTokenEndpointAuthMethodsSupported returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

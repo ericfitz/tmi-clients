@@ -19,10 +19,11 @@ Name | Type | Description | Notes
 **IssueUri** | Pointer to **string** | URL to an issue in an issue tracking system | [optional] 
 **AssetCount** | **int32** | Number of assets associated with this threat model | 
 **NoteCount** | **int32** | Number of notes associated with this threat model | 
-**Status** | Pointer to **NullableString** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
-**StatusUpdated** | Pointer to **NullableTime** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [readonly] 
+**Status** | Pointer to **string** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;not_started\&quot;, \&quot;in_progress\&quot;, \&quot;pending_review\&quot;, \&quot;approved\&quot;, \&quot;closed\&quot;. Defaults to \&quot;not_started\&quot; on create. | [optional] [default to "not_started"]
+**StatusUpdated** | Pointer to **time.Time** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [readonly] 
 **SecurityReviewer** | Pointer to [**NullableUser**](User.md) | Security reviewer assigned to this threat model. The assigned security reviewer automatically has the owner role on this threat model. | [optional] 
 **DeletedAt** | Pointer to **NullableTime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**Alias** | Pointer to **int32** | Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation. | [optional] [readonly] 
 
 ## Methods
 
@@ -378,16 +379,6 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### SetStatusNil
-
-`func (o *TMListItem) SetStatusNil(b bool)`
-
- SetStatusNil sets the value for Status to be an explicit nil
-
-### UnsetStatus
-`func (o *TMListItem) UnsetStatus()`
-
-UnsetStatus ensures that no value is present for Status, not even an explicit nil
 ### GetStatusUpdated
 
 `func (o *TMListItem) GetStatusUpdated() time.Time`
@@ -413,16 +404,6 @@ SetStatusUpdated sets StatusUpdated field to given value.
 
 HasStatusUpdated returns a boolean if a field has been set.
 
-### SetStatusUpdatedNil
-
-`func (o *TMListItem) SetStatusUpdatedNil(b bool)`
-
- SetStatusUpdatedNil sets the value for StatusUpdated to be an explicit nil
-
-### UnsetStatusUpdated
-`func (o *TMListItem) UnsetStatusUpdated()`
-
-UnsetStatusUpdated ensures that no value is present for StatusUpdated, not even an explicit nil
 ### GetSecurityReviewer
 
 `func (o *TMListItem) GetSecurityReviewer() User`
@@ -493,6 +474,31 @@ HasDeletedAt returns a boolean if a field has been set.
 `func (o *TMListItem) UnsetDeletedAt()`
 
 UnsetDeletedAt ensures that no value is present for DeletedAt, not even an explicit nil
+### GetAlias
+
+`func (o *TMListItem) GetAlias() int32`
+
+GetAlias returns the Alias field if non-nil, zero value otherwise.
+
+### GetAliasOk
+
+`func (o *TMListItem) GetAliasOk() (*int32, bool)`
+
+GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlias
+
+`func (o *TMListItem) SetAlias(v int32)`
+
+SetAlias sets Alias field to given value.
+
+### HasAlias
+
+`func (o *TMListItem) HasAlias() bool`
+
+HasAlias returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

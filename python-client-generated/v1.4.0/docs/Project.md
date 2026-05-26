@@ -1,6 +1,5 @@
 # Project
 
-A project representing a product, service, or application
 
 ## Properties
 
@@ -23,6 +22,7 @@ Name | Type | Description | Notes
 **reviewed_at** | **datetime** | Last review timestamp (RFC3339) | [optional] 
 **metadata** | [**List[Metadata]**](Metadata.md) | Optional metadata key-value pairs | [optional] 
 **notes** | [**List[ProjectNoteListItem]**](ProjectNoteListItem.md) | List of notes associated with the project | [optional] [readonly] 
+**version** | **int** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Example
 

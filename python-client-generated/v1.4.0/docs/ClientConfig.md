@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **operator** | [**ClientConfigOperator**](ClientConfigOperator.md) |  | [optional] 
 **limits** | [**ClientConfigLimits**](ClientConfigLimits.md) |  | [optional] 
 **ui** | [**ClientConfigUi**](ClientConfigUi.md) |  | [optional] 
+**content_providers** | [**List[ContentProvider]**](ContentProvider.md) | Content providers the server has configured. Order matches server-side registration order. | [optional] 
 
 ## Example
 

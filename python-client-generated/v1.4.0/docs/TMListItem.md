@@ -21,10 +21,11 @@ Name | Type | Description | Notes
 **issue_uri** | **str** | URL to an issue in an issue tracking system | [optional] 
 **asset_count** | **int** | Number of assets associated with this threat model | 
 **note_count** | **int** | Number of notes associated with this threat model | 
-**status** | **str** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
+**status** | **str** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;not_started\&quot;, \&quot;in_progress\&quot;, \&quot;pending_review\&quot;, \&quot;approved\&quot;, \&quot;closed\&quot;. Defaults to \&quot;not_started\&quot; on create. | [optional] [default to 'not_started']
 **status_updated** | **datetime** | Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes. | [optional] [readonly] 
 **security_reviewer** | [**User**](User.md) | Security reviewer assigned to this threat model. The assigned security reviewer automatically has the owner role on this threat model. | [optional] 
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation. | [optional] [readonly] 
 
 ## Example
 

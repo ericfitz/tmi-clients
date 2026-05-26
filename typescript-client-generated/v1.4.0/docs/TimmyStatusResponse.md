@@ -23,14 +23,14 @@ import type { TimmyStatusResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "memory_used_bytes": null,
-  "memory_budget_bytes": null,
-  "memory_utilization_pct": null,
-  "loaded_indexes": null,
-  "active_sessions": null,
-  "evictions_total": null,
-  "evictions_pressure": null,
-  "sessions_rejected_total": null,
+  "memory_used_bytes": 104857600,
+  "memory_budget_bytes": 1073741824,
+  "memory_utilization_pct": 9.77,
+  "loaded_indexes": 3,
+  "active_sessions": 2,
+  "evictions_total": 0,
+  "evictions_pressure": 0,
+  "sessions_rejected_total": 0,
 } satisfies TimmyStatusResponse
 
 console.log(example)

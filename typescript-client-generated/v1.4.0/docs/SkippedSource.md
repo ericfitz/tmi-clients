@@ -1,6 +1,7 @@
 
 # SkippedSource
 
+Describes an entity that was skipped during a source-refresh pipeline operation, including the reason it was excluded.
 
 ## Properties
 

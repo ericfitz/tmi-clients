@@ -5,7 +5,7 @@ All URIs are relative to *https://api.tmi.dev*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**addGroupMember**](AdministrationApi.md#addgroupmemberoperation) | **POST** /admin/groups/{internal_uuid}/members | Add member to group |
-| [**createAdminGroup**](AdministrationApi.md#createadmingroupoperation) | **POST** /admin/groups | Create provider-independent group |
+| [**createAdminGroup**](AdministrationApi.md#createadmingroupoperation) | **POST** /admin/groups | Create TMI built-in group |
 | [**deleteAddonInvocationQuota**](AdministrationApi.md#deleteaddoninvocationquota) | **DELETE** /admin/quotas/addons/{user_id} | Delete addon invocation quota |
 | [**deleteAdminGroup**](AdministrationApi.md#deleteadmingroup) | **DELETE** /admin/groups/{internal_uuid} | Delete group |
 | [**deleteAdminUser**](AdministrationApi.md#deleteadminuser) | **DELETE** /admin/users/{internal_uuid} | Delete user |
@@ -122,9 +122,9 @@ example().catch(console.error);
 
 > AdminGroup createAdminGroup(createAdminGroupRequest)
 
-Create provider-independent group
+Create TMI built-in group
 
-Creates a new provider-independent group (provider&#x3D;\&quot;*\&quot;). These groups can be used across all providers for authorization and administration.
+Creates a new TMI built-in group (provider&#x3D;\&quot;tmi\&quot;). These groups can be used across all providers for authorization and administration.
 
 ### Example
 

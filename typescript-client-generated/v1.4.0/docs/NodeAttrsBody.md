@@ -11,6 +11,12 @@ Name | Type
 `stroke` | string
 `strokeWidth` | number
 `strokeDasharray` | string
+`rx` | number
+`ry` | number
+`lateral` | number
+`refWidth` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
+`refHeight` | [NodeAttrsBodyRefHeight](NodeAttrsBodyRefHeight.md)
+`fillOpacity` | number
 
 ## Example
 
@@ -23,6 +29,12 @@ const example = {
   "stroke": null,
   "strokeWidth": null,
   "strokeDasharray": null,
+  "rx": null,
+  "ry": null,
+  "lateral": null,
+  "refWidth": null,
+  "refHeight": null,
+  "fillOpacity": null,
 } satisfies NodeAttrsBody
 
 console.log(example)

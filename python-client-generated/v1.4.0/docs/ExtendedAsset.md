@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Creation timestamp (ISO3339) | 
 **modified_at** | **datetime** | Last modification timestamp (ISO3339) | 
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
+**version** | **int** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 **threat_model_id** | **UUID** | ID of the threat model this asset belongs to | 
 
 ## Example

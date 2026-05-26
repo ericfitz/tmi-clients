@@ -1,6 +1,5 @@
 # SurveyResponse
 
-A survey response containing answers to survey questions
 
 ## Properties
 
@@ -27,6 +26,7 @@ Name | Type | Description | Notes
 **survey_json** | **Dict[str, object]** | Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version. | [optional] [readonly] 
 **metadata** | [**List[Metadata]**](Metadata.md) | Optional metadata key-value pairs | [optional] 
 **created_by** | **object** | User who created the response | [optional] [readonly] 
+**version** | **int** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Example
 

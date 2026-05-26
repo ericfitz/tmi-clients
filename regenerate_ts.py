@@ -231,17 +231,42 @@ def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
         return had_issues
 
     content = api_file.read_text(encoding="utf-8")
-    if "TokenRequest" not in content:
+
+    # Word-boundary check that ignores the legitimate request-param interfaces
+    # IntrospectTokenRequest / RefreshTokenRequest / RevokeTokenRequest and the
+    # TokenRefreshRequest model.
+    bare_token_request = re.compile(r"(?<![A-Za-z])TokenRequest\b")
+    if not bare_token_request.search(content):
         print_warning("TokenRequest not referenced in AuthenticationApi.ts — skipping")
         return had_issues
 
-    # Remove TokenRequest from imports
-    # Remove lines importing TokenRequest, TokenRequestFromJSON, TokenRequestToJSON
-    new_content = re.sub(r"^\s+TokenRequest,?\n", "", content, flags=re.MULTILINE)
-    new_content = re.sub(r"^\s+TokenRequestFromJSON,?\n", "", new_content, flags=re.MULTILINE)
-    new_content = re.sub(r"^\s+TokenRequestToJSON,?\n", "", new_content, flags=re.MULTILINE)
+    new_content = content
 
-    # Replace TokenRequestToJSON(...) calls with the raw body
+    # 1. Remove the whole `import { ... } from '.../models/TokenRequest';` block.
+    #    Newer generator versions emit a dedicated import statement (with the
+    #    `type` modifier) for the un-generated model:
+    #        import {
+    #            type TokenRequest,
+    #        } from '../models/TokenRequest';
+    new_content = re.sub(
+        r"import\s*\{[^}]*\}\s*from\s*['\"][^'\"]*/models/TokenRequest['\"];\n",
+        "",
+        new_content,
+    )
+
+    # 2. Remove any individual TokenRequest members from a shared import block
+    #    (older style where it was grouped with other models).
+    new_content = re.sub(
+        r"^\s+(?:type\s+)?TokenRequest,?\n", "", new_content, flags=re.MULTILINE
+    )
+    new_content = re.sub(
+        r"^\s+TokenRequestFromJSON,?\n", "", new_content, flags=re.MULTILINE
+    )
+    new_content = re.sub(
+        r"^\s+TokenRequestToJSON,?\n", "", new_content, flags=re.MULTILINE
+    )
+
+    # 3. Replace any TokenRequestToJSON(...) body usages with the raw body.
     new_content = re.sub(
         r"TokenRequestToJSON\(([^)]+)\)",
         r"\1 as any",
@@ -250,7 +275,14 @@ def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
 
     if new_content != content:
         api_file.write_text(new_content, encoding="utf-8")
-        print_success("TokenRequest patch: removed missing model references")
+        remaining = bare_token_request.search(new_content)
+        if remaining:
+            print_warning(
+                "TokenRequest patch: applied, but a bare TokenRequest reference remains"
+            )
+            had_issues = True
+        else:
+            print_success("TokenRequest patch: removed missing model references")
     else:
         print_warning("TokenRequest patch: no changes needed")
 
