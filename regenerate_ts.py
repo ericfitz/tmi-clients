@@ -64,7 +64,7 @@ PACKAGE_JSON = """\
     "eslint": "^10.0",
     "typescript": "^6.0",
     "typescript-eslint": "^8.60",
-    "vitest": "^3.2"
+    "vitest": "^4.1"
   },
   "repository": {
     "type": "git",
