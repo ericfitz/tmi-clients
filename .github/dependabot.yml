@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # Keep the SHA-pinned actions in .github/workflows current. The repo
+  # enforces sha_pinning_required, so actions are pinned to commit SHAs;
+  # Dependabot bumps the SHA (and the trailing # version comment) for us.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      # Roll all action updates into a single PR to keep the noise down.
+      github-actions:
+        patterns:
+          - "*"
