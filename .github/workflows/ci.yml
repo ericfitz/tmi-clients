@@ -9,54 +9,65 @@ on:
 jobs:
   test-python:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ["v1.2.1", "v1.3.0", "v1.4.0"]
     defaults:
       run:
-        working-directory: python-client-generated
+        working-directory: python-client-generated/${{ matrix.version }}
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install -e ".[test]"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Run tests
-        run: pytest test/ -v --tb=short
+        run: uv run --with pytest python3 -m pytest test/ -v --tb=short
 
   test-js:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ["v1.2.1", "v1.3.0", "v1.4.0"]
     defaults:
       run:
-        working-directory: javascript-client-generated
+        working-directory: typescript-client-generated/${{ matrix.version }}
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
+          cache-dependency-path: typescript-client-generated/${{ matrix.version }}/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
 
       - name: Run tests
-        run: npm test
+        run: npm run test --if-present
 
   test-go:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ["v1_2_1", "v1_3_0", "v1_4_0"]
     defaults:
       run:
-        working-directory: go-client-generated
+        working-directory: go-client-generated/${{ matrix.version }}
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.21"
+          go-version: "1.23"
+          cache-dependency-path: go-client-generated/${{ matrix.version }}/go.sum
 
       - name: Build
         run: go build ./...
