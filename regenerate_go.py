@@ -37,7 +37,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 LANG_DIR = REPO_ROOT / "go-client-generated"
 CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
-GO_VERSION = "1.21"
+GO_VERSION = "1.23"
 
 
 def _go_version_dir(version: str) -> str:
@@ -88,30 +88,38 @@ def patch_missing_time_import(client_dir: Path, had_issues: bool) -> bool:
 def patch_test_module_path(
     client_dir: Path, go_module_path: str, had_issues: bool
 ) -> bool:
-    """Fix openapi-generator bug: test stubs use wrong import path.
+    """Fix openapi-generator bug: test stubs may use the wrong import path.
 
-    The Go generator may emit either the literal placeholder
-    ``github.com/ericfitz/tmi-clients`` or the path built from the
-    ``gitUserId``/``gitRepoId`` config values (which omits the versioned
-    subdirectory).  Replace both with the real module path.
+    The Go generator builds the ``openapiclient`` import from the
+    ``gitUserId``/``gitRepoId`` config values, which historically omitted the
+    versioned subdirectory (e.g. ``.../go-client-generated`` instead of
+    ``.../go-client-generated/v1_4_0``).  Some generator versions already emit
+    the correct path.
+
+    We normalize the whole quoted import path rather than doing a naive
+    substring replace: the old approach replaced a placeholder that is a
+    *prefix* of the real module path, which doubled an already-correct import
+    (``.../v1_4_0/v1_4_0/...``).  Matching the entire quoted path makes this
+    idempotent — files already importing ``go_module_path`` are left alone.
     """
+    import re
+
     test_dir = client_dir / "test"
     if not test_dir.is_dir():
         print_warning("Test directory not found — skipping test module path patch")
         return had_issues
 
-    placeholders = [
-        "github.com/ericfitz/tmi-clients",
-        "github.com/ericfitz/tmi-clients/go-client-generated",
-    ]
+    # Match: openapiclient "github.com/ericfitz/tmi-clients/...<anything>"
+    # and rewrite the quoted path to exactly go_module_path.
+    import_re = re.compile(
+        r'(openapiclient\s+")github\.com/ericfitz/tmi-clients[^"]*(")'
+    )
+    replacement = rf"\g<1>{go_module_path}\g<2>"
     patched_count = 0
 
     for test_file in sorted(test_dir.glob("*.go")):
         content = test_file.read_text(encoding="utf-8")
-        new_content = content
-        for placeholder in placeholders:
-            if placeholder in new_content and placeholder != go_module_path:
-                new_content = new_content.replace(placeholder, go_module_path)
+        new_content = import_re.sub(replacement, content)
         if new_content != content:
             test_file.write_text(new_content, encoding="utf-8")
             patched_count += 1
@@ -146,6 +154,58 @@ def patch_json_literal_defaults(client_dir: Path, had_issues: bool) -> bool:
         print_success(f"JSON literal defaults patch: {patched_count} occurrences fixed")
     else:
         print_success("JSON literal defaults patch: no occurrences found")
+
+    return had_issues
+
+
+def patch_embedded_pointer_assignment(client_dir: Path, had_issues: bool) -> bool:
+    """Fix openapi-generator bug: wrapper constructors assign a value to an
+    embedded pointer field.
+
+    A thin allOf wrapper (e.g. ``Diagram`` embeds ``DfdDiagram``) gets a
+    constructor that takes ``type_ string`` and runs ``this.Type = type_``.
+    But the embedded ``DfdDiagram.Type`` is ``*string`` (optional/omitempty),
+    so the assignment fails to compile:
+
+        cannot use type_ (variable of type string) as *string value
+
+    The generator does not insert the address-of for the embedded pointer.
+    Detect constructors whose parameter is ``type_ string`` and whose body
+    assigns ``this.Type = type_``, and rewrite the assignment to take the
+    address (``this.Type = &type_``).
+    """
+    import re
+
+    # The distinguishing feature of the broken wrapper: it assigns
+    # `this.Type = type_` but its OWN struct declares no `Type` field — so
+    # `this.Type` resolves to an *embedded* struct's `Type *string`, and the
+    # plain-string assignment is a pointer mismatch.
+    #
+    # Models that declare their own `Type string` (the common case) are correct
+    # and must NOT be touched, or we would break a valid assignment. We gate on
+    # the absence of an own `Type` field declaration.
+    assign_re = re.compile(r"^(\tthis\.Type = )type_$", re.MULTILINE)
+    own_type_field = re.compile(r"^\tType \*?string\b", re.MULTILINE)
+    patched_count = 0
+
+    for go_file in sorted(client_dir.glob("model_*.go")):
+        content = go_file.read_text(encoding="utf-8")
+        if not assign_re.search(content):
+            continue
+        if own_type_field.search(content):
+            # Has its own Type field -> assignment is already correct.
+            continue
+        new_content, n = assign_re.subn(r"\1&type_", content)
+        if n > 0:
+            go_file.write_text(new_content, encoding="utf-8")
+            patched_count += n
+
+    if patched_count > 0:
+        print_success(
+            f"Embedded pointer assignment patch: {patched_count} constructors fixed"
+        )
+    else:
+        print_success("Embedded pointer assignment patch: no constructors needed fixing")
 
     return had_issues
 
@@ -247,6 +307,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_step(6, "Applying patches")
     had_issues = patch_json_literal_defaults(client_dir, had_issues)
     had_issues = patch_missing_time_import(client_dir, had_issues)
+    had_issues = patch_embedded_pointer_assignment(client_dir, had_issues)
     had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
     print_success("Patches applied")
 

@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **authorization** | [**List[Authorization]**](Authorization.md) | List of users and their roles for this threat model | 
 **metadata** | [**List[Metadata]**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] 
 **issue_uri** | **str** | URL to an issue in an issue tracking system for this threat model | [optional] 
-**status** | **str** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
-**alias** | **List[str]** | Alternative names or identifiers for the threat model | [optional] 
+**status** | **str** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;not_started\&quot;, \&quot;in_progress\&quot;, \&quot;pending_review\&quot;, \&quot;approved\&quot;, \&quot;closed\&quot;. Defaults to \&quot;not_started\&quot; on create. | [optional] [default to 'not_started']
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation. | [optional] [readonly] 
 **security_reviewer** | [**User**](User.md) | Security reviewer assigned to this threat model. When set, the security reviewer is automatically added to the authorization list with the owner role. The security reviewer&#39;s owner role cannot be removed via authorization changes while they remain assigned as security reviewer. To change the security reviewer&#39;s authorization, first unassign them as security reviewer. | [optional] 
 **project_id** | **UUID** | Optional reference to the project this threat model belongs to | [optional] 
 

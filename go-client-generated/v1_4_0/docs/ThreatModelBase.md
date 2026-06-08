@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Authorization** | [**[]Authorization**](Authorization.md) | List of users and their roles for this threat model | 
 **Metadata** | Pointer to [**[]Metadata**](Metadata.md) | Key-value pairs for additional threat model metadata | [optional] 
 **IssueUri** | Pointer to **NullableString** | URL to an issue in an issue tracking system for this threat model | [optional] 
-**Status** | Pointer to **NullableString** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;Not started\&quot;, \&quot;In progress\&quot;, \&quot;Review\&quot;, \&quot;Approved\&quot;, \&quot;Closed\&quot; | [optional] 
-**Alias** | Pointer to **[]string** | Alternative names or identifiers for the threat model | [optional] 
+**Status** | Pointer to **string** | Status of the threat model in the organization&#39;s threat modeling or SDLC process. Examples: \&quot;not_started\&quot;, \&quot;in_progress\&quot;, \&quot;pending_review\&quot;, \&quot;approved\&quot;, \&quot;closed\&quot;. Defaults to \&quot;not_started\&quot; on create. | [optional] [default to "not_started"]
+**Alias** | Pointer to **int32** | Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation. | [optional] [readonly] 
 **SecurityReviewer** | Pointer to [**NullableUser**](User.md) | Security reviewer assigned to this threat model. When set, the security reviewer is automatically added to the authorization list with the owner role. The security reviewer&#39;s owner role cannot be removed via authorization changes while they remain assigned as security reviewer. To change the security reviewer&#39;s authorization, first unassign them as security reviewer. | [optional] 
 **ProjectId** | Pointer to **NullableString** | Optional reference to the project this threat model belongs to | [optional] 
 
@@ -255,32 +255,22 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### SetStatusNil
-
-`func (o *ThreatModelBase) SetStatusNil(b bool)`
-
- SetStatusNil sets the value for Status to be an explicit nil
-
-### UnsetStatus
-`func (o *ThreatModelBase) UnsetStatus()`
-
-UnsetStatus ensures that no value is present for Status, not even an explicit nil
 ### GetAlias
 
-`func (o *ThreatModelBase) GetAlias() []string`
+`func (o *ThreatModelBase) GetAlias() int32`
 
 GetAlias returns the Alias field if non-nil, zero value otherwise.
 
 ### GetAliasOk
 
-`func (o *ThreatModelBase) GetAliasOk() (*[]string, bool)`
+`func (o *ThreatModelBase) GetAliasOk() (*int32, bool)`
 
 GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlias
 
-`func (o *ThreatModelBase) SetAlias(v []string)`
+`func (o *ThreatModelBase) SetAlias(v int32)`
 
 SetAlias sets Alias field to given value.
 

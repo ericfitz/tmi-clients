@@ -10,6 +10,12 @@ Name | Type | Description | Notes
 **stroke** | **str** | Stroke color | [optional] 
 **stroke_width** | **float** | Stroke width in pixels | [optional] 
 **stroke_dasharray** | **str** | Dash pattern for strokes | [optional] 
+**rx** | **float** | Corner radius along the x-axis (set as default by X6 shape registrations, e.g., actor/process/security-boundary) | [optional] 
+**ry** | **float** | Corner radius along the y-axis (set as default by X6 shape registrations) | [optional] 
+**lateral** | **float** | Cylinder lateral parameter for the X6 &#39;store&#39; shape (drives the body &#39;d&#39; path computation) | [optional] 
+**ref_width** | [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
+**ref_height** | [**NodeAttrsBodyRefHeight**](NodeAttrsBodyRefHeight.md) |  | [optional] 
+**fill_opacity** | **float** | Body fill opacity (0-1); typically transient drag-to-embed visual feedback | [optional] 
 
 ## Example
 

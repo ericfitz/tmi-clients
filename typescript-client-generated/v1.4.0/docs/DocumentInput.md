@@ -12,6 +12,7 @@ Name | Type
 `uri` | string
 `include_in_report` | boolean
 `timmy_enabled` | boolean
+`picker_registration` | object
 
 ## Example
 
@@ -25,6 +26,7 @@ const example = {
   "uri": null,
   "include_in_report": null,
   "timmy_enabled": null,
+  "picker_registration": null,
 } satisfies DocumentInput
 
 console.log(example)

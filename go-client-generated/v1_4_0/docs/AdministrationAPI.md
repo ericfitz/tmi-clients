@@ -5,7 +5,7 @@ All URIs are relative to *https://api.tmi.dev*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddGroupMember**](AdministrationAPI.md#AddGroupMember) | **Post** /admin/groups/{internal_uuid}/members | Add member to group
-[**CreateAdminGroup**](AdministrationAPI.md#CreateAdminGroup) | **Post** /admin/groups | Create provider-independent group
+[**CreateAdminGroup**](AdministrationAPI.md#CreateAdminGroup) | **Post** /admin/groups | Create TMI built-in group
 [**DeleteAddonInvocationQuota**](AdministrationAPI.md#DeleteAddonInvocationQuota) | **Delete** /admin/quotas/addons/{user_id} | Delete addon invocation quota
 [**DeleteAdminGroup**](AdministrationAPI.md#DeleteAdminGroup) | **Delete** /admin/groups/{internal_uuid} | Delete group
 [**DeleteAdminUser**](AdministrationAPI.md#DeleteAdminUser) | **Delete** /admin/users/{internal_uuid} | Delete user
@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 
 > AdminGroup CreateAdminGroup(ctx).CreateAdminGroupRequest(createAdminGroupRequest).Execute()
 
-Create provider-independent group
+Create TMI built-in group
 
 
 

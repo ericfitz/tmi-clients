@@ -16,8 +16,8 @@ import type { RequestDocumentAccess200Response } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "status": null,
-  "message": null,
+  "status": sent,
+  "message": Access request sent to document owner,
 } satisfies RequestDocumentAccess200Response
 
 console.log(example)

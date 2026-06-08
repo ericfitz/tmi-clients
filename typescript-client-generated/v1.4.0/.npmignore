@@ -1,1 +1,2 @@
-README.md
+# Published contents are controlled by the "files" allowlist in package.json
+# (dist/ only). package.json, README.md, and LICENSE are always included.

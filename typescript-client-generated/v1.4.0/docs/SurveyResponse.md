@@ -1,7 +1,6 @@
 
 # SurveyResponse
 
-A survey response containing answers to survey questions
 
 ## Properties
 
@@ -28,6 +27,7 @@ Name | Type
 `survey_json` | { [key: string]: any; }
 `metadata` | [Array&lt;Metadata&gt;](Metadata.md)
 `created_by` | object
+`version` | number
 
 ## Example
 
@@ -57,6 +57,7 @@ const example = {
   "survey_json": null,
   "metadata": null,
   "created_by": null,
+  "version": null,
 } satisfies SurveyResponse
 
 console.log(example)

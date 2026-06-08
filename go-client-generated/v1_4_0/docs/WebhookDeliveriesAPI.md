@@ -104,7 +104,7 @@ import (
 func main() {
 	deliveryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Webhook delivery identifier
 	xWebhookSignature := "xWebhookSignature_example" // string | HMAC-SHA256 signature (format: sha256={hex_signature})
-	updateWebhookDeliveryStatusRequest := *openapiclient.NewUpdateWebhookDeliveryStatusRequest("Status_example") // UpdateWebhookDeliveryStatusRequest | Webhook delivery status update
+	updateWebhookDeliveryStatusRequest := *openapiclient.NewUpdateWebhookDeliveryStatusRequest("in_progress") // UpdateWebhookDeliveryStatusRequest | Webhook delivery status update
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

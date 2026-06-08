@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Name of the service operator | [optional] 
 **Contact** | Pointer to **string** | Contact information for the operator | [optional] 
+**Jurisdiction** | Pointer to **string** | Legal jurisdiction under which the service operates | [optional] 
 
 ## Methods
 
@@ -75,6 +76,31 @@ SetContact sets Contact field to given value.
 `func (o *ClientConfigOperator) HasContact() bool`
 
 HasContact returns a boolean if a field has been set.
+
+### GetJurisdiction
+
+`func (o *ClientConfigOperator) GetJurisdiction() string`
+
+GetJurisdiction returns the Jurisdiction field if non-nil, zero value otherwise.
+
+### GetJurisdictionOk
+
+`func (o *ClientConfigOperator) GetJurisdictionOk() (*string, bool)`
+
+GetJurisdictionOk returns a tuple with the Jurisdiction field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJurisdiction
+
+`func (o *ClientConfigOperator) SetJurisdiction(v string)`
+
+SetJurisdiction sets Jurisdiction field to given value.
+
+### HasJurisdiction
+
+`func (o *ClientConfigOperator) HasJurisdiction() bool`
+
+HasJurisdiction returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -19,10 +19,10 @@ import type { UpdateWebhookDeliveryStatusResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "id": null,
-  "status": null,
-  "status_percent": null,
-  "status_updated_at": null,
+  "id": 123e4567-e89b-12d3-a456-426614174000,
+  "status": in_progress,
+  "status_percent": 50,
+  "status_updated_at": 2026-04-19T12:34:56Z,
 } satisfies UpdateWebhookDeliveryStatusResponse
 
 console.log(example)

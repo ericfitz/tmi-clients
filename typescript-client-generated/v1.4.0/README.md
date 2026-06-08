@@ -59,12 +59,14 @@ All URIs are relative to *https://api.tmi.dev*
 *AddonsApi* | [**getAddon**](docs/AddonsApi.md#getaddon) | **GET** /addons/{id} | Get add-on
 *AddonsApi* | [**invokeAddon**](docs/AddonsApi.md#invokeaddonoperation) | **POST** /addons/{id}/invoke | Invoke add-on
 *AddonsApi* | [**listAddons**](docs/AddonsApi.md#listaddons) | **GET** /addons | List add-ons
+*AdminUsersApi* | [**adminDeleteUserContentToken**](docs/AdminUsersApi.md#admindeleteusercontenttoken) | **DELETE** /admin/users/{internal_uuid}/content_tokens/{provider_id} | Revoke a user\&#39;s linked content provider token (admin)
+*AdminUsersApi* | [**adminListUserContentTokens**](docs/AdminUsersApi.md#adminlistusercontenttokens) | **GET** /admin/users/{internal_uuid}/content_tokens | List a user\&#39;s linked content provider tokens (admin)
 *AdminUsersApi* | [**createAdminUserClientCredential**](docs/AdminUsersApi.md#createadminuserclientcredential) | **POST** /admin/users/{internal_uuid}/client_credentials | Create a client credential for an automation user
 *AdminUsersApi* | [**createAutomationAccount**](docs/AdminUsersApi.md#createautomationaccountoperation) | **POST** /admin/users/automation | Create an automation (service) account
 *AdminUsersApi* | [**deleteAdminUserClientCredential**](docs/AdminUsersApi.md#deleteadminuserclientcredential) | **DELETE** /admin/users/{internal_uuid}/client_credentials/{credential_id} | Delete a client credential for an automation user
 *AdminUsersApi* | [**listAdminUserClientCredentials**](docs/AdminUsersApi.md#listadminuserclientcredentials) | **GET** /admin/users/{internal_uuid}/client_credentials | List client credentials for an automation user
 *AdministrationApi* | [**addGroupMember**](docs/AdministrationApi.md#addgroupmemberoperation) | **POST** /admin/groups/{internal_uuid}/members | Add member to group
-*AdministrationApi* | [**createAdminGroup**](docs/AdministrationApi.md#createadmingroupoperation) | **POST** /admin/groups | Create provider-independent group
+*AdministrationApi* | [**createAdminGroup**](docs/AdministrationApi.md#createadmingroupoperation) | **POST** /admin/groups | Create TMI built-in group
 *AdministrationApi* | [**deleteAddonInvocationQuota**](docs/AdministrationApi.md#deleteaddoninvocationquota) | **DELETE** /admin/quotas/addons/{user_id} | Delete addon invocation quota
 *AdministrationApi* | [**deleteAdminGroup**](docs/AdministrationApi.md#deleteadmingroup) | **DELETE** /admin/groups/{internal_uuid} | Delete group
 *AdministrationApi* | [**deleteAdminUser**](docs/AdministrationApi.md#deleteadminuser) | **DELETE** /admin/users/{internal_uuid} | Delete user
@@ -104,6 +106,7 @@ All URIs are relative to *https://api.tmi.dev*
 *AuditTrailApi* | [**getThreatModelAuditTrail**](docs/AuditTrailApi.md#getthreatmodelaudittrail) | **GET** /threat_models/{threat_model_id}/audit_trail | List audit trail for a threat model and all sub-objects
 *AuditTrailApi* | [**rollbackToVersion**](docs/AuditTrailApi.md#rollbacktoversion) | **POST** /threat_models/{threat_model_id}/audit_trail/{entry_id}/rollback | Rollback an entity to a previous version
 *AuthenticationApi* | [**authorizeOAuthProvider**](docs/AuthenticationApi.md#authorizeoauthprovider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow
+*AuthenticationApi* | [**contentOAuthCallback**](docs/AuthenticationApi.md#contentoauthcallback) | **GET** /oauth2/content_callback | Delegated content provider OAuth callback
 *AuthenticationApi* | [**createCurrentUserClientCredential**](docs/AuthenticationApi.md#createcurrentuserclientcredentialoperation) | **POST** /me/client_credentials | Create client credential
 *AuthenticationApi* | [**deleteCurrentUserClientCredential**](docs/AuthenticationApi.md#deletecurrentuserclientcredential) | **DELETE** /me/client_credentials/{credential_id} | Delete client credential
 *AuthenticationApi* | [**exchangeOAuthCode**](docs/AuthenticationApi.md#exchangeoauthcodeoperation) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens
@@ -124,6 +127,7 @@ All URIs are relative to *https://api.tmi.dev*
 *AuthenticationApi* | [**processSAMLResponse**](docs/AuthenticationApi.md#processsamlresponse) | **POST** /saml/acs | SAML Assertion Consumer Service
 *AuthenticationApi* | [**refreshToken**](docs/AuthenticationApi.md#refreshtoken) | **POST** /oauth2/refresh | Refresh JWT token
 *AuthenticationApi* | [**revokeToken**](docs/AuthenticationApi.md#revoketoken) | **POST** /oauth2/revoke | Revoke token
+*AuthenticationApi* | [**stepUpAuthenticate**](docs/AuthenticationApi.md#stepupauthenticate) | **GET** /oauth2/step_up | Initiate fresh-prompt step-up re-authentication
 *CollaborationApi* | [**createDiagramCollaborationSession**](docs/CollaborationApi.md#creatediagramcollaborationsession) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | Create diagram collaboration session
 *CollaborationApi* | [**endDiagramCollaborationSession**](docs/CollaborationApi.md#enddiagramcollaborationsession) | **DELETE** /threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate | End diagram collaboration session
 *CollaborationApi* | [**getCurrentUserSessions**](docs/CollaborationApi.md#getcurrentusersessions) | **GET** /me/sessions | List active collaboration sessions
@@ -134,6 +138,9 @@ All URIs are relative to *https://api.tmi.dev*
 *EmbeddingAutomationApi* | [**deleteEmbeddings**](docs/EmbeddingAutomationApi.md#deleteembeddings) | **DELETE** /automation/embeddings/{threat_model_id} | Delete embeddings
 *EmbeddingAutomationApi* | [**getEmbeddingConfig**](docs/EmbeddingAutomationApi.md#getembeddingconfig) | **GET** /automation/embeddings/{threat_model_id}/config | Get embedding provider configuration
 *EmbeddingAutomationApi* | [**ingestEmbeddings**](docs/EmbeddingAutomationApi.md#ingestembeddings) | **POST** /automation/embeddings/{threat_model_id} | Ingest pre-computed embeddings
+*FeedbackApi* | [**createUsabilityFeedback**](docs/FeedbackApi.md#createusabilityfeedback) | **POST** /usability_feedback | Submit usability feedback
+*FeedbackApi* | [**getUsabilityFeedback**](docs/FeedbackApi.md#getusabilityfeedback) | **GET** /usability_feedback/{id} | Get a single usability feedback entry (admin)
+*FeedbackApi* | [**listUsabilityFeedback**](docs/FeedbackApi.md#listusabilityfeedback) | **GET** /usability_feedback | List usability feedback (admin)
 *GeneralApi* | [**getApiInfo**](docs/GeneralApi.md#getapiinfo) | **GET** / | Get API information
 *NotesApi* | [**patchThreatModelNote**](docs/NotesApi.md#patchthreatmodelnote) | **PATCH** /threat_models/{threat_model_id}/notes/{note_id} | Partially update note
 *OAuthDiscoveryApi* | [**getOAuthProtectedResourceMetadata**](docs/OAuthDiscoveryApi.md#getoauthprotectedresourcemetadata) | **GET** /.well-known/oauth-protected-resource | OAuth 2.0 Protected Resource Metadata
@@ -250,6 +257,7 @@ All URIs are relative to *https://api.tmi.dev*
 *ThreatModelSubResourcesApi* | [**bulkUpsertThreatModelDocuments**](docs/ThreatModelSubResourcesApi.md#bulkupsertthreatmodeldocuments) | **PUT** /threat_models/{threat_model_id}/documents/bulk | Bulk upsert documents
 *ThreatModelSubResourcesApi* | [**bulkUpsertThreatModelMetadata**](docs/ThreatModelSubResourcesApi.md#bulkupsertthreatmodelmetadata) | **PATCH** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
 *ThreatModelSubResourcesApi* | [**bulkUpsertThreatModelRepositories**](docs/ThreatModelSubResourcesApi.md#bulkupsertthreatmodelrepositories) | **PUT** /threat_models/{threat_model_id}/repositories/bulk | Bulk upsert repositories
+*ThreatModelSubResourcesApi* | [**createContentFeedback**](docs/ThreatModelSubResourcesApi.md#createcontentfeedback) | **POST** /threat_models/{threat_model_id}/feedback | Submit content feedback on an AI-generated artifact
 *ThreatModelSubResourcesApi* | [**createDiagramMetadata**](docs/ThreatModelSubResourcesApi.md#creatediagrammetadata) | **POST** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Create diagram metadata
 *ThreatModelSubResourcesApi* | [**createDocumentMetadata**](docs/ThreatModelSubResourcesApi.md#createdocumentmetadata) | **POST** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Create document metadata
 *ThreatModelSubResourcesApi* | [**createNoteMetadata**](docs/ThreatModelSubResourcesApi.md#createnotemetadata) | **POST** /threat_models/{threat_model_id}/notes/{note_id}/metadata | Create note metadata
@@ -276,6 +284,7 @@ All URIs are relative to *https://api.tmi.dev*
 *ThreatModelSubResourcesApi* | [**deleteThreatModelNote**](docs/ThreatModelSubResourcesApi.md#deletethreatmodelnote) | **DELETE** /threat_models/{threat_model_id}/notes/{note_id} | Delete a note
 *ThreatModelSubResourcesApi* | [**deleteThreatModelRepository**](docs/ThreatModelSubResourcesApi.md#deletethreatmodelrepository) | **DELETE** /threat_models/{threat_model_id}/repositories/{repository_id} | Delete a source reference
 *ThreatModelSubResourcesApi* | [**deleteThreatModelThreat**](docs/ThreatModelSubResourcesApi.md#deletethreatmodelthreat) | **DELETE** /threat_models/{threat_model_id}/threats/{threat_id} | Delete a threat
+*ThreatModelSubResourcesApi* | [**getContentFeedback**](docs/ThreatModelSubResourcesApi.md#getcontentfeedback) | **GET** /threat_models/{threat_model_id}/feedback/{feedback_id} | Get a single content feedback entry
 *ThreatModelSubResourcesApi* | [**getDiagramMetadata**](docs/ThreatModelSubResourcesApi.md#getdiagrammetadata) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Get diagram metadata
 *ThreatModelSubResourcesApi* | [**getDiagramMetadataByKey**](docs/ThreatModelSubResourcesApi.md#getdiagrammetadatabykey) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Get diagram metadata by key
 *ThreatModelSubResourcesApi* | [**getDiagramModel**](docs/ThreatModelSubResourcesApi.md#getdiagrammodel) | **GET** /threat_models/{threat_model_id}/diagrams/{diagram_id}/model | Get minimal diagram model for automated analysis
@@ -303,6 +312,7 @@ All URIs are relative to *https://api.tmi.dev*
 *ThreatModelSubResourcesApi* | [**getThreatModelRepository**](docs/ThreatModelSubResourcesApi.md#getthreatmodelrepository) | **GET** /threat_models/{threat_model_id}/repositories/{repository_id} | Get a specific source reference
 *ThreatModelSubResourcesApi* | [**getThreatModelThreat**](docs/ThreatModelSubResourcesApi.md#getthreatmodelthreat) | **GET** /threat_models/{threat_model_id}/threats/{threat_id} | Get a specific threat
 *ThreatModelSubResourcesApi* | [**getThreatModelThreats**](docs/ThreatModelSubResourcesApi.md#getthreatmodelthreats) | **GET** /threat_models/{threat_model_id}/threats | List threats in a threat model
+*ThreatModelSubResourcesApi* | [**listContentFeedback**](docs/ThreatModelSubResourcesApi.md#listcontentfeedback) | **GET** /threat_models/{threat_model_id}/feedback | List content feedback for a threat model
 *ThreatModelSubResourcesApi* | [**patchThreatModelDiagram**](docs/ThreatModelSubResourcesApi.md#patchthreatmodeldiagram) | **PATCH** /threat_models/{threat_model_id}/diagrams/{diagram_id} | Partially update a diagram
 *ThreatModelSubResourcesApi* | [**patchThreatModelThreat**](docs/ThreatModelSubResourcesApi.md#patchthreatmodelthreat) | **PATCH** /threat_models/{threat_model_id}/threats/{threat_id} | Partially update a threat
 *ThreatModelSubResourcesApi* | [**restoreAsset**](docs/ThreatModelSubResourcesApi.md#restoreasset) | **POST** /threat_models/{threat_model_id}/assets/{asset_id}/restore | Restore a soft-deleted asset
@@ -342,8 +352,13 @@ All URIs are relative to *https://api.tmi.dev*
 *TimmyChatApi* | [**listTimmyChatMessages**](docs/TimmyChatApi.md#listtimmychatmessages) | **GET** /threat_models/{threat_model_id}/chat/sessions/{session_id}/messages | List messages in a Timmy chat session
 *TimmyChatApi* | [**listTimmyChatSessions**](docs/TimmyChatApi.md#listtimmychatsessions) | **GET** /threat_models/{threat_model_id}/chat/sessions | List Timmy chat sessions
 *TimmyChatApi* | [**refreshTimmySources**](docs/TimmyChatApi.md#refreshtimmysources) | **POST** /threat_models/{threat_model_id}/chat/sessions/{session_id}/refresh_sources | Refresh session sources
+*UserAccountApi* | [**authorizeContentToken**](docs/UserAccountApi.md#authorizecontenttokenoperation) | **POST** /me/content_tokens/{provider_id}/authorize | Start content provider authorization
 *UserAccountApi* | [**createCurrentUserPreferences**](docs/UserAccountApi.md#createcurrentuserpreferences) | **POST** /me/preferences | Create user preferences
+*UserAccountApi* | [**deleteMyContentToken**](docs/UserAccountApi.md#deletemycontenttoken) | **DELETE** /me/content_tokens/{provider_id} | Revoke linked content provider token
 *UserAccountApi* | [**getCurrentUserPreferences**](docs/UserAccountApi.md#getcurrentuserpreferences) | **GET** /me/preferences | Get user preferences
+*UserAccountApi* | [**grantMicrosoftFilePermission**](docs/UserAccountApi.md#grantmicrosoftfilepermission) | **POST** /me/microsoft/picker_grants | Grant the TMI Entra app per-file read access to a picked OneDrive/SharePoint file.
+*UserAccountApi* | [**listMyContentTokens**](docs/UserAccountApi.md#listmycontenttokens) | **GET** /me/content_tokens | List linked content provider tokens
+*UserAccountApi* | [**mintPickerToken**](docs/UserAccountApi.md#mintpickertoken) | **POST** /me/picker_tokens/{provider_id} | Mint a short-lived access token for the Google Picker browser client
 *UserAccountApi* | [**updateCurrentUserPreferences**](docs/UserAccountApi.md#updatecurrentuserpreferences) | **PUT** /me/preferences | Update user preferences
 *UsersApi* | [**deleteUserAccount**](docs/UsersApi.md#deleteuseraccount) | **DELETE** /me | Delete authenticated user account and all data
 *UsersApi* | [**logoutCurrentUser**](docs/UsersApi.md#logoutcurrentuser) | **POST** /me/logout | Logout current user
@@ -362,6 +377,7 @@ All URIs are relative to *https://api.tmi.dev*
 
 ### Models
 
+- [AccessRemediation](docs/AccessRemediation.md)
 - [AddGroupMemberRequest](docs/AddGroupMemberRequest.md)
 - [AddonInvocationQuota](docs/AddonInvocationQuota.md)
 - [AddonParameter](docs/AddonParameter.md)
@@ -384,6 +400,7 @@ All URIs are relative to *https://api.tmi.dev*
 - [AuditEntry](docs/AuditEntry.md)
 - [AuthTokenResponse](docs/AuthTokenResponse.md)
 - [Authorization](docs/Authorization.md)
+- [AuthorizeContentTokenRequest](docs/AuthorizeContentTokenRequest.md)
 - [BaseDiagram](docs/BaseDiagram.md)
 - [BaseDiagramImage](docs/BaseDiagramImage.md)
 - [BaseDiagramInput](docs/BaseDiagramInput.md)
@@ -403,6 +420,12 @@ All URIs are relative to *https://api.tmi.dev*
 - [CollaborationSession](docs/CollaborationSession.md)
 - [ColorPaletteEntry](docs/ColorPaletteEntry.md)
 - [ComponentHealth](docs/ComponentHealth.md)
+- [ContentAuthorizationURL](docs/ContentAuthorizationURL.md)
+- [ContentFeedback](docs/ContentFeedback.md)
+- [ContentFeedbackInput](docs/ContentFeedbackInput.md)
+- [ContentProvider](docs/ContentProvider.md)
+- [ContentTokenInfo](docs/ContentTokenInfo.md)
+- [ContentTokenList](docs/ContentTokenList.md)
 - [CreateAddonRequest](docs/CreateAddonRequest.md)
 - [CreateAdminGroupRequest](docs/CreateAdminGroupRequest.md)
 - [CreateAutomationAccountRequest](docs/CreateAutomationAccountRequest.md)
@@ -418,9 +441,11 @@ All URIs are relative to *https://api.tmi.dev*
 - [DfdDiagramAllOfCells](docs/DfdDiagramAllOfCells.md)
 - [DfdDiagramInput](docs/DfdDiagramInput.md)
 - [DfdDiagramInputAllOfCells](docs/DfdDiagramInputAllOfCells.md)
+- [Diagram](docs/Diagram.md)
 - [DiagramListItem](docs/DiagramListItem.md)
 - [DiagramListItemImage](docs/DiagramListItemImage.md)
 - [Document](docs/Document.md)
+- [DocumentAccessDiagnostics](docs/DocumentAccessDiagnostics.md)
 - [DocumentBase](docs/DocumentBase.md)
 - [DocumentInput](docs/DocumentInput.md)
 - [Edge](docs/Edge.md)
@@ -475,6 +500,7 @@ All URIs are relative to *https://api.tmi.dev*
 - [ListAssetsResponse](docs/ListAssetsResponse.md)
 - [ListAuditTrailResponse](docs/ListAuditTrailResponse.md)
 - [ListClientCredentialsResponse](docs/ListClientCredentialsResponse.md)
+- [ListContentFeedback200Response](docs/ListContentFeedback200Response.md)
 - [ListDiagramsResponse](docs/ListDiagramsResponse.md)
 - [ListDocumentsResponse](docs/ListDocumentsResponse.md)
 - [ListNotesResponse](docs/ListNotesResponse.md)
@@ -490,11 +516,14 @@ All URIs are relative to *https://api.tmi.dev*
 - [ListTimmyMessagesResponse](docs/ListTimmyMessagesResponse.md)
 - [ListTimmySessionsResponse](docs/ListTimmySessionsResponse.md)
 - [ListTriageNotesResponse](docs/ListTriageNotesResponse.md)
+- [ListUsabilityFeedback200Response](docs/ListUsabilityFeedback200Response.md)
 - [ListUserQuotasResponse](docs/ListUserQuotasResponse.md)
 - [ListWebhookDeliveriesResponse](docs/ListWebhookDeliveriesResponse.md)
 - [ListWebhookQuotasResponse](docs/ListWebhookQuotasResponse.md)
 - [ListWebhookSubscriptionsResponse](docs/ListWebhookSubscriptionsResponse.md)
 - [Metadata](docs/Metadata.md)
+- [MicrosoftPickerGrantRequest](docs/MicrosoftPickerGrantRequest.md)
+- [MicrosoftPickerGrantResponse](docs/MicrosoftPickerGrantResponse.md)
 - [MinimalCell](docs/MinimalCell.md)
 - [MinimalDiagramModel](docs/MinimalDiagramModel.md)
 - [MinimalEdge](docs/MinimalEdge.md)
@@ -506,15 +535,21 @@ All URIs are relative to *https://api.tmi.dev*
 - [NodeAllOfSize](docs/NodeAllOfSize.md)
 - [NodeAttrs](docs/NodeAttrs.md)
 - [NodeAttrsBody](docs/NodeAttrsBody.md)
+- [NodeAttrsBodyRefHeight](docs/NodeAttrsBodyRefHeight.md)
+- [NodeAttrsBodyRefWidth](docs/NodeAttrsBodyRefWidth.md)
 - [NodeAttrsText](docs/NodeAttrsText.md)
 - [NodeAttrsTextRefX](docs/NodeAttrsTextRefX.md)
+- [NodeAttrsTextRefX2](docs/NodeAttrsTextRefX2.md)
 - [NodeAttrsTextRefY](docs/NodeAttrsTextRefY.md)
+- [NodeAttrsTextRefY2](docs/NodeAttrsTextRefY2.md)
 - [Note](docs/Note.md)
 - [NoteBase](docs/NoteBase.md)
 - [NoteInput](docs/NoteInput.md)
 - [NoteListItem](docs/NoteListItem.md)
 - [OAuthProtectedResourceMetadata](docs/OAuthProtectedResourceMetadata.md)
 - [Participant](docs/Participant.md)
+- [PickerRegistration](docs/PickerRegistration.md)
+- [PickerTokenResponse](docs/PickerTokenResponse.md)
 - [Point](docs/Point.md)
 - [PortConfiguration](docs/PortConfiguration.md)
 - [PortConfigurationGroupsValue](docs/PortConfigurationGroupsValue.md)
@@ -543,6 +578,7 @@ All URIs are relative to *https://api.tmi.dev*
 - [SAMLProviderInfo](docs/SAMLProviderInfo.md)
 - [SSVCScore](docs/SSVCScore.md)
 - [SkippedSource](docs/SkippedSource.md)
+- [StepUpAuthenticate200Response](docs/StepUpAuthenticate200Response.md)
 - [Survey](docs/Survey.md)
 - [SurveyBase](docs/SurveyBase.md)
 - [SurveyInput](docs/SurveyInput.md)
@@ -594,6 +630,8 @@ All URIs are relative to *https://api.tmi.dev*
 - [UpdateThreatMetadataByKeyRequest](docs/UpdateThreatMetadataByKeyRequest.md)
 - [UpdateWebhookDeliveryStatusRequest](docs/UpdateWebhookDeliveryStatusRequest.md)
 - [UpdateWebhookDeliveryStatusResponse](docs/UpdateWebhookDeliveryStatusResponse.md)
+- [UsabilityFeedback](docs/UsabilityFeedback.md)
+- [UsabilityFeedbackInput](docs/UsabilityFeedbackInput.md)
 - [User](docs/User.md)
 - [UserAPIQuota](docs/UserAPIQuota.md)
 - [UserGroupMembership](docs/UserGroupMembership.md)
@@ -627,7 +665,7 @@ and is automatically generated by the
 
 - API version: `1.4.0`
 - Package version: `1.4.0`
-- Generator version: `7.21.0`
+- Generator version: `7.22.0`
 - Build package: `org.openapitools.codegen.languages.TypeScriptFetchClientCodegen`
 
 The generated npm module supports the following:

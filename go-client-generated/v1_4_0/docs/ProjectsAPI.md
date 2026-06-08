@@ -1031,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ## PatchProject
 
-> Project PatchProject(ctx, projectId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+> Project PatchProject(ctx, projectId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 
 Patch a project
 
@@ -1052,10 +1052,11 @@ import (
 func main() {
 	projectId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Project UUID
 	jsonPatchDocumentInner := []openapiclient.JsonPatchDocumentInner{*openapiclient.NewJsonPatchDocumentInner("Op_example", "Path_example")} // []JsonPatchDocumentInner | Partial project data for update
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.PatchProject(context.Background(), projectId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+	resp, r, err := apiClient.ProjectsAPI.PatchProject(context.Background(), projectId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.PatchProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1082,6 +1083,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **jsonPatchDocumentInner** | [**[]JsonPatchDocumentInner**](JsonPatchDocumentInner.md) | Partial project data for update | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -1178,7 +1180,7 @@ Name | Type | Description  | Notes
 
 ## UpdateProject
 
-> Project UpdateProject(ctx, projectId).Body(body).Execute()
+> Project UpdateProject(ctx, projectId).Body(body).IfMatch(ifMatch).Execute()
 
 Update a project
 
@@ -1199,10 +1201,11 @@ import (
 func main() {
 	projectId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Project UUID
 	body := ProjectBase({"name":"API Gateway Modernization","description":"Updated project description","team_id":"550e8400-e29b-41d4-a716-446655440000"}) // ProjectBase | Complete project data for replacement
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectsAPI.UpdateProject(context.Background(), projectId).Body(body).Execute()
+	resp, r, err := apiClient.ProjectsAPI.UpdateProject(context.Background(), projectId).Body(body).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsAPI.UpdateProject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1229,6 +1232,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **body** | **ProjectBase** | Complete project data for replacement | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 

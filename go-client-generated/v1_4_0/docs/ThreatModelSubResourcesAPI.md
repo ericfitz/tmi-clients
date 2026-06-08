@@ -33,6 +33,7 @@ Method | HTTP request | Description
 [**BulkUpsertThreatModelDocuments**](ThreatModelSubResourcesAPI.md#BulkUpsertThreatModelDocuments) | **Put** /threat_models/{threat_model_id}/documents/bulk | Bulk upsert documents
 [**BulkUpsertThreatModelMetadata**](ThreatModelSubResourcesAPI.md#BulkUpsertThreatModelMetadata) | **Patch** /threat_models/{threat_model_id}/metadata/bulk | Bulk upsert threat model metadata
 [**BulkUpsertThreatModelRepositories**](ThreatModelSubResourcesAPI.md#BulkUpsertThreatModelRepositories) | **Put** /threat_models/{threat_model_id}/repositories/bulk | Bulk upsert repositories
+[**CreateContentFeedback**](ThreatModelSubResourcesAPI.md#CreateContentFeedback) | **Post** /threat_models/{threat_model_id}/feedback | Submit content feedback on an AI-generated artifact
 [**CreateDiagramMetadata**](ThreatModelSubResourcesAPI.md#CreateDiagramMetadata) | **Post** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Create diagram metadata
 [**CreateDocumentMetadata**](ThreatModelSubResourcesAPI.md#CreateDocumentMetadata) | **Post** /threat_models/{threat_model_id}/documents/{document_id}/metadata | Create document metadata
 [**CreateNoteMetadata**](ThreatModelSubResourcesAPI.md#CreateNoteMetadata) | **Post** /threat_models/{threat_model_id}/notes/{note_id}/metadata | Create note metadata
@@ -59,6 +60,7 @@ Method | HTTP request | Description
 [**DeleteThreatModelNote**](ThreatModelSubResourcesAPI.md#DeleteThreatModelNote) | **Delete** /threat_models/{threat_model_id}/notes/{note_id} | Delete a note
 [**DeleteThreatModelRepository**](ThreatModelSubResourcesAPI.md#DeleteThreatModelRepository) | **Delete** /threat_models/{threat_model_id}/repositories/{repository_id} | Delete a source reference
 [**DeleteThreatModelThreat**](ThreatModelSubResourcesAPI.md#DeleteThreatModelThreat) | **Delete** /threat_models/{threat_model_id}/threats/{threat_id} | Delete a threat
+[**GetContentFeedback**](ThreatModelSubResourcesAPI.md#GetContentFeedback) | **Get** /threat_models/{threat_model_id}/feedback/{feedback_id} | Get a single content feedback entry
 [**GetDiagramMetadata**](ThreatModelSubResourcesAPI.md#GetDiagramMetadata) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata | Get diagram metadata
 [**GetDiagramMetadataByKey**](ThreatModelSubResourcesAPI.md#GetDiagramMetadataByKey) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/metadata/{key} | Get diagram metadata by key
 [**GetDiagramModel**](ThreatModelSubResourcesAPI.md#GetDiagramModel) | **Get** /threat_models/{threat_model_id}/diagrams/{diagram_id}/model | Get minimal diagram model for automated analysis
@@ -86,6 +88,7 @@ Method | HTTP request | Description
 [**GetThreatModelRepository**](ThreatModelSubResourcesAPI.md#GetThreatModelRepository) | **Get** /threat_models/{threat_model_id}/repositories/{repository_id} | Get a specific source reference
 [**GetThreatModelThreat**](ThreatModelSubResourcesAPI.md#GetThreatModelThreat) | **Get** /threat_models/{threat_model_id}/threats/{threat_id} | Get a specific threat
 [**GetThreatModelThreats**](ThreatModelSubResourcesAPI.md#GetThreatModelThreats) | **Get** /threat_models/{threat_model_id}/threats | List threats in a threat model
+[**ListContentFeedback**](ThreatModelSubResourcesAPI.md#ListContentFeedback) | **Get** /threat_models/{threat_model_id}/feedback | List content feedback for a threat model
 [**PatchThreatModelDiagram**](ThreatModelSubResourcesAPI.md#PatchThreatModelDiagram) | **Patch** /threat_models/{threat_model_id}/diagrams/{diagram_id} | Partially update a diagram
 [**PatchThreatModelThreat**](ThreatModelSubResourcesAPI.md#PatchThreatModelThreat) | **Patch** /threat_models/{threat_model_id}/threats/{threat_id} | Partially update a threat
 [**RestoreAsset**](ThreatModelSubResourcesAPI.md#RestoreAsset) | **Post** /threat_models/{threat_model_id}/assets/{asset_id}/restore | Restore a soft-deleted asset
@@ -2252,6 +2255,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## CreateContentFeedback
+
+> ContentFeedback CreateContentFeedback(ctx, threatModelId).ContentFeedbackInput(contentFeedbackInput).Execute()
+
+Submit content feedback on an AI-generated artifact
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
+	contentFeedbackInput := *openapiclient.NewContentFeedbackInput("Sentiment_example", "TargetType_example", "TargetId_example", "ClientId_example") // ContentFeedbackInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.CreateContentFeedback(context.Background(), threatModelId).ContentFeedbackInput(contentFeedbackInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.CreateContentFeedback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateContentFeedback`: ContentFeedback
+	fmt.Fprintf(os.Stdout, "Response from `ThreatModelSubResourcesAPI.CreateContentFeedback`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**threatModelId** | **string** | Threat model identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateContentFeedbackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contentFeedbackInput** | [**ContentFeedbackInput**](ContentFeedbackInput.md) |  | 
+
+### Return type
+
+[**ContentFeedback**](ContentFeedback.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## CreateDiagramMetadata
 
 > Metadata CreateDiagramMetadata(ctx, threatModelId, diagramId).Metadata(metadata).Execute()
@@ -4132,6 +4207,77 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetContentFeedback
+
+> ContentFeedback GetContentFeedback(ctx, threatModelId, feedbackId).Execute()
+
+Get a single content feedback entry
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
+	feedbackId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.GetContentFeedback(context.Background(), threatModelId, feedbackId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.GetContentFeedback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetContentFeedback`: ContentFeedback
+	fmt.Fprintf(os.Stdout, "Response from `ThreatModelSubResourcesAPI.GetContentFeedback`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**threatModelId** | **string** | Threat model identifier | 
+**feedbackId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetContentFeedbackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**ContentFeedback**](ContentFeedback.md)
 
 ### Authorization
 
@@ -6192,9 +6338,91 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListContentFeedback
+
+> ListContentFeedback200Response ListContentFeedback(ctx, threatModelId).Limit(limit).Offset(offset).TargetType(targetType).TargetId(targetId).Sentiment(sentiment).FalsePositiveReason(falsePositiveReason).Execute()
+
+List content feedback for a threat model
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
+	limit := int32(56) // int32 | Maximum number of results to return (optional) (default to 20)
+	offset := int32(56) // int32 | Number of results to skip (optional) (default to 0)
+	targetType := "targetType_example" // string |  (optional)
+	targetId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |  (optional)
+	sentiment := "sentiment_example" // string |  (optional)
+	falsePositiveReason := "falsePositiveReason_example" // string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.ListContentFeedback(context.Background(), threatModelId).Limit(limit).Offset(offset).TargetType(targetType).TargetId(targetId).Sentiment(sentiment).FalsePositiveReason(falsePositiveReason).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.ListContentFeedback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListContentFeedback`: ListContentFeedback200Response
+	fmt.Fprintf(os.Stdout, "Response from `ThreatModelSubResourcesAPI.ListContentFeedback`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**threatModelId** | **string** | Threat model identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListContentFeedbackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **int32** | Maximum number of results to return | [default to 20]
+ **offset** | **int32** | Number of results to skip | [default to 0]
+ **targetType** | **string** |  | 
+ **targetId** | **string** |  | 
+ **sentiment** | **string** |  | 
+ **falsePositiveReason** | **string** |  | 
+
+### Return type
+
+[**ListContentFeedback200Response**](ListContentFeedback200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PatchThreatModelDiagram
 
-> DfdDiagram PatchThreatModelDiagram(ctx, threatModelId, diagramId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+> DfdDiagram PatchThreatModelDiagram(ctx, threatModelId, diagramId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 
 Partially update a diagram
 
@@ -6216,10 +6444,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	diagramId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Diagram identifier
 	jsonPatchDocumentInner := []openapiclient.JsonPatchDocumentInner{*openapiclient.NewJsonPatchDocumentInner("Op_example", "Path_example")} // []JsonPatchDocumentInner | JSON Patch operations to apply to the diagram
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatModelSubResourcesAPI.PatchThreatModelDiagram(context.Background(), threatModelId, diagramId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.PatchThreatModelDiagram(context.Background(), threatModelId, diagramId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.PatchThreatModelDiagram``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6248,6 +6477,7 @@ Name | Type | Description  | Notes
 
 
  **jsonPatchDocumentInner** | [**[]JsonPatchDocumentInner**](JsonPatchDocumentInner.md) | JSON Patch operations to apply to the diagram | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -6269,7 +6499,7 @@ Name | Type | Description  | Notes
 
 ## PatchThreatModelThreat
 
-> Threat PatchThreatModelThreat(ctx, threatModelId, threatId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+> Threat PatchThreatModelThreat(ctx, threatModelId, threatId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 
 Partially update a threat
 
@@ -6291,10 +6521,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	threatId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat identifier
 	jsonPatchDocumentInner := []openapiclient.JsonPatchDocumentInner{*openapiclient.NewJsonPatchDocumentInner("Op_example", "Path_example")} // []JsonPatchDocumentInner | JSON Patch operations to apply to the threat
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatModelSubResourcesAPI.PatchThreatModelThreat(context.Background(), threatModelId, threatId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.PatchThreatModelThreat(context.Background(), threatModelId, threatId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.PatchThreatModelThreat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6323,6 +6554,7 @@ Name | Type | Description  | Notes
 
 
  **jsonPatchDocumentInner** | [**[]JsonPatchDocumentInner**](JsonPatchDocumentInner.md) | JSON Patch operations to apply to the threat | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -7172,7 +7404,7 @@ Name | Type | Description  | Notes
 
 ## UpdateThreatModelAsset
 
-> Asset UpdateThreatModelAsset(ctx, threatModelId, assetId).AssetInput(assetInput).Execute()
+> Asset UpdateThreatModelAsset(ctx, threatModelId, assetId).AssetInput(assetInput).IfMatch(ifMatch).Execute()
 
 Update an asset
 
@@ -7194,10 +7426,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	assetId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Asset identifier
 	assetInput := *openapiclient.NewAssetInput("Name_example", "Type_example") // AssetInput | Complete asset data for replacement
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelAsset(context.Background(), threatModelId, assetId).AssetInput(assetInput).Execute()
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelAsset(context.Background(), threatModelId, assetId).AssetInput(assetInput).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.UpdateThreatModelAsset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7226,6 +7459,7 @@ Name | Type | Description  | Notes
 
 
  **assetInput** | [**AssetInput**](AssetInput.md) | Complete asset data for replacement | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -7325,7 +7559,7 @@ Name | Type | Description  | Notes
 
 ## UpdateThreatModelDiagram
 
-> DfdDiagram UpdateThreatModelDiagram(ctx, threatModelId, diagramId).DfdDiagramInput(dfdDiagramInput).Execute()
+> DfdDiagram UpdateThreatModelDiagram(ctx, threatModelId, diagramId).DfdDiagramInput(dfdDiagramInput).IfMatch(ifMatch).Execute()
 
 Update a diagram
 
@@ -7347,10 +7581,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	diagramId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Diagram identifier
 	dfdDiagramInput := *openapiclient.NewDfdDiagramInput([]openapiclient.DfdDiagramInputAllOfCells{openapiclient.DfdDiagramInput_allOf_cells{Edge: openapiclient.NewEdge(*openapiclient.NewEdgeTerminal("Cell_example"), *openapiclient.NewEdgeTerminal("Cell_example"), "37eaedfa-bf37-4996-8665-242fec34bbff")}}, "Name_example") // DfdDiagramInput | Complete diagram data for replacement
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelDiagram(context.Background(), threatModelId, diagramId).DfdDiagramInput(dfdDiagramInput).Execute()
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelDiagram(context.Background(), threatModelId, diagramId).DfdDiagramInput(dfdDiagramInput).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.UpdateThreatModelDiagram``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7379,6 +7614,7 @@ Name | Type | Description  | Notes
 
 
  **dfdDiagramInput** | [**DfdDiagramInput**](DfdDiagramInput.md) | Complete diagram data for replacement | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -7400,7 +7636,7 @@ Name | Type | Description  | Notes
 
 ## UpdateThreatModelDocument
 
-> Document UpdateThreatModelDocument(ctx, threatModelId, documentId).DocumentInput(documentInput).Execute()
+> Document UpdateThreatModelDocument(ctx, threatModelId, documentId).DocumentInput(documentInput).IfMatch(ifMatch).Execute()
 
 Update a document
 
@@ -7422,10 +7658,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	documentId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Document identifier
 	documentInput := *openapiclient.NewDocumentInput("Name_example", "Uri_example") // DocumentInput | Complete document data for replacement
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelDocument(context.Background(), threatModelId, documentId).DocumentInput(documentInput).Execute()
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelDocument(context.Background(), threatModelId, documentId).DocumentInput(documentInput).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.UpdateThreatModelDocument``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7454,6 +7691,7 @@ Name | Type | Description  | Notes
 
 
  **documentInput** | [**DocumentInput**](DocumentInput.md) | Complete document data for replacement | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -7700,7 +7938,7 @@ Name | Type | Description  | Notes
 
 ## UpdateThreatModelThreat
 
-> Threat UpdateThreatModelThreat(ctx, threatModelId, threatId).ThreatInput(threatInput).Execute()
+> Threat UpdateThreatModelThreat(ctx, threatModelId, threatId).ThreatInput(threatInput).IfMatch(ifMatch).Execute()
 
 Update a threat
 
@@ -7722,10 +7960,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	threatId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat identifier
 	threatInput := *openapiclient.NewThreatInput("Name_example", []string{"ThreatType_example"}) // ThreatInput | Complete threat data for replacement
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelThreat(context.Background(), threatModelId, threatId).ThreatInput(threatInput).Execute()
+	resp, r, err := apiClient.ThreatModelSubResourcesAPI.UpdateThreatModelThreat(context.Background(), threatModelId, threatId).ThreatInput(threatInput).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ThreatModelSubResourcesAPI.UpdateThreatModelThreat``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7754,6 +7993,7 @@ Name | Type | Description  | Notes
 
 
  **threatInput** | [**ThreatInput**](ThreatInput.md) | Complete threat data for replacement | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 

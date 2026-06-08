@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Name of the service operator | [optional] 
 **contact** | **str** | Contact information for the operator | [optional] 
+**jurisdiction** | **str** | Legal jurisdiction under which the service operates | [optional] 
 
 ## Example
 

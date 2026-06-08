@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **created_by** | [**User**](User.md) | User who created the threat model | [optional] [readonly] 
 **documents** | [**List[Document]**](Document.md) | List of documents related to the threat model | [optional] [readonly] 
 **repositories** | [**List[Repository]**](Repository.md) | List of source code repositories related to the threat model | [optional] [readonly] 
-**diagrams** | [**List[DfdDiagram]**](DfdDiagram.md) | List of diagram objects associated with this threat model | [optional] [readonly] 
+**diagrams** | [**List[Diagram]**](Diagram.md) | List of diagram objects associated with this threat model | [optional] [readonly] 
 **threats** | [**List[Threat]**](Threat.md) | List of threats within the threat model | [optional] [readonly] 
 **notes** | [**List[Note]**](Note.md) | List of notes associated with the threat model | [optional] [readonly] 
 **assets** | [**List[ExtendedAsset]**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] [readonly] 

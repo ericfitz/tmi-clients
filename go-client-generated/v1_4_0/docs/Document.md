@@ -16,6 +16,10 @@ Name | Type | Description | Notes
 **DeletedAt** | Pointer to **NullableTime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
 **AccessStatus** | Pointer to **string** | Access validation status for external content providers | [optional] [readonly] [default to "unknown"]
 **ContentSource** | Pointer to **NullableString** | Content provider that handles this documents URI (e.g., google_drive, http) | [optional] [readonly] 
+**AccessDiagnostics** | Pointer to **map[string]interface{}** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
+**AccessStatusUpdatedAt** | Pointer to **NullableTime** | Timestamp of the last access_status transition (RFC3339) | [optional] [readonly] 
+**Alias** | Pointer to **int32** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
+**Version** | Pointer to **int32** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Methods
 
@@ -351,6 +355,126 @@ HasContentSource returns a boolean if a field has been set.
 `func (o *Document) UnsetContentSource()`
 
 UnsetContentSource ensures that no value is present for ContentSource, not even an explicit nil
+### GetAccessDiagnostics
+
+`func (o *Document) GetAccessDiagnostics() map[string]interface{}`
+
+GetAccessDiagnostics returns the AccessDiagnostics field if non-nil, zero value otherwise.
+
+### GetAccessDiagnosticsOk
+
+`func (o *Document) GetAccessDiagnosticsOk() (*map[string]interface{}, bool)`
+
+GetAccessDiagnosticsOk returns a tuple with the AccessDiagnostics field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessDiagnostics
+
+`func (o *Document) SetAccessDiagnostics(v map[string]interface{})`
+
+SetAccessDiagnostics sets AccessDiagnostics field to given value.
+
+### HasAccessDiagnostics
+
+`func (o *Document) HasAccessDiagnostics() bool`
+
+HasAccessDiagnostics returns a boolean if a field has been set.
+
+### SetAccessDiagnosticsNil
+
+`func (o *Document) SetAccessDiagnosticsNil(b bool)`
+
+ SetAccessDiagnosticsNil sets the value for AccessDiagnostics to be an explicit nil
+
+### UnsetAccessDiagnostics
+`func (o *Document) UnsetAccessDiagnostics()`
+
+UnsetAccessDiagnostics ensures that no value is present for AccessDiagnostics, not even an explicit nil
+### GetAccessStatusUpdatedAt
+
+`func (o *Document) GetAccessStatusUpdatedAt() time.Time`
+
+GetAccessStatusUpdatedAt returns the AccessStatusUpdatedAt field if non-nil, zero value otherwise.
+
+### GetAccessStatusUpdatedAtOk
+
+`func (o *Document) GetAccessStatusUpdatedAtOk() (*time.Time, bool)`
+
+GetAccessStatusUpdatedAtOk returns a tuple with the AccessStatusUpdatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessStatusUpdatedAt
+
+`func (o *Document) SetAccessStatusUpdatedAt(v time.Time)`
+
+SetAccessStatusUpdatedAt sets AccessStatusUpdatedAt field to given value.
+
+### HasAccessStatusUpdatedAt
+
+`func (o *Document) HasAccessStatusUpdatedAt() bool`
+
+HasAccessStatusUpdatedAt returns a boolean if a field has been set.
+
+### SetAccessStatusUpdatedAtNil
+
+`func (o *Document) SetAccessStatusUpdatedAtNil(b bool)`
+
+ SetAccessStatusUpdatedAtNil sets the value for AccessStatusUpdatedAt to be an explicit nil
+
+### UnsetAccessStatusUpdatedAt
+`func (o *Document) UnsetAccessStatusUpdatedAt()`
+
+UnsetAccessStatusUpdatedAt ensures that no value is present for AccessStatusUpdatedAt, not even an explicit nil
+### GetAlias
+
+`func (o *Document) GetAlias() int32`
+
+GetAlias returns the Alias field if non-nil, zero value otherwise.
+
+### GetAliasOk
+
+`func (o *Document) GetAliasOk() (*int32, bool)`
+
+GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlias
+
+`func (o *Document) SetAlias(v int32)`
+
+SetAlias sets Alias field to given value.
+
+### HasAlias
+
+`func (o *Document) HasAlias() bool`
+
+HasAlias returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *Document) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *Document) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *Document) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *Document) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

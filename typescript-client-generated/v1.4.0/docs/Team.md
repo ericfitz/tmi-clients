@@ -1,7 +1,6 @@
 
 # Team
 
-A team representing an organizational unit
 
 ## Properties
 
@@ -24,6 +23,7 @@ Name | Type
 `reviewed_at` | Date
 `metadata` | [Array&lt;Metadata&gt;](Metadata.md)
 `notes` | [Array&lt;TeamNoteListItem&gt;](TeamNoteListItem.md)
+`version` | number
 
 ## Example
 
@@ -49,6 +49,7 @@ const example = {
   "reviewed_at": null,
   "metadata": null,
   "notes": null,
+  "version": null,
 } satisfies Team
 
 console.log(example)

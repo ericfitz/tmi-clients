@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **InternalUuid** | **string** | Internal system UUID for the group | 
-**Provider** | **string** | OAuth/SAML provider identifier, or \&quot;*\&quot; for provider-independent groups | 
+**Provider** | **string** | OAuth/SAML provider identifier, or \&quot;tmi\&quot; for TMI built-in groups | 
 **GroupName** | **string** | Provider-assigned group name | 
 **Name** | Pointer to **string** | Human-readable group name | [optional] 
 **Description** | Pointer to **string** | Group description | [optional] 

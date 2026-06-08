@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **SurveyJson** | Pointer to **map[string]interface{}** | Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version. | [optional] [readonly] 
 **Metadata** | Pointer to [**[]Metadata**](Metadata.md) | Optional metadata key-value pairs | [optional] 
 **CreatedBy** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 
+**Version** | Pointer to **int32** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Methods
 
@@ -675,6 +676,31 @@ HasCreatedBy returns a boolean if a field has been set.
 `func (o *SurveyResponse) UnsetCreatedBy()`
 
 UnsetCreatedBy ensures that no value is present for CreatedBy, not even an explicit nil
+### GetVersion
+
+`func (o *SurveyResponse) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *SurveyResponse) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *SurveyResponse) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *SurveyResponse) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

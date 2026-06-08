@@ -18,7 +18,17 @@ Method | HTTP request | Description
 
 Send a message to Timmy
 
-Sends a user message to the Timmy AI assistant and returns an SSE stream of the assistant response
+Sends a user message to the Timmy AI assistant and returns an SSE stream of the assistant response.
+
+**SSE event types emitted by this endpoint:**
+
+- `status` (zero or more) — Phase-transition events fired BEFORE `message_start` so clients can show "Timmy is …" affordances during the often-multi-second pre-token latency. Payload: `{"phase": "<snake_case>", "entity_type": "<optional>", "entity_name": "<optional>", "detail": "<optional>"}`. `phase` is a stable identifier the client can map to localized strings; the server is free to add or rename phases as the pipeline evolves, so unknown phases should be treated as opaque labels. Current phases include `building_context`, `loading_history`, `querying_embeddings`, `waiting_for_llm`. Once tokens begin streaming, no further `status` events are emitted.
+- `message_start` (exactly one, after any `status` events) — Signals that the server is about to (or has just begun) streaming tokens. Payload: `{"status": "processing"}`.
+- `token` (zero or more) — Individual tokens streamed from the LLM. Payload: token text.
+- `message_end` (exactly one, terminal) — The full persisted assistant message. Payload: `TimmyChatMessage` object.
+- `error` (terminal in the failure case) — Emitted instead of `message_end` if the request fails after the SSE stream has begun.
+
+**Auto-generated session title.** After the first user message in a fresh session is processed successfully, the server may asynchronously generate a short title (≤ 60 characters) from that message and persist it to the session's `title` field. This only happens when the existing title is empty or matches the client's default placeholder (e.g. `Chat — <date>, <time>`); a user-set title is never overwritten. Title generation runs out-of-band and never blocks or fails the message response — clients see the new title on the next `getTimmyChatSession` / `listTimmyChatSessions` call.
 
 ### Example
 
@@ -52,7 +62,7 @@ with tmi_client.ApiClient(configuration) as api_client:
     api_instance = tmi_client.TimmyChatApi(api_client)
     threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
     session_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Chat session identifier
-    create_timmy_message_request = tmi_client.CreateTimmyMessageRequest() # CreateTimmyMessageRequest | Message content to send to Timmy
+    create_timmy_message_request = {"content":"What are the main threats in the login flow?"} # CreateTimmyMessageRequest | Message content to send to Timmy
 
     try:
         # Send a message to Timmy
@@ -139,7 +149,7 @@ with tmi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = tmi_client.TimmyChatApi(api_client)
     threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model identifier
-    create_timmy_session_request = tmi_client.CreateTimmySessionRequest() # CreateTimmySessionRequest | Optional session configuration (optional)
+    create_timmy_session_request = {"title":"Payment flow threat analysis"} # CreateTimmySessionRequest | Optional session configuration (optional)
 
     try:
         # Create a new Timmy chat session
@@ -183,7 +193,7 @@ Name | Type | Description  | Notes
 **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
-**503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Seconds to wait before retry <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -617,6 +627,7 @@ Name | Type | Description  | Notes
 **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+**400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

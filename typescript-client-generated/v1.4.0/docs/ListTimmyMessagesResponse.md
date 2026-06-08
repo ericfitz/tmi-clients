@@ -19,7 +19,7 @@ import type { ListTimmyMessagesResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "messages": null,
+  "messages": [],
   "total": 42,
   "limit": 20,
   "offset": 0,
