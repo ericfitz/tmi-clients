@@ -22,9 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Go is intentionally omitted: the Go client is 100% generated, so it
+          # is excluded from scanning. See .github/codeql/codeql-config.yml.
           - language: python
-            build-mode: none
-          - language: go
             build-mode: none
           - language: javascript-typescript
             build-mode: none
@@ -37,6 +37,7 @@ jobs:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
           queries: security-extended
+          config-file: ./.github/codeql/codeql-config.yml
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
