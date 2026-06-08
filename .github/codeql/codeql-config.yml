@@ -1,0 +1,22 @@
+name: "TMI clients CodeQL config"
+
+# The bulk of this repo is openapi-generator output. Scanning it produces
+# low-signal noise we cannot fix without changing the generator, so we exclude
+# the generated client packages and only scan the hand-maintained code:
+#   - Python: the regeneration tooling (root *.py and python-client-generated/scripts/)
+#   - TypeScript: the hand-written tests + tooling config (test/, *.config.*)
+# (The Go client is 100% generated, so it is omitted from the CodeQL matrix
+#  entirely rather than ignored here — ignoring all of it would leave the Go
+#  analysis with no code to scan and fail the run.)
+#
+# The `*/` segment matches every version directory (v1.2.1, v1.4.0, ...), so new
+# client versions are covered automatically with no edits here.
+paths-ignore:
+  # Generated Python client packages
+  - python-client-generated/*/tmi_client
+  - python-client-generated/*/test
+  - python-client-generated/*/docs
+  # Generated TypeScript client sources and build output
+  - typescript-client-generated/*/src
+  - typescript-client-generated/*/dist
+  - typescript-client-generated/*/docs
