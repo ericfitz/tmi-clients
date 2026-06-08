@@ -19,7 +19,7 @@ import type { ListTimmySessionsResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "sessions": null,
+  "sessions": [],
   "total": 5,
   "limit": 20,
   "offset": 0,

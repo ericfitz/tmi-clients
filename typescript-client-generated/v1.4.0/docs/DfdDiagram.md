@@ -1,7 +1,6 @@
 
 # DfdDiagram
 
-Data Flow Diagram with cells, edges, and visual styling for JointJS rendering
 
 ## Properties
 
@@ -9,6 +8,7 @@ Name | Type
 ------------ | -------------
 `type` | string
 `cells` | [Array&lt;DfdDiagramAllOfCells&gt;](DfdDiagramAllOfCells.md)
+`version` | number
 
 ## Example
 
@@ -19,6 +19,7 @@ import type { DfdDiagram } from '@tmiclient/client'
 const example = {
   "type": null,
   "cells": null,
+  "version": null,
 } satisfies DfdDiagram
 
 console.log(example)

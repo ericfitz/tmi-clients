@@ -5,6 +5,7 @@ All URIs are relative to *https://api.tmi.dev*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AuthorizeOAuthProvider**](AuthenticationAPI.md#AuthorizeOAuthProvider) | **Get** /oauth2/authorize | Initiate OAuth authorization flow
+[**ContentOAuthCallback**](AuthenticationAPI.md#ContentOAuthCallback) | **Get** /oauth2/content_callback | Delegated content provider OAuth callback
 [**CreateCurrentUserClientCredential**](AuthenticationAPI.md#CreateCurrentUserClientCredential) | **Post** /me/client_credentials | Create client credential
 [**DeleteCurrentUserClientCredential**](AuthenticationAPI.md#DeleteCurrentUserClientCredential) | **Delete** /me/client_credentials/{credential_id} | Delete client credential
 [**ExchangeOAuthCode**](AuthenticationAPI.md#ExchangeOAuthCode) | **Post** /oauth2/token | Exchange OAuth credentials for JWT tokens
@@ -25,6 +26,7 @@ Method | HTTP request | Description
 [**ProcessSAMLResponse**](AuthenticationAPI.md#ProcessSAMLResponse) | **Post** /saml/acs | SAML Assertion Consumer Service
 [**RefreshToken**](AuthenticationAPI.md#RefreshToken) | **Post** /oauth2/refresh | Refresh JWT token
 [**RevokeToken**](AuthenticationAPI.md#RevokeToken) | **Post** /oauth2/revoke | Revoke token
+[**StepUpAuthenticate**](AuthenticationAPI.md#StepUpAuthenticate) | **Get** /oauth2/step_up | Initiate fresh-prompt step-up re-authentication
 
 
 
@@ -97,7 +99,75 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/json, text/html
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ContentOAuthCallback
+
+> ContentOAuthCallback(ctx).State(state).Code(code).Error_(error_).Execute()
+
+Delegated content provider OAuth callback
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	state := "state_example" // string | Opaque nonce that binds this callback to a server-side authorize request. (optional)
+	code := "code_example" // string | Authorization code returned by the provider when authorization succeeds. (optional)
+	error_ := "error__example" // string | Error code reported by the provider when authorization fails. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthenticationAPI.ContentOAuthCallback(context.Background()).State(state).Code(code).Error_(error_).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.ContentOAuthCallback``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiContentOAuthCallbackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **state** | **string** | Opaque nonce that binds this callback to a server-side authorize request. | 
+ **code** | **string** | Authorization code returned by the provider when authorization succeeds. | 
+ **error_** | **string** | Error code reported by the provider when authorization fails. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1431,6 +1501,78 @@ No authorization required
 
 - **Content-Type**: application/x-www-form-urlencoded, application/json
 - **Accept**: application/json, text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## StepUpAuthenticate
+
+> StepUpAuthenticate200Response StepUpAuthenticate(ctx).CodeChallenge(codeChallenge).CodeChallengeMethod(codeChallengeMethod).ClientCallback(clientCallback).State(state).Execute()
+
+Initiate fresh-prompt step-up re-authentication
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	codeChallenge := "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM" // string | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
+	codeChallengeMethod := "S256" // string | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
+	clientCallback := "http://localhost:4200/oauth2/callback" // string | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
+	state := "random_state_abc123" // string | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticationAPI.StepUpAuthenticate(context.Background()).CodeChallenge(codeChallenge).CodeChallengeMethod(codeChallengeMethod).ClientCallback(clientCallback).State(state).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticationAPI.StepUpAuthenticate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `StepUpAuthenticate`: StepUpAuthenticate200Response
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticationAPI.StepUpAuthenticate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiStepUpAuthenticateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **codeChallenge** | **string** | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | 
+ **codeChallengeMethod** | **string** | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | 
+ **clientCallback** | **string** | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | 
+ **state** | **string** | CSRF protection state parameter. Recommended for security. Will be included in the callback response. | 
+
+### Return type
+
+[**StepUpAuthenticate200Response**](StepUpAuthenticate200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

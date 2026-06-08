@@ -24,15 +24,15 @@ import type { TimmyChatSession } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "id": null,
-  "threat_model_id": null,
-  "user_id": null,
-  "title": null,
-  "source_snapshot": null,
-  "system_prompt_hash": null,
-  "status": null,
-  "created_at": null,
-  "modified_at": null,
+  "id": 123e4567-e89b-12d3-a456-426614174000,
+  "threat_model_id": 223e4567-e89b-12d3-a456-426614174001,
+  "user_id": 323e4567-e89b-12d3-a456-426614174002,
+  "title": Payment flow threat analysis,
+  "source_snapshot": [],
+  "system_prompt_hash": sha256:abc123def456789,
+  "status": active,
+  "created_at": 2026-04-19T12:00Z,
+  "modified_at": 2026-04-19T12:34:56Z,
 } satisfies TimmyChatSession
 
 console.log(example)

@@ -1,6 +1,5 @@
 # Document
 
-Complete Document schema with server-generated fields
 
 ## Properties
 
@@ -18,6 +17,10 @@ Name | Type | Description | Notes
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
 **access_status** | **str** | Access validation status for external content providers | [optional] [readonly] [default to 'unknown']
 **content_source** | **str** | Content provider that handles this documents URI (e.g., google_drive, http) | [optional] [readonly] 
+**access_diagnostics** | **object** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
+**access_status_updated_at** | **datetime** | Timestamp of the last access_status transition (RFC3339) | [optional] [readonly] 
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
+**version** | **int** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Example
 

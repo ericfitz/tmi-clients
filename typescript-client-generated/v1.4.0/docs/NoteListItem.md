@@ -16,6 +16,7 @@ Name | Type
 `include_in_report` | boolean
 `timmy_enabled` | boolean
 `deleted_at` | Date
+`alias` | number
 
 ## Example
 
@@ -33,6 +34,7 @@ const example = {
   "include_in_report": null,
   "timmy_enabled": null,
   "deleted_at": null,
+  "alias": null,
 } satisfies NoteListItem
 
 console.log(example)

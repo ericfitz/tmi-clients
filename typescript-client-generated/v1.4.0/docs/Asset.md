@@ -1,7 +1,6 @@
 
 # Asset
 
-Complete Asset schema with server-generated fields
 
 ## Properties
 
@@ -20,6 +19,8 @@ Name | Type
 `created_at` | Date
 `modified_at` | Date
 `deleted_at` | Date
+`alias` | number
+`version` | number
 
 ## Example
 
@@ -41,6 +42,8 @@ const example = {
   "created_at": null,
   "modified_at": null,
   "deleted_at": null,
+  "alias": null,
+  "version": null,
 } satisfies Asset
 
 console.log(example)

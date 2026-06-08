@@ -15,6 +15,8 @@ Name | Type
 `refY` | [NodeAttrsTextRefY](NodeAttrsTextRefY.md)
 `refDx` | number
 `refDy` | number
+`refX2` | [NodeAttrsTextRefX2](NodeAttrsTextRefX2.md)
+`refY2` | [NodeAttrsTextRefY2](NodeAttrsTextRefY2.md)
 `textAnchor` | string
 `textVerticalAnchor` | string
 
@@ -33,6 +35,8 @@ const example = {
   "refY": null,
   "refDx": null,
   "refDy": null,
+  "refX2": null,
+  "refY2": null,
   "textAnchor": null,
   "textVerticalAnchor": null,
 } satisfies NodeAttrsText

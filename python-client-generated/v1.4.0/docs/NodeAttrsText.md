@@ -12,8 +12,10 @@ Name | Type | Description | Notes
 **font_family** | **str** | Font family | [optional] 
 **ref_x** | [**NodeAttrsTextRefX**](NodeAttrsTextRefX.md) |  | [optional] 
 **ref_y** | [**NodeAttrsTextRefY**](NodeAttrsTextRefY.md) |  | [optional] 
-**ref_dx** | **float** | Horizontal offset from refX | [optional] 
-**ref_dy** | **float** | Vertical offset from refY | [optional] 
+**ref_dx** | **float** | Horizontal offset from refX (corner-based, retained for back-compat; client uses refX2) | [optional] 
+**ref_dy** | **float** | Vertical offset from refY (corner-based, retained for back-compat; client uses refY2) | [optional] 
+**ref_x2** | [**NodeAttrsTextRefX2**](NodeAttrsTextRefX2.md) |  | [optional] 
+**ref_y2** | [**NodeAttrsTextRefY2**](NodeAttrsTextRefY2.md) |  | [optional] 
 **text_anchor** | **str** | Horizontal text alignment anchor point | [optional] 
 **text_vertical_anchor** | **str** | Vertical text alignment anchor point | [optional] 
 

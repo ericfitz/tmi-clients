@@ -1,6 +1,7 @@
 
 # EmbeddingConfig
 
+Aggregate embedding configuration for a threat model, holding separate provider configs for text and optionally code embeddings.
 
 ## Properties
 

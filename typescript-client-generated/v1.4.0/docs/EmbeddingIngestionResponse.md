@@ -1,6 +1,7 @@
 
 # EmbeddingIngestionResponse
 
+Response returned after a successful embedding ingestion operation, reporting the number of embeddings stored.
 
 ## Properties
 
@@ -15,7 +16,7 @@ import type { EmbeddingIngestionResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "ingested": null,
+  "ingested": 42,
 } satisfies EmbeddingIngestionResponse
 
 console.log(example)

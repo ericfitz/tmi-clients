@@ -1,7 +1,6 @@
 
 # Document
 
-Complete Document schema with server-generated fields
 
 ## Properties
 
@@ -19,6 +18,10 @@ Name | Type
 `deleted_at` | Date
 `access_status` | string
 `content_source` | string
+`access_diagnostics` | object
+`access_status_updated_at` | Date
+`alias` | number
+`version` | number
 
 ## Example
 
@@ -39,6 +42,10 @@ const example = {
   "deleted_at": null,
   "access_status": null,
   "content_source": google_drive,
+  "access_diagnostics": null,
+  "access_status_updated_at": null,
+  "alias": null,
+  "version": null,
 } satisfies Document
 
 console.log(example)

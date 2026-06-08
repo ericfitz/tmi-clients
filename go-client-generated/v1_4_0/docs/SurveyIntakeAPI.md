@@ -1110,7 +1110,7 @@ Name | Type | Description  | Notes
 
 ## PatchIntakeSurveyResponse
 
-> SurveyResponse PatchIntakeSurveyResponse(ctx, surveyResponseId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+> SurveyResponse PatchIntakeSurveyResponse(ctx, surveyResponseId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 
 Partial update survey response
 
@@ -1131,10 +1131,11 @@ import (
 func main() {
 	surveyResponseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Unique identifier of the survey response
 	jsonPatchDocumentInner := []openapiclient.JsonPatchDocumentInner{*openapiclient.NewJsonPatchDocumentInner("Op_example", "Path_example")} // []JsonPatchDocumentInner | JSON Patch operations to apply to the survey response
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SurveyIntakeAPI.PatchIntakeSurveyResponse(context.Background(), surveyResponseId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+	resp, r, err := apiClient.SurveyIntakeAPI.PatchIntakeSurveyResponse(context.Background(), surveyResponseId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SurveyIntakeAPI.PatchIntakeSurveyResponse``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1161,6 +1162,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **jsonPatchDocumentInner** | [**[]JsonPatchDocumentInner**](JsonPatchDocumentInner.md) | JSON Patch operations to apply to the survey response | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -1182,7 +1184,7 @@ Name | Type | Description  | Notes
 
 ## UpdateIntakeSurveyResponse
 
-> SurveyResponse UpdateIntakeSurveyResponse(ctx, surveyResponseId).SurveyResponseInput(surveyResponseInput).Execute()
+> SurveyResponse UpdateIntakeSurveyResponse(ctx, surveyResponseId).SurveyResponseInput(surveyResponseInput).IfMatch(ifMatch).Execute()
 
 Update survey response
 
@@ -1203,10 +1205,11 @@ import (
 func main() {
 	surveyResponseId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Unique identifier of the survey response
 	surveyResponseInput := *openapiclient.NewSurveyResponseInput("SurveyId_example") // SurveyResponseInput | Complete survey response to replace existing
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SurveyIntakeAPI.UpdateIntakeSurveyResponse(context.Background(), surveyResponseId).SurveyResponseInput(surveyResponseInput).Execute()
+	resp, r, err := apiClient.SurveyIntakeAPI.UpdateIntakeSurveyResponse(context.Background(), surveyResponseId).SurveyResponseInput(surveyResponseInput).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SurveyIntakeAPI.UpdateIntakeSurveyResponse``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1233,6 +1236,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **surveyResponseInput** | [**SurveyResponseInput**](SurveyResponseInput.md) | Complete survey response to replace existing | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 

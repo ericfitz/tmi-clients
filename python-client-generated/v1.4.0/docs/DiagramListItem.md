@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
 **timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
 
 ## Example
 

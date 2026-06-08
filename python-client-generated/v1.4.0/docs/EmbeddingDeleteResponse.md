@@ -1,5 +1,6 @@
 # EmbeddingDeleteResponse
 
+Response returned after deleting all embeddings for a threat model, reporting the number of records removed.
 
 ## Properties
 

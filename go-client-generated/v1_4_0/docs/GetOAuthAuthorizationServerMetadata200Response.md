@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **ResponseTypesSupported** | **[]string** |  | 
 **GrantTypesSupported** | Pointer to **[]string** |  | [optional] 
 **TokenEndpointAuthMethodsSupported** | Pointer to **[]string** |  | [optional] 
+**CodeChallengeMethodsSupported** | Pointer to **[]string** |  | [optional] 
+**JwksUri** | Pointer to **string** |  | [optional] 
+**RevocationEndpoint** | Pointer to **string** |  | [optional] 
+**ScopesSupported** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -185,6 +189,106 @@ SetTokenEndpointAuthMethodsSupported sets TokenEndpointAuthMethodsSupported fiel
 `func (o *GetOAuthAuthorizationServerMetadata200Response) HasTokenEndpointAuthMethodsSupported() bool`
 
 HasTokenEndpointAuthMethodsSupported returns a boolean if a field has been set.
+
+### GetCodeChallengeMethodsSupported
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetCodeChallengeMethodsSupported() []string`
+
+GetCodeChallengeMethodsSupported returns the CodeChallengeMethodsSupported field if non-nil, zero value otherwise.
+
+### GetCodeChallengeMethodsSupportedOk
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetCodeChallengeMethodsSupportedOk() (*[]string, bool)`
+
+GetCodeChallengeMethodsSupportedOk returns a tuple with the CodeChallengeMethodsSupported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCodeChallengeMethodsSupported
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) SetCodeChallengeMethodsSupported(v []string)`
+
+SetCodeChallengeMethodsSupported sets CodeChallengeMethodsSupported field to given value.
+
+### HasCodeChallengeMethodsSupported
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) HasCodeChallengeMethodsSupported() bool`
+
+HasCodeChallengeMethodsSupported returns a boolean if a field has been set.
+
+### GetJwksUri
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetJwksUri() string`
+
+GetJwksUri returns the JwksUri field if non-nil, zero value otherwise.
+
+### GetJwksUriOk
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetJwksUriOk() (*string, bool)`
+
+GetJwksUriOk returns a tuple with the JwksUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJwksUri
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) SetJwksUri(v string)`
+
+SetJwksUri sets JwksUri field to given value.
+
+### HasJwksUri
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) HasJwksUri() bool`
+
+HasJwksUri returns a boolean if a field has been set.
+
+### GetRevocationEndpoint
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetRevocationEndpoint() string`
+
+GetRevocationEndpoint returns the RevocationEndpoint field if non-nil, zero value otherwise.
+
+### GetRevocationEndpointOk
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetRevocationEndpointOk() (*string, bool)`
+
+GetRevocationEndpointOk returns a tuple with the RevocationEndpoint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRevocationEndpoint
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) SetRevocationEndpoint(v string)`
+
+SetRevocationEndpoint sets RevocationEndpoint field to given value.
+
+### HasRevocationEndpoint
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) HasRevocationEndpoint() bool`
+
+HasRevocationEndpoint returns a boolean if a field has been set.
+
+### GetScopesSupported
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetScopesSupported() []string`
+
+GetScopesSupported returns the ScopesSupported field if non-nil, zero value otherwise.
+
+### GetScopesSupportedOk
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) GetScopesSupportedOk() (*[]string, bool)`
+
+GetScopesSupportedOk returns a tuple with the ScopesSupported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScopesSupported
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) SetScopesSupported(v []string)`
+
+SetScopesSupported sets ScopesSupported field to given value.
+
+### HasScopesSupported
+
+`func (o *GetOAuthAuthorizationServerMetadata200Response) HasScopesSupported() bool`
+
+HasScopesSupported returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

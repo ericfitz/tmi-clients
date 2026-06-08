@@ -65,6 +65,7 @@ docs/DfdDiagram.md
 docs/DfdDiagramAllOfCells.md
 docs/DfdDiagramInput.md
 docs/DfdDiagramInputAllOfCells.md
+docs/Diagram.md
 docs/DiagramListItem.md
 docs/DiagramListItemImage.md
 docs/Document.md
@@ -319,6 +320,7 @@ test/test_dfd_diagram.py
 test/test_dfd_diagram_all_of_cells.py
 test/test_dfd_diagram_input.py
 test/test_dfd_diagram_input_all_of_cells.py
+test/test_diagram.py
 test/test_diagram_list_item.py
 test/test_diagram_list_item_image.py
 test/test_document.py
@@ -592,6 +594,7 @@ tmi_client/models/dfd_diagram.py
 tmi_client/models/dfd_diagram_all_of_cells.py
 tmi_client/models/dfd_diagram_input.py
 tmi_client/models/dfd_diagram_input_all_of_cells.py
+tmi_client/models/diagram.py
 tmi_client/models/diagram_list_item.py
 tmi_client/models/diagram_list_item_image.py
 tmi_client/models/document.py

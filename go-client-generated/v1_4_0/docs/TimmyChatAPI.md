@@ -37,7 +37,7 @@ import (
 func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	sessionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Chat session identifier
-	createTimmyMessageRequest := *openapiclient.NewCreateTimmyMessageRequest("Content_example") // CreateTimmyMessageRequest | Message content to send to Timmy
+	createTimmyMessageRequest := *openapiclient.NewCreateTimmyMessageRequest("What are the main threats in the login flow?") // CreateTimmyMessageRequest | Message content to send to Timmy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

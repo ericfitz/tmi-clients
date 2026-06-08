@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Operator** | Pointer to [**ClientConfigOperator**](ClientConfigOperator.md) |  | [optional] 
 **Limits** | Pointer to [**ClientConfigLimits**](ClientConfigLimits.md) |  | [optional] 
 **Ui** | Pointer to [**ClientConfigUi**](ClientConfigUi.md) |  | [optional] 
+**ContentProviders** | Pointer to [**[]ContentProvider**](ContentProvider.md) | Content providers the server has configured. Order matches server-side registration order. | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetUi sets Ui field to given value.
 `func (o *ClientConfig) HasUi() bool`
 
 HasUi returns a boolean if a field has been set.
+
+### GetContentProviders
+
+`func (o *ClientConfig) GetContentProviders() []ContentProvider`
+
+GetContentProviders returns the ContentProviders field if non-nil, zero value otherwise.
+
+### GetContentProvidersOk
+
+`func (o *ClientConfig) GetContentProvidersOk() (*[]ContentProvider, bool)`
+
+GetContentProvidersOk returns a tuple with the ContentProviders field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContentProviders
+
+`func (o *ClientConfig) SetContentProviders(v []ContentProvider)`
+
+SetContentProviders sets ContentProviders field to given value.
+
+### HasContentProviders
+
+`func (o *ClientConfig) HasContentProviders() bool`
+
+HasContentProviders returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

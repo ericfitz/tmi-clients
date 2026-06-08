@@ -1,6 +1,7 @@
 
 # EmbeddingDeleteResponse
 
+Response returned after deleting all embeddings for a threat model, reporting the number of records removed.
 
 ## Properties
 
@@ -15,7 +16,7 @@ import type { EmbeddingDeleteResponse } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "deleted": null,
+  "deleted": 42,
 } satisfies EmbeddingDeleteResponse
 
 console.log(example)

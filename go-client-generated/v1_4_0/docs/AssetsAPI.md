@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## PatchThreatModelAsset
 
-> Asset PatchThreatModelAsset(ctx, threatModelId, assetId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+> Asset PatchThreatModelAsset(ctx, threatModelId, assetId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 
 Partially update asset
 
@@ -32,10 +32,11 @@ func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
 	assetId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Asset identifier
 	jsonPatchDocumentInner := []openapiclient.JsonPatchDocumentInner{*openapiclient.NewJsonPatchDocumentInner("Op_example", "Path_example")} // []JsonPatchDocumentInner | JSON Patch operations to apply to the asset
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AssetsAPI.PatchThreatModelAsset(context.Background(), threatModelId, assetId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+	resp, r, err := apiClient.AssetsAPI.PatchThreatModelAsset(context.Background(), threatModelId, assetId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AssetsAPI.PatchThreatModelAsset``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -64,6 +65,7 @@ Name | Type | Description  | Notes
 
 
  **jsonPatchDocumentInner** | [**[]JsonPatchDocumentInner**](JsonPatchDocumentInner.md) | JSON Patch operations to apply to the asset | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 

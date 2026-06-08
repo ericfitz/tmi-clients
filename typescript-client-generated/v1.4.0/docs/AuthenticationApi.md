@@ -5,6 +5,7 @@ All URIs are relative to *https://api.tmi.dev*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**authorizeOAuthProvider**](AuthenticationApi.md#authorizeoauthprovider) | **GET** /oauth2/authorize | Initiate OAuth authorization flow |
+| [**contentOAuthCallback**](AuthenticationApi.md#contentoauthcallback) | **GET** /oauth2/content_callback | Delegated content provider OAuth callback |
 | [**createCurrentUserClientCredential**](AuthenticationApi.md#createcurrentuserclientcredentialoperation) | **POST** /me/client_credentials | Create client credential |
 | [**deleteCurrentUserClientCredential**](AuthenticationApi.md#deletecurrentuserclientcredential) | **DELETE** /me/client_credentials/{credential_id} | Delete client credential |
 | [**exchangeOAuthCode**](AuthenticationApi.md#exchangeoauthcodeoperation) | **POST** /oauth2/token | Exchange OAuth credentials for JWT tokens |
@@ -25,6 +26,7 @@ All URIs are relative to *https://api.tmi.dev*
 | [**processSAMLResponse**](AuthenticationApi.md#processsamlresponse) | **POST** /saml/acs | SAML Assertion Consumer Service |
 | [**refreshToken**](AuthenticationApi.md#refreshtoken) | **POST** /oauth2/refresh | Refresh JWT token |
 | [**revokeToken**](AuthenticationApi.md#revoketoken) | **POST** /oauth2/revoke | Revoke token |
+| [**stepUpAuthenticate**](AuthenticationApi.md#stepupauthenticate) | **GET** /oauth2/step_up | Initiate fresh-prompt step-up re-authentication |
 
 
 
@@ -102,7 +104,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: `application/json`
+- **Accept**: `application/json`, `text/html`
 
 
 ### HTTP response details
@@ -113,6 +115,85 @@ No authorization required
 | **500** | Internal server error generating authorization URL |  -  |
 | **503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **404** | Authorization endpoint encountered an unrecognized path/parameter; an HTML error page is rendered. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## contentOAuthCallback
+
+> contentOAuthCallback(state, code, error)
+
+Delegated content provider OAuth callback
+
+Public callback endpoint that completes the delegated content provider OAuth authorization. Exchanges the authorization code, stores the encrypted token, and redirects to the caller-provided client_callback URL with status&#x3D;success or status&#x3D;error. Called by the provider\&#39;s authorization server, not by clients directly.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AuthenticationApi,
+} from '@tmiclient/client';
+import type { ContentOAuthCallbackRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const api = new AuthenticationApi();
+
+  const body = {
+    // string | Opaque nonce that binds this callback to a server-side authorize request. (optional)
+    state: state_example,
+    // string | Authorization code returned by the provider when authorization succeeds. (optional)
+    code: code_example,
+    // string | Error code reported by the provider when authorization fails. (optional)
+    error: error_example,
+  } satisfies ContentOAuthCallbackRequest;
+
+  try {
+    const data = await api.contentOAuthCallback(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **state** | `string` | Opaque nonce that binds this callback to a server-side authorize request. | [Optional] [Defaults to `undefined`] |
+| **code** | `string` | Authorization code returned by the provider when authorization succeeds. | [Optional] [Defaults to `undefined`] |
+| **error** | `string` | Error code reported by the provider when authorization fails. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `text/html`, `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **302** | Redirect to the client_callback URL with status&#x3D;success or status&#x3D;error. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Location - Client callback URL with status and provider_id query parameters appended. <br>  |
+| **400** | Missing or invalid state; rendered as a minimal HTML error page. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -1273,6 +1354,7 @@ No authorization required
 | **400** | Invalid SAML logout request |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -1343,6 +1425,7 @@ No authorization required
 | **400** | Invalid SAML logout request |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -1571,6 +1654,93 @@ No authorization required
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## stepUpAuthenticate
+
+> StepUpAuthenticate200Response stepUpAuthenticate(codeChallenge, codeChallengeMethod, clientCallback, state)
+
+Initiate fresh-prompt step-up re-authentication
+
+Forces a fresh interactive re-authentication at the user\&#39;s bound IdP by adding prompt&#x3D;login&amp;max_age&#x3D;0 (OAuth/OIDC) or ForceAuthn&#x3D;true (SAML) to the upstream authorize URL. For providers that do not honor those parameters (e.g., GitHub), the endpoint short-circuits and rotates tokens in-place with a \&#39;strength: weak\&#39; audit marker. See #397 and docs/superpowers/specs/2026-05-10-oauth2-step-up-design.md.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AuthenticationApi,
+} from '@tmiclient/client';
+import type { StepUpAuthenticateRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
+
+  const body = {
+    // string | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange.
+    codeChallenge: E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM,
+    // 'S256' | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \"S256\" (SHA256) is supported for security. The \"plain\" method is not supported.
+    codeChallengeMethod: S256,
+    // string | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token=...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. (optional)
+    clientCallback: http://localhost:4200/oauth2/callback,
+    // string | CSRF protection state parameter. Recommended for security. Will be included in the callback response. (optional)
+    state: random_state_abc123,
+  } satisfies StepUpAuthenticateRequest;
+
+  try {
+    const data = await api.stepUpAuthenticate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **codeChallenge** | `string` | PKCE code challenge (RFC 7636) - Base64url-encoded SHA256 hash of the code_verifier. Must be 43-128 characters using unreserved characters [A-Za-z0-9-._~]. The server associates this with the authorization code for later verification during token exchange. | [Defaults to `undefined`] |
+| **codeChallengeMethod** | `S256` | PKCE code challenge method (RFC 7636) - Specifies the transformation applied to the code_verifier. Only \&quot;S256\&quot; (SHA256) is supported for security. The \&quot;plain\&quot; method is not supported. | [Defaults to `undefined`] [Enum: S256] |
+| **clientCallback** | `string` | Client callback URL where TMI should redirect after successful OAuth completion with tokens in URL fragment (#access_token&#x3D;...). If not provided, tokens are returned as JSON response. Per OAuth 2.0 implicit flow spec, tokens are in fragments to prevent logging. | [Optional] [Defaults to `undefined`] |
+| **state** | `string` | CSRF protection state parameter. Recommended for security. Will be included in the callback response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**StepUpAuthenticate200Response**](StepUpAuthenticate200Response.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Weak-provider short-circuit: tokens rotated in-place. Set-Cookie headers carry new HttpOnly access and refresh tokens. Returned only when the JWT-bound provider is classified as \&#39;weak\&#39; (e.g., github). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **302** | Strong-provider path: redirect to upstream IdP with prompt&#x3D;login&amp;max_age&#x3D;0 (OAuth/OIDC) or ForceAuthn&#x3D;true (SAML). |  * Location - Upstream IdP authorization URL with fresh-prompt parameters appended. <br>  |
+| **400** | Validation or pre-flight rejection (RFC 6749 §4.1.2.1-aligned error codes). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | JWT cookie/header missing, invalid, or expired. |  * WWW-Authenticate - Bearer error&#x3D;\&quot;invalid_token\&quot; <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Reserved for future per-grant restrictions (unauthorized_client). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **500** | Internal server error. |  -  |
+| **503** | Redis or downstream store temporarily unavailable. |  * Retry-After - Seconds to wait before retry <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

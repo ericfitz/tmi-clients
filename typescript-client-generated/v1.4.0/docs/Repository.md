@@ -19,6 +19,7 @@ Name | Type
 `created_at` | Date
 `modified_at` | Date
 `deleted_at` | Date
+`alias` | number
 
 ## Example
 
@@ -39,6 +40,7 @@ const example = {
   "created_at": null,
   "modified_at": null,
   "deleted_at": null,
+  "alias": null,
 } satisfies Repository
 
 console.log(example)
