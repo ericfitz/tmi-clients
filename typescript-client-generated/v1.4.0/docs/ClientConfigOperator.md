@@ -9,6 +9,7 @@ Name | Type
 ------------ | -------------
 `name` | string
 `contact` | string
+`jurisdiction` | string
 
 ## Example
 
@@ -19,6 +20,7 @@ import type { ClientConfigOperator } from '@tmiclient/client'
 const example = {
   "name": null,
   "contact": null,
+  "jurisdiction": null,
 } satisfies ClientConfigOperator
 
 console.log(example)

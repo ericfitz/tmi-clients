@@ -1,7 +1,6 @@
 
 # ThreatModel
 
-A threat model containing diagrams, threats, documents, and other security analysis artifacts
 
 ## Properties
 
@@ -15,7 +14,7 @@ Name | Type
 `metadata` | [Array&lt;Metadata&gt;](Metadata.md)
 `issue_uri` | string
 `status` | string
-`alias` | Set&lt;string&gt;
+`alias` | number
 `security_reviewer` | [User](User.md)
 `project_id` | string
 `id` | string
@@ -24,13 +23,14 @@ Name | Type
 `created_by` | [User](User.md)
 `documents` | [Array&lt;Document&gt;](Document.md)
 `repositories` | [Array&lt;Repository&gt;](Repository.md)
-`diagrams` | [Array&lt;DfdDiagram&gt;](DfdDiagram.md)
+`diagrams` | [Array&lt;Diagram&gt;](Diagram.md)
 `threats` | [Array&lt;Threat&gt;](Threat.md)
 `notes` | [Array&lt;Note&gt;](Note.md)
 `assets` | [Array&lt;ExtendedAsset&gt;](ExtendedAsset.md)
 `status_updated` | Date
 `is_confidential` | boolean
 `deleted_at` | Date
+`version` | number
 
 ## Example
 
@@ -63,6 +63,7 @@ const example = {
   "status_updated": null,
   "is_confidential": null,
   "deleted_at": null,
+  "version": null,
 } satisfies ThreatModel
 
 console.log(example)

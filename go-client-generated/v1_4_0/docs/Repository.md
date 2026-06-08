@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** | Creation timestamp (RFC3339) | [optional] [readonly] 
 **ModifiedAt** | Pointer to **time.Time** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**Alias** | Pointer to **int32** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
 
 ## Methods
 
@@ -366,6 +367,31 @@ HasDeletedAt returns a boolean if a field has been set.
 `func (o *Repository) UnsetDeletedAt()`
 
 UnsetDeletedAt ensures that no value is present for DeletedAt, not even an explicit nil
+### GetAlias
+
+`func (o *Repository) GetAlias() int32`
+
+GetAlias returns the Alias field if non-nil, zero value otherwise.
+
+### GetAliasOk
+
+`func (o *Repository) GetAliasOk() (*int32, bool)`
+
+GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlias
+
+`func (o *Repository) SetAlias(v int32)`
+
+SetAlias sets Alias field to given value.
+
+### HasAlias
+
+`func (o *Repository) HasAlias() bool`
+
+HasAlias returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

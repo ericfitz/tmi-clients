@@ -1,5 +1,6 @@
 # EmbeddingIngestionResponse
 
+Response returned after a successful embedding ingestion operation, reporting the number of embeddings stored.
 
 ## Properties
 

@@ -16,7 +16,7 @@ import type { CreateTimmyMessageRequest } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "content": null,
+  "content": What are the main threats in the login flow?,
 } satisfies CreateTimmyMessageRequest
 
 console.log(example)

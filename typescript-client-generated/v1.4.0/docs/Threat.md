@@ -1,7 +1,6 @@
 
 # Threat
 
-A security threat identified during threat modeling, with severity, status, and mitigation details
 
 ## Properties
 
@@ -31,6 +30,9 @@ Name | Type
 `created_at` | Date
 `modified_at` | Date
 `deleted_at` | Date
+`auto_generated` | boolean
+`alias` | number
+`version` | number
 
 ## Example
 
@@ -63,6 +65,9 @@ const example = {
   "created_at": null,
   "modified_at": null,
   "deleted_at": null,
+  "auto_generated": null,
+  "alias": null,
+  "version": null,
 } satisfies Threat
 
 console.log(example)

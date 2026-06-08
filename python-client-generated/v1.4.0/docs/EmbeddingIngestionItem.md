@@ -1,5 +1,6 @@
 # EmbeddingIngestionItem
 
+A single pre-computed embedding chunk submitted for ingestion, including the source entity, chunk text, content hash, and embedding vector.
 
 ## Properties
 

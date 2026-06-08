@@ -4,11 +4,154 @@ All URIs are relative to *https://api.tmi.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AdminDeleteUserContentToken**](AdminUsersAPI.md#AdminDeleteUserContentToken) | **Delete** /admin/users/{internal_uuid}/content_tokens/{provider_id} | Revoke a user&#39;s linked content provider token (admin)
+[**AdminListUserContentTokens**](AdminUsersAPI.md#AdminListUserContentTokens) | **Get** /admin/users/{internal_uuid}/content_tokens | List a user&#39;s linked content provider tokens (admin)
 [**CreateAdminUserClientCredential**](AdminUsersAPI.md#CreateAdminUserClientCredential) | **Post** /admin/users/{internal_uuid}/client_credentials | Create a client credential for an automation user
 [**CreateAutomationAccount**](AdminUsersAPI.md#CreateAutomationAccount) | **Post** /admin/users/automation | Create an automation (service) account
 [**DeleteAdminUserClientCredential**](AdminUsersAPI.md#DeleteAdminUserClientCredential) | **Delete** /admin/users/{internal_uuid}/client_credentials/{credential_id} | Delete a client credential for an automation user
 [**ListAdminUserClientCredentials**](AdminUsersAPI.md#ListAdminUserClientCredentials) | **Get** /admin/users/{internal_uuid}/client_credentials | List client credentials for an automation user
 
+
+
+## AdminDeleteUserContentToken
+
+> AdminDeleteUserContentToken(ctx, internalUuid, providerId).Execute()
+
+Revoke a user's linked content provider token (admin)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	internalUuid := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Internal system UUID of the target user.
+	providerId := "providerId_example" // string | Content OAuth provider id to revoke.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AdminUsersAPI.AdminDeleteUserContentToken(context.Background(), internalUuid, providerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminUsersAPI.AdminDeleteUserContentToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**internalUuid** | **string** | Internal system UUID of the target user. | 
+**providerId** | **string** | Content OAuth provider id to revoke. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAdminDeleteUserContentTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AdminListUserContentTokens
+
+> ContentTokenList AdminListUserContentTokens(ctx, internalUuid).Execute()
+
+List a user's linked content provider tokens (admin)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	internalUuid := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Internal system UUID of the target user.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminUsersAPI.AdminListUserContentTokens(context.Background(), internalUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminUsersAPI.AdminListUserContentTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AdminListUserContentTokens`: ContentTokenList
+	fmt.Fprintf(os.Stdout, "Response from `AdminUsersAPI.AdminListUserContentTokens`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**internalUuid** | **string** | Internal system UUID of the target user. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAdminListUserContentTokensRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ContentTokenList**](ContentTokenList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateAdminUserClientCredential

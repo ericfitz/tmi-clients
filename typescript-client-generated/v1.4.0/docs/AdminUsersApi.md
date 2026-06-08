@@ -4,11 +4,172 @@ All URIs are relative to *https://api.tmi.dev*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**adminDeleteUserContentToken**](AdminUsersApi.md#admindeleteusercontenttoken) | **DELETE** /admin/users/{internal_uuid}/content_tokens/{provider_id} | Revoke a user\&#39;s linked content provider token (admin) |
+| [**adminListUserContentTokens**](AdminUsersApi.md#adminlistusercontenttokens) | **GET** /admin/users/{internal_uuid}/content_tokens | List a user\&#39;s linked content provider tokens (admin) |
 | [**createAdminUserClientCredential**](AdminUsersApi.md#createadminuserclientcredential) | **POST** /admin/users/{internal_uuid}/client_credentials | Create a client credential for an automation user |
 | [**createAutomationAccount**](AdminUsersApi.md#createautomationaccountoperation) | **POST** /admin/users/automation | Create an automation (service) account |
 | [**deleteAdminUserClientCredential**](AdminUsersApi.md#deleteadminuserclientcredential) | **DELETE** /admin/users/{internal_uuid}/client_credentials/{credential_id} | Delete a client credential for an automation user |
 | [**listAdminUserClientCredentials**](AdminUsersApi.md#listadminuserclientcredentials) | **GET** /admin/users/{internal_uuid}/client_credentials | List client credentials for an automation user |
 
+
+
+## adminDeleteUserContentToken
+
+> adminDeleteUserContentToken(internalUuid, providerId)
+
+Revoke a user\&#39;s linked content provider token (admin)
+
+Administrator-only best-effort revocation of a target user\&#39;s delegated content provider token. Returns 204 whether or not the row existed (idempotent).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdminUsersApi,
+} from '@tmiclient/client';
+import type { AdminDeleteUserContentTokenRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdminUsersApi(config);
+
+  const body = {
+    // string | Internal system UUID of the target user.
+    internalUuid: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Content OAuth provider id to revoke.
+    providerId: providerId_example,
+  } satisfies AdminDeleteUserContentTokenRequest;
+
+  try {
+    const data = await api.adminDeleteUserContentToken(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **internalUuid** | `string` | Internal system UUID of the target user. | [Defaults to `undefined`] |
+| **providerId** | `string` | Content OAuth provider id to revoke. | [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Token deleted (or was already absent). |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## adminListUserContentTokens
+
+> ContentTokenList adminListUserContentTokens(internalUuid)
+
+List a user\&#39;s linked content provider tokens (admin)
+
+Administrator-only listing of a target user\&#39;s delegated content provider tokens. Secrets are never returned.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdminUsersApi,
+} from '@tmiclient/client';
+import type { AdminListUserContentTokensRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdminUsersApi(config);
+
+  const body = {
+    // string | Internal system UUID of the target user.
+    internalUuid: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies AdminListUserContentTokensRequest;
+
+  try {
+    const data = await api.adminListUserContentTokens(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **internalUuid** | `string` | Internal system UUID of the target user. | [Defaults to `undefined`] |
+
+### Return type
+
+[**ContentTokenList**](ContentTokenList.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | List of the target user\&#39;s linked content provider tokens. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **500** | Internal server error |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **503** | Service Unavailable - A required backend service (authentication, database, or cache) is temporarily unavailable. The client should retry the request after the delay indicated in the Retry-After header. |  * Retry-After - Number of seconds to wait before retrying the request <br>  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
+| **400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## createAdminUserClientCredential

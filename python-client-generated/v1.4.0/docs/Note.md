@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **created_at** | **datetime** | Creation timestamp (RFC3339) | [optional] [readonly] 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**auto_generated** | **bool** | True when the note was created by an automation/service-account principal. Sticky from creation. | [optional] [readonly] 
+**alias** | **int** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
 
 ## Example
 

@@ -178,7 +178,7 @@ import (
 
 func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
-	embeddingIngestionRequest := *openapiclient.NewEmbeddingIngestionRequest("IndexType_example", []openapiclient.EmbeddingIngestionItem{*openapiclient.NewEmbeddingIngestionItem("EntityType_example", "EntityId_example", int32(123), "ChunkText_example", "ContentHash_example", "EmbeddingModel_example", int32(123), []float32{float32(123)})}) // EmbeddingIngestionRequest | Batch of pre-computed embeddings to ingest
+	embeddingIngestionRequest := *openapiclient.NewEmbeddingIngestionRequest("text", []openapiclient.EmbeddingIngestionItem{*openapiclient.NewEmbeddingIngestionItem("EntityType_example", "EntityId_example", int32(123), "ChunkText_example", "ContentHash_example", "EmbeddingModel_example", int32(123), []float32{float32(123)})}) // EmbeddingIngestionRequest | Batch of pre-computed embeddings to ingest
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

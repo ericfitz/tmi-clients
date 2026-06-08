@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PrincipalType** | **string** | Type of principal: user (individual) or group | 
-**Provider** | **string** | Identity provider name (e.g., \&quot;google\&quot;, \&quot;github\&quot;, \&quot;microsoft\&quot;, \&quot;tmi\&quot;). Use \&quot;*\&quot; for provider-independent groups. | 
+**Provider** | **string** | Identity provider name (e.g., \&quot;google\&quot;, \&quot;github\&quot;, \&quot;microsoft\&quot;, \&quot;tmi\&quot;). Use \&quot;tmi\&quot; for TMI built-in groups. | 
 **ProviderId** | **string** | Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name. | 
 **DisplayName** | Pointer to **string** | Human-readable display name for UI presentation | [optional] 
 **Email** | Pointer to **string** | Email address (required for users, optional for groups) | [optional] 

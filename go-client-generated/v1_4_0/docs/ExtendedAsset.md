@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **CreatedAt** | **time.Time** | Creation timestamp (ISO3339) | 
 **ModifiedAt** | **time.Time** | Last modification timestamp (ISO3339) | 
 **DeletedAt** | Pointer to **NullableTime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
+**Alias** | Pointer to **int32** | Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation. | [optional] [readonly] 
+**Version** | Pointer to **int32** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 **ThreatModelId** | **string** | ID of the threat model this asset belongs to | 
 
 ## Methods
@@ -388,6 +390,56 @@ HasDeletedAt returns a boolean if a field has been set.
 `func (o *ExtendedAsset) UnsetDeletedAt()`
 
 UnsetDeletedAt ensures that no value is present for DeletedAt, not even an explicit nil
+### GetAlias
+
+`func (o *ExtendedAsset) GetAlias() int32`
+
+GetAlias returns the Alias field if non-nil, zero value otherwise.
+
+### GetAliasOk
+
+`func (o *ExtendedAsset) GetAliasOk() (*int32, bool)`
+
+GetAliasOk returns a tuple with the Alias field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlias
+
+`func (o *ExtendedAsset) SetAlias(v int32)`
+
+SetAlias sets Alias field to given value.
+
+### HasAlias
+
+`func (o *ExtendedAsset) HasAlias() bool`
+
+HasAlias returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *ExtendedAsset) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *ExtendedAsset) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *ExtendedAsset) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *ExtendedAsset) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
+
 ### GetThreatModelId
 
 `func (o *ExtendedAsset) GetThreatModelId() string`

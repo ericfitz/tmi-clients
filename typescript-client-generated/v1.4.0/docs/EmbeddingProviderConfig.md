@@ -1,6 +1,7 @@
 
 # EmbeddingProviderConfig
 
+Configuration for an embedding provider, specifying the provider name, model, and optional API key or custom base URL.
 
 ## Properties
 

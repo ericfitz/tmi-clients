@@ -26,6 +26,7 @@ Name | Type
 `status_updated` | Date
 `security_reviewer` | [User](User.md)
 `deleted_at` | Date
+`alias` | number
 
 ## Example
 
@@ -53,6 +54,7 @@ const example = {
   "status_updated": null,
   "security_reviewer": null,
   "deleted_at": null,
+  "alias": null,
 } satisfies TMListItem
 
 console.log(example)

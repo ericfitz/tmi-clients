@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **uri** | **str** | URL location of the document | 
 **include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
 **timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
+**picker_registration** | **object** | Optional; when present, client has performed a Picker-based attachment | [optional] 
 
 ## Example
 

@@ -1031,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ## PatchTeam
 
-> Team PatchTeam(ctx, teamId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+> Team PatchTeam(ctx, teamId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 
 Patch a team
 
@@ -1052,10 +1052,11 @@ import (
 func main() {
 	teamId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Team UUID
 	jsonPatchDocumentInner := []openapiclient.JsonPatchDocumentInner{*openapiclient.NewJsonPatchDocumentInner("Op_example", "Path_example")} // []JsonPatchDocumentInner | Partial team data for update
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamsAPI.PatchTeam(context.Background(), teamId).JsonPatchDocumentInner(jsonPatchDocumentInner).Execute()
+	resp, r, err := apiClient.TeamsAPI.PatchTeam(context.Background(), teamId).JsonPatchDocumentInner(jsonPatchDocumentInner).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.PatchTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1082,6 +1083,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **jsonPatchDocumentInner** | [**[]JsonPatchDocumentInner**](JsonPatchDocumentInner.md) | Partial team data for update | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 
@@ -1178,7 +1180,7 @@ Name | Type | Description  | Notes
 
 ## UpdateTeam
 
-> Team UpdateTeam(ctx, teamId).Body(body).Execute()
+> Team UpdateTeam(ctx, teamId).Body(body).IfMatch(ifMatch).Execute()
 
 Update a team
 
@@ -1199,10 +1201,11 @@ import (
 func main() {
 	teamId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Team UUID
 	body := TeamBase({"name":"Platform Engineering","description":"Core platform infrastructure team - updated"}) // TeamBase | Complete team data for replacement
+	ifMatch := int32(56) // int32 | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body 'version' field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TeamsAPI.UpdateTeam(context.Background(), teamId).Body(body).Execute()
+	resp, r, err := apiClient.TeamsAPI.UpdateTeam(context.Background(), teamId).Body(body).IfMatch(ifMatch).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TeamsAPI.UpdateTeam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1229,6 +1232,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **body** | **TeamBase** | Complete team data for replacement | 
+ **ifMatch** | **int32** | Optimistic-locking precondition. Pass the integer version returned by the previous read (or as the body &#39;version&#39; field on the previous write). On version mismatch the server returns 409 Conflict. In a future release this header will be required and missing values will return 428 Precondition Required. | 
 
 ### Return type
 

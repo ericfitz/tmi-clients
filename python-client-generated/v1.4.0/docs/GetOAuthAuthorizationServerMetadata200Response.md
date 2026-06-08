@@ -12,6 +12,10 @@ Name | Type | Description | Notes
 **response_types_supported** | **List[str]** |  | 
 **grant_types_supported** | **List[str]** |  | [optional] 
 **token_endpoint_auth_methods_supported** | **List[str]** |  | [optional] 
+**code_challenge_methods_supported** | **List[str]** |  | [optional] 
+**jwks_uri** | **str** |  | [optional] 
+**revocation_endpoint** | **str** |  | [optional] 
+**scopes_supported** | **List[str]** |  | [optional] 
 
 ## Example
 

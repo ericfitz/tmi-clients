@@ -11,6 +11,7 @@ Name | Type
 `operator` | [ClientConfigOperator](ClientConfigOperator.md)
 `limits` | [ClientConfigLimits](ClientConfigLimits.md)
 `ui` | [ClientConfigUi](ClientConfigUi.md)
+`content_providers` | [Array&lt;ContentProvider&gt;](ContentProvider.md)
 
 ## Example
 
@@ -23,6 +24,7 @@ const example = {
   "operator": null,
   "limits": null,
   "ui": null,
+  "content_providers": null,
 } satisfies ClientConfig
 
 console.log(example)

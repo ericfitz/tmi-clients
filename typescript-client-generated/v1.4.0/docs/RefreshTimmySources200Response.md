@@ -16,8 +16,8 @@ import type { RefreshTimmySources200Response } from '@tmiclient/client'
 
 // TODO: Update the object below with actual values
 const example = {
-  "source_count": null,
-  "skipped_sources": null,
+  "source_count": 5,
+  "skipped_sources": [],
 } satisfies RefreshTimmySources200Response
 
 console.log(example)

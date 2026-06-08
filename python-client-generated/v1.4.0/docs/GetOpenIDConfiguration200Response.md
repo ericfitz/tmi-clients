@@ -16,6 +16,10 @@ Name | Type | Description | Notes
 **scopes_supported** | **List[str]** |  | [optional] 
 **claims_supported** | **List[str]** |  | [optional] 
 **introspection_endpoint** | **str** |  | [optional] 
+**code_challenge_methods_supported** | **List[str]** |  | [optional] 
+**grant_types_supported** | **List[str]** |  | [optional] 
+**revocation_endpoint** | **str** |  | [optional] 
+**token_endpoint_auth_methods_supported** | **List[str]** |  | [optional] 
 
 ## Example
 

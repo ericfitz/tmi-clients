@@ -168,6 +168,7 @@ example().catch(console.error);
 | **404** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **429** | Too Many Requests - Rate limit exceeded. The client has sent too many requests in a given amount of time. See rate limit headers for details. |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix timestamp (seconds since epoch) when the rate limit window resets <br>  * Retry-After - Number of seconds to wait before retrying the request <br>  |
 | **500** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Error response |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -201,7 +202,7 @@ async function example() {
     // string | Threat model identifier
     threatModelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // EmbeddingIngestionRequest | Batch of pre-computed embeddings to ingest
-    embeddingIngestionRequest: ...,
+    embeddingIngestionRequest: {"index_type":"text","embeddings":[{"entity_type":"asset","entity_id":"123e4567-e89b-12d3-a456-426614174000","chunk_index":0,"chunk_text":"Payment gateway processes credit card transactions","content_hash":"abc123def456","embedding_model":"text-embedding-3-small","embedding_dim":1536,"vector":[0.1,0.2,0.3]}]},
   } satisfies IngestEmbeddingsRequest;
 
   try {

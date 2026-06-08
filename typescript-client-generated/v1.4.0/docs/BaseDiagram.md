@@ -20,6 +20,8 @@ Name | Type
 `timmy_enabled` | boolean
 `deleted_at` | Date
 `color_palette` | [Array&lt;ColorPaletteEntry&gt;](ColorPaletteEntry.md)
+`auto_generated` | boolean
+`alias` | number
 
 ## Example
 
@@ -41,6 +43,8 @@ const example = {
   "timmy_enabled": null,
   "deleted_at": null,
   "color_palette": null,
+  "auto_generated": null,
+  "alias": null,
 } satisfies BaseDiagram
 
 console.log(example)
