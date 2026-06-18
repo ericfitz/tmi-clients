@@ -343,7 +343,16 @@ The Python client generates Pydantic v2 models with full type hints.
 
 Regeneration commits **cannot be pushed directly to `main`** — a branch ruleset on `main` requires CodeQL code-scanning results, and a direct push of the large regenerated diff is rejected (`GH013`: "Code scanning is waiting for results from CodeQL"). The size-limited push-time scan can't produce results, so the gate never clears on a direct push.
 
-Always land regenerated clients through a pull request:
+Regenerated clients must land through a pull request. **`regenerate_all.py` does this automatically** when a run produces changes: it branches off the current branch (`chore/regenerate-clients-<timestamp>`), commits, pushes, opens a PR via `gh`, and prints the PR URL for you to review and merge. It requires `git` and `gh` on PATH.
+
+```bash
+python3 regenerate_all.py            # regenerate + branch + commit + push + open PR
+python3 regenerate_all.py --no-pr    # regenerate only; leave changes in the working tree
+```
+
+The PR step is skipped automatically if there are no changes, if any regeneration hard-failed, or in a detached HEAD. If `git push` fails, the script reports it and leaves the commit on a local branch — it never works around the failure.
+
+To do it by hand (equivalent to what the script automates):
 
 ```bash
 git switch -c chore/regenerate-clients
