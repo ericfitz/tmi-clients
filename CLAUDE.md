@@ -338,3 +338,18 @@ The Python client generates Pydantic v2 models with full type hints.
 **Exit codes:** 0 = success, 1 = fatal error (codegen failed), 2 = completed with issues (test failures or patch warnings).
 
 **Requirements:** `openapi-generator` (brew install openapi-generator) for all languages; plus `uv` for Python, `go` for Go, or `node` for TypeScript.
+
+### Committing Regenerated Clients (PR required)
+
+Regeneration commits **cannot be pushed directly to `main`** — a branch ruleset on `main` requires CodeQL code-scanning results, and a direct push of the large regenerated diff is rejected (`GH013`: "Code scanning is waiting for results from CodeQL"). The size-limited push-time scan can't produce results, so the gate never clears on a direct push.
+
+Always land regenerated clients through a pull request:
+
+```bash
+git switch -c chore/regenerate-clients
+git add -A && git commit -m "Regenerated clients"
+git push -u origin chore/regenerate-clients
+gh pr create --base main --head chore/regenerate-clients --title "Regenerated clients"
+```
+
+CodeQL runs against the full tree on the PR (not the size-limited diff path), so the gate clears and the PR can be merged via GitHub. The branch ruleset also blocks force-pushes and deletion of `main`.
