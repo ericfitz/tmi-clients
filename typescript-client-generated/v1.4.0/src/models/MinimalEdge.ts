@@ -87,6 +87,8 @@ export type MinimalEdgeShapeEnum = typeof MinimalEdgeShapeEnum[keyof typeof Mini
 export function instanceOfMinimalEdge(value: object): value is MinimalEdge {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('shape' in value) || value['shape'] === undefined) return false;
+    if (value['shape'] !== 'flow') return false;
+    
     if (!('source' in value) || value['source'] === undefined) return false;
     if (!('target' in value) || value['target'] === undefined) return false;
     if (!('labels' in value) || value['labels'] === undefined) return false;

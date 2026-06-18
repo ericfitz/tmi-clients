@@ -44,7 +44,7 @@ export interface TriageNote {
      */
     readonly created_at?: Date;
     /**
-     * User who created this triage note
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof TriageNote
      */
@@ -56,7 +56,7 @@ export interface TriageNote {
      */
     readonly modified_at?: Date;
     /**
-     * User who last modified this triage note
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof TriageNote
      */

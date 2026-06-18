@@ -37,8 +37,8 @@ class Cell(BaseModel):
     """
     Base schema for all diagram cells (nodes and edges). Contains common properties shared by Node and Edge types.
     """ # noqa: E501
-    id: UUID = Field(description="Unique identifier of the cell (UUID)")
-    shape: Annotated[str, Field(strict=True, max_length=64)] = Field(description="Shape type identifier that determines cell structure and behavior")
+    id: UUID = Field(description="Unique identifier of the cell (UUID)", json_schema_extra={"examples": ["37eaedfa-bf37-4996-8665-242fec34bbff"]})
+    shape: Annotated[str, Field(strict=True, max_length=64)] = Field(description="Shape type identifier that determines cell structure and behavior", json_schema_extra={"examples": ["process"]})
     data: Optional[CellData] = None
     __properties: ClassVar[List[str]] = ["id", "shape", "data"]
 

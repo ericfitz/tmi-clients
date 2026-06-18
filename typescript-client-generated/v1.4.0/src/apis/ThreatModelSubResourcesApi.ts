@@ -44,6 +44,11 @@ import {
     CreateDiagramRequestToJSON,
 } from '../models/CreateDiagramRequest';
 import {
+    type CreateThreatModelDocument202Response,
+    CreateThreatModelDocument202ResponseFromJSON,
+    CreateThreatModelDocument202ResponseToJSON,
+} from '../models/CreateThreatModelDocument202Response';
+import {
     type DfdDiagram,
     DfdDiagramFromJSON,
     DfdDiagramToJSON,

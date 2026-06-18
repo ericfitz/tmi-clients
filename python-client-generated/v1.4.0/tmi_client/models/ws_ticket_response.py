@@ -28,7 +28,7 @@ class WsTicketResponse(BaseModel):
     """
     Response containing a short-lived, single-use authentication ticket for WebSocket connection
     """ # noqa: E501
-    ticket: StrictStr = Field(description="Short-lived, single-use authentication ticket for WebSocket connection")
+    ticket: StrictStr = Field(description="Short-lived, single-use authentication ticket for WebSocket connection", json_schema_extra={"examples": ["tmi_ws_abc123def456"]})
     __properties: ClassVar[List[str]] = ["ticket"]
 
     model_config = ConfigDict(

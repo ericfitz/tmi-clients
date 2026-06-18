@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **StrokeWidth** | Pointer to **float32** | Line width in pixels | [optional] 
 **StrokeDasharray** | Pointer to **NullableString** | Dash pattern for the line | [optional] 
 **TargetMarker** | Pointer to [**EdgeAttrsLineTargetMarker**](EdgeAttrsLineTargetMarker.md) |  | [optional] 
-**SourceMarker** | Pointer to [**EdgeAttrsLineSourceMarker**](EdgeAttrsLineSourceMarker.md) |  | [optional] 
+**SourceMarker** | Pointer to [**EdgeAttrsLineTargetMarker**](EdgeAttrsLineTargetMarker.md) |  | [optional] 
 
 ## Methods
 
@@ -141,20 +141,20 @@ HasTargetMarker returns a boolean if a field has been set.
 
 ### GetSourceMarker
 
-`func (o *EdgeAttrsLine) GetSourceMarker() EdgeAttrsLineSourceMarker`
+`func (o *EdgeAttrsLine) GetSourceMarker() EdgeAttrsLineTargetMarker`
 
 GetSourceMarker returns the SourceMarker field if non-nil, zero value otherwise.
 
 ### GetSourceMarkerOk
 
-`func (o *EdgeAttrsLine) GetSourceMarkerOk() (*EdgeAttrsLineSourceMarker, bool)`
+`func (o *EdgeAttrsLine) GetSourceMarkerOk() (*EdgeAttrsLineTargetMarker, bool)`
 
 GetSourceMarkerOk returns a tuple with the SourceMarker field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSourceMarker
 
-`func (o *EdgeAttrsLine) SetSourceMarker(v EdgeAttrsLineSourceMarker)`
+`func (o *EdgeAttrsLine) SetSourceMarker(v EdgeAttrsLineTargetMarker)`
 
 SetSourceMarker sets SourceMarker field to given value.
 

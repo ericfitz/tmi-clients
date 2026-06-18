@@ -29,8 +29,8 @@ class UserQuotaUpdate(BaseModel):
     """
     Configuration update for user API quotas
     """ # noqa: E501
-    max_requests_per_minute: Annotated[int, Field(le=10000, strict=True, ge=1)] = Field(description="Maximum API requests per minute")
-    max_requests_per_hour: Optional[Annotated[int, Field(le=600000, strict=True, ge=1)]] = Field(default=None, description="Maximum API requests per hour (optional)")
+    max_requests_per_minute: Annotated[int, Field(le=10000, strict=True, ge=1)] = Field(description="Maximum API requests per minute", json_schema_extra={"examples": [60]})
+    max_requests_per_hour: Optional[Annotated[int, Field(le=600000, strict=True, ge=1)]] = Field(default=None, description="Maximum API requests per hour (optional)", json_schema_extra={"examples": [10000]})
     __properties: ClassVar[List[str]] = ["max_requests_per_minute", "max_requests_per_hour"]
 
     model_config = ConfigDict(

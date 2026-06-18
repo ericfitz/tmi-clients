@@ -7344,6 +7344,7 @@ func (a *ThreatModelSubResourcesAPIService) CreateThreatModelDocumentExecute(r A
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

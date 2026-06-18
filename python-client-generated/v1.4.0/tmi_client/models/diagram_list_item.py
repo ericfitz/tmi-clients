@@ -23,7 +23,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
-from tmi_client.models.diagram_list_item_image import DiagramListItemImage
+from tmi_client.models.base_diagram_image import BaseDiagramImage
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -38,7 +38,7 @@ class DiagramListItem(BaseModel):
     description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Optional description of the diagram")
     created_at: datetime = Field(description="Creation timestamp (ISO3339)")
     modified_at: datetime = Field(description="Last modification timestamp (ISO3339)")
-    image: Optional[DiagramListItemImage] = None
+    image: Optional[BaseDiagramImage] = None
     include_in_report: Optional[StrictBool] = Field(default=True, description="Whether this item should be included in generated reports")
     timmy_enabled: Optional[StrictBool] = Field(default=True, description="Whether the Timmy AI assistant is enabled for this entity")
     deleted_at: Optional[datetime] = Field(default=None, description="Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.")
@@ -209,7 +209,7 @@ class DiagramListItem(BaseModel):
             "description": obj.get("description"),
             "created_at": obj.get("created_at"),
             "modified_at": obj.get("modified_at"),
-            "image": DiagramListItemImage.from_dict(obj["image"]) if obj.get("image") is not None else None,
+            "image": BaseDiagramImage.from_dict(obj["image"]) if obj.get("image") is not None else None,
             "include_in_report": obj.get("include_in_report") if obj.get("include_in_report") is not None else True,
             "timmy_enabled": obj.get("timmy_enabled") if obj.get("timmy_enabled") is not None else True,
             "deleted_at": obj.get("deleted_at"),

@@ -70,17 +70,17 @@ export function MinimalCellToJSONTyped(value?: MinimalCell | null, ignoreDiscrim
     }
     switch (value['shape']) {
         case 'actor':
-            return Object.assign({}, MinimalNodeToJSON(value), { shape: 'actor' } as const);
+            return Object.assign({}, MinimalNodeToJSON(value), { 'shape': 'actor' } as const);
         case 'flow':
-            return Object.assign({}, MinimalEdgeToJSON(value), { shape: 'flow' } as const);
+            return Object.assign({}, MinimalEdgeToJSON(value), { 'shape': 'flow' } as const);
         case 'process':
-            return Object.assign({}, MinimalNodeToJSON(value), { shape: 'process' } as const);
+            return Object.assign({}, MinimalNodeToJSON(value), { 'shape': 'process' } as const);
         case 'security-boundary':
-            return Object.assign({}, MinimalNodeToJSON(value), { shape: 'security-boundary' } as const);
+            return Object.assign({}, MinimalNodeToJSON(value), { 'shape': 'security-boundary' } as const);
         case 'store':
-            return Object.assign({}, MinimalNodeToJSON(value), { shape: 'store' } as const);
+            return Object.assign({}, MinimalNodeToJSON(value), { 'shape': 'store' } as const);
         case 'text-box':
-            return Object.assign({}, MinimalNodeToJSON(value), { shape: 'text-box' } as const);
+            return Object.assign({}, MinimalNodeToJSON(value), { 'shape': 'text-box' } as const);
         default:
             return value;
     }

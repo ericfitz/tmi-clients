@@ -28,13 +28,17 @@ from tmi_client.models.admin_group import AdminGroup
 from tmi_client.models.admin_group_list_response import AdminGroupListResponse
 from tmi_client.models.admin_user import AdminUser
 from tmi_client.models.admin_user_list_response import AdminUserListResponse
+from tmi_client.models.audit_entry import AuditEntry
 from tmi_client.models.create_admin_group_request import CreateAdminGroupRequest
 from tmi_client.models.group_member import GroupMember
 from tmi_client.models.group_member_list_response import GroupMemberListResponse
 from tmi_client.models.list_addon_quotas_response import ListAddonQuotasResponse
+from tmi_client.models.list_admin_audit_entries_response import ListAdminAuditEntriesResponse
+from tmi_client.models.list_system_audit_entries_response import ListSystemAuditEntriesResponse
 from tmi_client.models.list_user_quotas_response import ListUserQuotasResponse
 from tmi_client.models.list_webhook_quotas_response import ListWebhookQuotasResponse
 from tmi_client.models.reencrypt_system_settings200_response import ReencryptSystemSettings200Response
+from tmi_client.models.system_audit_entry import SystemAuditEntry
 from tmi_client.models.system_setting import SystemSetting
 from tmi_client.models.system_setting_update import SystemSettingUpdate
 from tmi_client.models.transfer_ownership_request import TransferOwnershipRequest
@@ -2899,6 +2903,285 @@ class AdministrationApi:
 
 
     @validate_call
+    def get_admin_threat_model_audit_entry(
+        self,
+        entry_id: Annotated[UUID, Field(description="The audit entry ID.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AuditEntry:
+        """Get a threat-model audit entry by id (admin)
+
+        Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+
+        :param entry_id: The audit entry ID. (required)
+        :type entry_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_admin_threat_model_audit_entry_serialize(
+            entry_id=entry_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AuditEntry",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_admin_threat_model_audit_entry_with_http_info(
+        self,
+        entry_id: Annotated[UUID, Field(description="The audit entry ID.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AuditEntry]:
+        """Get a threat-model audit entry by id (admin)
+
+        Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+
+        :param entry_id: The audit entry ID. (required)
+        :type entry_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_admin_threat_model_audit_entry_serialize(
+            entry_id=entry_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AuditEntry",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_admin_threat_model_audit_entry_without_preload_content(
+        self,
+        entry_id: Annotated[UUID, Field(description="The audit entry ID.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get a threat-model audit entry by id (admin)
+
+        Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+
+        :param entry_id: The audit entry ID. (required)
+        :type entry_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_admin_threat_model_audit_entry_serialize(
+            entry_id=entry_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AuditEntry",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_admin_threat_model_audit_entry_serialize(
+        self,
+        entry_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if entry_id is not None:
+            _path_params['entry_id'] = entry_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/admin/audit/threat_models/{entry_id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_admin_user(
         self,
         internal_uuid: Annotated[UUID, Field(description="Internal system UUID of the user")],
@@ -3162,6 +3445,285 @@ class AdministrationApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/admin/users/{internal_uuid}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_system_audit_entry(
+        self,
+        entry_id: Annotated[UUID, Field(description="The system audit entry ID.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> SystemAuditEntry:
+        """Get a system audit entry
+
+        Returns a single system-level audit entry by ID. Admin role required.
+
+        :param entry_id: The system audit entry ID. (required)
+        :type entry_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_system_audit_entry_serialize(
+            entry_id=entry_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SystemAuditEntry",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_system_audit_entry_with_http_info(
+        self,
+        entry_id: Annotated[UUID, Field(description="The system audit entry ID.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[SystemAuditEntry]:
+        """Get a system audit entry
+
+        Returns a single system-level audit entry by ID. Admin role required.
+
+        :param entry_id: The system audit entry ID. (required)
+        :type entry_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_system_audit_entry_serialize(
+            entry_id=entry_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SystemAuditEntry",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_system_audit_entry_without_preload_content(
+        self,
+        entry_id: Annotated[UUID, Field(description="The system audit entry ID.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get a system audit entry
+
+        Returns a single system-level audit entry by ID. Admin role required.
+
+        :param entry_id: The system audit entry ID. (required)
+        :type entry_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_system_audit_entry_serialize(
+            entry_id=entry_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SystemAuditEntry",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '404': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_system_audit_entry_serialize(
+        self,
+        entry_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if entry_id is not None:
+            _path_params['entry_id'] = entry_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/admin/audit/system/{entry_id}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4691,13 +5253,465 @@ class AdministrationApi:
 
 
     @validate_call
+    def list_admin_threat_model_audit_entries(
+        self,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
+        actor_provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="Filter by the actor identity provider.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
+        change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
+        object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
+        threat_model_id: Annotated[Optional[UUID], Field(description="Filter audit entries to a single threat model.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
+        around: Annotated[Optional[UUID], Field(description="Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ListAdminAuditEntriesResponse:
+        """List threat-model audit entries across all threat models
+
+        Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+
+        :param actor_email: Filter by actor email
+        :type actor_email: str
+        :param actor_provider: Filter by the actor identity provider.
+        :type actor_provider: str
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
+        :param change_type: Filter by change type
+        :type change_type: str
+        :param object_type: Filter by object type
+        :type object_type: str
+        :param threat_model_id: Filter audit entries to a single threat model.
+        :type threat_model_id: UUID
+        :param limit: Maximum number of entries to return per page.
+        :type limit: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
+        :param around: Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+        :type around: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_admin_threat_model_audit_entries_serialize(
+            actor_email=actor_email,
+            actor_provider=actor_provider,
+            created_after=created_after,
+            created_before=created_before,
+            change_type=change_type,
+            object_type=object_type,
+            threat_model_id=threat_model_id,
+            limit=limit,
+            cursor=cursor,
+            around=around,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListAdminAuditEntriesResponse",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+            '404': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_admin_threat_model_audit_entries_with_http_info(
+        self,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
+        actor_provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="Filter by the actor identity provider.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
+        change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
+        object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
+        threat_model_id: Annotated[Optional[UUID], Field(description="Filter audit entries to a single threat model.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
+        around: Annotated[Optional[UUID], Field(description="Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ListAdminAuditEntriesResponse]:
+        """List threat-model audit entries across all threat models
+
+        Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+
+        :param actor_email: Filter by actor email
+        :type actor_email: str
+        :param actor_provider: Filter by the actor identity provider.
+        :type actor_provider: str
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
+        :param change_type: Filter by change type
+        :type change_type: str
+        :param object_type: Filter by object type
+        :type object_type: str
+        :param threat_model_id: Filter audit entries to a single threat model.
+        :type threat_model_id: UUID
+        :param limit: Maximum number of entries to return per page.
+        :type limit: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
+        :param around: Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+        :type around: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_admin_threat_model_audit_entries_serialize(
+            actor_email=actor_email,
+            actor_provider=actor_provider,
+            created_after=created_after,
+            created_before=created_before,
+            change_type=change_type,
+            object_type=object_type,
+            threat_model_id=threat_model_id,
+            limit=limit,
+            cursor=cursor,
+            around=around,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListAdminAuditEntriesResponse",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+            '404': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_admin_threat_model_audit_entries_without_preload_content(
+        self,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
+        actor_provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="Filter by the actor identity provider.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
+        change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
+        object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
+        threat_model_id: Annotated[Optional[UUID], Field(description="Filter audit entries to a single threat model.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
+        around: Annotated[Optional[UUID], Field(description="Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List threat-model audit entries across all threat models
+
+        Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+
+        :param actor_email: Filter by actor email
+        :type actor_email: str
+        :param actor_provider: Filter by the actor identity provider.
+        :type actor_provider: str
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
+        :param change_type: Filter by change type
+        :type change_type: str
+        :param object_type: Filter by object type
+        :type object_type: str
+        :param threat_model_id: Filter audit entries to a single threat model.
+        :type threat_model_id: UUID
+        :param limit: Maximum number of entries to return per page.
+        :type limit: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
+        :param around: Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+        :type around: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_admin_threat_model_audit_entries_serialize(
+            actor_email=actor_email,
+            actor_provider=actor_provider,
+            created_after=created_after,
+            created_before=created_before,
+            change_type=change_type,
+            object_type=object_type,
+            threat_model_id=threat_model_id,
+            limit=limit,
+            cursor=cursor,
+            around=around,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListAdminAuditEntriesResponse",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+            '404': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_admin_threat_model_audit_entries_serialize(
+        self,
+        actor_email,
+        actor_provider,
+        created_after,
+        created_before,
+        change_type,
+        object_type,
+        threat_model_id,
+        limit,
+        cursor,
+        around,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if actor_email is not None:
+            
+            _query_params.append(('actor_email', actor_email))
+            
+        if actor_provider is not None:
+            
+            _query_params.append(('actor_provider', actor_provider))
+            
+        if created_after is not None:
+            if isinstance(created_after, datetime):
+                _query_params.append(
+                    (
+                        'created_after',
+                        created_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_after', created_after))
+            
+        if created_before is not None:
+            if isinstance(created_before, datetime):
+                _query_params.append(
+                    (
+                        'created_before',
+                        created_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_before', created_before))
+            
+        if change_type is not None:
+            
+            _query_params.append(('change_type', change_type))
+            
+        if object_type is not None:
+            
+            _query_params.append(('object_type', object_type))
+            
+        if threat_model_id is not None:
+            
+            _query_params.append(('threat_model_id', threat_model_id))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if cursor is not None:
+            
+            _query_params.append(('cursor', cursor))
+            
+        if around is not None:
+            
+            _query_params.append(('around', around))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/admin/audit/threat_models',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def list_admin_users(
         self,
         provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by OAuth/SAML provider")] = None,
         email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter by email (case-insensitive substring match)")] = None,
         name: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by name (case-insensitive substring match)")] = None,
-        created_after: Annotated[Optional[datetime], Field(description="Filter users created after this timestamp (RFC3339)")] = None,
-        created_before: Annotated[Optional[datetime], Field(description="Filter users created before this timestamp (RFC3339)")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
         last_login_after: Annotated[Optional[datetime], Field(description="Filter users who logged in after this timestamp (RFC3339)")] = None,
         last_login_before: Annotated[Optional[datetime], Field(description="Filter users who logged in before this timestamp (RFC3339)")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Maximum number of results to return")] = None,
@@ -4728,9 +5742,9 @@ class AdministrationApi:
         :type email: str
         :param name: Filter by name (case-insensitive substring match)
         :type name: str
-        :param created_after: Filter users created after this timestamp (RFC3339)
+        :param created_after: Return only records created after this RFC 3339 timestamp.
         :type created_after: datetime
-        :param created_before: Filter users created before this timestamp (RFC3339)
+        :param created_before: Return only records created before this RFC 3339 timestamp.
         :type created_before: datetime
         :param last_login_after: Filter users who logged in after this timestamp (RFC3339)
         :type last_login_after: datetime
@@ -4812,8 +5826,8 @@ class AdministrationApi:
         provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by OAuth/SAML provider")] = None,
         email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter by email (case-insensitive substring match)")] = None,
         name: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by name (case-insensitive substring match)")] = None,
-        created_after: Annotated[Optional[datetime], Field(description="Filter users created after this timestamp (RFC3339)")] = None,
-        created_before: Annotated[Optional[datetime], Field(description="Filter users created before this timestamp (RFC3339)")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
         last_login_after: Annotated[Optional[datetime], Field(description="Filter users who logged in after this timestamp (RFC3339)")] = None,
         last_login_before: Annotated[Optional[datetime], Field(description="Filter users who logged in before this timestamp (RFC3339)")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Maximum number of results to return")] = None,
@@ -4844,9 +5858,9 @@ class AdministrationApi:
         :type email: str
         :param name: Filter by name (case-insensitive substring match)
         :type name: str
-        :param created_after: Filter users created after this timestamp (RFC3339)
+        :param created_after: Return only records created after this RFC 3339 timestamp.
         :type created_after: datetime
-        :param created_before: Filter users created before this timestamp (RFC3339)
+        :param created_before: Return only records created before this RFC 3339 timestamp.
         :type created_before: datetime
         :param last_login_after: Filter users who logged in after this timestamp (RFC3339)
         :type last_login_after: datetime
@@ -4928,8 +5942,8 @@ class AdministrationApi:
         provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by OAuth/SAML provider")] = None,
         email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter by email (case-insensitive substring match)")] = None,
         name: Annotated[Optional[Annotated[str, Field(strict=True, max_length=256)]], Field(description="Filter by name (case-insensitive substring match)")] = None,
-        created_after: Annotated[Optional[datetime], Field(description="Filter users created after this timestamp (RFC3339)")] = None,
-        created_before: Annotated[Optional[datetime], Field(description="Filter users created before this timestamp (RFC3339)")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
         last_login_after: Annotated[Optional[datetime], Field(description="Filter users who logged in after this timestamp (RFC3339)")] = None,
         last_login_before: Annotated[Optional[datetime], Field(description="Filter users who logged in before this timestamp (RFC3339)")] = None,
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]], Field(description="Maximum number of results to return")] = None,
@@ -4960,9 +5974,9 @@ class AdministrationApi:
         :type email: str
         :param name: Filter by name (case-insensitive substring match)
         :type name: str
-        :param created_after: Filter users created after this timestamp (RFC3339)
+        :param created_after: Return only records created after this RFC 3339 timestamp.
         :type created_after: datetime
-        :param created_before: Filter users created before this timestamp (RFC3339)
+        :param created_before: Return only records created before this RFC 3339 timestamp.
         :type created_before: datetime
         :param last_login_after: Filter users who logged in after this timestamp (RFC3339)
         :type last_login_after: datetime
@@ -5489,6 +6503,477 @@ class AdministrationApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/admin/groups/{internal_uuid}/members',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def list_system_audit_entries(
+        self,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
+        actor_provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="Filter by the actor identity provider.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
+        http_method: Annotated[Optional[StrictStr], Field(description="Filter system audit entries by HTTP method.")] = None,
+        path_prefix: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter system audit entries whose request path starts with this prefix (matched literally).")] = None,
+        field_path: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter system audit entries by exact field path.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
+        around: Annotated[Optional[UUID], Field(description="Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.")] = None,
+        format: Annotated[Optional[StrictStr], Field(description="When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ListSystemAuditEntriesResponse:
+        """List system audit entries
+
+        Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+
+        :param actor_email: Filter by actor email
+        :type actor_email: str
+        :param actor_provider: Filter by the actor identity provider.
+        :type actor_provider: str
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
+        :param http_method: Filter system audit entries by HTTP method.
+        :type http_method: str
+        :param path_prefix: Filter system audit entries whose request path starts with this prefix (matched literally).
+        :type path_prefix: str
+        :param field_path: Filter system audit entries by exact field path.
+        :type field_path: str
+        :param limit: Maximum number of entries to return per page.
+        :type limit: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
+        :param around: Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+        :type around: UUID
+        :param format: When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.
+        :type format: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_system_audit_entries_serialize(
+            actor_email=actor_email,
+            actor_provider=actor_provider,
+            created_after=created_after,
+            created_before=created_before,
+            http_method=http_method,
+            path_prefix=path_prefix,
+            field_path=field_path,
+            limit=limit,
+            cursor=cursor,
+            around=around,
+            format=format,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListSystemAuditEntriesResponse",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+            '404': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def list_system_audit_entries_with_http_info(
+        self,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
+        actor_provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="Filter by the actor identity provider.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
+        http_method: Annotated[Optional[StrictStr], Field(description="Filter system audit entries by HTTP method.")] = None,
+        path_prefix: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter system audit entries whose request path starts with this prefix (matched literally).")] = None,
+        field_path: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter system audit entries by exact field path.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
+        around: Annotated[Optional[UUID], Field(description="Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.")] = None,
+        format: Annotated[Optional[StrictStr], Field(description="When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ListSystemAuditEntriesResponse]:
+        """List system audit entries
+
+        Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+
+        :param actor_email: Filter by actor email
+        :type actor_email: str
+        :param actor_provider: Filter by the actor identity provider.
+        :type actor_provider: str
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
+        :param http_method: Filter system audit entries by HTTP method.
+        :type http_method: str
+        :param path_prefix: Filter system audit entries whose request path starts with this prefix (matched literally).
+        :type path_prefix: str
+        :param field_path: Filter system audit entries by exact field path.
+        :type field_path: str
+        :param limit: Maximum number of entries to return per page.
+        :type limit: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
+        :param around: Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+        :type around: UUID
+        :param format: When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.
+        :type format: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_system_audit_entries_serialize(
+            actor_email=actor_email,
+            actor_provider=actor_provider,
+            created_after=created_after,
+            created_before=created_before,
+            http_method=http_method,
+            path_prefix=path_prefix,
+            field_path=field_path,
+            limit=limit,
+            cursor=cursor,
+            around=around,
+            format=format,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListSystemAuditEntriesResponse",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+            '404': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def list_system_audit_entries_without_preload_content(
+        self,
+        actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
+        actor_provider: Annotated[Optional[Annotated[str, Field(strict=True, max_length=100)]], Field(description="Filter by the actor identity provider.")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
+        http_method: Annotated[Optional[StrictStr], Field(description="Filter system audit entries by HTTP method.")] = None,
+        path_prefix: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter system audit entries whose request path starts with this prefix (matched literally).")] = None,
+        field_path: Annotated[Optional[Annotated[str, Field(strict=True, max_length=1024)]], Field(description="Filter system audit entries by exact field path.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
+        around: Annotated[Optional[UUID], Field(description="Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.")] = None,
+        format: Annotated[Optional[StrictStr], Field(description="When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List system audit entries
+
+        Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+
+        :param actor_email: Filter by actor email
+        :type actor_email: str
+        :param actor_provider: Filter by the actor identity provider.
+        :type actor_provider: str
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
+        :param http_method: Filter system audit entries by HTTP method.
+        :type http_method: str
+        :param path_prefix: Filter system audit entries whose request path starts with this prefix (matched literally).
+        :type path_prefix: str
+        :param field_path: Filter system audit entries by exact field path.
+        :type field_path: str
+        :param limit: Maximum number of entries to return per page.
+        :type limit: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
+        :param around: Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+        :type around: UUID
+        :param format: When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.
+        :type format: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._list_system_audit_entries_serialize(
+            actor_email=actor_email,
+            actor_provider=actor_provider,
+            created_after=created_after,
+            created_before=created_before,
+            http_method=http_method,
+            path_prefix=path_prefix,
+            field_path=field_path,
+            limit=limit,
+            cursor=cursor,
+            around=around,
+            format=format,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ListSystemAuditEntriesResponse",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '429': "GetUserAPIQuota429Response",
+            '500': "Error",
+            '404': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _list_system_audit_entries_serialize(
+        self,
+        actor_email,
+        actor_provider,
+        created_after,
+        created_before,
+        http_method,
+        path_prefix,
+        field_path,
+        limit,
+        cursor,
+        around,
+        format,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if actor_email is not None:
+            
+            _query_params.append(('actor_email', actor_email))
+            
+        if actor_provider is not None:
+            
+            _query_params.append(('actor_provider', actor_provider))
+            
+        if created_after is not None:
+            if isinstance(created_after, datetime):
+                _query_params.append(
+                    (
+                        'created_after',
+                        created_after.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_after', created_after))
+            
+        if created_before is not None:
+            if isinstance(created_before, datetime):
+                _query_params.append(
+                    (
+                        'created_before',
+                        created_before.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_before', created_before))
+            
+        if http_method is not None:
+            
+            _query_params.append(('http_method', http_method))
+            
+        if path_prefix is not None:
+            
+            _query_params.append(('path_prefix', path_prefix))
+            
+        if field_path is not None:
+            
+            _query_params.append(('field_path', field_path))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if cursor is not None:
+            
+            _query_params.append(('cursor', cursor))
+            
+        if around is not None:
+            
+            _query_params.append(('around', around))
+            
+        if format is not None:
+            
+            _query_params.append(('format', format))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/csv', 
+                    'application/x-ndjson'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/admin/audit/system',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

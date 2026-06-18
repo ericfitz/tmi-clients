@@ -29,10 +29,10 @@ class TokenRevocationRequest(BaseModel):
     """
     OAuth 2.0 token revocation request per RFC 7009
     """ # noqa: E501
-    token: Annotated[str, Field(min_length=1, strict=True, max_length=2000)] = Field(description="The token to be revoked (access token or refresh token)")
-    token_type_hint: Optional[StrictStr] = Field(default=None, description="A hint about the type of the token. If omitted, the server will attempt to determine the token type.")
-    client_id: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Client identifier for client credentials authentication (alternative to Bearer token)")
-    client_secret: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Client secret (required if client_id is provided)")
+    token: Annotated[str, Field(min_length=1, strict=True, max_length=2000)] = Field(description="The token to be revoked (access token or refresh token)", json_schema_extra={"examples": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."]})
+    token_type_hint: Optional[StrictStr] = Field(default=None, description="A hint about the type of the token. If omitted, the server will attempt to determine the token type.", json_schema_extra={"examples": ["access_token"]})
+    client_id: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Client identifier for client credentials authentication (alternative to Bearer token)", json_schema_extra={"examples": ["tmi_cc_abc123..."]})
+    client_secret: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Client secret (required if client_id is provided)", json_schema_extra={"examples": ["secret123..."]})
     __properties: ClassVar[List[str]] = ["token", "token_type_hint", "client_id", "client_secret"]
 
     @field_validator('token')

@@ -30,10 +30,10 @@ class ListAssetsResponse(BaseModel):
     """
     Paginated list of assets
     """ # noqa: E501
-    assets: Annotated[List[Asset], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of assets matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    assets: Annotated[List[Asset], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "b50e8400-e29b-41d4-a716-446655440001", "name": "Payment Database", "type": "data", "description": "PostgreSQL database storing customer payment information", "criticality": "high", "created_at": "2024-01-15T10:30:00Z", "modified_at": "2024-01-20T15:45:30Z"}]]})
+    total: StrictInt = Field(description="Total number of assets matching criteria", json_schema_extra={"examples": [10]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["assets", "total", "limit", "offset"]
 
     model_config = ConfigDict(

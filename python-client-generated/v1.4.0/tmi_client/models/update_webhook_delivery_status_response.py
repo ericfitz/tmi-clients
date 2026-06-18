@@ -31,10 +31,10 @@ class UpdateWebhookDeliveryStatusResponse(BaseModel):
     """
     Response confirming webhook delivery status update
     """ # noqa: E501
-    id: UUID
-    status: StrictStr
-    status_percent: Annotated[int, Field(le=100, strict=True, ge=0)]
-    status_updated_at: datetime
+    id: UUID = Field(json_schema_extra={"examples": ["123e4567-e89b-12d3-a456-426614174000"]})
+    status: StrictStr = Field(json_schema_extra={"examples": ["in_progress"]})
+    status_percent: Annotated[int, Field(le=100, strict=True, ge=0)] = Field(json_schema_extra={"examples": [50]})
+    status_updated_at: datetime = Field(json_schema_extra={"examples": ["2026-04-19T12:34:56Z"]})
     __properties: ClassVar[List[str]] = ["id", "status", "status_percent", "status_updated_at"]
 
     @field_validator('status')

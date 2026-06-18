@@ -17,15 +17,15 @@ Name | Type | Description | Notes
 **is_confidential** | **bool** | Whether Security Reviewers group was excluded (set at creation, read-only after) | [optional] [readonly] 
 **revision_notes** | **str** | Notes from security reviewer when returning for revision | [optional] [readonly] 
 **created_threat_model_id** | **UUID** | ID of threat model created from this response | [optional] [readonly] 
-**owner** | **object** | User who created the response | [optional] [readonly] 
+**owner** | **object** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **created_at** | **datetime** | Creation timestamp (RFC3339) | [optional] [readonly] 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **submitted_at** | **datetime** | When the response was submitted for review | [optional] [readonly] 
 **reviewed_at** | **datetime** | When the response was last reviewed | [optional] [readonly] 
-**reviewed_by** | **object** | Security engineer who last reviewed the response | [optional] [readonly] 
+**reviewed_by** | **object** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **survey_json** | **Dict[str, object]** | Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version. | [optional] [readonly] 
 **metadata** | [**List[Metadata]**](Metadata.md) | Optional metadata key-value pairs | [optional] 
-**created_by** | **object** | User who created the response | [optional] [readonly] 
+**created_by** | **object** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **version** | **int** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Example

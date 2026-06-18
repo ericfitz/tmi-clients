@@ -30,9 +30,9 @@ class MigrateSystemSettings200Response(BaseModel):
     """
     MigrateSystemSettings200Response
     """ # noqa: E501
-    migrated: StrictInt = Field(description="Number of settings migrated (created or updated)")
-    skipped: StrictInt = Field(description="Number of settings skipped (already exist and overwrite=false)")
-    settings: Annotated[List[SystemSetting], Field(max_length=100)] = Field(description="List of settings that were migrated")
+    migrated: StrictInt = Field(description="Number of settings migrated (created or updated)", json_schema_extra={"examples": [5]})
+    skipped: StrictInt = Field(description="Number of settings skipped (already exist and overwrite=false)", json_schema_extra={"examples": [2]})
+    settings: Annotated[List[SystemSetting], Field(max_length=100)] = Field(description="List of settings that were migrated", json_schema_extra={"examples": [[{"key": "rate_limit.requests_per_minute", "value": "60", "type": "int", "description": "Maximum API requests per minute", "modified_at": "2024-01-15T10:00:00Z"}]]})
     __properties: ClassVar[List[str]] = ["migrated", "skipped", "settings"]
 
     model_config = ConfigDict(

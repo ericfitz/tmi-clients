@@ -13,7 +13,7 @@ Name | Type
 `description` | string
 `created_at` | Date
 `modified_at` | Date
-`image` | [DiagramListItemImage](DiagramListItemImage.md)
+`image` | [BaseDiagramImage](BaseDiagramImage.md)
 `include_in_report` | boolean
 `timmy_enabled` | boolean
 `deleted_at` | Date

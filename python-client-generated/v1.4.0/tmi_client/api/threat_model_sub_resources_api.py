@@ -12225,6 +12225,7 @@ class ThreatModelSubResourcesApi:
             '404': "Error",
             '500': "Error",
             '429': "Error",
+            '202': "CreateThreatModelDocument202Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12302,6 +12303,7 @@ class ThreatModelSubResourcesApi:
             '404': "Error",
             '500': "Error",
             '429': "Error",
+            '202': "CreateThreatModelDocument202Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -12379,6 +12381,7 @@ class ThreatModelSubResourcesApi:
             '404': "Error",
             '500': "Error",
             '429': "Error",
+            '202': "CreateThreatModelDocument202Response",
         }
         response_data = self.api_client.call_api(
             *_param,

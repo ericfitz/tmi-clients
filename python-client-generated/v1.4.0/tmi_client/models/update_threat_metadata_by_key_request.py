@@ -29,7 +29,7 @@ class UpdateThreatMetadataByKeyRequest(BaseModel):
     """
     UpdateThreatMetadataByKeyRequest
     """ # noqa: E501
-    value: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="New value for the metadata entry")
+    value: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="New value for the metadata entry", json_schema_extra={"examples": ["example-metadata-value"]})
     __properties: ClassVar[List[str]] = ["value"]
 
     @field_validator('value')

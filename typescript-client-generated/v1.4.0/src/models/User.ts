@@ -66,6 +66,8 @@ export type UserPrincipalTypeEnum = typeof UserPrincipalTypeEnum[keyof typeof Us
  */
 export function instanceOfUser(value: object): value is User {
     if (!('principal_type' in value) || value['principal_type'] === undefined) return false;
+    if (value['principal_type'] !== 'user') return false;
+    
     if (!('provider' in value) || value['provider'] === undefined) return false;
     if (!('provider_id' in value) || value['provider_id'] === undefined) return false;
     if (!('display_name' in value) || value['display_name'] === undefined) return false;

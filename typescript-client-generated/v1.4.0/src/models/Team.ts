@@ -117,7 +117,7 @@ export interface Team {
      */
     readonly id?: string;
     /**
-     * User who created the team
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof Team
      */
@@ -129,7 +129,7 @@ export interface Team {
      */
     readonly created_at?: Date;
     /**
-     * User who last modified the team
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof Team
      */
@@ -141,7 +141,7 @@ export interface Team {
      */
     readonly modified_at?: Date;
     /**
-     * User who last reviewed the team
+     * Optional; when present, client has performed a Picker-based attachment
      * @type {object}
      * @memberof Team
      */

@@ -19,6 +19,11 @@ import {
     AuthorizeContentTokenRequestToJSON,
 } from '../models/AuthorizeContentTokenRequest';
 import {
+    type ConfirmIdentityLinkRequest,
+    ConfirmIdentityLinkRequestFromJSON,
+    ConfirmIdentityLinkRequestToJSON,
+} from '../models/ConfirmIdentityLinkRequest';
+import {
     type ContentAuthorizationURL,
     ContentAuthorizationURLFromJSON,
     ContentAuthorizationURLToJSON,
@@ -29,10 +34,25 @@ import {
     ContentTokenListToJSON,
 } from '../models/ContentTokenList';
 import {
+    type GetUserAPIQuota429Response,
+    GetUserAPIQuota429ResponseFromJSON,
+    GetUserAPIQuota429ResponseToJSON,
+} from '../models/GetUserAPIQuota429Response';
+import {
+    type IdentityLinkStartResponse,
+    IdentityLinkStartResponseFromJSON,
+    IdentityLinkStartResponseToJSON,
+} from '../models/IdentityLinkStartResponse';
+import {
     type IntrospectToken500Response,
     IntrospectToken500ResponseFromJSON,
     IntrospectToken500ResponseToJSON,
 } from '../models/IntrospectToken500Response';
+import {
+    type LinkedIdentity,
+    LinkedIdentityFromJSON,
+    LinkedIdentityToJSON,
+} from '../models/LinkedIdentity';
 import {
     type MicrosoftPickerGrantRequest,
     MicrosoftPickerGrantRequestFromJSON,
@@ -44,6 +64,16 @@ import {
     MicrosoftPickerGrantResponseToJSON,
 } from '../models/MicrosoftPickerGrantResponse';
 import {
+    type MyIdentitiesResponse,
+    MyIdentitiesResponseFromJSON,
+    MyIdentitiesResponseToJSON,
+} from '../models/MyIdentitiesResponse';
+import {
+    type PendingIdentityLinkResponse,
+    PendingIdentityLinkResponseFromJSON,
+    PendingIdentityLinkResponseToJSON,
+} from '../models/PendingIdentityLinkResponse';
+import {
     type PickerTokenResponse,
     PickerTokenResponseFromJSON,
     PickerTokenResponseToJSON,
@@ -54,6 +84,10 @@ export interface AuthorizeContentTokenOperationRequest {
     authorizeContentTokenRequest: AuthorizeContentTokenRequest;
 }
 
+export interface ConfirmIdentityLinkOperationRequest {
+    confirmIdentityLinkRequest: ConfirmIdentityLinkRequest;
+}
+
 export interface CreateCurrentUserPreferencesRequest {
     requestBody: { [key: string]: { [key: string]: any; }; };
 }
@@ -62,12 +96,25 @@ export interface DeleteMyContentTokenRequest {
     providerId: string;
 }
 
+export interface DeleteMyIdentityRequest {
+    id: string;
+}
+
+export interface GetPendingIdentityLinkRequest {
+    linkId: string;
+}
+
 export interface GrantMicrosoftFilePermissionRequest {
     microsoftPickerGrantRequest: MicrosoftPickerGrantRequest;
 }
 
 export interface MintPickerTokenRequest {
     providerId: string;
+}
+
+export interface StartIdentityLinkRequest {
+    idp: string;
+    clientCallback: string;
 }
 
 export interface UpdateCurrentUserPreferencesRequest {
@@ -106,6 +153,30 @@ export interface UserAccountApiInterface {
      * Start content provider authorization
      */
     authorizeContentToken(requestParameters: AuthorizeContentTokenOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentAuthorizationURL>;
+
+    /**
+     * Creates request options for confirmIdentityLink without sending the request
+     * @param {ConfirmIdentityLinkRequest} confirmIdentityLinkRequest 
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    confirmIdentityLinkRequestOpts(requestParameters: ConfirmIdentityLinkOperationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Consumes a pending identity link token and permanently links the second identity to the current user account. The token is one-time-use and expires after 5 minutes. Returns the newly created linked identity.
+     * @summary Confirm and complete an identity link
+     * @param {ConfirmIdentityLinkRequest} confirmIdentityLinkRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    confirmIdentityLinkRaw(requestParameters: ConfirmIdentityLinkOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LinkedIdentity>>;
+
+    /**
+     * Consumes a pending identity link token and permanently links the second identity to the current user account. The token is one-time-use and expires after 5 minutes. Returns the newly created linked identity.
+     * Confirm and complete an identity link
+     */
+    confirmIdentityLink(requestParameters: ConfirmIdentityLinkOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LinkedIdentity>;
 
     /**
      * Creates request options for createCurrentUserPreferences without sending the request
@@ -156,6 +227,30 @@ export interface UserAccountApiInterface {
     deleteMyContentToken(requestParameters: DeleteMyContentTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
+     * Creates request options for deleteMyIdentity without sending the request
+     * @param {string} id Linked identity UUID
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    deleteMyIdentityRequestOpts(requestParameters: DeleteMyIdentityRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Removes a linked identity from the current user account. The primary identity cannot be removed. Service accounts are not permitted.
+     * @summary Unlink a linked identity
+     * @param {string} id Linked identity UUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    deleteMyIdentityRaw(requestParameters: DeleteMyIdentityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Removes a linked identity from the current user account. The primary identity cannot be removed. Service accounts are not permitted.
+     * Unlink a linked identity
+     */
+    deleteMyIdentity(requestParameters: DeleteMyIdentityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
      * Creates request options for getCurrentUserPreferences without sending the request
      * @throws {RequiredError}
      * @memberof UserAccountApiInterface
@@ -176,6 +271,30 @@ export interface UserAccountApiInterface {
      * Get user preferences
      */
     getCurrentUserPreferences(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: { [key: string]: any; }; }>;
+
+    /**
+     * Creates request options for getPendingIdentityLink without sending the request
+     * @param {string} linkId Pending identity link identifier returned by the OAuth callback
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    getPendingIdentityLinkRequestOpts(requestParameters: GetPendingIdentityLinkRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Returns the details of a pending identity link, including both sides of the link for user confirmation. The token must belong to the authenticated user.
+     * @summary Get pending identity link details
+     * @param {string} linkId Pending identity link identifier returned by the OAuth callback
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    getPendingIdentityLinkRaw(requestParameters: GetPendingIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PendingIdentityLinkResponse>>;
+
+    /**
+     * Returns the details of a pending identity link, including both sides of the link for user confirmation. The token must belong to the authenticated user.
+     * Get pending identity link details
+     */
+    getPendingIdentityLink(requestParameters: GetPendingIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PendingIdentityLinkResponse>;
 
     /**
      * Creates request options for grantMicrosoftFilePermission without sending the request
@@ -224,6 +343,28 @@ export interface UserAccountApiInterface {
     listMyContentTokens(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentTokenList>;
 
     /**
+     * Creates request options for listMyIdentities without sending the request
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    listMyIdentitiesRequestOpts(): Promise<runtime.RequestOpts>;
+
+    /**
+     * Returns the primary identity and all linked identities for the authenticated user.
+     * @summary List current user identities
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    listMyIdentitiesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MyIdentitiesResponse>>;
+
+    /**
+     * Returns the primary identity and all linked identities for the authenticated user.
+     * List current user identities
+     */
+    listMyIdentities(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MyIdentitiesResponse>;
+
+    /**
      * Creates request options for mintPickerToken without sending the request
      * @param {string} providerId Content OAuth provider id (currently only \&#39;google_workspace\&#39;)
      * @throws {RequiredError}
@@ -246,6 +387,32 @@ export interface UserAccountApiInterface {
      * Mint a short-lived access token for the Google Picker browser client
      */
     mintPickerToken(requestParameters: MintPickerTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PickerTokenResponse>;
+
+    /**
+     * Creates request options for startIdentityLink without sending the request
+     * @param {string} idp The identity provider ID to link
+     * @param {string} clientCallback The URL to redirect to after the provider returns. Must be in the allowlist.
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    startIdentityLinkRequestOpts(requestParameters: StartIdentityLinkRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Initiates the OAuth flow to link an additional identity provider to the current user account. Returns a link state token and authorization URL. The user must be redirected to the authorization URL to complete provider authentication.
+     * @summary Start an identity link flow
+     * @param {string} idp The identity provider ID to link
+     * @param {string} clientCallback The URL to redirect to after the provider returns. Must be in the allowlist.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserAccountApiInterface
+     */
+    startIdentityLinkRaw(requestParameters: StartIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdentityLinkStartResponse>>;
+
+    /**
+     * Initiates the OAuth flow to link an additional identity provider to the current user account. Returns a link state token and authorization URL. The user must be redirected to the authorization URL to complete provider authentication.
+     * Start an identity link flow
+     */
+    startIdentityLink(requestParameters: StartIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IdentityLinkStartResponse>;
 
     /**
      * Creates request options for updateCurrentUserPreferences without sending the request
@@ -340,6 +507,63 @@ export class UserAccountApi extends runtime.BaseAPI implements UserAccountApiInt
      */
     async authorizeContentToken(requestParameters: AuthorizeContentTokenOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ContentAuthorizationURL> {
         const response = await this.authorizeContentTokenRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for confirmIdentityLink without sending the request
+     */
+    async confirmIdentityLinkRequestOpts(requestParameters: ConfirmIdentityLinkOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['confirmIdentityLinkRequest'] == null) {
+            throw new runtime.RequiredError(
+                'confirmIdentityLinkRequest',
+                'Required parameter "confirmIdentityLinkRequest" was null or undefined when calling confirmIdentityLink().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/me/identities/link/confirm`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ConfirmIdentityLinkRequestToJSON(requestParameters['confirmIdentityLinkRequest']),
+        };
+    }
+
+    /**
+     * Consumes a pending identity link token and permanently links the second identity to the current user account. The token is one-time-use and expires after 5 minutes. Returns the newly created linked identity.
+     * Confirm and complete an identity link
+     */
+    async confirmIdentityLinkRaw(requestParameters: ConfirmIdentityLinkOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LinkedIdentity>> {
+        const requestOptions = await this.confirmIdentityLinkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LinkedIdentityFromJSON(jsonValue));
+    }
+
+    /**
+     * Consumes a pending identity link token and permanently links the second identity to the current user account. The token is one-time-use and expires after 5 minutes. Returns the newly created linked identity.
+     * Confirm and complete an identity link
+     */
+    async confirmIdentityLink(requestParameters: ConfirmIdentityLinkOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LinkedIdentity> {
+        const response = await this.confirmIdentityLinkRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -455,6 +679,60 @@ export class UserAccountApi extends runtime.BaseAPI implements UserAccountApiInt
     }
 
     /**
+     * Creates request options for deleteMyIdentity without sending the request
+     */
+    async deleteMyIdentityRequestOpts(requestParameters: DeleteMyIdentityRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMyIdentity().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/me/identities/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Removes a linked identity from the current user account. The primary identity cannot be removed. Service accounts are not permitted.
+     * Unlink a linked identity
+     */
+    async deleteMyIdentityRaw(requestParameters: DeleteMyIdentityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMyIdentityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Removes a linked identity from the current user account. The primary identity cannot be removed. Service accounts are not permitted.
+     * Unlink a linked identity
+     */
+    async deleteMyIdentity(requestParameters: DeleteMyIdentityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMyIdentityRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * Creates request options for getCurrentUserPreferences without sending the request
      */
     async getCurrentUserPreferencesRequestOpts(): Promise<runtime.RequestOpts> {
@@ -498,6 +776,61 @@ export class UserAccountApi extends runtime.BaseAPI implements UserAccountApiInt
      */
     async getCurrentUserPreferences(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: { [key: string]: any; }; }> {
         const response = await this.getCurrentUserPreferencesRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getPendingIdentityLink without sending the request
+     */
+    async getPendingIdentityLinkRequestOpts(requestParameters: GetPendingIdentityLinkRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['linkId'] == null) {
+            throw new runtime.RequiredError(
+                'linkId',
+                'Required parameter "linkId" was null or undefined when calling getPendingIdentityLink().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/me/identities/link/pending/{link_id}`;
+        urlPath = urlPath.replace('{link_id}', encodeURIComponent(String(requestParameters['linkId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the details of a pending identity link, including both sides of the link for user confirmation. The token must belong to the authenticated user.
+     * Get pending identity link details
+     */
+    async getPendingIdentityLinkRaw(requestParameters: GetPendingIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PendingIdentityLinkResponse>> {
+        const requestOptions = await this.getPendingIdentityLinkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PendingIdentityLinkResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the details of a pending identity link, including both sides of the link for user confirmation. The token must belong to the authenticated user.
+     * Get pending identity link details
+     */
+    async getPendingIdentityLink(requestParameters: GetPendingIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PendingIdentityLinkResponse> {
+        const response = await this.getPendingIdentityLinkRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -606,6 +939,53 @@ export class UserAccountApi extends runtime.BaseAPI implements UserAccountApiInt
     }
 
     /**
+     * Creates request options for listMyIdentities without sending the request
+     */
+    async listMyIdentitiesRequestOpts(): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/me/identities`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the primary identity and all linked identities for the authenticated user.
+     * List current user identities
+     */
+    async listMyIdentitiesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MyIdentitiesResponse>> {
+        const requestOptions = await this.listMyIdentitiesRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MyIdentitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the primary identity and all linked identities for the authenticated user.
+     * List current user identities
+     */
+    async listMyIdentities(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MyIdentitiesResponse> {
+        const response = await this.listMyIdentitiesRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for mintPickerToken without sending the request
      */
     async mintPickerTokenRequestOpts(requestParameters: MintPickerTokenRequest): Promise<runtime.RequestOpts> {
@@ -657,6 +1037,75 @@ export class UserAccountApi extends runtime.BaseAPI implements UserAccountApiInt
      */
     async mintPickerToken(requestParameters: MintPickerTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PickerTokenResponse> {
         const response = await this.mintPickerTokenRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for startIdentityLink without sending the request
+     */
+    async startIdentityLinkRequestOpts(requestParameters: StartIdentityLinkRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['idp'] == null) {
+            throw new runtime.RequiredError(
+                'idp',
+                'Required parameter "idp" was null or undefined when calling startIdentityLink().'
+            );
+        }
+
+        if (requestParameters['clientCallback'] == null) {
+            throw new runtime.RequiredError(
+                'clientCallback',
+                'Required parameter "clientCallback" was null or undefined when calling startIdentityLink().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['idp'] != null) {
+            queryParameters['idp'] = requestParameters['idp'];
+        }
+
+        if (requestParameters['clientCallback'] != null) {
+            queryParameters['client_callback'] = requestParameters['clientCallback'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/me/identities/link/start`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Initiates the OAuth flow to link an additional identity provider to the current user account. Returns a link state token and authorization URL. The user must be redirected to the authorization URL to complete provider authentication.
+     * Start an identity link flow
+     */
+    async startIdentityLinkRaw(requestParameters: StartIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IdentityLinkStartResponse>> {
+        const requestOptions = await this.startIdentityLinkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => IdentityLinkStartResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Initiates the OAuth flow to link an additional identity provider to the current user account. Returns a link state token and authorization URL. The user must be redirected to the authorization URL to complete provider authentication.
+     * Start an identity link flow
+     */
+    async startIdentityLink(requestParameters: StartIdentityLinkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IdentityLinkStartResponse> {
+        const response = await this.startIdentityLinkRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

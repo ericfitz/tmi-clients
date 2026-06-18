@@ -29,8 +29,8 @@ class AddonQuotaUpdate(BaseModel):
     """
     Configuration update for addon invocation quotas
     """ # noqa: E501
-    max_active_invocations: Annotated[int, Field(le=10, strict=True, ge=1)] = Field(description="Maximum concurrent active addon invocations")
-    max_invocations_per_hour: Annotated[int, Field(le=1000, strict=True, ge=1)] = Field(description="Maximum addon invocations per hour")
+    max_active_invocations: Annotated[int, Field(le=10, strict=True, ge=1)] = Field(description="Maximum concurrent active addon invocations", json_schema_extra={"examples": [10]})
+    max_invocations_per_hour: Annotated[int, Field(le=1000, strict=True, ge=1)] = Field(description="Maximum addon invocations per hour", json_schema_extra={"examples": [1000]})
     __properties: ClassVar[List[str]] = ["max_active_invocations", "max_invocations_per_hour"]
 
     model_config = ConfigDict(

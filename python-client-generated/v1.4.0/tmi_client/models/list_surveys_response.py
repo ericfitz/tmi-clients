@@ -30,10 +30,10 @@ class ListSurveysResponse(BaseModel):
     """
     Paginated list of surveys
     """ # noqa: E501
-    total: StrictInt = Field(description="Total number of surveys matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
-    surveys: Annotated[List[SurveyListItem], Field(max_length=1000)]
+    total: StrictInt = Field(description="Total number of surveys matching criteria", json_schema_extra={"examples": [5]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
+    surveys: Annotated[List[SurveyListItem], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "name": "Security Review Intake", "description": "Standard security review intake questionnaire", "version": "2024-Q1", "status": "active", "created_at": "2024-01-15T10:30:00Z", "modified_at": "2024-02-01T14:00:00Z", "created_by": {"principal_type": "user", "provider": "google", "provider_id": "118234567890123456789", "display_name": "Admin User", "email": "admin@example.com"}}]]})
     __properties: ClassVar[List[str]] = ["total", "limit", "offset", "surveys"]
 
     model_config = ConfigDict(

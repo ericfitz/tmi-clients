@@ -30,8 +30,8 @@ class EmbeddingIngestionRequest(BaseModel):
     """
     Request body for submitting a batch of pre-computed embeddings into a threat model index.
     """ # noqa: E501
-    index_type: StrictStr = Field(description="Target index type")
-    embeddings: Annotated[List[EmbeddingIngestionItem], Field(min_length=1, max_length=1000)] = Field(description="Batch of pre-computed embeddings")
+    index_type: StrictStr = Field(description="Target index type", json_schema_extra={"examples": ["text"]})
+    embeddings: Annotated[List[EmbeddingIngestionItem], Field(min_length=1, max_length=1000)] = Field(description="Batch of pre-computed embeddings", json_schema_extra={"examples": [[{"entity_type": "repository", "entity_id": "123e4567-e89b-12d3-a456-426614174000", "chunk_index": 0, "chunk_text": "This is an example chunk of source text.", "content_hash": "sha256:abc123def456", "embedding_model": "text-embedding-3-small", "embedding_dim": 3, "vector": [0.1, 0.2, 0.3]}]]})
     __properties: ClassVar[List[str]] = ["index_type", "embeddings"]
 
     @field_validator('index_type')

@@ -30,10 +30,10 @@ class ListUserQuotasResponse(BaseModel):
     """
     Paginated list of user API quotas
     """ # noqa: E501
-    quotas: Annotated[List[UserAPIQuota], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of quotas matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    quotas: Annotated[List[UserAPIQuota], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"user_id": "550e8400-e29b-41d4-a716-446655440000", "max_requests_per_minute": 60, "created_at": "2024-01-01T00:00:00Z", "modified_at": "2024-01-01T00:00:00Z"}]]})
+    total: StrictInt = Field(description="Total number of quotas matching criteria", json_schema_extra={"examples": [25]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["quotas", "total", "limit", "offset"]
 
     model_config = ConfigDict(

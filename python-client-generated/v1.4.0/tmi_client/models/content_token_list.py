@@ -30,7 +30,7 @@ class ContentTokenList(BaseModel):
     """
     List response wrapper for delegated content provider tokens.
     """ # noqa: E501
-    content_tokens: Annotated[List[ContentTokenInfo], Field(max_length=500)] = Field(description="Array of linked content tokens for the user.")
+    content_tokens: Annotated[List[ContentTokenInfo], Field(max_length=500)] = Field(description="Array of linked content tokens for the user.", json_schema_extra={"examples": [[]]})
     __properties: ClassVar[List[str]] = ["content_tokens"]
 
     model_config = ConfigDict(

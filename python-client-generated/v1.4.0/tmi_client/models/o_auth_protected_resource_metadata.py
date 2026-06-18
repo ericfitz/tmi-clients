@@ -29,14 +29,14 @@ class OAuthProtectedResourceMetadata(BaseModel):
     """
     OAuth 2.0 protected resource metadata as defined in RFC 9728
     """ # noqa: E501
-    resource: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The protected resource's resource identifier URL")
-    scopes_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=64)]], Field(max_length=100)]] = Field(default=None, description="JSON array of OAuth scope values supported by this protected resource")
-    authorization_servers: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=100)]] = Field(default=None, description="List of authorization server issuer identifiers that can issue tokens for this resource")
-    jwks_uri: Optional[Annotated[str, Field(strict=True, max_length=1024)]] = Field(default=None, description="URL of the protected resource's JSON Web Key Set (RFC 9728)")
-    bearer_methods_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=100)]] = Field(default=None, description="Supported token presentation methods for bearer tokens")
-    resource_name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Human-readable name of the protected resource")
-    resource_documentation: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL with information for developers on how to use this protected resource")
-    tls_client_certificate_bound_access_tokens: Optional[StrictBool] = Field(default=None, description="Whether the protected resource supports TLS client certificate bound access tokens")
+    resource: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="The protected resource's resource identifier URL", json_schema_extra={"examples": ["http://localhost:8080"]})
+    scopes_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=64)]], Field(max_length=100)]] = Field(default=None, description="JSON array of OAuth scope values supported by this protected resource", json_schema_extra={"examples": [["openid", "email", "profile"]]})
+    authorization_servers: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=100)]] = Field(default=None, description="List of authorization server issuer identifiers that can issue tokens for this resource", json_schema_extra={"examples": [["http://localhost:8080"]]})
+    jwks_uri: Optional[Annotated[str, Field(strict=True, max_length=1024)]] = Field(default=None, description="URL of the protected resource's JSON Web Key Set (RFC 9728)", json_schema_extra={"examples": ["http://localhost:8080/.well-known/jwks.json"]})
+    bearer_methods_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=100)]] = Field(default=None, description="Supported token presentation methods for bearer tokens", json_schema_extra={"examples": [["header", "body", "query"]]})
+    resource_name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Human-readable name of the protected resource", json_schema_extra={"examples": ["TMI (Threat Modeling Improved) API"]})
+    resource_documentation: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL with information for developers on how to use this protected resource", json_schema_extra={"examples": ["https://github.com/ericfitz/tmi"]})
+    tls_client_certificate_bound_access_tokens: Optional[StrictBool] = Field(default=None, description="Whether the protected resource supports TLS client certificate bound access tokens", json_schema_extra={"examples": [False]})
     __properties: ClassVar[List[str]] = ["resource", "scopes_supported", "authorization_servers", "jwks_uri", "bearer_methods_supported", "resource_name", "resource_documentation", "tls_client_certificate_bound_access_tokens"]
 
     @field_validator('resource')

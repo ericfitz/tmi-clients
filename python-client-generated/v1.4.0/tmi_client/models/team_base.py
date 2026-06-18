@@ -33,13 +33,13 @@ class TeamBase(BaseModel):
     """
     Client-writable fields for a team
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="Team name")
-    description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Team description")
-    members: Optional[Annotated[List[TeamMember], Field(max_length=1000)]] = Field(default=None, description="List of team members with their roles")
-    responsible_parties: Optional[Annotated[List[ResponsibleParty], Field(max_length=100)]] = Field(default=None, description="Responsible parties for this team (in lieu of owner)")
-    related_teams: Optional[Annotated[List[RelatedTeam], Field(max_length=100)]] = Field(default=None, description="Relationships to other teams")
-    uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL or reference to internal team page")
-    email_address: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Team email address")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="Team name", json_schema_extra={"examples": ["Platform Engineering"]})
+    description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Team description", json_schema_extra={"examples": ["Core platform infrastructure team"]})
+    members: Optional[Annotated[List[TeamMember], Field(max_length=1000)]] = Field(default=None, description="List of team members with their roles", json_schema_extra={"examples": [[{"user_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "role": "engineering_lead"}]]})
+    responsible_parties: Optional[Annotated[List[ResponsibleParty], Field(max_length=100)]] = Field(default=None, description="Responsible parties for this team (in lieu of owner)", json_schema_extra={"examples": [[]]})
+    related_teams: Optional[Annotated[List[RelatedTeam], Field(max_length=100)]] = Field(default=None, description="Relationships to other teams", json_schema_extra={"examples": [[]]})
+    uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL or reference to internal team page", json_schema_extra={"examples": ["https://wiki.example.com/teams/platform-engineering"]})
+    email_address: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="Team email address", json_schema_extra={"examples": ["platform-eng@example.com"]})
     status: Optional[TeamStatus] = Field(default=None, description="Team lifecycle status. Defaults to 'active' if not provided or set to null.")
     __properties: ClassVar[List[str]] = ["name", "description", "members", "responsible_parties", "related_teams", "uri", "email_address", "status"]
 

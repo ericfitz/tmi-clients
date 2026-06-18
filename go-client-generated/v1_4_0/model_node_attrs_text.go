@@ -28,14 +28,14 @@ type NodeAttrsText struct {
 	Fill *string `json:"fill,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\\\( *[0-9]+ *, *[0-9]+ *, *[0-9]+ *\\\\)|[a-z]+)$"`
 	// Font family
 	FontFamily *string `json:"fontFamily,omitempty" validate:"regexp=^[a-zA-Z0-9 ,'-]*$"`
-	RefX *NodeAttrsTextRefX `json:"refX,omitempty"`
-	RefY *NodeAttrsTextRefY `json:"refY,omitempty"`
+	RefX *NodeAttrsBodyRefWidth `json:"refX,omitempty"`
+	RefY *NodeAttrsBodyRefWidth `json:"refY,omitempty"`
 	// Horizontal offset from refX (corner-based, retained for back-compat; client uses refX2)
 	RefDx *float32 `json:"refDx,omitempty"`
 	// Vertical offset from refY (corner-based, retained for back-compat; client uses refY2)
 	RefDy *float32 `json:"refDy,omitempty"`
-	RefX2 *NodeAttrsTextRefX2 `json:"refX2,omitempty"`
-	RefY2 *NodeAttrsTextRefY2 `json:"refY2,omitempty"`
+	RefX2 *NodeAttrsBodyRefWidth `json:"refX2,omitempty"`
+	RefY2 *NodeAttrsBodyRefWidth `json:"refY2,omitempty"`
 	// Horizontal text alignment anchor point
 	TextAnchor *string `json:"textAnchor,omitempty"`
 	// Vertical text alignment anchor point
@@ -188,9 +188,9 @@ func (o *NodeAttrsText) SetFontFamily(v string) {
 }
 
 // GetRefX returns the RefX field value if set, zero value otherwise.
-func (o *NodeAttrsText) GetRefX() NodeAttrsTextRefX {
+func (o *NodeAttrsText) GetRefX() NodeAttrsBodyRefWidth {
 	if o == nil || IsNil(o.RefX) {
-		var ret NodeAttrsTextRefX
+		var ret NodeAttrsBodyRefWidth
 		return ret
 	}
 	return *o.RefX
@@ -198,7 +198,7 @@ func (o *NodeAttrsText) GetRefX() NodeAttrsTextRefX {
 
 // GetRefXOk returns a tuple with the RefX field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodeAttrsText) GetRefXOk() (*NodeAttrsTextRefX, bool) {
+func (o *NodeAttrsText) GetRefXOk() (*NodeAttrsBodyRefWidth, bool) {
 	if o == nil || IsNil(o.RefX) {
 		return nil, false
 	}
@@ -214,15 +214,15 @@ func (o *NodeAttrsText) HasRefX() bool {
 	return false
 }
 
-// SetRefX gets a reference to the given NodeAttrsTextRefX and assigns it to the RefX field.
-func (o *NodeAttrsText) SetRefX(v NodeAttrsTextRefX) {
+// SetRefX gets a reference to the given NodeAttrsBodyRefWidth and assigns it to the RefX field.
+func (o *NodeAttrsText) SetRefX(v NodeAttrsBodyRefWidth) {
 	o.RefX = &v
 }
 
 // GetRefY returns the RefY field value if set, zero value otherwise.
-func (o *NodeAttrsText) GetRefY() NodeAttrsTextRefY {
+func (o *NodeAttrsText) GetRefY() NodeAttrsBodyRefWidth {
 	if o == nil || IsNil(o.RefY) {
-		var ret NodeAttrsTextRefY
+		var ret NodeAttrsBodyRefWidth
 		return ret
 	}
 	return *o.RefY
@@ -230,7 +230,7 @@ func (o *NodeAttrsText) GetRefY() NodeAttrsTextRefY {
 
 // GetRefYOk returns a tuple with the RefY field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodeAttrsText) GetRefYOk() (*NodeAttrsTextRefY, bool) {
+func (o *NodeAttrsText) GetRefYOk() (*NodeAttrsBodyRefWidth, bool) {
 	if o == nil || IsNil(o.RefY) {
 		return nil, false
 	}
@@ -246,8 +246,8 @@ func (o *NodeAttrsText) HasRefY() bool {
 	return false
 }
 
-// SetRefY gets a reference to the given NodeAttrsTextRefY and assigns it to the RefY field.
-func (o *NodeAttrsText) SetRefY(v NodeAttrsTextRefY) {
+// SetRefY gets a reference to the given NodeAttrsBodyRefWidth and assigns it to the RefY field.
+func (o *NodeAttrsText) SetRefY(v NodeAttrsBodyRefWidth) {
 	o.RefY = &v
 }
 
@@ -316,9 +316,9 @@ func (o *NodeAttrsText) SetRefDy(v float32) {
 }
 
 // GetRefX2 returns the RefX2 field value if set, zero value otherwise.
-func (o *NodeAttrsText) GetRefX2() NodeAttrsTextRefX2 {
+func (o *NodeAttrsText) GetRefX2() NodeAttrsBodyRefWidth {
 	if o == nil || IsNil(o.RefX2) {
-		var ret NodeAttrsTextRefX2
+		var ret NodeAttrsBodyRefWidth
 		return ret
 	}
 	return *o.RefX2
@@ -326,7 +326,7 @@ func (o *NodeAttrsText) GetRefX2() NodeAttrsTextRefX2 {
 
 // GetRefX2Ok returns a tuple with the RefX2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodeAttrsText) GetRefX2Ok() (*NodeAttrsTextRefX2, bool) {
+func (o *NodeAttrsText) GetRefX2Ok() (*NodeAttrsBodyRefWidth, bool) {
 	if o == nil || IsNil(o.RefX2) {
 		return nil, false
 	}
@@ -342,15 +342,15 @@ func (o *NodeAttrsText) HasRefX2() bool {
 	return false
 }
 
-// SetRefX2 gets a reference to the given NodeAttrsTextRefX2 and assigns it to the RefX2 field.
-func (o *NodeAttrsText) SetRefX2(v NodeAttrsTextRefX2) {
+// SetRefX2 gets a reference to the given NodeAttrsBodyRefWidth and assigns it to the RefX2 field.
+func (o *NodeAttrsText) SetRefX2(v NodeAttrsBodyRefWidth) {
 	o.RefX2 = &v
 }
 
 // GetRefY2 returns the RefY2 field value if set, zero value otherwise.
-func (o *NodeAttrsText) GetRefY2() NodeAttrsTextRefY2 {
+func (o *NodeAttrsText) GetRefY2() NodeAttrsBodyRefWidth {
 	if o == nil || IsNil(o.RefY2) {
-		var ret NodeAttrsTextRefY2
+		var ret NodeAttrsBodyRefWidth
 		return ret
 	}
 	return *o.RefY2
@@ -358,7 +358,7 @@ func (o *NodeAttrsText) GetRefY2() NodeAttrsTextRefY2 {
 
 // GetRefY2Ok returns a tuple with the RefY2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodeAttrsText) GetRefY2Ok() (*NodeAttrsTextRefY2, bool) {
+func (o *NodeAttrsText) GetRefY2Ok() (*NodeAttrsBodyRefWidth, bool) {
 	if o == nil || IsNil(o.RefY2) {
 		return nil, false
 	}
@@ -374,8 +374,8 @@ func (o *NodeAttrsText) HasRefY2() bool {
 	return false
 }
 
-// SetRefY2 gets a reference to the given NodeAttrsTextRefY2 and assigns it to the RefY2 field.
-func (o *NodeAttrsText) SetRefY2(v NodeAttrsTextRefY2) {
+// SetRefY2 gets a reference to the given NodeAttrsBodyRefWidth and assigns it to the RefY2 field.
+func (o *NodeAttrsText) SetRefY2(v NodeAttrsBodyRefWidth) {
 	o.RefY2 = &v
 }
 

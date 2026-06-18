@@ -75,14 +75,18 @@ All URIs are relative to *https://api.tmi.dev*
 *AdministrationApi* | [**deleteWebhookQuota**](docs/AdministrationApi.md#deletewebhookquota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota
 *AdministrationApi* | [**getAddonInvocationQuota**](docs/AdministrationApi.md#getaddoninvocationquota) | **GET** /admin/quotas/addons/{user_id} | Get addon invocation quota
 *AdministrationApi* | [**getAdminGroup**](docs/AdministrationApi.md#getadmingroup) | **GET** /admin/groups/{internal_uuid} | Get group details
+*AdministrationApi* | [**getAdminThreatModelAuditEntry**](docs/AdministrationApi.md#getadminthreatmodelauditentry) | **GET** /admin/audit/threat_models/{entry_id} | Get a threat-model audit entry by id (admin)
 *AdministrationApi* | [**getAdminUser**](docs/AdministrationApi.md#getadminuser) | **GET** /admin/users/{internal_uuid} | Get user details
+*AdministrationApi* | [**getSystemAuditEntry**](docs/AdministrationApi.md#getsystemauditentry) | **GET** /admin/audit/system/{entry_id} | Get a system audit entry
 *AdministrationApi* | [**getSystemSetting**](docs/AdministrationApi.md#getsystemsetting) | **GET** /admin/settings/{key} | Get system setting
 *AdministrationApi* | [**getUserAPIQuota**](docs/AdministrationApi.md#getuserapiquota) | **GET** /admin/quotas/users/{user_id} | Get user API quota
 *AdministrationApi* | [**getWebhookQuota**](docs/AdministrationApi.md#getwebhookquota) | **GET** /admin/quotas/webhooks/{user_id} | Get webhook quota
 *AdministrationApi* | [**listAddonInvocationQuotas**](docs/AdministrationApi.md#listaddoninvocationquotas) | **GET** /admin/quotas/addons | List all addon invocation quotas
 *AdministrationApi* | [**listAdminGroups**](docs/AdministrationApi.md#listadmingroups) | **GET** /admin/groups | List groups
+*AdministrationApi* | [**listAdminThreatModelAuditEntries**](docs/AdministrationApi.md#listadminthreatmodelauditentries) | **GET** /admin/audit/threat_models | List threat-model audit entries across all threat models
 *AdministrationApi* | [**listAdminUsers**](docs/AdministrationApi.md#listadminusers) | **GET** /admin/users | List users
 *AdministrationApi* | [**listGroupMembers**](docs/AdministrationApi.md#listgroupmembers) | **GET** /admin/groups/{internal_uuid}/members | List group members
+*AdministrationApi* | [**listSystemAuditEntries**](docs/AdministrationApi.md#listsystemauditentries) | **GET** /admin/audit/system | List system audit entries
 *AdministrationApi* | [**listSystemSettings**](docs/AdministrationApi.md#listsystemsettings) | **GET** /admin/settings | List system settings
 *AdministrationApi* | [**listUserAPIQuotas**](docs/AdministrationApi.md#listuserapiquotas) | **GET** /admin/quotas/users | List all user API quotas
 *AdministrationApi* | [**listWebhookQuotas**](docs/AdministrationApi.md#listwebhookquotas) | **GET** /admin/quotas/webhooks | List all webhook quotas
@@ -353,12 +357,17 @@ All URIs are relative to *https://api.tmi.dev*
 *TimmyChatApi* | [**listTimmyChatSessions**](docs/TimmyChatApi.md#listtimmychatsessions) | **GET** /threat_models/{threat_model_id}/chat/sessions | List Timmy chat sessions
 *TimmyChatApi* | [**refreshTimmySources**](docs/TimmyChatApi.md#refreshtimmysources) | **POST** /threat_models/{threat_model_id}/chat/sessions/{session_id}/refresh_sources | Refresh session sources
 *UserAccountApi* | [**authorizeContentToken**](docs/UserAccountApi.md#authorizecontenttokenoperation) | **POST** /me/content_tokens/{provider_id}/authorize | Start content provider authorization
+*UserAccountApi* | [**confirmIdentityLink**](docs/UserAccountApi.md#confirmidentitylinkoperation) | **POST** /me/identities/link/confirm | Confirm and complete an identity link
 *UserAccountApi* | [**createCurrentUserPreferences**](docs/UserAccountApi.md#createcurrentuserpreferences) | **POST** /me/preferences | Create user preferences
 *UserAccountApi* | [**deleteMyContentToken**](docs/UserAccountApi.md#deletemycontenttoken) | **DELETE** /me/content_tokens/{provider_id} | Revoke linked content provider token
+*UserAccountApi* | [**deleteMyIdentity**](docs/UserAccountApi.md#deletemyidentity) | **DELETE** /me/identities/{id} | Unlink a linked identity
 *UserAccountApi* | [**getCurrentUserPreferences**](docs/UserAccountApi.md#getcurrentuserpreferences) | **GET** /me/preferences | Get user preferences
+*UserAccountApi* | [**getPendingIdentityLink**](docs/UserAccountApi.md#getpendingidentitylink) | **GET** /me/identities/link/pending/{link_id} | Get pending identity link details
 *UserAccountApi* | [**grantMicrosoftFilePermission**](docs/UserAccountApi.md#grantmicrosoftfilepermission) | **POST** /me/microsoft/picker_grants | Grant the TMI Entra app per-file read access to a picked OneDrive/SharePoint file.
 *UserAccountApi* | [**listMyContentTokens**](docs/UserAccountApi.md#listmycontenttokens) | **GET** /me/content_tokens | List linked content provider tokens
+*UserAccountApi* | [**listMyIdentities**](docs/UserAccountApi.md#listmyidentities) | **GET** /me/identities | List current user identities
 *UserAccountApi* | [**mintPickerToken**](docs/UserAccountApi.md#mintpickertoken) | **POST** /me/picker_tokens/{provider_id} | Mint a short-lived access token for the Google Picker browser client
+*UserAccountApi* | [**startIdentityLink**](docs/UserAccountApi.md#startidentitylink) | **POST** /me/identities/link/start | Start an identity link flow
 *UserAccountApi* | [**updateCurrentUserPreferences**](docs/UserAccountApi.md#updatecurrentuserpreferences) | **PUT** /me/preferences | Update user preferences
 *UsersApi* | [**deleteUserAccount**](docs/UsersApi.md#deleteuseraccount) | **DELETE** /me | Delete authenticated user account and all data
 *UsersApi* | [**logoutCurrentUser**](docs/UsersApi.md#logoutcurrentuser) | **POST** /me/logout | Logout current user
@@ -420,6 +429,7 @@ All URIs are relative to *https://api.tmi.dev*
 - [CollaborationSession](docs/CollaborationSession.md)
 - [ColorPaletteEntry](docs/ColorPaletteEntry.md)
 - [ComponentHealth](docs/ComponentHealth.md)
+- [ConfirmIdentityLinkRequest](docs/ConfirmIdentityLinkRequest.md)
 - [ContentAuthorizationURL](docs/ContentAuthorizationURL.md)
 - [ContentFeedback](docs/ContentFeedback.md)
 - [ContentFeedbackInput](docs/ContentFeedbackInput.md)
@@ -433,6 +443,7 @@ All URIs are relative to *https://api.tmi.dev*
 - [CreateCurrentUserClientCredentialRequest](docs/CreateCurrentUserClientCredentialRequest.md)
 - [CreateDiagramCollaborationSession409Response](docs/CreateDiagramCollaborationSession409Response.md)
 - [CreateDiagramRequest](docs/CreateDiagramRequest.md)
+- [CreateThreatModelDocument202Response](docs/CreateThreatModelDocument202Response.md)
 - [CreateThreatModelFromSurveyResponse](docs/CreateThreatModelFromSurveyResponse.md)
 - [CreateTimmyMessageRequest](docs/CreateTimmyMessageRequest.md)
 - [CreateTimmySessionRequest](docs/CreateTimmySessionRequest.md)
@@ -443,7 +454,6 @@ All URIs are relative to *https://api.tmi.dev*
 - [DfdDiagramInputAllOfCells](docs/DfdDiagramInputAllOfCells.md)
 - [Diagram](docs/Diagram.md)
 - [DiagramListItem](docs/DiagramListItem.md)
-- [DiagramListItemImage](docs/DiagramListItemImage.md)
 - [Document](docs/Document.md)
 - [DocumentAccessDiagnostics](docs/DocumentAccessDiagnostics.md)
 - [DocumentBase](docs/DocumentBase.md)
@@ -451,7 +461,6 @@ All URIs are relative to *https://api.tmi.dev*
 - [Edge](docs/Edge.md)
 - [EdgeAttrs](docs/EdgeAttrs.md)
 - [EdgeAttrsLine](docs/EdgeAttrsLine.md)
-- [EdgeAttrsLineSourceMarker](docs/EdgeAttrsLineSourceMarker.md)
 - [EdgeAttrsLineTargetMarker](docs/EdgeAttrsLineTargetMarker.md)
 - [EdgeConnector](docs/EdgeConnector.md)
 - [EdgeConnectorOneOf](docs/EdgeConnectorOneOf.md)
@@ -490,13 +499,16 @@ All URIs are relative to *https://api.tmi.dev*
 - [GetUserAPIQuota429Response](docs/GetUserAPIQuota429Response.md)
 - [GroupMember](docs/GroupMember.md)
 - [GroupMemberListResponse](docs/GroupMemberListResponse.md)
+- [IdentityLinkStartResponse](docs/IdentityLinkStartResponse.md)
 - [IntrospectToken200Response](docs/IntrospectToken200Response.md)
 - [IntrospectToken500Response](docs/IntrospectToken500Response.md)
 - [InvokeAddonRequest](docs/InvokeAddonRequest.md)
 - [InvokeAddonResponse](docs/InvokeAddonResponse.md)
 - [JsonPatchDocumentInner](docs/JsonPatchDocumentInner.md)
+- [LinkedIdentity](docs/LinkedIdentity.md)
 - [ListAddonQuotasResponse](docs/ListAddonQuotasResponse.md)
 - [ListAddonsResponse](docs/ListAddonsResponse.md)
+- [ListAdminAuditEntriesResponse](docs/ListAdminAuditEntriesResponse.md)
 - [ListAssetsResponse](docs/ListAssetsResponse.md)
 - [ListAuditTrailResponse](docs/ListAuditTrailResponse.md)
 - [ListClientCredentialsResponse](docs/ListClientCredentialsResponse.md)
@@ -509,8 +521,10 @@ All URIs are relative to *https://api.tmi.dev*
 - [ListRepositoriesResponse](docs/ListRepositoriesResponse.md)
 - [ListSurveyResponsesResponse](docs/ListSurveyResponsesResponse.md)
 - [ListSurveysResponse](docs/ListSurveysResponse.md)
+- [ListSystemAuditEntriesResponse](docs/ListSystemAuditEntriesResponse.md)
 - [ListTeamNotesResponse](docs/ListTeamNotesResponse.md)
 - [ListTeamsResponse](docs/ListTeamsResponse.md)
+- [ListThreatModelAuditTrailResponse](docs/ListThreatModelAuditTrailResponse.md)
 - [ListThreatModelsResponse](docs/ListThreatModelsResponse.md)
 - [ListThreatsResponse](docs/ListThreatsResponse.md)
 - [ListTimmyMessagesResponse](docs/ListTimmyMessagesResponse.md)
@@ -530,24 +544,24 @@ All URIs are relative to *https://api.tmi.dev*
 - [MinimalNode](docs/MinimalNode.md)
 - [ModelError](docs/ModelError.md)
 - [MyGroupListResponse](docs/MyGroupListResponse.md)
+- [MyIdentitiesResponse](docs/MyIdentitiesResponse.md)
+- [MyIdentitiesResponsePrimary](docs/MyIdentitiesResponsePrimary.md)
 - [Node](docs/Node.md)
 - [NodeAllOfPosition](docs/NodeAllOfPosition.md)
 - [NodeAllOfSize](docs/NodeAllOfSize.md)
 - [NodeAttrs](docs/NodeAttrs.md)
 - [NodeAttrsBody](docs/NodeAttrsBody.md)
-- [NodeAttrsBodyRefHeight](docs/NodeAttrsBodyRefHeight.md)
 - [NodeAttrsBodyRefWidth](docs/NodeAttrsBodyRefWidth.md)
 - [NodeAttrsText](docs/NodeAttrsText.md)
-- [NodeAttrsTextRefX](docs/NodeAttrsTextRefX.md)
-- [NodeAttrsTextRefX2](docs/NodeAttrsTextRefX2.md)
-- [NodeAttrsTextRefY](docs/NodeAttrsTextRefY.md)
-- [NodeAttrsTextRefY2](docs/NodeAttrsTextRefY2.md)
 - [Note](docs/Note.md)
 - [NoteBase](docs/NoteBase.md)
 - [NoteInput](docs/NoteInput.md)
 - [NoteListItem](docs/NoteListItem.md)
 - [OAuthProtectedResourceMetadata](docs/OAuthProtectedResourceMetadata.md)
 - [Participant](docs/Participant.md)
+- [PendingIdentityLinkResponse](docs/PendingIdentityLinkResponse.md)
+- [PendingIdentityLinkResponseAccount](docs/PendingIdentityLinkResponseAccount.md)
+- [PendingIdentityLinkResponsePending](docs/PendingIdentityLinkResponsePending.md)
 - [PickerRegistration](docs/PickerRegistration.md)
 - [PickerTokenResponse](docs/PickerTokenResponse.md)
 - [Point](docs/Point.md)
@@ -589,6 +603,7 @@ All URIs are relative to *https://api.tmi.dev*
 - [SurveyResponseInput](docs/SurveyResponseInput.md)
 - [SurveyResponseListItem](docs/SurveyResponseListItem.md)
 - [SurveySettings](docs/SurveySettings.md)
+- [SystemAuditEntry](docs/SystemAuditEntry.md)
 - [SystemSetting](docs/SystemSetting.md)
 - [SystemSettingUpdate](docs/SystemSettingUpdate.md)
 - [TMListItem](docs/TMListItem.md)
@@ -665,7 +680,7 @@ and is automatically generated by the
 
 - API version: `1.4.0`
 - Package version: `1.4.0`
-- Generator version: `7.22.0`
+- Generator version: `7.23.0`
 - Build package: `org.openapitools.codegen.languages.TypeScriptFetchClientCodegen`
 
 The generated npm module supports the following:

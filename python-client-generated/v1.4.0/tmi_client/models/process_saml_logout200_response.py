@@ -29,7 +29,7 @@ class ProcessSAMLLogout200Response(BaseModel):
     """
     ProcessSAMLLogout200Response
     """ # noqa: E501
-    message: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = None
+    message: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, json_schema_extra={"examples": ["Logout successful"]})
     __properties: ClassVar[List[str]] = ["message"]
 
     model_config = ConfigDict(

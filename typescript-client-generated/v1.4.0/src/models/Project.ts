@@ -104,13 +104,13 @@ export interface Project {
      */
     readonly id?: string;
     /**
-     * The team this project belongs to (resolved)
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof Project
      */
     readonly team?: object | null;
     /**
-     * User who created the project
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof Project
      */
@@ -122,7 +122,7 @@ export interface Project {
      */
     readonly created_at?: Date;
     /**
-     * User who last modified the project
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof Project
      */
@@ -134,7 +134,7 @@ export interface Project {
      */
     readonly modified_at?: Date;
     /**
-     * User who last reviewed the project
+     * Optional; when present, client has performed a Picker-based attachment
      * @type {object}
      * @memberof Project
      */

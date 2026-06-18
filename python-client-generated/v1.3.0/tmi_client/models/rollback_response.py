@@ -29,7 +29,7 @@ class RollbackResponse(BaseModel):
     """
     Result of a rollback operation
     """ # noqa: E501
-    restored_entity: Optional[Dict[str, Any]] = Field(default=None, description="The entity restored to its previous state")
+    restored_entity: Optional[Dict[str, Any]] = Field(default=None, description="The entity restored to its previous state", json_schema_extra={"examples": [{"id": "f0e1d2c3-b4a5-6789-0abc-def123456789", "name": "Payment Service Threat Model", "description": "Threat model for the payment processing service", "owner": {"principal_type": "user", "provider": "google", "provider_id": "alice@example.com", "display_name": "Alice Johnson", "email": "alice@example.com"}, "authorization": [{"principal_type": "user", "provider": "google", "provider_id": "alice@example.com", "display_name": "Alice Johnson", "email": "alice@example.com", "role": "owner"}], "threat_model_framework": "STRIDE", "status": "in_progress", "created_at": "2026-01-10T08:00:00Z", "modified_at": "2026-01-15T10:30:00Z"}]})
     audit_entry: AuditEntry = Field(description="The new audit entry recording the rollback")
     __properties: ClassVar[List[str]] = ["restored_entity", "audit_entry"]
 

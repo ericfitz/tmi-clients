@@ -21,10 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
-from tmi_client.models.node_attrs_text_ref_x import NodeAttrsTextRefX
-from tmi_client.models.node_attrs_text_ref_x2 import NodeAttrsTextRefX2
-from tmi_client.models.node_attrs_text_ref_y import NodeAttrsTextRefY
-from tmi_client.models.node_attrs_text_ref_y2 import NodeAttrsTextRefY2
+from tmi_client.models.node_attrs_body_ref_width import NodeAttrsBodyRefWidth
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -37,12 +34,12 @@ class NodeAttrsText(BaseModel):
     font_size: Optional[Union[Annotated[float, Field(strict=True, ge=1)], Annotated[int, Field(strict=True, ge=1)]]] = Field(default=None, description="Font size in pixels", alias="fontSize")
     fill: Optional[Annotated[str, Field(strict=True, max_length=32)]] = Field(default=None, description="Text color")
     font_family: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Font family", alias="fontFamily")
-    ref_x: Optional[NodeAttrsTextRefX] = Field(default=None, alias="refX")
-    ref_y: Optional[NodeAttrsTextRefY] = Field(default=None, alias="refY")
+    ref_x: Optional[NodeAttrsBodyRefWidth] = Field(default=None, alias="refX")
+    ref_y: Optional[NodeAttrsBodyRefWidth] = Field(default=None, alias="refY")
     ref_dx: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Horizontal offset from refX (corner-based, retained for back-compat; client uses refX2)", alias="refDx")
     ref_dy: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Vertical offset from refY (corner-based, retained for back-compat; client uses refY2)", alias="refDy")
-    ref_x2: Optional[NodeAttrsTextRefX2] = Field(default=None, alias="refX2")
-    ref_y2: Optional[NodeAttrsTextRefY2] = Field(default=None, alias="refY2")
+    ref_x2: Optional[NodeAttrsBodyRefWidth] = Field(default=None, alias="refX2")
+    ref_y2: Optional[NodeAttrsBodyRefWidth] = Field(default=None, alias="refY2")
     text_anchor: Optional[StrictStr] = Field(default=None, description="Horizontal text alignment anchor point", alias="textAnchor")
     text_vertical_anchor: Optional[StrictStr] = Field(default=None, description="Vertical text alignment anchor point", alias="textVerticalAnchor")
     __properties: ClassVar[List[str]] = ["text", "fontSize", "fill", "fontFamily", "refX", "refY", "refDx", "refDy", "refX2", "refY2", "textAnchor", "textVerticalAnchor"]
@@ -176,12 +173,12 @@ class NodeAttrsText(BaseModel):
             "fontSize": obj.get("fontSize"),
             "fill": obj.get("fill"),
             "fontFamily": obj.get("fontFamily"),
-            "refX": NodeAttrsTextRefX.from_dict(obj["refX"]) if obj.get("refX") is not None else None,
-            "refY": NodeAttrsTextRefY.from_dict(obj["refY"]) if obj.get("refY") is not None else None,
+            "refX": NodeAttrsBodyRefWidth.from_dict(obj["refX"]) if obj.get("refX") is not None else None,
+            "refY": NodeAttrsBodyRefWidth.from_dict(obj["refY"]) if obj.get("refY") is not None else None,
             "refDx": obj.get("refDx"),
             "refDy": obj.get("refDy"),
-            "refX2": NodeAttrsTextRefX2.from_dict(obj["refX2"]) if obj.get("refX2") is not None else None,
-            "refY2": NodeAttrsTextRefY2.from_dict(obj["refY2"]) if obj.get("refY2") is not None else None,
+            "refX2": NodeAttrsBodyRefWidth.from_dict(obj["refX2"]) if obj.get("refX2") is not None else None,
+            "refY2": NodeAttrsBodyRefWidth.from_dict(obj["refY2"]) if obj.get("refY2") is not None else None,
             "textAnchor": obj.get("textAnchor"),
             "textVerticalAnchor": obj.get("textVerticalAnchor")
         })

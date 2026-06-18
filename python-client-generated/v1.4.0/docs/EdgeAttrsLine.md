@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **stroke_width** | **float** | Line width in pixels | [optional] 
 **stroke_dasharray** | **str** | Dash pattern for the line | [optional] 
 **target_marker** | [**EdgeAttrsLineTargetMarker**](EdgeAttrsLineTargetMarker.md) |  | [optional] 
-**source_marker** | [**EdgeAttrsLineSourceMarker**](EdgeAttrsLineSourceMarker.md) |  | [optional] 
+**source_marker** | [**EdgeAttrsLineTargetMarker**](EdgeAttrsLineTargetMarker.md) |  | [optional] 
 
 ## Example
 

@@ -30,10 +30,10 @@ class ListClientCredentialsResponse(BaseModel):
     """
     Paginated list of client credentials
     """ # noqa: E501
-    credentials: Annotated[List[ClientCredentialInfo], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of credentials matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    credentials: Annotated[List[ClientCredentialInfo], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "970eabcd-e89b-41d4-a716-446655440016", "owner_id": "550e8400-e29b-41d4-a716-446655440000", "name": "Monitoring Service", "description": "Metrics collection service", "client_id": "tmi_cc_monitoring123", "is_active": True, "created_at": "2024-01-15T10:00:00Z", "modified_at": "2024-01-15T10:00:00Z"}]]})
+    total: StrictInt = Field(description="Total number of credentials matching criteria", json_schema_extra={"examples": [4]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["credentials", "total", "limit", "offset"]
 
     model_config = ConfigDict(

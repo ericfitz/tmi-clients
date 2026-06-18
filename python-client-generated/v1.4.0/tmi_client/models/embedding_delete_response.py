@@ -28,7 +28,7 @@ class EmbeddingDeleteResponse(BaseModel):
     """
     Response returned after deleting all embeddings for a threat model, reporting the number of records removed.
     """ # noqa: E501
-    deleted: StrictInt = Field(description="Number of embeddings deleted")
+    deleted: StrictInt = Field(description="Number of embeddings deleted", json_schema_extra={"examples": [42]})
     __properties: ClassVar[List[str]] = ["deleted"]
 
     model_config = ConfigDict(

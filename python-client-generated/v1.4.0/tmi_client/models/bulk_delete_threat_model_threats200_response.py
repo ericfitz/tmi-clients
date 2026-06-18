@@ -30,8 +30,8 @@ class BulkDeleteThreatModelThreats200Response(BaseModel):
     """
     BulkDeleteThreatModelThreats200Response
     """ # noqa: E501
-    deleted_count: Optional[StrictInt] = Field(default=None, description="Number of threats deleted")
-    deleted_ids: Optional[Annotated[List[UUID], Field(max_length=1000)]] = Field(default=None, description="IDs of deleted threats")
+    deleted_count: Optional[StrictInt] = Field(default=None, description="Number of threats deleted", json_schema_extra={"examples": [3]})
+    deleted_ids: Optional[Annotated[List[UUID], Field(max_length=1000)]] = Field(default=None, description="IDs of deleted threats", json_schema_extra={"examples": [["550e8400-e29b-41d4-a716-446655440001", "550e8400-e29b-41d4-a716-446655440002"]]})
     __properties: ClassVar[List[str]] = ["deleted_count", "deleted_ids"]
 
     model_config = ConfigDict(

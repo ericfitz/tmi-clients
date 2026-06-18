@@ -22,6 +22,10 @@ Webhook event type following {resource}.{action} pattern. CRUD events are emitte
 
 * `DOCUMENT_DOT_DELETED` (value: `'document.deleted'`)
 
+* `DOCUMENT_DOT_EXTRACTION_COMPLETED` (value: `'document.extraction_completed'`)
+
+* `DOCUMENT_DOT_EXTRACTION_FAILED` (value: `'document.extraction_failed'`)
+
 * `NOTE_DOT_CREATED` (value: `'note.created'`)
 
 * `NOTE_DOT_UPDATED` (value: `'note.updated'`)
@@ -65,6 +69,8 @@ Webhook event type following {resource}.{action} pattern. CRUD events are emitte
 * `SURVEY_RESPONSE_DOT_UPDATED` (value: `'survey_response.updated'`)
 
 * `SURVEY_RESPONSE_DOT_DELETED` (value: `'survey_response.deleted'`)
+
+* `SYSTEM_AUDIT_DOT_ADMIN_WRITE` (value: `'system_audit.admin_write'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

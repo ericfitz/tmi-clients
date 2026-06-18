@@ -29,11 +29,11 @@ class GetCurrentUser200Response(BaseModel):
     """
     OIDC-compliant userinfo response per OpenID Connect Core 1.0 Section 5.1
     """ # noqa: E501
-    sub: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Subject identifier - unique identifier for the user (required per OIDC)")
-    email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="User email address")
-    name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="User display name")
-    idp: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Identity provider that authenticated the user")
-    groups: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, description="Groups the user belongs to")
+    sub: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Subject identifier - unique identifier for the user (required per OIDC)", json_schema_extra={"examples": ["alice"]})
+    email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(default=None, description="User email address", json_schema_extra={"examples": ["user@example.com"]})
+    name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="User display name", json_schema_extra={"examples": ["John Doe"]})
+    idp: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(default=None, description="Identity provider that authenticated the user", json_schema_extra={"examples": ["github"]})
+    groups: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, description="Groups the user belongs to", json_schema_extra={"examples": [["admins", "users"]]})
     __properties: ClassVar[List[str]] = ["sub", "email", "name", "idp", "groups"]
 
     @field_validator('email')

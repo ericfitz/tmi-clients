@@ -28,14 +28,14 @@ class TimmyStatusResponse(BaseModel):
     """
     Timmy AI assistant system status
     """ # noqa: E501
-    memory_used_bytes: StrictInt = Field(description="Current memory usage in bytes")
-    memory_budget_bytes: StrictInt = Field(description="Total memory budget in bytes")
-    memory_utilization_pct: Union[StrictFloat, StrictInt] = Field(description="Memory utilization percentage")
-    loaded_indexes: StrictInt = Field(description="Number of currently loaded indexes")
-    active_sessions: StrictInt = Field(description="Number of active chat sessions")
-    evictions_total: StrictInt = Field(description="Total number of index evictions")
-    evictions_pressure: StrictInt = Field(description="Number of evictions due to memory pressure")
-    sessions_rejected_total: StrictInt = Field(description="Total number of sessions rejected due to resource constraints")
+    memory_used_bytes: StrictInt = Field(description="Current memory usage in bytes", json_schema_extra={"examples": [104857600]})
+    memory_budget_bytes: StrictInt = Field(description="Total memory budget in bytes", json_schema_extra={"examples": [1073741824]})
+    memory_utilization_pct: Union[StrictFloat, StrictInt] = Field(description="Memory utilization percentage", json_schema_extra={"examples": [9.77]})
+    loaded_indexes: StrictInt = Field(description="Number of currently loaded indexes", json_schema_extra={"examples": [3]})
+    active_sessions: StrictInt = Field(description="Number of active chat sessions", json_schema_extra={"examples": [2]})
+    evictions_total: StrictInt = Field(description="Total number of index evictions", json_schema_extra={"examples": [0]})
+    evictions_pressure: StrictInt = Field(description="Number of evictions due to memory pressure", json_schema_extra={"examples": [0]})
+    sessions_rejected_total: StrictInt = Field(description="Total number of sessions rejected due to resource constraints", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["memory_used_bytes", "memory_budget_bytes", "memory_utilization_pct", "loaded_indexes", "active_sessions", "evictions_total", "evictions_pressure", "sessions_rejected_total"]
 
     model_config = ConfigDict(

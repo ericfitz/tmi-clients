@@ -27,6 +27,8 @@ export const WebhookEventType = {
     DocumentCreated: 'document.created',
     DocumentUpdated: 'document.updated',
     DocumentDeleted: 'document.deleted',
+    DocumentExtractionCompleted: 'document.extraction_completed',
+    DocumentExtractionFailed: 'document.extraction_failed',
     NoteCreated: 'note.created',
     NoteUpdated: 'note.updated',
     NoteDeleted: 'note.deleted',
@@ -48,7 +50,8 @@ export const WebhookEventType = {
     SurveyDeleted: 'survey.deleted',
     SurveyResponseCreated: 'survey_response.created',
     SurveyResponseUpdated: 'survey_response.updated',
-    SurveyResponseDeleted: 'survey_response.deleted'
+    SurveyResponseDeleted: 'survey_response.deleted',
+    SystemAuditAdminWrite: 'system_audit.admin_write'
 } as const;
 export type WebhookEventType = typeof WebhookEventType[keyof typeof WebhookEventType];
 

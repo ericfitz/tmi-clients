@@ -43,7 +43,7 @@ class Document(BaseModel):
     modified_at: Optional[datetime] = Field(default=None, description="Last modification timestamp (RFC3339)")
     deleted_at: Optional[datetime] = Field(default=None, description="Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.")
     access_status: Optional[StrictStr] = Field(default='unknown', description="Access validation status for external content providers")
-    content_source: Optional[StrictStr] = Field(default=None, description="Content provider that handles this documents URI (e.g., google_drive, http)")
+    content_source: Optional[StrictStr] = Field(default=None, description="Content provider that handles this documents URI (e.g., google_drive, http)", json_schema_extra={"examples": ["google_drive"]})
     access_diagnostics: Optional[Dict[str, Any]] = Field(default=None, description="Per-viewer access diagnostics; present when access_status is not 'accessible'")
     access_status_updated_at: Optional[datetime] = Field(default=None, description="Timestamp of the last access_status transition (RFC3339)")
     alias: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation.")

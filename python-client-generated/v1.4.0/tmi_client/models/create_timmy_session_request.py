@@ -29,7 +29,7 @@ class CreateTimmySessionRequest(BaseModel):
     """
     Optional request body for creating a Timmy chat session
     """ # noqa: E501
-    title: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Optional session title")
+    title: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Optional session title", json_schema_extra={"examples": ["Payment flow threat analysis"]})
     __properties: ClassVar[List[str]] = ["title"]
 
     @field_validator('title')

@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **Content** | **string** | Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped. | 
 **Id** | **int32** | Sequential identifier for the triage note within its survey response | [readonly] 
 **CreatedAt** | Pointer to **time.Time** | Creation timestamp (RFC3339) | [optional] [readonly] 
-**CreatedBy** | Pointer to **map[string]interface{}** | User who created this triage note | [optional] [readonly] 
+**CreatedBy** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 
 **ModifiedAt** | Pointer to **time.Time** | Last modification timestamp (RFC3339) | [optional] [readonly] 
-**ModifiedBy** | Pointer to **map[string]interface{}** | User who last modified this triage note | [optional] [readonly] 
+**ModifiedBy** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 
 
 ## Methods
 

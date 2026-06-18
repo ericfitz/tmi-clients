@@ -29,7 +29,7 @@ class TransferOwnershipRequest(BaseModel):
     """
     Request to transfer ownership of all owned threat models and survey responses to another user
     """ # noqa: E501
-    target_user_id: UUID = Field(description="Internal UUID of the user to receive ownership")
+    target_user_id: UUID = Field(description="Internal UUID of the user to receive ownership", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
     __properties: ClassVar[List[str]] = ["target_user_id"]
 
     model_config = ConfigDict(

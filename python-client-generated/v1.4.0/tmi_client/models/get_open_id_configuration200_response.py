@@ -29,21 +29,21 @@ class GetOpenIDConfiguration200Response(BaseModel):
     """
     GetOpenIDConfiguration200Response
     """ # noqa: E501
-    issuer: Annotated[str, Field(strict=True, max_length=1000)]
-    authorization_endpoint: Annotated[str, Field(strict=True, max_length=1000)]
-    token_endpoint: Annotated[str, Field(strict=True, max_length=1000)]
-    userinfo_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = None
-    jwks_uri: Annotated[str, Field(strict=True, max_length=1000)]
-    response_types_supported: Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]
-    subject_types_supported: Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]
-    id_token_signing_alg_values_supported: Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]
-    scopes_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = None
-    claims_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = None
-    introspection_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = None
-    code_challenge_methods_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = None
-    grant_types_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = None
-    revocation_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = None
-    token_endpoint_auth_methods_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = None
+    issuer: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["http://localhost:8080"]})
+    authorization_endpoint: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["http://localhost:8080/oauth2/authorize"]})
+    token_endpoint: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["http://localhost:8080/oauth2/token"]})
+    userinfo_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, json_schema_extra={"examples": ["http://localhost:8080/oauth2/userinfo"]})
+    jwks_uri: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["http://localhost:8080/.well-known/jwks.json"]})
+    response_types_supported: Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)] = Field(json_schema_extra={"examples": [["code", "token", "id_token", "code token", "code id_token", "token id_token", "code token id_token"]]})
+    subject_types_supported: Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)] = Field(json_schema_extra={"examples": [["public"]]})
+    id_token_signing_alg_values_supported: Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)] = Field(json_schema_extra={"examples": [["HS256"]]})
+    scopes_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, json_schema_extra={"examples": [["openid", "email", "profile"]]})
+    claims_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, json_schema_extra={"examples": [["sub", "email", "email_verified", "name", "given_name", "family_name", "picture", "locale"]]})
+    introspection_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, json_schema_extra={"examples": ["http://localhost:8080/oauth2/introspect"]})
+    code_challenge_methods_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, json_schema_extra={"examples": [["S256"]]})
+    grant_types_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, json_schema_extra={"examples": [["authorization_code", "refresh_token", "client_credentials"]]})
+    revocation_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, json_schema_extra={"examples": ["http://localhost:8080/oauth2/revoke"]})
+    token_endpoint_auth_methods_supported: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, json_schema_extra={"examples": [["client_secret_post", "none"]]})
     __properties: ClassVar[List[str]] = ["issuer", "authorization_endpoint", "token_endpoint", "userinfo_endpoint", "jwks_uri", "response_types_supported", "subject_types_supported", "id_token_signing_alg_values_supported", "scopes_supported", "claims_supported", "introspection_endpoint", "code_challenge_methods_supported", "grant_types_supported", "revocation_endpoint", "token_endpoint_auth_methods_supported"]
 
     @field_validator('issuer')

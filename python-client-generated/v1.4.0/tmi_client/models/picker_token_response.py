@@ -29,10 +29,10 @@ class PickerTokenResponse(BaseModel):
     """
     Response body for `POST /me/picker_tokens/{provider_id}`. Carries a short-lived access token and the public picker configuration values that the browser client needs to initialize the provider's picker widget.
     """ # noqa: E501
-    access_token: StrictStr = Field(description="Short-lived OAuth access token, scoped to the picker session.")
-    expires_at: datetime = Field(description="Token expiration timestamp (RFC3339).")
-    developer_key: Optional[StrictStr] = Field(default=None, description="Google Picker developer key. Deprecated — prefer provider_config.developer_key. Populated only for provider_id=google_workspace.")
-    app_id: Optional[StrictStr] = Field(default=None, description="Google Cloud app id. Deprecated — prefer provider_config.app_id. Populated only for provider_id=google_workspace.")
+    access_token: StrictStr = Field(description="Short-lived OAuth access token, scoped to the picker session.", json_schema_extra={"examples": ["ya29.a0AfH6SMBxExample-token-string"]})
+    expires_at: datetime = Field(description="Token expiration timestamp (RFC3339).", json_schema_extra={"examples": ["2026-04-19T12:34:56Z"]})
+    developer_key: Optional[StrictStr] = Field(default=None, description="Google Picker developer key. Deprecated — prefer provider_config.developer_key. Populated only for provider_id=google_workspace.", json_schema_extra={"examples": ["AIzaSyB-1234example"]})
+    app_id: Optional[StrictStr] = Field(default=None, description="Google Cloud app id. Deprecated — prefer provider_config.app_id. Populated only for provider_id=google_workspace.", json_schema_extra={"examples": ["123456789012"]})
     provider_config: Optional[Dict[str, StrictStr]] = Field(default=None, description="Provider-specific public configuration values for picker initialization. Keys vary by provider — see provider documentation. For google_workspace: developer_key, app_id. For microsoft: client_id, tenant_id, picker_origin.")
     __properties: ClassVar[List[str]] = ["access_token", "expires_at", "developer_key", "app_id", "provider_config"]
 

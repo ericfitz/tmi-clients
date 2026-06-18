@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **CreatedBy** | Pointer to [**User**](User.md) | User who created the threat model | [optional] [readonly] 
 **Documents** | Pointer to [**[]Document**](Document.md) | List of documents related to the threat model | [optional] [readonly] 
 **Repositories** | Pointer to [**[]Repository**](Repository.md) | List of source code repositories related to the threat model | [optional] [readonly] 
-**Diagrams** | Pointer to [**[]DfdDiagram**](DfdDiagram.md) | List of diagram objects associated with this threat model | [optional] [readonly] 
+**Diagrams** | Pointer to [**[]Diagram**](Diagram.md) | List of diagram objects associated with this threat model | [optional] [readonly] 
 **Threats** | Pointer to [**[]Threat**](Threat.md) | List of threats within the threat model | [optional] [readonly] 
 **Notes** | Pointer to [**[]Note**](Note.md) | List of notes associated with the threat model | [optional] [readonly] 
 **Assets** | Pointer to [**[]ExtendedAsset**](ExtendedAsset.md) | List of assets associated with the threat model | [optional] [readonly] 
@@ -515,20 +515,20 @@ HasRepositories returns a boolean if a field has been set.
 
 ### GetDiagrams
 
-`func (o *ThreatModel) GetDiagrams() []DfdDiagram`
+`func (o *ThreatModel) GetDiagrams() []Diagram`
 
 GetDiagrams returns the Diagrams field if non-nil, zero value otherwise.
 
 ### GetDiagramsOk
 
-`func (o *ThreatModel) GetDiagramsOk() (*[]DfdDiagram, bool)`
+`func (o *ThreatModel) GetDiagramsOk() (*[]Diagram, bool)`
 
 GetDiagramsOk returns a tuple with the Diagrams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDiagrams
 
-`func (o *ThreatModel) SetDiagrams(v []DfdDiagram)`
+`func (o *ThreatModel) SetDiagrams(v []Diagram)`
 
 SetDiagrams sets Diagrams field to given value.
 

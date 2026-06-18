@@ -67,7 +67,6 @@ docs/DfdDiagramInput.md
 docs/DfdDiagramInputAllOfCells.md
 docs/Diagram.md
 docs/DiagramListItem.md
-docs/DiagramListItemImage.md
 docs/Document.md
 docs/DocumentBase.md
 docs/DocumentInput.md
@@ -75,7 +74,6 @@ docs/DocumentsApi.md
 docs/Edge.md
 docs/EdgeAttrs.md
 docs/EdgeAttrsLine.md
-docs/EdgeAttrsLineSourceMarker.md
 docs/EdgeAttrsLineTargetMarker.md
 docs/EdgeConnector.md
 docs/EdgeConnectorOneOf.md
@@ -322,7 +320,6 @@ test/test_dfd_diagram_input.py
 test/test_dfd_diagram_input_all_of_cells.py
 test/test_diagram.py
 test/test_diagram_list_item.py
-test/test_diagram_list_item_image.py
 test/test_document.py
 test/test_document_base.py
 test/test_document_input.py
@@ -330,7 +327,6 @@ test/test_documents_api.py
 test/test_edge.py
 test/test_edge_attrs.py
 test/test_edge_attrs_line.py
-test/test_edge_attrs_line_source_marker.py
 test/test_edge_attrs_line_target_marker.py
 test/test_edge_connector.py
 test/test_edge_connector_one_of.py
@@ -596,14 +592,12 @@ tmi_client/models/dfd_diagram_input.py
 tmi_client/models/dfd_diagram_input_all_of_cells.py
 tmi_client/models/diagram.py
 tmi_client/models/diagram_list_item.py
-tmi_client/models/diagram_list_item_image.py
 tmi_client/models/document.py
 tmi_client/models/document_base.py
 tmi_client/models/document_input.py
 tmi_client/models/edge.py
 tmi_client/models/edge_attrs.py
 tmi_client/models/edge_attrs_line.py
-tmi_client/models/edge_attrs_line_source_marker.py
 tmi_client/models/edge_attrs_line_target_marker.py
 tmi_client/models/edge_connector.py
 tmi_client/models/edge_connector_one_of.py

@@ -30,10 +30,10 @@ class ListThreatsResponse(BaseModel):
     """
     Paginated list of threats
     """ # noqa: E501
-    threats: Annotated[List[Threat], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of threats matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    threats: Annotated[List[Threat], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "345e6789-e89b-41d4-a716-446655440002", "threat_model_id": "123e4567-e89b-41d4-a716-446655440000", "name": "SQL Injection in Payment Query", "description": "Unsanitized input in payment lookup query could allow SQL injection", "severity": "High", "stride_category": "Tampering", "status": "Open", "threat_type": ["spoofing"], "created_at": "2024-01-16T09:00:00Z", "modified_at": "2024-01-16T09:00:00Z"}]]})
+    total: StrictInt = Field(description="Total number of threats matching criteria", json_schema_extra={"examples": [15]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["threats", "total", "limit", "offset"]
 
     model_config = ConfigDict(

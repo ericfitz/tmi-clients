@@ -34,6 +34,13 @@ class TestUserAccountApi(unittest.TestCase):
         """
         pass
 
+    def test_confirm_identity_link(self) -> None:
+        """Test case for confirm_identity_link
+
+        Confirm and complete an identity link
+        """
+        pass
+
     def test_create_current_user_preferences(self) -> None:
         """Test case for create_current_user_preferences
 
@@ -48,10 +55,24 @@ class TestUserAccountApi(unittest.TestCase):
         """
         pass
 
+    def test_delete_my_identity(self) -> None:
+        """Test case for delete_my_identity
+
+        Unlink a linked identity
+        """
+        pass
+
     def test_get_current_user_preferences(self) -> None:
         """Test case for get_current_user_preferences
 
         Get user preferences
+        """
+        pass
+
+    def test_get_pending_identity_link(self) -> None:
+        """Test case for get_pending_identity_link
+
+        Get pending identity link details
         """
         pass
 
@@ -69,10 +90,24 @@ class TestUserAccountApi(unittest.TestCase):
         """
         pass
 
+    def test_list_my_identities(self) -> None:
+        """Test case for list_my_identities
+
+        List current user identities
+        """
+        pass
+
     def test_mint_picker_token(self) -> None:
         """Test case for mint_picker_token
 
         Mint a short-lived access token for the Google Picker browser client
+        """
+        pass
+
+    def test_start_identity_link(self) -> None:
+        """Test case for start_identity_link
+
+        Start an identity link flow
         """
         pass
 

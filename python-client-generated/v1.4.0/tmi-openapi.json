@@ -4447,6 +4447,8 @@
               "document.created",
               "document.updated",
               "document.deleted",
+              "document.extraction_completed",
+              "document.extraction_failed",
               "note.created",
               "note.updated",
               "note.deleted",
@@ -4461,7 +4463,8 @@
               "threat.deleted",
               "metadata.created",
               "metadata.updated",
-              "metadata.deleted"
+              "metadata.deleted",
+              "system_audit.admin_write"
             ],
             "description": "Webhook event type following {resource}.{action} pattern",
             "maxLength": 1000
@@ -5492,6 +5495,8 @@
           "document.created",
           "document.updated",
           "document.deleted",
+          "document.extraction_completed",
+          "document.extraction_failed",
           "note.created",
           "note.updated",
           "note.deleted",
@@ -5513,7 +5518,8 @@
           "survey.deleted",
           "survey_response.created",
           "survey_response.updated",
-          "survey_response.deleted"
+          "survey_response.deleted",
+          "system_audit.admin_write"
         ],
         "description": "Webhook event type following {resource}.{action} pattern. CRUD events are emitted for resource lifecycle changes (created, updated, deleted). The addon.invoked event is emitted when an add-on is invoked.",
         "maxLength": 1000,
@@ -5531,7 +5537,9 @@
           "document": [
             "document.created",
             "document.updated",
-            "document.deleted"
+            "document.deleted",
+            "document.extraction_completed",
+            "document.extraction_failed"
           ],
           "note": [
             "note.created",
@@ -5570,6 +5578,9 @@
             "survey_response.created",
             "survey_response.updated",
             "survey_response.deleted"
+          ],
+          "system_audit": [
+            "system_audit.admin_write"
           ]
         },
         "example": "threat_model.created"
@@ -9692,6 +9703,84 @@
           "offset": 0
         }
       },
+      "ListThreatModelAuditTrailResponse": {
+        "type": "object",
+        "description": "Cursor-paginated list of audit trail entries for a threat model",
+        "required": [
+          "audit_entries",
+          "total",
+          "limit"
+        ],
+        "properties": {
+          "audit_entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "maxItems": 100,
+            "example": [
+              {
+                "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+                "object_type": "threat_model",
+                "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+                "version": 3,
+                "change_type": "updated",
+                "actor": {
+                  "email": "alice@example.com",
+                  "provider": "google",
+                  "provider_id": "google-12345",
+                  "display_name": "Alice"
+                },
+                "change_summary": "Updated threat model description",
+                "created_at": "2026-01-15T10:30:00Z"
+              }
+            ]
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of matching audit entries"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of entries returned"
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "Cursor for the next (older) page; absent or null when exhausted."
+          },
+          "prev_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "Cursor for the previous (newer) page; absent or null when at the newest end."
+          }
+        },
+        "example": {
+          "audit_entries": [
+            {
+              "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+              "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+              "object_type": "threat_model",
+              "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+              "version": 3,
+              "change_type": "updated",
+              "actor": {
+                "email": "alice@example.com",
+                "provider": "google",
+                "provider_id": "google-12345",
+                "display_name": "Alice"
+              },
+              "change_summary": "Updated threat model description",
+              "created_at": "2026-01-15T10:30:00Z"
+            }
+          ],
+          "total": 42,
+          "limit": 20,
+          "next_cursor": null,
+          "prev_cursor": null
+        }
+      },
       "RollbackResponse": {
         "type": "object",
         "description": "Result of a rollback operation",
@@ -11641,6 +11730,285 @@
             }
           }
         }
+      },
+      "SystemAuditEntry": {
+        "type": "object",
+        "description": "An immutable system-level audit record of a successful /admin/* write (T7 evidence). Old/new values are redacted at write time.",
+        "required": [
+          "id",
+          "actor",
+          "http_method",
+          "http_path",
+          "field_path",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Entry identifier."
+          },
+          "actor": {
+            "$ref": "#/components/schemas/AuditActor"
+          },
+          "http_method": {
+            "type": "string",
+            "description": "HTTP method of the audited request."
+          },
+          "http_path": {
+            "type": "string",
+            "description": "Request path of the audited request."
+          },
+          "field_path": {
+            "type": "string",
+            "description": "Dotted path of the changed field."
+          },
+          "old_value_redacted": {
+            "type": "string",
+            "nullable": true,
+            "description": "Previous value, redacted at write time."
+          },
+          "new_value_redacted": {
+            "type": "string",
+            "nullable": true,
+            "description": "New value, redacted at write time."
+          },
+          "change_summary": {
+            "type": "string",
+            "nullable": true,
+            "description": "Human-readable change summary."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the audited write completed."
+          }
+        }
+      },
+      "ListSystemAuditEntriesResponse": {
+        "type": "object",
+        "description": "Cursor-paginated list of system audit entries.",
+        "required": [
+          "entries",
+          "total",
+          "limit"
+        ],
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SystemAuditEntry"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total entries matching the filter."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Page size used."
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "Cursor for the next page; absent or null when exhausted."
+          },
+          "prev_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "Cursor for the previous (newer) page; absent or null when at the newest end."
+          }
+        }
+      },
+      "ListAdminAuditEntriesResponse": {
+        "type": "object",
+        "description": "Cursor-paginated cross-threat-model list of audit entries.",
+        "required": [
+          "entries",
+          "total",
+          "limit"
+        ],
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total entries matching the filter."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Page size used."
+          },
+          "next_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "Cursor for the next page; absent or null when exhausted."
+          },
+          "prev_cursor": {
+            "type": "string",
+            "nullable": true,
+            "description": "Cursor for the previous (newer) page; absent or null when at the newest end."
+          }
+        }
+      },
+      "LinkedIdentity": {
+        "type": "object",
+        "required": [
+          "id",
+          "provider",
+          "provider_user_id",
+          "linked_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Linked identity unique identifier"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Identity provider ID"
+          },
+          "provider_user_id": {
+            "type": "string",
+            "description": "User identifier at the provider (truncated for display)"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Cached email address from provider (display only)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Cached display name from provider"
+          },
+          "linked_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this identity was linked"
+          },
+          "last_used_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When this identity was last used to sign in"
+          }
+        }
+      },
+      "IdentityLinkStartResponse": {
+        "type": "object",
+        "required": [
+          "link_state",
+          "authorization_url",
+          "expires_at"
+        ],
+        "properties": {
+          "link_state": {
+            "type": "string",
+            "description": "Opaque state identifier for the link flow"
+          },
+          "authorization_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to redirect the user to for identity provider authorization (prompt=select_account)"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the link state expires (10 minutes from creation)"
+          }
+        }
+      },
+      "PendingIdentityLinkResponse": {
+        "type": "object",
+        "required": [
+          "pending",
+          "account"
+        ],
+        "properties": {
+          "pending": {
+            "type": "object",
+            "required": [
+              "provider",
+              "provider_user_id"
+            ],
+            "properties": {
+              "provider": {
+                "type": "string",
+                "description": "Identity provider of the second identity"
+              },
+              "provider_user_id": {
+                "type": "string",
+                "description": "User identifier at the provider (first 8 chars + ellipsis)"
+              },
+              "email": {
+                "type": "string",
+                "description": "Cached email from the second identity (display only)"
+              },
+              "name": {
+                "type": "string",
+                "description": "Cached display name from the second identity"
+              }
+            }
+          },
+          "account": {
+            "type": "object",
+            "required": [
+              "provider",
+              "email"
+            ],
+            "properties": {
+              "provider": {
+                "type": "string",
+                "description": "Primary identity provider of this TMI account"
+              },
+              "email": {
+                "type": "string",
+                "description": "Email address of this TMI account"
+              }
+            }
+          }
+        }
+      },
+      "MyIdentitiesResponse": {
+        "type": "object",
+        "required": [
+          "primary"
+        ],
+        "properties": {
+          "primary": {
+            "type": "object",
+            "required": [
+              "provider",
+              "email"
+            ],
+            "properties": {
+              "provider": {
+                "type": "string",
+                "description": "Primary identity provider ID"
+              },
+              "email": {
+                "type": "string",
+                "description": "Primary account email address"
+              },
+              "name": {
+                "type": "string",
+                "description": "Primary account display name"
+              }
+            }
+          },
+          "linked": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LinkedIdentity"
+            },
+            "description": "Additional linked identities"
+          }
+        }
       }
     },
     "responses": {
@@ -12904,7 +13272,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "description": "Filter users created after this timestamp (RFC3339)"
+        "description": "Return only records created after this RFC 3339 timestamp."
       },
       "CreatedBeforeQueryParam": {
         "name": "created_before",
@@ -12913,7 +13281,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "description": "Filter users created before this timestamp (RFC3339)"
+        "description": "Return only records created before this RFC 3339 timestamp."
       },
       "LastLoginAfterQueryParam": {
         "name": "last_login_after",
@@ -13161,26 +13529,6 @@
           "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
         }
       },
-      "AuditAfter": {
-        "name": "after",
-        "in": "query",
-        "required": false,
-        "description": "Filter entries after this timestamp (ISO 8601)",
-        "schema": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "AuditBefore": {
-        "name": "before",
-        "in": "query",
-        "required": false,
-        "description": "Filter entries before this timestamp (ISO 8601)",
-        "schema": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
       "MitigatedQueryParam": {
         "name": "mitigated",
         "in": "query",
@@ -13267,6 +13615,106 @@
           "type": "integer",
           "format": "int32",
           "minimum": 1
+        }
+      },
+      "AuditPageLimit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "description": "Maximum number of entries to return per page.",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 50
+        }
+      },
+      "AuditCursor": {
+        "name": "cursor",
+        "in": "query",
+        "required": false,
+        "description": "Opaque pagination cursor from the previous page next_cursor. Omit for the first page.",
+        "schema": {
+          "type": "string",
+          "maxLength": 512
+        }
+      },
+      "AuditActorProvider": {
+        "name": "actor_provider",
+        "in": "query",
+        "required": false,
+        "description": "Filter by the actor identity provider.",
+        "schema": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "AuditHTTPMethod": {
+        "name": "http_method",
+        "in": "query",
+        "required": false,
+        "description": "Filter system audit entries by HTTP method.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ]
+        }
+      },
+      "AuditPathPrefix": {
+        "name": "path_prefix",
+        "in": "query",
+        "required": false,
+        "description": "Filter system audit entries whose request path starts with this prefix (matched literally).",
+        "schema": {
+          "type": "string",
+          "maxLength": 1024
+        }
+      },
+      "AuditFieldPath": {
+        "name": "field_path",
+        "in": "query",
+        "required": false,
+        "description": "Filter system audit entries by exact field path.",
+        "schema": {
+          "type": "string",
+          "maxLength": 1024
+        }
+      },
+      "AuditThreatModelId": {
+        "name": "threat_model_id",
+        "in": "query",
+        "required": false,
+        "description": "Filter audit entries to a single threat model.",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "AuditAround": {
+        "name": "around",
+        "in": "query",
+        "required": false,
+        "description": "Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "AuditExportFormat": {
+        "name": "format",
+        "in": "query",
+        "required": false,
+        "description": "When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "csv",
+            "ndjson"
+          ]
         }
       }
     }
@@ -19919,6 +20367,53 @@
           },
           "429": {
             "$ref": "#/components/responses/TooManyRequests"
+          },
+          "202": {
+            "description": "Document created and queued for asynchronous content extraction. Returned instead of 201 when async extraction is enabled (extraction.async_enabled) and the document URI is extractable. The extraction outcome is delivered later via the document access_status and the document.extraction_completed / document.extraction_failed webhook events.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "document",
+                    "job_id"
+                  ],
+                  "properties": {
+                    "document": {
+                      "$ref": "#/components/schemas/Document"
+                    },
+                    "job_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "Identifier of the queued extraction job, for client correlation. The extraction result is surfaced via the document access_status and the document.extraction_* webhook events; there is no dedicated job-status endpoint."
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
           }
         },
         "x-rate-limit": {
@@ -55930,10 +56425,10 @@
             "$ref": "#/components/parameters/ThreatModelId"
           },
           {
-            "$ref": "#/components/parameters/PaginationLimit"
+            "$ref": "#/components/parameters/AuditPageLimit"
           },
           {
-            "$ref": "#/components/parameters/PaginationOffset"
+            "$ref": "#/components/parameters/AuditCursor"
           },
           {
             "$ref": "#/components/parameters/AuditObjectType"
@@ -55945,10 +56440,10 @@
             "$ref": "#/components/parameters/AuditActorEmail"
           },
           {
-            "$ref": "#/components/parameters/AuditAfter"
+            "$ref": "#/components/parameters/CreatedAfterQueryParam"
           },
           {
-            "$ref": "#/components/parameters/AuditBefore"
+            "$ref": "#/components/parameters/CreatedBeforeQueryParam"
           }
         ],
         "responses": {
@@ -55957,7 +56452,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListAuditTrailResponse"
+                  "$ref": "#/components/schemas/ListThreatModelAuditTrailResponse"
                 }
               }
             },
@@ -65820,41 +66315,60 @@
         ],
         "responses": {
           "200": {
-            "description": "Weak-provider short-circuit: tokens rotated in-place. Set-Cookie headers carry new HttpOnly access and refresh tokens. Returned only when the JWT-bound provider is classified as 'weak' (e.g., github).",
+            "description": "JSON outcome of the step-up call. Two shapes, distinguished by the 'result' field:\n- 'step_up_weak_complete' — weak-provider short-circuit: tokens rotated in-place; Set-Cookie headers carry new HttpOnly access and refresh tokens. Returned only when the JWT-bound provider is classified as 'weak' (e.g., github).\n- 'step_up_redirect' — strong-provider path negotiated to JSON: returned in place of the 302 when the caller sends 'Accept: application/json' (XHR/fetch). 'redirect_url' carries the upstream IdP authorize URL the client must top-level navigate to; server-side state and PKCE are already stored, so the redirect proceeds exactly as the 302 path. A bare '*/*' Accept does not trigger this — browser top-level navigations still receive the 302.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
-                    "result",
-                    "provider",
-                    "auth_time",
-                    "message"
+                    "result"
                   ],
                   "properties": {
                     "result": {
                       "type": "string",
                       "enum": [
-                        "step_up_weak_complete"
+                        "step_up_weak_complete",
+                        "step_up_redirect"
                       ]
                     },
+                    "redirect_url": {
+                      "type": "string",
+                      "format": "uri",
+                      "maxLength": 2000,
+                      "description": "Upstream IdP authorization URL (with fresh-prompt parameters appended) the client must top-level navigate to. Present only when result='step_up_redirect'."
+                    },
                     "provider": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Present only when result='step_up_weak_complete'."
                     },
                     "auth_time": {
                       "type": "integer",
-                      "format": "int64"
+                      "format": "int64",
+                      "description": "Present only when result='step_up_weak_complete'."
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Present only when result='step_up_weak_complete'."
                     }
                   }
                 },
-                "example": {
-                  "result": "step_up_weak_complete",
-                  "provider": "github",
-                  "auth_time": 1715357321,
-                  "message": "Provider does not support guaranteed fresh re-auth; tokens rotated and step-up window reset. Audit log records this as a weak step-up."
+                "examples": {
+                  "step_up_weak_complete": {
+                    "summary": "Weak provider — tokens rotated in-place",
+                    "value": {
+                      "result": "step_up_weak_complete",
+                      "provider": "github",
+                      "auth_time": 1715357321,
+                      "message": "Provider does not support guaranteed fresh re-auth; tokens rotated and step-up window reset. Audit log records this as a weak step-up."
+                    }
+                  },
+                  "step_up_redirect": {
+                    "summary": "Strong provider negotiated to JSON (Accept: application/json)",
+                    "value": {
+                      "result": "step_up_redirect",
+                      "redirect_url": "https://accounts.google.com/o/oauth2/v2/auth?client_id=...&response_type=code&prompt=login&max_age=0&state=..."
+                    }
+                  }
                 }
               }
             },
@@ -65883,7 +66397,7 @@
             }
           },
           "302": {
-            "description": "Strong-provider path: redirect to upstream IdP with prompt=login&max_age=0 (OAuth/OIDC) or ForceAuthn=true (SAML).",
+            "description": "Strong-provider path (default): redirect to upstream IdP with prompt=login&max_age=0 (OAuth/OIDC) or ForceAuthn=true (SAML). Returned unless the caller sends 'Accept: application/json', in which case the same upstream URL is delivered as a 200 'step_up_redirect' JSON envelope instead.",
             "headers": {
               "Location": {
                 "description": "Upstream IdP authorization URL with fresh-prompt parameters appended.",
@@ -66100,6 +66614,2264 @@
         "x-tmi-authz": {
           "ownership": "none",
           "public": true
+        }
+      }
+    },
+    "/admin/audit/system": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "List system audit entries",
+        "description": "Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).",
+        "operationId": "listSystemAuditEntries",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AuditActorEmail"
+          },
+          {
+            "$ref": "#/components/parameters/AuditActorProvider"
+          },
+          {
+            "$ref": "#/components/parameters/CreatedAfterQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/CreatedBeforeQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/AuditHTTPMethod"
+          },
+          {
+            "$ref": "#/components/parameters/AuditPathPrefix"
+          },
+          {
+            "$ref": "#/components/parameters/AuditFieldPath"
+          },
+          {
+            "$ref": "#/components/parameters/AuditPageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/AuditCursor"
+          },
+          {
+            "$ref": "#/components/parameters/AuditAround"
+          },
+          {
+            "$ref": "#/components/parameters/AuditExportFormat"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated system audit entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSystemAuditEntriesResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/x-ndjson": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              },
+              "Content-Disposition": {
+                "description": "Set to attachment with a filename when format=csv|ndjson.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions to access this resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "rate_limit_exceeded"
+                    },
+                    "retry_after": {
+                      "type": "integer",
+                      "description": "Seconds until rate limit resets",
+                      "example": 60
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - the around entry id does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          }
+        },
+        "x-admin-only": true,
+        "x-tmi-authz": {
+          "ownership": "none",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    },
+    "/admin/audit/system/{entry_id}": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Get a system audit entry",
+        "description": "Returns a single system-level audit entry by ID. Admin role required.",
+        "operationId": "getSystemAuditEntry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "entry_id",
+            "in": "path",
+            "required": true,
+            "description": "The system audit entry ID.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "System audit entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemAuditEntry"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions to access this resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "System audit entry not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "rate_limit_exceeded"
+                    },
+                    "retry_after": {
+                      "type": "integer",
+                      "description": "Seconds until rate limit resets",
+                      "example": 60
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-admin-only": true,
+        "x-tmi-authz": {
+          "ownership": "none",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    },
+    "/admin/audit/threat_models": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "List threat-model audit entries across all threat models",
+        "description": "Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).",
+        "operationId": "listAdminThreatModelAuditEntries",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AuditActorEmail"
+          },
+          {
+            "$ref": "#/components/parameters/AuditActorProvider"
+          },
+          {
+            "$ref": "#/components/parameters/CreatedAfterQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/CreatedBeforeQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/AuditChangeType"
+          },
+          {
+            "$ref": "#/components/parameters/AuditObjectType"
+          },
+          {
+            "$ref": "#/components/parameters/AuditThreatModelId"
+          },
+          {
+            "$ref": "#/components/parameters/AuditPageLimit"
+          },
+          {
+            "$ref": "#/components/parameters/AuditCursor"
+          },
+          {
+            "$ref": "#/components/parameters/AuditAround"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated audit entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAdminAuditEntriesResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions to access this resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "rate_limit_exceeded"
+                    },
+                    "retry_after": {
+                      "type": "integer",
+                      "description": "Seconds until rate limit resets",
+                      "example": 60
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - the around entry id does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          }
+        },
+        "x-admin-only": true,
+        "x-tmi-authz": {
+          "ownership": "none",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    },
+    "/admin/audit/threat_models/{entry_id}": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Get a threat-model audit entry by id (admin)",
+        "description": "Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.",
+        "operationId": "getAdminThreatModelAuditEntry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "entry_id",
+            "in": "path",
+            "required": true,
+            "description": "The audit entry ID.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Audit entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditEntry"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1735689600
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters, malformed UUIDs, or validation failures",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions to access this resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Audit entry not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "rate_limit_exceeded"
+                    },
+                    "retry_after": {
+                      "type": "integer",
+                      "description": "Seconds until rate limit resets",
+                      "example": 60
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-admin-only": true,
+        "x-tmi-authz": {
+          "ownership": "none",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    },
+    "/me/identities/link/start": {
+      "post": {
+        "summary": "Start an identity link flow",
+        "description": "Initiates the OAuth flow to link an additional identity provider to the current user account. Returns a link state token and authorization URL. The user must be redirected to the authorization URL to complete provider authentication.",
+        "operationId": "startIdentityLink",
+        "tags": [
+          "User Account"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-tmi-authz": {
+          "ownership": "none"
+        },
+        "x-tmi-authz-step-up": "required",
+        "parameters": [
+          {
+            "name": "idp",
+            "in": "query",
+            "required": true,
+            "description": "The identity provider ID to link",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "client_callback",
+            "in": "query",
+            "required": true,
+            "description": "The URL to redirect to after the provider returns. Must be in the allowlist.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identity link flow started successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityLinkStartResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - service accounts cannot link identities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Identity provider not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "rate_limit_exceeded"
+                    },
+                    "retry_after": {
+                      "type": "integer",
+                      "description": "Seconds until rate limit resets",
+                      "example": 60
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/me/identities/link/confirm": {
+      "post": {
+        "summary": "Confirm and complete an identity link",
+        "description": "Consumes a pending identity link token and permanently links the second identity to the current user account. The token is one-time-use and expires after 5 minutes. Returns the newly created linked identity.",
+        "operationId": "confirmIdentityLink",
+        "tags": [
+          "User Account"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-tmi-authz": {
+          "ownership": "none"
+        },
+        "x-tmi-authz-step-up": "required",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "token"
+                ],
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "description": "Pending identity link token from the callback redirect"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Identity linked successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkedIdentity"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or token format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - service accounts cannot link identities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pending identity link token not found or expired",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict - the identity is already bound to a TMI account (error_code: identity_already_bound)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/me/identities": {
+      "get": {
+        "summary": "List current user identities",
+        "description": "Returns the primary identity and all linked identities for the authenticated user.",
+        "operationId": "listMyIdentities",
+        "tags": [
+          "User Account"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-tmi-authz": {
+          "ownership": "none"
+        },
+        "responses": {
+          "200": {
+            "description": "User identities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyIdentitiesResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "403": {
+            "description": "Forbidden - service accounts cannot list identities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/identities/{id}": {
+      "delete": {
+        "summary": "Unlink a linked identity",
+        "description": "Removes a linked identity from the current user account. The primary identity cannot be removed. Service accounts are not permitted.",
+        "operationId": "deleteMyIdentity",
+        "tags": [
+          "User Account"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-tmi-authz": {
+          "ownership": "none"
+        },
+        "x-tmi-authz-step-up": "required",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Linked identity UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Identity unlinked successfully",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - service accounts cannot unlink identities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Linked identity not found or not owned by current user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/me/identities/link/pending/{link_id}": {
+      "get": {
+        "summary": "Get pending identity link details",
+        "description": "Returns the details of a pending identity link, including both sides of the link for user confirmation. The token must belong to the authenticated user.",
+        "operationId": "getPendingIdentityLink",
+        "tags": [
+          "User Account"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-tmi-authz": {
+          "ownership": "none"
+        },
+        "parameters": [
+          {
+            "name": "link_id",
+            "in": "path",
+            "required": true,
+            "description": "Pending identity link identifier returned by the OAuth callback",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pending identity link details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PendingIdentityLinkResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - missing or invalid JWT token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pending identity link not found or does not belong to authenticated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 1000
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining in the current time window",
+                "schema": {
+                  "type": "integer",
+                  "example": 999
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Unix epoch seconds when the rate limit window resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 1640995200
+                }
+              },
+              "Retry-After": {
+                "description": "Seconds until rate limit resets",
+                "schema": {
+                  "type": "integer",
+                  "example": 60
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "retry_after": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
         }
       }
     }

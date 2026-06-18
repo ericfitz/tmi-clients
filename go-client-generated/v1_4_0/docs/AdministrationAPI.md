@@ -14,14 +14,18 @@ Method | HTTP request | Description
 [**DeleteWebhookQuota**](AdministrationAPI.md#DeleteWebhookQuota) | **Delete** /admin/quotas/webhooks/{user_id} | Delete webhook quota
 [**GetAddonInvocationQuota**](AdministrationAPI.md#GetAddonInvocationQuota) | **Get** /admin/quotas/addons/{user_id} | Get addon invocation quota
 [**GetAdminGroup**](AdministrationAPI.md#GetAdminGroup) | **Get** /admin/groups/{internal_uuid} | Get group details
+[**GetAdminThreatModelAuditEntry**](AdministrationAPI.md#GetAdminThreatModelAuditEntry) | **Get** /admin/audit/threat_models/{entry_id} | Get a threat-model audit entry by id (admin)
 [**GetAdminUser**](AdministrationAPI.md#GetAdminUser) | **Get** /admin/users/{internal_uuid} | Get user details
+[**GetSystemAuditEntry**](AdministrationAPI.md#GetSystemAuditEntry) | **Get** /admin/audit/system/{entry_id} | Get a system audit entry
 [**GetSystemSetting**](AdministrationAPI.md#GetSystemSetting) | **Get** /admin/settings/{key} | Get system setting
 [**GetUserAPIQuota**](AdministrationAPI.md#GetUserAPIQuota) | **Get** /admin/quotas/users/{user_id} | Get user API quota
 [**GetWebhookQuota**](AdministrationAPI.md#GetWebhookQuota) | **Get** /admin/quotas/webhooks/{user_id} | Get webhook quota
 [**ListAddonInvocationQuotas**](AdministrationAPI.md#ListAddonInvocationQuotas) | **Get** /admin/quotas/addons | List all addon invocation quotas
 [**ListAdminGroups**](AdministrationAPI.md#ListAdminGroups) | **Get** /admin/groups | List groups
+[**ListAdminThreatModelAuditEntries**](AdministrationAPI.md#ListAdminThreatModelAuditEntries) | **Get** /admin/audit/threat_models | List threat-model audit entries across all threat models
 [**ListAdminUsers**](AdministrationAPI.md#ListAdminUsers) | **Get** /admin/users | List users
 [**ListGroupMembers**](AdministrationAPI.md#ListGroupMembers) | **Get** /admin/groups/{internal_uuid}/members | List group members
+[**ListSystemAuditEntries**](AdministrationAPI.md#ListSystemAuditEntries) | **Get** /admin/audit/system | List system audit entries
 [**ListSystemSettings**](AdministrationAPI.md#ListSystemSettings) | **Get** /admin/settings | List system settings
 [**ListUserAPIQuotas**](AdministrationAPI.md#ListUserAPIQuotas) | **Get** /admin/quotas/users | List all user API quotas
 [**ListWebhookQuotas**](AdministrationAPI.md#ListWebhookQuotas) | **Get** /admin/quotas/webhooks | List all webhook quotas
@@ -723,6 +727,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetAdminThreatModelAuditEntry
+
+> AuditEntry GetAdminThreatModelAuditEntry(ctx, entryId).Execute()
+
+Get a threat-model audit entry by id (admin)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	entryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The audit entry ID.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdministrationAPI.GetAdminThreatModelAuditEntry(context.Background(), entryId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdministrationAPI.GetAdminThreatModelAuditEntry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAdminThreatModelAuditEntry`: AuditEntry
+	fmt.Fprintf(os.Stdout, "Response from `AdministrationAPI.GetAdminThreatModelAuditEntry`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**entryId** | **string** | The audit entry ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAdminThreatModelAuditEntryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**AuditEntry**](AuditEntry.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetAdminUser
 
 > AdminUser GetAdminUser(ctx, internalUuid).Execute()
@@ -778,6 +852,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AdminUser**](AdminUser.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSystemAuditEntry
+
+> SystemAuditEntry GetSystemAuditEntry(ctx, entryId).Execute()
+
+Get a system audit entry
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	entryId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The system audit entry ID.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdministrationAPI.GetSystemAuditEntry(context.Background(), entryId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdministrationAPI.GetSystemAuditEntry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSystemAuditEntry`: SystemAuditEntry
+	fmt.Fprintf(os.Stdout, "Response from `AdministrationAPI.GetSystemAuditEntry`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**entryId** | **string** | The system audit entry ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemAuditEntryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SystemAuditEntry**](SystemAuditEntry.md)
 
 ### Authorization
 
@@ -1149,6 +1293,91 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListAdminThreatModelAuditEntries
+
+> ListAdminAuditEntriesResponse ListAdminThreatModelAuditEntries(ctx).ActorEmail(actorEmail).ActorProvider(actorProvider).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ChangeType(changeType).ObjectType(objectType).ThreatModelId(threatModelId).Limit(limit).Cursor(cursor).Around(around).Execute()
+
+List threat-model audit entries across all threat models
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	actorEmail := "actorEmail_example" // string | Filter by actor email (optional)
+	actorProvider := "actorProvider_example" // string | Filter by the actor identity provider. (optional)
+	createdAfter := time.Now() // time.Time | Return only records created after this RFC 3339 timestamp. (optional)
+	createdBefore := time.Now() // time.Time | Return only records created before this RFC 3339 timestamp. (optional)
+	changeType := "changeType_example" // string | Filter by change type (optional)
+	objectType := "objectType_example" // string | Filter by object type (optional)
+	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Filter audit entries to a single threat model. (optional)
+	limit := int32(56) // int32 | Maximum number of entries to return per page. (optional) (default to 50)
+	cursor := "cursor_example" // string | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. (optional)
+	around := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdministrationAPI.ListAdminThreatModelAuditEntries(context.Background()).ActorEmail(actorEmail).ActorProvider(actorProvider).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ChangeType(changeType).ObjectType(objectType).ThreatModelId(threatModelId).Limit(limit).Cursor(cursor).Around(around).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdministrationAPI.ListAdminThreatModelAuditEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAdminThreatModelAuditEntries`: ListAdminAuditEntriesResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdministrationAPI.ListAdminThreatModelAuditEntries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAdminThreatModelAuditEntriesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **actorEmail** | **string** | Filter by actor email | 
+ **actorProvider** | **string** | Filter by the actor identity provider. | 
+ **createdAfter** | **time.Time** | Return only records created after this RFC 3339 timestamp. | 
+ **createdBefore** | **time.Time** | Return only records created before this RFC 3339 timestamp. | 
+ **changeType** | **string** | Filter by change type | 
+ **objectType** | **string** | Filter by object type | 
+ **threatModelId** | **string** | Filter audit entries to a single threat model. | 
+ **limit** | **int32** | Maximum number of entries to return per page. | [default to 50]
+ **cursor** | **string** | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. | 
+ **around** | **string** | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. | 
+
+### Return type
+
+[**ListAdminAuditEntriesResponse**](ListAdminAuditEntriesResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListAdminUsers
 
 > AdminUserListResponse ListAdminUsers(ctx).Provider(provider).Email(email).Name(name).CreatedAfter(createdAfter).CreatedBefore(createdBefore).LastLoginAfter(lastLoginAfter).LastLoginBefore(lastLoginBefore).Limit(limit).Offset(offset).SortBy(sortBy).SortOrder(sortOrder).Automation(automation).Execute()
@@ -1174,8 +1403,8 @@ func main() {
 	provider := "provider_example" // string | Filter by OAuth/SAML provider (optional)
 	email := "email_example" // string | Filter by email (case-insensitive substring match) (optional)
 	name := "name_example" // string | Filter by name (case-insensitive substring match) (optional)
-	createdAfter := time.Now() // time.Time | Filter users created after this timestamp (RFC3339) (optional)
-	createdBefore := time.Now() // time.Time | Filter users created before this timestamp (RFC3339) (optional)
+	createdAfter := time.Now() // time.Time | Return only records created after this RFC 3339 timestamp. (optional)
+	createdBefore := time.Now() // time.Time | Return only records created before this RFC 3339 timestamp. (optional)
 	lastLoginAfter := time.Now() // time.Time | Filter users who logged in after this timestamp (RFC3339) (optional)
 	lastLoginBefore := time.Now() // time.Time | Filter users who logged in before this timestamp (RFC3339) (optional)
 	limit := int32(56) // int32 | Maximum number of results to return (optional) (default to 50)
@@ -1210,8 +1439,8 @@ Name | Type | Description  | Notes
  **provider** | **string** | Filter by OAuth/SAML provider | 
  **email** | **string** | Filter by email (case-insensitive substring match) | 
  **name** | **string** | Filter by name (case-insensitive substring match) | 
- **createdAfter** | **time.Time** | Filter users created after this timestamp (RFC3339) | 
- **createdBefore** | **time.Time** | Filter users created before this timestamp (RFC3339) | 
+ **createdAfter** | **time.Time** | Return only records created after this RFC 3339 timestamp. | 
+ **createdBefore** | **time.Time** | Return only records created before this RFC 3339 timestamp. | 
  **lastLoginAfter** | **time.Time** | Filter users who logged in after this timestamp (RFC3339) | 
  **lastLoginBefore** | **time.Time** | Filter users who logged in before this timestamp (RFC3339) | 
  **limit** | **int32** | Maximum number of results to return | [default to 50]
@@ -1306,6 +1535,93 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSystemAuditEntries
+
+> ListSystemAuditEntriesResponse ListSystemAuditEntries(ctx).ActorEmail(actorEmail).ActorProvider(actorProvider).CreatedAfter(createdAfter).CreatedBefore(createdBefore).HttpMethod(httpMethod).PathPrefix(pathPrefix).FieldPath(fieldPath).Limit(limit).Cursor(cursor).Around(around).Format(format).Execute()
+
+List system audit entries
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/ericfitz/tmi-clients/go-client-generated"
+)
+
+func main() {
+	actorEmail := "actorEmail_example" // string | Filter by actor email (optional)
+	actorProvider := "actorProvider_example" // string | Filter by the actor identity provider. (optional)
+	createdAfter := time.Now() // time.Time | Return only records created after this RFC 3339 timestamp. (optional)
+	createdBefore := time.Now() // time.Time | Return only records created before this RFC 3339 timestamp. (optional)
+	httpMethod := "httpMethod_example" // string | Filter system audit entries by HTTP method. (optional)
+	pathPrefix := "pathPrefix_example" // string | Filter system audit entries whose request path starts with this prefix (matched literally). (optional)
+	fieldPath := "fieldPath_example" // string | Filter system audit entries by exact field path. (optional)
+	limit := int32(56) // int32 | Maximum number of entries to return per page. (optional) (default to 50)
+	cursor := "cursor_example" // string | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. (optional)
+	around := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. (optional)
+	format := "format_example" // string | When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdministrationAPI.ListSystemAuditEntries(context.Background()).ActorEmail(actorEmail).ActorProvider(actorProvider).CreatedAfter(createdAfter).CreatedBefore(createdBefore).HttpMethod(httpMethod).PathPrefix(pathPrefix).FieldPath(fieldPath).Limit(limit).Cursor(cursor).Around(around).Format(format).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdministrationAPI.ListSystemAuditEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSystemAuditEntries`: ListSystemAuditEntriesResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdministrationAPI.ListSystemAuditEntries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListSystemAuditEntriesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **actorEmail** | **string** | Filter by actor email | 
+ **actorProvider** | **string** | Filter by the actor identity provider. | 
+ **createdAfter** | **time.Time** | Return only records created after this RFC 3339 timestamp. | 
+ **createdBefore** | **time.Time** | Return only records created before this RFC 3339 timestamp. | 
+ **httpMethod** | **string** | Filter system audit entries by HTTP method. | 
+ **pathPrefix** | **string** | Filter system audit entries whose request path starts with this prefix (matched literally). | 
+ **fieldPath** | **string** | Filter system audit entries by exact field path. | 
+ **limit** | **int32** | Maximum number of entries to return per page. | [default to 50]
+ **cursor** | **string** | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. | 
+ **around** | **string** | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. | 
+ **format** | **string** | When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around. | 
+
+### Return type
+
+[**ListSystemAuditEntriesResponse**](ListSystemAuditEntriesResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, text/csv, application/x-ndjson
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

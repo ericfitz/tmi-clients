@@ -29,7 +29,7 @@ class TokenRefreshRequest(BaseModel):
     """
     OAuth 2.0 refresh token request
     """ # noqa: E501
-    refresh_token: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="Valid refresh token")
+    refresh_token: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="Valid refresh token", json_schema_extra={"examples": ["8xLOxBtZp8_example_refresh_token"]})
     __properties: ClassVar[List[str]] = ["refresh_token"]
 
     @field_validator('refresh_token')

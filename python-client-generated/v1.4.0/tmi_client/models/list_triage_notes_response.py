@@ -30,10 +30,10 @@ class ListTriageNotesResponse(BaseModel):
     """
     Paginated list of triage notes
     """ # noqa: E501
-    triage_notes: Annotated[List[TriageNoteListItem], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of triage notes")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    triage_notes: Annotated[List[TriageNoteListItem], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": 1, "name": "Initial Triage Assessment", "created_at": "2026-02-08T14:30:00Z"}]]})
+    total: StrictInt = Field(description="Total number of triage notes", json_schema_extra={"examples": [3]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["triage_notes", "total", "limit", "offset"]
 
     model_config = ConfigDict(

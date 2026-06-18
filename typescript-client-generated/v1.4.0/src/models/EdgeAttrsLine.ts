@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { EdgeAttrsLineSourceMarker } from './EdgeAttrsLineSourceMarker';
-import {
-    EdgeAttrsLineSourceMarkerFromJSON,
-    EdgeAttrsLineSourceMarkerFromJSONTyped,
-    EdgeAttrsLineSourceMarkerToJSON,
-    EdgeAttrsLineSourceMarkerToJSONTyped,
-} from './EdgeAttrsLineSourceMarker';
 import type { EdgeAttrsLineTargetMarker } from './EdgeAttrsLineTargetMarker';
 import {
     EdgeAttrsLineTargetMarkerFromJSON,
@@ -60,10 +53,10 @@ export interface EdgeAttrsLine {
     targetMarker?: EdgeAttrsLineTargetMarker;
     /**
      * 
-     * @type {EdgeAttrsLineSourceMarker}
+     * @type {EdgeAttrsLineTargetMarker}
      * @memberof EdgeAttrsLine
      */
-    sourceMarker?: EdgeAttrsLineSourceMarker;
+    sourceMarker?: EdgeAttrsLineTargetMarker;
 }
 
 /**
@@ -87,7 +80,7 @@ export function EdgeAttrsLineFromJSONTyped(json: any, ignoreDiscriminator: boole
         'strokeWidth': json['strokeWidth'] == null ? undefined : json['strokeWidth'],
         'strokeDasharray': json['strokeDasharray'] == null ? undefined : json['strokeDasharray'],
         'targetMarker': json['targetMarker'] == null ? undefined : EdgeAttrsLineTargetMarkerFromJSON(json['targetMarker']),
-        'sourceMarker': json['sourceMarker'] == null ? undefined : EdgeAttrsLineSourceMarkerFromJSON(json['sourceMarker']),
+        'sourceMarker': json['sourceMarker'] == null ? undefined : EdgeAttrsLineTargetMarkerFromJSON(json['sourceMarker']),
     };
 }
 
@@ -106,7 +99,7 @@ export function EdgeAttrsLineToJSONTyped(value?: EdgeAttrsLine | null, ignoreDis
         'strokeWidth': value['strokeWidth'],
         'strokeDasharray': value['strokeDasharray'],
         'targetMarker': EdgeAttrsLineTargetMarkerToJSON(value['targetMarker']),
-        'sourceMarker': EdgeAttrsLineSourceMarkerToJSON(value['sourceMarker']),
+        'sourceMarker': EdgeAttrsLineTargetMarkerToJSON(value['sourceMarker']),
     };
 }
 

@@ -29,10 +29,10 @@ class GetJWKS200ResponseKeysInner(BaseModel):
     """
     GetJWKS200ResponseKeysInner
     """ # noqa: E501
-    kty: Annotated[str, Field(strict=True, max_length=1000)]
-    use: Annotated[str, Field(strict=True, max_length=1000)]
-    alg: Annotated[str, Field(strict=True, max_length=1000)]
-    kid: Annotated[str, Field(strict=True, max_length=1000)]
+    kty: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["oct"]})
+    use: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["sig"]})
+    alg: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["HS256"]})
+    kid: Annotated[str, Field(strict=True, max_length=1000)] = Field(json_schema_extra={"examples": ["tmi-signing-key"]})
     __properties: ClassVar[List[str]] = ["kty", "use", "alg", "kid"]
 
     model_config = ConfigDict(

@@ -42,7 +42,7 @@ class TestDiagramListItem(unittest.TestCase):
                 description = 'lZCuMd%B;a5)#hGd-dx%p\\',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 modified_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                image = tmi_client.models.diagram_list_item_image.DiagramListItem_image(
+                image = tmi_client.models.base_diagram_image.BaseDiagram_image(
                     svg = 'YQ==', 
                     update_vector = 0, ),
                 include_in_report = True,

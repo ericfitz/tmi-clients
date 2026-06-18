@@ -47,7 +47,7 @@ type SurveyResponse struct {
 	RevisionNotes NullableString `json:"revision_notes,omitempty"`
 	// ID of threat model created from this response
 	CreatedThreatModelId NullableString `json:"created_threat_model_id,omitempty"`
-	// User who created the response
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	Owner map[string]interface{} `json:"owner,omitempty"`
 	// Creation timestamp (RFC3339)
 	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
@@ -57,13 +57,13 @@ type SurveyResponse struct {
 	SubmittedAt NullableTime `json:"submitted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// When the response was last reviewed
 	ReviewedAt NullableTime `json:"reviewed_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// Security engineer who last reviewed the response
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	ReviewedBy map[string]interface{} `json:"reviewed_by,omitempty"`
 	// Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version.
 	SurveyJson map[string]interface{} `json:"survey_json,omitempty"`
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
-	// User who created the response
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	CreatedBy map[string]interface{} `json:"created_by,omitempty"`
 	// Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body 'version' field on the next mutation. A mismatch returns 409 Conflict. See issue #385.
 	Version *int32 `json:"version,omitempty"`

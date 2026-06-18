@@ -23,9 +23,14 @@ var _ MappedNullable = &StepUpAuthenticate200Response{}
 // StepUpAuthenticate200Response struct for StepUpAuthenticate200Response
 type StepUpAuthenticate200Response struct {
 	Result string `json:"result"`
-	Provider string `json:"provider"`
-	AuthTime int64 `json:"auth_time"`
-	Message string `json:"message"`
+	// Upstream IdP authorization URL (with fresh-prompt parameters appended) the client must top-level navigate to. Present only when result='step_up_redirect'.
+	RedirectUrl *string `json:"redirect_url,omitempty"`
+	// Present only when result='step_up_weak_complete'.
+	Provider *string `json:"provider,omitempty"`
+	// Present only when result='step_up_weak_complete'.
+	AuthTime *int64 `json:"auth_time,omitempty"`
+	// Present only when result='step_up_weak_complete'.
+	Message *string `json:"message,omitempty"`
 }
 
 type _StepUpAuthenticate200Response StepUpAuthenticate200Response
@@ -34,12 +39,9 @@ type _StepUpAuthenticate200Response StepUpAuthenticate200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStepUpAuthenticate200Response(result string, provider string, authTime int64, message string) *StepUpAuthenticate200Response {
+func NewStepUpAuthenticate200Response(result string) *StepUpAuthenticate200Response {
 	this := StepUpAuthenticate200Response{}
 	this.Result = result
-	this.Provider = provider
-	this.AuthTime = authTime
-	this.Message = message
 	return &this
 }
 
@@ -75,76 +77,132 @@ func (o *StepUpAuthenticate200Response) SetResult(v string) {
 	o.Result = v
 }
 
-// GetProvider returns the Provider field value
-func (o *StepUpAuthenticate200Response) GetProvider() string {
-	if o == nil {
+// GetRedirectUrl returns the RedirectUrl field value if set, zero value otherwise.
+func (o *StepUpAuthenticate200Response) GetRedirectUrl() string {
+	if o == nil || IsNil(o.RedirectUrl) {
 		var ret string
 		return ret
 	}
-
-	return o.Provider
+	return *o.RedirectUrl
 }
 
-// GetProviderOk returns a tuple with the Provider field value
+// GetRedirectUrlOk returns a tuple with the RedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StepUpAuthenticate200Response) GetProviderOk() (*string, bool) {
-	if o == nil {
+func (o *StepUpAuthenticate200Response) GetRedirectUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.RedirectUrl) {
 		return nil, false
 	}
-	return &o.Provider, true
+	return o.RedirectUrl, true
 }
 
-// SetProvider sets field value
+// HasRedirectUrl returns a boolean if a field has been set.
+func (o *StepUpAuthenticate200Response) HasRedirectUrl() bool {
+	if o != nil && !IsNil(o.RedirectUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUrl gets a reference to the given string and assigns it to the RedirectUrl field.
+func (o *StepUpAuthenticate200Response) SetRedirectUrl(v string) {
+	o.RedirectUrl = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *StepUpAuthenticate200Response) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StepUpAuthenticate200Response) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *StepUpAuthenticate200Response) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
 func (o *StepUpAuthenticate200Response) SetProvider(v string) {
-	o.Provider = v
+	o.Provider = &v
 }
 
-// GetAuthTime returns the AuthTime field value
+// GetAuthTime returns the AuthTime field value if set, zero value otherwise.
 func (o *StepUpAuthenticate200Response) GetAuthTime() int64 {
-	if o == nil {
+	if o == nil || IsNil(o.AuthTime) {
 		var ret int64
 		return ret
 	}
-
-	return o.AuthTime
+	return *o.AuthTime
 }
 
-// GetAuthTimeOk returns a tuple with the AuthTime field value
+// GetAuthTimeOk returns a tuple with the AuthTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StepUpAuthenticate200Response) GetAuthTimeOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AuthTime) {
 		return nil, false
 	}
-	return &o.AuthTime, true
+	return o.AuthTime, true
 }
 
-// SetAuthTime sets field value
+// HasAuthTime returns a boolean if a field has been set.
+func (o *StepUpAuthenticate200Response) HasAuthTime() bool {
+	if o != nil && !IsNil(o.AuthTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthTime gets a reference to the given int64 and assigns it to the AuthTime field.
 func (o *StepUpAuthenticate200Response) SetAuthTime(v int64) {
-	o.AuthTime = v
+	o.AuthTime = &v
 }
 
-// GetMessage returns the Message field value
+// GetMessage returns the Message field value if set, zero value otherwise.
 func (o *StepUpAuthenticate200Response) GetMessage() string {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
+	return *o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StepUpAuthenticate200Response) GetMessageOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return &o.Message, true
+	return o.Message, true
 }
 
-// SetMessage sets field value
+// HasMessage returns a boolean if a field has been set.
+func (o *StepUpAuthenticate200Response) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *StepUpAuthenticate200Response) SetMessage(v string) {
-	o.Message = v
+	o.Message = &v
 }
 
 func (o StepUpAuthenticate200Response) MarshalJSON() ([]byte, error) {
@@ -158,9 +216,18 @@ func (o StepUpAuthenticate200Response) MarshalJSON() ([]byte, error) {
 func (o StepUpAuthenticate200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["result"] = o.Result
-	toSerialize["provider"] = o.Provider
-	toSerialize["auth_time"] = o.AuthTime
-	toSerialize["message"] = o.Message
+	if !IsNil(o.RedirectUrl) {
+		toSerialize["redirect_url"] = o.RedirectUrl
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.AuthTime) {
+		toSerialize["auth_time"] = o.AuthTime
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
 	return toSerialize, nil
 }
 
@@ -170,9 +237,6 @@ func (o *StepUpAuthenticate200Response) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"result",
-		"provider",
-		"auth_time",
-		"message",
 	}
 
 	allProperties := make(map[string]interface{})

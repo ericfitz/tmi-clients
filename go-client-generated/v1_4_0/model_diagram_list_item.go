@@ -35,7 +35,7 @@ type DiagramListItem struct {
 	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (ISO3339)
 	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	Image NullableDiagramListItemImage `json:"image,omitempty"`
+	Image NullableBaseDiagramImage `json:"image,omitempty"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
@@ -241,9 +241,9 @@ func (o *DiagramListItem) SetModifiedAt(v time.Time) {
 }
 
 // GetImage returns the Image field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DiagramListItem) GetImage() DiagramListItemImage {
+func (o *DiagramListItem) GetImage() BaseDiagramImage {
 	if o == nil || IsNil(o.Image.Get()) {
-		var ret DiagramListItemImage
+		var ret BaseDiagramImage
 		return ret
 	}
 	return *o.Image.Get()
@@ -252,7 +252,7 @@ func (o *DiagramListItem) GetImage() DiagramListItemImage {
 // GetImageOk returns a tuple with the Image field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DiagramListItem) GetImageOk() (*DiagramListItemImage, bool) {
+func (o *DiagramListItem) GetImageOk() (*BaseDiagramImage, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -268,8 +268,8 @@ func (o *DiagramListItem) HasImage() bool {
 	return false
 }
 
-// SetImage gets a reference to the given NullableDiagramListItemImage and assigns it to the Image field.
-func (o *DiagramListItem) SetImage(v DiagramListItemImage) {
+// SetImage gets a reference to the given NullableBaseDiagramImage and assigns it to the Image field.
+func (o *DiagramListItem) SetImage(v BaseDiagramImage) {
 	o.Image.Set(&v)
 }
 // SetImageNil sets the value for Image to be an explicit nil

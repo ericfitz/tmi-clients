@@ -37,6 +37,7 @@ class TestStepUpAuthenticate200Response(unittest.TestCase):
         if include_optional:
             return StepUpAuthenticate200Response(
                 result = 'step_up_weak_complete',
+                redirect_url = '',
                 provider = '',
                 auth_time = 56,
                 message = ''
@@ -44,9 +45,6 @@ class TestStepUpAuthenticate200Response(unittest.TestCase):
         else:
             return StepUpAuthenticate200Response(
                 result = 'step_up_weak_complete',
-                provider = '',
-                auth_time = 56,
-                message = '',
         )
         """
 

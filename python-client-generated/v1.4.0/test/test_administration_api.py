@@ -97,10 +97,24 @@ class TestAdministrationApi(unittest.TestCase):
         """
         pass
 
+    def test_get_admin_threat_model_audit_entry(self) -> None:
+        """Test case for get_admin_threat_model_audit_entry
+
+        Get a threat-model audit entry by id (admin)
+        """
+        pass
+
     def test_get_admin_user(self) -> None:
         """Test case for get_admin_user
 
         Get user details
+        """
+        pass
+
+    def test_get_system_audit_entry(self) -> None:
+        """Test case for get_system_audit_entry
+
+        Get a system audit entry
         """
         pass
 
@@ -139,6 +153,13 @@ class TestAdministrationApi(unittest.TestCase):
         """
         pass
 
+    def test_list_admin_threat_model_audit_entries(self) -> None:
+        """Test case for list_admin_threat_model_audit_entries
+
+        List threat-model audit entries across all threat models
+        """
+        pass
+
     def test_list_admin_users(self) -> None:
         """Test case for list_admin_users
 
@@ -150,6 +171,13 @@ class TestAdministrationApi(unittest.TestCase):
         """Test case for list_group_members
 
         List group members
+        """
+        pass
+
+    def test_list_system_audit_entries(self) -> None:
+        """Test case for list_system_audit_entries
+
+        List system audit entries
         """
         pass
 

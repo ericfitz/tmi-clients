@@ -29,9 +29,9 @@ class UpdateWebhookDeliveryStatusRequest(BaseModel):
     """
     Request to update the status of a webhook delivery
     """ # noqa: E501
-    status: StrictStr = Field(description="New delivery status")
-    status_percent: Optional[Annotated[int, Field(le=100, strict=True, ge=0)]] = Field(default=None, description="Progress percentage (0-100)")
-    status_message: Optional[Annotated[str, Field(strict=True, max_length=1024)]] = Field(default=None, description="Human-readable status description")
+    status: StrictStr = Field(description="New delivery status", json_schema_extra={"examples": ["in_progress"]})
+    status_percent: Optional[Annotated[int, Field(le=100, strict=True, ge=0)]] = Field(default=None, description="Progress percentage (0-100)", json_schema_extra={"examples": [50]})
+    status_message: Optional[Annotated[str, Field(strict=True, max_length=1024)]] = Field(default=None, description="Human-readable status description", json_schema_extra={"examples": ["Processing document chunks"]})
     __properties: ClassVar[List[str]] = ["status", "status_percent", "status_message"]
 
     @field_validator('status')

@@ -30,7 +30,7 @@ class GetAuthProviders200Response(BaseModel):
     """
     GetAuthProviders200Response
     """ # noqa: E501
-    providers: Annotated[List[GetAuthProviders200ResponseProvidersInner], Field(max_length=1000)]
+    providers: Annotated[List[GetAuthProviders200ResponseProvidersInner], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "tmi", "name": "TMI Development", "icon": "shield", "auth_url": "http://localhost:8080/oauth2/authorize?idp=tmi", "token_url": "http://localhost:8080/oauth2/token", "redirect_uri": "http://localhost:8079/callback", "client_id": "tmi-client"}]]})
     __properties: ClassVar[List[str]] = ["providers"]
 
     model_config = ConfigDict(

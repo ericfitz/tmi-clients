@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Ry** | Pointer to **float32** | Corner radius along the y-axis (set as default by X6 shape registrations) | [optional] 
 **Lateral** | Pointer to **float32** | Cylinder lateral parameter for the X6 &#39;store&#39; shape (drives the body &#39;d&#39; path computation) | [optional] 
 **RefWidth** | Pointer to [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
-**RefHeight** | Pointer to [**NodeAttrsBodyRefHeight**](NodeAttrsBodyRefHeight.md) |  | [optional] 
+**RefHeight** | Pointer to [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
 **FillOpacity** | Pointer to **float32** | Body fill opacity (0-1); typically transient drag-to-embed visual feedback | [optional] 
 
 ## Methods
@@ -246,20 +246,20 @@ HasRefWidth returns a boolean if a field has been set.
 
 ### GetRefHeight
 
-`func (o *NodeAttrsBody) GetRefHeight() NodeAttrsBodyRefHeight`
+`func (o *NodeAttrsBody) GetRefHeight() NodeAttrsBodyRefWidth`
 
 GetRefHeight returns the RefHeight field if non-nil, zero value otherwise.
 
 ### GetRefHeightOk
 
-`func (o *NodeAttrsBody) GetRefHeightOk() (*NodeAttrsBodyRefHeight, bool)`
+`func (o *NodeAttrsBody) GetRefHeightOk() (*NodeAttrsBodyRefWidth, bool)`
 
 GetRefHeightOk returns a tuple with the RefHeight field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefHeight
 
-`func (o *NodeAttrsBody) SetRefHeight(v NodeAttrsBodyRefHeight)`
+`func (o *NodeAttrsBody) SetRefHeight(v NodeAttrsBodyRefWidth)`
 
 SetRefHeight sets RefHeight field to given value.
 

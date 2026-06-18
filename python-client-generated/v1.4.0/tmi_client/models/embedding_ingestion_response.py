@@ -28,7 +28,7 @@ class EmbeddingIngestionResponse(BaseModel):
     """
     Response returned after a successful embedding ingestion operation, reporting the number of embeddings stored.
     """ # noqa: E501
-    ingested: StrictInt = Field(description="Number of embeddings ingested")
+    ingested: StrictInt = Field(description="Number of embeddings ingested", json_schema_extra={"examples": [42]})
     __properties: ClassVar[List[str]] = ["ingested"]
 
     model_config = ConfigDict(

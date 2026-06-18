@@ -28,10 +28,10 @@ class EmbeddingProviderConfig(BaseModel):
     """
     Configuration for an embedding provider, specifying the provider name, model, and optional API key or custom base URL.
     """ # noqa: E501
-    provider: StrictStr = Field(description="Embedding provider name")
-    model: StrictStr = Field(description="Embedding model name")
+    provider: StrictStr = Field(description="Embedding provider name", json_schema_extra={"examples": ["openai"]})
+    model: StrictStr = Field(description="Embedding model name", json_schema_extra={"examples": ["text-embedding-3-small"]})
     api_key: Optional[StrictStr] = Field(default=None, description="Embedding provider API key")
-    base_url: Optional[StrictStr] = Field(default=None, description="Custom base URL for self-hosted endpoints")
+    base_url: Optional[StrictStr] = Field(default=None, description="Custom base URL for self-hosted endpoints", json_schema_extra={"examples": [""]})
     __properties: ClassVar[List[str]] = ["provider", "model", "api_key", "base_url"]
 
     model_config = ConfigDict(

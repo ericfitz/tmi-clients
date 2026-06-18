@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `result` | string
+`redirect_url` | string
 `provider` | string
 `auth_time` | number
 `message` | string
@@ -19,6 +20,7 @@ import type { StepUpAuthenticate200Response } from '@tmiclient/client'
 // TODO: Update the object below with actual values
 const example = {
   "result": null,
+  "redirect_url": null,
   "provider": null,
   "auth_time": null,
   "message": null,

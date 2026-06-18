@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **description** | **str** | Optional description of the diagram | [optional] 
 **created_at** | **datetime** | Creation timestamp (ISO3339) | [readonly] 
 **modified_at** | **datetime** | Last modification timestamp (ISO3339) | [readonly] 
-**image** | [**DiagramListItemImage**](DiagramListItemImage.md) |  | [optional] 
+**image** | [**BaseDiagramImage**](BaseDiagramImage.md) |  | [optional] 
 **include_in_report** | **bool** | Whether this item should be included in generated reports | [optional] [default to True]
 **timmy_enabled** | **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to True]
 **deleted_at** | **datetime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
