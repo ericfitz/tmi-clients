@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +28,8 @@ class RequestDocumentAccess200Response(BaseModel):
     """
     RequestDocumentAccess200Response
     """ # noqa: E501
-    status: Optional[StrictStr] = None
-    message: Optional[StrictStr] = None
+    status: Optional[StrictStr] = Field(default=None, json_schema_extra={"examples": ["sent"]})
+    message: Optional[StrictStr] = Field(default=None, json_schema_extra={"examples": ["Access request sent to document owner"]})
     __properties: ClassVar[List[str]] = ["status", "message"]
 
     model_config = ConfigDict(

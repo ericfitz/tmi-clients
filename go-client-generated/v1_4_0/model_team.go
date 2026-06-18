@@ -41,15 +41,15 @@ type Team struct {
 	Status NullableTeamStatus `json:"status,omitempty"`
 	// Unique identifier for the team (UUID)
 	Id *string `json:"id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
-	// User who created the team
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	CreatedBy map[string]interface{} `json:"created_by,omitempty"`
 	// Creation timestamp (RFC3339)
 	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// User who last modified the team
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	ModifiedBy map[string]interface{} `json:"modified_by,omitempty"`
 	// Last modification timestamp (RFC3339)
 	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// User who last reviewed the team
+	// Optional; when present, client has performed a Picker-based attachment
 	ReviewedBy map[string]interface{} `json:"reviewed_by,omitempty"`
 	// Last review timestamp (RFC3339)
 	ReviewedAt NullableTime `json:"reviewed_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`

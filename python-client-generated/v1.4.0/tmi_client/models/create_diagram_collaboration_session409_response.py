@@ -29,8 +29,8 @@ class CreateDiagramCollaborationSession409Response(BaseModel):
     """
     CreateDiagramCollaborationSession409Response
     """ # noqa: E501
-    error: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Error message indicating session already exists")
-    join_url: Annotated[str, Field(strict=True, max_length=1024)] = Field(description="URL to join the existing collaboration session")
+    error: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Error message indicating session already exists", json_schema_extra={"examples": ["collaboration_session_exists"]})
+    join_url: Annotated[str, Field(strict=True, max_length=1024)] = Field(description="URL to join the existing collaboration session", json_schema_extra={"examples": ["http://localhost:8080/threat_models/{threat_model_id}/diagrams/{diagram_id}/collaborate"]})
     __properties: ClassVar[List[str]] = ["error", "join_url"]
 
     @field_validator('join_url')

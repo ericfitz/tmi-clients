@@ -30,10 +30,10 @@ class ListWebhookQuotasResponse(BaseModel):
     """
     Paginated list of webhook quotas
     """ # noqa: E501
-    quotas: Annotated[List[WebhookQuota], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of quotas matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    quotas: Annotated[List[WebhookQuota], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"owner_id": "550e8400-e29b-41d4-a716-446655440000", "max_subscriptions": 20, "max_events_per_minute": 100, "max_subscription_requests_per_minute": 10, "max_subscription_requests_per_day": 1000, "created_at": "2024-01-01T00:00:00Z", "modified_at": "2024-01-01T00:00:00Z"}]]})
+    total: StrictInt = Field(description="Total number of quotas matching criteria", json_schema_extra={"examples": [15]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["quotas", "total", "limit", "offset"]
 
     model_config = ConfigDict(

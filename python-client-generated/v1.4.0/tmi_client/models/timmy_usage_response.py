@@ -30,8 +30,8 @@ class TimmyUsageResponse(BaseModel):
     """
     Response containing Timmy usage records
     """ # noqa: E501
-    usage: Annotated[List[TimmyUsageRecord], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of usage records")
+    usage: Annotated[List[TimmyUsageRecord], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[]]})
+    total: StrictInt = Field(description="Total number of usage records", json_schema_extra={"examples": [10]})
     __properties: ClassVar[List[str]] = ["usage", "total"]
 
     model_config = ConfigDict(

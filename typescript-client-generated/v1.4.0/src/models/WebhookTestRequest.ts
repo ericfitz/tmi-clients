@@ -41,6 +41,8 @@ export const WebhookTestRequestEventTypeEnum = {
     DocumentCreated: 'document.created',
     DocumentUpdated: 'document.updated',
     DocumentDeleted: 'document.deleted',
+    DocumentExtractionCompleted: 'document.extraction_completed',
+    DocumentExtractionFailed: 'document.extraction_failed',
     NoteCreated: 'note.created',
     NoteUpdated: 'note.updated',
     NoteDeleted: 'note.deleted',
@@ -55,7 +57,8 @@ export const WebhookTestRequestEventTypeEnum = {
     ThreatDeleted: 'threat.deleted',
     MetadataCreated: 'metadata.created',
     MetadataUpdated: 'metadata.updated',
-    MetadataDeleted: 'metadata.deleted'
+    MetadataDeleted: 'metadata.deleted',
+    SystemAuditAdminWrite: 'system_audit.admin_write'
 } as const;
 export type WebhookTestRequestEventTypeEnum = typeof WebhookTestRequestEventTypeEnum[keyof typeof WebhookTestRequestEventTypeEnum];
 

@@ -1402,23 +1402,23 @@ type ApiGetThreatModelAuditTrailRequest struct {
 	ApiService *AuditTrailAPIService
 	threatModelId string
 	limit *int32
-	offset *int32
+	cursor *string
 	objectType *string
 	changeType *string
 	actorEmail *string
-	after *time.Time
-	before *time.Time
+	createdAfter *time.Time
+	createdBefore *time.Time
 }
 
-// Maximum number of results to return
+// Maximum number of entries to return per page.
 func (r ApiGetThreatModelAuditTrailRequest) Limit(limit int32) ApiGetThreatModelAuditTrailRequest {
 	r.limit = &limit
 	return r
 }
 
-// Number of results to skip
-func (r ApiGetThreatModelAuditTrailRequest) Offset(offset int32) ApiGetThreatModelAuditTrailRequest {
-	r.offset = &offset
+// Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+func (r ApiGetThreatModelAuditTrailRequest) Cursor(cursor string) ApiGetThreatModelAuditTrailRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -1440,19 +1440,19 @@ func (r ApiGetThreatModelAuditTrailRequest) ActorEmail(actorEmail string) ApiGet
 	return r
 }
 
-// Filter entries after this timestamp (ISO 8601)
-func (r ApiGetThreatModelAuditTrailRequest) After(after time.Time) ApiGetThreatModelAuditTrailRequest {
-	r.after = &after
+// Return only records created after this RFC 3339 timestamp.
+func (r ApiGetThreatModelAuditTrailRequest) CreatedAfter(createdAfter time.Time) ApiGetThreatModelAuditTrailRequest {
+	r.createdAfter = &createdAfter
 	return r
 }
 
-// Filter entries before this timestamp (ISO 8601)
-func (r ApiGetThreatModelAuditTrailRequest) Before(before time.Time) ApiGetThreatModelAuditTrailRequest {
-	r.before = &before
+// Return only records created before this RFC 3339 timestamp.
+func (r ApiGetThreatModelAuditTrailRequest) CreatedBefore(createdBefore time.Time) ApiGetThreatModelAuditTrailRequest {
+	r.createdBefore = &createdBefore
 	return r
 }
 
-func (r ApiGetThreatModelAuditTrailRequest) Execute() (*ListAuditTrailResponse, *http.Response, error) {
+func (r ApiGetThreatModelAuditTrailRequest) Execute() (*ListThreatModelAuditTrailResponse, *http.Response, error) {
 	return r.ApiService.GetThreatModelAuditTrailExecute(r)
 }
 
@@ -1474,13 +1474,13 @@ func (a *AuditTrailAPIService) GetThreatModelAuditTrail(ctx context.Context, thr
 }
 
 // Execute executes the request
-//  @return ListAuditTrailResponse
-func (a *AuditTrailAPIService) GetThreatModelAuditTrailExecute(r ApiGetThreatModelAuditTrailRequest) (*ListAuditTrailResponse, *http.Response, error) {
+//  @return ListThreatModelAuditTrailResponse
+func (a *AuditTrailAPIService) GetThreatModelAuditTrailExecute(r ApiGetThreatModelAuditTrailRequest) (*ListThreatModelAuditTrailResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListAuditTrailResponse
+		localVarReturnValue  *ListThreatModelAuditTrailResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditTrailAPIService.GetThreatModelAuditTrail")
@@ -1498,16 +1498,12 @@ func (a *AuditTrailAPIService) GetThreatModelAuditTrailExecute(r ApiGetThreatMod
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
-		var defaultValue int32 = 20
+		var defaultValue int32 = 50
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
-	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
-	} else {
-		var defaultValue int32 = 0
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
-		r.offset = &defaultValue
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.objectType != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "object_type", r.objectType, "form", "")
@@ -1518,11 +1514,11 @@ func (a *AuditTrailAPIService) GetThreatModelAuditTrailExecute(r ApiGetThreatMod
 	if r.actorEmail != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "actor_email", r.actorEmail, "form", "")
 	}
-	if r.after != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
+	if r.createdAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
 	}
-	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
+	if r.createdBefore != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_before", r.createdBefore, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

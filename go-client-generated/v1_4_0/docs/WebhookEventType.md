@@ -21,6 +21,10 @@
 
 * `DOCUMENT_DELETED` (value: `"document.deleted"`)
 
+* `DOCUMENT_EXTRACTION_COMPLETED` (value: `"document.extraction_completed"`)
+
+* `DOCUMENT_EXTRACTION_FAILED` (value: `"document.extraction_failed"`)
+
 * `NOTE_CREATED` (value: `"note.created"`)
 
 * `NOTE_UPDATED` (value: `"note.updated"`)
@@ -64,6 +68,8 @@
 * `SURVEY_RESPONSE_UPDATED` (value: `"survey_response.updated"`)
 
 * `SURVEY_RESPONSE_DELETED` (value: `"survey_response.deleted"`)
+
+* `SYSTEM_AUDIT_ADMIN_WRITE` (value: `"system_audit.admin_write"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

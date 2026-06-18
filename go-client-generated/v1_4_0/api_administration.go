@@ -1673,6 +1673,174 @@ func (a *AdministrationAPIService) GetAdminGroupExecute(r ApiGetAdminGroupReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetAdminThreatModelAuditEntryRequest struct {
+	ctx context.Context
+	ApiService *AdministrationAPIService
+	entryId string
+}
+
+func (r ApiGetAdminThreatModelAuditEntryRequest) Execute() (*AuditEntry, *http.Response, error) {
+	return r.ApiService.GetAdminThreatModelAuditEntryExecute(r)
+}
+
+/*
+GetAdminThreatModelAuditEntry Get a threat-model audit entry by id (admin)
+
+Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param entryId The audit entry ID.
+ @return ApiGetAdminThreatModelAuditEntryRequest
+*/
+func (a *AdministrationAPIService) GetAdminThreatModelAuditEntry(ctx context.Context, entryId string) ApiGetAdminThreatModelAuditEntryRequest {
+	return ApiGetAdminThreatModelAuditEntryRequest{
+		ApiService: a,
+		ctx: ctx,
+		entryId: entryId,
+	}
+}
+
+// Execute executes the request
+//  @return AuditEntry
+func (a *AdministrationAPIService) GetAdminThreatModelAuditEntryExecute(r ApiGetAdminThreatModelAuditEntryRequest) (*AuditEntry, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AuditEntry
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdministrationAPIService.GetAdminThreatModelAuditEntry")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/admin/audit/threat_models/{entry_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"entry_id"+"}", url.PathEscape(parameterValueToString(r.entryId, "entryId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v GetUserAPIQuota429Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetAdminUserRequest struct {
 	ctx context.Context
 	ApiService *AdministrationAPIService
@@ -1818,6 +1986,174 @@ func (a *AdministrationAPIService) GetAdminUserExecute(r ApiGetAdminUserRequest)
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v GetUserAPIQuota429Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSystemAuditEntryRequest struct {
+	ctx context.Context
+	ApiService *AdministrationAPIService
+	entryId string
+}
+
+func (r ApiGetSystemAuditEntryRequest) Execute() (*SystemAuditEntry, *http.Response, error) {
+	return r.ApiService.GetSystemAuditEntryExecute(r)
+}
+
+/*
+GetSystemAuditEntry Get a system audit entry
+
+Returns a single system-level audit entry by ID. Admin role required.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param entryId The system audit entry ID.
+ @return ApiGetSystemAuditEntryRequest
+*/
+func (a *AdministrationAPIService) GetSystemAuditEntry(ctx context.Context, entryId string) ApiGetSystemAuditEntryRequest {
+	return ApiGetSystemAuditEntryRequest{
+		ApiService: a,
+		ctx: ctx,
+		entryId: entryId,
+	}
+}
+
+// Execute executes the request
+//  @return SystemAuditEntry
+func (a *AdministrationAPIService) GetSystemAuditEntryExecute(r ApiGetSystemAuditEntryRequest) (*SystemAuditEntry, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SystemAuditEntry
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdministrationAPIService.GetSystemAuditEntry")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/admin/audit/system/{entry_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"entry_id"+"}", url.PathEscape(parameterValueToString(r.entryId, "entryId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v GetUserAPIQuota429Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -2768,6 +3104,274 @@ func (a *AdministrationAPIService) ListAdminGroupsExecute(r ApiListAdminGroupsRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListAdminThreatModelAuditEntriesRequest struct {
+	ctx context.Context
+	ApiService *AdministrationAPIService
+	actorEmail *string
+	actorProvider *string
+	createdAfter *time.Time
+	createdBefore *time.Time
+	changeType *string
+	objectType *string
+	threatModelId *string
+	limit *int32
+	cursor *string
+	around *string
+}
+
+// Filter by actor email
+func (r ApiListAdminThreatModelAuditEntriesRequest) ActorEmail(actorEmail string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.actorEmail = &actorEmail
+	return r
+}
+
+// Filter by the actor identity provider.
+func (r ApiListAdminThreatModelAuditEntriesRequest) ActorProvider(actorProvider string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.actorProvider = &actorProvider
+	return r
+}
+
+// Return only records created after this RFC 3339 timestamp.
+func (r ApiListAdminThreatModelAuditEntriesRequest) CreatedAfter(createdAfter time.Time) ApiListAdminThreatModelAuditEntriesRequest {
+	r.createdAfter = &createdAfter
+	return r
+}
+
+// Return only records created before this RFC 3339 timestamp.
+func (r ApiListAdminThreatModelAuditEntriesRequest) CreatedBefore(createdBefore time.Time) ApiListAdminThreatModelAuditEntriesRequest {
+	r.createdBefore = &createdBefore
+	return r
+}
+
+// Filter by change type
+func (r ApiListAdminThreatModelAuditEntriesRequest) ChangeType(changeType string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.changeType = &changeType
+	return r
+}
+
+// Filter by object type
+func (r ApiListAdminThreatModelAuditEntriesRequest) ObjectType(objectType string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.objectType = &objectType
+	return r
+}
+
+// Filter audit entries to a single threat model.
+func (r ApiListAdminThreatModelAuditEntriesRequest) ThreatModelId(threatModelId string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.threatModelId = &threatModelId
+	return r
+}
+
+// Maximum number of entries to return per page.
+func (r ApiListAdminThreatModelAuditEntriesRequest) Limit(limit int32) ApiListAdminThreatModelAuditEntriesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+func (r ApiListAdminThreatModelAuditEntriesRequest) Cursor(cursor string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+func (r ApiListAdminThreatModelAuditEntriesRequest) Around(around string) ApiListAdminThreatModelAuditEntriesRequest {
+	r.around = &around
+	return r
+}
+
+func (r ApiListAdminThreatModelAuditEntriesRequest) Execute() (*ListAdminAuditEntriesResponse, *http.Response, error) {
+	return r.ApiService.ListAdminThreatModelAuditEntriesExecute(r)
+}
+
+/*
+ListAdminThreatModelAuditEntries List threat-model audit entries across all threat models
+
+Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListAdminThreatModelAuditEntriesRequest
+*/
+func (a *AdministrationAPIService) ListAdminThreatModelAuditEntries(ctx context.Context) ApiListAdminThreatModelAuditEntriesRequest {
+	return ApiListAdminThreatModelAuditEntriesRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListAdminAuditEntriesResponse
+func (a *AdministrationAPIService) ListAdminThreatModelAuditEntriesExecute(r ApiListAdminThreatModelAuditEntriesRequest) (*ListAdminAuditEntriesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListAdminAuditEntriesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdministrationAPIService.ListAdminThreatModelAuditEntries")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/admin/audit/threat_models"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.actorEmail != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "actor_email", r.actorEmail, "form", "")
+	}
+	if r.actorProvider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "actor_provider", r.actorProvider, "form", "")
+	}
+	if r.createdAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
+	}
+	if r.createdBefore != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_before", r.createdBefore, "form", "")
+	}
+	if r.changeType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "change_type", r.changeType, "form", "")
+	}
+	if r.objectType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "object_type", r.objectType, "form", "")
+	}
+	if r.threatModelId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "threat_model_id", r.threatModelId, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 50
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.around != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "around", r.around, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v GetUserAPIQuota429Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListAdminUsersRequest struct {
 	ctx context.Context
 	ApiService *AdministrationAPIService
@@ -2803,13 +3407,13 @@ func (r ApiListAdminUsersRequest) Name(name string) ApiListAdminUsersRequest {
 	return r
 }
 
-// Filter users created after this timestamp (RFC3339)
+// Return only records created after this RFC 3339 timestamp.
 func (r ApiListAdminUsersRequest) CreatedAfter(createdAfter time.Time) ApiListAdminUsersRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
 
-// Filter users created before this timestamp (RFC3339)
+// Return only records created before this RFC 3339 timestamp.
 func (r ApiListAdminUsersRequest) CreatedBefore(createdBefore time.Time) ApiListAdminUsersRequest {
 	r.createdBefore = &createdBefore
 	return r
@@ -3230,6 +3834,284 @@ func (a *AdministrationAPIService) ListGroupMembersExecute(r ApiListGroupMembers
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v GetUserAPIQuota429Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListSystemAuditEntriesRequest struct {
+	ctx context.Context
+	ApiService *AdministrationAPIService
+	actorEmail *string
+	actorProvider *string
+	createdAfter *time.Time
+	createdBefore *time.Time
+	httpMethod *string
+	pathPrefix *string
+	fieldPath *string
+	limit *int32
+	cursor *string
+	around *string
+	format *string
+}
+
+// Filter by actor email
+func (r ApiListSystemAuditEntriesRequest) ActorEmail(actorEmail string) ApiListSystemAuditEntriesRequest {
+	r.actorEmail = &actorEmail
+	return r
+}
+
+// Filter by the actor identity provider.
+func (r ApiListSystemAuditEntriesRequest) ActorProvider(actorProvider string) ApiListSystemAuditEntriesRequest {
+	r.actorProvider = &actorProvider
+	return r
+}
+
+// Return only records created after this RFC 3339 timestamp.
+func (r ApiListSystemAuditEntriesRequest) CreatedAfter(createdAfter time.Time) ApiListSystemAuditEntriesRequest {
+	r.createdAfter = &createdAfter
+	return r
+}
+
+// Return only records created before this RFC 3339 timestamp.
+func (r ApiListSystemAuditEntriesRequest) CreatedBefore(createdBefore time.Time) ApiListSystemAuditEntriesRequest {
+	r.createdBefore = &createdBefore
+	return r
+}
+
+// Filter system audit entries by HTTP method.
+func (r ApiListSystemAuditEntriesRequest) HttpMethod(httpMethod string) ApiListSystemAuditEntriesRequest {
+	r.httpMethod = &httpMethod
+	return r
+}
+
+// Filter system audit entries whose request path starts with this prefix (matched literally).
+func (r ApiListSystemAuditEntriesRequest) PathPrefix(pathPrefix string) ApiListSystemAuditEntriesRequest {
+	r.pathPrefix = &pathPrefix
+	return r
+}
+
+// Filter system audit entries by exact field path.
+func (r ApiListSystemAuditEntriesRequest) FieldPath(fieldPath string) ApiListSystemAuditEntriesRequest {
+	r.fieldPath = &fieldPath
+	return r
+}
+
+// Maximum number of entries to return per page.
+func (r ApiListSystemAuditEntriesRequest) Limit(limit int32) ApiListSystemAuditEntriesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+func (r ApiListSystemAuditEntriesRequest) Cursor(cursor string) ApiListSystemAuditEntriesRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+func (r ApiListSystemAuditEntriesRequest) Around(around string) ApiListSystemAuditEntriesRequest {
+	r.around = &around
+	return r
+}
+
+// When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.
+func (r ApiListSystemAuditEntriesRequest) Format(format string) ApiListSystemAuditEntriesRequest {
+	r.format = &format
+	return r
+}
+
+func (r ApiListSystemAuditEntriesRequest) Execute() (*ListSystemAuditEntriesResponse, *http.Response, error) {
+	return r.ApiService.ListSystemAuditEntriesExecute(r)
+}
+
+/*
+ListSystemAuditEntries List system audit entries
+
+Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListSystemAuditEntriesRequest
+*/
+func (a *AdministrationAPIService) ListSystemAuditEntries(ctx context.Context) ApiListSystemAuditEntriesRequest {
+	return ApiListSystemAuditEntriesRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListSystemAuditEntriesResponse
+func (a *AdministrationAPIService) ListSystemAuditEntriesExecute(r ApiListSystemAuditEntriesRequest) (*ListSystemAuditEntriesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListSystemAuditEntriesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdministrationAPIService.ListSystemAuditEntries")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/admin/audit/system"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.actorEmail != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "actor_email", r.actorEmail, "form", "")
+	}
+	if r.actorProvider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "actor_provider", r.actorProvider, "form", "")
+	}
+	if r.createdAfter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
+	}
+	if r.createdBefore != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_before", r.createdBefore, "form", "")
+	}
+	if r.httpMethod != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "http_method", r.httpMethod, "form", "")
+	}
+	if r.pathPrefix != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path_prefix", r.pathPrefix, "form", "")
+	}
+	if r.fieldPath != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "field_path", r.fieldPath, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 50
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.around != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "around", r.around, "form", "")
+	}
+	if r.format != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "format", r.format, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/csv", "application/x-ndjson"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v GetUserAPIQuota429Response
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

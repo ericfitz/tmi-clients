@@ -31,11 +31,11 @@ class TeamNote(BaseModel):
     """
     Complete TeamNote schema with server-generated fields
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="Note name")
-    content: Annotated[str, Field(min_length=1, strict=True, max_length=262144)] = Field(description="Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.")
-    description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Description of note purpose or context")
-    timmy_enabled: Optional[StrictBool] = Field(default=True, description="Whether the Timmy AI assistant is enabled for this entity")
-    sharable: Optional[StrictBool] = Field(default=None, description="Controls note visibility. When true, visible to all team/project members. When false, only visible to admins and security reviewers. Only admins and security reviewers can set this field; regular users who include this field in requests will receive a 403 error. Default: true for regular users, false for admins/security reviewers.")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="Note name", json_schema_extra={"examples": ["Security Review Notes"]})
+    content: Annotated[str, Field(min_length=1, strict=True, max_length=262144)] = Field(description="Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.", json_schema_extra={"examples": ["# Security Review\n\nFindings from the quarterly review."]})
+    description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Description of note purpose or context", json_schema_extra={"examples": ["Notes from the quarterly security review meeting"]})
+    timmy_enabled: Optional[StrictBool] = Field(default=True, description="Whether the Timmy AI assistant is enabled for this entity", json_schema_extra={"examples": [True]})
+    sharable: Optional[StrictBool] = Field(default=None, description="Controls note visibility. When true, visible to all team/project members. When false, only visible to admins and security reviewers. Only admins and security reviewers can set this field; regular users who include this field in requests will receive a 403 error. Default: true for regular users, false for admins/security reviewers.", json_schema_extra={"examples": [True]})
     id: UUID = Field(description="Unique identifier for the team note")
     created_at: Optional[datetime] = Field(default=None, description="Creation timestamp (RFC3339)")
     modified_at: Optional[datetime] = Field(default=None, description="Last modification timestamp (RFC3339)")

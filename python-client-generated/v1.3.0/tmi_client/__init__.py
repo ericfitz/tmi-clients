@@ -111,14 +111,12 @@ __all__ = [
     "DfdDiagramInputAllOfCells",
     "Diagram",
     "DiagramListItem",
-    "DiagramListItemImage",
     "Document",
     "DocumentBase",
     "DocumentInput",
     "Edge",
     "EdgeAttrs",
     "EdgeAttrsLine",
-    "EdgeAttrsLineSourceMarker",
     "EdgeAttrsLineTargetMarker",
     "EdgeConnector",
     "EdgeConnectorOneOf",
@@ -375,14 +373,12 @@ from tmi_client.models.dfd_diagram_input import DfdDiagramInput as DfdDiagramInp
 from tmi_client.models.dfd_diagram_input_all_of_cells import DfdDiagramInputAllOfCells as DfdDiagramInputAllOfCells
 from tmi_client.models.diagram import Diagram as Diagram
 from tmi_client.models.diagram_list_item import DiagramListItem as DiagramListItem
-from tmi_client.models.diagram_list_item_image import DiagramListItemImage as DiagramListItemImage
 from tmi_client.models.document import Document as Document
 from tmi_client.models.document_base import DocumentBase as DocumentBase
 from tmi_client.models.document_input import DocumentInput as DocumentInput
 from tmi_client.models.edge import Edge as Edge
 from tmi_client.models.edge_attrs import EdgeAttrs as EdgeAttrs
 from tmi_client.models.edge_attrs_line import EdgeAttrsLine as EdgeAttrsLine
-from tmi_client.models.edge_attrs_line_source_marker import EdgeAttrsLineSourceMarker as EdgeAttrsLineSourceMarker
 from tmi_client.models.edge_attrs_line_target_marker import EdgeAttrsLineTargetMarker as EdgeAttrsLineTargetMarker
 from tmi_client.models.edge_connector import EdgeConnector as EdgeConnector
 from tmi_client.models.edge_connector_one_of import EdgeConnectorOneOf as EdgeConnectorOneOf

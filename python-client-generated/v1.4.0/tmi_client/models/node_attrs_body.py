@@ -21,7 +21,6 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
-from tmi_client.models.node_attrs_body_ref_height import NodeAttrsBodyRefHeight
 from tmi_client.models.node_attrs_body_ref_width import NodeAttrsBodyRefWidth
 from typing import Optional, Set
 from typing_extensions import Self
@@ -39,7 +38,7 @@ class NodeAttrsBody(BaseModel):
     ry: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Corner radius along the y-axis (set as default by X6 shape registrations)")
     lateral: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Cylinder lateral parameter for the X6 'store' shape (drives the body 'd' path computation)")
     ref_width: Optional[NodeAttrsBodyRefWidth] = Field(default=None, alias="refWidth")
-    ref_height: Optional[NodeAttrsBodyRefHeight] = Field(default=None, alias="refHeight")
+    ref_height: Optional[NodeAttrsBodyRefWidth] = Field(default=None, alias="refHeight")
     fill_opacity: Optional[Union[Annotated[float, Field(le=1, strict=True, ge=0)], Annotated[int, Field(le=1, strict=True, ge=0)]]] = Field(default=None, description="Body fill opacity (0-1); typically transient drag-to-embed visual feedback", alias="fillOpacity")
     __properties: ClassVar[List[str]] = ["fill", "stroke", "strokeWidth", "strokeDasharray", "rx", "ry", "lateral", "refWidth", "refHeight", "fillOpacity"]
 
@@ -155,7 +154,7 @@ class NodeAttrsBody(BaseModel):
             "ry": obj.get("ry"),
             "lateral": obj.get("lateral"),
             "refWidth": NodeAttrsBodyRefWidth.from_dict(obj["refWidth"]) if obj.get("refWidth") is not None else None,
-            "refHeight": NodeAttrsBodyRefHeight.from_dict(obj["refHeight"]) if obj.get("refHeight") is not None else None,
+            "refHeight": NodeAttrsBodyRefWidth.from_dict(obj["refHeight"]) if obj.get("refHeight") is not None else None,
             "fillOpacity": obj.get("fillOpacity")
         })
         return _obj

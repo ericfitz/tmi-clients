@@ -30,9 +30,9 @@ class ContentTokenInfo(BaseModel):
     """
     Information about a linked delegated content provider token. Does not expose secret token material.
     """ # noqa: E501
-    provider_id: StrictStr = Field(description="Content OAuth provider id (e.g., 'confluence').")
-    provider_account_id: Optional[StrictStr] = Field(default=None, description="External account identifier reported by the provider. May be empty if the provider has no stable id.")
-    provider_account_label: Optional[StrictStr] = Field(default=None, description="Human-readable account label (email or username) for display.")
+    provider_id: StrictStr = Field(description="Content OAuth provider id (e.g., 'confluence').", json_schema_extra={"examples": ["confluence"]})
+    provider_account_id: Optional[StrictStr] = Field(default=None, description="External account identifier reported by the provider. May be empty if the provider has no stable id.", json_schema_extra={"examples": ["557058:1234-abcd"]})
+    provider_account_label: Optional[StrictStr] = Field(default=None, description="Human-readable account label (email or username) for display.", json_schema_extra={"examples": ["alice@example.com"]})
     scopes: Annotated[List[Annotated[str, Field(strict=True, max_length=256)]], Field(max_length=100)] = Field(description="OAuth scopes granted to the stored token.")
     status: StrictStr = Field(description="Current health of the stored token. 'failed_refresh' indicates the most recent refresh attempt failed and the user must re-link.")
     expires_at: Optional[datetime] = Field(default=None, description="Access-token expiry reported by the provider (ISO 8601).")

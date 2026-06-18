@@ -30,10 +30,10 @@ class ListTimmySessionsResponse(BaseModel):
     """
     Paginated list of Timmy chat sessions
     """ # noqa: E501
-    sessions: Annotated[List[TimmyChatSession], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of sessions matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    sessions: Annotated[List[TimmyChatSession], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[]]})
+    total: StrictInt = Field(description="Total number of sessions matching criteria", json_schema_extra={"examples": [5]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["sessions", "total", "limit", "offset"]
 
     model_config = ConfigDict(

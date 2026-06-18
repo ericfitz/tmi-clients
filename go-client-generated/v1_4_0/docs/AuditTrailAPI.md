@@ -553,7 +553,7 @@ Name | Type | Description  | Notes
 
 ## GetThreatModelAuditTrail
 
-> ListAuditTrailResponse GetThreatModelAuditTrail(ctx, threatModelId).Limit(limit).Offset(offset).ObjectType(objectType).ChangeType(changeType).ActorEmail(actorEmail).After(after).Before(before).Execute()
+> ListThreatModelAuditTrailResponse GetThreatModelAuditTrail(ctx, threatModelId).Limit(limit).Cursor(cursor).ObjectType(objectType).ChangeType(changeType).ActorEmail(actorEmail).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Execute()
 
 List audit trail for a threat model and all sub-objects
 
@@ -574,22 +574,22 @@ import (
 
 func main() {
 	threatModelId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Threat model identifier
-	limit := int32(56) // int32 | Maximum number of results to return (optional) (default to 20)
-	offset := int32(56) // int32 | Number of results to skip (optional) (default to 0)
+	limit := int32(56) // int32 | Maximum number of entries to return per page. (optional) (default to 50)
+	cursor := "cursor_example" // string | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. (optional)
 	objectType := "objectType_example" // string | Filter by object type (optional)
 	changeType := "changeType_example" // string | Filter by change type (optional)
 	actorEmail := "actorEmail_example" // string | Filter by actor email (optional)
-	after := time.Now() // time.Time | Filter entries after this timestamp (ISO 8601) (optional)
-	before := time.Now() // time.Time | Filter entries before this timestamp (ISO 8601) (optional)
+	createdAfter := time.Now() // time.Time | Return only records created after this RFC 3339 timestamp. (optional)
+	createdBefore := time.Now() // time.Time | Return only records created before this RFC 3339 timestamp. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditTrailAPI.GetThreatModelAuditTrail(context.Background(), threatModelId).Limit(limit).Offset(offset).ObjectType(objectType).ChangeType(changeType).ActorEmail(actorEmail).After(after).Before(before).Execute()
+	resp, r, err := apiClient.AuditTrailAPI.GetThreatModelAuditTrail(context.Background(), threatModelId).Limit(limit).Cursor(cursor).ObjectType(objectType).ChangeType(changeType).ActorEmail(actorEmail).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuditTrailAPI.GetThreatModelAuditTrail``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetThreatModelAuditTrail`: ListAuditTrailResponse
+	// response from `GetThreatModelAuditTrail`: ListThreatModelAuditTrailResponse
 	fmt.Fprintf(os.Stdout, "Response from `AuditTrailAPI.GetThreatModelAuditTrail`: %v\n", resp)
 }
 ```
@@ -610,17 +610,17 @@ Other parameters are passed through a pointer to a apiGetThreatModelAuditTrailRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **limit** | **int32** | Maximum number of results to return | [default to 20]
- **offset** | **int32** | Number of results to skip | [default to 0]
+ **limit** | **int32** | Maximum number of entries to return per page. | [default to 50]
+ **cursor** | **string** | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. | 
  **objectType** | **string** | Filter by object type | 
  **changeType** | **string** | Filter by change type | 
  **actorEmail** | **string** | Filter by actor email | 
- **after** | **time.Time** | Filter entries after this timestamp (ISO 8601) | 
- **before** | **time.Time** | Filter entries before this timestamp (ISO 8601) | 
+ **createdAfter** | **time.Time** | Return only records created after this RFC 3339 timestamp. | 
+ **createdBefore** | **time.Time** | Return only records created before this RFC 3339 timestamp. | 
 
 ### Return type
 
-[**ListAuditTrailResponse**](ListAuditTrailResponse.md)
+[**ListThreatModelAuditTrailResponse**](ListThreatModelAuditTrailResponse.md)
 
 ### Authorization
 

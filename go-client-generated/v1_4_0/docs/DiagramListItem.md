@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **NullableString** | Optional description of the diagram | [optional] 
 **CreatedAt** | **time.Time** | Creation timestamp (ISO3339) | [readonly] 
 **ModifiedAt** | **time.Time** | Last modification timestamp (ISO3339) | [readonly] 
-**Image** | Pointer to [**NullableDiagramListItemImage**](DiagramListItemImage.md) |  | [optional] 
+**Image** | Pointer to [**NullableBaseDiagramImage**](BaseDiagramImage.md) |  | [optional] 
 **IncludeInReport** | Pointer to **bool** | Whether this item should be included in generated reports | [optional] [default to true]
 **TimmyEnabled** | Pointer to **bool** | Whether the Timmy AI assistant is enabled for this entity | [optional] [default to true]
 **DeletedAt** | Pointer to **NullableTime** | Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period. | [optional] [readonly] 
@@ -172,20 +172,20 @@ SetModifiedAt sets ModifiedAt field to given value.
 
 ### GetImage
 
-`func (o *DiagramListItem) GetImage() DiagramListItemImage`
+`func (o *DiagramListItem) GetImage() BaseDiagramImage`
 
 GetImage returns the Image field if non-nil, zero value otherwise.
 
 ### GetImageOk
 
-`func (o *DiagramListItem) GetImageOk() (*DiagramListItemImage, bool)`
+`func (o *DiagramListItem) GetImageOk() (*BaseDiagramImage, bool)`
 
 GetImageOk returns a tuple with the Image field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImage
 
-`func (o *DiagramListItem) SetImage(v DiagramListItemImage)`
+`func (o *DiagramListItem) SetImage(v BaseDiagramImage)`
 
 SetImage sets Image field to given value.
 

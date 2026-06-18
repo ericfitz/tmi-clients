@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **content** | **str** | Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped. | 
 **id** | **int** | Sequential identifier for the triage note within its survey response | [readonly] 
 **created_at** | **datetime** | Creation timestamp (RFC3339) | [optional] [readonly] 
-**created_by** | **object** | User who created this triage note | [optional] [readonly] 
+**created_by** | **object** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] [readonly] 
-**modified_by** | **object** | User who last modified this triage note | [optional] [readonly] 
+**modified_by** | **object** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 
 ## Example
 

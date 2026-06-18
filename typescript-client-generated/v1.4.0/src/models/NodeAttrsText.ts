@@ -13,34 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { NodeAttrsTextRefX2 } from './NodeAttrsTextRefX2';
+import type { NodeAttrsBodyRefWidth } from './NodeAttrsBodyRefWidth';
 import {
-    NodeAttrsTextRefX2FromJSON,
-    NodeAttrsTextRefX2FromJSONTyped,
-    NodeAttrsTextRefX2ToJSON,
-    NodeAttrsTextRefX2ToJSONTyped,
-} from './NodeAttrsTextRefX2';
-import type { NodeAttrsTextRefX } from './NodeAttrsTextRefX';
-import {
-    NodeAttrsTextRefXFromJSON,
-    NodeAttrsTextRefXFromJSONTyped,
-    NodeAttrsTextRefXToJSON,
-    NodeAttrsTextRefXToJSONTyped,
-} from './NodeAttrsTextRefX';
-import type { NodeAttrsTextRefY } from './NodeAttrsTextRefY';
-import {
-    NodeAttrsTextRefYFromJSON,
-    NodeAttrsTextRefYFromJSONTyped,
-    NodeAttrsTextRefYToJSON,
-    NodeAttrsTextRefYToJSONTyped,
-} from './NodeAttrsTextRefY';
-import type { NodeAttrsTextRefY2 } from './NodeAttrsTextRefY2';
-import {
-    NodeAttrsTextRefY2FromJSON,
-    NodeAttrsTextRefY2FromJSONTyped,
-    NodeAttrsTextRefY2ToJSON,
-    NodeAttrsTextRefY2ToJSONTyped,
-} from './NodeAttrsTextRefY2';
+    NodeAttrsBodyRefWidthFromJSON,
+    NodeAttrsBodyRefWidthFromJSONTyped,
+    NodeAttrsBodyRefWidthToJSON,
+    NodeAttrsBodyRefWidthToJSONTyped,
+} from './NodeAttrsBodyRefWidth';
 
 /**
  * Text/label styling attributes
@@ -74,16 +53,16 @@ export interface NodeAttrsText {
     fontFamily?: string;
     /**
      * 
-     * @type {NodeAttrsTextRefX}
+     * @type {NodeAttrsBodyRefWidth}
      * @memberof NodeAttrsText
      */
-    refX?: NodeAttrsTextRefX;
+    refX?: NodeAttrsBodyRefWidth;
     /**
      * 
-     * @type {NodeAttrsTextRefY}
+     * @type {NodeAttrsBodyRefWidth}
      * @memberof NodeAttrsText
      */
-    refY?: NodeAttrsTextRefY;
+    refY?: NodeAttrsBodyRefWidth;
     /**
      * Horizontal offset from refX (corner-based, retained for back-compat; client uses refX2)
      * @type {number}
@@ -98,16 +77,16 @@ export interface NodeAttrsText {
     refDy?: number;
     /**
      * 
-     * @type {NodeAttrsTextRefX2}
+     * @type {NodeAttrsBodyRefWidth}
      * @memberof NodeAttrsText
      */
-    refX2?: NodeAttrsTextRefX2;
+    refX2?: NodeAttrsBodyRefWidth;
     /**
      * 
-     * @type {NodeAttrsTextRefY2}
+     * @type {NodeAttrsBodyRefWidth}
      * @memberof NodeAttrsText
      */
-    refY2?: NodeAttrsTextRefY2;
+    refY2?: NodeAttrsBodyRefWidth;
     /**
      * Horizontal text alignment anchor point
      * @type {NodeAttrsTextTextAnchorEnum}
@@ -165,12 +144,12 @@ export function NodeAttrsTextFromJSONTyped(json: any, ignoreDiscriminator: boole
         'fontSize': json['fontSize'] == null ? undefined : json['fontSize'],
         'fill': json['fill'] == null ? undefined : json['fill'],
         'fontFamily': json['fontFamily'] == null ? undefined : json['fontFamily'],
-        'refX': json['refX'] == null ? undefined : NodeAttrsTextRefXFromJSON(json['refX']),
-        'refY': json['refY'] == null ? undefined : NodeAttrsTextRefYFromJSON(json['refY']),
+        'refX': json['refX'] == null ? undefined : NodeAttrsBodyRefWidthFromJSON(json['refX']),
+        'refY': json['refY'] == null ? undefined : NodeAttrsBodyRefWidthFromJSON(json['refY']),
         'refDx': json['refDx'] == null ? undefined : json['refDx'],
         'refDy': json['refDy'] == null ? undefined : json['refDy'],
-        'refX2': json['refX2'] == null ? undefined : NodeAttrsTextRefX2FromJSON(json['refX2']),
-        'refY2': json['refY2'] == null ? undefined : NodeAttrsTextRefY2FromJSON(json['refY2']),
+        'refX2': json['refX2'] == null ? undefined : NodeAttrsBodyRefWidthFromJSON(json['refX2']),
+        'refY2': json['refY2'] == null ? undefined : NodeAttrsBodyRefWidthFromJSON(json['refY2']),
         'textAnchor': json['textAnchor'] == null ? undefined : json['textAnchor'],
         'textVerticalAnchor': json['textVerticalAnchor'] == null ? undefined : json['textVerticalAnchor'],
     };
@@ -191,12 +170,12 @@ export function NodeAttrsTextToJSONTyped(value?: NodeAttrsText | null, ignoreDis
         'fontSize': value['fontSize'],
         'fill': value['fill'],
         'fontFamily': value['fontFamily'],
-        'refX': NodeAttrsTextRefXToJSON(value['refX']),
-        'refY': NodeAttrsTextRefYToJSON(value['refY']),
+        'refX': NodeAttrsBodyRefWidthToJSON(value['refX']),
+        'refY': NodeAttrsBodyRefWidthToJSON(value['refY']),
         'refDx': value['refDx'],
         'refDy': value['refDy'],
-        'refX2': NodeAttrsTextRefX2ToJSON(value['refX2']),
-        'refY2': NodeAttrsTextRefY2ToJSON(value['refY2']),
+        'refX2': NodeAttrsBodyRefWidthToJSON(value['refX2']),
+        'refY2': NodeAttrsBodyRefWidthToJSON(value['refY2']),
         'textAnchor': value['textAnchor'],
         'textVerticalAnchor': value['textVerticalAnchor'],
     };

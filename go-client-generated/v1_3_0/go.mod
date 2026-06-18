@@ -1,6 +1,6 @@
 module github.com/ericfitz/tmi-clients/go-client-generated/v1_3_0
 
-go 1.21
+go 1.23
 
 require (
 	github.com/stretchr/testify v1.11.1

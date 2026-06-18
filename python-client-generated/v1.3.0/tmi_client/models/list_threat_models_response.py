@@ -30,10 +30,10 @@ class ListThreatModelsResponse(BaseModel):
     """
     Paginated list of threat models
     """ # noqa: E501
-    threat_models: Annotated[List[TMListItem], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of threat models matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    threat_models: Annotated[List[TMListItem], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "660e8400-e29b-41d4-a716-446655440001", "name": "Payment Gateway Threat Model", "owner": {"principal_type": "user", "provider": "github", "provider_id": "alice@example.com", "display_name": "Alice Johnson", "email": "alice@example.com"}, "created_by": {"principal_type": "user", "provider": "github", "provider_id": "alice@example.com", "display_name": "Alice Johnson", "email": "alice@example.com"}, "threat_model_framework": "STRIDE", "created_at": "2024-01-15T10:30:00Z", "modified_at": "2024-01-20T15:45:30Z", "document_count": 3, "repo_count": 2, "diagram_count": 1, "threat_count": 5, "asset_count": 4, "note_count": 2}]]})
+    total: StrictInt = Field(description="Total number of threat models matching criteria", json_schema_extra={"examples": [42]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["threat_models", "total", "limit", "offset"]
 
     model_config = ConfigDict(

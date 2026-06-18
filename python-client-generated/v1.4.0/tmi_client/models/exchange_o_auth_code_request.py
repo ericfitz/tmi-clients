@@ -29,14 +29,14 @@ class ExchangeOAuthCodeRequest(BaseModel):
     """
     ExchangeOAuthCodeRequest
     """ # noqa: E501
-    grant_type: StrictStr = Field(description="OAuth 2.0 grant type (RFC 6749)")
-    code: Optional[Annotated[str, Field(strict=True, max_length=512)]] = Field(default=None, description="Authorization code received from OAuth provider. Per RFC 6749, can contain any visible ASCII characters (VSCHAR: 0x20-0x7E).")
-    state: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="State parameter for CSRF protection (optional but recommended)")
-    redirect_uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Redirect URI used in the authorization request (must match exactly)")
-    code_verifier: Optional[Annotated[str, Field(min_length=43, strict=True, max_length=128)]] = Field(default=None, description="PKCE code verifier (RFC 7636) - High-entropy cryptographic random string used to mitigate authorization code interception attacks. Must be 43-128 characters using [A-Za-z0-9-._~] characters.")
-    client_id: Optional[StrictStr] = Field(default=None, description="Client identifier (required for client_credentials grant)")
-    client_secret: Optional[StrictStr] = Field(default=None, description="Client secret (required for client_credentials grant)")
-    refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token (required for refresh_token grant)")
+    grant_type: StrictStr = Field(description="OAuth 2.0 grant type (RFC 6749)", json_schema_extra={"examples": ["authorization_code"]})
+    code: Optional[Annotated[str, Field(strict=True, max_length=512)]] = Field(default=None, description="Authorization code received from OAuth provider. Per RFC 6749, can contain any visible ASCII characters (VSCHAR: 0x20-0x7E).", json_schema_extra={"examples": ["0AX4XfWiXY2BZ_example_auth_code_from_google"]})
+    state: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="State parameter for CSRF protection (optional but recommended)", json_schema_extra={"examples": ["random_state_value_abc123"]})
+    redirect_uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Redirect URI used in the authorization request (must match exactly)", json_schema_extra={"examples": ["https://your-web-app.com/oauth2/callback"]})
+    code_verifier: Optional[Annotated[str, Field(min_length=43, strict=True, max_length=128)]] = Field(default=None, description="PKCE code verifier (RFC 7636) - High-entropy cryptographic random string used to mitigate authorization code interception attacks. Must be 43-128 characters using [A-Za-z0-9-._~] characters.", json_schema_extra={"examples": ["dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"]})
+    client_id: Optional[StrictStr] = Field(default=None, description="Client identifier (required for client_credentials grant)", json_schema_extra={"examples": ["tmi_cc_AbCdEf123456"]})
+    client_secret: Optional[StrictStr] = Field(default=None, description="Client secret (required for client_credentials grant)", json_schema_extra={"examples": ["secret_value"]})
+    refresh_token: Optional[StrictStr] = Field(default=None, description="Refresh token (required for refresh_token grant)", json_schema_extra={"examples": ["refresh_token_value"]})
     __properties: ClassVar[List[str]] = ["grant_type", "code", "state", "redirect_uri", "code_verifier", "client_id", "client_secret", "refresh_token"]
 
     @field_validator('grant_type')

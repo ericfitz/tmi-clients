@@ -30,10 +30,10 @@ class ListProjectsResponse(BaseModel):
     """
     Paginated list of projects
     """ # noqa: E501
-    projects: Annotated[List[ProjectListItem], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of projects matching the filter")
-    limit: StrictInt = Field(description="Maximum number of results per page")
-    offset: StrictInt = Field(description="Number of results skipped")
+    projects: Annotated[List[ProjectListItem], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "660e8400-e29b-41d4-a716-446655440001", "name": "API Gateway Modernization", "description": "Migrate legacy API gateway to cloud-native architecture", "team_id": "550e8400-e29b-41d4-a716-446655440000", "status": "active", "created_at": "2025-02-01T09:00:00Z", "modified_at": "2025-07-10T16:45:00Z"}]]})
+    total: StrictInt = Field(description="Total number of projects matching the filter", json_schema_extra={"examples": [1]})
+    limit: StrictInt = Field(description="Maximum number of results per page", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Number of results skipped", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["projects", "total", "limit", "offset"]
 
     model_config = ConfigDict(

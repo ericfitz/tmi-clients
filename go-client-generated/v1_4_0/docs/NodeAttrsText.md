@@ -8,12 +8,12 @@ Name | Type | Description | Notes
 **FontSize** | Pointer to **float32** | Font size in pixels | [optional] 
 **Fill** | Pointer to **string** | Text color | [optional] 
 **FontFamily** | Pointer to **string** | Font family | [optional] 
-**RefX** | Pointer to [**NodeAttrsTextRefX**](NodeAttrsTextRefX.md) |  | [optional] 
-**RefY** | Pointer to [**NodeAttrsTextRefY**](NodeAttrsTextRefY.md) |  | [optional] 
+**RefX** | Pointer to [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
+**RefY** | Pointer to [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
 **RefDx** | Pointer to **float32** | Horizontal offset from refX (corner-based, retained for back-compat; client uses refX2) | [optional] 
 **RefDy** | Pointer to **float32** | Vertical offset from refY (corner-based, retained for back-compat; client uses refY2) | [optional] 
-**RefX2** | Pointer to [**NodeAttrsTextRefX2**](NodeAttrsTextRefX2.md) |  | [optional] 
-**RefY2** | Pointer to [**NodeAttrsTextRefY2**](NodeAttrsTextRefY2.md) |  | [optional] 
+**RefX2** | Pointer to [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
+**RefY2** | Pointer to [**NodeAttrsBodyRefWidth**](NodeAttrsBodyRefWidth.md) |  | [optional] 
 **TextAnchor** | Pointer to **string** | Horizontal text alignment anchor point | [optional] 
 **TextVerticalAnchor** | Pointer to **string** | Vertical text alignment anchor point | [optional] 
 
@@ -138,20 +138,20 @@ HasFontFamily returns a boolean if a field has been set.
 
 ### GetRefX
 
-`func (o *NodeAttrsText) GetRefX() NodeAttrsTextRefX`
+`func (o *NodeAttrsText) GetRefX() NodeAttrsBodyRefWidth`
 
 GetRefX returns the RefX field if non-nil, zero value otherwise.
 
 ### GetRefXOk
 
-`func (o *NodeAttrsText) GetRefXOk() (*NodeAttrsTextRefX, bool)`
+`func (o *NodeAttrsText) GetRefXOk() (*NodeAttrsBodyRefWidth, bool)`
 
 GetRefXOk returns a tuple with the RefX field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefX
 
-`func (o *NodeAttrsText) SetRefX(v NodeAttrsTextRefX)`
+`func (o *NodeAttrsText) SetRefX(v NodeAttrsBodyRefWidth)`
 
 SetRefX sets RefX field to given value.
 
@@ -163,20 +163,20 @@ HasRefX returns a boolean if a field has been set.
 
 ### GetRefY
 
-`func (o *NodeAttrsText) GetRefY() NodeAttrsTextRefY`
+`func (o *NodeAttrsText) GetRefY() NodeAttrsBodyRefWidth`
 
 GetRefY returns the RefY field if non-nil, zero value otherwise.
 
 ### GetRefYOk
 
-`func (o *NodeAttrsText) GetRefYOk() (*NodeAttrsTextRefY, bool)`
+`func (o *NodeAttrsText) GetRefYOk() (*NodeAttrsBodyRefWidth, bool)`
 
 GetRefYOk returns a tuple with the RefY field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefY
 
-`func (o *NodeAttrsText) SetRefY(v NodeAttrsTextRefY)`
+`func (o *NodeAttrsText) SetRefY(v NodeAttrsBodyRefWidth)`
 
 SetRefY sets RefY field to given value.
 
@@ -238,20 +238,20 @@ HasRefDy returns a boolean if a field has been set.
 
 ### GetRefX2
 
-`func (o *NodeAttrsText) GetRefX2() NodeAttrsTextRefX2`
+`func (o *NodeAttrsText) GetRefX2() NodeAttrsBodyRefWidth`
 
 GetRefX2 returns the RefX2 field if non-nil, zero value otherwise.
 
 ### GetRefX2Ok
 
-`func (o *NodeAttrsText) GetRefX2Ok() (*NodeAttrsTextRefX2, bool)`
+`func (o *NodeAttrsText) GetRefX2Ok() (*NodeAttrsBodyRefWidth, bool)`
 
 GetRefX2Ok returns a tuple with the RefX2 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefX2
 
-`func (o *NodeAttrsText) SetRefX2(v NodeAttrsTextRefX2)`
+`func (o *NodeAttrsText) SetRefX2(v NodeAttrsBodyRefWidth)`
 
 SetRefX2 sets RefX2 field to given value.
 
@@ -263,20 +263,20 @@ HasRefX2 returns a boolean if a field has been set.
 
 ### GetRefY2
 
-`func (o *NodeAttrsText) GetRefY2() NodeAttrsTextRefY2`
+`func (o *NodeAttrsText) GetRefY2() NodeAttrsBodyRefWidth`
 
 GetRefY2 returns the RefY2 field if non-nil, zero value otherwise.
 
 ### GetRefY2Ok
 
-`func (o *NodeAttrsText) GetRefY2Ok() (*NodeAttrsTextRefY2, bool)`
+`func (o *NodeAttrsText) GetRefY2Ok() (*NodeAttrsBodyRefWidth, bool)`
 
 GetRefY2Ok returns a tuple with the RefY2 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRefY2
 
-`func (o *NodeAttrsText) SetRefY2(v NodeAttrsTextRefY2)`
+`func (o *NodeAttrsText) SetRefY2(v NodeAttrsBodyRefWidth)`
 
 SetRefY2 sets RefY2 field to given value.
 

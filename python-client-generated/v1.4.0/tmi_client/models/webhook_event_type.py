@@ -36,6 +36,8 @@ class WebhookEventType(str, Enum):
     DOCUMENT_DOT_CREATED = 'document.created'
     DOCUMENT_DOT_UPDATED = 'document.updated'
     DOCUMENT_DOT_DELETED = 'document.deleted'
+    DOCUMENT_DOT_EXTRACTION_COMPLETED = 'document.extraction_completed'
+    DOCUMENT_DOT_EXTRACTION_FAILED = 'document.extraction_failed'
     NOTE_DOT_CREATED = 'note.created'
     NOTE_DOT_UPDATED = 'note.updated'
     NOTE_DOT_DELETED = 'note.deleted'
@@ -58,6 +60,7 @@ class WebhookEventType(str, Enum):
     SURVEY_RESPONSE_DOT_CREATED = 'survey_response.created'
     SURVEY_RESPONSE_DOT_UPDATED = 'survey_response.updated'
     SURVEY_RESPONSE_DOT_DELETED = 'survey_response.deleted'
+    SYSTEM_AUDIT_DOT_ADMIN_WRITE = 'system_audit.admin_write'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,16 +30,17 @@ class StepUpAuthenticate200Response(BaseModel):
     StepUpAuthenticate200Response
     """ # noqa: E501
     result: StrictStr
-    provider: StrictStr
-    auth_time: StrictInt
-    message: StrictStr
-    __properties: ClassVar[List[str]] = ["result", "provider", "auth_time", "message"]
+    redirect_url: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = Field(default=None, description="Upstream IdP authorization URL (with fresh-prompt parameters appended) the client must top-level navigate to. Present only when result='step_up_redirect'.")
+    provider: Optional[StrictStr] = Field(default=None, description="Present only when result='step_up_weak_complete'.")
+    auth_time: Optional[StrictInt] = Field(default=None, description="Present only when result='step_up_weak_complete'.")
+    message: Optional[StrictStr] = Field(default=None, description="Present only when result='step_up_weak_complete'.")
+    __properties: ClassVar[List[str]] = ["result", "redirect_url", "provider", "auth_time", "message"]
 
     @field_validator('result')
     def result_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['step_up_weak_complete']):
-            raise ValueError("must be one of enum values ('step_up_weak_complete')")
+        if value not in set(['step_up_weak_complete', 'step_up_redirect']):
+            raise ValueError("must be one of enum values ('step_up_weak_complete', 'step_up_redirect')")
         return value
 
     model_config = ConfigDict(
@@ -93,6 +95,7 @@ class StepUpAuthenticate200Response(BaseModel):
 
         _obj = cls.model_validate({
             "result": obj.get("result"),
+            "redirect_url": obj.get("redirect_url"),
             "provider": obj.get("provider"),
             "auth_time": obj.get("auth_time"),
             "message": obj.get("message")

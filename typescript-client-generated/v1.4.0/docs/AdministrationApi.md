@@ -14,14 +14,18 @@ All URIs are relative to *https://api.tmi.dev*
 | [**deleteWebhookQuota**](AdministrationApi.md#deletewebhookquota) | **DELETE** /admin/quotas/webhooks/{user_id} | Delete webhook quota |
 | [**getAddonInvocationQuota**](AdministrationApi.md#getaddoninvocationquota) | **GET** /admin/quotas/addons/{user_id} | Get addon invocation quota |
 | [**getAdminGroup**](AdministrationApi.md#getadmingroup) | **GET** /admin/groups/{internal_uuid} | Get group details |
+| [**getAdminThreatModelAuditEntry**](AdministrationApi.md#getadminthreatmodelauditentry) | **GET** /admin/audit/threat_models/{entry_id} | Get a threat-model audit entry by id (admin) |
 | [**getAdminUser**](AdministrationApi.md#getadminuser) | **GET** /admin/users/{internal_uuid} | Get user details |
+| [**getSystemAuditEntry**](AdministrationApi.md#getsystemauditentry) | **GET** /admin/audit/system/{entry_id} | Get a system audit entry |
 | [**getSystemSetting**](AdministrationApi.md#getsystemsetting) | **GET** /admin/settings/{key} | Get system setting |
 | [**getUserAPIQuota**](AdministrationApi.md#getuserapiquota) | **GET** /admin/quotas/users/{user_id} | Get user API quota |
 | [**getWebhookQuota**](AdministrationApi.md#getwebhookquota) | **GET** /admin/quotas/webhooks/{user_id} | Get webhook quota |
 | [**listAddonInvocationQuotas**](AdministrationApi.md#listaddoninvocationquotas) | **GET** /admin/quotas/addons | List all addon invocation quotas |
 | [**listAdminGroups**](AdministrationApi.md#listadmingroups) | **GET** /admin/groups | List groups |
+| [**listAdminThreatModelAuditEntries**](AdministrationApi.md#listadminthreatmodelauditentries) | **GET** /admin/audit/threat_models | List threat-model audit entries across all threat models |
 | [**listAdminUsers**](AdministrationApi.md#listadminusers) | **GET** /admin/users | List users |
 | [**listGroupMembers**](AdministrationApi.md#listgroupmembers) | **GET** /admin/groups/{internal_uuid}/members | List group members |
+| [**listSystemAuditEntries**](AdministrationApi.md#listsystemauditentries) | **GET** /admin/audit/system | List system audit entries |
 | [**listSystemSettings**](AdministrationApi.md#listsystemsettings) | **GET** /admin/settings | List system settings |
 | [**listUserAPIQuotas**](AdministrationApi.md#listuserapiquotas) | **GET** /admin/quotas/users | List all user API quotas |
 | [**listWebhookQuotas**](AdministrationApi.md#listwebhookquotas) | **GET** /admin/quotas/webhooks | List all webhook quotas |
@@ -811,6 +815,83 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getAdminThreatModelAuditEntry
+
+> AuditEntry getAdminThreatModelAuditEntry(entryId)
+
+Get a threat-model audit entry by id (admin)
+
+Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '@tmiclient/client';
+import type { GetAdminThreatModelAuditEntryRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | The audit entry ID.
+    entryId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetAdminThreatModelAuditEntryRequest;
+
+  try {
+    const data = await api.getAdminThreatModelAuditEntry(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **entryId** | `string` | The audit entry ID. | [Defaults to `undefined`] |
+
+### Return type
+
+[**AuditEntry**](AuditEntry.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Audit entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - Invalid or missing authentication token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - Insufficient permissions to access this resource |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | Audit entry not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getAdminUser
 
 > AdminUser getAdminUser(internalUuid)
@@ -884,6 +965,83 @@ example().catch(console.error);
 | **404** | User not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Internal server error |  -  |
 | **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSystemAuditEntry
+
+> SystemAuditEntry getSystemAuditEntry(entryId)
+
+Get a system audit entry
+
+Returns a single system-level audit entry by ID. Admin role required.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '@tmiclient/client';
+import type { GetSystemAuditEntryRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | The system audit entry ID.
+    entryId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetSystemAuditEntryRequest;
+
+  try {
+    const data = await api.getSystemAuditEntry(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **entryId** | `string` | The system audit entry ID. | [Defaults to `undefined`] |
+
+### Return type
+
+[**SystemAuditEntry**](SystemAuditEntry.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | System audit entry |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - Invalid or missing authentication token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - Insufficient permissions to access this resource |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **404** | System audit entry not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -1292,6 +1450,110 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## listAdminThreatModelAuditEntries
+
+> ListAdminAuditEntriesResponse listAdminThreatModelAuditEntries(actorEmail, actorProvider, createdAfter, createdBefore, changeType, objectType, threatModelId, limit, cursor, around)
+
+List threat-model audit entries across all threat models
+
+Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '@tmiclient/client';
+import type { ListAdminThreatModelAuditEntriesRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Filter by actor email (optional)
+    actorEmail: actorEmail_example,
+    // string | Filter by the actor identity provider. (optional)
+    actorProvider: actorProvider_example,
+    // Date | Return only records created after this RFC 3339 timestamp. (optional)
+    createdAfter: 2013-10-20T19:20:30+01:00,
+    // Date | Return only records created before this RFC 3339 timestamp. (optional)
+    createdBefore: 2013-10-20T19:20:30+01:00,
+    // 'created' | 'updated' | 'patched' | 'deleted' | 'rolled_back' | 'restored' | Filter by change type (optional)
+    changeType: changeType_example,
+    // 'threat_model' | 'diagram' | 'threat' | 'asset' | 'document' | 'note' | 'repository' | Filter by object type (optional)
+    objectType: objectType_example,
+    // string | Filter audit entries to a single threat model. (optional)
+    threatModelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // number | Maximum number of entries to return per page. (optional)
+    limit: 56,
+    // string | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. (optional)
+    cursor: cursor_example,
+    // string | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. (optional)
+    around: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ListAdminThreatModelAuditEntriesRequest;
+
+  try {
+    const data = await api.listAdminThreatModelAuditEntries(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **actorEmail** | `string` | Filter by actor email | [Optional] [Defaults to `undefined`] |
+| **actorProvider** | `string` | Filter by the actor identity provider. | [Optional] [Defaults to `undefined`] |
+| **createdAfter** | `Date` | Return only records created after this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
+| **createdBefore** | `Date` | Return only records created before this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
+| **changeType** | `created`, `updated`, `patched`, `deleted`, `rolled_back`, `restored` | Filter by change type | [Optional] [Defaults to `undefined`] [Enum: created, updated, patched, deleted, rolled_back, restored] |
+| **objectType** | `threat_model`, `diagram`, `threat`, `asset`, `document`, `note`, `repository` | Filter by object type | [Optional] [Defaults to `undefined`] [Enum: threat_model, diagram, threat, asset, document, note, repository] |
+| **threatModelId** | `string` | Filter audit entries to a single threat model. | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` | Maximum number of entries to return per page. | [Optional] [Defaults to `50`] |
+| **cursor** | `string` | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. | [Optional] [Defaults to `undefined`] |
+| **around** | `string` | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ListAdminAuditEntriesResponse**](ListAdminAuditEntriesResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Paginated audit entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - Invalid or missing authentication token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - Insufficient permissions to access this resource |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
+| **500** | Internal server error |  -  |
+| **404** | Not Found - the around entry id does not exist |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## listAdminUsers
 
 > AdminUserListResponse listAdminUsers(provider, email, name, createdAfter, createdBefore, lastLoginAfter, lastLoginBefore, limit, offset, sortBy, sortOrder, automation)
@@ -1324,9 +1586,9 @@ async function example() {
     email: email_example,
     // string | Filter by name (case-insensitive substring match) (optional)
     name: name_example,
-    // Date | Filter users created after this timestamp (RFC3339) (optional)
+    // Date | Return only records created after this RFC 3339 timestamp. (optional)
     createdAfter: 2013-10-20T19:20:30+01:00,
-    // Date | Filter users created before this timestamp (RFC3339) (optional)
+    // Date | Return only records created before this RFC 3339 timestamp. (optional)
     createdBefore: 2013-10-20T19:20:30+01:00,
     // Date | Filter users who logged in after this timestamp (RFC3339) (optional)
     lastLoginAfter: 2013-10-20T19:20:30+01:00,
@@ -1364,8 +1626,8 @@ example().catch(console.error);
 | **provider** | `string` | Filter by OAuth/SAML provider | [Optional] [Defaults to `undefined`] |
 | **email** | `string` | Filter by email (case-insensitive substring match) | [Optional] [Defaults to `undefined`] |
 | **name** | `string` | Filter by name (case-insensitive substring match) | [Optional] [Defaults to `undefined`] |
-| **createdAfter** | `Date` | Filter users created after this timestamp (RFC3339) | [Optional] [Defaults to `undefined`] |
-| **createdBefore** | `Date` | Filter users created before this timestamp (RFC3339) | [Optional] [Defaults to `undefined`] |
+| **createdAfter** | `Date` | Return only records created after this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
+| **createdBefore** | `Date` | Return only records created before this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
 | **lastLoginAfter** | `Date` | Filter users who logged in after this timestamp (RFC3339) | [Optional] [Defaults to `undefined`] |
 | **lastLoginBefore** | `Date` | Filter users who logged in before this timestamp (RFC3339) | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` | Maximum number of results to return | [Optional] [Defaults to `50`] |
@@ -1480,6 +1742,113 @@ example().catch(console.error);
 | **404** | Group not found |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 | **500** | Internal server error |  -  |
 | **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listSystemAuditEntries
+
+> ListSystemAuditEntriesResponse listSystemAuditEntries(actorEmail, actorProvider, createdAfter, createdBefore, httpMethod, pathPrefix, fieldPath, limit, cursor, around, format)
+
+List system audit entries
+
+Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '@tmiclient/client';
+import type { ListSystemAuditEntriesRequest } from '@tmiclient/client';
+
+async function example() {
+  console.log("🚀 Testing @tmiclient/client SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Filter by actor email (optional)
+    actorEmail: actorEmail_example,
+    // string | Filter by the actor identity provider. (optional)
+    actorProvider: actorProvider_example,
+    // Date | Return only records created after this RFC 3339 timestamp. (optional)
+    createdAfter: 2013-10-20T19:20:30+01:00,
+    // Date | Return only records created before this RFC 3339 timestamp. (optional)
+    createdBefore: 2013-10-20T19:20:30+01:00,
+    // 'POST' | 'PUT' | 'PATCH' | 'DELETE' | Filter system audit entries by HTTP method. (optional)
+    httpMethod: httpMethod_example,
+    // string | Filter system audit entries whose request path starts with this prefix (matched literally). (optional)
+    pathPrefix: pathPrefix_example,
+    // string | Filter system audit entries by exact field path. (optional)
+    fieldPath: fieldPath_example,
+    // number | Maximum number of entries to return per page. (optional)
+    limit: 56,
+    // string | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. (optional)
+    cursor: cursor_example,
+    // string | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. (optional)
+    around: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // 'csv' | 'ndjson' | When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around. (optional)
+    format: format_example,
+  } satisfies ListSystemAuditEntriesRequest;
+
+  try {
+    const data = await api.listSystemAuditEntries(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **actorEmail** | `string` | Filter by actor email | [Optional] [Defaults to `undefined`] |
+| **actorProvider** | `string` | Filter by the actor identity provider. | [Optional] [Defaults to `undefined`] |
+| **createdAfter** | `Date` | Return only records created after this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
+| **createdBefore** | `Date` | Return only records created before this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
+| **httpMethod** | `POST`, `PUT`, `PATCH`, `DELETE` | Filter system audit entries by HTTP method. | [Optional] [Defaults to `undefined`] [Enum: POST, PUT, PATCH, DELETE] |
+| **pathPrefix** | `string` | Filter system audit entries whose request path starts with this prefix (matched literally). | [Optional] [Defaults to `undefined`] |
+| **fieldPath** | `string` | Filter system audit entries by exact field path. | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` | Maximum number of entries to return per page. | [Optional] [Defaults to `50`] |
+| **cursor** | `string` | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. | [Optional] [Defaults to `undefined`] |
+| **around** | `string` | Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor. | [Optional] [Defaults to `undefined`] |
+| **format** | `csv`, `ndjson` | When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around. | [Optional] [Defaults to `undefined`] [Enum: csv, ndjson] |
+
+### Return type
+
+[**ListSystemAuditEntriesResponse**](ListSystemAuditEntriesResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `text/csv`, `application/x-ndjson`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Paginated system audit entries |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Content-Disposition - Set to attachment with a filename when format&#x3D;csv|ndjson. <br>  |
+| **400** | Bad Request - Invalid parameters, malformed UUIDs, or validation failures |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **401** | Unauthorized - Invalid or missing authentication token |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **403** | Forbidden - Insufficient permissions to access this resource |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
+| **429** | Too many requests - rate limit exceeded |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  * Retry-After - Seconds until rate limit resets <br>  |
+| **500** | Internal server error |  -  |
+| **404** | Not Found - the around entry id does not exist |  * X-RateLimit-Limit - Maximum number of requests allowed in the current time window <br>  * X-RateLimit-Remaining - Number of requests remaining in the current time window <br>  * X-RateLimit-Reset - Unix epoch seconds when the rate limit window resets <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

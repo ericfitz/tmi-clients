@@ -29,9 +29,9 @@ class ErrorDetails(BaseModel):
     """
     Additional context-specific error information
     """ # noqa: E501
-    code: Optional[Annotated[str, Field(strict=True, max_length=512)]] = Field(default=None, description="Machine-readable error code for programmatic handling")
-    context: Optional[Dict[str, Any]] = Field(default=None, description="Contextual information about the error")
-    suggestion: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Human-readable suggestion for resolving the error")
+    code: Optional[Annotated[str, Field(strict=True, max_length=512)]] = Field(default=None, description="Machine-readable error code for programmatic handling", json_schema_extra={"examples": ["COLLABORATION_SESSION_NOT_FOUND"]})
+    context: Optional[Dict[str, Any]] = Field(default=None, description="Contextual information about the error", json_schema_extra={"examples": [{"diagram_id": "550e8400-e29b-41d4-a716-446655440000", "requested_operation": "end_session"}]})
+    suggestion: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Human-readable suggestion for resolving the error", json_schema_extra={"examples": ["Start a collaboration session first using POST /diagrams/{id}/collaborate"]})
     __properties: ClassVar[List[str]] = ["code", "context", "suggestion"]
 
     @field_validator('code')

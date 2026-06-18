@@ -32,15 +32,15 @@ class TimmyChatSession(BaseModel):
     """
     A Timmy AI assistant chat session within a threat model
     """ # noqa: E501
-    id: UUID = Field(description="Unique identifier for the chat session")
-    threat_model_id: UUID = Field(description="Identifier of the parent threat model")
-    user_id: UUID = Field(description="Identifier of the user who created the session")
-    title: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Optional session title")
-    source_snapshot: Optional[Annotated[List[TimmyChatSessionSourceSnapshotInner], Field(max_length=100)]] = Field(default=None, description="Snapshot of source entities used for context")
-    system_prompt_hash: Optional[Annotated[str, Field(strict=True, max_length=128)]] = Field(default=None, description="Hash of the system prompt used for this session")
-    status: StrictStr = Field(description="Current status of the chat session")
-    created_at: datetime = Field(description="Creation timestamp (RFC3339)")
-    modified_at: datetime = Field(description="Last modification timestamp (RFC3339)")
+    id: UUID = Field(description="Unique identifier for the chat session", json_schema_extra={"examples": ["123e4567-e89b-12d3-a456-426614174000"]})
+    threat_model_id: UUID = Field(description="Identifier of the parent threat model", json_schema_extra={"examples": ["223e4567-e89b-12d3-a456-426614174001"]})
+    user_id: UUID = Field(description="Identifier of the user who created the session", json_schema_extra={"examples": ["323e4567-e89b-12d3-a456-426614174002"]})
+    title: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Optional session title", json_schema_extra={"examples": ["Payment flow threat analysis"]})
+    source_snapshot: Optional[Annotated[List[TimmyChatSessionSourceSnapshotInner], Field(max_length=100)]] = Field(default=None, description="Snapshot of source entities used for context", json_schema_extra={"examples": [[]]})
+    system_prompt_hash: Optional[Annotated[str, Field(strict=True, max_length=128)]] = Field(default=None, description="Hash of the system prompt used for this session", json_schema_extra={"examples": ["sha256:abc123def456789"]})
+    status: StrictStr = Field(description="Current status of the chat session", json_schema_extra={"examples": ["active"]})
+    created_at: datetime = Field(description="Creation timestamp (RFC3339)", json_schema_extra={"examples": ["2026-04-19T12:00:00Z"]})
+    modified_at: datetime = Field(description="Last modification timestamp (RFC3339)", json_schema_extra={"examples": ["2026-04-19T12:34:56Z"]})
     __properties: ClassVar[List[str]] = ["id", "threat_model_id", "user_id", "title", "source_snapshot", "system_prompt_hash", "status", "created_at", "modified_at"]
 
     @field_validator('id')

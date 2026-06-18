@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **ModifiedAt** | Pointer to **time.Time** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **SubmittedAt** | Pointer to **NullableTime** | When the response was submitted for review | [optional] [readonly] 
 **ReviewedAt** | Pointer to **NullableTime** | When the response was last reviewed | [optional] [readonly] 
-**ReviewedBy** | Pointer to **map[string]interface{}** | Security engineer who last reviewed the response | [optional] [readonly] 
+**ReviewedBy** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 
 **SurveyJson** | Pointer to **map[string]interface{}** | Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version. | [optional] [readonly] 
 **Metadata** | Pointer to [**[]Metadata**](Metadata.md) | Optional metadata key-value pairs | [optional] 
 **CreatedBy** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 

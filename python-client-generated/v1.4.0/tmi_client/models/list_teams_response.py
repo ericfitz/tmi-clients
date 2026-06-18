@@ -30,10 +30,10 @@ class ListTeamsResponse(BaseModel):
     """
     Paginated list of teams
     """ # noqa: E501
-    teams: Annotated[List[TeamListItem], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of teams matching the filter")
-    limit: StrictInt = Field(description="Maximum number of results per page")
-    offset: StrictInt = Field(description="Number of results skipped")
+    teams: Annotated[List[TeamListItem], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "550e8400-e29b-41d4-a716-446655440000", "name": "Platform Engineering", "description": "Core platform infrastructure team", "status": "active", "created_at": "2025-01-15T10:30:00Z", "modified_at": "2025-06-20T14:22:00Z"}]]})
+    total: StrictInt = Field(description="Total number of teams matching the filter", json_schema_extra={"examples": [1]})
+    limit: StrictInt = Field(description="Maximum number of results per page", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Number of results skipped", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["teams", "total", "limit", "offset"]
 
     model_config = ConfigDict(

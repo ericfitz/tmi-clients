@@ -30,7 +30,7 @@ class ListAuditTrailResponse(BaseModel):
     """
     Paginated list of audit trail entries
     """ # noqa: E501
-    audit_entries: Annotated[List[AuditEntry], Field(max_length=100)]
+    audit_entries: Annotated[List[AuditEntry], Field(max_length=100)] = Field(json_schema_extra={"examples": [[{"id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "threat_model_id": "f0e1d2c3-b4a5-6789-0abc-def123456789", "object_type": "threat_model", "object_id": "f0e1d2c3-b4a5-6789-0abc-def123456789", "version": 3, "change_type": "updated", "actor": {"email": "alice@example.com", "provider": "google", "provider_id": "google-12345", "display_name": "Alice"}, "change_summary": "Updated threat model description", "created_at": "2026-01-15T10:30:00Z"}]]})
     total: StrictInt = Field(description="Total number of matching audit entries")
     limit: StrictInt = Field(description="Maximum number of entries returned")
     offset: StrictInt = Field(description="Offset from the beginning of the result set")

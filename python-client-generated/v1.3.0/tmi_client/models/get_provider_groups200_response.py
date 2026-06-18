@@ -30,8 +30,8 @@ class GetProviderGroups200Response(BaseModel):
     """
     GetProviderGroups200Response
     """ # noqa: E501
-    idp: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider ID")
-    groups: Annotated[List[GetProviderGroups200ResponseGroupsInner], Field(max_length=1000)]
+    idp: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Identity provider ID", json_schema_extra={"examples": ["azure"]})
+    groups: Annotated[List[GetProviderGroups200ResponseGroupsInner], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"name": "admins", "display_name": "Administrators", "used_in_authorizations": True}, {"name": "developers", "display_name": "Development Team", "used_in_authorizations": False}, {"name": "users", "display_name": "General Users", "used_in_authorizations": False}]]})
     __properties: ClassVar[List[str]] = ["idp", "groups"]
 
     @field_validator('idp')

@@ -30,7 +30,7 @@ class GetJWKS200Response(BaseModel):
     """
     GetJWKS200Response
     """ # noqa: E501
-    keys: Annotated[List[GetJWKS200ResponseKeysInner], Field(max_length=1000)]
+    keys: Annotated[List[GetJWKS200ResponseKeysInner], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"kty": "RSA", "use": "sig", "kid": "tmi-key-1", "alg": "RS256"}]]})
     __properties: ClassVar[List[str]] = ["keys"]
 
     model_config = ConfigDict(

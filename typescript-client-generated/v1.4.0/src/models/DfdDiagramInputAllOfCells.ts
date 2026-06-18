@@ -70,17 +70,17 @@ export function DfdDiagramInputAllOfCellsToJSONTyped(value?: DfdDiagramInputAllO
     }
     switch (value['shape']) {
         case 'actor':
-            return Object.assign({}, NodeToJSON(value), { shape: 'actor' } as const);
+            return Object.assign({}, NodeToJSON(value), { 'shape': 'actor' } as const);
         case 'flow':
-            return Object.assign({}, EdgeToJSON(value), { shape: 'flow' } as const);
+            return Object.assign({}, EdgeToJSON(value), { 'shape': 'flow' } as const);
         case 'process':
-            return Object.assign({}, NodeToJSON(value), { shape: 'process' } as const);
+            return Object.assign({}, NodeToJSON(value), { 'shape': 'process' } as const);
         case 'security-boundary':
-            return Object.assign({}, NodeToJSON(value), { shape: 'security-boundary' } as const);
+            return Object.assign({}, NodeToJSON(value), { 'shape': 'security-boundary' } as const);
         case 'store':
-            return Object.assign({}, NodeToJSON(value), { shape: 'store' } as const);
+            return Object.assign({}, NodeToJSON(value), { 'shape': 'store' } as const);
         case 'text-box':
-            return Object.assign({}, NodeToJSON(value), { shape: 'text-box' } as const);
+            return Object.assign({}, NodeToJSON(value), { 'shape': 'text-box' } as const);
         default:
             return value;
     }

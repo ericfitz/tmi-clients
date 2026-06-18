@@ -50,7 +50,7 @@ class SurveyResponse(BaseModel):
     modified_at: Optional[datetime] = Field(default=None, description="Last modification timestamp (RFC3339)")
     submitted_at: Optional[datetime] = Field(default=None, description="When the response was submitted for review")
     reviewed_at: Optional[datetime] = Field(default=None, description="When the response was last reviewed")
-    reviewed_by: Optional[Dict[str, Any]] = Field(default=None, description="Security engineer who last reviewed the response")
+    reviewed_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created the response")
     survey_json: Optional[Dict[str, Any]] = Field(default=None, description="Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version.")
     metadata: Optional[Annotated[List[Metadata], Field(max_length=100)]] = Field(default=None, description="Optional metadata key-value pairs")
     created_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created the response")

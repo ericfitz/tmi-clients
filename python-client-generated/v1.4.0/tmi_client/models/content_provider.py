@@ -28,11 +28,11 @@ class ContentProvider(BaseModel):
     """
     ContentProvider
     """ # noqa: E501
-    id: StrictStr = Field(description="Source identifier (matches ContentSource.Name())")
+    id: StrictStr = Field(description="Source identifier (matches ContentSource.Name())", json_schema_extra={"examples": ["google_workspace"]})
     name: StrictStr = Field(description="Display label for the provider")
     kind: StrictStr = Field(description="delegated: per-user OAuth (client must call /me/content_tokens/{id}/authorize); service: operator-credentialed (no per-user link); direct: no auth (e.g., HTTP fetch)")
     icon: StrictStr = Field(description="Font Awesome class string (matches OAuth IdP convention). Empty if no default and no override.")
-    picker_config: Optional[Dict[str, StrictStr]] = Field(default=None, description="Browser-safe OAuth/picker bootstrap values for in-browser file pickers. Present only when the operator has configured a public Web OAuth client for this provider. All values are intended for browser use; never include client_secret or service-account material here. Per-provider keys are documented in the provider's section.")
+    picker_config: Optional[Dict[str, StrictStr]] = Field(default=None, description="Browser-safe OAuth/picker bootstrap values for in-browser file pickers. Present only when the operator has configured a public Web OAuth client for this provider. All values are intended for browser use; never include client_secret or service-account material here. Per-provider keys are documented in the provider's section.", json_schema_extra={"examples": [{"client_id": "1234567890-abc.apps.googleusercontent.com", "developer_key": "AIzaSyB-1234example", "app_id": "1234567890"}]})
     __properties: ClassVar[List[str]] = ["id", "name", "kind", "icon", "picker_config"]
 
     @field_validator('kind')

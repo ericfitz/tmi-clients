@@ -30,7 +30,7 @@ class GetSAMLProviders200Response(BaseModel):
     """
     GetSAMLProviders200Response
     """ # noqa: E501
-    providers: Annotated[List[SAMLProviderInfo], Field(max_length=1000)]
+    providers: Annotated[List[SAMLProviderInfo], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "okta", "name": "Okta", "icon": "okta", "auth_url": "http://localhost:8080/saml/okta/login", "metadata_url": "http://localhost:8080/saml/okta/metadata", "entity_id": "urn:example:tmi", "acs_url": "http://localhost:8080/saml/acs", "initialized": True}]]})
     __properties: ClassVar[List[str]] = ["providers"]
 
     model_config = ConfigDict(

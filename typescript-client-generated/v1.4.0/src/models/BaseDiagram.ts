@@ -151,6 +151,8 @@ export function instanceOfBaseDiagram(value: object): value is BaseDiagram {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'DFD-1.0.0') return false;
+    
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     if (!('modified_at' in value) || value['modified_at'] === undefined) return false;
     return true;

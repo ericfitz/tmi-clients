@@ -35,7 +35,7 @@ type NodeAttrsBody struct {
 	// Cylinder lateral parameter for the X6 'store' shape (drives the body 'd' path computation)
 	Lateral *float32 `json:"lateral,omitempty"`
 	RefWidth *NodeAttrsBodyRefWidth `json:"refWidth,omitempty"`
-	RefHeight *NodeAttrsBodyRefHeight `json:"refHeight,omitempty"`
+	RefHeight *NodeAttrsBodyRefWidth `json:"refHeight,omitempty"`
 	// Body fill opacity (0-1); typically transient drag-to-embed visual feedback
 	FillOpacity *float32 `json:"fillOpacity,omitempty"`
 }
@@ -324,9 +324,9 @@ func (o *NodeAttrsBody) SetRefWidth(v NodeAttrsBodyRefWidth) {
 }
 
 // GetRefHeight returns the RefHeight field value if set, zero value otherwise.
-func (o *NodeAttrsBody) GetRefHeight() NodeAttrsBodyRefHeight {
+func (o *NodeAttrsBody) GetRefHeight() NodeAttrsBodyRefWidth {
 	if o == nil || IsNil(o.RefHeight) {
-		var ret NodeAttrsBodyRefHeight
+		var ret NodeAttrsBodyRefWidth
 		return ret
 	}
 	return *o.RefHeight
@@ -334,7 +334,7 @@ func (o *NodeAttrsBody) GetRefHeight() NodeAttrsBodyRefHeight {
 
 // GetRefHeightOk returns a tuple with the RefHeight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NodeAttrsBody) GetRefHeightOk() (*NodeAttrsBodyRefHeight, bool) {
+func (o *NodeAttrsBody) GetRefHeightOk() (*NodeAttrsBodyRefWidth, bool) {
 	if o == nil || IsNil(o.RefHeight) {
 		return nil, false
 	}
@@ -350,8 +350,8 @@ func (o *NodeAttrsBody) HasRefHeight() bool {
 	return false
 }
 
-// SetRefHeight gets a reference to the given NodeAttrsBodyRefHeight and assigns it to the RefHeight field.
-func (o *NodeAttrsBody) SetRefHeight(v NodeAttrsBodyRefHeight) {
+// SetRefHeight gets a reference to the given NodeAttrsBodyRefWidth and assigns it to the RefHeight field.
+func (o *NodeAttrsBody) SetRefHeight(v NodeAttrsBodyRefWidth) {
 	o.RefHeight = &v
 }
 

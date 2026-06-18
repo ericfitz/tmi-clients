@@ -29,7 +29,7 @@ class CreateTimmyMessageRequest(BaseModel):
     """
     Request body for creating a message in a Timmy chat session
     """ # noqa: E501
-    content: Annotated[str, Field(min_length=1, strict=True, max_length=10000)] = Field(description="Message content to send to Timmy")
+    content: Annotated[str, Field(min_length=1, strict=True, max_length=10000)] = Field(description="Message content to send to Timmy", json_schema_extra={"examples": ["What are the main threats in the login flow?"]})
     __properties: ClassVar[List[str]] = ["content"]
 
     @field_validator('content')

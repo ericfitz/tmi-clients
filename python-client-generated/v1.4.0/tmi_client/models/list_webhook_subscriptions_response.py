@@ -30,10 +30,10 @@ class ListWebhookSubscriptionsResponse(BaseModel):
     """
     Paginated list of webhook subscriptions
     """ # noqa: E501
-    subscriptions: Annotated[List[WebhookSubscription], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of subscriptions matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    subscriptions: Annotated[List[WebhookSubscription], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "550e8400-e29b-41d4-a716-446655440000", "owner_id": "550e8400-e29b-41d4-a716-446655440020", "name": "Production Slack Notifications", "url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXX", "events": ["diagram.updated", "threat_model.created"], "status": "active", "created_at": "2024-01-15T10:30:00Z", "modified_at": "2024-01-15T10:30:00Z"}]]})
+    total: StrictInt = Field(description="Total number of subscriptions matching criteria", json_schema_extra={"examples": [6]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["subscriptions", "total", "limit", "offset"]
 
     model_config = ConfigDict(

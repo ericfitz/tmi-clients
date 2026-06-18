@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **modified_at** | **datetime** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **submitted_at** | **datetime** | When the response was submitted for review | [optional] [readonly] 
 **reviewed_at** | **datetime** | When the response was last reviewed | [optional] [readonly] 
-**reviewed_by** | **object** | Security engineer who last reviewed the response | [optional] [readonly] 
+**reviewed_by** | **object** | User who created the response | [optional] [readonly] 
 **survey_json** | **Dict[str, object]** | Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version. | [optional] [readonly] 
 **metadata** | [**List[Metadata]**](Metadata.md) | Optional metadata key-value pairs | [optional] 
 **created_by** | **object** | User who created the response | [optional] [readonly] 

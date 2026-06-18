@@ -29,7 +29,7 @@ class AuthorizeContentTokenRequest(BaseModel):
     """
     Authorize request body.
     """ # noqa: E501
-    client_callback: Annotated[str, Field(strict=True, max_length=2048)] = Field(description="Client URL to redirect back to after the content-OAuth callback completes. Must match the server-side allow list.")
+    client_callback: Annotated[str, Field(strict=True, max_length=2048)] = Field(description="Client URL to redirect back to after the content-OAuth callback completes. Must match the server-side allow list.", json_schema_extra={"examples": ["http://localhost:4200/oauth2/content-callback"]})
     __properties: ClassVar[List[str]] = ["client_callback"]
 
     model_config = ConfigDict(

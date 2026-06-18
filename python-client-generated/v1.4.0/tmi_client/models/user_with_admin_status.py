@@ -35,8 +35,8 @@ class UserWithAdminStatus(BaseModel):
     provider_id: Annotated[str, Field(min_length=1, strict=True, max_length=500)] = Field(description="Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.")
     display_name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="User full name for display")
     email: Annotated[str, Field(strict=True, max_length=254)] = Field(description="User email address (required)")
-    is_admin: StrictBool = Field(description="Whether the user has administrator privileges (computed dynamically based on Administrators group membership)")
-    is_security_reviewer: StrictBool = Field(description="Whether the user is a security reviewer (computed dynamically based on Security Reviewers group membership)")
+    is_admin: StrictBool = Field(description="Whether the user has administrator privileges (computed dynamically based on Administrators group membership)", json_schema_extra={"examples": [False]})
+    is_security_reviewer: StrictBool = Field(description="Whether the user is a security reviewer (computed dynamically based on Security Reviewers group membership)", json_schema_extra={"examples": [False]})
     groups: Annotated[List[UserGroupMembership], Field(max_length=100)] = Field(description="TMI-managed groups that the user belongs to (direct membership only, excludes the implicit everyone pseudo-group)")
     __properties: ClassVar[List[str]] = ["principal_type", "provider", "provider_id", "display_name", "email", "is_admin", "is_security_reviewer", "groups"]
 

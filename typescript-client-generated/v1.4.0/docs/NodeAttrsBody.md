@@ -15,7 +15,7 @@ Name | Type
 `ry` | number
 `lateral` | number
 `refWidth` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
-`refHeight` | [NodeAttrsBodyRefHeight](NodeAttrsBodyRefHeight.md)
+`refHeight` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
 `fillOpacity` | number
 
 ## Example

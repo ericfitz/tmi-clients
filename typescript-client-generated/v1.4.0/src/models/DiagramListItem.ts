@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { DiagramListItemImage } from './DiagramListItemImage';
+import type { BaseDiagramImage } from './BaseDiagramImage';
 import {
-    DiagramListItemImageFromJSON,
-    DiagramListItemImageFromJSONTyped,
-    DiagramListItemImageToJSON,
-    DiagramListItemImageToJSONTyped,
-} from './DiagramListItemImage';
+    BaseDiagramImageFromJSON,
+    BaseDiagramImageFromJSONTyped,
+    BaseDiagramImageToJSON,
+    BaseDiagramImageToJSONTyped,
+} from './BaseDiagramImage';
 
 /**
  * Summary diagram object for GET /diagrams list endpoints. Excludes large fields (cells) for performance. Includes image for thumbnail rendering and description for display. Full diagram details available via GET /diagrams/{id} which returns DfdDiagram.
@@ -65,10 +65,10 @@ export interface DiagramListItem {
     readonly modified_at: Date;
     /**
      * 
-     * @type {DiagramListItemImage}
+     * @type {BaseDiagramImage}
      * @memberof DiagramListItem
      */
-    image?: DiagramListItemImage | null;
+    image?: BaseDiagramImage | null;
     /**
      * Whether this item should be included in generated reports
      * @type {boolean}
@@ -112,6 +112,8 @@ export function instanceOfDiagramListItem(value: object): value is DiagramListIt
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'DFD-1.0.0') return false;
+    
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     if (!('modified_at' in value) || value['modified_at'] === undefined) return false;
     return true;
@@ -133,7 +135,7 @@ export function DiagramListItemFromJSONTyped(json: any, ignoreDiscriminator: boo
         'description': json['description'] == null ? undefined : json['description'],
         'created_at': (new Date(json['created_at'])),
         'modified_at': (new Date(json['modified_at'])),
-        'image': json['image'] == null ? undefined : DiagramListItemImageFromJSON(json['image']),
+        'image': json['image'] == null ? undefined : BaseDiagramImageFromJSON(json['image']),
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
         'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
@@ -155,7 +157,7 @@ export function DiagramListItemToJSONTyped(value?: Omit<DiagramListItem, 'id'|'c
         'name': value['name'],
         'type': value['type'],
         'description': value['description'],
-        'image': DiagramListItemImageToJSON(value['image']),
+        'image': BaseDiagramImageToJSON(value['image']),
         'include_in_report': value['include_in_report'],
         'timmy_enabled': value['timmy_enabled'],
     };

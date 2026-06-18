@@ -49,6 +49,8 @@ export type CreateDiagramRequestTypeEnum = typeof CreateDiagramRequestTypeEnum[k
 export function instanceOfCreateDiagramRequest(value: object): value is CreateDiagramRequest {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'DFD-1.0.0') return false;
+    
     return true;
 }
 

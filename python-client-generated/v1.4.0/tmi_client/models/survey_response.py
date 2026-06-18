@@ -45,15 +45,15 @@ class SurveyResponse(BaseModel):
     is_confidential: Optional[StrictBool] = Field(default=None, description="Whether Security Reviewers group was excluded (set at creation, read-only after)")
     revision_notes: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Notes from security reviewer when returning for revision")
     created_threat_model_id: Optional[UUID] = Field(default=None, description="ID of threat model created from this response")
-    owner: Optional[Dict[str, Any]] = Field(default=None, description="User who created the response")
+    owner: Optional[Dict[str, Any]] = Field(default=None, description="Per-viewer access diagnostics; present when access_status is not 'accessible'")
     created_at: Optional[datetime] = Field(default=None, description="Creation timestamp (RFC3339)")
     modified_at: Optional[datetime] = Field(default=None, description="Last modification timestamp (RFC3339)")
     submitted_at: Optional[datetime] = Field(default=None, description="When the response was submitted for review")
     reviewed_at: Optional[datetime] = Field(default=None, description="When the response was last reviewed")
-    reviewed_by: Optional[Dict[str, Any]] = Field(default=None, description="Security engineer who last reviewed the response")
+    reviewed_by: Optional[Dict[str, Any]] = Field(default=None, description="Per-viewer access diagnostics; present when access_status is not 'accessible'")
     survey_json: Optional[Dict[str, Any]] = Field(default=None, description="Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version.")
     metadata: Optional[Annotated[List[Metadata], Field(max_length=100)]] = Field(default=None, description="Optional metadata key-value pairs")
-    created_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created the response")
+    created_by: Optional[Dict[str, Any]] = Field(default=None, description="Per-viewer access diagnostics; present when access_status is not 'accessible'")
     version: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body 'version' field on the next mutation. A mismatch returns 409 Conflict. See issue #385.")
     __properties: ClassVar[List[str]] = ["answers", "linked_threat_model_id", "authorization", "ui_state", "survey_id", "survey_version", "project_id", "id", "status", "is_confidential", "revision_notes", "created_threat_model_id", "owner", "created_at", "modified_at", "submitted_at", "reviewed_at", "reviewed_by", "survey_json", "metadata", "created_by", "version"]
 

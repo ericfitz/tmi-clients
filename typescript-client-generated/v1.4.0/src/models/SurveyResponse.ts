@@ -107,7 +107,7 @@ export interface SurveyResponse {
      */
     readonly created_threat_model_id?: string | null;
     /**
-     * User who created the response
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof SurveyResponse
      */
@@ -137,7 +137,7 @@ export interface SurveyResponse {
      */
     readonly reviewed_at?: Date | null;
     /**
-     * Security engineer who last reviewed the response
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof SurveyResponse
      */
@@ -155,7 +155,7 @@ export interface SurveyResponse {
      */
     metadata?: Array<Metadata> | null;
     /**
-     * User who created the response
+     * Per-viewer access diagnostics; present when access_status is not 'accessible'
      * @type {object}
      * @memberof SurveyResponse
      */

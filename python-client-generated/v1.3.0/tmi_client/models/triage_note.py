@@ -34,9 +34,9 @@ class TriageNote(BaseModel):
     content: Annotated[str, Field(min_length=1, strict=True, max_length=32768)] = Field(description="Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.")
     id: Annotated[int, Field(strict=True, ge=1)] = Field(description="Sequential identifier for the triage note within its survey response")
     created_at: Optional[datetime] = Field(default=None, description="Creation timestamp (RFC3339)")
-    created_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created this triage note")
+    created_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created the response")
     modified_at: Optional[datetime] = Field(default=None, description="Last modification timestamp (RFC3339)")
-    modified_by: Optional[Dict[str, Any]] = Field(default=None, description="User who last modified this triage note")
+    modified_by: Optional[Dict[str, Any]] = Field(default=None, description="User who created the response")
     __properties: ClassVar[List[str]] = ["name", "content", "id", "created_at", "created_by", "modified_at", "modified_by"]
 
     @field_validator('name')

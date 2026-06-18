@@ -92,6 +92,8 @@ export type UserWithAdminStatusPrincipalTypeEnum = typeof UserWithAdminStatusPri
  */
 export function instanceOfUserWithAdminStatus(value: object): value is UserWithAdminStatus {
     if (!('principal_type' in value) || value['principal_type'] === undefined) return false;
+    if (value['principal_type'] !== 'user') return false;
+    
     if (!('provider' in value) || value['provider'] === undefined) return false;
     if (!('provider_id' in value) || value['provider_id'] === undefined) return false;
     if (!('display_name' in value) || value['display_name'] === undefined) return false;

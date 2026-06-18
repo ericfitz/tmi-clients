@@ -103,6 +103,7 @@ __all__ = [
     "CollaborationSession",
     "ColorPaletteEntry",
     "ComponentHealth",
+    "ConfirmIdentityLinkRequest",
     "ContentAuthorizationURL",
     "ContentFeedback",
     "ContentFeedbackInput",
@@ -116,6 +117,7 @@ __all__ = [
     "CreateCurrentUserClientCredentialRequest",
     "CreateDiagramCollaborationSession409Response",
     "CreateDiagramRequest",
+    "CreateThreatModelDocument202Response",
     "CreateThreatModelFromSurveyResponse",
     "CreateTimmyMessageRequest",
     "CreateTimmySessionRequest",
@@ -126,7 +128,6 @@ __all__ = [
     "DfdDiagramInputAllOfCells",
     "Diagram",
     "DiagramListItem",
-    "DiagramListItemImage",
     "Document",
     "DocumentAccessDiagnostics",
     "DocumentBase",
@@ -134,7 +135,6 @@ __all__ = [
     "Edge",
     "EdgeAttrs",
     "EdgeAttrsLine",
-    "EdgeAttrsLineSourceMarker",
     "EdgeAttrsLineTargetMarker",
     "EdgeConnector",
     "EdgeConnectorOneOf",
@@ -174,13 +174,16 @@ __all__ = [
     "GetUserAPIQuota429Response",
     "GroupMember",
     "GroupMemberListResponse",
+    "IdentityLinkStartResponse",
     "IntrospectToken200Response",
     "IntrospectToken500Response",
     "InvokeAddonRequest",
     "InvokeAddonResponse",
     "JsonPatchDocumentInner",
+    "LinkedIdentity",
     "ListAddonQuotasResponse",
     "ListAddonsResponse",
+    "ListAdminAuditEntriesResponse",
     "ListAssetsResponse",
     "ListAuditTrailResponse",
     "ListClientCredentialsResponse",
@@ -193,8 +196,10 @@ __all__ = [
     "ListRepositoriesResponse",
     "ListSurveyResponsesResponse",
     "ListSurveysResponse",
+    "ListSystemAuditEntriesResponse",
     "ListTeamNotesResponse",
     "ListTeamsResponse",
+    "ListThreatModelAuditTrailResponse",
     "ListThreatModelsResponse",
     "ListThreatsResponse",
     "ListTimmyMessagesResponse",
@@ -213,24 +218,24 @@ __all__ = [
     "MinimalEdge",
     "MinimalNode",
     "MyGroupListResponse",
+    "MyIdentitiesResponse",
+    "MyIdentitiesResponsePrimary",
     "Node",
     "NodeAllOfPosition",
     "NodeAllOfSize",
     "NodeAttrs",
     "NodeAttrsBody",
-    "NodeAttrsBodyRefHeight",
     "NodeAttrsBodyRefWidth",
     "NodeAttrsText",
-    "NodeAttrsTextRefX",
-    "NodeAttrsTextRefX2",
-    "NodeAttrsTextRefY",
-    "NodeAttrsTextRefY2",
     "Note",
     "NoteBase",
     "NoteInput",
     "NoteListItem",
     "OAuthProtectedResourceMetadata",
     "Participant",
+    "PendingIdentityLinkResponse",
+    "PendingIdentityLinkResponseAccount",
+    "PendingIdentityLinkResponsePending",
     "PickerRegistration",
     "PickerTokenResponse",
     "Point",
@@ -272,6 +277,7 @@ __all__ = [
     "SurveyResponseInput",
     "SurveyResponseListItem",
     "SurveySettings",
+    "SystemAuditEntry",
     "SystemSetting",
     "SystemSettingUpdate",
     "TMListItem",
@@ -420,6 +426,7 @@ from tmi_client.models.client_credential_response import ClientCredentialRespons
 from tmi_client.models.collaboration_session import CollaborationSession as CollaborationSession
 from tmi_client.models.color_palette_entry import ColorPaletteEntry as ColorPaletteEntry
 from tmi_client.models.component_health import ComponentHealth as ComponentHealth
+from tmi_client.models.confirm_identity_link_request import ConfirmIdentityLinkRequest as ConfirmIdentityLinkRequest
 from tmi_client.models.content_authorization_url import ContentAuthorizationURL as ContentAuthorizationURL
 from tmi_client.models.content_feedback import ContentFeedback as ContentFeedback
 from tmi_client.models.content_feedback_input import ContentFeedbackInput as ContentFeedbackInput
@@ -433,6 +440,7 @@ from tmi_client.models.create_automation_account_response import CreateAutomatio
 from tmi_client.models.create_current_user_client_credential_request import CreateCurrentUserClientCredentialRequest as CreateCurrentUserClientCredentialRequest
 from tmi_client.models.create_diagram_collaboration_session409_response import CreateDiagramCollaborationSession409Response as CreateDiagramCollaborationSession409Response
 from tmi_client.models.create_diagram_request import CreateDiagramRequest as CreateDiagramRequest
+from tmi_client.models.create_threat_model_document202_response import CreateThreatModelDocument202Response as CreateThreatModelDocument202Response
 from tmi_client.models.create_threat_model_from_survey_response import CreateThreatModelFromSurveyResponse as CreateThreatModelFromSurveyResponse
 from tmi_client.models.create_timmy_message_request import CreateTimmyMessageRequest as CreateTimmyMessageRequest
 from tmi_client.models.create_timmy_session_request import CreateTimmySessionRequest as CreateTimmySessionRequest
@@ -443,7 +451,6 @@ from tmi_client.models.dfd_diagram_input import DfdDiagramInput as DfdDiagramInp
 from tmi_client.models.dfd_diagram_input_all_of_cells import DfdDiagramInputAllOfCells as DfdDiagramInputAllOfCells
 from tmi_client.models.diagram import Diagram as Diagram
 from tmi_client.models.diagram_list_item import DiagramListItem as DiagramListItem
-from tmi_client.models.diagram_list_item_image import DiagramListItemImage as DiagramListItemImage
 from tmi_client.models.document import Document as Document
 from tmi_client.models.document_access_diagnostics import DocumentAccessDiagnostics as DocumentAccessDiagnostics
 from tmi_client.models.document_base import DocumentBase as DocumentBase
@@ -451,7 +458,6 @@ from tmi_client.models.document_input import DocumentInput as DocumentInput
 from tmi_client.models.edge import Edge as Edge
 from tmi_client.models.edge_attrs import EdgeAttrs as EdgeAttrs
 from tmi_client.models.edge_attrs_line import EdgeAttrsLine as EdgeAttrsLine
-from tmi_client.models.edge_attrs_line_source_marker import EdgeAttrsLineSourceMarker as EdgeAttrsLineSourceMarker
 from tmi_client.models.edge_attrs_line_target_marker import EdgeAttrsLineTargetMarker as EdgeAttrsLineTargetMarker
 from tmi_client.models.edge_connector import EdgeConnector as EdgeConnector
 from tmi_client.models.edge_connector_one_of import EdgeConnectorOneOf as EdgeConnectorOneOf
@@ -491,13 +497,16 @@ from tmi_client.models.get_saml_providers200_response import GetSAMLProviders200
 from tmi_client.models.get_user_api_quota429_response import GetUserAPIQuota429Response as GetUserAPIQuota429Response
 from tmi_client.models.group_member import GroupMember as GroupMember
 from tmi_client.models.group_member_list_response import GroupMemberListResponse as GroupMemberListResponse
+from tmi_client.models.identity_link_start_response import IdentityLinkStartResponse as IdentityLinkStartResponse
 from tmi_client.models.introspect_token200_response import IntrospectToken200Response as IntrospectToken200Response
 from tmi_client.models.introspect_token500_response import IntrospectToken500Response as IntrospectToken500Response
 from tmi_client.models.invoke_addon_request import InvokeAddonRequest as InvokeAddonRequest
 from tmi_client.models.invoke_addon_response import InvokeAddonResponse as InvokeAddonResponse
 from tmi_client.models.json_patch_document_inner import JsonPatchDocumentInner as JsonPatchDocumentInner
+from tmi_client.models.linked_identity import LinkedIdentity as LinkedIdentity
 from tmi_client.models.list_addon_quotas_response import ListAddonQuotasResponse as ListAddonQuotasResponse
 from tmi_client.models.list_addons_response import ListAddonsResponse as ListAddonsResponse
+from tmi_client.models.list_admin_audit_entries_response import ListAdminAuditEntriesResponse as ListAdminAuditEntriesResponse
 from tmi_client.models.list_assets_response import ListAssetsResponse as ListAssetsResponse
 from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse as ListAuditTrailResponse
 from tmi_client.models.list_client_credentials_response import ListClientCredentialsResponse as ListClientCredentialsResponse
@@ -510,8 +519,10 @@ from tmi_client.models.list_projects_response import ListProjectsResponse as Lis
 from tmi_client.models.list_repositories_response import ListRepositoriesResponse as ListRepositoriesResponse
 from tmi_client.models.list_survey_responses_response import ListSurveyResponsesResponse as ListSurveyResponsesResponse
 from tmi_client.models.list_surveys_response import ListSurveysResponse as ListSurveysResponse
+from tmi_client.models.list_system_audit_entries_response import ListSystemAuditEntriesResponse as ListSystemAuditEntriesResponse
 from tmi_client.models.list_team_notes_response import ListTeamNotesResponse as ListTeamNotesResponse
 from tmi_client.models.list_teams_response import ListTeamsResponse as ListTeamsResponse
+from tmi_client.models.list_threat_model_audit_trail_response import ListThreatModelAuditTrailResponse as ListThreatModelAuditTrailResponse
 from tmi_client.models.list_threat_models_response import ListThreatModelsResponse as ListThreatModelsResponse
 from tmi_client.models.list_threats_response import ListThreatsResponse as ListThreatsResponse
 from tmi_client.models.list_timmy_messages_response import ListTimmyMessagesResponse as ListTimmyMessagesResponse
@@ -530,24 +541,24 @@ from tmi_client.models.minimal_diagram_model import MinimalDiagramModel as Minim
 from tmi_client.models.minimal_edge import MinimalEdge as MinimalEdge
 from tmi_client.models.minimal_node import MinimalNode as MinimalNode
 from tmi_client.models.my_group_list_response import MyGroupListResponse as MyGroupListResponse
+from tmi_client.models.my_identities_response import MyIdentitiesResponse as MyIdentitiesResponse
+from tmi_client.models.my_identities_response_primary import MyIdentitiesResponsePrimary as MyIdentitiesResponsePrimary
 from tmi_client.models.node import Node as Node
 from tmi_client.models.node_all_of_position import NodeAllOfPosition as NodeAllOfPosition
 from tmi_client.models.node_all_of_size import NodeAllOfSize as NodeAllOfSize
 from tmi_client.models.node_attrs import NodeAttrs as NodeAttrs
 from tmi_client.models.node_attrs_body import NodeAttrsBody as NodeAttrsBody
-from tmi_client.models.node_attrs_body_ref_height import NodeAttrsBodyRefHeight as NodeAttrsBodyRefHeight
 from tmi_client.models.node_attrs_body_ref_width import NodeAttrsBodyRefWidth as NodeAttrsBodyRefWidth
 from tmi_client.models.node_attrs_text import NodeAttrsText as NodeAttrsText
-from tmi_client.models.node_attrs_text_ref_x import NodeAttrsTextRefX as NodeAttrsTextRefX
-from tmi_client.models.node_attrs_text_ref_x2 import NodeAttrsTextRefX2 as NodeAttrsTextRefX2
-from tmi_client.models.node_attrs_text_ref_y import NodeAttrsTextRefY as NodeAttrsTextRefY
-from tmi_client.models.node_attrs_text_ref_y2 import NodeAttrsTextRefY2 as NodeAttrsTextRefY2
 from tmi_client.models.note import Note as Note
 from tmi_client.models.note_base import NoteBase as NoteBase
 from tmi_client.models.note_input import NoteInput as NoteInput
 from tmi_client.models.note_list_item import NoteListItem as NoteListItem
 from tmi_client.models.o_auth_protected_resource_metadata import OAuthProtectedResourceMetadata as OAuthProtectedResourceMetadata
 from tmi_client.models.participant import Participant as Participant
+from tmi_client.models.pending_identity_link_response import PendingIdentityLinkResponse as PendingIdentityLinkResponse
+from tmi_client.models.pending_identity_link_response_account import PendingIdentityLinkResponseAccount as PendingIdentityLinkResponseAccount
+from tmi_client.models.pending_identity_link_response_pending import PendingIdentityLinkResponsePending as PendingIdentityLinkResponsePending
 from tmi_client.models.picker_registration import PickerRegistration as PickerRegistration
 from tmi_client.models.picker_token_response import PickerTokenResponse as PickerTokenResponse
 from tmi_client.models.point import Point as Point
@@ -589,6 +600,7 @@ from tmi_client.models.survey_response_create_request import SurveyResponseCreat
 from tmi_client.models.survey_response_input import SurveyResponseInput as SurveyResponseInput
 from tmi_client.models.survey_response_list_item import SurveyResponseListItem as SurveyResponseListItem
 from tmi_client.models.survey_settings import SurveySettings as SurveySettings
+from tmi_client.models.system_audit_entry import SystemAuditEntry as SystemAuditEntry
 from tmi_client.models.system_setting import SystemSetting as SystemSetting
 from tmi_client.models.system_setting_update import SystemSettingUpdate as SystemSettingUpdate
 from tmi_client.models.tm_list_item import TMListItem as TMListItem

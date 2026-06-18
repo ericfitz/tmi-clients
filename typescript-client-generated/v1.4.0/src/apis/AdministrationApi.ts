@@ -49,6 +49,11 @@ import {
     AdminUserListResponseToJSON,
 } from '../models/AdminUserListResponse';
 import {
+    type AuditEntry,
+    AuditEntryFromJSON,
+    AuditEntryToJSON,
+} from '../models/AuditEntry';
+import {
     type CreateAdminGroupRequest,
     CreateAdminGroupRequestFromJSON,
     CreateAdminGroupRequestToJSON,
@@ -79,6 +84,16 @@ import {
     ListAddonQuotasResponseToJSON,
 } from '../models/ListAddonQuotasResponse';
 import {
+    type ListAdminAuditEntriesResponse,
+    ListAdminAuditEntriesResponseFromJSON,
+    ListAdminAuditEntriesResponseToJSON,
+} from '../models/ListAdminAuditEntriesResponse';
+import {
+    type ListSystemAuditEntriesResponse,
+    ListSystemAuditEntriesResponseFromJSON,
+    ListSystemAuditEntriesResponseToJSON,
+} from '../models/ListSystemAuditEntriesResponse';
+import {
     type ListUserQuotasResponse,
     ListUserQuotasResponseFromJSON,
     ListUserQuotasResponseToJSON,
@@ -93,6 +108,11 @@ import {
     ReencryptSystemSettings200ResponseFromJSON,
     ReencryptSystemSettings200ResponseToJSON,
 } from '../models/ReencryptSystemSettings200Response';
+import {
+    type SystemAuditEntry,
+    SystemAuditEntryFromJSON,
+    SystemAuditEntryToJSON,
+} from '../models/SystemAuditEntry';
 import {
     type SystemSetting,
     SystemSettingFromJSON,
@@ -185,8 +205,16 @@ export interface GetAdminGroupRequest {
     internalUuid: string;
 }
 
+export interface GetAdminThreatModelAuditEntryRequest {
+    entryId: string;
+}
+
 export interface GetAdminUserRequest {
     internalUuid: string;
+}
+
+export interface GetSystemAuditEntryRequest {
+    entryId: string;
 }
 
 export interface GetSystemSettingRequest {
@@ -216,6 +244,19 @@ export interface ListAdminGroupsRequest {
     sortOrder?: ListAdminGroupsSortOrderEnum;
 }
 
+export interface ListAdminThreatModelAuditEntriesRequest {
+    actorEmail?: string;
+    actorProvider?: string;
+    createdAfter?: Date;
+    createdBefore?: Date;
+    changeType?: ListAdminThreatModelAuditEntriesChangeTypeEnum;
+    objectType?: ListAdminThreatModelAuditEntriesObjectTypeEnum;
+    threatModelId?: string;
+    limit?: number;
+    cursor?: string;
+    around?: string;
+}
+
 export interface ListAdminUsersRequest {
     provider?: string;
     email?: string;
@@ -235,6 +276,20 @@ export interface ListGroupMembersRequest {
     internalUuid: string;
     limit?: number;
     offset?: number;
+}
+
+export interface ListSystemAuditEntriesRequest {
+    actorEmail?: string;
+    actorProvider?: string;
+    createdAfter?: Date;
+    createdBefore?: Date;
+    httpMethod?: ListSystemAuditEntriesHttpMethodEnum;
+    pathPrefix?: string;
+    fieldPath?: string;
+    limit?: number;
+    cursor?: string;
+    around?: string;
+    format?: ListSystemAuditEntriesFormatEnum;
 }
 
 export interface ListUserAPIQuotasRequest {
@@ -538,6 +593,30 @@ export interface AdministrationApiInterface {
     getAdminGroup(requestParameters: GetAdminGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminGroup>;
 
     /**
+     * Creates request options for getAdminThreatModelAuditEntry without sending the request
+     * @param {string} entryId The audit entry ID.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    getAdminThreatModelAuditEntryRequestOpts(requestParameters: GetAdminThreatModelAuditEntryRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+     * @summary Get a threat-model audit entry by id (admin)
+     * @param {string} entryId The audit entry ID.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    getAdminThreatModelAuditEntryRaw(requestParameters: GetAdminThreatModelAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuditEntry>>;
+
+    /**
+     * Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+     * Get a threat-model audit entry by id (admin)
+     */
+    getAdminThreatModelAuditEntry(requestParameters: GetAdminThreatModelAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuditEntry>;
+
+    /**
      * Creates request options for getAdminUser without sending the request
      * @param {string} internalUuid Internal system UUID of the user
      * @throws {RequiredError}
@@ -560,6 +639,30 @@ export interface AdministrationApiInterface {
      * Get user details
      */
     getAdminUser(requestParameters: GetAdminUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUser>;
+
+    /**
+     * Creates request options for getSystemAuditEntry without sending the request
+     * @param {string} entryId The system audit entry ID.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    getSystemAuditEntryRequestOpts(requestParameters: GetSystemAuditEntryRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Returns a single system-level audit entry by ID. Admin role required.
+     * @summary Get a system audit entry
+     * @param {string} entryId The system audit entry ID.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    getSystemAuditEntryRaw(requestParameters: GetSystemAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SystemAuditEntry>>;
+
+    /**
+     * Returns a single system-level audit entry by ID. Admin role required.
+     * Get a system audit entry
+     */
+    getSystemAuditEntry(requestParameters: GetSystemAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SystemAuditEntry>;
 
     /**
      * Creates request options for getSystemSetting without sending the request
@@ -696,12 +799,54 @@ export interface AdministrationApiInterface {
     listAdminGroups(requestParameters: ListAdminGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminGroupListResponse>;
 
     /**
+     * Creates request options for listAdminThreatModelAuditEntries without sending the request
+     * @param {string} [actorEmail] Filter by actor email
+     * @param {string} [actorProvider] Filter by the actor identity provider.
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
+     * @param {'created' | 'updated' | 'patched' | 'deleted' | 'rolled_back' | 'restored'} [changeType] Filter by change type
+     * @param {'threat_model' | 'diagram' | 'threat' | 'asset' | 'document' | 'note' | 'repository'} [objectType] Filter by object type
+     * @param {string} [threatModelId] Filter audit entries to a single threat model.
+     * @param {number} [limit] Maximum number of entries to return per page.
+     * @param {string} [cursor] Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+     * @param {string} [around] Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    listAdminThreatModelAuditEntriesRequestOpts(requestParameters: ListAdminThreatModelAuditEntriesRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+     * @summary List threat-model audit entries across all threat models
+     * @param {string} [actorEmail] Filter by actor email
+     * @param {string} [actorProvider] Filter by the actor identity provider.
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
+     * @param {'created' | 'updated' | 'patched' | 'deleted' | 'rolled_back' | 'restored'} [changeType] Filter by change type
+     * @param {'threat_model' | 'diagram' | 'threat' | 'asset' | 'document' | 'note' | 'repository'} [objectType] Filter by object type
+     * @param {string} [threatModelId] Filter audit entries to a single threat model.
+     * @param {number} [limit] Maximum number of entries to return per page.
+     * @param {string} [cursor] Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+     * @param {string} [around] Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    listAdminThreatModelAuditEntriesRaw(requestParameters: ListAdminThreatModelAuditEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAdminAuditEntriesResponse>>;
+
+    /**
+     * Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+     * List threat-model audit entries across all threat models
+     */
+    listAdminThreatModelAuditEntries(requestParameters: ListAdminThreatModelAuditEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAdminAuditEntriesResponse>;
+
+    /**
      * Creates request options for listAdminUsers without sending the request
      * @param {string} [provider] Filter by OAuth/SAML provider
      * @param {string} [email] Filter by email (case-insensitive substring match)
      * @param {string} [name] Filter by name (case-insensitive substring match)
-     * @param {Date} [createdAfter] Filter users created after this timestamp (RFC3339)
-     * @param {Date} [createdBefore] Filter users created before this timestamp (RFC3339)
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
      * @param {Date} [lastLoginAfter] Filter users who logged in after this timestamp (RFC3339)
      * @param {Date} [lastLoginBefore] Filter users who logged in before this timestamp (RFC3339)
      * @param {number} [limit] Maximum number of results to return
@@ -720,8 +865,8 @@ export interface AdministrationApiInterface {
      * @param {string} [provider] Filter by OAuth/SAML provider
      * @param {string} [email] Filter by email (case-insensitive substring match)
      * @param {string} [name] Filter by name (case-insensitive substring match)
-     * @param {Date} [createdAfter] Filter users created after this timestamp (RFC3339)
-     * @param {Date} [createdBefore] Filter users created before this timestamp (RFC3339)
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
      * @param {Date} [lastLoginAfter] Filter users who logged in after this timestamp (RFC3339)
      * @param {Date} [lastLoginBefore] Filter users who logged in before this timestamp (RFC3339)
      * @param {number} [limit] Maximum number of results to return
@@ -768,6 +913,50 @@ export interface AdministrationApiInterface {
      * List group members
      */
     listGroupMembers(requestParameters: ListGroupMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GroupMemberListResponse>;
+
+    /**
+     * Creates request options for listSystemAuditEntries without sending the request
+     * @param {string} [actorEmail] Filter by actor email
+     * @param {string} [actorProvider] Filter by the actor identity provider.
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
+     * @param {'POST' | 'PUT' | 'PATCH' | 'DELETE'} [httpMethod] Filter system audit entries by HTTP method.
+     * @param {string} [pathPrefix] Filter system audit entries whose request path starts with this prefix (matched literally).
+     * @param {string} [fieldPath] Filter system audit entries by exact field path.
+     * @param {number} [limit] Maximum number of entries to return per page.
+     * @param {string} [cursor] Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+     * @param {string} [around] Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+     * @param {'csv' | 'ndjson'} [format] When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    listSystemAuditEntriesRequestOpts(requestParameters: ListSystemAuditEntriesRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+     * @summary List system audit entries
+     * @param {string} [actorEmail] Filter by actor email
+     * @param {string} [actorProvider] Filter by the actor identity provider.
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
+     * @param {'POST' | 'PUT' | 'PATCH' | 'DELETE'} [httpMethod] Filter system audit entries by HTTP method.
+     * @param {string} [pathPrefix] Filter system audit entries whose request path starts with this prefix (matched literally).
+     * @param {string} [fieldPath] Filter system audit entries by exact field path.
+     * @param {number} [limit] Maximum number of entries to return per page.
+     * @param {string} [cursor] Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+     * @param {string} [around] Return a page centered on this entry id (~half newer, ~half older, entry included). Mutually exclusive with cursor.
+     * @param {'csv' | 'ndjson'} [format] When set, stream the entire filtered set as an attachment instead of a JSON page. Honors all active filters; ignores cursor/limit/around.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdministrationApiInterface
+     */
+    listSystemAuditEntriesRaw(requestParameters: ListSystemAuditEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSystemAuditEntriesResponse>>;
+
+    /**
+     * Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+     * List system audit entries
+     */
+    listSystemAuditEntries(requestParameters: ListSystemAuditEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSystemAuditEntriesResponse>;
 
     /**
      * Creates request options for listSystemSettings without sending the request
@@ -1639,6 +1828,61 @@ export class AdministrationApi extends runtime.BaseAPI implements Administration
     }
 
     /**
+     * Creates request options for getAdminThreatModelAuditEntry without sending the request
+     */
+    async getAdminThreatModelAuditEntryRequestOpts(requestParameters: GetAdminThreatModelAuditEntryRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['entryId'] == null) {
+            throw new runtime.RequiredError(
+                'entryId',
+                'Required parameter "entryId" was null or undefined when calling getAdminThreatModelAuditEntry().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/admin/audit/threat_models/{entry_id}`;
+        urlPath = urlPath.replace('{entry_id}', encodeURIComponent(String(requestParameters['entryId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+     * Get a threat-model audit entry by id (admin)
+     */
+    async getAdminThreatModelAuditEntryRaw(requestParameters: GetAdminThreatModelAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AuditEntry>> {
+        const requestOptions = await this.getAdminThreatModelAuditEntryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AuditEntryFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role required.
+     * Get a threat-model audit entry by id (admin)
+     */
+    async getAdminThreatModelAuditEntry(requestParameters: GetAdminThreatModelAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AuditEntry> {
+        const response = await this.getAdminThreatModelAuditEntryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getAdminUser without sending the request
      */
     async getAdminUserRequestOpts(requestParameters: GetAdminUserRequest): Promise<runtime.RequestOpts> {
@@ -1690,6 +1934,61 @@ export class AdministrationApi extends runtime.BaseAPI implements Administration
      */
     async getAdminUser(requestParameters: GetAdminUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUser> {
         const response = await this.getAdminUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSystemAuditEntry without sending the request
+     */
+    async getSystemAuditEntryRequestOpts(requestParameters: GetSystemAuditEntryRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['entryId'] == null) {
+            throw new runtime.RequiredError(
+                'entryId',
+                'Required parameter "entryId" was null or undefined when calling getSystemAuditEntry().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/admin/audit/system/{entry_id}`;
+        urlPath = urlPath.replace('{entry_id}', encodeURIComponent(String(requestParameters['entryId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns a single system-level audit entry by ID. Admin role required.
+     * Get a system audit entry
+     */
+    async getSystemAuditEntryRaw(requestParameters: GetSystemAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SystemAuditEntry>> {
+        const requestOptions = await this.getSystemAuditEntryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SystemAuditEntryFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns a single system-level audit entry by ID. Admin role required.
+     * Get a system audit entry
+     */
+    async getSystemAuditEntry(requestParameters: GetSystemAuditEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SystemAuditEntry> {
+        const response = await this.getSystemAuditEntryRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1989,6 +2288,93 @@ export class AdministrationApi extends runtime.BaseAPI implements Administration
     }
 
     /**
+     * Creates request options for listAdminThreatModelAuditEntries without sending the request
+     */
+    async listAdminThreatModelAuditEntriesRequestOpts(requestParameters: ListAdminThreatModelAuditEntriesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['actorEmail'] != null) {
+            queryParameters['actor_email'] = requestParameters['actorEmail'];
+        }
+
+        if (requestParameters['actorProvider'] != null) {
+            queryParameters['actor_provider'] = requestParameters['actorProvider'];
+        }
+
+        if (requestParameters['createdAfter'] != null) {
+            queryParameters['created_after'] = (requestParameters['createdAfter'] as any).toISOString();
+        }
+
+        if (requestParameters['createdBefore'] != null) {
+            queryParameters['created_before'] = (requestParameters['createdBefore'] as any).toISOString();
+        }
+
+        if (requestParameters['changeType'] != null) {
+            queryParameters['change_type'] = requestParameters['changeType'];
+        }
+
+        if (requestParameters['objectType'] != null) {
+            queryParameters['object_type'] = requestParameters['objectType'];
+        }
+
+        if (requestParameters['threatModelId'] != null) {
+            queryParameters['threat_model_id'] = requestParameters['threatModelId'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['around'] != null) {
+            queryParameters['around'] = requestParameters['around'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/admin/audit/threat_models`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+     * List threat-model audit entries across all threat models
+     */
+    async listAdminThreatModelAuditEntriesRaw(requestParameters: ListAdminThreatModelAuditEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAdminAuditEntriesResponse>> {
+        const requestOptions = await this.listAdminThreatModelAuditEntriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListAdminAuditEntriesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Cursor-paginated cross-threat-model admin view of the threat-model audit stream. Admin role required; read-only (no step-up).
+     * List threat-model audit entries across all threat models
+     */
+    async listAdminThreatModelAuditEntries(requestParameters: ListAdminThreatModelAuditEntriesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAdminAuditEntriesResponse> {
+        const response = await this.listAdminThreatModelAuditEntriesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for listAdminUsers without sending the request
      */
     async listAdminUsersRequestOpts(requestParameters: ListAdminUsersRequest): Promise<runtime.RequestOpts> {
@@ -2143,6 +2529,97 @@ export class AdministrationApi extends runtime.BaseAPI implements Administration
      */
     async listGroupMembers(requestParameters: ListGroupMembersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GroupMemberListResponse> {
         const response = await this.listGroupMembersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listSystemAuditEntries without sending the request
+     */
+    async listSystemAuditEntriesRequestOpts(requestParameters: ListSystemAuditEntriesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['actorEmail'] != null) {
+            queryParameters['actor_email'] = requestParameters['actorEmail'];
+        }
+
+        if (requestParameters['actorProvider'] != null) {
+            queryParameters['actor_provider'] = requestParameters['actorProvider'];
+        }
+
+        if (requestParameters['createdAfter'] != null) {
+            queryParameters['created_after'] = (requestParameters['createdAfter'] as any).toISOString();
+        }
+
+        if (requestParameters['createdBefore'] != null) {
+            queryParameters['created_before'] = (requestParameters['createdBefore'] as any).toISOString();
+        }
+
+        if (requestParameters['httpMethod'] != null) {
+            queryParameters['http_method'] = requestParameters['httpMethod'];
+        }
+
+        if (requestParameters['pathPrefix'] != null) {
+            queryParameters['path_prefix'] = requestParameters['pathPrefix'];
+        }
+
+        if (requestParameters['fieldPath'] != null) {
+            queryParameters['field_path'] = requestParameters['fieldPath'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['around'] != null) {
+            queryParameters['around'] = requestParameters['around'];
+        }
+
+        if (requestParameters['format'] != null) {
+            queryParameters['format'] = requestParameters['format'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/admin/audit/system`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+     * List system audit entries
+     */
+    async listSystemAuditEntriesRaw(requestParameters: ListSystemAuditEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSystemAuditEntriesResponse>> {
+        const requestOptions = await this.listSystemAuditEntriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListSystemAuditEntriesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Cursor-paginated, filterable list of system-level admin-write audit records. Admin role required; read-only (no step-up).
+     * List system audit entries
+     */
+    async listSystemAuditEntries(requestParameters: ListSystemAuditEntriesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSystemAuditEntriesResponse> {
+        const response = await this.listSystemAuditEntriesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -2894,6 +3371,31 @@ export type ListAdminGroupsSortOrderEnum = typeof ListAdminGroupsSortOrderEnum[k
 /**
  * @export
  */
+export const ListAdminThreatModelAuditEntriesChangeTypeEnum = {
+    Created: 'created',
+    Updated: 'updated',
+    Patched: 'patched',
+    Deleted: 'deleted',
+    RolledBack: 'rolled_back',
+    Restored: 'restored'
+} as const;
+export type ListAdminThreatModelAuditEntriesChangeTypeEnum = typeof ListAdminThreatModelAuditEntriesChangeTypeEnum[keyof typeof ListAdminThreatModelAuditEntriesChangeTypeEnum];
+/**
+ * @export
+ */
+export const ListAdminThreatModelAuditEntriesObjectTypeEnum = {
+    ThreatModel: 'threat_model',
+    Diagram: 'diagram',
+    Threat: 'threat',
+    Asset: 'asset',
+    Document: 'document',
+    Note: 'note',
+    Repository: 'repository'
+} as const;
+export type ListAdminThreatModelAuditEntriesObjectTypeEnum = typeof ListAdminThreatModelAuditEntriesObjectTypeEnum[keyof typeof ListAdminThreatModelAuditEntriesObjectTypeEnum];
+/**
+ * @export
+ */
 export const ListAdminUsersSortByEnum = {
     CreatedAt: 'created_at',
     LastLogin: 'last_login',
@@ -2909,6 +3411,24 @@ export const ListAdminUsersSortOrderEnum = {
     Desc: 'desc'
 } as const;
 export type ListAdminUsersSortOrderEnum = typeof ListAdminUsersSortOrderEnum[keyof typeof ListAdminUsersSortOrderEnum];
+/**
+ * @export
+ */
+export const ListSystemAuditEntriesHttpMethodEnum = {
+    Post: 'POST',
+    Put: 'PUT',
+    Patch: 'PATCH',
+    Delete: 'DELETE'
+} as const;
+export type ListSystemAuditEntriesHttpMethodEnum = typeof ListSystemAuditEntriesHttpMethodEnum[keyof typeof ListSystemAuditEntriesHttpMethodEnum];
+/**
+ * @export
+ */
+export const ListSystemAuditEntriesFormatEnum = {
+    Csv: 'csv',
+    Ndjson: 'ndjson'
+} as const;
+export type ListSystemAuditEntriesFormatEnum = typeof ListSystemAuditEntriesFormatEnum[keyof typeof ListSystemAuditEntriesFormatEnum];
 /**
  * @export
  */

@@ -11,12 +11,12 @@ Name | Type
 `fontSize` | number
 `fill` | string
 `fontFamily` | string
-`refX` | [NodeAttrsTextRefX](NodeAttrsTextRefX.md)
-`refY` | [NodeAttrsTextRefY](NodeAttrsTextRefY.md)
+`refX` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
+`refY` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
 `refDx` | number
 `refDy` | number
-`refX2` | [NodeAttrsTextRefX2](NodeAttrsTextRefX2.md)
-`refY2` | [NodeAttrsTextRefY2](NodeAttrsTextRefY2.md)
+`refX2` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
+`refY2` | [NodeAttrsBodyRefWidth](NodeAttrsBodyRefWidth.md)
 `textAnchor` | string
 `textVerticalAnchor` | string
 

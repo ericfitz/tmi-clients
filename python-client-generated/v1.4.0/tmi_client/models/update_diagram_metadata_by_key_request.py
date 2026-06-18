@@ -29,7 +29,7 @@ class UpdateDiagramMetadataByKeyRequest(BaseModel):
     """
     UpdateDiagramMetadataByKeyRequest
     """ # noqa: E501
-    value: Annotated[str, Field(strict=True, max_length=1024)] = Field(description="Metadata value")
+    value: Annotated[str, Field(strict=True, max_length=1024)] = Field(description="Metadata value", json_schema_extra={"examples": ["example-metadata-value"]})
     __properties: ClassVar[List[str]] = ["value"]
 
     @field_validator('value')

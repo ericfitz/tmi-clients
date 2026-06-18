@@ -30,9 +30,9 @@ class ReencryptSystemSettings200Response(BaseModel):
     """
     ReencryptSystemSettings200Response
     """ # noqa: E501
-    reencrypted: StrictInt = Field(description="Number of settings successfully re-encrypted")
-    errors: Annotated[List[ReencryptSystemSettings200ResponseErrorsInner], Field(max_length=1000)] = Field(description="Settings that failed re-encryption")
-    total: StrictInt = Field(description="Total number of settings processed")
+    reencrypted: StrictInt = Field(description="Number of settings successfully re-encrypted", json_schema_extra={"examples": [8]})
+    errors: Annotated[List[ReencryptSystemSettings200ResponseErrorsInner], Field(max_length=1000)] = Field(description="Settings that failed re-encryption", json_schema_extra={"examples": [[{"key": "smtp.password", "error": "decryption failed: invalid key"}]]})
+    total: StrictInt = Field(description="Total number of settings processed", json_schema_extra={"examples": [8]})
     __properties: ClassVar[List[str]] = ["reencrypted", "errors", "total"]
 
     model_config = ConfigDict(

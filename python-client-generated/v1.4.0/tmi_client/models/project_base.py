@@ -33,12 +33,12 @@ class ProjectBase(BaseModel):
     """
     Client-writable fields for a project
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="Project name")
-    description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Project description")
-    team_id: UUID = Field(description="UUID of the team this project belongs to")
-    responsible_parties: Optional[Annotated[List[ResponsibleParty], Field(max_length=100)]] = Field(default=None, description="Responsible parties for this project")
-    related_projects: Optional[Annotated[List[RelatedProject], Field(max_length=100)]] = Field(default=None, description="Relationships to other projects")
-    uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL or reference to internal project page")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=256)] = Field(description="Project name", json_schema_extra={"examples": ["API Gateway Modernization"]})
+    description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Project description", json_schema_extra={"examples": ["Migrate legacy API gateway to cloud-native architecture"]})
+    team_id: UUID = Field(description="UUID of the team this project belongs to", json_schema_extra={"examples": ["550e8400-e29b-41d4-a716-446655440000"]})
+    responsible_parties: Optional[Annotated[List[ResponsibleParty], Field(max_length=100)]] = Field(default=None, description="Responsible parties for this project", json_schema_extra={"examples": [[]]})
+    related_projects: Optional[Annotated[List[RelatedProject], Field(max_length=100)]] = Field(default=None, description="Relationships to other projects", json_schema_extra={"examples": [[]]})
+    uri: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="URL or reference to internal project page", json_schema_extra={"examples": ["https://wiki.example.com/projects/api-gateway"]})
     status: Optional[ProjectStatus] = Field(default=None, description="Project lifecycle status. Defaults to 'active' if not provided or set to null.")
     __properties: ClassVar[List[str]] = ["name", "description", "team_id", "responsible_parties", "related_projects", "uri", "status"]
 

@@ -24,6 +24,11 @@ import {
     ListAuditTrailResponseToJSON,
 } from '../models/ListAuditTrailResponse';
 import {
+    type ListThreatModelAuditTrailResponse,
+    ListThreatModelAuditTrailResponseFromJSON,
+    ListThreatModelAuditTrailResponseToJSON,
+} from '../models/ListThreatModelAuditTrailResponse';
+import {
     type RollbackResponse,
     RollbackResponseFromJSON,
     RollbackResponseToJSON,
@@ -79,12 +84,12 @@ export interface GetThreatAuditTrailRequest {
 export interface GetThreatModelAuditTrailRequest {
     threatModelId: string;
     limit?: number;
-    offset?: number;
+    cursor?: string;
     objectType?: GetThreatModelAuditTrailObjectTypeEnum;
     changeType?: GetThreatModelAuditTrailChangeTypeEnum;
     actorEmail?: string;
-    after?: Date;
-    before?: Date;
+    createdAfter?: Date;
+    createdBefore?: Date;
 }
 
 export interface RollbackToVersionRequest {
@@ -308,13 +313,13 @@ export interface AuditTrailApiInterface {
     /**
      * Creates request options for getThreatModelAuditTrail without sending the request
      * @param {string} threatModelId Threat model identifier
-     * @param {number} [limit] Maximum number of results to return
-     * @param {number} [offset] Number of results to skip
+     * @param {number} [limit] Maximum number of entries to return per page.
+     * @param {string} [cursor] Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
      * @param {'threat_model' | 'diagram' | 'threat' | 'asset' | 'document' | 'note' | 'repository'} [objectType] Filter by object type
      * @param {'created' | 'updated' | 'patched' | 'deleted' | 'rolled_back' | 'restored'} [changeType] Filter by change type
      * @param {string} [actorEmail] Filter by actor email
-     * @param {Date} [after] Filter entries after this timestamp (ISO 8601)
-     * @param {Date} [before] Filter entries before this timestamp (ISO 8601)
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
      * @throws {RequiredError}
      * @memberof AuditTrailApiInterface
      */
@@ -324,24 +329,24 @@ export interface AuditTrailApiInterface {
      * Returns a paginated list of audit trail entries
      * @summary List audit trail for a threat model and all sub-objects
      * @param {string} threatModelId Threat model identifier
-     * @param {number} [limit] Maximum number of results to return
-     * @param {number} [offset] Number of results to skip
+     * @param {number} [limit] Maximum number of entries to return per page.
+     * @param {string} [cursor] Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
      * @param {'threat_model' | 'diagram' | 'threat' | 'asset' | 'document' | 'note' | 'repository'} [objectType] Filter by object type
      * @param {'created' | 'updated' | 'patched' | 'deleted' | 'rolled_back' | 'restored'} [changeType] Filter by change type
      * @param {string} [actorEmail] Filter by actor email
-     * @param {Date} [after] Filter entries after this timestamp (ISO 8601)
-     * @param {Date} [before] Filter entries before this timestamp (ISO 8601)
+     * @param {Date} [createdAfter] Return only records created after this RFC 3339 timestamp.
+     * @param {Date} [createdBefore] Return only records created before this RFC 3339 timestamp.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuditTrailApiInterface
      */
-    getThreatModelAuditTrailRaw(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAuditTrailResponse>>;
+    getThreatModelAuditTrailRaw(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListThreatModelAuditTrailResponse>>;
 
     /**
      * Returns a paginated list of audit trail entries
      * List audit trail for a threat model and all sub-objects
      */
-    getThreatModelAuditTrail(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAuditTrailResponse>;
+    getThreatModelAuditTrail(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListThreatModelAuditTrailResponse>;
 
     /**
      * Creates request options for rollbackToVersion without sending the request
@@ -882,8 +887,8 @@ export class AuditTrailApi extends runtime.BaseAPI implements AuditTrailApiInter
             queryParameters['limit'] = requestParameters['limit'];
         }
 
-        if (requestParameters['offset'] != null) {
-            queryParameters['offset'] = requestParameters['offset'];
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
         }
 
         if (requestParameters['objectType'] != null) {
@@ -898,12 +903,12 @@ export class AuditTrailApi extends runtime.BaseAPI implements AuditTrailApiInter
             queryParameters['actor_email'] = requestParameters['actorEmail'];
         }
 
-        if (requestParameters['after'] != null) {
-            queryParameters['after'] = (requestParameters['after'] as any).toISOString();
+        if (requestParameters['createdAfter'] != null) {
+            queryParameters['created_after'] = (requestParameters['createdAfter'] as any).toISOString();
         }
 
-        if (requestParameters['before'] != null) {
-            queryParameters['before'] = (requestParameters['before'] as any).toISOString();
+        if (requestParameters['createdBefore'] != null) {
+            queryParameters['created_before'] = (requestParameters['createdBefore'] as any).toISOString();
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -932,18 +937,18 @@ export class AuditTrailApi extends runtime.BaseAPI implements AuditTrailApiInter
      * Returns a paginated list of audit trail entries
      * List audit trail for a threat model and all sub-objects
      */
-    async getThreatModelAuditTrailRaw(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListAuditTrailResponse>> {
+    async getThreatModelAuditTrailRaw(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListThreatModelAuditTrailResponse>> {
         const requestOptions = await this.getThreatModelAuditTrailRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListAuditTrailResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListThreatModelAuditTrailResponseFromJSON(jsonValue));
     }
 
     /**
      * Returns a paginated list of audit trail entries
      * List audit trail for a threat model and all sub-objects
      */
-    async getThreatModelAuditTrail(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListAuditTrailResponse> {
+    async getThreatModelAuditTrail(requestParameters: GetThreatModelAuditTrailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListThreatModelAuditTrailResponse> {
         const response = await this.getThreatModelAuditTrailRaw(requestParameters, initOverrides);
         return await response.value();
     }

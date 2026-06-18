@@ -6,9 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **result** | **str** |  | 
-**provider** | **str** |  | 
-**auth_time** | **int** |  | 
-**message** | **str** |  | 
+**redirect_url** | **str** | Upstream IdP authorization URL (with fresh-prompt parameters appended) the client must top-level navigate to. Present only when result&#x3D;&#39;step_up_redirect&#39;. | [optional] 
+**provider** | **str** | Present only when result&#x3D;&#39;step_up_weak_complete&#39;. | [optional] 
+**auth_time** | **int** | Present only when result&#x3D;&#39;step_up_weak_complete&#39;. | [optional] 
+**message** | **str** | Present only when result&#x3D;&#39;step_up_weak_complete&#39;. | [optional] 
 
 ## Example
 

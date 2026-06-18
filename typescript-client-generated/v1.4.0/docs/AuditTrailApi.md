@@ -614,7 +614,7 @@ example().catch(console.error);
 
 ## getThreatModelAuditTrail
 
-> ListAuditTrailResponse getThreatModelAuditTrail(threatModelId, limit, offset, objectType, changeType, actorEmail, after, before)
+> ListThreatModelAuditTrailResponse getThreatModelAuditTrail(threatModelId, limit, cursor, objectType, changeType, actorEmail, createdAfter, createdBefore)
 
 List audit trail for a threat model and all sub-objects
 
@@ -640,20 +640,20 @@ async function example() {
   const body = {
     // string | Threat model identifier
     threatModelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // number | Maximum number of results to return (optional)
+    // number | Maximum number of entries to return per page. (optional)
     limit: 56,
-    // number | Number of results to skip (optional)
-    offset: 56,
+    // string | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. (optional)
+    cursor: cursor_example,
     // 'threat_model' | 'diagram' | 'threat' | 'asset' | 'document' | 'note' | 'repository' | Filter by object type (optional)
     objectType: objectType_example,
     // 'created' | 'updated' | 'patched' | 'deleted' | 'rolled_back' | 'restored' | Filter by change type (optional)
     changeType: changeType_example,
     // string | Filter by actor email (optional)
     actorEmail: actorEmail_example,
-    // Date | Filter entries after this timestamp (ISO 8601) (optional)
-    after: 2013-10-20T19:20:30+01:00,
-    // Date | Filter entries before this timestamp (ISO 8601) (optional)
-    before: 2013-10-20T19:20:30+01:00,
+    // Date | Return only records created after this RFC 3339 timestamp. (optional)
+    createdAfter: 2013-10-20T19:20:30+01:00,
+    // Date | Return only records created before this RFC 3339 timestamp. (optional)
+    createdBefore: 2013-10-20T19:20:30+01:00,
   } satisfies GetThreatModelAuditTrailRequest;
 
   try {
@@ -674,17 +674,17 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **threatModelId** | `string` | Threat model identifier | [Defaults to `undefined`] |
-| **limit** | `number` | Maximum number of results to return | [Optional] [Defaults to `20`] |
-| **offset** | `number` | Number of results to skip | [Optional] [Defaults to `0`] |
+| **limit** | `number` | Maximum number of entries to return per page. | [Optional] [Defaults to `50`] |
+| **cursor** | `string` | Opaque pagination cursor from the previous page next_cursor. Omit for the first page. | [Optional] [Defaults to `undefined`] |
 | **objectType** | `threat_model`, `diagram`, `threat`, `asset`, `document`, `note`, `repository` | Filter by object type | [Optional] [Defaults to `undefined`] [Enum: threat_model, diagram, threat, asset, document, note, repository] |
 | **changeType** | `created`, `updated`, `patched`, `deleted`, `rolled_back`, `restored` | Filter by change type | [Optional] [Defaults to `undefined`] [Enum: created, updated, patched, deleted, rolled_back, restored] |
 | **actorEmail** | `string` | Filter by actor email | [Optional] [Defaults to `undefined`] |
-| **after** | `Date` | Filter entries after this timestamp (ISO 8601) | [Optional] [Defaults to `undefined`] |
-| **before** | `Date` | Filter entries before this timestamp (ISO 8601) | [Optional] [Defaults to `undefined`] |
+| **createdAfter** | `Date` | Return only records created after this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
+| **createdBefore** | `Date` | Return only records created before this RFC 3339 timestamp. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-[**ListAuditTrailResponse**](ListAuditTrailResponse.md)
+[**ListThreatModelAuditTrailResponse**](ListThreatModelAuditTrailResponse.md)
 
 ### Authorization
 

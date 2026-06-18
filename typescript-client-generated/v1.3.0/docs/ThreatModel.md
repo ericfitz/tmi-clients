@@ -24,7 +24,7 @@ Name | Type
 `created_by` | [User](User.md)
 `documents` | [Array&lt;Document&gt;](Document.md)
 `repositories` | [Array&lt;Repository&gt;](Repository.md)
-`diagrams` | [Array&lt;DfdDiagram&gt;](DfdDiagram.md)
+`diagrams` | [Array&lt;Diagram&gt;](Diagram.md)
 `threats` | [Array&lt;Threat&gt;](Threat.md)
 `notes` | [Array&lt;Note&gt;](Note.md)
 `assets` | [Array&lt;ExtendedAsset&gt;](ExtendedAsset.md)

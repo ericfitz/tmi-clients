@@ -29,15 +29,15 @@ class IntrospectToken200Response(BaseModel):
     """
     IntrospectToken200Response
     """ # noqa: E501
-    active: StrictBool = Field(description="Whether the token is active/valid")
-    sub: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Subject (user identifier)")
-    email: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="User email address")
-    name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="User's full name")
-    exp: Optional[StrictInt] = Field(default=None, description="Token expiration time (Unix timestamp)")
-    iat: Optional[StrictInt] = Field(default=None, description="Token issued at time (Unix timestamp)")
-    iss: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Token issuer")
-    token_type: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Type of the token (RFC 7662)")
-    scope: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Space-separated list of scopes (RFC 7662)")
+    active: StrictBool = Field(description="Whether the token is active/valid", json_schema_extra={"examples": [True]})
+    sub: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Subject (user identifier)", json_schema_extra={"examples": ["user@example.com"]})
+    email: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="User email address", json_schema_extra={"examples": ["user@example.com"]})
+    name: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="User's full name", json_schema_extra={"examples": ["John Doe"]})
+    exp: Optional[StrictInt] = Field(default=None, description="Token expiration time (Unix timestamp)", json_schema_extra={"examples": [1640995200]})
+    iat: Optional[StrictInt] = Field(default=None, description="Token issued at time (Unix timestamp)", json_schema_extra={"examples": [1640991600]})
+    iss: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Token issuer", json_schema_extra={"examples": ["http://localhost:8080"]})
+    token_type: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, description="Type of the token (RFC 7662)", json_schema_extra={"examples": ["Bearer"]})
+    scope: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Space-separated list of scopes (RFC 7662)", json_schema_extra={"examples": ["openid profile email"]})
     __properties: ClassVar[List[str]] = ["active", "sub", "email", "name", "exp", "iat", "iss", "token_type", "scope"]
 
     @field_validator('name')

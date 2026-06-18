@@ -31,7 +31,7 @@ class AuditEntry(BaseModel):
     """
     An entry in the audit trail recording a mutation to an entity
     """ # noqa: E501
-    id: UUID = Field(description="Unique identifier for the audit entry")
+    id: UUID = Field(description="Unique identifier for the audit entry", json_schema_extra={"examples": ["a1b2c3d4-e5f6-7890-abcd-ef1234567890"]})
     threat_model_id: UUID = Field(description="ID of the threat model this audit entry belongs to")
     object_type: StrictStr = Field(description="Type of the entity that was mutated")
     object_id: UUID = Field(description="ID of the entity that was mutated")

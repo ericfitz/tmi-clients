@@ -30,8 +30,8 @@ class RefreshTimmySources200Response(BaseModel):
     """
     RefreshTimmySources200Response
     """ # noqa: E501
-    source_count: Optional[StrictInt] = None
-    skipped_sources: Optional[Annotated[List[SkippedSource], Field(max_length=1000)]] = None
+    source_count: Optional[StrictInt] = Field(default=None, json_schema_extra={"examples": [5]})
+    skipped_sources: Optional[Annotated[List[SkippedSource], Field(max_length=1000)]] = Field(default=None, json_schema_extra={"examples": [[]]})
     __properties: ClassVar[List[str]] = ["source_count", "skipped_sources"]
 
     model_config = ConfigDict(

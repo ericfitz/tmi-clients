@@ -28,8 +28,8 @@ class GetUserAPIQuota429Response(BaseModel):
     """
     GetUserAPIQuota429Response
     """ # noqa: E501
-    error: StrictStr = Field(description="Error message")
-    retry_after: Optional[StrictInt] = Field(default=None, description="Seconds until rate limit resets")
+    error: StrictStr = Field(description="Error message", json_schema_extra={"examples": ["rate_limit_exceeded"]})
+    retry_after: Optional[StrictInt] = Field(default=None, description="Seconds until rate limit resets", json_schema_extra={"examples": [60]})
     __properties: ClassVar[List[str]] = ["error", "retry_after"]
 
     model_config = ConfigDict(

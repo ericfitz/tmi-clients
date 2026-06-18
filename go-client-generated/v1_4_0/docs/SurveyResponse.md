@@ -16,15 +16,15 @@ Name | Type | Description | Notes
 **IsConfidential** | Pointer to **bool** | Whether Security Reviewers group was excluded (set at creation, read-only after) | [optional] [readonly] 
 **RevisionNotes** | Pointer to **NullableString** | Notes from security reviewer when returning for revision | [optional] [readonly] 
 **CreatedThreatModelId** | Pointer to **NullableString** | ID of threat model created from this response | [optional] [readonly] 
-**Owner** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 
+**Owner** | Pointer to **map[string]interface{}** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** | Creation timestamp (RFC3339) | [optional] [readonly] 
 **ModifiedAt** | Pointer to **time.Time** | Last modification timestamp (RFC3339) | [optional] [readonly] 
 **SubmittedAt** | Pointer to **NullableTime** | When the response was submitted for review | [optional] [readonly] 
 **ReviewedAt** | Pointer to **NullableTime** | When the response was last reviewed | [optional] [readonly] 
-**ReviewedBy** | Pointer to **map[string]interface{}** | Security engineer who last reviewed the response | [optional] [readonly] 
+**ReviewedBy** | Pointer to **map[string]interface{}** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **SurveyJson** | Pointer to **map[string]interface{}** | Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version. | [optional] [readonly] 
 **Metadata** | Pointer to [**[]Metadata**](Metadata.md) | Optional metadata key-value pairs | [optional] 
-**CreatedBy** | Pointer to **map[string]interface{}** | User who created the response | [optional] [readonly] 
+**CreatedBy** | Pointer to **map[string]interface{}** | Per-viewer access diagnostics; present when access_status is not &#39;accessible&#39; | [optional] [readonly] 
 **Version** | Pointer to **int32** | Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body &#39;version&#39; field on the next mutation. A mismatch returns 409 Conflict. See issue #385. | [optional] [readonly] 
 
 ## Methods

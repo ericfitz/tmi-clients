@@ -31,11 +31,11 @@ type TriageNote struct {
 	Id int32 `json:"id"`
 	// Creation timestamp (RFC3339)
 	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// User who created this triage note
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	CreatedBy map[string]interface{} `json:"created_by,omitempty"`
 	// Last modification timestamp (RFC3339)
 	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// User who last modified this triage note
+	// Per-viewer access diagnostics; present when access_status is not 'accessible'
 	ModifiedBy map[string]interface{} `json:"modified_by,omitempty"`
 }
 

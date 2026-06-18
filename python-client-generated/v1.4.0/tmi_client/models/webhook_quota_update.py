@@ -29,10 +29,10 @@ class WebhookQuotaUpdate(BaseModel):
     """
     Configuration update for webhook subscription quotas
     """ # noqa: E501
-    max_subscriptions: Annotated[int, Field(le=100, strict=True, ge=1)] = Field(description="Maximum webhook subscriptions")
-    max_events_per_minute: Annotated[int, Field(le=1000, strict=True, ge=1)] = Field(description="Maximum webhook events per minute")
-    max_subscription_requests_per_minute: Annotated[int, Field(le=100, strict=True, ge=1)] = Field(description="Maximum subscription requests per minute")
-    max_subscription_requests_per_day: Annotated[int, Field(le=10000, strict=True, ge=1)] = Field(description="Maximum subscription requests per day")
+    max_subscriptions: Annotated[int, Field(le=100, strict=True, ge=1)] = Field(description="Maximum webhook subscriptions", json_schema_extra={"examples": [5]})
+    max_events_per_minute: Annotated[int, Field(le=1000, strict=True, ge=1)] = Field(description="Maximum webhook events per minute", json_schema_extra={"examples": [100]})
+    max_subscription_requests_per_minute: Annotated[int, Field(le=100, strict=True, ge=1)] = Field(description="Maximum subscription requests per minute", json_schema_extra={"examples": [60]})
+    max_subscription_requests_per_day: Annotated[int, Field(le=10000, strict=True, ge=1)] = Field(description="Maximum subscription requests per day", json_schema_extra={"examples": [1440]})
     __properties: ClassVar[List[str]] = ["max_subscriptions", "max_events_per_minute", "max_subscription_requests_per_minute", "max_subscription_requests_per_day"]
 
     model_config = ConfigDict(

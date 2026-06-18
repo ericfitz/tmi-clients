@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { NodeAttrsBodyRefHeight } from './NodeAttrsBodyRefHeight';
-import {
-    NodeAttrsBodyRefHeightFromJSON,
-    NodeAttrsBodyRefHeightFromJSONTyped,
-    NodeAttrsBodyRefHeightToJSON,
-    NodeAttrsBodyRefHeightToJSONTyped,
-} from './NodeAttrsBodyRefHeight';
 import type { NodeAttrsBodyRefWidth } from './NodeAttrsBodyRefWidth';
 import {
     NodeAttrsBodyRefWidthFromJSON,
@@ -84,10 +77,10 @@ export interface NodeAttrsBody {
     refWidth?: NodeAttrsBodyRefWidth;
     /**
      * 
-     * @type {NodeAttrsBodyRefHeight}
+     * @type {NodeAttrsBodyRefWidth}
      * @memberof NodeAttrsBody
      */
-    refHeight?: NodeAttrsBodyRefHeight;
+    refHeight?: NodeAttrsBodyRefWidth;
     /**
      * Body fill opacity (0-1); typically transient drag-to-embed visual feedback
      * @type {number}
@@ -121,7 +114,7 @@ export function NodeAttrsBodyFromJSONTyped(json: any, ignoreDiscriminator: boole
         'ry': json['ry'] == null ? undefined : json['ry'],
         'lateral': json['lateral'] == null ? undefined : json['lateral'],
         'refWidth': json['refWidth'] == null ? undefined : NodeAttrsBodyRefWidthFromJSON(json['refWidth']),
-        'refHeight': json['refHeight'] == null ? undefined : NodeAttrsBodyRefHeightFromJSON(json['refHeight']),
+        'refHeight': json['refHeight'] == null ? undefined : NodeAttrsBodyRefWidthFromJSON(json['refHeight']),
         'fillOpacity': json['fillOpacity'] == null ? undefined : json['fillOpacity'],
     };
 }
@@ -145,7 +138,7 @@ export function NodeAttrsBodyToJSONTyped(value?: NodeAttrsBody | null, ignoreDis
         'ry': value['ry'],
         'lateral': value['lateral'],
         'refWidth': NodeAttrsBodyRefWidthToJSON(value['refWidth']),
-        'refHeight': NodeAttrsBodyRefHeightToJSON(value['refHeight']),
+        'refHeight': NodeAttrsBodyRefWidthToJSON(value['refHeight']),
         'fillOpacity': value['fillOpacity'],
     };
 }

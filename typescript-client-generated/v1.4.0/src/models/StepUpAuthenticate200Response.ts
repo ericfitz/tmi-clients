@@ -26,23 +26,29 @@ export interface StepUpAuthenticate200Response {
      */
     result: StepUpAuthenticate200ResponseResultEnum;
     /**
-     * 
+     * Upstream IdP authorization URL (with fresh-prompt parameters appended) the client must top-level navigate to. Present only when result='step_up_redirect'.
      * @type {string}
      * @memberof StepUpAuthenticate200Response
      */
-    provider: string;
+    redirect_url?: string;
     /**
-     * 
+     * Present only when result='step_up_weak_complete'.
+     * @type {string}
+     * @memberof StepUpAuthenticate200Response
+     */
+    provider?: string;
+    /**
+     * Present only when result='step_up_weak_complete'.
      * @type {number}
      * @memberof StepUpAuthenticate200Response
      */
-    auth_time: number;
+    auth_time?: number;
     /**
-     * 
+     * Present only when result='step_up_weak_complete'.
      * @type {string}
      * @memberof StepUpAuthenticate200Response
      */
-    message: string;
+    message?: string;
 }
 
 
@@ -50,7 +56,8 @@ export interface StepUpAuthenticate200Response {
  * @export
  */
 export const StepUpAuthenticate200ResponseResultEnum = {
-    StepUpWeakComplete: 'step_up_weak_complete'
+    StepUpWeakComplete: 'step_up_weak_complete',
+    StepUpRedirect: 'step_up_redirect'
 } as const;
 export type StepUpAuthenticate200ResponseResultEnum = typeof StepUpAuthenticate200ResponseResultEnum[keyof typeof StepUpAuthenticate200ResponseResultEnum];
 
@@ -60,9 +67,6 @@ export type StepUpAuthenticate200ResponseResultEnum = typeof StepUpAuthenticate2
  */
 export function instanceOfStepUpAuthenticate200Response(value: object): value is StepUpAuthenticate200Response {
     if (!('result' in value) || value['result'] === undefined) return false;
-    if (!('provider' in value) || value['provider'] === undefined) return false;
-    if (!('auth_time' in value) || value['auth_time'] === undefined) return false;
-    if (!('message' in value) || value['message'] === undefined) return false;
     return true;
 }
 
@@ -77,9 +81,10 @@ export function StepUpAuthenticate200ResponseFromJSONTyped(json: any, ignoreDisc
     return {
         
         'result': json['result'],
-        'provider': json['provider'],
-        'auth_time': json['auth_time'],
-        'message': json['message'],
+        'redirect_url': json['redirect_url'] == null ? undefined : json['redirect_url'],
+        'provider': json['provider'] == null ? undefined : json['provider'],
+        'auth_time': json['auth_time'] == null ? undefined : json['auth_time'],
+        'message': json['message'] == null ? undefined : json['message'],
     };
 }
 
@@ -95,6 +100,7 @@ export function StepUpAuthenticate200ResponseToJSONTyped(value?: StepUpAuthentic
     return {
         
         'result': value['result'],
+        'redirect_url': value['redirect_url'],
         'provider': value['provider'],
         'auth_time': value['auth_time'],
         'message': value['message'],

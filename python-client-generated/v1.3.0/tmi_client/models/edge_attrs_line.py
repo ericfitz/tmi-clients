@@ -21,7 +21,6 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
-from tmi_client.models.edge_attrs_line_source_marker import EdgeAttrsLineSourceMarker
 from tmi_client.models.edge_attrs_line_target_marker import EdgeAttrsLineTargetMarker
 from typing import Optional, Set
 from typing_extensions import Self
@@ -35,7 +34,7 @@ class EdgeAttrsLine(BaseModel):
     stroke_width: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Line width in pixels", alias="strokeWidth")
     stroke_dasharray: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Dash pattern for the line", alias="strokeDasharray")
     target_marker: Optional[EdgeAttrsLineTargetMarker] = Field(default=None, alias="targetMarker")
-    source_marker: Optional[EdgeAttrsLineSourceMarker] = Field(default=None, alias="sourceMarker")
+    source_marker: Optional[EdgeAttrsLineTargetMarker] = Field(default=None, alias="sourceMarker")
     __properties: ClassVar[List[str]] = ["stroke", "strokeWidth", "strokeDasharray", "targetMarker", "sourceMarker"]
 
     @field_validator('stroke')
@@ -132,7 +131,7 @@ class EdgeAttrsLine(BaseModel):
             "strokeWidth": obj.get("strokeWidth"),
             "strokeDasharray": obj.get("strokeDasharray"),
             "targetMarker": EdgeAttrsLineTargetMarker.from_dict(obj["targetMarker"]) if obj.get("targetMarker") is not None else None,
-            "sourceMarker": EdgeAttrsLineSourceMarker.from_dict(obj["sourceMarker"]) if obj.get("sourceMarker") is not None else None
+            "sourceMarker": EdgeAttrsLineTargetMarker.from_dict(obj["sourceMarker"]) if obj.get("sourceMarker") is not None else None
         })
         return _obj
 

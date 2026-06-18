@@ -30,10 +30,10 @@ class ListRepositoriesResponse(BaseModel):
     """
     Paginated list of repositories
     """ # noqa: E501
-    repositories: Annotated[List[Repository], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of repositories matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    repositories: Annotated[List[Repository], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "789eabcd-e89b-41d4-a716-446655440006", "threat_model_id": "123e4567-e89b-41d4-a716-446655440000", "name": "payment-service", "description": "Main payment processing microservice", "url": "https://github.com/example/payment-service", "repo_type": "github", "uri": "https://github.com/example/repo", "created_at": "2024-01-15T10:00:00Z", "modified_at": "2024-01-15T10:00:00Z"}]]})
+    total: StrictInt = Field(description="Total number of repositories matching criteria", json_schema_extra={"examples": [3]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["repositories", "total", "limit", "offset"]
 
     model_config = ConfigDict(

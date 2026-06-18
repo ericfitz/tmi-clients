@@ -29,8 +29,8 @@ class ContentAuthorizationURL(BaseModel):
     """
     OAuth authorization URL plus expiry of the associated server-side state.
     """ # noqa: E501
-    authorization_url: StrictStr = Field(description="Provider authorization URL to which the client must navigate the user.")
-    expires_at: datetime = Field(description="Timestamp after which the associated server-side state nonce is no longer valid (ISO 8601).")
+    authorization_url: StrictStr = Field(description="Provider authorization URL to which the client must navigate the user.", json_schema_extra={"examples": ["https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=...&state=..."]})
+    expires_at: datetime = Field(description="Timestamp after which the associated server-side state nonce is no longer valid (ISO 8601).", json_schema_extra={"examples": ["2026-04-19T12:34:56Z"]})
     __properties: ClassVar[List[str]] = ["authorization_url", "expires_at"]
 
     model_config = ConfigDict(

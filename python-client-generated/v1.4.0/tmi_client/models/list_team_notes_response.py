@@ -30,10 +30,10 @@ class ListTeamNotesResponse(BaseModel):
     """
     Paginated list of team notes
     """ # noqa: E501
-    notes: Annotated[List[TeamNoteListItem], Field(max_length=1000)]
-    total: StrictInt = Field(description="Total number of team notes matching criteria")
-    limit: StrictInt = Field(description="Pagination limit")
-    offset: StrictInt = Field(description="Pagination offset")
+    notes: Annotated[List[TeamNoteListItem], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"id": "550e8400-e29b-41d4-a716-446655440001", "name": "Security Review Notes", "description": "Notes from quarterly security review", "created_at": "2026-01-15T10:30:00Z", "modified_at": "2026-01-15T10:30:00Z"}]]})
+    total: StrictInt = Field(description="Total number of team notes matching criteria", json_schema_extra={"examples": [5]})
+    limit: StrictInt = Field(description="Pagination limit", json_schema_extra={"examples": [20]})
+    offset: StrictInt = Field(description="Pagination offset", json_schema_extra={"examples": [0]})
     __properties: ClassVar[List[str]] = ["notes", "total", "limit", "offset"]
 
     model_config = ConfigDict(

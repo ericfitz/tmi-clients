@@ -30,6 +30,8 @@ const (
 	WEBHOOKEVENTTYPE_DOCUMENT_CREATED WebhookEventType = "document.created"
 	WEBHOOKEVENTTYPE_DOCUMENT_UPDATED WebhookEventType = "document.updated"
 	WEBHOOKEVENTTYPE_DOCUMENT_DELETED WebhookEventType = "document.deleted"
+	WEBHOOKEVENTTYPE_DOCUMENT_EXTRACTION_COMPLETED WebhookEventType = "document.extraction_completed"
+	WEBHOOKEVENTTYPE_DOCUMENT_EXTRACTION_FAILED WebhookEventType = "document.extraction_failed"
 	WEBHOOKEVENTTYPE_NOTE_CREATED WebhookEventType = "note.created"
 	WEBHOOKEVENTTYPE_NOTE_UPDATED WebhookEventType = "note.updated"
 	WEBHOOKEVENTTYPE_NOTE_DELETED WebhookEventType = "note.deleted"
@@ -52,6 +54,7 @@ const (
 	WEBHOOKEVENTTYPE_SURVEY_RESPONSE_CREATED WebhookEventType = "survey_response.created"
 	WEBHOOKEVENTTYPE_SURVEY_RESPONSE_UPDATED WebhookEventType = "survey_response.updated"
 	WEBHOOKEVENTTYPE_SURVEY_RESPONSE_DELETED WebhookEventType = "survey_response.deleted"
+	WEBHOOKEVENTTYPE_SYSTEM_AUDIT_ADMIN_WRITE WebhookEventType = "system_audit.admin_write"
 )
 
 // All allowed values of WebhookEventType enum
@@ -65,6 +68,8 @@ var AllowedWebhookEventTypeEnumValues = []WebhookEventType{
 	"document.created",
 	"document.updated",
 	"document.deleted",
+	"document.extraction_completed",
+	"document.extraction_failed",
 	"note.created",
 	"note.updated",
 	"note.deleted",
@@ -87,6 +92,7 @@ var AllowedWebhookEventTypeEnumValues = []WebhookEventType{
 	"survey_response.created",
 	"survey_response.updated",
 	"survey_response.deleted",
+	"system_audit.admin_write",
 }
 
 func (v *WebhookEventType) UnmarshalJSON(src []byte) error {

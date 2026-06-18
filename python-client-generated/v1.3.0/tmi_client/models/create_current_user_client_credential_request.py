@@ -30,9 +30,9 @@ class CreateCurrentUserClientCredentialRequest(BaseModel):
     """
     CreateCurrentUserClientCredentialRequest
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Human-readable name for the credential")
-    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description of the credential's purpose")
-    expires_at: Optional[datetime] = Field(default=None, description="Optional expiration timestamp (ISO 8601)")
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=100)] = Field(description="Human-readable name for the credential", json_schema_extra={"examples": ["CI/CD Pipeline"]})
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = Field(default=None, description="Optional description of the credential's purpose", json_schema_extra={"examples": ["CI/CD pipeline automation credential"]})
+    expires_at: Optional[datetime] = Field(default=None, description="Optional expiration timestamp (ISO 8601)", json_schema_extra={"examples": ["2027-01-17T00:00:00Z"]})
     __properties: ClassVar[List[str]] = ["name", "description", "expires_at"]
 
     model_config = ConfigDict(

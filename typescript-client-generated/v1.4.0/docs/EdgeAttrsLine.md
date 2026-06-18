@@ -11,7 +11,7 @@ Name | Type
 `strokeWidth` | number
 `strokeDasharray` | string
 `targetMarker` | [EdgeAttrsLineTargetMarker](EdgeAttrsLineTargetMarker.md)
-`sourceMarker` | [EdgeAttrsLineSourceMarker](EdgeAttrsLineSourceMarker.md)
+`sourceMarker` | [EdgeAttrsLineTargetMarker](EdgeAttrsLineTargetMarker.md)
 
 ## Example
 

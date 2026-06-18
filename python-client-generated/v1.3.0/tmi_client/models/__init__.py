@@ -70,14 +70,12 @@ from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 from tmi_client.models.dfd_diagram_input_all_of_cells import DfdDiagramInputAllOfCells
 from tmi_client.models.diagram import Diagram
 from tmi_client.models.diagram_list_item import DiagramListItem
-from tmi_client.models.diagram_list_item_image import DiagramListItemImage
 from tmi_client.models.document import Document
 from tmi_client.models.document_base import DocumentBase
 from tmi_client.models.document_input import DocumentInput
 from tmi_client.models.edge import Edge
 from tmi_client.models.edge_attrs import EdgeAttrs
 from tmi_client.models.edge_attrs_line import EdgeAttrsLine
-from tmi_client.models.edge_attrs_line_source_marker import EdgeAttrsLineSourceMarker
 from tmi_client.models.edge_attrs_line_target_marker import EdgeAttrsLineTargetMarker
 from tmi_client.models.edge_connector import EdgeConnector
 from tmi_client.models.edge_connector_one_of import EdgeConnectorOneOf

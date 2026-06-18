@@ -28,8 +28,8 @@ class IntrospectToken500Response(BaseModel):
     """
     IntrospectToken500Response
     """ # noqa: E501
-    error: StrictStr = Field(description="Error message describing what went wrong")
-    request_id: Optional[StrictStr] = Field(default=None, description="Unique request identifier for troubleshooting")
+    error: StrictStr = Field(description="Error message describing what went wrong", json_schema_extra={"examples": ["internal_server_error"]})
+    request_id: Optional[StrictStr] = Field(default=None, description="Unique request identifier for troubleshooting", json_schema_extra={"examples": ["req_abc123xyz789"]})
     __properties: ClassVar[List[str]] = ["error", "request_id"]
 
     model_config = ConfigDict(

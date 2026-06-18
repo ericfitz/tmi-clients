@@ -42,7 +42,7 @@ class TestEdgeAttrsLine(unittest.TestCase):
                 target_marker = tmi_client.models.edge_attrs_line_target_marker.EdgeAttrs_line_targetMarker(
                     name = 'classic', 
                     size = 1, ),
-                source_marker = tmi_client.models.edge_attrs_line_source_marker.EdgeAttrs_line_sourceMarker(
+                source_marker = tmi_client.models.edge_attrs_line_target_marker.EdgeAttrs_line_targetMarker(
                     name = 'classic', 
                     size = 1, )
             )

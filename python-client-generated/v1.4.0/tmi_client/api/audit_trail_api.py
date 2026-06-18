@@ -23,6 +23,7 @@ from typing_extensions import Annotated
 from uuid import UUID
 from tmi_client.models.audit_entry import AuditEntry
 from tmi_client.models.list_audit_trail_response import ListAuditTrailResponse
+from tmi_client.models.list_threat_model_audit_trail_response import ListThreatModelAuditTrailResponse
 from tmi_client.models.rollback_response import RollbackResponse
 
 from tmi_client.api_client import ApiClient, RequestSerialized
@@ -2309,13 +2310,13 @@ class AuditTrailApi:
     def get_threat_model_audit_trail(
         self,
         threat_model_id: Annotated[UUID, Field(description="Threat model identifier")],
-        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
-        offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
         object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
         change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
         actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
-        after: Annotated[Optional[datetime], Field(description="Filter entries after this timestamp (ISO 8601)")] = None,
-        before: Annotated[Optional[datetime], Field(description="Filter entries before this timestamp (ISO 8601)")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2328,27 +2329,27 @@ class AuditTrailApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ListAuditTrailResponse:
+    ) -> ListThreatModelAuditTrailResponse:
         """List audit trail for a threat model and all sub-objects
 
         Returns a paginated list of audit trail entries
 
         :param threat_model_id: Threat model identifier (required)
         :type threat_model_id: UUID
-        :param limit: Maximum number of results to return
+        :param limit: Maximum number of entries to return per page.
         :type limit: int
-        :param offset: Number of results to skip
-        :type offset: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
         :param object_type: Filter by object type
         :type object_type: str
         :param change_type: Filter by change type
         :type change_type: str
         :param actor_email: Filter by actor email
         :type actor_email: str
-        :param after: Filter entries after this timestamp (ISO 8601)
-        :type after: datetime
-        :param before: Filter entries before this timestamp (ISO 8601)
-        :type before: datetime
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2374,12 +2375,12 @@ class AuditTrailApi:
         _param = self._get_threat_model_audit_trail_serialize(
             threat_model_id=threat_model_id,
             limit=limit,
-            offset=offset,
+            cursor=cursor,
             object_type=object_type,
             change_type=change_type,
             actor_email=actor_email,
-            after=after,
-            before=before,
+            created_after=created_after,
+            created_before=created_before,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2387,7 +2388,7 @@ class AuditTrailApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListAuditTrailResponse",
+            '200': "ListThreatModelAuditTrailResponse",
             '401': "Error",
             '403': "Error",
             '404': "Error",
@@ -2410,13 +2411,13 @@ class AuditTrailApi:
     def get_threat_model_audit_trail_with_http_info(
         self,
         threat_model_id: Annotated[UUID, Field(description="Threat model identifier")],
-        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
-        offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
         object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
         change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
         actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
-        after: Annotated[Optional[datetime], Field(description="Filter entries after this timestamp (ISO 8601)")] = None,
-        before: Annotated[Optional[datetime], Field(description="Filter entries before this timestamp (ISO 8601)")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2429,27 +2430,27 @@ class AuditTrailApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ListAuditTrailResponse]:
+    ) -> ApiResponse[ListThreatModelAuditTrailResponse]:
         """List audit trail for a threat model and all sub-objects
 
         Returns a paginated list of audit trail entries
 
         :param threat_model_id: Threat model identifier (required)
         :type threat_model_id: UUID
-        :param limit: Maximum number of results to return
+        :param limit: Maximum number of entries to return per page.
         :type limit: int
-        :param offset: Number of results to skip
-        :type offset: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
         :param object_type: Filter by object type
         :type object_type: str
         :param change_type: Filter by change type
         :type change_type: str
         :param actor_email: Filter by actor email
         :type actor_email: str
-        :param after: Filter entries after this timestamp (ISO 8601)
-        :type after: datetime
-        :param before: Filter entries before this timestamp (ISO 8601)
-        :type before: datetime
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2475,12 +2476,12 @@ class AuditTrailApi:
         _param = self._get_threat_model_audit_trail_serialize(
             threat_model_id=threat_model_id,
             limit=limit,
-            offset=offset,
+            cursor=cursor,
             object_type=object_type,
             change_type=change_type,
             actor_email=actor_email,
-            after=after,
-            before=before,
+            created_after=created_after,
+            created_before=created_before,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2488,7 +2489,7 @@ class AuditTrailApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListAuditTrailResponse",
+            '200': "ListThreatModelAuditTrailResponse",
             '401': "Error",
             '403': "Error",
             '404': "Error",
@@ -2511,13 +2512,13 @@ class AuditTrailApi:
     def get_threat_model_audit_trail_without_preload_content(
         self,
         threat_model_id: Annotated[UUID, Field(description="Threat model identifier")],
-        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of results to return")] = None,
-        offset: Annotated[Optional[Annotated[int, Field(le=1000000000, strict=True, ge=0)]], Field(description="Number of results to skip")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Maximum number of entries to return per page.")] = None,
+        cursor: Annotated[Optional[Annotated[str, Field(strict=True, max_length=512)]], Field(description="Opaque pagination cursor from the previous page next_cursor. Omit for the first page.")] = None,
         object_type: Annotated[Optional[StrictStr], Field(description="Filter by object type")] = None,
         change_type: Annotated[Optional[StrictStr], Field(description="Filter by change type")] = None,
         actor_email: Annotated[Optional[Annotated[str, Field(strict=True, max_length=254)]], Field(description="Filter by actor email")] = None,
-        after: Annotated[Optional[datetime], Field(description="Filter entries after this timestamp (ISO 8601)")] = None,
-        before: Annotated[Optional[datetime], Field(description="Filter entries before this timestamp (ISO 8601)")] = None,
+        created_after: Annotated[Optional[datetime], Field(description="Return only records created after this RFC 3339 timestamp.")] = None,
+        created_before: Annotated[Optional[datetime], Field(description="Return only records created before this RFC 3339 timestamp.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2537,20 +2538,20 @@ class AuditTrailApi:
 
         :param threat_model_id: Threat model identifier (required)
         :type threat_model_id: UUID
-        :param limit: Maximum number of results to return
+        :param limit: Maximum number of entries to return per page.
         :type limit: int
-        :param offset: Number of results to skip
-        :type offset: int
+        :param cursor: Opaque pagination cursor from the previous page next_cursor. Omit for the first page.
+        :type cursor: str
         :param object_type: Filter by object type
         :type object_type: str
         :param change_type: Filter by change type
         :type change_type: str
         :param actor_email: Filter by actor email
         :type actor_email: str
-        :param after: Filter entries after this timestamp (ISO 8601)
-        :type after: datetime
-        :param before: Filter entries before this timestamp (ISO 8601)
-        :type before: datetime
+        :param created_after: Return only records created after this RFC 3339 timestamp.
+        :type created_after: datetime
+        :param created_before: Return only records created before this RFC 3339 timestamp.
+        :type created_before: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2576,12 +2577,12 @@ class AuditTrailApi:
         _param = self._get_threat_model_audit_trail_serialize(
             threat_model_id=threat_model_id,
             limit=limit,
-            offset=offset,
+            cursor=cursor,
             object_type=object_type,
             change_type=change_type,
             actor_email=actor_email,
-            after=after,
-            before=before,
+            created_after=created_after,
+            created_before=created_before,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2589,7 +2590,7 @@ class AuditTrailApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ListAuditTrailResponse",
+            '200': "ListThreatModelAuditTrailResponse",
             '401': "Error",
             '403': "Error",
             '404': "Error",
@@ -2608,12 +2609,12 @@ class AuditTrailApi:
         self,
         threat_model_id,
         limit,
-        offset,
+        cursor,
         object_type,
         change_type,
         actor_email,
-        after,
-        before,
+        created_after,
+        created_before,
         _request_auth,
         _content_type,
         _headers,
@@ -2642,9 +2643,9 @@ class AuditTrailApi:
             
             _query_params.append(('limit', limit))
             
-        if offset is not None:
+        if cursor is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('cursor', cursor))
             
         if object_type is not None:
             
@@ -2658,31 +2659,31 @@ class AuditTrailApi:
             
             _query_params.append(('actor_email', actor_email))
             
-        if after is not None:
-            if isinstance(after, datetime):
+        if created_after is not None:
+            if isinstance(created_after, datetime):
                 _query_params.append(
                     (
-                        'after',
-                        after.strftime(
+                        'created_after',
+                        created_after.strftime(
                             self.api_client.configuration.datetime_format
                         )
                     )
                 )
             else:
-                _query_params.append(('after', after))
+                _query_params.append(('created_after', created_after))
             
-        if before is not None:
-            if isinstance(before, datetime):
+        if created_before is not None:
+            if isinstance(created_before, datetime):
                 _query_params.append(
                     (
-                        'before',
-                        before.strftime(
+                        'created_before',
+                        created_before.strftime(
                             self.api_client.configuration.datetime_format
                         )
                     )
                 )
             else:
-                _query_params.append(('before', before))
+                _query_params.append(('created_before', created_before))
             
         # process the header parameters
         # process the form parameters

@@ -62,6 +62,8 @@ export function instanceOfAuthTokenResponse(value: object): value is AuthTokenRe
     if (!('access_token' in value) || value['access_token'] === undefined) return false;
     if (!('refresh_token' in value) || value['refresh_token'] === undefined) return false;
     if (!('token_type' in value) || value['token_type'] === undefined) return false;
+    if (value['token_type'] !== 'bearer') return false;
+    
     if (!('expires_in' in value) || value['expires_in'] === undefined) return false;
     return true;
 }
