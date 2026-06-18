@@ -40,7 +40,17 @@ jobs:
         uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
 
       - name: Run tests
-        run: uv run --with pytest python3 -m pytest test/ -v --tb=short
+        # pytest exit code 5 means "no tests collected" — treat that as success
+        # so a version with an empty test/ dir doesn't fail CI. Real test
+        # failures (exit 1) still fail.
+        run: |
+          code=0
+          uv run --with pytest python3 -m pytest test/ -v --tb=short || code=$?
+          if [ "$code" -eq 5 ]; then
+            echo "pytest collected no tests (exit 5) — treating as success"
+            exit 0
+          fi
+          exit "$code"
 
   test-js:
     needs: setup
@@ -68,7 +78,9 @@ jobs:
         run: npm run build
 
       - name: Run tests
-        run: npm run test --if-present
+        # --if-present skips versions with no "test" script; --passWithNoTests
+        # keeps vitest from failing a version whose test script finds no tests.
+        run: npm run test --if-present -- --passWithNoTests
 
   test-go:
     needs: setup
