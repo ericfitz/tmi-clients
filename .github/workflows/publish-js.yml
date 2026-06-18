@@ -44,7 +44,9 @@ jobs:
 
       - name: Run tests
         working-directory: ${{ steps.version.outputs.pkg_dir }}
-        run: npm run test --if-present
+        # --if-present skips versions with no "test" script; --passWithNoTests
+        # keeps vitest from failing a version whose test script finds no tests.
+        run: npm run test --if-present -- --passWithNoTests
 
       - name: Publish to npm
         working-directory: ${{ steps.version.outputs.pkg_dir }}

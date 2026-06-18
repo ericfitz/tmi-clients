@@ -48,9 +48,18 @@ jobs:
 
       - name: Run tests
         working-directory: ${{ steps.version.outputs.pkg_dir }}
+        # pytest exit code 5 means "no tests collected" — treat that as success
+        # so a version with an empty test/ dir doesn't fail. Real test failures
+        # (exit 1) still fail.
         run: |
           pip install pytest
-          pytest test/ -v --tb=short
+          code=0
+          pytest test/ -v --tb=short || code=$?
+          if [ "$code" -eq 5 ]; then
+            echo "pytest collected no tests (exit 5) — treating as success"
+            exit 0
+          fi
+          exit "$code"
 
       - name: Build package
         working-directory: ${{ steps.version.outputs.pkg_dir }}
