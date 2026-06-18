@@ -13,6 +13,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from datetime import datetime
 from pathlib import Path
 
 from regen_common import (
@@ -26,6 +27,7 @@ from regen_common import (
     print_success,
     print_summary,
     print_warning,
+    run_command,
     spec_url_for_branch,
     spec_url_for_tag,
 )
@@ -133,6 +135,12 @@ def parse_args() -> argparse.Namespace:
         default=False,
         help="Skip pruning stale version directories",
     )
+    parser.add_argument(
+        "--no-pr",
+        action="store_true",
+        default=False,
+        help="Skip creating a git branch, commit, and pull request for the regenerated clients",
+    )
     return parser.parse_args()
 
 
@@ -218,6 +226,104 @@ def regenerate_version_language(spec_path: Path, language: str) -> int:
     print(f"  Running: {' '.join(cmd)}")
     result = subprocess.run(cmd, text=True)
     return result.returncode
+
+
+def _run_git(cmd: list[str], capture: bool = False) -> "subprocess.CompletedProcess[str]":
+    """Run a git/gh *cmd* from the repo root."""
+    return run_command(cmd, cwd=REPO_ROOT, capture=capture, error_context=" ".join(cmd[:2]))
+
+
+def create_regeneration_pr(versions: list[dict], languages: list[str]) -> dict[str, str]:
+    """Create a branch, commit regenerated clients, push, and open a PR.
+
+    Returns a results dict to merge into the run summary.  Reports errors and
+    returns a failure/skip marker rather than raising.  Never attempts to work
+    around a failed push (no alternate transport, no credential tricks): if the
+    push fails the commit is left on a local branch and the user is told.
+    """
+    check_prerequisite("git", "https://git-scm.com/downloads")
+    check_prerequisite("gh", "brew install gh")
+
+    # Determine the base branch (the branch we are currently on).
+    head = _run_git(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture=True)
+    if head.returncode != 0:
+        print_error("Could not determine the current git branch.")
+        return {"pr": "FAILED (git rev-parse)"}
+    base_branch = head.stdout.strip()
+    if base_branch == "HEAD":
+        print_error("Detached HEAD — check out a branch before creating a PR.")
+        return {"pr": "SKIPPED (detached HEAD)"}
+
+    # Bail out early if there is nothing to commit.
+    status = _run_git(["git", "status", "--porcelain"], capture=True)
+    if status.returncode != 0:
+        print_error("Could not read git status.")
+        return {"pr": "FAILED (git status)"}
+    if not status.stdout.strip():
+        print_warning("No changes to commit — skipping PR creation.")
+        return {"pr": "SKIPPED (no changes)"}
+
+    # Create a uniquely named branch off the current branch.
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    branch = f"chore/regenerate-clients-{timestamp}"
+    if _run_git(["git", "switch", "-c", branch]).returncode != 0:
+        print_error(f"Failed to create branch {branch}.")
+        return {"pr": "FAILED (git switch -c)"}
+    print_success(f"Created branch {branch}")
+
+    # Stage and commit everything.
+    if _run_git(["git", "add", "-A"]).returncode != 0:
+        print_error("Failed to stage changes.")
+        return {"pr": "FAILED (git add)"}
+
+    ver_list = ", ".join(e["version"] for e in versions)
+    lang_list = ", ".join(languages)
+    commit_msg = (
+        "Regenerated clients\n\n"
+        f"Versions: {ver_list}\n"
+        f"Languages: {lang_list}\n"
+    )
+    if _run_git(["git", "commit", "-m", commit_msg]).returncode != 0:
+        print_error("Failed to commit changes.")
+        return {"pr": "FAILED (git commit)"}
+    print_success("Committed regenerated clients")
+
+    # Push the branch.  If this fails, report and stop — do NOT work around it.
+    if _run_git(["git", "push", "-u", "origin", branch]).returncode != 0:
+        print_error(
+            f"Failed to push branch {branch}. The commit is saved locally; "
+            "push it and open the PR yourself when ready."
+        )
+        return {"pr": f"FAILED (git push) — local branch {branch}"}
+    print_success(f"Pushed {branch} to origin")
+
+    # Open the PR; gh prints the PR URL on stdout.
+    pr_body = (
+        "Automated client regeneration.\n\n"
+        f"- Versions: {ver_list}\n"
+        f"- Languages: {lang_list}\n\n"
+        "Routed through a PR because the `main` branch ruleset requires CodeQL "
+        "code-scanning results, which a direct push of the large regenerated "
+        "diff cannot satisfy. Review the checks and merge when green."
+    )
+    pr = _run_git(
+        [
+            "gh", "pr", "create",
+            "--base", base_branch,
+            "--head", branch,
+            "--title", "Regenerated clients",
+            "--body", pr_body,
+        ],
+        capture=True,
+    )
+    if pr.returncode != 0:
+        print_error("Failed to create the PR via gh:\n" + (pr.stderr or "").strip())
+        return {"pr": f"FAILED (gh pr create) — branch {branch} pushed"}
+
+    pr_url = pr.stdout.strip()
+    print_success("Pull request created:")
+    print(f"\n  {pr_url}\n")
+    return {"pr": f"CREATED {pr_url}"}
 
 
 def main() -> int:
@@ -324,6 +430,16 @@ def main() -> int:
 
     # Cleanup temp files
     clean_paths([tmp_dir])
+
+    # Optionally create a pull request with the regenerated clients
+    if args.no_pr:
+        print_success("Skipping PR creation (--no-pr).")
+    elif failures > 0:
+        print_warning("Skipping PR creation because some regenerations failed.")
+        results["pr"] = "SKIPPED (regeneration failures)"
+    else:
+        print_step(5, "Creating pull request")
+        results.update(create_regeneration_pr(versions, languages))
 
     # Summary
     print_summary(results)
