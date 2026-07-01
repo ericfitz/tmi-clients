@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  # Derive version matrices from versions.json (see ci.yml).
+  # Derive version matrices from the committed client directories (see ci.yml).
   setup:
     runs-on: ubuntu-latest
     outputs:
@@ -22,8 +22,14 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - id: matrix
         run: |
-          echo "versions=$(jq -c '[.versions[].version]' versions.json)" >> "$GITHUB_OUTPUT"
-          echo "go_versions=$(jq -c '[.versions[].version | gsub("\\."; "_")]' versions.json)" >> "$GITHUB_OUTPUT"
+          versions=$(ls -d python-client-generated/v[0-9]*/ 2>/dev/null \
+            | sed 's#.*/v##; s#/##' \
+            | jq -Rsc 'split("\n") | map(select(length > 0))')
+          go_versions=$(ls -d go-client-generated/v[0-9]*/ 2>/dev/null \
+            | sed 's#.*/v##; s#/##' \
+            | jq -Rsc 'split("\n") | map(select(length > 0))')
+          echo "versions=$versions" >> "$GITHUB_OUTPUT"
+          echo "go_versions=$go_versions" >> "$GITHUB_OUTPUT"
 
   audit-python:
     needs: setup

@@ -35,7 +35,7 @@ go-client-generated/
   v1_4_0/            # Client generated from dev/1.4.0 branch
 ```
 
-Version definitions live in `versions.json` at the repo root, which declares each version, its source branch, and which version is the latest.
+The source branches to build clients from live in `versions.json` at the repo root. It lists only branch paths; each client's version is read from that branch's OpenAPI spec (`info.version`) at build time and determines its version directory.
 
 ## Python Client Development
 
@@ -233,12 +233,12 @@ Diagrams use the AntV X6 graph library format for cells (nodes and edges). Cells
 ## Documentation Structure
 
 Regeneration scripts are at the repo root:
-- `regenerate_all.py` - Orchestrator that reads `versions.json` and calls per-language scripts for each version
+- `regenerate_all.py` - Orchestrator that reads `versions.json` and calls per-language scripts for each source branch
 - `regenerate_python.py` - Python client regeneration
 - `regenerate_go.py` - Go client regeneration
 - `regenerate_ts.py` - TypeScript client regeneration
 - `regen_common.py` - Shared utilities for all regeneration scripts
-- `versions.json` - Declares all maintained versions, their source branches, and the latest version
+- `versions.json` - Lists the source branches to build clients from (version is read from each spec at build time)
 
 Codegen config files are in each client's `scripts/` directory:
 - `python-client-generated/scripts/openapi-generator-config.json` (openapi-generator)
@@ -271,7 +271,7 @@ For example: `github.com/ericfitz/tmi-clients/go-client-generated/v1_4_0`
 
 ## OpenAPI Specification
 
-The clients are generated from the TMI OpenAPI specification. Each version in `versions.json` specifies a branch, and the regeneration scripts download the spec from that branch:
+The clients are generated from the TMI OpenAPI specification. Each branch in `versions.json` names a source branch, and the regeneration scripts download the spec from that branch:
 ```
 https://raw.githubusercontent.com/ericfitz/tmi/<branch>/api-schema/tmi-openapi.json
 ```
@@ -280,24 +280,26 @@ https://raw.githubusercontent.com/ericfitz/tmi/<branch>/api-schema/tmi-openapi.j
 
 ### Orchestrator (regenerate_all.py)
 
-The primary entry point for regeneration is `regenerate_all.py`, which reads `versions.json` and calls the per-language scripts for each version:
+The primary entry point for regeneration is `regenerate_all.py`, which reads `versions.json` (a list of source branches) and calls the per-language scripts for each branch. The client version is read from each spec's `info.version` at build time — it is **not** declared in the config — so a client always lands in the directory matching the spec it was generated from (`v1.5.0` / `v1_5_0`).
 
 ```bash
-# Regenerate all clients for all versions
+# Regenerate all clients for all branches
 python3 regenerate_all.py
 
-# Regenerate only Python clients (all versions)
+# Regenerate only Python clients (all branches)
 python3 regenerate_all.py --language python
 
-# Regenerate only a specific version (all languages)
-python3 regenerate_all.py --version 1.4.0
+# Regenerate only from a specific branch (all languages)
+python3 regenerate_all.py --branch main
 
-# Regenerate a specific language and version
-python3 regenerate_all.py --language go --version 1.3.0
+# Regenerate a specific language from a specific branch
+python3 regenerate_all.py --language go --branch release/1.3.5
 
 # Skip pruning of stale version directories
 python3 regenerate_all.py --no-prune
 ```
+
+Pruning is skipped automatically when the build is filtered with `--branch` (a single-branch run doesn't know the full version set) or when any branch's spec fails to download (its version is unknown, so its directory must not be treated as stale).
 
 ### Per-Language Scripts
 
@@ -311,18 +313,18 @@ python3 regenerate_ts.py --spec path/to/tmi-openapi.json --output-dir typescript
 
 ### versions.json
 
-The `versions.json` file at the repo root defines which versions to maintain:
+The `versions.json` file at the repo root lists the source branches to build clients from. It contains only branch paths — no version numbers. The version of each client is derived from the branch's OpenAPI spec (`info.version`) at build time, and determines the client's output directory:
 
 ```json
 {
-  "latest": "1.4.0",
-  "versions": [
-    { "version": "1.2.1", "branch": "release/1.2.0" },
-    { "version": "1.3.0", "branch": "main" },
-    { "version": "1.4.0", "branch": "dev/1.4.0" }
+  "branches": [
+    "release/1.3.5",
+    "main"
   ]
 }
 ```
+
+To add or drop a maintained client, add or remove a branch here. If two branches happen to declare the same `info.version`, they resolve to the same directory and the later build wins (the orchestrator warns about this). CI derives its test matrix from the committed client directories, not from this file.
 
 ### What Each Script Does
 
