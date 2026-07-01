@@ -29,7 +29,6 @@ from regen_common import (
     print_warning,
     run_command,
     spec_url_for_branch,
-    spec_url_for_tag,
 )
 
 REPO_ROOT = Path(__file__).resolve().parent
@@ -55,14 +54,21 @@ class ConfigError(Exception):
     """Raised when versions.json is invalid."""
 
 
-def load_versions_config(config_path: str | Path) -> dict:
+def load_branches_config(config_path: str | Path) -> list[str]:
     """Load and validate versions.json.
 
-    The config must contain ``latest`` and ``versions`` keys.  There must be
-    exactly 3 version entries, and ``latest`` must match one of them.  Each
-    entry must have ``version`` and ``branch`` keys.
+    The config declares only the source branches to build clients from::
 
-    Raises :class:`ConfigError` on any validation failure.
+        {"branches": ["release/1.3.5", "main"]}
+
+    The client version is not declared here — it is read from each spec's
+    ``info.version`` at build time (see :func:`download_spec_for_branch`), so
+    the directory a client lands in (``v1.5.0`` / ``v1_5_0``) always matches
+    the spec it was generated from.
+
+    Must contain a ``branches`` key holding at least one non-empty string.
+    Returns the list of branches.  Raises :class:`ConfigError` on any
+    validation failure.
     """
     config_path = Path(config_path)
     try:
@@ -70,42 +76,18 @@ def load_versions_config(config_path: str | Path) -> dict:
     except (json.JSONDecodeError, FileNotFoundError) as exc:
         raise ConfigError(f"Cannot read config: {exc}") from exc
 
-    if "latest" not in data:
-        raise ConfigError("Config missing required key 'latest'")
-    if "versions" not in data:
-        raise ConfigError("Config missing required key 'versions'")
+    if "branches" not in data:
+        raise ConfigError("Config missing required key 'branches'")
 
-    versions = data["versions"]
-    if len(versions) != 3:
-        raise ConfigError(
-            f"Config must contain exactly 3 versions, found {len(versions)}"
-        )
+    branches = data["branches"]
+    if not isinstance(branches, list) or len(branches) < 1:
+        raise ConfigError("Config 'branches' must be a non-empty list")
 
-    declared_versions: list[str] = []
-    for i, entry in enumerate(versions):
-        if "version" not in entry:
-            raise ConfigError(f"Version entry {i} missing required key 'version'")
-        if "branch" not in entry:
-            raise ConfigError(f"Version entry {i} missing required key 'branch'")
-        declared_versions.append(entry["version"])
+    for i, branch in enumerate(branches):
+        if not isinstance(branch, str) or not branch.strip():
+            raise ConfigError(f"Branch entry {i} must be a non-empty string")
 
-    if data["latest"] not in declared_versions:
-        raise ConfigError(
-            f"'latest' value '{data['latest']}' is not one of the declared "
-            f"versions: {declared_versions}"
-        )
-
-    return data
-
-
-def resolve_spec_url_for_entry(entry: dict) -> str:
-    """Return the spec URL for a version entry.
-
-    Uses the ``tag`` field if present, otherwise falls back to ``branch``.
-    """
-    if "tag" in entry:
-        return spec_url_for_tag(entry["tag"])
-    return spec_url_for_branch(entry["branch"])
+    return branches
 
 
 def parse_args() -> argparse.Namespace:
@@ -125,9 +107,9 @@ def parse_args() -> argparse.Namespace:
         help="Regenerate only this language (default: all)",
     )
     parser.add_argument(
-        "--version", "-v",
+        "--branch", "-b",
         default=None,
-        help="Regenerate only this version (default: all)",
+        help="Regenerate only from this branch (default: all branches in config)",
     )
     parser.add_argument(
         "--no-prune",
@@ -144,37 +126,33 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def download_and_validate_spec(entry: dict, dest_dir: Path) -> Path | None:
-    """Download the spec for *entry* and validate that its version matches.
+def download_spec_for_branch(branch: str, dest_dir: Path) -> tuple[str, Path] | None:
+    """Download the spec for *branch* and read its declared version.
 
-    Returns the path to the downloaded spec, or ``None`` on failure.
-    Catches ``SystemExit`` from ``download_spec``/``extract_spec_version``
-    so the orchestrator can continue with other versions.
+    The client version is whatever the branch's spec declares in
+    ``info.version`` — there is no expected value to validate against.
+    Returns ``(version, spec_path)``, or ``None`` on failure.  Catches
+    ``SystemExit`` from ``download_spec``/``extract_spec_version`` so the
+    orchestrator can continue with other branches.
     """
-    version = entry["version"]
-    url = resolve_spec_url_for_entry(entry)
-    spec_path = dest_dir / f"tmi-openapi-{version}.json"
+    safe_name = branch.replace("/", "-")
+    url = spec_url_for_branch(branch)
+    spec_path = dest_dir / f"tmi-openapi-{safe_name}.json"
 
     try:
         download_spec(url, spec_path)
     except SystemExit:
-        print_error(f"Failed to download spec for version {version}")
+        print_error(f"Failed to download spec for branch {branch}")
         return None
 
     try:
-        actual_version = extract_spec_version(spec_path)
+        version = extract_spec_version(spec_path)
     except SystemExit:
-        print_error(f"Failed to extract version from spec for {version}")
+        print_error(f"Failed to extract version from spec for branch {branch}")
         return None
 
-    if actual_version != version:
-        print_error(
-            f"Spec version mismatch for {version}: "
-            f"expected {version}, got {actual_version}"
-        )
-        return None
-
-    return spec_path
+    print_success(f"Branch {branch} -> version {version}")
+    return version, spec_path
 
 
 def prune_stale_versions(
@@ -233,7 +211,7 @@ def _run_git(cmd: list[str], capture: bool = False) -> "subprocess.CompletedProc
     return run_command(cmd, cwd=REPO_ROOT, capture=capture, error_context=" ".join(cmd[:2]))
 
 
-def create_regeneration_pr(versions: list[dict], languages: list[str]) -> dict[str, str]:
+def create_regeneration_pr(versions: list[str], languages: list[str]) -> dict[str, str]:
     """Create a branch, commit regenerated clients, push, and open a PR.
 
     Returns a results dict to merge into the run summary.  Reports errors and
@@ -276,7 +254,7 @@ def create_regeneration_pr(versions: list[dict], languages: list[str]) -> dict[s
         print_error("Failed to stage changes.")
         return {"pr": "FAILED (git add)"}
 
-    ver_list = ", ".join(e["version"] for e in versions)
+    ver_list = ", ".join(versions)
     lang_list = ", ".join(languages)
     commit_msg = (
         "Regenerated clients\n\n"
@@ -332,25 +310,22 @@ def main() -> int:
 
     # Load config
     try:
-        config = load_versions_config(args.config)
+        all_branches = load_branches_config(args.config)
     except ConfigError as exc:
         print_error(f"Configuration error: {exc}")
         return 1
 
-    all_versions = config["versions"]
-    all_version_strings = [e["version"] for e in all_versions]
-
-    # Apply version filter
-    if args.version:
-        versions = [e for e in all_versions if e["version"] == args.version]
-        if not versions:
+    # Apply branch filter
+    if args.branch:
+        branches = [b for b in all_branches if b == args.branch]
+        if not branches:
             print_error(
-                f"Version '{args.version}' not found in config. "
-                f"Available: {all_version_strings}"
+                f"Branch '{args.branch}' not found in config. "
+                f"Available: {all_branches}"
             )
             return 1
     else:
-        versions = all_versions
+        branches = all_branches
 
     # Apply language filter
     if args.language:
@@ -360,48 +335,61 @@ def main() -> int:
 
     print_banner("TMI Client Multi-Version Regeneration", {
         "Config": args.config,
-        "Versions": ", ".join(e["version"] for e in versions),
+        "Branches": ", ".join(branches),
         "Languages": ", ".join(languages),
-        "Latest": config["latest"],
     })
 
     # Check prerequisites
     print_step(1, "Checking prerequisites")
     check_prerequisite("openapi-generator", "brew install openapi-generator")
 
-    # Download and validate specs
-    print_step(2, "Downloading and validating specs")
+    # Download each branch's spec and read its declared version.
+    print_step(2, "Downloading specs and reading versions")
     tmp_dir = Path(tempfile.mkdtemp(prefix="tmi-specs-"))
-    spec_paths: dict[str, Path] = {}
-    for entry in versions:
-        ver = entry["version"]
-        spec = download_and_validate_spec(entry, tmp_dir)
-        if spec is not None:
-            spec_paths[ver] = spec
+    # branch -> (version, spec_path) for branches that downloaded successfully
+    resolved: dict[str, tuple[str, Path]] = {}
+    for branch in branches:
+        result = download_spec_for_branch(branch, tmp_dir)
+        if result is not None:
+            version, spec = result
+            resolved[branch] = (version, spec)
 
-    if not spec_paths:
+    if not resolved:
         print_error("No specs were successfully downloaded. Aborting.")
         clean_paths([tmp_dir])
         return 1
 
-    # Regenerate each version/language combo
+    # Two branches declaring the same version would build into the same
+    # directory and clobber each other — warn rather than silently overwrite.
+    seen_versions: dict[str, str] = {}
+    for branch, (version, _spec) in resolved.items():
+        if version in seen_versions:
+            print_warning(
+                f"Branches '{seen_versions[version]}' and '{branch}' both "
+                f"declare version {version}; the later build wins its directory."
+            )
+        else:
+            seen_versions[version] = branch
+
+    # Versions successfully resolved from the (possibly filtered) branch set.
+    resolved_versions = sorted({v for v, _ in resolved.values()})
+
+    # Regenerate each branch/language combo
     print_step(3, "Regenerating clients")
     results: dict[str, str] = {}
     successes = 0
     failures = 0
 
-    for entry in versions:
-        ver = entry["version"]
-        if ver not in spec_paths:
+    for branch in branches:
+        if branch not in resolved:
             for lang in languages:
-                key = f"{lang}/{ver}"
-                results[key] = "SKIPPED (spec download failed)"
+                results[f"{lang}/{branch}"] = "SKIPPED (spec download failed)"
                 failures += 1
             continue
 
-        spec = spec_paths[ver]
+        version, spec = resolved[branch]
         for lang in languages:
-            key = f"{lang}/{ver}"
+            key = f"{lang}/{version} ({branch})"
             print(f"\n--- Regenerating {key} ---")
             exit_code = regenerate_version_language(spec, lang)
             if exit_code == 0:
@@ -414,13 +402,26 @@ def main() -> int:
                 results[key] = f"FAILED (exit code {exit_code})"
                 failures += 1
 
-    # Prune stale version directories (use full config, not filtered)
-    if not args.no_prune:
+    # Prune stale version directories.  Only prune when building the full,
+    # unfiltered branch set — a filtered run doesn't know about the versions it
+    # skipped and would wrongly delete their directories.
+    if args.no_prune:
+        pass
+    elif args.branch:
+        print_step(4, "Pruning stale version directories")
+        print_warning("Skipping prune: --branch filters the build to one branch.")
+    elif len(resolved) != len(branches):
+        print_step(4, "Pruning stale version directories")
+        print_warning(
+            "Skipping prune: a branch spec failed to download, so its version "
+            "is unknown and its directory must not be treated as stale."
+        )
+    else:
         print_step(4, "Pruning stale version directories")
         for lang in languages:
             lang_dir = LANGUAGES[lang]["directory"]
             pruned = prune_stale_versions(
-                lang_dir, all_version_strings, is_go=(lang == "go"),
+                lang_dir, resolved_versions, is_go=(lang == "go"),
             )
             if pruned:
                 for d in pruned:
@@ -439,7 +440,7 @@ def main() -> int:
         results["pr"] = "SKIPPED (regeneration failures)"
     else:
         print_step(5, "Creating pull request")
-        results.update(create_regeneration_pr(versions, languages))
+        results.update(create_regeneration_pr(resolved_versions, languages))
 
     # Summary
     print_summary(results)

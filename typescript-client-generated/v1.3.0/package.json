@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json",
     "prepare": "npm run build",
+    "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint test"
   },
