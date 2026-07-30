@@ -32,14 +32,10 @@ class TokenRefreshRequest(BaseModel):
     refresh_token: Annotated[str, Field(min_length=1, strict=True, max_length=1000)] = Field(description="Valid refresh token", json_schema_extra={"examples": ["8xLOxBtZp8_example_refresh_token"]})
     __properties: ClassVar[List[str]] = ["refresh_token"]
 
-    @field_validator('refresh_token')
+    @field_validator('refresh_token', mode="before")
     def refresh_token_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

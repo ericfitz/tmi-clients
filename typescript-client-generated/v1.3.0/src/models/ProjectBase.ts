@@ -107,12 +107,12 @@ export function ProjectBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'team_id': json['team_id'],
         'responsible_parties': json['responsible_parties'] == null ? undefined : ((json['responsible_parties'] as Array<any>).map(ResponsiblePartyFromJSON)),
         'related_projects': json['related_projects'] == null ? undefined : ((json['related_projects'] as Array<any>).map(RelatedProjectFromJSON)),
-        'uri': json['uri'] == null ? undefined : json['uri'],
-        'status': json['status'] == null ? undefined : ProjectStatusFromJSON(json['status']),
+        'uri': json['uri'] === undefined ? undefined : json['uri'] === null ? null : json['uri'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : ProjectStatusFromJSON(json['status']),
     };
 }
 

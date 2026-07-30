@@ -47,35 +47,28 @@ class BaseDiagramInput(BaseModel):
     color_palette: Optional[Annotated[List[ColorPaletteEntry], Field(max_length=8)]] = Field(default=None, description="Custom color palette for diagram elements, ordered by position")
     __properties: ClassVar[List[str]] = ["name", "type", "metadata", "image", "description", "include_in_report", "timmy_enabled", "color_palette"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\"\'&]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
         return value
 
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value not in set(['DFD-1.0.0']):
             raise ValueError("must be one of enum values ('DFD-1.0.0')")
         return value
 
-    @field_validator('description')
+    @field_validator('description', mode="before")
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
 

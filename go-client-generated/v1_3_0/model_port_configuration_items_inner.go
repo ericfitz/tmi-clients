@@ -23,9 +23,9 @@ var _ MappedNullable = &PortConfigurationItemsInner{}
 // PortConfigurationItemsInner struct for PortConfigurationItemsInner
 type PortConfigurationItemsInner struct {
 	// Unique port identifier
-	Id string `json:"id" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Id string `json:"id" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Port group this port belongs to
-	Group string `json:"group" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Group string `json:"group" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _PortConfigurationItemsInner PortConfigurationItemsInner

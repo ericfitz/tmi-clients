@@ -52,7 +52,7 @@ export function UserQuotaUpdateFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'max_requests_per_minute': json['max_requests_per_minute'],
-        'max_requests_per_hour': json['max_requests_per_hour'] == null ? undefined : json['max_requests_per_hour'],
+        'max_requests_per_hour': json['max_requests_per_hour'] === undefined ? undefined : json['max_requests_per_hour'] === null ? null : json['max_requests_per_hour'],
     };
 }
 

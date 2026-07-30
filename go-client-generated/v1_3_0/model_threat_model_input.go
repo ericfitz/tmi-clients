@@ -23,9 +23,9 @@ var _ MappedNullable = &ThreatModelInput{}
 // ThreatModelInput Input schema for creating/updating ThreatModel
 type ThreatModelInput struct {
 	// Name of the threat model
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Description of the threat model and its purpose
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// The framework used for this threat model
 	ThreatModelFramework NullableString `json:"threat_model_framework,omitempty" validate:"regexp=^[A-Za-z0-9_-]*$"`
 	// List of users and their roles for this threat model
@@ -33,7 +33,7 @@ type ThreatModelInput struct {
 	// Key-value pairs for additional threat model metadata
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// URL to an issue in an issue tracking system for this threat model
-	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// If true, threat model is marked as confidential. Can only be set at creation.
 	IsConfidential *bool `json:"is_confidential,omitempty"`
 }

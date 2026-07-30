@@ -25,7 +25,7 @@ var _ MappedNullable = &Participant{}
 type Participant struct {
 	User User `json:"user"`
 	// Last activity timestamp
-	LastActivity time.Time `json:"last_activity" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	LastActivity time.Time `json:"last_activity" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Access permissions in the collaboration session
 	Permissions string `json:"permissions"`
 }

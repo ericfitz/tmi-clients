@@ -42,75 +42,51 @@ class GetOpenIDConfiguration200Response(BaseModel):
     introspection_endpoint: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, json_schema_extra={"examples": ["http://localhost:8080/oauth2/introspect"]})
     __properties: ClassVar[List[str]] = ["issuer", "authorization_endpoint", "token_endpoint", "userinfo_endpoint", "jwks_uri", "response_types_supported", "subject_types_supported", "id_token_signing_alg_values_supported", "scopes_supported", "claims_supported", "introspection_endpoint"]
 
-    @field_validator('issuer')
+    @field_validator('issuer', mode="before")
     def issuer_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 
-    @field_validator('authorization_endpoint')
+    @field_validator('authorization_endpoint', mode="before")
     def authorization_endpoint_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 
-    @field_validator('token_endpoint')
+    @field_validator('token_endpoint', mode="before")
     def token_endpoint_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 
-    @field_validator('userinfo_endpoint')
+    @field_validator('userinfo_endpoint', mode="before")
     def userinfo_endpoint_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 
-    @field_validator('jwks_uri')
+    @field_validator('jwks_uri', mode="before")
     def jwks_uri_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 
-    @field_validator('introspection_endpoint')
+    @field_validator('introspection_endpoint', mode="before")
     def introspection_endpoint_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 

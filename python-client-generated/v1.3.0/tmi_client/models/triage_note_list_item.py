@@ -37,28 +37,20 @@ class TriageNoteListItem(BaseModel):
     created_by: Optional[User] = Field(default=None, description="User who created this triage note")
     __properties: ClassVar[List[str]] = ["id", "name", "created_at", "created_by"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\"\'&]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
         return value
 
-    @field_validator('created_at')
+    @field_validator('created_at', mode="before")
     def created_at_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value
 

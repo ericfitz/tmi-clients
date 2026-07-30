@@ -41,14 +41,10 @@ class SystemSetting(BaseModel):
     read_only: Optional[StrictBool] = Field(default=None, description="Whether this setting can be modified via the API. True when source is not database.")
     __properties: ClassVar[List[str]] = ["key", "value", "type", "description", "modified_at", "modified_by", "source", "read_only"]
 
-    @field_validator('key')
+    @field_validator('key', mode="before")
     def key_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-z][a-z0-9_.]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-z][a-z0-9_.]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-z][a-z0-9_.]*$/")
         return value
 

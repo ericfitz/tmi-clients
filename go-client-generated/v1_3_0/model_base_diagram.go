@@ -26,26 +26,26 @@ type BaseDiagram struct {
 	// Unique identifier for the diagram (UUID)
 	Id string `json:"id" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Name of the diagram
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Type of diagram with version
 	Type string `json:"type"`
 	// Creation timestamp (ISO3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (ISO3339)
-	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Key-value pairs for additional diagram metadata
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// Server-managed monotonic version counter, incremented on each diagram update
 	UpdateVector *int64 `json:"update_vector,omitempty"`
 	Image NullableBaseDiagramImage `json:"image,omitempty"`
 	// Optional description of the diagram
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
 	TimmyEnabled *bool `json:"timmy_enabled,omitempty"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Custom color palette for diagram elements, ordered by position
 	ColorPalette []ColorPaletteEntry `json:"color_palette,omitempty"`
 }

@@ -24,9 +24,9 @@ var _ MappedNullable = &Project{}
 // Project A project representing a product, service, or application
 type Project struct {
 	// Project name
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Project description
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// UUID of the team this project belongs to
 	TeamId string `json:"team_id" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Responsible parties for this project
@@ -39,20 +39,20 @@ type Project struct {
 	Status NullableProjectStatus `json:"status,omitempty"`
 	// Unique identifier for the project (UUID)
 	Id *string `json:"id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
-	// User who created the response
+	// The team this project belongs to (resolved)
 	Team map[string]interface{} `json:"team,omitempty"`
-	// User who created the response
+	// User who created the project
 	CreatedBy map[string]interface{} `json:"created_by,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// User who created the response
+	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	// User who last modified the project
 	ModifiedBy map[string]interface{} `json:"modified_by,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	// User who last reviewed the team
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	// User who last reviewed the project
 	ReviewedBy map[string]interface{} `json:"reviewed_by,omitempty"`
 	// Last review timestamp (RFC3339)
-	ReviewedAt NullableTime `json:"reviewed_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ReviewedAt NullableTime `json:"reviewed_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
 }

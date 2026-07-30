@@ -35,39 +35,27 @@ class WebhookTestResponse(BaseModel):
     message: Optional[Annotated[str, Field(strict=True, max_length=1000)]] = Field(default=None, description="Result message")
     __properties: ClassVar[List[str]] = ["delivery_id", "status", "message"]
 
-    @field_validator('delivery_id')
+    @field_validator('delivery_id', mode="before")
     def delivery_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/")
         return value
 
-    @field_validator('status')
+    @field_validator('status', mode="before")
     def status_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 
-    @field_validator('message')
+    @field_validator('message', mode="before")
     def message_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

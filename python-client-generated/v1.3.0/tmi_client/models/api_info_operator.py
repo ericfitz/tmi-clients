@@ -33,25 +33,17 @@ class ApiInfoOperator(BaseModel):
     contact: Annotated[str, Field(strict=True, max_length=1024)] = Field(description="Operator contact information from environment variables")
     __properties: ClassVar[List[str]] = ["name", "contact"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 
-    @field_validator('contact')
+    @field_validator('contact', mode="before")
     def contact_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

@@ -33,14 +33,10 @@ class CreateAutomationAccountRequest(BaseModel):
     email: Optional[Annotated[str, Field(strict=True, max_length=320)]] = Field(default=None, description="Optional custom email address. If not provided, defaults to tmi-automation-{normalized_name}@tmi.local.")
     __properties: ClassVar[List[str]] = ["name", "email"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z][a-zA-Z0-9 _.@-]*[a-zA-Z0-9]$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z][a-zA-Z0-9 _.@-]*[a-zA-Z0-9]$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9 _.@-]*[a-zA-Z0-9]$/")
         return value
 

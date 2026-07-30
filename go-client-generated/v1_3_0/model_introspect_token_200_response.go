@@ -29,7 +29,7 @@ type IntrospectToken200Response struct {
 	// User email address
 	Email *string `json:"email,omitempty"`
 	// User's full name
-	Name *string `json:"name,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name *string `json:"name,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Token expiration time (Unix timestamp)
 	Exp *int32 `json:"exp,omitempty"`
 	// Token issued at time (Unix timestamp)

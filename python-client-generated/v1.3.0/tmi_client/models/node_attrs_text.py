@@ -41,45 +41,33 @@ class NodeAttrsText(BaseModel):
     text_vertical_anchor: Optional[StrictStr] = Field(default=None, description="Vertical text alignment anchor point", alias="textVerticalAnchor")
     __properties: ClassVar[List[str]] = ["text", "fontSize", "fill", "fontFamily", "refX", "refY", "refDx", "refDy", "textAnchor", "textVerticalAnchor"]
 
-    @field_validator('text')
+    @field_validator('text', mode="before")
     def text_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 
-    @field_validator('fill')
+    @field_validator('fill', mode="before")
     def fill_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
+        if isinstance(value, str) and not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
             raise ValueError(r"must validate the regular expression /^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$/")
         return value
 
-    @field_validator('font_family')
+    @field_validator('font_family', mode="before")
     def font_family_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9 ,\'-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9 ,\'-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9 ,'-]*$/")
         return value
 

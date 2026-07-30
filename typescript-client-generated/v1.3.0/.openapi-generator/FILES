@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 README.md
 docs/AddGroupMemberRequest.md
 docs/AddonInvocationQuota.md
@@ -66,6 +65,7 @@ docs/DfdDiagramInput.md
 docs/DfdDiagramInputAllOfCells.md
 docs/Diagram.md
 docs/DiagramListItem.md
+docs/DiagramListItemImage.md
 docs/Document.md
 docs/DocumentBase.md
 docs/DocumentInput.md
@@ -73,6 +73,7 @@ docs/DocumentsApi.md
 docs/Edge.md
 docs/EdgeAttrs.md
 docs/EdgeAttrsLine.md
+docs/EdgeAttrsLineSourceMarker.md
 docs/EdgeAttrsLineTargetMarker.md
 docs/EdgeConnector.md
 docs/EdgeConnectorOneOf.md
@@ -334,12 +335,14 @@ src/models/DfdDiagramInput.ts
 src/models/DfdDiagramInputAllOfCells.ts
 src/models/Diagram.ts
 src/models/DiagramListItem.ts
+src/models/DiagramListItemImage.ts
 src/models/Document.ts
 src/models/DocumentBase.ts
 src/models/DocumentInput.ts
 src/models/Edge.ts
 src/models/EdgeAttrs.ts
 src/models/EdgeAttrsLine.ts
+src/models/EdgeAttrsLineSourceMarker.ts
 src/models/EdgeAttrsLineTargetMarker.ts
 src/models/EdgeConnector.ts
 src/models/EdgeConnectorOneOf.ts

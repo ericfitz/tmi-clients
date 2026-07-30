@@ -24,11 +24,11 @@ var _ MappedNullable = &Document{}
 // Document Complete Document schema with server-generated fields
 type Document struct {
 	// Document name
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of document purpose or content
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// URL location of the document
-	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/[^\\\\s]*$"`
+	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
@@ -38,11 +38,11 @@ type Document struct {
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 }
 
 type _Document Document

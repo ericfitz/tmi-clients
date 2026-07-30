@@ -24,9 +24,9 @@ var _ MappedNullable = &DeletionChallenge{}
 // DeletionChallenge Challenge response for user account deletion
 type DeletionChallenge struct {
 	// The exact challenge string that must be provided to confirm deletion
-	ChallengeText string `json:"challenge_text" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	ChallengeText string `json:"challenge_text" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// When the challenge expires (3 minutes from issuance)
-	ExpiresAt time.Time `json:"expires_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	ExpiresAt time.Time `json:"expires_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 }
 
 type _DeletionChallenge DeletionChallenge

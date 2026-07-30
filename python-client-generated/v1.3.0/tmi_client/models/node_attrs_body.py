@@ -35,45 +35,33 @@ class NodeAttrsBody(BaseModel):
     stroke_dasharray: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Dash pattern for strokes", alias="strokeDasharray")
     __properties: ClassVar[List[str]] = ["fill", "stroke", "strokeWidth", "strokeDasharray"]
 
-    @field_validator('fill')
+    @field_validator('fill', mode="before")
     def fill_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
+        if isinstance(value, str) and not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
             raise ValueError(r"must validate the regular expression /^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$/")
         return value
 
-    @field_validator('stroke')
+    @field_validator('stroke', mode="before")
     def stroke_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
+        if isinstance(value, str) and not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
             raise ValueError(r"must validate the regular expression /^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$/")
         return value
 
-    @field_validator('stroke_dasharray')
+    @field_validator('stroke_dasharray', mode="before")
     def stroke_dasharray_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$/")
         return value
 

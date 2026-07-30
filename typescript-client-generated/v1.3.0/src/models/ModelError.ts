@@ -75,7 +75,7 @@ export function ModelErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'error': json['error'],
         'error_description': json['error_description'],
         'error_uri': json['error_uri'] == null ? undefined : json['error_uri'],
-        'details': json['details'] == null ? undefined : ErrorDetailsFromJSON(json['details']),
+        'details': json['details'] === undefined ? undefined : json['details'] === null ? null : ErrorDetailsFromJSON(json['details']),
     };
 }
 

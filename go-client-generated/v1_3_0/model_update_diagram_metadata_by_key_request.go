@@ -23,7 +23,7 @@ var _ MappedNullable = &UpdateDiagramMetadataByKeyRequest{}
 // UpdateDiagramMetadataByKeyRequest struct for UpdateDiagramMetadataByKeyRequest
 type UpdateDiagramMetadataByKeyRequest struct {
 	// Metadata value
-	Value string `json:"value" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Value string `json:"value" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _UpdateDiagramMetadataByKeyRequest UpdateDiagramMetadataByKeyRequest

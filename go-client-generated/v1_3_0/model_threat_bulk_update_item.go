@@ -23,31 +23,31 @@ var _ MappedNullable = &ThreatBulkUpdateItem{}
 // ThreatBulkUpdateItem Threat data for bulk update operations, including required ID field
 type ThreatBulkUpdateItem struct {
 	// Name of the threat
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the threat and risk to the organization
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Recommended or planned mitigation(s) for the threat
-	Mitigation NullableString `json:"mitigation,omitempty" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Mitigation NullableString `json:"mitigation,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Unique identifier of the associated diagram (if applicable) (UUID)
 	DiagramId NullableString `json:"diagram_id,omitempty" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Unique identifier of the associated cell (if applicable) (UUID)
 	CellId NullableString `json:"cell_id,omitempty" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Severity level of the threat
-	Severity NullableString `json:"severity,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Severity NullableString `json:"severity,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Numeric score representing the risk or impact of the threat
 	Score *float32 `json:"score,omitempty"`
 	// Priority level for addressing the threat
-	Priority NullableString `json:"priority,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Priority NullableString `json:"priority,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Whether the threat has been mitigated
 	Mitigated *bool `json:"mitigated,omitempty"`
 	// Current status of the threat
-	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Types or categories of the threat. Supports multiple classifications within the same framework (e.g., ['Spoofing', 'Tampering']). Empty array indicates no types assigned.
 	ThreatType []string `json:"threat_type"`
 	// Key-value pairs for additional threat metadata
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// URL to an issue in an issue tracking system for this threat
-	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// Unique identifier of the associated asset (if applicable) (UUID)
 	AssetId NullableString `json:"asset_id,omitempty" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// CWE (Common Weakness Enumeration) identifiers associated with this threat

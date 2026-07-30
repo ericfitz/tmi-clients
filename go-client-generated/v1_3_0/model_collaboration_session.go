@@ -31,15 +31,15 @@ type CollaborationSession struct {
 	// Unique identifier of the associated threat model (UUID)
 	ThreatModelId string `json:"threat_model_id" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Name of the associated threat model
-	ThreatModelName string `json:"threat_model_name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	ThreatModelName string `json:"threat_model_name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Unique identifier of the associated diagram (UUID)
 	DiagramId string `json:"diagram_id" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Name of the associated diagram
-	DiagramName string `json:"diagram_name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	DiagramName string `json:"diagram_name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// List of active participants
 	Participants []Participant `json:"participants"`
 	// WebSocket URL for real-time updates
-	WebsocketUrl string `json:"websocket_url" validate:"regexp=^\\\\s*wss?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	WebsocketUrl string `json:"websocket_url" validate:"regexp=^\\s*wss?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 }
 
 type _CollaborationSession CollaborationSession

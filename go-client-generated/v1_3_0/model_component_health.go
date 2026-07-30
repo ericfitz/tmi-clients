@@ -27,7 +27,7 @@ type ComponentHealth struct {
 	// Response latency in milliseconds
 	LatencyMs *int64 `json:"latency_ms,omitempty"`
 	// Human-readable status message or error description
-	Message *string `json:"message,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Message *string `json:"message,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _ComponentHealth ComponentHealth

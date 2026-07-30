@@ -23,7 +23,7 @@ var _ MappedNullable = &CreateDiagramRequest{}
 // CreateDiagramRequest Request body for creating a new diagram - only includes client-provided fields
 type CreateDiagramRequest struct {
 	// Name of the diagram
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Type of diagram with version
 	Type string `json:"type"`
 }

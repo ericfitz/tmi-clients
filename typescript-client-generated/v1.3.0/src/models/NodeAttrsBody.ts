@@ -65,7 +65,7 @@ export function NodeAttrsBodyFromJSONTyped(json: any, ignoreDiscriminator: boole
         'fill': json['fill'] == null ? undefined : json['fill'],
         'stroke': json['stroke'] == null ? undefined : json['stroke'],
         'strokeWidth': json['strokeWidth'] == null ? undefined : json['strokeWidth'],
-        'strokeDasharray': json['strokeDasharray'] == null ? undefined : json['strokeDasharray'],
+        'strokeDasharray': json['strokeDasharray'] === undefined ? undefined : json['strokeDasharray'] === null ? null : json['strokeDasharray'],
     };
 }
 

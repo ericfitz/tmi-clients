@@ -21,13 +21,13 @@ var _ MappedNullable = &EdgeAttrsLine{}
 // EdgeAttrsLine Line styling attributes
 type EdgeAttrsLine struct {
 	// Line color
-	Stroke *string `json:"stroke,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\\\([0-9]*,[0-9]*,[0-9]*\\\\)|[a-z]+)$"`
+	Stroke *string `json:"stroke,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\([0-9]*\\,[0-9]*\\,[0-9]*\\)|[a-z]+)$"`
 	// Line width in pixels
 	StrokeWidth *float32 `json:"strokeWidth,omitempty"`
 	// Dash pattern for the line
-	StrokeDasharray NullableString `json:"strokeDasharray,omitempty" validate:"regexp=^[0-9]+(\\\\\\\\.[0-9]+)?(,[0-9]+(\\\\\\\\.[0-9]+)?)*$"`
+	StrokeDasharray NullableString `json:"strokeDasharray,omitempty" validate:"regexp=^[0-9]+(\\\\.[0-9]+)?(\\,[0-9]+(\\\\.[0-9]+)?)*$"`
 	TargetMarker *EdgeAttrsLineTargetMarker `json:"targetMarker,omitempty"`
-	SourceMarker *EdgeAttrsLineTargetMarker `json:"sourceMarker,omitempty"`
+	SourceMarker *EdgeAttrsLineSourceMarker `json:"sourceMarker,omitempty"`
 }
 
 // NewEdgeAttrsLine instantiates a new EdgeAttrsLine object
@@ -186,9 +186,9 @@ func (o *EdgeAttrsLine) SetTargetMarker(v EdgeAttrsLineTargetMarker) {
 }
 
 // GetSourceMarker returns the SourceMarker field value if set, zero value otherwise.
-func (o *EdgeAttrsLine) GetSourceMarker() EdgeAttrsLineTargetMarker {
+func (o *EdgeAttrsLine) GetSourceMarker() EdgeAttrsLineSourceMarker {
 	if o == nil || IsNil(o.SourceMarker) {
-		var ret EdgeAttrsLineTargetMarker
+		var ret EdgeAttrsLineSourceMarker
 		return ret
 	}
 	return *o.SourceMarker
@@ -196,7 +196,7 @@ func (o *EdgeAttrsLine) GetSourceMarker() EdgeAttrsLineTargetMarker {
 
 // GetSourceMarkerOk returns a tuple with the SourceMarker field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EdgeAttrsLine) GetSourceMarkerOk() (*EdgeAttrsLineTargetMarker, bool) {
+func (o *EdgeAttrsLine) GetSourceMarkerOk() (*EdgeAttrsLineSourceMarker, bool) {
 	if o == nil || IsNil(o.SourceMarker) {
 		return nil, false
 	}
@@ -212,8 +212,8 @@ func (o *EdgeAttrsLine) HasSourceMarker() bool {
 	return false
 }
 
-// SetSourceMarker gets a reference to the given EdgeAttrsLineTargetMarker and assigns it to the SourceMarker field.
-func (o *EdgeAttrsLine) SetSourceMarker(v EdgeAttrsLineTargetMarker) {
+// SetSourceMarker gets a reference to the given EdgeAttrsLineSourceMarker and assigns it to the SourceMarker field.
+func (o *EdgeAttrsLine) SetSourceMarker(v EdgeAttrsLineSourceMarker) {
 	o.SourceMarker = &v
 }
 

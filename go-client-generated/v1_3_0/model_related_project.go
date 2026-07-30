@@ -26,7 +26,7 @@ type RelatedProject struct {
 	RelatedProjectId string `json:"related_project_id" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	Relationship RelationshipType `json:"relationship"`
 	// Custom relationship description when relationship is 'other'
-	CustomRelationship *string `json:"custom_relationship,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	CustomRelationship *string `json:"custom_relationship,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _RelatedProject RelatedProject

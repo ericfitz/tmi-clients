@@ -23,11 +23,11 @@ var _ MappedNullable = &DocumentInput{}
 // DocumentInput Input schema for creating or updating Document
 type DocumentInput struct {
 	// Document name
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of document purpose or content
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// URL location of the document
-	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/[^\\\\s]*$"`
+	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity

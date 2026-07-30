@@ -72,7 +72,7 @@ export function NoteInputFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'name': json['name'],
         'content': json['content'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
     };

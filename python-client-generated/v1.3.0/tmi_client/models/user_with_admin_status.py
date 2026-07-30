@@ -48,36 +48,24 @@ class UserWithAdminStatus(BaseModel):
             raise ValueError("must be one of enum values ('user')")
         return value
 
-    @field_validator('provider')
+    @field_validator('provider', mode="before")
     def provider_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(\*|[a-zA-Z][a-zA-Z0-9_*-]*)$", value):
+        if isinstance(value, str) and not re.match(r"^(\*|[a-zA-Z][a-zA-Z0-9_*-]*)$", value):
             raise ValueError(r"must validate the regular expression /^(\*|[a-zA-Z][a-zA-Z0-9_*-]*)$/")
         return value
 
-    @field_validator('provider_id')
+    @field_validator('provider_id', mode="before")
     def provider_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\"\'&]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
         return value
 
-    @field_validator('display_name')
+    @field_validator('display_name', mode="before")
     def display_name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

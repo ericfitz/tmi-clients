@@ -38,53 +38,37 @@ class SurveyBase(BaseModel):
     survey_json: Dict[str, Any] = Field(description="Complete SurveyJS JSON definition. Opaque to the server; validated only for top-level structure (must contain a pages array).")
     __properties: ClassVar[List[str]] = ["name", "description", "version", "status", "settings", "survey_json"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\"\'&]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
         return value
 
-    @field_validator('description')
+    @field_validator('description', mode="before")
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
 
-    @field_validator('version')
+    @field_validator('version', mode="before")
     def version_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9._-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9._-]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._-]+$/")
         return value
 
-    @field_validator('status')
+    @field_validator('status', mode="before")
     def status_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

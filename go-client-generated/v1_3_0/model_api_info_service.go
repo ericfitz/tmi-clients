@@ -23,9 +23,9 @@ var _ MappedNullable = &ApiInfoService{}
 // ApiInfoService struct for ApiInfoService
 type ApiInfoService struct {
 	// Name of the service
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Current build number
-	Build string `json:"build" validate:"regexp=^[0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}(-[a-zA-Z0-9]{7})?$"`
+	Build string `json:"build" validate:"regexp=^[0-9]{1\\,3}\\.[0-9]{1\\,3}\\.[0-9]{1\\,3}(-[a-zA-Z0-9]{7})?$"`
 }
 
 type _ApiInfoService ApiInfoService

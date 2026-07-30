@@ -25,7 +25,7 @@ type CreateDiagramCollaborationSession409Response struct {
 	// Error message indicating session already exists
 	Error string `json:"error"`
 	// URL to join the existing collaboration session
-	JoinUrl string `json:"join_url" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	JoinUrl string `json:"join_url" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 }
 
 type _CreateDiagramCollaborationSession409Response CreateDiagramCollaborationSession409Response

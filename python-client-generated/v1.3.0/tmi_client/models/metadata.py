@@ -33,14 +33,10 @@ class Metadata(BaseModel):
     value: Annotated[str, Field(min_length=1, strict=True, max_length=1024)] = Field(description="Metadata value")
     __properties: ClassVar[List[str]] = ["key", "value"]
 
-    @field_validator('key')
+    @field_validator('key', mode="before")
     def key_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9_.\/:-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9_.\/:-]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_.\/:-]+$/")
         return value
 

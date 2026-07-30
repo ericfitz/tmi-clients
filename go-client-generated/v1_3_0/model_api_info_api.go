@@ -23,9 +23,9 @@ var _ MappedNullable = &ApiInfoApi{}
 // ApiInfoApi struct for ApiInfoApi
 type ApiInfoApi struct {
 	// API version
-	Version string `json:"version" validate:"regexp=^[0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}$"`
+	Version string `json:"version" validate:"regexp=^[0-9]{1\\,3}\\.[0-9]{1\\,3}\\.[0-9]{1\\,3}$"`
 	// URL to the API specification
-	Specification string `json:"specification" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	Specification string `json:"specification" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 }
 
 type _ApiInfoApi ApiInfoApi

@@ -143,18 +143,18 @@ export function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ass
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'type': json['type'],
-        'criticality': json['criticality'] == null ? undefined : json['criticality'],
-        'classification': json['classification'] == null ? undefined : json['classification'],
-        'sensitivity': json['sensitivity'] == null ? undefined : json['sensitivity'],
+        'criticality': json['criticality'] === undefined ? undefined : json['criticality'] === null ? null : json['criticality'],
+        'classification': json['classification'] === undefined ? undefined : json['classification'] === null ? null : json['classification'],
+        'sensitivity': json['sensitivity'] === undefined ? undefined : json['sensitivity'] === null ? null : json['sensitivity'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
         'id': json['id'],
         'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
-        'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
+        'deleted_at': json['deleted_at'] === undefined ? undefined : json['deleted_at'] === null ? null : (new Date(json['deleted_at'])),
     };
 }
 

@@ -5098,7 +5098,7 @@ with tmi_client.ApiClient(configuration) as api_client:
     api_instance = tmi_client.ThreatModelSubResourcesApi(api_client)
     threat_model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Threat model UUID
     diagram_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Diagram UUID
-    format = json # str | Output format for the diagram model (case-insensitive). Defaults to json if not specified. (optional) (default to json)
+    format = 'json' # str | Output format for the diagram model (case-insensitive). Defaults to json if not specified. (optional) (default to 'json')
 
     try:
         # Get minimal diagram model for automated analysis
@@ -5118,7 +5118,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **threat_model_id** | **UUID**| Threat model UUID | 
  **diagram_id** | **UUID**| Diagram UUID | 
- **format** | **str**| Output format for the diagram model (case-insensitive). Defaults to json if not specified. | [optional] [default to json]
+ **format** | **str**| Output format for the diagram model (case-insensitive). Defaults to json if not specified. | [optional] [default to &#39;json&#39;]
 
 ### Return type
 

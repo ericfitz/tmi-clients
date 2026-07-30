@@ -32,11 +32,11 @@ type SurveyListItem struct {
 	// Version string
 	Version string `json:"version"`
 	// Survey status
-	Status string `json:"status" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Status string `json:"status" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Creation timestamp (RFC3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Administrator who created the survey
 	CreatedBy *User `json:"created_by,omitempty"`
 }

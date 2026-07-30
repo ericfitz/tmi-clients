@@ -23,11 +23,11 @@ var _ MappedNullable = &NoteInput{}
 // NoteInput Input schema for creating or updating Note
 type NoteInput struct {
 	// Note name
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
-	Content string `json:"content" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Content string `json:"content" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Description of note purpose or context
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity

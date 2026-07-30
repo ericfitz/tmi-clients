@@ -23,14 +23,14 @@ var _ MappedNullable = &BaseDiagramInput{}
 // BaseDiagramInput Base diagram input for PUT/PATCH requests - excludes readOnly server-managed fields
 type BaseDiagramInput struct {
 	// Name of the diagram
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Type of diagram with version
 	Type string `json:"type"`
 	// Key-value pairs for additional diagram metadata
 	Metadata []Metadata `json:"metadata,omitempty"`
 	Image NullableBaseDiagramImage `json:"image,omitempty"`
 	// Optional description of the diagram
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity

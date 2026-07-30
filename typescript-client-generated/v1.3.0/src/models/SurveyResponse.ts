@@ -137,7 +137,7 @@ export interface SurveyResponse {
      */
     readonly reviewed_at?: Date | null;
     /**
-     * User who created the response
+     * Security engineer who last reviewed the response
      * @type {object}
      * @memberof SurveyResponse
      */
@@ -181,26 +181,26 @@ export function SurveyResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'answers': json['answers'] == null ? undefined : json['answers'],
-        'linked_threat_model_id': json['linked_threat_model_id'] == null ? undefined : json['linked_threat_model_id'],
+        'linked_threat_model_id': json['linked_threat_model_id'] === undefined ? undefined : json['linked_threat_model_id'] === null ? null : json['linked_threat_model_id'],
         'authorization': json['authorization'] == null ? undefined : ((json['authorization'] as Array<any>).map(AuthorizationFromJSON)),
-        'ui_state': json['ui_state'] == null ? undefined : json['ui_state'],
+        'ui_state': json['ui_state'] === undefined ? undefined : json['ui_state'] === null ? null : json['ui_state'],
         'survey_id': json['survey_id'],
         'survey_version': json['survey_version'] == null ? undefined : json['survey_version'],
-        'project_id': json['project_id'] == null ? undefined : json['project_id'],
+        'project_id': json['project_id'] === undefined ? undefined : json['project_id'] === null ? null : json['project_id'],
         'id': json['id'] == null ? undefined : json['id'],
         'status': json['status'] == null ? undefined : json['status'],
         'is_confidential': json['is_confidential'] == null ? undefined : json['is_confidential'],
-        'revision_notes': json['revision_notes'] == null ? undefined : json['revision_notes'],
-        'created_threat_model_id': json['created_threat_model_id'] == null ? undefined : json['created_threat_model_id'],
-        'owner': json['owner'] == null ? undefined : json['owner'],
+        'revision_notes': json['revision_notes'] === undefined ? undefined : json['revision_notes'] === null ? null : json['revision_notes'],
+        'created_threat_model_id': json['created_threat_model_id'] === undefined ? undefined : json['created_threat_model_id'] === null ? null : json['created_threat_model_id'],
+        'owner': json['owner'] === undefined ? undefined : json['owner'] === null ? null : json['owner'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
-        'submitted_at': json['submitted_at'] == null ? undefined : (new Date(json['submitted_at'])),
-        'reviewed_at': json['reviewed_at'] == null ? undefined : (new Date(json['reviewed_at'])),
-        'reviewed_by': json['reviewed_by'] == null ? undefined : json['reviewed_by'],
+        'submitted_at': json['submitted_at'] === undefined ? undefined : json['submitted_at'] === null ? null : (new Date(json['submitted_at'])),
+        'reviewed_at': json['reviewed_at'] === undefined ? undefined : json['reviewed_at'] === null ? null : (new Date(json['reviewed_at'])),
+        'reviewed_by': json['reviewed_by'] === undefined ? undefined : json['reviewed_by'] === null ? null : json['reviewed_by'],
         'survey_json': json['survey_json'] == null ? undefined : json['survey_json'],
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
-        'created_by': json['created_by'] == null ? undefined : json['created_by'],
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'created_by': json['created_by'] === undefined ? undefined : json['created_by'] === null ? null : json['created_by'],
     };
 }
 

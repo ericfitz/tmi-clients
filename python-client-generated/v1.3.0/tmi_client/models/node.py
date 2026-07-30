@@ -60,17 +60,13 @@ class Node(Cell):
             raise ValueError("must be one of enum values ('actor', 'process', 'store', 'security-boundary', 'text-box')")
         return value
 
-    @field_validator('parent')
+    @field_validator('parent', mode="before")
     def parent_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$/")
         return value
 

@@ -25,11 +25,11 @@ type Authorization struct {
 	// Type of principal: user (individual) or group
 	PrincipalType string `json:"principal_type"`
 	// Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.
-	Provider string `json:"provider" validate:"regexp=^(\\\\*|[a-zA-Z][a-zA-Z0-9_*-]*)$"`
+	Provider string `json:"provider" validate:"regexp=^(\\*|[a-zA-Z][a-zA-Z0-9_*-]*)$"`
 	// Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.
-	ProviderId string `json:"provider_id" validate:"regexp=^[^<>\\"'&]*$"`
+	ProviderId string `json:"provider_id" validate:"regexp=^[^<>\"'&]*$"`
 	// Human-readable display name for UI presentation
-	DisplayName *string `json:"display_name,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	DisplayName *string `json:"display_name,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Email address (required for users, optional for groups)
 	Email *string `json:"email,omitempty"`
 	// Role: reader (view), writer (edit), owner (full control)

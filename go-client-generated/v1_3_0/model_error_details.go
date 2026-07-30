@@ -25,7 +25,7 @@ type ErrorDetails struct {
 	// Contextual information about the error
 	Context map[string]interface{} `json:"context,omitempty"`
 	// Human-readable suggestion for resolving the error
-	Suggestion *string `json:"suggestion,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Suggestion *string `json:"suggestion,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 // NewErrorDetails instantiates a new ErrorDetails object

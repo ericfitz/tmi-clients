@@ -24,14 +24,14 @@ var _ MappedNullable = &Repository{}
 // Repository Complete Repository schema with server-generated fields
 type Repository struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty" validate:"regexp=^[^<>\\"'&]*$"`
+	Name NullableString `json:"name,omitempty" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the referenced source code
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Source code repository type
 	Type NullableString `json:"type,omitempty"`
 	Parameters *RepositoryBaseParameters `json:"parameters,omitempty"`
 	// URL to retrieve the referenced source code
-	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/[^\\\\s]*$"`
+	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
@@ -41,11 +41,11 @@ type Repository struct {
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 }
 
 type _Repository Repository

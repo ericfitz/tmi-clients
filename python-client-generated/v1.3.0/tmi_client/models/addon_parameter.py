@@ -42,35 +42,28 @@ class AddonParameter(BaseModel):
     string_validation_regex: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Regular expression for string validation (applicable when type is 'string')")
     __properties: ClassVar[List[str]] = ["name", "type", "description", "required", "enum_values", "default_value", "metadata_key", "number_min", "number_max", "string_max_length", "string_validation_regex"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9_-]*$/")
         return value
 
     @field_validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value not in set(['enum', 'boolean', 'string', 'number', 'metadata_key']):
             raise ValueError("must be one of enum values ('enum', 'boolean', 'string', 'number', 'metadata_key')")
         return value
 
-    @field_validator('metadata_key')
+    @field_validator('metadata_key', mode="before")
     def metadata_key_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9_.\/:-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9_.\/:-]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_.\/:-]+$/")
         return value
 

@@ -23,9 +23,9 @@ var _ MappedNullable = &ApiInfoOperator{}
 // ApiInfoOperator struct for ApiInfoOperator
 type ApiInfoOperator struct {
 	// Operator name from environment variables
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Operator contact information from environment variables
-	Contact string `json:"contact" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Contact string `json:"contact" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _ApiInfoOperator ApiInfoOperator

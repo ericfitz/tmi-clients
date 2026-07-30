@@ -71,7 +71,7 @@ export function WebhookSubscriptionInputFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'threat_model_id': json['threat_model_id'] == null ? undefined : json['threat_model_id'],
+        'threat_model_id': json['threat_model_id'] === undefined ? undefined : json['threat_model_id'] === null ? null : json['threat_model_id'],
         'name': json['name'],
         'url': json['url'],
         'events': json['events'],

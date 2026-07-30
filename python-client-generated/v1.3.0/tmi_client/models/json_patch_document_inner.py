@@ -34,32 +34,25 @@ class JsonPatchDocumentInner(BaseModel):
     value: Optional[Any] = Field(default=None, description="The value to use for add/replace/test operations. Can be any JSON value per RFC 6902 (string, number, boolean, object, array, or null).")
     __properties: ClassVar[List[str]] = ["op", "path", "value"]
 
-    @field_validator('op')
+    @field_validator('op', mode="before")
     def op_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 
     @field_validator('op')
     def op_validate_enum(cls, value):
         """Validates the enum"""
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value not in set(['add', 'replace', 'remove', 'move', 'copy', 'test']):
             raise ValueError("must be one of enum values ('add', 'replace', 'remove', 'move', 'copy', 'test')")
         return value
 
-    @field_validator('path')
+    @field_validator('path', mode="before")
     def path_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(\/[^\/]*)*$", value):
+        if isinstance(value, str) and not re.match(r"^(\/[^\/]*)*$", value):
             raise ValueError(r"must validate the regular expression /^(\/[^\/]*)*$/")
         return value
 

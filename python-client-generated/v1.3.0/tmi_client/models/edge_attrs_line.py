@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from tmi_client.models.edge_attrs_line_source_marker import EdgeAttrsLineSourceMarker
 from tmi_client.models.edge_attrs_line_target_marker import EdgeAttrsLineTargetMarker
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,34 +35,26 @@ class EdgeAttrsLine(BaseModel):
     stroke_width: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Line width in pixels", alias="strokeWidth")
     stroke_dasharray: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Dash pattern for the line", alias="strokeDasharray")
     target_marker: Optional[EdgeAttrsLineTargetMarker] = Field(default=None, alias="targetMarker")
-    source_marker: Optional[EdgeAttrsLineTargetMarker] = Field(default=None, alias="sourceMarker")
+    source_marker: Optional[EdgeAttrsLineSourceMarker] = Field(default=None, alias="sourceMarker")
     __properties: ClassVar[List[str]] = ["stroke", "strokeWidth", "strokeDasharray", "targetMarker", "sourceMarker"]
 
-    @field_validator('stroke')
+    @field_validator('stroke', mode="before")
     def stroke_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
+        if isinstance(value, str) and not re.match(r"^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$", value):
             raise ValueError(r"must validate the regular expression /^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\([0-9]*,[0-9]*,[0-9]*\)|[a-z]+)$/")
         return value
 
-    @field_validator('stroke_dasharray')
+    @field_validator('stroke_dasharray', mode="before")
     def stroke_dasharray_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]+(\\.[0-9]+)?(,[0-9]+(\\.[0-9]+)?)*$/")
         return value
 
@@ -131,7 +124,7 @@ class EdgeAttrsLine(BaseModel):
             "strokeWidth": obj.get("strokeWidth"),
             "strokeDasharray": obj.get("strokeDasharray"),
             "targetMarker": EdgeAttrsLineTargetMarker.from_dict(obj["targetMarker"]) if obj.get("targetMarker") is not None else None,
-            "sourceMarker": EdgeAttrsLineTargetMarker.from_dict(obj["sourceMarker"]) if obj.get("sourceMarker") is not None else None
+            "sourceMarker": EdgeAttrsLineSourceMarker.from_dict(obj["sourceMarker"]) if obj.get("sourceMarker") is not None else None
         })
         return _obj
 

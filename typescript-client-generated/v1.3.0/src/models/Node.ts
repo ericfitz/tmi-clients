@@ -173,7 +173,7 @@ export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node
         'angle': json['angle'] == null ? undefined : json['angle'],
         'attrs': json['attrs'] == null ? undefined : NodeAttrsFromJSON(json['attrs']),
         'ports': json['ports'] == null ? undefined : PortConfigurationFromJSON(json['ports']),
-        'parent': json['parent'] == null ? undefined : json['parent'],
+        'parent': json['parent'] === undefined ? undefined : json['parent'] === null ? null : json['parent'],
         'children': json['children'] == null ? undefined : json['children'],
         'x': json['x'] == null ? undefined : json['x'],
         'y': json['y'] == null ? undefined : json['y'],

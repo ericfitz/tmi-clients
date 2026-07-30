@@ -30,7 +30,7 @@ const example = {
   "related_teams": [],
   "uri": https://wiki.example.com/teams/platform-engineering,
   "email_address": platform-eng@example.com,
-  "status": null,
+  "status": active,
 } satisfies TeamBase
 
 console.log(example)

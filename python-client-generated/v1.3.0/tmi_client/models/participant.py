@@ -36,14 +36,10 @@ class Participant(BaseModel):
     permissions: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="Access permissions in the collaboration session")
     __properties: ClassVar[List[str]] = ["user", "last_activity", "permissions"]
 
-    @field_validator('last_activity')
+    @field_validator('last_activity', mode="before")
     def last_activity_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$/")
         return value
 

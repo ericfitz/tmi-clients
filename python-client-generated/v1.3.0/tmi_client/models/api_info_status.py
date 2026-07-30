@@ -34,14 +34,10 @@ class ApiInfoStatus(BaseModel):
     time: datetime = Field(description="Current server time in UTC, formatted as RFC 3339")
     __properties: ClassVar[List[str]] = ["code", "time"]
 
-    @field_validator('code')
+    @field_validator('code', mode="before")
     def code_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9_-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9_-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_-]*$/")
         return value
 
@@ -53,14 +49,10 @@ class ApiInfoStatus(BaseModel):
             raise ValueError("must be one of enum values ('ok', 'degraded', 'error')")
         return value
 
-    @field_validator('time')
+    @field_validator('time', mode="before")
     def time_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$/")
         return value
 

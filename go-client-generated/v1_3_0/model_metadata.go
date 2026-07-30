@@ -23,7 +23,7 @@ var _ MappedNullable = &Metadata{}
 // Metadata A key-value pair for extensible metadata
 type Metadata struct {
 	// Metadata key
-	Key string `json:"key" validate:"regexp=^[a-zA-Z0-9_.\\/:-]+$"`
+	Key string `json:"key" validate:"regexp=^[a-zA-Z0-9_./:-]+$"`
 	// Metadata value
 	Value string `json:"value"`
 }

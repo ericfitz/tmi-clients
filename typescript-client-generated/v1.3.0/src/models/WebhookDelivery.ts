@@ -130,10 +130,10 @@ export function WebhookDeliveryFromJSONTyped(json: any, ignoreDiscriminator: boo
         'payload': json['payload'] == null ? undefined : json['payload'],
         'status': json['status'],
         'attempts': json['attempts'],
-        'next_retry_at': json['next_retry_at'] == null ? undefined : (new Date(json['next_retry_at'])),
+        'next_retry_at': json['next_retry_at'] === undefined ? undefined : json['next_retry_at'] === null ? null : (new Date(json['next_retry_at'])),
         'last_error': json['last_error'] == null ? undefined : json['last_error'],
         'created_at': (new Date(json['created_at'])),
-        'delivered_at': json['delivered_at'] == null ? undefined : (new Date(json['delivered_at'])),
+        'delivered_at': json['delivered_at'] === undefined ? undefined : json['delivered_at'] === null ? null : (new Date(json['delivered_at'])),
     };
 }
 

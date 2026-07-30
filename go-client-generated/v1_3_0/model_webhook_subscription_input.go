@@ -25,13 +25,13 @@ type WebhookSubscriptionInput struct {
 	// Optional threat model filter
 	ThreatModelId NullableString `json:"threat_model_id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Descriptive name for the subscription
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Webhook endpoint URL (must be HTTPS)
-	Url string `json:"url" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	Url string `json:"url" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// List of event types to subscribe to
 	Events []string `json:"events"`
 	// Optional HMAC secret for signing payloads (auto-generated if not provided)
-	Secret *string `json:"secret,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Secret *string `json:"secret,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _WebhookSubscriptionInput WebhookSubscriptionInput

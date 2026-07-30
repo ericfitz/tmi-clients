@@ -23,9 +23,9 @@ var _ MappedNullable = &GetProviderGroups200ResponseGroupsInner{}
 // GetProviderGroups200ResponseGroupsInner struct for GetProviderGroups200ResponseGroupsInner
 type GetProviderGroups200ResponseGroupsInner struct {
 	// Group name
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Display name for the group
-	DisplayName *string `json:"display_name,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	DisplayName *string `json:"display_name,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Whether this group is used in any threat model authorizations
 	UsedInAuthorizations *bool `json:"used_in_authorizations,omitempty"`
 }

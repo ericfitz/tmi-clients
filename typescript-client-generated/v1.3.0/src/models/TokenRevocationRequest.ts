@@ -75,9 +75,9 @@ export function TokenRevocationRequestFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'token': json['token'],
-        'token_type_hint': json['token_type_hint'] == null ? undefined : json['token_type_hint'],
-        'client_id': json['client_id'] == null ? undefined : json['client_id'],
-        'client_secret': json['client_secret'] == null ? undefined : json['client_secret'],
+        'token_type_hint': json['token_type_hint'] === undefined ? undefined : json['token_type_hint'] === null ? null : json['token_type_hint'],
+        'client_id': json['client_id'] === undefined ? undefined : json['client_id'] === null ? null : json['client_id'],
+        'client_secret': json['client_secret'] === undefined ? undefined : json['client_secret'] === null ? null : json['client_secret'],
     };
 }
 

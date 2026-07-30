@@ -188,10 +188,10 @@ export function TMListItemFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'issue_uri': json['issue_uri'] == null ? undefined : json['issue_uri'],
         'asset_count': json['asset_count'],
         'note_count': json['note_count'],
-        'status': json['status'] == null ? undefined : json['status'],
-        'status_updated': json['status_updated'] == null ? undefined : (new Date(json['status_updated'])),
-        'security_reviewer': json['security_reviewer'] == null ? undefined : UserFromJSON(json['security_reviewer']),
-        'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : json['status'],
+        'status_updated': json['status_updated'] === undefined ? undefined : json['status_updated'] === null ? null : (new Date(json['status_updated'])),
+        'security_reviewer': json['security_reviewer'] === undefined ? undefined : json['security_reviewer'] === null ? null : UserFromJSON(json['security_reviewer']),
+        'deleted_at': json['deleted_at'] === undefined ? undefined : json['deleted_at'] === null ? null : (new Date(json['deleted_at'])),
     };
 }
 

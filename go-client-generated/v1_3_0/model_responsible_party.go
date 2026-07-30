@@ -28,7 +28,7 @@ type ResponsibleParty struct {
 	User NullableUser `json:"user,omitempty"`
 	Role *TeamMemberRole `json:"role,omitempty"`
 	// Custom role description when role is 'other'
-	CustomRole *string `json:"custom_role,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	CustomRole *string `json:"custom_role,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _ResponsibleParty ResponsibleParty

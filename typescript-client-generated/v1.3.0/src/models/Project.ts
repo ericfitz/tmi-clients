@@ -97,13 +97,13 @@ export interface Project {
      */
     readonly id?: string;
     /**
-     * User who created the response
+     * The team this project belongs to (resolved)
      * @type {object}
      * @memberof Project
      */
     readonly team?: object | null;
     /**
-     * User who created the response
+     * User who created the project
      * @type {object}
      * @memberof Project
      */
@@ -115,7 +115,7 @@ export interface Project {
      */
     readonly created_at?: Date;
     /**
-     * User who created the response
+     * User who last modified the project
      * @type {object}
      * @memberof Project
      */
@@ -127,7 +127,7 @@ export interface Project {
      */
     readonly modified_at?: Date;
     /**
-     * User who last reviewed the team
+     * User who last reviewed the project
      * @type {object}
      * @memberof Project
      */
@@ -168,21 +168,21 @@ export function ProjectFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'team_id': json['team_id'],
         'responsible_parties': json['responsible_parties'] == null ? undefined : ((json['responsible_parties'] as Array<any>).map(ResponsiblePartyFromJSON)),
         'related_projects': json['related_projects'] == null ? undefined : ((json['related_projects'] as Array<any>).map(RelatedProjectFromJSON)),
-        'uri': json['uri'] == null ? undefined : json['uri'],
-        'status': json['status'] == null ? undefined : ProjectStatusFromJSON(json['status']),
+        'uri': json['uri'] === undefined ? undefined : json['uri'] === null ? null : json['uri'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : ProjectStatusFromJSON(json['status']),
         'id': json['id'] == null ? undefined : json['id'],
-        'team': json['team'] == null ? undefined : json['team'],
-        'created_by': json['created_by'] == null ? undefined : json['created_by'],
+        'team': json['team'] === undefined ? undefined : json['team'] === null ? null : json['team'],
+        'created_by': json['created_by'] === undefined ? undefined : json['created_by'] === null ? null : json['created_by'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'modified_by': json['modified_by'] == null ? undefined : json['modified_by'],
+        'modified_by': json['modified_by'] === undefined ? undefined : json['modified_by'] === null ? null : json['modified_by'],
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
-        'reviewed_by': json['reviewed_by'] == null ? undefined : json['reviewed_by'],
-        'reviewed_at': json['reviewed_at'] == null ? undefined : (new Date(json['reviewed_at'])),
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'reviewed_by': json['reviewed_by'] === undefined ? undefined : json['reviewed_by'] === null ? null : json['reviewed_by'],
+        'reviewed_at': json['reviewed_at'] === undefined ? undefined : json['reviewed_at'] === null ? null : (new Date(json['reviewed_at'])),
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
     };
 }
 

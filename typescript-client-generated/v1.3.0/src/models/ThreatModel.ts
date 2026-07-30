@@ -251,16 +251,16 @@ export function ThreatModelFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'owner': UserFromJSON(json['owner']),
         'threat_model_framework': json['threat_model_framework'],
         'authorization': ((json['authorization'] as Array<any>).map(AuthorizationFromJSON)),
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
-        'issue_uri': json['issue_uri'] == null ? undefined : json['issue_uri'],
-        'status': json['status'] == null ? undefined : json['status'],
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'issue_uri': json['issue_uri'] === undefined ? undefined : json['issue_uri'] === null ? null : json['issue_uri'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : json['status'],
         'alias': json['alias'] == null ? undefined : new Set(json['alias']),
-        'security_reviewer': json['security_reviewer'] == null ? undefined : UserFromJSON(json['security_reviewer']),
-        'project_id': json['project_id'] == null ? undefined : json['project_id'],
+        'security_reviewer': json['security_reviewer'] === undefined ? undefined : json['security_reviewer'] === null ? null : UserFromJSON(json['security_reviewer']),
+        'project_id': json['project_id'] === undefined ? undefined : json['project_id'] === null ? null : json['project_id'],
         'id': json['id'] == null ? undefined : json['id'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
@@ -271,9 +271,9 @@ export function ThreatModelFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'threats': json['threats'] == null ? undefined : ((json['threats'] as Array<any>).map(ThreatFromJSON)),
         'notes': json['notes'] == null ? undefined : ((json['notes'] as Array<any>).map(NoteFromJSON)),
         'assets': json['assets'] == null ? undefined : ((json['assets'] as Array<any>).map(ExtendedAssetFromJSON)),
-        'status_updated': json['status_updated'] == null ? undefined : (new Date(json['status_updated'])),
+        'status_updated': json['status_updated'] === undefined ? undefined : json['status_updated'] === null ? null : (new Date(json['status_updated'])),
         'is_confidential': json['is_confidential'] == null ? undefined : json['is_confidential'],
-        'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
+        'deleted_at': json['deleted_at'] === undefined ? undefined : json['deleted_at'] === null ? null : (new Date(json['deleted_at'])),
     };
 }
 

@@ -26,17 +26,17 @@ type SurveyResponseListItem struct {
 	// Unique identifier for the response (UUID)
 	Id string `json:"id" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Current status of the survey response
-	Status string `json:"status" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Status string `json:"status" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Whether this is a secret project (no auto Security Reviewers access)
 	IsConfidential *bool `json:"is_confidential,omitempty"`
 	// User who created the response
 	Owner NullableUser `json:"owner,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// When the response was submitted
-	SubmittedAt NullableTime `json:"submitted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	SubmittedAt NullableTime `json:"submitted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// ID of the survey
 	SurveyId string `json:"survey_id"`
 	// Name of the survey

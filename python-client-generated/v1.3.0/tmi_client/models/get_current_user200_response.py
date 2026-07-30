@@ -36,45 +36,33 @@ class GetCurrentUser200Response(BaseModel):
     groups: Optional[Annotated[List[Annotated[str, Field(strict=True, max_length=1000)]], Field(max_length=1000)]] = Field(default=None, description="Groups the user belongs to", json_schema_extra={"examples": [["admins", "users"]]})
     __properties: ClassVar[List[str]] = ["sub", "email", "name", "idp", "groups"]
 
-    @field_validator('email')
+    @field_validator('email', mode="before")
     def email_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
         return value
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 
-    @field_validator('idp')
+    @field_validator('idp', mode="before")
     def idp_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9_-]*$/")
         return value
 

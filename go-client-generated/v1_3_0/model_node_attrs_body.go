@@ -21,13 +21,13 @@ var _ MappedNullable = &NodeAttrsBody{}
 // NodeAttrsBody Body/shape styling attributes
 type NodeAttrsBody struct {
 	// Fill color
-	Fill *string `json:"fill,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\\\([0-9]*,[0-9]*,[0-9]*\\\\)|[a-z]+)$"`
+	Fill *string `json:"fill,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\([0-9]*\\,[0-9]*\\,[0-9]*\\)|[a-z]+)$"`
 	// Stroke color
-	Stroke *string `json:"stroke,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\\\([0-9]*,[0-9]*,[0-9]*\\\\)|[a-z]+)$"`
+	Stroke *string `json:"stroke,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\([0-9]*\\,[0-9]*\\,[0-9]*\\)|[a-z]+)$"`
 	// Stroke width in pixels
 	StrokeWidth *float32 `json:"strokeWidth,omitempty"`
 	// Dash pattern for strokes
-	StrokeDasharray NullableString `json:"strokeDasharray,omitempty" validate:"regexp=^[0-9]+(\\\\\\\\.[0-9]+)?(,[0-9]+(\\\\\\\\.[0-9]+)?)*$"`
+	StrokeDasharray NullableString `json:"strokeDasharray,omitempty" validate:"regexp=^[0-9]+(\\\\.[0-9]+)?(\\,[0-9]+(\\\\.[0-9]+)?)*$"`
 }
 
 // NewNodeAttrsBody instantiates a new NodeAttrsBody object

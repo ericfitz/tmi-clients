@@ -101,8 +101,8 @@ export function TeamListItemFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'id': json['id'],
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
-        'status': json['status'] == null ? undefined : TeamStatusFromJSON(json['status']),
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : TeamStatusFromJSON(json['status']),
         'member_count': json['member_count'] == null ? undefined : json['member_count'],
         'project_count': json['project_count'] == null ? undefined : json['project_count'],
         'created_at': (new Date(json['created_at'])),

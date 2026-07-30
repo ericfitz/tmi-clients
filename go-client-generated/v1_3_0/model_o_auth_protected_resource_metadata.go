@@ -23,19 +23,19 @@ var _ MappedNullable = &OAuthProtectedResourceMetadata{}
 // OAuthProtectedResourceMetadata OAuth 2.0 protected resource metadata as defined in RFC 9728
 type OAuthProtectedResourceMetadata struct {
 	// The protected resource's resource identifier URL
-	Resource string `json:"resource" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	Resource string `json:"resource" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// JSON array of OAuth scope values supported by this protected resource
 	ScopesSupported []string `json:"scopes_supported,omitempty"`
 	// List of authorization server issuer identifiers that can issue tokens for this resource
 	AuthorizationServers []string `json:"authorization_servers,omitempty"`
 	// URL of the protected resource's JSON Web Key Set (RFC 9728)
-	JwksUri *string `json:"jwks_uri,omitempty" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	JwksUri *string `json:"jwks_uri,omitempty" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// Supported token presentation methods for bearer tokens
 	BearerMethodsSupported []string `json:"bearer_methods_supported,omitempty"`
 	// Human-readable name of the protected resource
-	ResourceName *string `json:"resource_name,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	ResourceName *string `json:"resource_name,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// URL with information for developers on how to use this protected resource
-	ResourceDocumentation *string `json:"resource_documentation,omitempty" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/[^\\\\s]*$"`
+	ResourceDocumentation *string `json:"resource_documentation,omitempty" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	// Whether the protected resource supports TLS client certificate bound access tokens
 	TlsClientCertificateBoundAccessTokens *bool `json:"tls_client_certificate_bound_access_tokens,omitempty"`
 }

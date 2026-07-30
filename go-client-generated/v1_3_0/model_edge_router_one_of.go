@@ -23,7 +23,7 @@ var _ MappedNullable = &EdgeRouterOneOf{}
 // EdgeRouterOneOf Router with custom configuration
 type EdgeRouterOneOf struct {
 	// Router algorithm name
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	Args *EdgeRouterOneOfArgs `json:"args,omitempty"`
 }
 

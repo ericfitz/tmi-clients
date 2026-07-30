@@ -32,14 +32,10 @@ class UpdateDiagramMetadataByKeyRequest(BaseModel):
     value: Annotated[str, Field(strict=True, max_length=1024)] = Field(description="Metadata value", json_schema_extra={"examples": ["example-metadata-value"]})
     __properties: ClassVar[List[str]] = ["value"]
 
-    @field_validator('value')
+    @field_validator('value', mode="before")
     def value_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

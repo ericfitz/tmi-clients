@@ -23,9 +23,9 @@ var _ MappedNullable = &TeamBase{}
 // TeamBase Client-writable fields for a team
 type TeamBase struct {
 	// Team name
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Team description
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// List of team members with their roles
 	Members []TeamMember `json:"members,omitempty"`
 	// Responsible parties for this team (in lieu of owner)

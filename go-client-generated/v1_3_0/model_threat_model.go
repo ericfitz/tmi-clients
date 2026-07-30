@@ -24,9 +24,9 @@ var _ MappedNullable = &ThreatModel{}
 // ThreatModel A threat model containing diagrams, threats, documents, and other security analysis artifacts
 type ThreatModel struct {
 	// Name of the threat model
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the threat model
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// User who owns the threat model (can be null for orphaned models)
 	Owner User `json:"owner"`
 	// The framework used for this threat model
@@ -36,9 +36,9 @@ type ThreatModel struct {
 	// Key-value pairs for additional threat model metadata
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// URL to an issue in an issue tracking system for this threat model
-	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"Not started\", \"In progress\", \"Review\", \"Approved\", \"Closed\"
-	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Alternative names or identifiers for the threat model
 	Alias []string `json:"alias,omitempty"`
 	// Security reviewer assigned to this threat model. When set, the security reviewer is automatically added to the authorization list with the owner role. The security reviewer's owner role cannot be removed via authorization changes while they remain assigned as security reviewer. To change the security reviewer's authorization, first unassign them as security reviewer.
@@ -48,9 +48,9 @@ type ThreatModel struct {
 	// Unique identifier for the threat model (UUID)
 	Id *string `json:"id,omitempty" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// User who created the threat model
 	CreatedBy *User `json:"created_by,omitempty"`
 	// List of documents related to the threat model
@@ -66,11 +66,11 @@ type ThreatModel struct {
 	// List of assets associated with the threat model
 	Assets []ExtendedAsset `json:"assets,omitempty"`
 	// Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes.
-	StatusUpdated NullableTime `json:"status_updated,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	StatusUpdated NullableTime `json:"status_updated,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Whether this threat model is confidential (set at creation, read-only after)
 	IsConfidential *bool `json:"is_confidential,omitempty"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 }
 
 type _ThreatModel ThreatModel

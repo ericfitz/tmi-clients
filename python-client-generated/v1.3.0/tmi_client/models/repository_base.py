@@ -39,31 +39,23 @@ class RepositoryBase(BaseModel):
     timmy_enabled: Optional[StrictBool] = Field(default=True, description="Whether the Timmy AI assistant is enabled for this entity")
     __properties: ClassVar[List[str]] = ["name", "description", "type", "parameters", "uri", "include_in_report", "timmy_enabled"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\"\'&]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\"\'&]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\"'&]*$/")
         return value
 
-    @field_validator('description')
+    @field_validator('description', mode="before")
     def description_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^<>\x00-\x08\x0B\x0C\x0E-\x1F]*$/")
         return value
 
@@ -73,18 +65,15 @@ class RepositoryBase(BaseModel):
         if value is None:
             return value
 
+        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
         if value not in set(['git', 'svn', 'mercurial', 'other']):
             raise ValueError("must be one of enum values ('git', 'svn', 'mercurial', 'other')")
         return value
 
-    @field_validator('uri')
+    @field_validator('uri', mode="before")
     def uri_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]*$/")
         return value
 

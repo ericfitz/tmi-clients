@@ -33,25 +33,17 @@ class ApiInfoApi(BaseModel):
     specification: Annotated[str, Field(strict=True, max_length=1000)] = Field(description="URL to the API specification")
     __properties: ClassVar[List[str]] = ["version", "specification"]
 
-    @field_validator('version')
+    @field_validator('version', mode="before")
     def version_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/")
         return value
 
-    @field_validator('specification')
+    @field_validator('specification', mode="before")
     def specification_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
+        if isinstance(value, str) and not re.match(r"^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$", value):
             raise ValueError(r"must validate the regular expression /^\s*https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\/[^\s]*)?\s*$/")
         return value
 

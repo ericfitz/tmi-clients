@@ -90,12 +90,12 @@ export function SurveyResponseInputFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'answers': json['answers'] == null ? undefined : json['answers'],
-        'linked_threat_model_id': json['linked_threat_model_id'] == null ? undefined : json['linked_threat_model_id'],
+        'linked_threat_model_id': json['linked_threat_model_id'] === undefined ? undefined : json['linked_threat_model_id'] === null ? null : json['linked_threat_model_id'],
         'authorization': json['authorization'] == null ? undefined : ((json['authorization'] as Array<any>).map(AuthorizationFromJSON)),
-        'ui_state': json['ui_state'] == null ? undefined : json['ui_state'],
+        'ui_state': json['ui_state'] === undefined ? undefined : json['ui_state'] === null ? null : json['ui_state'],
         'survey_id': json['survey_id'],
         'survey_version': json['survey_version'] == null ? undefined : json['survey_version'],
-        'project_id': json['project_id'] == null ? undefined : json['project_id'],
+        'project_id': json['project_id'] === undefined ? undefined : json['project_id'] === null ? null : json['project_id'],
     };
 }
 

@@ -139,18 +139,18 @@ export function GroupMemberFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'id': json['id'],
         'group_internal_uuid': json['group_internal_uuid'],
-        'user_internal_uuid': json['user_internal_uuid'] == null ? undefined : json['user_internal_uuid'],
-        'user_email': json['user_email'] == null ? undefined : json['user_email'],
-        'user_name': json['user_name'] == null ? undefined : json['user_name'],
-        'user_provider': json['user_provider'] == null ? undefined : json['user_provider'],
-        'user_provider_user_id': json['user_provider_user_id'] == null ? undefined : json['user_provider_user_id'],
-        'added_by_internal_uuid': json['added_by_internal_uuid'] == null ? undefined : json['added_by_internal_uuid'],
-        'added_by_email': json['added_by_email'] == null ? undefined : json['added_by_email'],
+        'user_internal_uuid': json['user_internal_uuid'] === undefined ? undefined : json['user_internal_uuid'] === null ? null : json['user_internal_uuid'],
+        'user_email': json['user_email'] === undefined ? undefined : json['user_email'] === null ? null : json['user_email'],
+        'user_name': json['user_name'] === undefined ? undefined : json['user_name'] === null ? null : json['user_name'],
+        'user_provider': json['user_provider'] === undefined ? undefined : json['user_provider'] === null ? null : json['user_provider'],
+        'user_provider_user_id': json['user_provider_user_id'] === undefined ? undefined : json['user_provider_user_id'] === null ? null : json['user_provider_user_id'],
+        'added_by_internal_uuid': json['added_by_internal_uuid'] === undefined ? undefined : json['added_by_internal_uuid'] === null ? null : json['added_by_internal_uuid'],
+        'added_by_email': json['added_by_email'] === undefined ? undefined : json['added_by_email'] === null ? null : json['added_by_email'],
         'added_at': (new Date(json['added_at'])),
-        'notes': json['notes'] == null ? undefined : json['notes'],
+        'notes': json['notes'] === undefined ? undefined : json['notes'] === null ? null : json['notes'],
         'subject_type': json['subject_type'],
-        'member_group_internal_uuid': json['member_group_internal_uuid'] == null ? undefined : json['member_group_internal_uuid'],
-        'member_group_name': json['member_group_name'] == null ? undefined : json['member_group_name'],
+        'member_group_internal_uuid': json['member_group_internal_uuid'] === undefined ? undefined : json['member_group_internal_uuid'] === null ? null : json['member_group_internal_uuid'],
+        'member_group_name': json['member_group_name'] === undefined ? undefined : json['member_group_name'] === null ? null : json['member_group_name'],
     };
 }
 

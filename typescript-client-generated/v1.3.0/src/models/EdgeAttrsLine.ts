@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { EdgeAttrsLineSourceMarker } from './EdgeAttrsLineSourceMarker';
+import {
+    EdgeAttrsLineSourceMarkerFromJSON,
+    EdgeAttrsLineSourceMarkerFromJSONTyped,
+    EdgeAttrsLineSourceMarkerToJSON,
+    EdgeAttrsLineSourceMarkerToJSONTyped,
+} from './EdgeAttrsLineSourceMarker';
 import type { EdgeAttrsLineTargetMarker } from './EdgeAttrsLineTargetMarker';
 import {
     EdgeAttrsLineTargetMarkerFromJSON,
@@ -53,10 +60,10 @@ export interface EdgeAttrsLine {
     targetMarker?: EdgeAttrsLineTargetMarker;
     /**
      * 
-     * @type {EdgeAttrsLineTargetMarker}
+     * @type {EdgeAttrsLineSourceMarker}
      * @memberof EdgeAttrsLine
      */
-    sourceMarker?: EdgeAttrsLineTargetMarker;
+    sourceMarker?: EdgeAttrsLineSourceMarker;
 }
 
 /**
@@ -78,9 +85,9 @@ export function EdgeAttrsLineFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'stroke': json['stroke'] == null ? undefined : json['stroke'],
         'strokeWidth': json['strokeWidth'] == null ? undefined : json['strokeWidth'],
-        'strokeDasharray': json['strokeDasharray'] == null ? undefined : json['strokeDasharray'],
+        'strokeDasharray': json['strokeDasharray'] === undefined ? undefined : json['strokeDasharray'] === null ? null : json['strokeDasharray'],
         'targetMarker': json['targetMarker'] == null ? undefined : EdgeAttrsLineTargetMarkerFromJSON(json['targetMarker']),
-        'sourceMarker': json['sourceMarker'] == null ? undefined : EdgeAttrsLineTargetMarkerFromJSON(json['sourceMarker']),
+        'sourceMarker': json['sourceMarker'] == null ? undefined : EdgeAttrsLineSourceMarkerFromJSON(json['sourceMarker']),
     };
 }
 
@@ -99,7 +106,7 @@ export function EdgeAttrsLineToJSONTyped(value?: EdgeAttrsLine | null, ignoreDis
         'strokeWidth': value['strokeWidth'],
         'strokeDasharray': value['strokeDasharray'],
         'targetMarker': EdgeAttrsLineTargetMarkerToJSON(value['targetMarker']),
-        'sourceMarker': EdgeAttrsLineTargetMarkerToJSON(value['sourceMarker']),
+        'sourceMarker': EdgeAttrsLineSourceMarkerToJSON(value['sourceMarker']),
     };
 }
 
