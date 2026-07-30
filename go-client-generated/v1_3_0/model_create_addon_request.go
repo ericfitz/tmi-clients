@@ -29,7 +29,7 @@ type CreateAddonRequest struct {
 	// Description of what the add-on does
 	Description *string `json:"description,omitempty"`
 	// Icon identifier (Material Symbols or FontAwesome format)
-	Icon *string `json:"icon,omitempty" validate:"regexp=^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\\\\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$"`
+	Icon *string `json:"icon,omitempty" validate:"regexp=^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$"`
 	// TMI object types this add-on can operate on
 	Objects []string `json:"objects,omitempty"`
 	// Optional: Scope add-on to specific threat model

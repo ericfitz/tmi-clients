@@ -132,11 +132,11 @@ export function AdminUserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'email_verified': json['email_verified'],
         'created_at': (new Date(json['created_at'])),
         'modified_at': (new Date(json['modified_at'])),
-        'last_login': json['last_login'] == null ? undefined : (new Date(json['last_login'])),
+        'last_login': json['last_login'] === undefined ? undefined : json['last_login'] === null ? null : (new Date(json['last_login'])),
         'is_admin': json['is_admin'] == null ? undefined : json['is_admin'],
         'groups': json['groups'] == null ? undefined : json['groups'],
         'active_threat_models': json['active_threat_models'] == null ? undefined : json['active_threat_models'],
-        'automation': json['automation'] == null ? undefined : json['automation'],
+        'automation': json['automation'] === undefined ? undefined : json['automation'] === null ? null : json['automation'],
     };
 }
 

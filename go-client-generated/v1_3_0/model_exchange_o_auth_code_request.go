@@ -25,13 +25,13 @@ type ExchangeOAuthCodeRequest struct {
 	// OAuth 2.0 grant type (RFC 6749)
 	GrantType string `json:"grant_type"`
 	// Authorization code received from OAuth provider. Per RFC 6749, can contain any visible ASCII characters (VSCHAR: 0x20-0x7E).
-	Code NullableString `json:"code,omitempty" validate:"regexp=^[\\\\x20-\\\\x7E]+$"`
+	Code NullableString `json:"code,omitempty" validate:"regexp=^[\\x20-\\x7E]+$"`
 	// State parameter for CSRF protection (optional but recommended)
 	State NullableString `json:"state,omitempty" validate:"regexp=^[a-zA-Z0-9_=-]*$"`
 	// Redirect URI used in the authorization request (must match exactly)
-	RedirectUri NullableString `json:"redirect_uri,omitempty" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	RedirectUri NullableString `json:"redirect_uri,omitempty" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// PKCE code verifier (RFC 7636) - High-entropy cryptographic random string used to mitigate authorization code interception attacks. Must be 43-128 characters using [A-Za-z0-9-._~] characters.
-	CodeVerifier NullableString `json:"code_verifier,omitempty" validate:"regexp=^[A-Za-z0-9\\\\-._~]+$"`
+	CodeVerifier NullableString `json:"code_verifier,omitempty" validate:"regexp=^[A-Za-z0-9\\-._~]+$"`
 	// Client identifier (required for client_credentials grant)
 	ClientId NullableString `json:"client_id,omitempty"`
 	// Client secret (required for client_credentials grant)

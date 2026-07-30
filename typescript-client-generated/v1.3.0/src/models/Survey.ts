@@ -130,16 +130,16 @@ export function SurveyFromJSONTyped(json: any, ignoreDiscriminator: boolean): Su
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'version': json['version'],
-        'status': json['status'] == null ? undefined : json['status'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : json['status'],
         'settings': json['settings'] == null ? undefined : SurveySettingsFromJSON(json['settings']),
         'survey_json': json['survey_json'],
         'id': json['id'] == null ? undefined : json['id'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
         'created_by': json['created_by'] == null ? undefined : UserFromJSON(json['created_by']),
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
     };
 }
 

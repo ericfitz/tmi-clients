@@ -23,9 +23,9 @@ var _ MappedNullable = &TriageNoteBase{}
 // TriageNoteBase Base fields for TriageNote (user-writable only)
 type TriageNoteBase struct {
 	// Triage note name
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Triage note content in markdown format. Safe inline HTML (tables, SVG, formatting) is allowed and sanitized server-side; dangerous elements (script, iframe, event handlers) are stripped.
-	Content string `json:"content" validate:"regexp=^[^\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Content string `json:"content" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 }
 
 type _TriageNoteBase TriageNoteBase

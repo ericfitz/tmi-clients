@@ -38,7 +38,7 @@ const example = {
   "related_teams": [],
   "uri": https://wiki.example.com/teams/platform-engineering,
   "email_address": platform-eng@example.com,
-  "status": null,
+  "status": active,
   "id": null,
   "created_by": null,
   "created_at": null,

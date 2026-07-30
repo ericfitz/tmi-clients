@@ -35,13 +35,13 @@ type WebhookDelivery struct {
 	// Number of delivery attempts
 	Attempts int32 `json:"attempts"`
 	// Next retry timestamp
-	NextRetryAt NullableTime `json:"next_retry_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	NextRetryAt NullableTime `json:"next_retry_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 	// Last error message
-	LastError *string `json:"last_error,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	LastError *string `json:"last_error,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Creation timestamp
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 	// Successful delivery timestamp
-	DeliveredAt NullableTime `json:"delivered_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	DeliveredAt NullableTime `json:"delivered_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 }
 
 type _WebhookDelivery WebhookDelivery

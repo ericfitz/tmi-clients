@@ -25,15 +25,15 @@ type GetAuthProviders200ResponseProvidersInner struct {
 	// Provider identifier
 	Id string `json:"id"`
 	// Display name of the provider
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Icon identifier for the provider
 	Icon string `json:"icon"`
 	// TMI authorization endpoint URL for this provider
-	AuthUrl string `json:"auth_url" validate:"regexp=^(https?|wss?|file):\\/\\/[^\\\\s]*$"`
+	AuthUrl string `json:"auth_url" validate:"regexp=^(https?|wss?|file)://[^\\s]*$"`
 	// TMI token exchange endpoint URL for this provider
-	TokenUrl string `json:"token_url" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	TokenUrl string `json:"token_url" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// OAuth callback URI configured for this provider
-	RedirectUri string `json:"redirect_uri" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	RedirectUri string `json:"redirect_uri" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// OAuth client ID for this provider
 	ClientId string `json:"client_id"`
 }

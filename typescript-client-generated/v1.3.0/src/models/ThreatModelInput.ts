@@ -97,11 +97,11 @@ export function ThreatModelInputFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
-        'threat_model_framework': json['threat_model_framework'] == null ? undefined : json['threat_model_framework'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
+        'threat_model_framework': json['threat_model_framework'] === undefined ? undefined : json['threat_model_framework'] === null ? null : json['threat_model_framework'],
         'authorization': json['authorization'] == null ? undefined : ((json['authorization'] as Array<any>).map(AuthorizationFromJSON)),
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
-        'issue_uri': json['issue_uri'] == null ? undefined : json['issue_uri'],
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'issue_uri': json['issue_uri'] === undefined ? undefined : json['issue_uri'] === null ? null : json['issue_uri'],
         'is_confidential': json['is_confidential'] == null ? undefined : json['is_confidential'],
     };
 }

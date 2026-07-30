@@ -25,7 +25,7 @@ type EdgeTerminal struct {
 	// ID of the connected node (UUID)
 	Cell string `json:"cell" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// ID of the specific port on the node (optional)
-	Port NullableString `json:"port,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Port NullableString `json:"port,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _EdgeTerminal EdgeTerminal

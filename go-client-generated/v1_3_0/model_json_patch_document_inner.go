@@ -23,9 +23,9 @@ var _ MappedNullable = &JsonPatchDocumentInner{}
 // JsonPatchDocumentInner struct for JsonPatchDocumentInner
 type JsonPatchDocumentInner struct {
 	// Patch operation type
-	Op string `json:"op" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Op string `json:"op" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// JSON path to target
-	Path string `json:"path" validate:"regexp=^(\\/[^\\/]*)*$"`
+	Path string `json:"path" validate:"regexp=^(/[^/]*)*$"`
 	// The value to use for add/replace/test operations. Can be any JSON value per RFC 6902 (string, number, boolean, object, array, or null).
 	Value interface{} `json:"value,omitempty"`
 }

@@ -23,14 +23,14 @@ var _ MappedNullable = &RepositoryBase{}
 // RepositoryBase Base fields for Repository (user-writable only)
 type RepositoryBase struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty" validate:"regexp=^[^<>\\"'&]*$"`
+	Name NullableString `json:"name,omitempty" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the referenced source code
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Source code repository type
 	Type NullableString `json:"type,omitempty"`
 	Parameters *RepositoryBaseParameters `json:"parameters,omitempty"`
 	// URL to retrieve the referenced source code
-	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/[^\\\\s]*$"`
+	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity

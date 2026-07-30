@@ -23,7 +23,7 @@ var _ MappedNullable = &UpdateThreatMetadataByKeyRequest{}
 // UpdateThreatMetadataByKeyRequest struct for UpdateThreatMetadataByKeyRequest
 type UpdateThreatMetadataByKeyRequest struct {
 	// New value for the metadata entry
-	Value string `json:"value" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Value string `json:"value" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _UpdateThreatMetadataByKeyRequest UpdateThreatMetadataByKeyRequest

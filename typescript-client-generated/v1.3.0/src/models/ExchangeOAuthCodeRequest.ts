@@ -100,13 +100,13 @@ export function ExchangeOAuthCodeRequestFromJSONTyped(json: any, ignoreDiscrimin
     return {
         
         'grant_type': json['grant_type'],
-        'code': json['code'] == null ? undefined : json['code'],
-        'state': json['state'] == null ? undefined : json['state'],
-        'redirect_uri': json['redirect_uri'] == null ? undefined : json['redirect_uri'],
-        'code_verifier': json['code_verifier'] == null ? undefined : json['code_verifier'],
-        'client_id': json['client_id'] == null ? undefined : json['client_id'],
-        'client_secret': json['client_secret'] == null ? undefined : json['client_secret'],
-        'refresh_token': json['refresh_token'] == null ? undefined : json['refresh_token'],
+        'code': json['code'] === undefined ? undefined : json['code'] === null ? null : json['code'],
+        'state': json['state'] === undefined ? undefined : json['state'] === null ? null : json['state'],
+        'redirect_uri': json['redirect_uri'] === undefined ? undefined : json['redirect_uri'] === null ? null : json['redirect_uri'],
+        'code_verifier': json['code_verifier'] === undefined ? undefined : json['code_verifier'] === null ? null : json['code_verifier'],
+        'client_id': json['client_id'] === undefined ? undefined : json['client_id'] === null ? null : json['client_id'],
+        'client_secret': json['client_secret'] === undefined ? undefined : json['client_secret'] === null ? null : json['client_secret'],
+        'refresh_token': json['refresh_token'] === undefined ? undefined : json['refresh_token'] === null ? null : json['refresh_token'],
     };
 }
 

@@ -146,7 +146,7 @@ export function WebhookSubscriptionFromJSONTyped(json: any, ignoreDiscriminator:
         
         'id': json['id'],
         'owner_id': json['owner_id'],
-        'threat_model_id': json['threat_model_id'] == null ? undefined : json['threat_model_id'],
+        'threat_model_id': json['threat_model_id'] === undefined ? undefined : json['threat_model_id'] === null ? null : json['threat_model_id'],
         'name': json['name'],
         'url': json['url'],
         'events': ((json['events'] as Array<any>).map(WebhookEventTypeFromJSON)),
@@ -155,7 +155,7 @@ export function WebhookSubscriptionFromJSONTyped(json: any, ignoreDiscriminator:
         'challenges_sent': json['challenges_sent'] == null ? undefined : json['challenges_sent'],
         'created_at': (new Date(json['created_at'])),
         'modified_at': (new Date(json['modified_at'])),
-        'last_successful_use': json['last_successful_use'] == null ? undefined : (new Date(json['last_successful_use'])),
+        'last_successful_use': json['last_successful_use'] === undefined ? undefined : json['last_successful_use'] === null ? null : (new Date(json['last_successful_use'])),
         'publication_failures': json['publication_failures'] == null ? undefined : json['publication_failures'],
     };
 }

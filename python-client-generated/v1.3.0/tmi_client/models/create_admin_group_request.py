@@ -34,14 +34,10 @@ class CreateAdminGroupRequest(BaseModel):
     description: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = Field(default=None, description="Optional group description")
     __properties: ClassVar[List[str]] = ["group_name", "name", "description"]
 
-    @field_validator('group_name')
+    @field_validator('group_name', mode="before")
     def group_name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9_-]+$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9_-]+$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_-]+$/")
         return value
 

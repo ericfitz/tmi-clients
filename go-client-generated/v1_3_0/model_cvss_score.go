@@ -23,7 +23,7 @@ var _ MappedNullable = &CVSSScore{}
 // CVSSScore CVSS vector and score pair
 type CVSSScore struct {
 	// CVSS vector string (e.g., CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
-	Vector string `json:"vector" validate:"regexp=^[A-Za-z0-9.:\\/_-]+$"`
+	Vector string `json:"vector" validate:"regexp=^[A-Za-z0-9.:/_-]+$"`
 	// CVSS score (0.0-10.0)
 	Score float32 `json:"score"`
 }

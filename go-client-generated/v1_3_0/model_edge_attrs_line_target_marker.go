@@ -21,7 +21,7 @@ var _ MappedNullable = &EdgeAttrsLineTargetMarker{}
 // EdgeAttrsLineTargetMarker Arrowhead marker configuration
 type EdgeAttrsLineTargetMarker struct {
 	// Marker type
-	Name *string `json:"name,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name *string `json:"name,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Marker size in pixels
 	Size *float32 `json:"size,omitempty"`
 }

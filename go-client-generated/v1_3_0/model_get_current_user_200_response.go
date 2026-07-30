@@ -25,9 +25,9 @@ type GetCurrentUser200Response struct {
 	// Subject identifier - unique identifier for the user (required per OIDC)
 	Sub string `json:"sub"`
 	// User email address
-	Email *string `json:"email,omitempty" validate:"regexp=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$"`
+	Email *string `json:"email,omitempty" validate:"regexp=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2\\,}$"`
 	// User display name
-	Name *string `json:"name,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name *string `json:"name,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Identity provider that authenticated the user
 	Idp *string `json:"idp,omitempty" validate:"regexp=^[a-zA-Z][a-zA-Z0-9_-]*$"`
 	// Groups the user belongs to

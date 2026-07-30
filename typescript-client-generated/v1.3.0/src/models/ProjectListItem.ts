@@ -102,8 +102,8 @@ export function ProjectListItemFromJSONTyped(json: any, ignoreDiscriminator: boo
         
         'id': json['id'],
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
-        'status': json['status'] == null ? undefined : ProjectStatusFromJSON(json['status']),
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : ProjectStatusFromJSON(json['status']),
         'team_id': json['team_id'],
         'team_name': json['team_name'] == null ? undefined : json['team_name'],
         'created_at': (new Date(json['created_at'])),

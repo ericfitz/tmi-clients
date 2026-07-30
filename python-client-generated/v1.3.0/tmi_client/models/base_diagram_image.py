@@ -33,17 +33,13 @@ class BaseDiagramImage(BaseModel):
     update_vector: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Version of the diagram when this SVG was generated. If not provided when svg is updated, will be auto-set to BaseDiagram.update_vector")
     __properties: ClassVar[List[str]] = ["svg", "update_vector"]
 
-    @field_validator('svg')
+    @field_validator('svg', mode="before")
     def svg_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[A-Za-z0-9+\/]*=*$", value):
+        if isinstance(value, str) and not re.match(r"^[A-Za-z0-9+\/]*=*$", value):
             raise ValueError(r"must validate the regular expression /^[A-Za-z0-9+\/]*=*$/")
         return value
 

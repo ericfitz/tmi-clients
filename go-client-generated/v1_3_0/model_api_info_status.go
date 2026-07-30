@@ -26,7 +26,7 @@ type ApiInfoStatus struct {
 	// Status code indicating system health: OK (all components healthy), DEGRADED (server up but database or Redis unhealthy), ERROR (critical failure)
 	Code string `json:"code" validate:"regexp=^[a-zA-Z0-9_-]*$"`
 	// Current server time in UTC, formatted as RFC 3339
-	Time time.Time `json:"time" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	Time time.Time `json:"time" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 }
 
 type _ApiInfoStatus ApiInfoStatus

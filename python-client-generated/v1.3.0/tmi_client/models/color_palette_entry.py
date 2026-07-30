@@ -33,14 +33,10 @@ class ColorPaletteEntry(BaseModel):
     color: Annotated[str, Field(min_length=4, strict=True, max_length=7)] = Field(description="Hex color value (#RGB or #RRGGBB), stored as lowercase #RRGGBB")
     __properties: ClassVar[List[str]] = ["position", "color"]
 
-    @field_validator('color')
+    @field_validator('color', mode="before")
     def color_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$", value):
+        if isinstance(value, str) and not re.match(r"^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$", value):
             raise ValueError(r"must validate the regular expression /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/")
         return value
 

@@ -30,23 +30,23 @@ type WebhookSubscription struct {
 	// Optional threat model filter (null means all threat models)
 	ThreatModelId NullableString `json:"threat_model_id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Descriptive name
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Webhook endpoint URL (must be HTTPS)
-	Url string `json:"url" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	Url string `json:"url" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// List of event types to subscribe to. See WebhookEventType for available events.
 	Events []WebhookEventType `json:"events"`
 	// HMAC secret for signing payloads (not returned in GET responses)
-	Secret *string `json:"secret,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Secret *string `json:"secret,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Subscription status
 	Status string `json:"status"`
 	// Number of verification challenges sent
 	ChallengesSent *int32 `json:"challenges_sent,omitempty"`
 	// Creation timestamp
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 	// Last modification timestamp
-	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 	// Last successful delivery timestamp
-	LastSuccessfulUse NullableTime `json:"last_successful_use,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\\\.[0-9]{1,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	LastSuccessfulUse NullableTime `json:"last_successful_use,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
 	// Count of consecutive failed deliveries
 	PublicationFailures *int32 `json:"publication_failures,omitempty"`
 }

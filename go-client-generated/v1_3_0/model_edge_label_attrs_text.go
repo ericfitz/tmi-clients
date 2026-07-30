@@ -21,13 +21,13 @@ var _ MappedNullable = &EdgeLabelAttrsText{}
 // EdgeLabelAttrsText Text styling
 type EdgeLabelAttrsText struct {
 	// Label text content
-	Text *string `json:"text,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Text *string `json:"text,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Font size in pixels
 	FontSize *float32 `json:"fontSize,omitempty"`
 	// Text color
-	Fill *string `json:"fill,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\\\([0-9]*,[0-9]*,[0-9]*\\\\)|[a-z]+)$"`
+	Fill *string `json:"fill,omitempty" validate:"regexp=^(#[0-9a-fA-F]*|#[0-9a-fA-F]*|rgb\\([0-9]*\\,[0-9]*\\,[0-9]*\\)|[a-z]+)$"`
 	// Font family
-	FontFamily *string `json:"fontFamily,omitempty" validate:"regexp=^[a-zA-Z0-9 ,'-]*$"`
+	FontFamily *string `json:"fontFamily,omitempty" validate:"regexp=^[a-zA-Z0-9 \\,'-]*$"`
 }
 
 // NewEdgeLabelAttrsText instantiates a new EdgeLabelAttrsText object

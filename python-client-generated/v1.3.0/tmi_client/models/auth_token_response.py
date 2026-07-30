@@ -35,25 +35,17 @@ class AuthTokenResponse(BaseModel):
     expires_in: StrictInt = Field(description="Access token expiration time in seconds")
     __properties: ClassVar[List[str]] = ["access_token", "refresh_token", "token_type", "expires_in"]
 
-    @field_validator('access_token')
+    @field_validator('access_token', mode="before")
     def access_token_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9_.-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9_.-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_.-]*$/")
         return value
 
-    @field_validator('refresh_token')
+    @field_validator('refresh_token', mode="before")
     def refresh_token_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z0-9_.-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z0-9_.-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9_.-]*$/")
         return value
 

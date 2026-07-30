@@ -131,12 +131,12 @@ export function BaseDiagramInputFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'name': json['name'],
         'type': json['type'],
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
-        'image': json['image'] == null ? undefined : BaseDiagramImageFromJSON(json['image']),
-        'description': json['description'] == null ? undefined : json['description'],
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'image': json['image'] === undefined ? undefined : json['image'] === null ? null : BaseDiagramImageFromJSON(json['image']),
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
-        'color_palette': json['color_palette'] == null ? undefined : ((json['color_palette'] as Array<any>).map(ColorPaletteEntryFromJSON)),
+        'color_palette': json['color_palette'] === undefined ? undefined : json['color_palette'] === null ? null : ((json['color_palette'] as Array<any>).map(ColorPaletteEntryFromJSON)),
     };
 }
 

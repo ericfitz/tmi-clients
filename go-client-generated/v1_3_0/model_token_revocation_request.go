@@ -23,7 +23,7 @@ var _ MappedNullable = &TokenRevocationRequest{}
 // TokenRevocationRequest OAuth 2.0 token revocation request per RFC 7009
 type TokenRevocationRequest struct {
 	// The token to be revoked (access token or refresh token)
-	Token string `json:"token" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Token string `json:"token" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// A hint about the type of the token. If omitted, the server will attempt to determine the token type.
 	TokenTypeHint NullableString `json:"token_type_hint,omitempty"`
 	// Client identifier for client credentials authentication (alternative to Bearer token)

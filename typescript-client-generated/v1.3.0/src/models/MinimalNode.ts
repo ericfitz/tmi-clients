@@ -108,7 +108,7 @@ export function MinimalNodeFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'id': json['id'],
         'shape': json['shape'],
-        'parent': json['parent'] == null ? undefined : json['parent'],
+        'parent': json['parent'] === undefined ? undefined : json['parent'] === null ? null : json['parent'],
         'children': json['children'],
         'labels': json['labels'],
         'dataAssetIds': json['dataAssetIds'] == null ? undefined : json['dataAssetIds'],

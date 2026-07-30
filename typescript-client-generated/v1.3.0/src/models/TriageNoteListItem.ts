@@ -75,7 +75,7 @@ export function TriageNoteListItemFromJSONTyped(json: any, ignoreDiscriminator: 
         'id': json['id'],
         'name': json['name'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'created_by': json['created_by'] == null ? undefined : UserFromJSON(json['created_by']),
+        'created_by': json['created_by'] === undefined ? undefined : json['created_by'] === null ? null : UserFromJSON(json['created_by']),
     };
 }
 

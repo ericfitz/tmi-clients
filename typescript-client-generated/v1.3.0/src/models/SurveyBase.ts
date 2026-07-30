@@ -86,9 +86,9 @@ export function SurveyBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'version': json['version'],
-        'status': json['status'] == null ? undefined : json['status'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : json['status'],
         'settings': json['settings'] == null ? undefined : SurveySettingsFromJSON(json['settings']),
         'survey_json': json['survey_json'],
     };

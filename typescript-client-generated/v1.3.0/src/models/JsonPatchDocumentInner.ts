@@ -75,7 +75,7 @@ export function JsonPatchDocumentInnerFromJSONTyped(json: any, ignoreDiscriminat
         
         'op': json['op'],
         'path': json['path'],
-        'value': json['value'] == null ? undefined : json['value'],
+        'value': json['value'] === undefined ? undefined : json['value'] === null ? null : json['value'],
     };
 }
 

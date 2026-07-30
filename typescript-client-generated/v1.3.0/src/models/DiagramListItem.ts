@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { BaseDiagramImage } from './BaseDiagramImage';
+import type { DiagramListItemImage } from './DiagramListItemImage';
 import {
-    BaseDiagramImageFromJSON,
-    BaseDiagramImageFromJSONTyped,
-    BaseDiagramImageToJSON,
-    BaseDiagramImageToJSONTyped,
-} from './BaseDiagramImage';
+    DiagramListItemImageFromJSON,
+    DiagramListItemImageFromJSONTyped,
+    DiagramListItemImageToJSON,
+    DiagramListItemImageToJSONTyped,
+} from './DiagramListItemImage';
 
 /**
  * Summary diagram object for GET /diagrams list endpoints. Excludes large fields (cells) for performance. Includes image for thumbnail rendering and description for display. Full diagram details available via GET /diagrams/{id} which returns DfdDiagram.
@@ -65,10 +65,10 @@ export interface DiagramListItem {
     readonly modified_at: Date;
     /**
      * 
-     * @type {BaseDiagramImage}
+     * @type {DiagramListItemImage}
      * @memberof DiagramListItem
      */
-    image?: BaseDiagramImage | null;
+    image?: DiagramListItemImage | null;
     /**
      * Whether this item should be included in generated reports
      * @type {boolean}
@@ -126,13 +126,13 @@ export function DiagramListItemFromJSONTyped(json: any, ignoreDiscriminator: boo
         'id': json['id'],
         'name': json['name'],
         'type': json['type'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'created_at': (new Date(json['created_at'])),
         'modified_at': (new Date(json['modified_at'])),
-        'image': json['image'] == null ? undefined : BaseDiagramImageFromJSON(json['image']),
+        'image': json['image'] === undefined ? undefined : json['image'] === null ? null : DiagramListItemImageFromJSON(json['image']),
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
-        'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
+        'deleted_at': json['deleted_at'] === undefined ? undefined : json['deleted_at'] === null ? null : (new Date(json['deleted_at'])),
     };
 }
 
@@ -150,7 +150,7 @@ export function DiagramListItemToJSONTyped(value?: Omit<DiagramListItem, 'id'|'c
         'name': value['name'],
         'type': value['type'],
         'description': value['description'],
-        'image': BaseDiagramImageToJSON(value['image']),
+        'image': DiagramListItemImageToJSON(value['image']),
         'include_in_report': value['include_in_report'],
         'timmy_enabled': value['timmy_enabled'],
     };

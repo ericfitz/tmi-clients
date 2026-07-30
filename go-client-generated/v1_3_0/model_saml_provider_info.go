@@ -25,19 +25,19 @@ type SAMLProviderInfo struct {
 	// Provider identifier
 	Id string `json:"id"`
 	// Display name of the provider
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Icon identifier for the provider (Font Awesome class, URL, or path)
 	Icon string `json:"icon"`
 	// TMI SAML login endpoint URL
-	AuthUrl string `json:"auth_url" validate:"regexp=^(https?|wss?|file):\\/\\/[^\\\\s]*$"`
+	AuthUrl string `json:"auth_url" validate:"regexp=^(https?|wss?|file)://[^\\s]*$"`
 	// SAML service provider metadata URL
-	MetadataUrl string `json:"metadata_url" validate:"regexp=^(https?|wss?|file):\\/\\/[^\\\\s]*$"`
+	MetadataUrl string `json:"metadata_url" validate:"regexp=^(https?|wss?|file)://[^\\s]*$"`
 	// Service Provider entity ID
 	EntityId string `json:"entity_id"`
 	// Assertion Consumer Service URL
-	AcsUrl string `json:"acs_url" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	AcsUrl string `json:"acs_url" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// Single Logout URL
-	SloUrl *string `json:"slo_url,omitempty" validate:"regexp=^\\\\s*https?:\\/\\/[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(:[0-9]{1,5})?(\\/[^\\\\s]*)?\\\\s*$"`
+	SloUrl *string `json:"slo_url,omitempty" validate:"regexp=^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
 	// Whether the SAML provider was successfully initialized and is available for authentication
 	Initialized bool `json:"initialized"`
 }

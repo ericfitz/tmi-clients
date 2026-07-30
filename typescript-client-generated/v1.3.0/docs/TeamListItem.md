@@ -26,7 +26,7 @@ const example = {
   "id": null,
   "name": null,
   "description": null,
-  "status": null,
+  "status": active,
   "member_count": null,
   "project_count": null,
   "created_at": null,

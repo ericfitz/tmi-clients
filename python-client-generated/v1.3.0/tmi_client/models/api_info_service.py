@@ -33,25 +33,17 @@ class ApiInfoService(BaseModel):
     build: Annotated[str, Field(strict=True, max_length=32)] = Field(description="Current build number")
     __properties: ClassVar[List[str]] = ["name", "build"]
 
-    @field_validator('name')
+    @field_validator('name', mode="before")
     def name_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 
-    @field_validator('build')
+    @field_validator('build', mode="before")
     def build_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(-[a-zA-Z0-9]{7})?$", value):
+        if isinstance(value, str) and not re.match(r"^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(-[a-zA-Z0-9]{7})?$", value):
             raise ValueError(r"must validate the regular expression /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(-[a-zA-Z0-9]{7})?$/")
         return value
 

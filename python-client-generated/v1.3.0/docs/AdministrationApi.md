@@ -1327,8 +1327,8 @@ with tmi_client.ApiClient(configuration) as api_client:
     used_in_authorizations = True # bool | Filter groups used (true) or not used (false) in authorizations (optional)
     limit = 50 # int | Maximum number of results to return (optional) (default to 50)
     offset = 0 # int | Number of results to skip (optional) (default to 0)
-    sort_by = created_at # str | Field to sort by (optional) (default to created_at)
-    sort_order = desc # str | Sort direction (optional) (default to desc)
+    sort_by = 'created_at' # str | Field to sort by (optional) (default to 'created_at')
+    sort_order = 'desc' # str | Sort direction (optional) (default to 'desc')
 
     try:
         # List groups
@@ -1351,8 +1351,8 @@ Name | Type | Description  | Notes
  **used_in_authorizations** | **bool**| Filter groups used (true) or not used (false) in authorizations | [optional] 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 50]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **sort_by** | **str**| Field to sort by | [optional] [default to created_at]
- **sort_order** | **str**| Sort direction | [optional] [default to desc]
+ **sort_by** | **str**| Field to sort by | [optional] [default to &#39;created_at&#39;]
+ **sort_order** | **str**| Sort direction | [optional] [default to &#39;desc&#39;]
 
 ### Return type
 
@@ -1426,8 +1426,8 @@ with tmi_client.ApiClient(configuration) as api_client:
     last_login_before = '2013-10-20T19:20:30+01:00' # datetime | Filter users who logged in before this timestamp (RFC3339) (optional)
     limit = 50 # int | Maximum number of results to return (optional) (default to 50)
     offset = 0 # int | Number of results to skip (optional) (default to 0)
-    sort_by = created_at # str | Field to sort by (optional) (default to created_at)
-    sort_order = desc # str | Sort direction (optional) (default to desc)
+    sort_by = 'created_at' # str | Field to sort by (optional) (default to 'created_at')
+    sort_order = 'desc' # str | Sort direction (optional) (default to 'desc')
     automation = True # bool | Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts. (optional)
 
     try:
@@ -1455,8 +1455,8 @@ Name | Type | Description  | Notes
  **last_login_before** | **datetime**| Filter users who logged in before this timestamp (RFC3339) | [optional] 
  **limit** | **int**| Maximum number of results to return | [optional] [default to 50]
  **offset** | **int**| Number of results to skip | [optional] [default to 0]
- **sort_by** | **str**| Field to sort by | [optional] [default to created_at]
- **sort_order** | **str**| Sort direction | [optional] [default to desc]
+ **sort_by** | **str**| Field to sort by | [optional] [default to &#39;created_at&#39;]
+ **sort_order** | **str**| Sort direction | [optional] [default to &#39;desc&#39;]
  **automation** | **bool**| Filter by automation account status. True returns only automation accounts, false returns only non-automation accounts. | [optional] 
 
 ### Return type
@@ -2023,7 +2023,7 @@ with tmi_client.ApiClient(configuration) as api_client:
     api_instance = tmi_client.AdministrationApi(api_client)
     internal_uuid = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Internal system UUID of the user
     member_uuid = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group)
-    subject_type = user # str | Type of member to remove: 'user' (default) for a user member, 'group' for a nested group member (optional) (default to user)
+    subject_type = 'user' # str | Type of member to remove: 'user' (default) for a user member, 'group' for a nested group member (optional) (default to 'user')
 
     try:
         # Remove member from group
@@ -2041,7 +2041,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **internal_uuid** | **UUID**| Internal system UUID of the user | 
  **member_uuid** | **UUID**| Internal system UUID of the member to remove (user UUID when subject_type is user, group UUID when subject_type is group) | 
- **subject_type** | **str**| Type of member to remove: &#39;user&#39; (default) for a user member, &#39;group&#39; for a nested group member | [optional] [default to user]
+ **subject_type** | **str**| Type of member to remove: &#39;user&#39; (default) for a user member, &#39;group&#39; for a nested group member | [optional] [default to &#39;user&#39;]
 
 ### Return type
 

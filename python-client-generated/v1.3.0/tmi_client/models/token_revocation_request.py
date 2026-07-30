@@ -35,14 +35,10 @@ class TokenRevocationRequest(BaseModel):
     client_secret: Optional[Annotated[str, Field(strict=True, max_length=256)]] = Field(default=None, description="Client secret (required if client_id is provided)", json_schema_extra={"examples": ["secret123..."]})
     __properties: ClassVar[List[str]] = ["token", "token_type_hint", "client_id", "client_secret"]
 
-    @field_validator('token')
+    @field_validator('token', mode="before")
     def token_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[^\x00-\x1F]*$", value):
+        if isinstance(value, str) and not re.match(r"^[^\x00-\x1F]*$", value):
             raise ValueError(r"must validate the regular expression /^[^\x00-\x1F]*$/")
         return value
 

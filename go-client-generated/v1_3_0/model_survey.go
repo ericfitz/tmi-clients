@@ -24,22 +24,22 @@ var _ MappedNullable = &Survey{}
 // Survey A survey defining questions for security review intake
 type Survey struct {
 	// Name of the survey
-	Name string `json:"name" validate:"regexp=^[^<>\\"'&]*$"`
+	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the survey and its purpose
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Custom version string (e.g., '2024-Q1', 'v2-pilot')
 	Version string `json:"version" validate:"regexp=^[a-zA-Z0-9._-]+$"`
 	// Survey status: active surveys appear in intake, inactive are hidden but editable, archived are read-only and preserved for historical reference
-	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	Settings *SurveySettings `json:"settings,omitempty"`
 	// Complete SurveyJS JSON definition. Opaque to the server; validated only for top-level structure (must contain a pages array).
 	SurveyJson map[string]interface{} `json:"survey_json"`
 	// Unique identifier for the survey (UUID)
 	Id *string `json:"id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Administrator who created the survey
 	CreatedBy *User `json:"created_by,omitempty"`
 	// Optional metadata key-value pairs

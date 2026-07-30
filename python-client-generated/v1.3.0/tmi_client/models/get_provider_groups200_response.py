@@ -34,14 +34,10 @@ class GetProviderGroups200Response(BaseModel):
     groups: Annotated[List[GetProviderGroups200ResponseGroupsInner], Field(max_length=1000)] = Field(json_schema_extra={"examples": [[{"name": "admins", "display_name": "Administrators", "used_in_authorizations": True}, {"name": "developers", "display_name": "Development Team", "used_in_authorizations": False}, {"name": "users", "display_name": "General Users", "used_in_authorizations": False}]]})
     __properties: ClassVar[List[str]] = ["idp", "groups"]
 
-    @field_validator('idp')
+    @field_validator('idp', mode="before")
     def idp_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*$", value):
+        if isinstance(value, str) and not re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*$", value):
             raise ValueError(r"must validate the regular expression /^[a-zA-Z][a-zA-Z0-9_-]*$/")
         return value
 

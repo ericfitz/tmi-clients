@@ -102,9 +102,9 @@ export function RepositoryInputFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'name': json['name'] == null ? undefined : json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
-        'type': json['type'] == null ? undefined : json['type'],
+        'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
+        'type': json['type'] === undefined ? undefined : json['type'] === null ? null : json['type'],
         'parameters': json['parameters'] == null ? undefined : RepositoryBaseParametersFromJSON(json['parameters']),
         'uri': json['uri'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],

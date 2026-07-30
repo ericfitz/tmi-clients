@@ -23,11 +23,11 @@ var _ MappedNullable = &Error{}
 // Error Standard error response format
 type Error struct {
 	// Error code
-	Error string `json:"error" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Error string `json:"error" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Human-readable error description
-	ErrorDescription string `json:"error_description" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	ErrorDescription string `json:"error_description" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// URI to documentation about the error
-	ErrorUri *string `json:"error_uri,omitempty" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*:\\/\\/[^\\\\s]*$"`
+	ErrorUri *string `json:"error_uri,omitempty" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	Details NullableErrorDetails `json:"details,omitempty"`
 }
 

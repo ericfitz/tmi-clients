@@ -23,7 +23,7 @@ var _ MappedNullable = &EdgeConnectorOneOf{}
 // EdgeConnectorOneOf Connector with custom configuration
 type EdgeConnectorOneOf struct {
 	// Connector style name
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	Args *EdgeConnectorOneOfArgs `json:"args,omitempty"`
 }
 

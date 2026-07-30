@@ -23,7 +23,7 @@ var _ MappedNullable = &TokenRefreshRequest{}
 // TokenRefreshRequest OAuth 2.0 refresh token request
 type TokenRefreshRequest struct {
 	// Valid refresh token
-	RefreshToken string `json:"refresh_token" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	RefreshToken string `json:"refresh_token" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _TokenRefreshRequest TokenRefreshRequest

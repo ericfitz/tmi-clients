@@ -25,11 +25,11 @@ type UserWithAdminStatus struct {
 	// Always \"user\" for User objects
 	PrincipalType string `json:"principal_type"`
 	// Identity provider name (e.g., \"google\", \"github\", \"microsoft\", \"tmi\"). Use \"*\" for provider-independent groups.
-	Provider string `json:"provider" validate:"regexp=^(\\\\*|[a-zA-Z][a-zA-Z0-9_*-]*)$"`
+	Provider string `json:"provider" validate:"regexp=^(\\*|[a-zA-Z][a-zA-Z0-9_*-]*)$"`
 	// Provider-assigned identifier. For users: provider_user_id (e.g., email or OAuth sub). For groups: group_name.
-	ProviderId string `json:"provider_id" validate:"regexp=^[^<>\\"'&]*$"`
+	ProviderId string `json:"provider_id" validate:"regexp=^[^<>\"'&]*$"`
 	// User full name for display
-	DisplayName string `json:"display_name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	DisplayName string `json:"display_name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// User email address (required)
 	Email string `json:"email"`
 	// Whether the user has administrator privileges (computed dynamically based on Administrators group membership)

@@ -26,22 +26,22 @@ type DiagramListItem struct {
 	// Unique identifier of the diagram (UUID)
 	Id string `json:"id" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Name of the diagram
-	Name string `json:"name" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Type of the diagram
 	Type string `json:"type"`
 	// Optional description of the diagram
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\\\x00-\\\\x08\\\\x0B\\\\x0C\\\\x0E-\\\\x1F]*$"`
+	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Creation timestamp (ISO3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 	// Last modification timestamp (ISO3339)
-	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
-	Image NullableBaseDiagramImage `json:"image,omitempty"`
+	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	Image NullableDiagramListItemImage `json:"image,omitempty"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
 	TimmyEnabled *bool `json:"timmy_enabled,omitempty"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
 }
 
 type _DiagramListItem DiagramListItem
@@ -239,9 +239,9 @@ func (o *DiagramListItem) SetModifiedAt(v time.Time) {
 }
 
 // GetImage returns the Image field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DiagramListItem) GetImage() BaseDiagramImage {
+func (o *DiagramListItem) GetImage() DiagramListItemImage {
 	if o == nil || IsNil(o.Image.Get()) {
-		var ret BaseDiagramImage
+		var ret DiagramListItemImage
 		return ret
 	}
 	return *o.Image.Get()
@@ -250,7 +250,7 @@ func (o *DiagramListItem) GetImage() BaseDiagramImage {
 // GetImageOk returns a tuple with the Image field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DiagramListItem) GetImageOk() (*BaseDiagramImage, bool) {
+func (o *DiagramListItem) GetImageOk() (*DiagramListItemImage, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -266,8 +266,8 @@ func (o *DiagramListItem) HasImage() bool {
 	return false
 }
 
-// SetImage gets a reference to the given NullableBaseDiagramImage and assigns it to the Image field.
-func (o *DiagramListItem) SetImage(v BaseDiagramImage) {
+// SetImage gets a reference to the given NullableDiagramListItemImage and assigns it to the Image field.
+func (o *DiagramListItem) SetImage(v DiagramListItemImage) {
 	o.Image.Set(&v)
 }
 // SetImageNil sets the value for Image to be an explicit nil

@@ -52,7 +52,7 @@ export function EdgeTerminalFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'cell': json['cell'],
-        'port': json['port'] == null ? undefined : json['port'],
+        'port': json['port'] === undefined ? undefined : json['port'] === null ? null : json['port'],
     };
 }
 

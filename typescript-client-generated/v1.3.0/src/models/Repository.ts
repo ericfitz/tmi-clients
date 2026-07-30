@@ -140,9 +140,9 @@ export function RepositoryFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
-        'name': json['name'] == null ? undefined : json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
-        'type': json['type'] == null ? undefined : json['type'],
+        'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
+        'type': json['type'] === undefined ? undefined : json['type'] === null ? null : json['type'],
         'parameters': json['parameters'] == null ? undefined : RepositoryBaseParametersFromJSON(json['parameters']),
         'uri': json['uri'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
@@ -151,7 +151,7 @@ export function RepositoryFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
-        'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
+        'deleted_at': json['deleted_at'] === undefined ? undefined : json['deleted_at'] === null ? null : (new Date(json['deleted_at'])),
     };
 }
 

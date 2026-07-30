@@ -104,11 +104,11 @@ export function AssetInputFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'type': json['type'],
-        'criticality': json['criticality'] == null ? undefined : json['criticality'],
-        'classification': json['classification'] == null ? undefined : json['classification'],
-        'sensitivity': json['sensitivity'] == null ? undefined : json['sensitivity'],
+        'criticality': json['criticality'] === undefined ? undefined : json['criticality'] === null ? null : json['criticality'],
+        'classification': json['classification'] === undefined ? undefined : json['classification'] === null ? null : json['classification'],
+        'sensitivity': json['sensitivity'] === undefined ? undefined : json['sensitivity'] === null ? null : json['sensitivity'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
     };

@@ -167,14 +167,14 @@ export function BaseDiagramFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'type': json['type'],
         'created_at': (new Date(json['created_at'])),
         'modified_at': (new Date(json['modified_at'])),
-        'metadata': json['metadata'] == null ? undefined : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
+        'metadata': json['metadata'] === undefined ? undefined : json['metadata'] === null ? null : ((json['metadata'] as Array<any>).map(MetadataFromJSON)),
         'update_vector': json['update_vector'] == null ? undefined : json['update_vector'],
-        'image': json['image'] == null ? undefined : BaseDiagramImageFromJSON(json['image']),
-        'description': json['description'] == null ? undefined : json['description'],
+        'image': json['image'] === undefined ? undefined : json['image'] === null ? null : BaseDiagramImageFromJSON(json['image']),
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'include_in_report': json['include_in_report'] == null ? undefined : json['include_in_report'],
         'timmy_enabled': json['timmy_enabled'] == null ? undefined : json['timmy_enabled'],
-        'deleted_at': json['deleted_at'] == null ? undefined : (new Date(json['deleted_at'])),
-        'color_palette': json['color_palette'] == null ? undefined : ((json['color_palette'] as Array<any>).map(ColorPaletteEntryFromJSON)),
+        'deleted_at': json['deleted_at'] === undefined ? undefined : json['deleted_at'] === null ? null : (new Date(json['deleted_at'])),
+        'color_palette': json['color_palette'] === undefined ? undefined : json['color_palette'] === null ? null : ((json['color_palette'] as Array<any>).map(ColorPaletteEntryFromJSON)),
     };
 }
 

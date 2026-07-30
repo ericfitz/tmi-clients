@@ -74,7 +74,7 @@ export function UserAPIQuotaFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'user_id': json['user_id'],
         'max_requests_per_minute': json['max_requests_per_minute'],
-        'max_requests_per_hour': json['max_requests_per_hour'] == null ? undefined : json['max_requests_per_hour'],
+        'max_requests_per_hour': json['max_requests_per_hour'] === undefined ? undefined : json['max_requests_per_hour'] === null ? null : json['max_requests_per_hour'],
         'created_at': (new Date(json['created_at'])),
         'modified_at': (new Date(json['modified_at'])),
     };

@@ -44,7 +44,7 @@ export interface TriageNote {
      */
     readonly created_at?: Date;
     /**
-     * User who created the response
+     * User who created this triage note
      * @type {object}
      * @memberof TriageNote
      */
@@ -56,7 +56,7 @@ export interface TriageNote {
      */
     readonly modified_at?: Date;
     /**
-     * User who created the response
+     * User who last modified this triage note
      * @type {object}
      * @memberof TriageNote
      */
@@ -87,9 +87,9 @@ export function TriageNoteFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'content': json['content'],
         'id': json['id'],
         'created_at': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'created_by': json['created_by'] == null ? undefined : json['created_by'],
+        'created_by': json['created_by'] === undefined ? undefined : json['created_by'] === null ? null : json['created_by'],
         'modified_at': json['modified_at'] == null ? undefined : (new Date(json['modified_at'])),
-        'modified_by': json['modified_by'] == null ? undefined : json['modified_by'],
+        'modified_by': json['modified_by'] === undefined ? undefined : json['modified_by'] === null ? null : json['modified_by'],
     };
 }
 

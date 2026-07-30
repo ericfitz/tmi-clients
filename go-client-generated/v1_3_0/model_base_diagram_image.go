@@ -21,7 +21,7 @@ var _ MappedNullable = &BaseDiagramImage{}
 // BaseDiagramImage Image data with version information
 type BaseDiagramImage struct {
 	// BASE64 encoded SVG representation of the diagram, used for thumbnails and reports
-	Svg *string `json:"svg,omitempty" validate:"regexp=^[A-Za-z0-9+\\/]*=*$"`
+	Svg *string `json:"svg,omitempty" validate:"regexp=^[A-Za-z0-9+/]*=*$"`
 	// Version of the diagram when this SVG was generated. If not provided when svg is updated, will be auto-set to BaseDiagram.update_vector
 	UpdateVector *int64 `json:"update_vector,omitempty"`
 }

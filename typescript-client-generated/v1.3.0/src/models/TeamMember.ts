@@ -81,7 +81,7 @@ export function TeamMemberFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     return {
         
         'user_id': json['user_id'],
-        'user': json['user'] == null ? undefined : UserFromJSON(json['user']),
+        'user': json['user'] === undefined ? undefined : json['user'] === null ? null : UserFromJSON(json['user']),
         'role': json['role'] == null ? undefined : TeamMemberRoleFromJSON(json['role']),
         'custom_role': json['custom_role'] == null ? undefined : json['custom_role'],
     };

@@ -35,7 +35,7 @@ type AddonParameter struct {
 	// Default value if not provided by user
 	DefaultValue *string `json:"default_value,omitempty"`
 	// Metadata key name to auto-populate from TMI object (applicable when type is 'metadata_key')
-	MetadataKey *string `json:"metadata_key,omitempty" validate:"regexp=^[a-zA-Z0-9_.\\/:-]+$"`
+	MetadataKey *string `json:"metadata_key,omitempty" validate:"regexp=^[a-zA-Z0-9_./:-]+$"`
 	// Minimum allowed value (applicable when type is 'number')
 	NumberMin *float32 `json:"number_min,omitempty"`
 	// Maximum allowed value (applicable when type is 'number')

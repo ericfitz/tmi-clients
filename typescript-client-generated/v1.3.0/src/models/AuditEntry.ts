@@ -140,10 +140,10 @@ export function AuditEntryFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'threat_model_id': json['threat_model_id'],
         'object_type': json['object_type'],
         'object_id': json['object_id'],
-        'version': json['version'] == null ? undefined : json['version'],
+        'version': json['version'] === undefined ? undefined : json['version'] === null ? null : json['version'],
         'change_type': json['change_type'],
         'actor': AuditActorFromJSON(json['actor']),
-        'change_summary': json['change_summary'] == null ? undefined : json['change_summary'],
+        'change_summary': json['change_summary'] === undefined ? undefined : json['change_summary'] === null ? null : json['change_summary'],
         'created_at': (new Date(json['created_at'])),
     };
 }

@@ -40,14 +40,10 @@ class ClientCredentialResponse(BaseModel):
     expires_at: Optional[datetime] = Field(default=None, description="Optional expiration timestamp (ISO 8601)")
     __properties: ClassVar[List[str]] = ["id", "client_id", "client_secret", "name", "description", "created_at", "expires_at"]
 
-    @field_validator('client_id')
+    @field_validator('client_id', mode="before")
     def client_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^tmi_cc_[A-Za-z0-9_-]+$", value):
+        if isinstance(value, str) and not re.match(r"^tmi_cc_[A-Za-z0-9_-]+$", value):
             raise ValueError(r"must validate the regular expression /^tmi_cc_[A-Za-z0-9_-]+$/")
         return value
 

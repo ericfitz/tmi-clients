@@ -25,9 +25,9 @@ type WebhookTestResponse struct {
 	// Test delivery ID
 	DeliveryId string `json:"delivery_id" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Test result status
-	Status string `json:"status" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Status string `json:"status" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Result message
-	Message *string `json:"message,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	Message *string `json:"message,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _WebhookTestResponse WebhookTestResponse

@@ -37,7 +37,7 @@ const example = {
   "responsible_parties": [],
   "related_projects": [],
   "uri": https://wiki.example.com/projects/api-gateway,
-  "status": null,
+  "status": active,
   "id": null,
   "team": null,
   "created_by": null,

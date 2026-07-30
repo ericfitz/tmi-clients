@@ -40,17 +40,13 @@ class CreateAddonRequest(BaseModel):
     parameters: Optional[Annotated[List[AddonParameter], Field(max_length=20)]] = Field(default=None, description="Typed parameter declarations for client UI generation. Each parameter defines a name, type, and type-specific configuration that clients use to render appropriate input controls.")
     __properties: ClassVar[List[str]] = ["name", "webhook_id", "description", "icon", "objects", "threat_model_id", "parameters"]
 
-    @field_validator('icon')
+    @field_validator('icon', mode="before")
     def icon_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        value = value.isoformat() if hasattr(value, 'isoformat') else str(value)
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$", value):
+        if isinstance(value, str) and not re.match(r"^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$", value):
             raise ValueError(r"must validate the regular expression /^(material-symbols:[a-z]([a-z0-9_]*[a-z0-9])?|fa-[a-z]([a-z]*[a-z])?(\-[a-z]+)? fa-([a-z]+)(-[a-z]+)*)$/")
         return value
 

@@ -25,9 +25,9 @@ type RepositoryBaseParameters struct {
 	// Reference type (branch, tag, or commit)
 	RefType string `json:"refType"`
 	// Reference value (branch name, tag value, or commit id)
-	RefValue string `json:"refValue" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	RefValue string `json:"refValue" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Sub-path within the repository
-	SubPath *string `json:"subPath,omitempty" validate:"regexp=^[^\\\\x00-\\\\x1F]*$"`
+	SubPath *string `json:"subPath,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 }
 
 type _RepositoryBaseParameters RepositoryBaseParameters

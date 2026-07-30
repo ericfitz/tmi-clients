@@ -119,13 +119,13 @@ export function TeamBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     return {
         
         'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'members': json['members'] == null ? undefined : ((json['members'] as Array<any>).map(TeamMemberFromJSON)),
         'responsible_parties': json['responsible_parties'] == null ? undefined : ((json['responsible_parties'] as Array<any>).map(ResponsiblePartyFromJSON)),
         'related_teams': json['related_teams'] == null ? undefined : ((json['related_teams'] as Array<any>).map(RelatedTeamFromJSON)),
-        'uri': json['uri'] == null ? undefined : json['uri'],
-        'email_address': json['email_address'] == null ? undefined : json['email_address'],
-        'status': json['status'] == null ? undefined : TeamStatusFromJSON(json['status']),
+        'uri': json['uri'] === undefined ? undefined : json['uri'] === null ? null : json['uri'],
+        'email_address': json['email_address'] === undefined ? undefined : json['email_address'] === null ? null : json['email_address'],
+        'status': json['status'] === undefined ? undefined : json['status'] === null ? null : TeamStatusFromJSON(json['status']),
     };
 }
 
