@@ -349,8 +349,14 @@ def patch_file_regex(
     pattern: str,
     replacement: str,
     description: str = "",
+    flags: int = re.MULTILINE,
 ) -> bool:
     """Apply a regex substitution to *file_path*.
+
+    Patterns are matched with ``re.MULTILINE`` by default so that ``^``/``$``
+    anchor to lines rather than to the whole file — patterns like
+    ``^version = ".*"`` target a single line in a config file, which is the
+    common case here. Pass ``flags=0`` for whole-file anchoring.
 
     Returns ``True`` if at least one replacement was made.
     """
@@ -363,7 +369,7 @@ def patch_file_regex(
         return False
 
     text = file_path.read_text(encoding="utf-8")
-    new_text, count = re.subn(pattern, replacement, text)
+    new_text, count = re.subn(pattern, replacement, text, flags=flags)
 
     if count == 0:
         print_warning(
@@ -387,22 +393,30 @@ def backup_files(
     files: list[str | Path],
     dirs: list[str | Path],
     backup_dir: str | Path,
-) -> None:
+) -> set[str]:
     """Copy *files* and *dirs* into *backup_dir*, preserving relative names.
 
-    Missing source items are silently skipped.
+    Source items that do not exist are skipped — that is the normal case when
+    generating a version directory for the first time, so it is reported as
+    information rather than as a warning.
+
+    Returns the set of names actually copied into *backup_dir*. Pass it to
+    :func:`restore_files` as ``backed_up`` so the restore step can tell
+    "never existed" apart from "was backed up and then went missing".
     """
     backup_dir = Path(backup_dir)
     backup_dir.mkdir(parents=True, exist_ok=True)
+    backed_up: set[str] = set()
 
     for f in files:
         src = Path(f)
         if src.is_file():
             dest = backup_dir / src.name
             shutil.copy2(src, dest)
+            backed_up.add(src.name)
             print_success(f"Backed up {src.name}")
         else:
-            print_warning(f"Skipping missing file: {src}")
+            print(f"  Nothing to back up (not present): {src.name}")
 
     for d in dirs:
         src = Path(d)
@@ -411,9 +425,12 @@ def backup_files(
             if dest.exists():
                 shutil.rmtree(dest)
             shutil.copytree(src, dest)
+            backed_up.add(src.name)
             print_success(f"Backed up directory {src.name}/")
         else:
-            print_warning(f"Skipping missing directory: {src}")
+            print(f"  Nothing to back up (not present): {src.name}/")
+
+    return backed_up
 
 
 def restore_files(
@@ -421,10 +438,14 @@ def restore_files(
     dest_dir: str | Path,
     files: list[str],
     dirs: list[str],
+    backed_up: set[str] | None = None,
 ) -> None:
     """Restore *files* and *dirs* from *backup_dir* into *dest_dir*.
 
-    Missing backup items trigger a warning rather than an error.
+    When *backed_up* is given (the return value of :func:`backup_files`), items
+    that were never backed up are skipped silently — there is nothing to
+    restore and nothing is wrong. An item that *was* backed up but is missing
+    from *backup_dir* is a real anomaly and still warns.
     """
     backup_dir = Path(backup_dir)
     dest_dir = Path(dest_dir)
@@ -435,6 +456,8 @@ def restore_files(
         if src.is_file():
             shutil.copy2(src, dest_dir / f)
             print_success(f"Restored {f}")
+        elif backed_up is not None and f not in backed_up:
+            continue  # never existed before regeneration; nothing to restore
         else:
             print_warning(f"Backup file not found, skipping: {src}")
 
@@ -446,6 +469,8 @@ def restore_files(
                 shutil.rmtree(dest)
             shutil.copytree(src, dest)
             print_success(f"Restored directory {d}/")
+        elif backed_up is not None and d not in backed_up:
+            continue  # never existed before regeneration; nothing to restore
         else:
             print_warning(f"Backup directory not found, skipping: {src}")
 
