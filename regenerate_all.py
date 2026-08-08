@@ -13,7 +13,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from regen_common import (
@@ -202,11 +202,13 @@ def regenerate_version_language(spec_path: Path, language: str) -> int:
     script = lang_info["script"]
     cmd = [sys.executable, str(script), "--spec", str(spec_path)]
     print(f"  Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, text=True)
+    # check=False: the per-language exit code is the return value (0/1/2), and
+    # the caller decides what to do with it.
+    result = subprocess.run(cmd, text=True, check=False)
     return result.returncode
 
 
-def _run_git(cmd: list[str], capture: bool = False) -> "subprocess.CompletedProcess[str]":
+def _run_git(cmd: list[str], capture: bool = False) -> subprocess.CompletedProcess[str]:
     """Run a git/gh *cmd* from the repo root."""
     return run_command(cmd, cwd=REPO_ROOT, capture=capture, error_context=" ".join(cmd[:2]))
 
@@ -242,7 +244,9 @@ def create_regeneration_pr(versions: list[str], languages: list[str]) -> dict[st
         return {"pr": "SKIPPED (no changes)"}
 
     # Create a uniquely named branch off the current branch.
-    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    # tz-aware "now" converted back to local time, so branch names keep the
+    # same local-clock convention as before without a naive datetime.
+    timestamp = datetime.now(timezone.utc).astimezone().strftime("%Y%m%d-%H%M%S")
     branch = f"chore/regenerate-clients-{timestamp}"
     if _run_git(["git", "switch", "-c", branch]).returncode != 0:
         print_error(f"Failed to create branch {branch}.")

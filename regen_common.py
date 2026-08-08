@@ -11,7 +11,7 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 _SPEC_URL_TEMPLATE = (
@@ -143,6 +143,7 @@ def check_version(
             capture_output=True,
             text=True,
             timeout=30,
+            check=False,  # version output is parsed below; exit code is not fatal
         )
         output = result.stdout + result.stderr
     except FileNotFoundError:
@@ -288,6 +289,7 @@ def run_command(
             capture_output=capture,
             text=True,
             env=merged_env,
+            check=False,  # callers inspect returncode themselves (see docstring)
         )
     except FileNotFoundError:
         label = error_context or cmd[0]
@@ -522,7 +524,9 @@ def generate_report(
     Each section dict must have ``"heading"`` and ``"content"`` keys.
     Returns the full Markdown text.
     """
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # tz-aware "now" converted back to local time: renders the same local
+    # wall-clock string as before, without relying on a naive datetime.
+    now = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d %H:%M:%S")
     lines: list[str] = [
         f"# {title}",
         "",

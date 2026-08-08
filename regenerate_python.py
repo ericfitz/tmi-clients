@@ -164,7 +164,10 @@ def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
         # Replace the lower bound while preserving upper bound and format.
         new_content = re.sub(
             r'(urllib3\s*)\(?>=?\s*[\d.]+(,\s*<\s*[\d.]+)?\)?',
-            lambda m: (
+            # rel_path is bound as a default argument: the lambda must see the
+            # current iteration's value, not whatever the loop variable holds
+            # whenever it happens to be called.
+            lambda m, rel_path=rel_path: (
                 f'{m.group(1)}(>={min_version}{m.group(2) or ""})'
                 if '(' in m.group(0) or rel_path != "requirements.txt"
                 else f'{m.group(1)}>= {min_version}'
