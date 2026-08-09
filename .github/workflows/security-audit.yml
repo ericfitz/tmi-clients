@@ -103,3 +103,46 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check regen-script dependency pins for major drift
         run: python3 check_regen_drift.py
+
+  # This workflow is scheduled and does not gate PRs, so a failure is otherwise
+  # silent — it went unnoticed for three weeks in July 2026. File (or comment on)
+  # a tracking issue instead, so a failing audit surfaces in normal repo traffic.
+  notify-on-failure:
+    # `setup` is listed explicitly: if it fails the audit jobs are *skipped*
+    # rather than failed, and the alert must still fire.
+    needs: [setup, audit-python, audit-node, audit-go, regen-drift]
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update the audit-failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          TITLE="Security audit failed"
+          LABEL="security-audit"
+
+          # Idempotent: the label may not exist yet on a fresh repo.
+          gh label create "$LABEL" --repo "$REPO" \
+            --color B60205 --description "Automated security-audit failures" \
+            2>/dev/null || true
+
+          BODY=$(printf '%s\n\n%s\n' \
+            "The scheduled \`Security Audit\` workflow failed. It does not gate pull requests, so this issue is the only notification." \
+            "Failing run: $RUN_URL")
+
+          EXISTING=$(gh issue list --repo "$REPO" --state open --label "$LABEL" \
+            --json number,title \
+            --jq "map(select(.title == \"$TITLE\")) | .[0].number // empty")
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$REPO" --body "$BODY"
+            echo "Commented on existing issue #$EXISTING"
+          else
+            gh issue create --repo "$REPO" --title "$TITLE" \
+              --label "$LABEL" --body "$BODY"
+          fi

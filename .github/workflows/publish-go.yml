@@ -3,18 +3,40 @@ name: Validate Go Client
 on:
   release:
     types: [published]
+  # Manual dry run. This workflow only builds and tests — it never publishes —
+  # so a dispatch is equivalent to the release path.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Client version to validate, e.g. 1.8.3 (dotted, not underscored)"
+        required: true
+        type: string
 
 jobs:
   validate:
-    if: startsWith(github.ref, 'refs/tags/go-v')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/go-v')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Determine version directory
         id: version
+        # Both sources are untrusted-ish (a dispatch input, a tag name), and the
+        # result becomes a filesystem path, so pass them through env: rather than
+        # ${{ }} interpolation and reject anything that is not a bare N.N.N.
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          TAG_VERSION="${GITHUB_REF_NAME#go-v}"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            TAG_VERSION="$INPUT_VERSION"
+          else
+            TAG_VERSION="${GITHUB_REF_NAME#go-v}"
+          fi
+          if ! printf '%s' "$TAG_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Invalid version '$TAG_VERSION' (expected N.N.N)"
+            exit 1
+          fi
           # Go version dirs use underscores (v1_4_0), not dots.
           echo "go_dir=go-client-generated/v${TAG_VERSION//./_}" >> "$GITHUB_OUTPUT"
 
