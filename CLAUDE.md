@@ -118,23 +118,52 @@ diagram = api.create_threat_model_diagram(request, tm_id)
 ```
 
 **Updating Diagrams (use DfdDiagramInput, NOT DfdDiagram):**
+
+Build the model with `from_dict()`. Do **not** pass cell dictionaries to the
+constructor — see the warning below.
+
 ```python
 from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 
-# CORRECT - DfdDiagramInput for updates (no readOnly fields)
-update = DfdDiagramInput(
-    type="DFD-1.0.0",
-    name="Updated Name",
-    cells=[...]
-)
+# CORRECT - from_dict() resolves the cells oneOf and validates each cell
+update = DfdDiagramInput.from_dict({
+    "type": "DFD-1.0.0",
+    "name": "Updated Name",
+    "cells": [...],
+})
 updated_diagram = api.update_threat_model_diagram(update, tm_id, diagram_id)
 ```
 
+> **⚠ Do not construct diagrams with `DfdDiagramInput(cells=[...])`.**
+> Passing cell dictionaries to the constructor does not resolve the `cells`
+> `oneOf`: `actual_instance` stays `None` and the request body serialises to
+> `"cells": [null, null]`, silently discarding every cell. It raises no error,
+> and it accepts outright invalid cells. `from_dict()` resolves the union and
+> rejects bad cells. Tracked in issue #41.
+>
+> Scalar-only models are unaffected — the trap is specific to `oneOf` fields
+> such as `cells`.
+
 **Reading Diagrams:**
+
+> **⚠ Currently broken — `get_threat_model_diagram()` raises `RecursionError`.**
+> The generated `DfdDiagram` carries a self-referential discriminator mapping
+> (`'DFD-1.0.0': 'DfdDiagram'`), so `DfdDiagram.from_dict()` dispatches to
+> itself indefinitely. `api_client` deserialises 200 responses via
+> `klass.from_dict(...)`, so every DFD diagram read hits it. Affects both
+> `v1.3.0` and `v1.8.3`. Tracked in issue #41.
+
 ```python
-# Returns DfdDiagram (with readOnly fields: id, created_at, modified_at)
+# Intended behaviour: returns DfdDiagram (with readOnly fields: id,
+# created_at, modified_at). Blocked by the defect above.
 diagram = api.get_threat_model_diagram(tm_id, diagram_id)
 ```
+
+Because reading is broken, the read-modify-write round trip does not currently
+work either. Note that even once it is fixed, `DfdDiagramInput.from_dict(
+diagram.to_dict())` will still fail: `to_dict()` leaves native `UUID` objects
+inside cells and the `oneOf` wrapper calls `json.dumps()` on them. Go through
+JSON instead — `DfdDiagramInput.from_dict(json.loads(diagram.to_json()))`.
 
 ### Input vs Output Schemas
 
@@ -223,12 +252,27 @@ Diagrams use the AntV X6 graph library format for cells (nodes and edges). Cells
 # Edge example
 {
     "id": "uuid",
-    "shape": "edge",
+    "shape": "flow",
     "source": {"cell": "source-node-id"},
     "target": {"cell": "target-node-id"},
     "attrs": {"line": {"stroke": "#333"}}
 }
 ```
+
+Constraints enforced by the generated models — a cell violating any of these is
+rejected when the diagram is built with `from_dict()`:
+
+| Field | Constraint |
+|---|---|
+| `Node.shape` | one of `actor`, `process`, `store`, `security-boundary`, `text-box` |
+| `Edge.shape` | `flow` — **not** `edge` |
+| `Node.width` | `>= 40` |
+| `Node.height` | `>= 30` |
+
+Each entry in `cells` is a `oneOf` over `Node` and `Edge`, and must match exactly
+one. Build diagrams with `from_dict()` so the union is resolved and these
+constraints are actually applied; the constructor silently accepts anything and
+discards it (see the warning under **Updating Diagrams**).
 
 ## Documentation Structure
 
