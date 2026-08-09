@@ -16,7 +16,8 @@
 from __future__ import annotations
 import json
 import pprint
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator, model_validator
+from pydantic_core import to_jsonable_python
 from typing import Any, List, Optional
 from typing_extensions import Annotated
 from tmi_client.models.edge_router_one_of import EdgeRouterOneOf
@@ -53,6 +54,20 @@ class EdgeRouter(BaseModel):
         else:
             super().__init__(**kwargs)
 
+    # Patched by regenerate_python.py: openapi-generator resolves the oneOf
+    # only inside from_dict()/from_json().  A raw dict arriving through
+    # ordinary Pydantic validation -- a constructor argument, or a parent
+    # model's model_validate() -- matched none of this wrapper's fields, so
+    # `actual_instance` stayed None and the value serialised away as null.
+    # Route those payloads through from_dict() so the union is resolved and
+    # a non-matching payload is rejected rather than silently discarded.
+    @model_validator(mode='before')
+    @classmethod
+    def _resolve_oneof_payload(cls, data: Any) -> Any:
+        if isinstance(data, dict) and data and not set(data) & set(cls.model_fields):
+            return {"actual_instance": cls.from_dict(data).actual_instance}
+        return data
+
     @field_validator('actual_instance')
     def actual_instance_must_validate_oneof(cls, v):
         instance = EdgeRouter.model_construct()
@@ -80,7 +95,7 @@ class EdgeRouter(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+        return cls.from_json(json.dumps(to_jsonable_python(obj)))
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

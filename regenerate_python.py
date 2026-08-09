@@ -319,6 +319,204 @@ def patch_oneof_return_types(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
+def _oneof_wrapper_files(client_dir: Path) -> list[Path]:
+    """Return the generated ``oneOf`` wrapper models (those with an
+    ``actual_instance`` field holding the resolved variant)."""
+    models_dir = client_dir / "tmi_client" / "models"
+    if not models_dir.is_dir():
+        return []
+    return [
+        f
+        for f in sorted(models_dir.glob("*.py"))
+        if "actual_instance: Optional[" in f.read_text(encoding="utf-8")
+    ]
+
+
+# Inserted into every oneOf wrapper immediately before its
+# `actual_instance` field validator.
+ONEOF_COERCION_VALIDATOR = '''    # Patched by regenerate_python.py: openapi-generator resolves the oneOf
+    # only inside from_dict()/from_json().  A raw dict arriving through
+    # ordinary Pydantic validation -- a constructor argument, or a parent
+    # model's model_validate() -- matched none of this wrapper's fields, so
+    # `actual_instance` stayed None and the value serialised away as null.
+    # Route those payloads through from_dict() so the union is resolved and
+    # a non-matching payload is rejected rather than silently discarded.
+    @model_validator(mode='before')
+    @classmethod
+    def _resolve_oneof_payload(cls, data: Any) -> Any:
+        if isinstance(data, dict) and data and not set(data) & set(cls.model_fields):
+            return {"actual_instance": cls.from_dict(data).actual_instance}
+        return data
+
+'''
+
+
+def patch_oneof_constructor_coercion(client_dir: Path, had_issues: bool) -> bool:
+    """Make ``oneOf`` wrappers resolve raw dicts during normal validation.
+
+    openapi-generator only resolves a ``oneOf`` union inside the wrapper's
+    ``from_dict()``/``from_json()``.  Passing raw dicts anywhere Pydantic
+    validates them instead — ``DfdDiagramInput(cells=[{...}])``, or any
+    ``model_validate()`` on a parent model — matched no field on the wrapper,
+    left ``actual_instance`` as ``None``, and serialised the request body as
+    ``"cells": [null, null]``, silently discarding every cell.  Invalid cells
+    were accepted the same way.
+
+    The fix adds a ``mode='before'`` model validator that recognises a payload
+    dict (one sharing no key with the wrapper's own fields) and routes it
+    through ``from_dict()``.  Wrapper-shaped input and non-dict input are
+    passed through untouched.
+    """
+    patched_count = 0
+
+    for model_file in _oneof_wrapper_files(client_dir):
+        content = model_file.read_text(encoding="utf-8")
+        if "_resolve_oneof_payload" in content:
+            continue
+
+        anchor = "    @field_validator('actual_instance')\n"
+        if anchor not in content:
+            print_warning(
+                f"OneOf coercion patch: no anchor in {model_file.name} — skipped"
+            )
+            had_issues = True
+            continue
+
+        new_content = content.replace(anchor, ONEOF_COERCION_VALIDATOR + anchor, 1)
+
+        # `model_validator` and `Any` must be importable in the module.
+        new_content = re.sub(
+            r"^(from pydantic import .*?)(\n)",
+            lambda m: (
+                m.group(1) + ", model_validator" + m.group(2)
+                if "model_validator" not in m.group(1)
+                else m.group(0)
+            ),
+            new_content,
+            count=1,
+            flags=re.MULTILINE,
+        )
+        if not re.search(r"^from typing import .*\bAny\b", new_content, re.MULTILINE):
+            new_content = re.sub(
+                r"^(from typing import )",
+                r"\1Any, ",
+                new_content,
+                count=1,
+                flags=re.MULTILINE,
+            )
+
+        model_file.write_text(new_content, encoding="utf-8")
+        patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"OneOf coercion patch: {patched_count} wrappers fixed")
+    else:
+        print_warning("OneOf coercion patch: no wrappers needed fixing")
+
+    return had_issues
+
+
+def patch_oneof_json_safety(client_dir: Path, had_issues: bool) -> bool:
+    """Let ``oneOf`` wrappers accept ``to_dict()`` output.
+
+    The generated ``from_dict`` re-serialises its argument with
+    ``json.dumps(obj)`` before handing it to ``from_json``.  ``to_dict()``
+    leaves native ``UUID`` and ``datetime`` objects in place, so feeding a
+    model's own output back in raised ``TypeError: Object of type UUID is not
+    JSON serializable`` — the round trip a read-modify-write flow needs.
+
+    ``to_jsonable_python`` is what the generator already uses in ``to_json``
+    for exactly this reason; this applies it on the way back in.
+    """
+    patched_count = 0
+    old_call = "return cls.from_json(json.dumps(obj))"
+    new_call = "return cls.from_json(json.dumps(to_jsonable_python(obj)))"
+
+    for model_file in _oneof_wrapper_files(client_dir):
+        content = model_file.read_text(encoding="utf-8")
+        if old_call not in content:
+            continue
+
+        new_content = content.replace(old_call, new_call)
+        if "from pydantic_core import to_jsonable_python" not in new_content:
+            new_content = re.sub(
+                r"^(from pydantic import .*\n)",
+                r"\1from pydantic_core import to_jsonable_python\n",
+                new_content,
+                count=1,
+                flags=re.MULTILINE,
+            )
+
+        model_file.write_text(new_content, encoding="utf-8")
+        patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"OneOf JSON-safety patch: {patched_count} wrappers fixed")
+    else:
+        print_warning("OneOf JSON-safety patch: no wrappers needed fixing")
+
+    return had_issues
+
+
+def patch_self_referential_discriminator(client_dir: Path, had_issues: bool) -> bool:
+    """Stop ``from_dict`` recursing when a discriminator maps a class to itself.
+
+    When a schema is both a discriminator parent and one of its own mapping
+    targets, openapi-generator emits a ``from_dict`` that is *only* a dispatch
+    table — and one of its branches dispatches straight back into the same
+    class.  ``DfdDiagram`` maps ``'DFD-1.0.0'`` to ``'DfdDiagram'``, so
+    ``DfdDiagram.from_dict()`` recursed until it raised ``RecursionError``.
+    ``ApiClient.__deserialize_model`` deserialises 200 responses through
+    ``klass.from_dict()``, so every DFD diagram read failed.
+
+    The fix replaces the self-dispatching branch with direct validation.
+    Nested models — including ``oneOf`` wrappers, once
+    ``patch_oneof_constructor_coercion`` has run — are resolved by Pydantic.
+    """
+    models_dir = client_dir / "tmi_client" / "models"
+    if not models_dir.is_dir():
+        print_warning("Models directory not found — skipping discriminator patch")
+        return True
+
+    patched_count = 0
+    for model_file in sorted(models_dir.glob("*.py")):
+        content = model_file.read_text(encoding="utf-8")
+        if "return import_module" not in content:
+            continue
+
+        class_match = re.search(r"^class (\w+)\(", content, re.MULTILINE)
+        if not class_match:
+            continue
+        cls_name = class_match.group(1)
+
+        # Only the branch that dispatches back into this very class.
+        self_branch = re.compile(
+            rf"(^        if object_type ==\s+'[^']+':\n)"
+            rf"            return import_module\([^)]*\)\.{cls_name}\.from_dict\(obj\)\n",
+            re.MULTILINE,
+        )
+        replacement = (
+            r"\1"
+            "            # Patched by regenerate_python.py: the discriminator maps this\n"
+            "            # value back to this same class, so dispatching would recurse\n"
+            "            # forever.  Validate directly instead.\n"
+            "            return cls.model_validate(obj)\n"
+        )
+        new_content, count = self_branch.subn(replacement, content)
+        if count:
+            model_file.write_text(new_content, encoding="utf-8")
+            patched_count += count
+
+    if patched_count > 0:
+        print_success(
+            f"Self-discriminator patch: {patched_count} recursive branches fixed"
+        )
+    else:
+        print_warning("Self-discriminator patch: no branches needed fixing")
+
+    return had_issues
+
+
 def patch_api_client_types(client_dir: Path, had_issues: bool) -> bool:
     """Fix type annotation issues in the generated api_client.py.
 
@@ -524,6 +722,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_urllib3_minimum_version(client_dir, had_issues)
     had_issues = patch_python_minimum_version(client_dir, had_issues)
     had_issues = patch_oneof_return_types(client_dir, had_issues)
+    had_issues = patch_oneof_constructor_coercion(client_dir, had_issues)
+    had_issues = patch_oneof_json_safety(client_dir, had_issues)
+    had_issues = patch_self_referential_discriminator(client_dir, had_issues)
     had_issues = patch_api_client_types(client_dir, had_issues)
     had_issues = patch_configuration_self_type(client_dir, had_issues)
     print_success("Patches applied")
@@ -612,6 +813,15 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "(CVE fixes for decompression-bomb and redirect vulnerabilities)\n"
             "- OneOf model return-type fix (type checkers can't narrow "
             "through hasattr guards on actual_instance)\n"
+            "- OneOf constructor coercion (openapi-generator bug: raw dicts "
+            "reaching Pydantic validation didn't resolve the oneOf, leaving "
+            "actual_instance None and serialising the value away as null)\n"
+            "- OneOf JSON-safety fix (openapi-generator bug: from_dict() did "
+            "json.dumps() on to_dict() output, which still holds native UUID "
+            "and datetime objects, breaking the read-modify-write round trip)\n"
+            "- Self-referential discriminator fix (openapi-generator bug: a "
+            "class listed in its own discriminator mapping dispatched from_dict() "
+            "back into itself, so every DFD diagram read raised RecursionError)\n"
             "- API client type annotation fix (None guards, str coercion, "
             "return-type suppression)\n"
             "- Configuration Self type fix (ClassVar[Optional[Self]] causes "

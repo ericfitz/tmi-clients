@@ -106,7 +106,7 @@ tox -- -k test_dfd_diagram
 
 ## Critical OpenAPI Issues (RESOLVED)
 
-The Python client was previously patched to fix 6 critical OpenAPI specification issues. With the migration from swagger-codegen to openapi-generator, most of these patches are no longer needed. The only remaining patch is the UUID/datetime regex validator fix. See `MIGRATION_GUIDE.md` for full details.
+The Python client was previously patched to fix 6 critical OpenAPI specification issues. With the migration from swagger-codegen to openapi-generator, those spec-level patches are no longer needed; see `MIGRATION_GUIDE.md` for full details. What remains are patches for openapi-generator's own codegen bugs, all applied by `regenerate_python.py` and listed in each version's `REGENERATION_REPORT.md`: the UUID/datetime regex validator fix and the three `oneOf`/discriminator fixes described under **Reading Diagrams** below.
 
 ### Key API Patterns
 
@@ -119,13 +119,12 @@ diagram = api.create_threat_model_diagram(request, tm_id)
 
 **Updating Diagrams (use DfdDiagramInput, NOT DfdDiagram):**
 
-Build the model with `from_dict()`. Do **not** pass cell dictionaries to the
-constructor — see the warning below.
+Either `from_dict()` or the constructor works — both resolve the `cells`
+`oneOf` and reject cells that match neither `Node` nor `Edge`.
 
 ```python
 from tmi_client.models.dfd_diagram_input import DfdDiagramInput
 
-# CORRECT - from_dict() resolves the cells oneOf and validates each cell
 update = DfdDiagramInput.from_dict({
     "type": "DFD-1.0.0",
     "name": "Updated Name",
@@ -134,36 +133,29 @@ update = DfdDiagramInput.from_dict({
 updated_diagram = api.update_threat_model_diagram(update, tm_id, diagram_id)
 ```
 
-> **⚠ Do not construct diagrams with `DfdDiagramInput(cells=[...])`.**
-> Passing cell dictionaries to the constructor does not resolve the `cells`
-> `oneOf`: `actual_instance` stays `None` and the request body serialises to
-> `"cells": [null, null]`, silently discarding every cell. It raises no error,
-> and it accepts outright invalid cells. `from_dict()` resolves the union and
-> rejects bad cells. Tracked in issue #41.
->
-> Scalar-only models are unaffected — the trap is specific to `oneOf` fields
-> such as `cells`.
-
 **Reading Diagrams:**
 
-> **⚠ Currently broken — `get_threat_model_diagram()` raises `RecursionError`.**
-> The generated `DfdDiagram` carries a self-referential discriminator mapping
-> (`'DFD-1.0.0': 'DfdDiagram'`), so `DfdDiagram.from_dict()` dispatches to
-> itself indefinitely. `api_client` deserialises 200 responses via
-> `klass.from_dict(...)`, so every DFD diagram read hits it. Affects both
-> `v1.3.0` and `v1.8.3`. Tracked in issue #41.
-
 ```python
-# Intended behaviour: returns DfdDiagram (with readOnly fields: id,
-# created_at, modified_at). Blocked by the defect above.
+# Returns DfdDiagram, including the readOnly fields id, created_at, modified_at.
 diagram = api.get_threat_model_diagram(tm_id, diagram_id)
 ```
 
-Because reading is broken, the read-modify-write round trip does not currently
-work either. Note that even once it is fixed, `DfdDiagramInput.from_dict(
-diagram.to_dict())` will still fail: `to_dict()` leaves native `UUID` objects
-inside cells and the `oneOf` wrapper calls `json.dumps()` on them. Go through
-JSON instead — `DfdDiagramInput.from_dict(json.loads(diagram.to_json()))`.
+Read-modify-write round trips work in either direction:
+
+```python
+diagram = api.get_threat_model_diagram(tm_id, diagram_id)
+update = DfdDiagramInput.from_dict(diagram.to_dict())
+update.name = "Renamed"
+api.update_threat_model_diagram(update, tm_id, diagram_id)
+```
+
+> The three `oneOf`/discriminator defects tracked in issue #41 — cells silently
+> discarded by the constructor, `to_dict()` output not round-tripping through
+> `from_dict()`, and `DfdDiagram.from_dict()` recursing forever — are fixed by
+> `patch_oneof_constructor_coercion`, `patch_oneof_json_safety` and
+> `patch_self_referential_discriminator` in `regenerate_python.py`. They are
+> generator bugs, so the patches must survive every regeneration;
+> `test_diagram_fixes.py` asserts all three.
 
 ### Input vs Output Schemas
 
@@ -260,7 +252,7 @@ Diagrams use the AntV X6 graph library format for cells (nodes and edges). Cells
 ```
 
 Constraints enforced by the generated models — a cell violating any of these is
-rejected when the diagram is built with `from_dict()`:
+rejected however the diagram is built:
 
 | Field | Constraint |
 |---|---|
@@ -270,9 +262,7 @@ rejected when the diagram is built with `from_dict()`:
 | `Node.height` | `>= 30` |
 
 Each entry in `cells` is a `oneOf` over `Node` and `Edge`, and must match exactly
-one. Build diagrams with `from_dict()` so the union is resolved and these
-constraints are actually applied; the constructor silently accepts anything and
-discards it (see the warning under **Updating Diagrams**).
+one.
 
 ## Documentation Structure
 

@@ -23,16 +23,19 @@ Covered:
      so an unguarded `re.match()` raises TypeError on a UUID or datetime.
   4. Validation still rejects genuinely invalid input, so 1 and 3 cannot pass
      by having been neutered.
-
-Cells are built with `from_dict`, not the constructor. Passing raw dicts to the
-constructor does *not* resolve the `oneOf` and silently yields empty cells —
-see the KNOWN DEFECTS note at the bottom of this file.
+  5. The three `oneOf`/discriminator defects fixed by
+     `patch_oneof_constructor_coercion`, `patch_oneof_json_safety` and
+     `patch_self_referential_discriminator` in regenerate_python.py: raw dicts
+     passed to a model constructor must resolve the `oneOf`; `to_dict()` output
+     must round-trip back through `from_dict()`; and reading a DFD diagram must
+     not recurse forever.
 
 Version-portable: asserts on the presence or absence of specific fields rather
 than exact field lists, since the schema grows between API versions.
 """
 from __future__ import annotations
 
+import json
 import sys
 import traceback
 from datetime import datetime, timezone
@@ -196,6 +199,88 @@ def _undersized_node_rejected() -> None:
     raise AssertionError("an undersized node was accepted")
 
 
+@check("raw dict cells passed to the constructor resolve the oneOf")
+def _constructor_resolves_cells() -> None:
+    # Regression: the oneOf wrapper only resolved raw dicts via from_dict(), so
+    # pydantic validation of a constructor argument left actual_instance None
+    # and to_dict() emitted "cells": [None, None] — silently dropping cells.
+    diagram = DfdDiagramInput(
+        name="Test Diagram", type="DFD-1.0.0", cells=[NODE_CELL, EDGE_CELL]
+    )
+    kinds = [type(c.actual_instance).__name__ for c in diagram.cells]
+    assert kinds == ["Node", "Edge"], f"oneOf resolved to {kinds}"
+    cells = diagram.to_dict()["cells"]
+    assert all(c is not None for c in cells), f"cells lost on to_dict: {cells}"
+
+
+@check("the constructor still rejects a cell matching neither oneOf branch")
+def _constructor_rejects_invalid_cell() -> None:
+    # Guards the fix above from being a blanket "accept anything" coercion.
+    try:
+        DfdDiagramInput(
+            name="Test Diagram", type="DFD-1.0.0", cells=[{"not_a_cell": True}]
+        )
+    except Exception:
+        return
+    raise AssertionError("a malformed cell was accepted by the constructor")
+
+
+@check("to_dict output round-trips back through from_dict")
+def _to_dict_round_trips() -> None:
+    # Regression: to_dict() leaves native UUID objects inside cells and the
+    # oneOf wrapper's from_dict did json.dumps(obj), raising
+    # "TypeError: Object of type UUID is not JSON serializable".
+    original = _input_with_cells([NODE_CELL, EDGE_CELL])
+    restored = DfdDiagramInput.from_dict(original.to_dict())
+    assert restored is not None, "round-tripped from_dict returned None"
+    kinds = [type(c.actual_instance).__name__ for c in restored.cells]
+    assert kinds == ["Node", "Edge"], f"oneOf resolved to {kinds}"
+    assert restored.to_dict() == original.to_dict(), "round trip changed the model"
+
+
+@check("DfdDiagram.from_dict builds a diagram instead of recursing")
+def _output_from_dict_terminates() -> None:
+    # Regression: DfdDiagram's discriminator maps 'DFD-1.0.0' to 'DfdDiagram',
+    # so from_dict dispatched to itself forever. ApiClient deserialises 200
+    # responses via klass.from_dict(), so every DFD diagram read raised
+    # RecursionError.
+    diagram = DfdDiagram.from_dict(
+        {
+            "id": DIAGRAM_ID,
+            "name": "Test Diagram",
+            "type": "DFD-1.0.0",
+            "created_at": "2026-01-01T00:00:00Z",
+            "modified_at": "2026-01-01T00:00:00Z",
+            "cells": [NODE_CELL, EDGE_CELL],
+        }
+    )
+    assert isinstance(diagram, DfdDiagram), f"got {type(diagram).__name__}"
+    assert diagram.id == UUID(DIAGRAM_ID), f"id not preserved: {diagram.id}"
+    kinds = [type(c.actual_instance).__name__ for c in diagram.cells]
+    assert kinds == ["Node", "Edge"], f"oneOf resolved to {kinds}"
+
+
+@check("a diagram read round-trips into the input model")
+def _read_modify_write_round_trip() -> None:
+    # The read-modify-write flow documented in CLAUDE.md: read a diagram, feed
+    # it back into the input model, write it out again.
+    diagram = DfdDiagram.from_dict(
+        {
+            "id": DIAGRAM_ID,
+            "name": "Test Diagram",
+            "type": "DFD-1.0.0",
+            "created_at": "2026-01-01T00:00:00Z",
+            "modified_at": "2026-01-01T00:00:00Z",
+            "cells": [NODE_CELL, EDGE_CELL],
+        }
+    )
+    update = DfdDiagramInput.from_dict(json.loads(diagram.to_json()))
+    assert update is not None, "from_dict returned None"
+    assert len(update.cells) == 2, f"expected 2 cells, got {len(update.cells)}"
+    for field in READONLY_FIELDS:
+        assert field not in update.to_dict(), f"readOnly field {field} leaked into input"
+
+
 def main() -> int:
     width = max(len(name) for name, _, _ in _results)
     for name, status, detail in _results:
@@ -210,17 +295,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
-# KNOWN DEFECTS in the generated client (not asserted here, so this file stays
-# green; see the repo issue tracker):
-#
-# 1. Passing raw dicts as `cells` to the model constructor — the pattern shown
-#    in CLAUDE.md — does not resolve the oneOf. `actual_instance` stays None and
-#    `to_dict()` emits `"cells": [None, ...]`, silently discarding every cell.
-#    Use `DfdDiagramInput.from_dict({...})`, as this file does.
-#
-# 2. `to_dict()` output cannot be fed back into `from_dict()`. to_dict() leaves
-#    native UUID objects inside cells, and the oneOf wrapper's from_dict does
-#    `json.dumps(obj)`, which raises
-#    "TypeError: Object of type UUID is not JSON serializable".
