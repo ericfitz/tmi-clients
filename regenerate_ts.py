@@ -39,6 +39,21 @@ CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
 _VERSION_PLACEHOLDER = "0.0.0-dev"
 
+# `typescript` is deliberately pinned to ^6.0, not ^7.0.
+#
+# typescript-eslint 8.66.0 (the latest release as of 2026-08) declares a peer
+# range of `typescript@">=4.8.4 <6.1.0"`, so a TypeScript 7 client cannot even
+# be installed: `npm ci` fails with ERESOLVE before any build or test runs, and
+# typescript-eslint additionally refuses to load under TS 7 at runtime.
+#
+# The substantive fix in the TS 7 migration was moving off `moduleResolution:
+# node10`, which TypeScript 7 removed. That works fine on TypeScript 6 (see
+# TSCONFIG below, which uses node16 without an `ignoreDeprecations` escape
+# hatch), so pinning the compiler back to ^6.0 keeps the migration's real
+# benefit while restoring a working `npm ci` and a working lint step.
+#
+# Move to ^7.0 once typescript-eslint supports TypeScript 7:
+#   https://github.com/typescript-eslint/typescript-eslint/issues/10940
 PACKAGE_JSON = """\
 {
   "name": "@tmiclient/client",
@@ -63,7 +78,7 @@ PACKAGE_JSON = """\
   "devDependencies": {
     "@eslint/js": "^10.0",
     "eslint": "^10.0",
-    "typescript": "^7.0",
+    "typescript": "^6.0",
     "typescript-eslint": "^8.60",
     "vitest": "^4.1"
   },
@@ -140,12 +155,12 @@ TSCONFIG_TEST = """\
 }
 """
 
-# typescript-eslint (8.66.0, the latest release as of 2026-08) hard-refuses to
-# load against TypeScript 7.x, so `npm run lint` cannot run in a client built
-# with the TS 7 toolchain. This is an upstream block, not a defect in the
-# generated client, so the regeneration treats it as a warning rather than a
-# failure and relies on `npm run typecheck` for static checking meanwhile.
-# Re-enable the hard failure once typescript-eslint ships TS 7 support.
+# Guard for a future TypeScript 7 bump. typescript-eslint hard-refuses to load
+# against TS 7.x (see the note on PACKAGE_JSON), so if someone raises the
+# `typescript` pin before upstream support lands, lint stops working. Report
+# that as a clearly labelled skip rather than an inscrutable regeneration
+# failure — `npm run typecheck` still covers the tests statically. Unreachable
+# while `typescript` is pinned to ^6.0.
 #   https://github.com/typescript-eslint/typescript-eslint/issues/10940
 LINT_TS7_MARKER = "typescript-eslint does not support TS 7"
 LINT_TS7_HINT = (
@@ -158,7 +173,13 @@ LINT_TS7_HINT = (
 # dependency. A developer/CI npm config of `omit=optional` would skip it and
 # break `npm test` with a missing-native-binding error. This project-level
 # .npmrc re-enables optional deps regardless of the global npm config.
-NPMRC = "include=optional\n"
+# `legacy-peer-deps=false` is not the npm default's business here — it is set
+# because a developer with `legacy-peer-deps=true` in their user config silently
+# installs past peer-dependency conflicts that CI (with a clean config) then
+# fails on. That exact mismatch hid the typescript-eslint/TypeScript 7 conflict
+# described above during local regeneration. Pinning it project-side keeps local
+# runs honest.
+NPMRC = "include=optional\nlegacy-peer-deps=false\n"
 
 # openapi-generator emits a .npmignore that excludes README.md, which would
 # leave the npm package page blank. Published contents are governed by the
