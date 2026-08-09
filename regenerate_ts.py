@@ -62,7 +62,7 @@ PACKAGE_JSON = """\
   "devDependencies": {
     "@eslint/js": "^10.0",
     "eslint": "^10.0",
-    "typescript": "^6.0",
+    "typescript": "^7.0",
     "typescript-eslint": "^8.60",
     "vitest": "^4.1"
   },
@@ -85,9 +85,8 @@ TSCONFIG = """\
   "compilerOptions": {
     "declaration": true,
     "target": "ES2022",
-    "module": "commonjs",
-    "moduleResolution": "node10",
-    "ignoreDeprecations": "6.0",
+    "module": "node16",
+    "moduleResolution": "node16",
     "rootDir": "./src",
     "outDir": "dist",
     "typeRoots": [
@@ -109,6 +108,7 @@ TSCONFIG_ESM = """\
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
+    "moduleResolution": "bundler",
     "outDir": "dist/esm"
   }
 }
