@@ -8,3 +8,4 @@ python-client-generated/.openapi-generator/
 .pypirc
 REGENERATION_REPORT.md
 REGENERATION_PLAN.md
+HANDOFF.md
