@@ -258,7 +258,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     # 5. Backup
     print_step(3, "Backing up custom files")
     test_files = list(client_dir.glob("*_test.go"))
-    backup_files(
+    backed_up = backup_files(
         files=[
             client_dir / "go.mod",
             client_dir / "go.sum",
@@ -332,6 +332,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         dest_dir=client_dir,
         files=[".openapi-generator-ignore", *test_names],
         dirs=["developer"],
+        backed_up=backed_up,
     )
     # Fix developer docs path (backup stores as "developer/", need it at "docs/developer/")
     restored_dev = client_dir / "developer"

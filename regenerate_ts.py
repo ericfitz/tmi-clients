@@ -332,7 +332,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
 
     # 5. Backup
     print_step(3, "Backing up custom files")
-    backup_files(
+    backed_up = backup_files(
         files=[
             client_dir / ".openapi-generator-ignore",
         ],
@@ -395,6 +395,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         dest_dir=client_dir,
         files=[".openapi-generator-ignore"],
         dirs=["developer", "test"],
+        backed_up=backed_up,
     )
     # Fix developer docs path (restore puts it at client_dir/developer/)
     restored_dev = client_dir / "developer"

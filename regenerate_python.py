@@ -164,7 +164,10 @@ def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
         # Replace the lower bound while preserving upper bound and format.
         new_content = re.sub(
             r'(urllib3\s*)\(?>=?\s*[\d.]+(,\s*<\s*[\d.]+)?\)?',
-            lambda m: (
+            # rel_path is bound as a default argument: the lambda must see the
+            # current iteration's value, not whatever the loop variable holds
+            # whenever it happens to be called.
+            lambda m, rel_path=rel_path: (
                 f'{m.group(1)}(>={min_version}{m.group(2) or ""})'
                 if '(' in m.group(0) or rel_path != "requirements.txt"
                 else f'{m.group(1)}>= {min_version}'
@@ -458,7 +461,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
 
     # 4. Backup
     print_step(3, "Backing up custom files")
-    backup_files(
+    backed_up = backup_files(
         files=[
             client_dir / "test_diagram_fixes.py",
             client_dir / ".openapi-generator-ignore",
@@ -515,7 +518,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     )
 
     # 7. Apply patches
-    print_step(6, "Applying patches")
+    print_step(7, "Applying patches")
     had_issues = patch_regex_validators(client_dir, had_issues)
     had_issues = patch_test_return_types(client_dir, had_issues)
     had_issues = patch_urllib3_minimum_version(client_dir, had_issues)
@@ -530,18 +533,19 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_success("Wrote ty.toml")
 
     # 8. Restore custom files
-    print_step(7, "Restoring custom files")
+    print_step(8, "Restoring custom files")
     restore_files(
         backup_dir=backup_dir,
         dest_dir=client_dir,
         files=["test_diagram_fixes.py", ".openapi-generator-ignore"],
         dirs=[],
+        backed_up=backed_up,
     )
     # Note: we do NOT restore pyproject.toml — openapi-generator produces
     # a good one with pydantic deps that we want to keep.
 
     # 9. Install deps
-    print_step(8, "Installing dependencies")
+    print_step(9, "Installing dependencies")
     result = run_command(
         ["uv", "pip", "install", "-e", ".", "--quiet"],
         cwd=client_dir,
@@ -552,7 +556,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         had_issues = True
 
     # 10. Run tests
-    print_step(9, "Running tests")
+    print_step(10, "Running tests")
     result = run_command(
         ["uv", "run", "--with", "pytest", "python3", "-m", "pytest", "test/", "-v", "--tb=short"],
         cwd=client_dir,
@@ -585,7 +589,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         print_warning("Integration test file not found")
 
     # 11. Generate report
-    print_step(10, "Generating summary report")
+    print_step(11, "Generating summary report")
     api_count = count_files(client_dir / "tmi_client" / "api", "*.py")
     model_count = count_files(client_dir / "tmi_client" / "models", "*.py")
     test_count = count_files(client_dir / "test", "*.py")
@@ -637,7 +641,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_success("Summary report generated: REGENERATION_REPORT.md")
 
     # 12. Cleanup
-    print_step(11, "Cleaning up")
+    print_step(12, "Cleaning up")
     clean_paths([backup_dir])
     print_success("Cleanup complete")
 
