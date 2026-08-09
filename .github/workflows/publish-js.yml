@@ -3,10 +3,18 @@ name: Publish JavaScript Client to npm
 on:
   release:
     types: [published]
+  # Manual dry run: installs, builds and tests a committed client version. The
+  # publish step below stays gated on `release`, so a dispatch never publishes.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Client version directory to build, e.g. 1.8.3 (dry run — does not publish)"
+        required: true
+        type: string
 
 jobs:
   publish:
-    if: startsWith(github.ref, 'refs/tags/ts-v')
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/ts-v')
     runs-on: ubuntu-latest
     environment: npm
     permissions:
@@ -16,8 +24,22 @@ jobs:
 
       - name: Determine version directory
         id: version
+        # Both sources are untrusted-ish (a dispatch input, a tag name), and the
+        # result becomes a filesystem path, so pass them through env: rather than
+        # ${{ }} interpolation and reject anything that is not a bare N.N.N.
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          TAG_VERSION="${GITHUB_REF_NAME#ts-v}"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            TAG_VERSION="$INPUT_VERSION"
+          else
+            TAG_VERSION="${GITHUB_REF_NAME#ts-v}"
+          fi
+          if ! printf '%s' "$TAG_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Invalid version '$TAG_VERSION' (expected N.N.N)"
+            exit 1
+          fi
           echo "pkg_dir=typescript-client-generated/v${TAG_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Verify version directory exists
@@ -49,6 +71,8 @@ jobs:
         run: npm run test --if-present -- --passWithNoTests
 
       - name: Publish to npm
+        # Never publish from a manual dry run.
+        if: github.event_name == 'release'
         working-directory: ${{ steps.version.outputs.pkg_dir }}
         run: npm publish --provenance --access public
         env:
