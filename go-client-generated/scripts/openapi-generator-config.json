@@ -1,6 +1,6 @@
 {
   "packageName": "tmiclient",
-  "packageVersion": "1.8.1",
+  "packageVersion": "1.8.3",
   "enumClassPrefix": true,
   "withGoMod": true,
   "isGoSubmodule": false,
