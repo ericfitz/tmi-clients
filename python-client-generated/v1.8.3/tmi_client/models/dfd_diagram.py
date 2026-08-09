@@ -170,7 +170,10 @@ class DfdDiagram(BaseDiagram):
         # look up the object type based on discriminator mapping
         object_type = cls.get_discriminator_value(obj)
         if object_type ==  'DfdDiagram':
-            return import_module("tmi_client.models.dfd_diagram").DfdDiagram.from_dict(obj)
+            # Patched by regenerate_python.py: the discriminator maps this
+            # value back to this same class, so dispatching would recurse
+            # forever.  Validate directly instead.
+            return cls.model_validate(obj)
         if object_type ==  'Diagram':
             return import_module("tmi_client.models.diagram").Diagram.from_dict(obj)
 
