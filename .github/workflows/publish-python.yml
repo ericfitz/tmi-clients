@@ -5,13 +5,21 @@ on:
     types: [published]
   # Manual dry run: builds and tests a committed client version without
   # publishing anything, so action-version bumps in this file can be validated
-  # without cutting a release. The publish jobs below stay gated on `release`.
+  # without cutting a release. `publish_testpypi` extends that to a real
+  # TestPyPI upload — the one step a dry run cannot otherwise reach, since
+  # gh-action-pypi-publish is only exercised by an actual upload. PyPI itself
+  # stays gated on `release` regardless.
   workflow_dispatch:
     inputs:
       version:
-        description: "Client version directory to build, e.g. 1.8.3 (dry run — does not publish)"
+        description: "Client version directory to build, e.g. 1.8.3"
         required: true
         type: string
+      publish_testpypi:
+        description: "Publish to TestPyPI under a throwaway .devN version (never touches PyPI)"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build-and-test:
@@ -84,6 +92,37 @@ jobs:
           fi
           exit "$code"
 
+      # Only for a TestPyPI dispatch. TestPyPI rejects a re-upload of a version
+      # it already has ("file already exists"), so a repeatable test needs a
+      # version nobody will ever claim. run_number makes each dispatch unique,
+      # and a PEP 440 .devN suffix keeps the real version numbers free. This
+      # runs *after* the version-match check and the tests, so both still see
+      # the committed version.
+      - name: Stamp a throwaway dev version for TestPyPI
+        if: inputs.publish_testpypi
+        working-directory: ${{ steps.version.outputs.pkg_dir }}
+        env:
+          BASE_VERSION: ${{ steps.version.outputs.tag_version }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          DEV_VERSION="${BASE_VERSION}.dev${RUN_NUMBER}"
+          echo "Building throwaway version $DEV_VERSION for TestPyPI"
+          python - "$DEV_VERSION" <<'PY'
+          import pathlib, re, sys
+          dev = sys.argv[1]
+          for path, pattern, repl in (
+              ("pyproject.toml", r'^version = ".*"', f'version = "{dev}"'),
+              ("setup.py", r'^VERSION = ".*"', f'VERSION = "{dev}"'),
+          ):
+              p = pathlib.Path(path)
+              text = p.read_text()
+              new, count = re.subn(pattern, repl, text, count=1, flags=re.MULTILINE)
+              if count != 1:
+                  raise SystemExit(f"::error::no version line matched in {path}")
+              p.write_text(new)
+              print(f"stamped {path}")
+          PY
+
       - name: Build package
         working-directory: ${{ steps.version.outputs.pkg_dir }}
         run: python -m build
@@ -96,8 +135,9 @@ jobs:
 
   publish-testpypi:
     needs: build-and-test
-    # Never publish from a manual dry run.
-    if: github.event_name == 'release'
+    # A release always publishes. A manual dispatch publishes only when
+    # explicitly asked, and then only the throwaway .devN build stamped above.
+    if: github.event_name == 'release' || inputs.publish_testpypi
     runs-on: ubuntu-latest
     environment: testpypi
     permissions:

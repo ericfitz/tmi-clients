@@ -91,6 +91,33 @@ When you publish a GitHub release with a `v*` tag:
 
 Each workflow runs tests before publishing. If tests fail, publishing is skipped.
 
+## Validating the Publish Workflows Without a Release
+
+Each publish workflow accepts a `workflow_dispatch` that builds and tests a
+committed client version without publishing, so action-version bumps can be
+validated without cutting a release:
+
+```bash
+gh workflow run publish-python.yml -f version=1.8.3
+gh workflow run publish-js.yml     -f version=1.8.3
+gh workflow run publish-go.yml     -f version=1.8.3   # dotted, not underscored
+```
+
+A dry run cannot reach `gh-action-pypi-publish` itself — that action only does
+anything on a real upload. To exercise it, dispatch the Python workflow with
+`publish_testpypi=true`:
+
+```bash
+gh workflow run publish-python.yml -f version=1.8.3 -f publish_testpypi=true
+```
+
+That stamps a throwaway `<version>.dev<run_number>` into `pyproject.toml` and
+`setup.py` **after** the version-match check and the tests, then uploads to
+TestPyPI only. `publish-pypi` stays gated on `release` and is skipped. The
+`.devN` suffix matters because TestPyPI rejects a re-upload of a version it
+already holds ("file already exists"), and it keeps the real version numbers
+unclaimed. These uploads are throwaway; nothing consumes them.
+
 ## Package Installation (for consumers)
 
 ```bash
