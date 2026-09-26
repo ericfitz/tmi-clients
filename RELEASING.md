@@ -17,14 +17,20 @@ This document describes how to publish new versions of the TMI API clients to Py
 
 ### 2. npm (JavaScript)
 
+`publish-js.yml` authenticates through npm trusted publishing (OIDC); there is
+no `NPM_TOKEN` secret. See `docs/adr/0001-npm-trusted-publishing.md`.
+
 1. Create an account at https://www.npmjs.com
 2. Create the `@tmiclient` organization: https://www.npmjs.com/org/create
-3. Create an automation access token:
-   - Go to Access Tokens → Generate New Token → Granular Access Token
-   - Set permissions to publish packages under `@tmiclient` scope
-4. Add the token as a GitHub repository secret:
-   - Go to repo Settings → Secrets and variables → Actions
-   - Add secret named `NPM_TOKEN` with the token value
+3. First publish of a new package: npm can't attach a trusted publisher to a
+   package that doesn't exist yet, so publish the first version by hand from
+   the client directory (`npm ci && npm run build && npm publish --access public`,
+   with 2FA).
+4. On the package's Settings → Trusted Publisher, add GitHub Actions:
+   - **Organization or user:** `ericfitz`
+   - **Repository:** `tmi-clients`
+   - **Workflow filename:** `publish-js.yml`
+   - **Environment name:** `npm`
 
 ### 3. GitHub Environments
 
@@ -86,7 +92,7 @@ After the workflows complete:
 When you publish a GitHub release with a `python-v*`, `ts-v*`, or `go-v*` tag, the matching workflow runs:
 
 1. **publish-python.yml** — builds and publishes `tmi-client` to PyPI via trusted publishing (OIDC)
-2. **publish-js.yml** — builds and publishes `@tmiclient/client` to npm with provenance
+2. **publish-js.yml** — builds and publishes `@tmiclient/client` to npm via trusted publishing (provenance is automatic)
 3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests `go-client-generated/vX_Y_Z`, then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git.
 
 Each workflow runs tests before publishing. If tests fail, publishing is skipped.
@@ -136,8 +142,8 @@ go get github.com/ericfitz/tmi-clients/go-client-generated/v1_15_0@v1.15.0
 ### PyPI publish fails with "trusted publisher not configured"
 Ensure the pending publisher is configured on PyPI with the exact workflow filename, environment name, and repository owner.
 
-### npm publish fails with 401/403
-Check that the `NPM_TOKEN` secret is set in the repository and the token has publish permissions for the `@tmiclient` scope.
+### npm publish fails with ENEEDAUTH/401/403/404
+Check that the trusted publisher on the package's npm settings names the exact owner, repository, workflow filename, and environment, and that the job runs on Node >= 22.14 (npm >= 11.5.1).
 
 ### Go module not found after release
 The Go module proxy may take a few minutes to index new tags. You can force it with:
