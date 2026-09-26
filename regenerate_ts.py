@@ -84,7 +84,7 @@ PACKAGE_JSON = """\
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ericfitz/tmi-clients.git"
+    "url": "git+https://github.com/ericfitz/tmi-clients.git"
   },
   "keywords": [
     "tmi",
