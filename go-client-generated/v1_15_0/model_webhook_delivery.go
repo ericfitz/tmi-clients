@@ -35,21 +35,21 @@ type WebhookDelivery struct {
 	// Number of delivery attempts
 	Attempts int32 `json:"attempts"`
 	// Next retry timestamp
-	NextRetryAt NullableTime `json:"next_retry_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	NextRetryAt NullableTime `json:"next_retry_at,omitempty"`
 	// Last error message
 	LastError *string `json:"last_error,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Creation timestamp
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	CreatedAt time.Time `json:"created_at"`
 	// Successful delivery timestamp
-	DeliveredAt NullableTime `json:"delivered_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	DeliveredAt NullableTime `json:"delivered_at,omitempty"`
 	// Progress percentage
 	StatusPercent *int32 `json:"status_percent,omitempty"`
 	// Human-readable status description
 	StatusMessage *string `json:"status_message,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Last status update or delivery attempt
-	LastActivityAt NullableTime `json:"last_activity_at,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	LastActivityAt NullableTime `json:"last_activity_at,omitempty"`
 	// Add-on ID (for addon invocations only)
-	AddonId NullableString `json:"addon_id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	AddonId NullableString `json:"addon_id,omitempty"`
 	// User who invoked the add-on (for addon invocations only)
 	InvokedBy NullableUser `json:"invoked_by,omitempty"`
 }

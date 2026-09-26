@@ -34,7 +34,7 @@ type SurveyResponse struct {
 	// ID of the survey this response is based on
 	SurveyId string `json:"survey_id"`
 	// Optional reference to the project this survey response belongs to
-	ProjectId NullableString `json:"project_id,omitempty" validate:"regexp=^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	ProjectId NullableString `json:"project_id,omitempty"`
 	// Unique identifier for the response (UUID)
 	Id *string `json:"id,omitempty" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Current status of the survey response in the triage workflow
@@ -48,13 +48,13 @@ type SurveyResponse struct {
 	// User who created the response
 	Owner map[string]interface{} `json:"owner,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	// When the response was submitted for review
-	SubmittedAt NullableTime `json:"submitted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	SubmittedAt NullableTime `json:"submitted_at,omitempty"`
 	// When the response was last reviewed
-	ReviewedAt NullableTime `json:"reviewed_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ReviewedAt NullableTime `json:"reviewed_at,omitempty"`
 	// Security engineer who last reviewed the response
 	ReviewedBy map[string]interface{} `json:"reviewed_by,omitempty"`
 	// Snapshot of the survey survey_json at the time this response was created. Used to render historical responses against the correct survey version.

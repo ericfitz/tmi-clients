@@ -25,7 +25,7 @@ type Cell struct {
 	// Unique identifier of the cell (UUID)
 	Id string `json:"id" validate:"regexp=^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
 	// Shape type identifier that determines cell structure and behavior
-	Shape string `json:"shape" validate:"regexp=^[a-z][a-z0-9-]*$"`
+	Shape string `json:"shape"`
 	Data *CellData `json:"data,omitempty"`
 }
 

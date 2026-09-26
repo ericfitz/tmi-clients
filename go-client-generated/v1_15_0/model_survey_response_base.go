@@ -33,7 +33,7 @@ type SurveyResponseBase struct {
 	// ID of the survey this response is based on
 	SurveyId string `json:"survey_id"`
 	// Optional reference to the project this survey response belongs to
-	ProjectId NullableString `json:"project_id,omitempty" validate:"regexp=^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	ProjectId NullableString `json:"project_id,omitempty"`
 }
 
 type _SurveyResponseBase SurveyResponseBase

@@ -30,11 +30,11 @@ type TriageNote struct {
 	// Sequential identifier for the triage note within its survey response
 	Id int32 `json:"id"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// User who created this triage note
 	CreatedBy map[string]interface{} `json:"created_by,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	// User who last modified this triage note
 	ModifiedBy map[string]interface{} `json:"modified_by,omitempty"`
 }

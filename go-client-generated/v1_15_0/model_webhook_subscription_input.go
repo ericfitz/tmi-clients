@@ -23,7 +23,7 @@ var _ MappedNullable = &WebhookSubscriptionInput{}
 // WebhookSubscriptionInput Input schema for creating or updating a webhook subscription
 type WebhookSubscriptionInput struct {
 	// Optional threat model filter
-	ThreatModelId NullableString `json:"threat_model_id,omitempty" validate:"regexp=^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	ThreatModelId NullableString `json:"threat_model_id,omitempty"`
 	// Descriptive name for the subscription
 	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Webhook endpoint URL (must be HTTPS)

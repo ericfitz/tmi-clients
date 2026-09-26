@@ -27,7 +27,7 @@ type MinimalNode struct {
 	// Node shape type determining its semantic role in the diagram
 	Shape string `json:"shape"`
 	// Parent cell ID for nested nodes (null for top-level nodes)
-	Parent NullableString `json:"parent,omitempty" validate:"regexp=^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	Parent NullableString `json:"parent,omitempty"`
 	// Child cell IDs (computed bidirectional relationship including reverse parent references)
 	Children []string `json:"children"`
 	// Text labels extracted from node attrs and embedded text-box children

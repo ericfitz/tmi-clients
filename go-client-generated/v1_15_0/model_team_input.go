@@ -25,13 +25,13 @@ type TeamInput struct {
 	// Team name
 	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Team description
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Relationships to other teams
 	RelatedTeams []RelatedTeam `json:"related_teams,omitempty"`
 	// URL or reference to internal team page
 	Uri NullableString `json:"uri,omitempty"`
 	// Team email address
-	EmailAddress NullableString `json:"email_address,omitempty" validate:"regexp=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2\\,}$"`
+	EmailAddress NullableString `json:"email_address,omitempty"`
 	// Team lifecycle status. Defaults to 'active' if not provided or set to null.
 	Status NullableTeamStatus `json:"status,omitempty"`
 	// List of team members with their roles

@@ -30,9 +30,9 @@ type TMListItem struct {
 	// Description of the threat model
 	Description *string `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
 	// Creation timestamp (RFC3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt time.Time `json:"modified_at"`
 	// User who owns the threat model
 	Owner User `json:"owner"`
 	// User who created the threat model
@@ -56,11 +56,11 @@ type TMListItem struct {
 	// Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"not_started\", \"in_progress\", \"pending_review\", \"approved\", \"closed\". Defaults to \"not_started\" on create.
 	Status *string `json:"status,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Timestamp when the status field was last modified (RFC3339). Automatically updated by the server when status changes.
-	StatusUpdated *time.Time `json:"status_updated,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	StatusUpdated *time.Time `json:"status_updated,omitempty"`
 	// Security reviewer assigned to this threat model. The assigned security reviewer automatically has the owner role on this threat model.
 	SecurityReviewer NullableUser `json:"security_reviewer,omitempty"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty"`
 	// Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation.
 	Alias *int32 `json:"alias,omitempty"`
 }

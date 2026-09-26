@@ -28,7 +28,7 @@ type TriageNoteListItem struct {
 	// Triage note name
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// User who created this triage note
 	CreatedBy NullableUser `json:"created_by,omitempty"`
 }

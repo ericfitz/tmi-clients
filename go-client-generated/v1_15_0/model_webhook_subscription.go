@@ -28,7 +28,7 @@ type WebhookSubscription struct {
 	// Owner user ID
 	OwnerId string `json:"owner_id" validate:"regexp=^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
 	// Optional threat model filter (null means all threat models)
-	ThreatModelId NullableString `json:"threat_model_id,omitempty" validate:"regexp=^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	ThreatModelId NullableString `json:"threat_model_id,omitempty"`
 	// Descriptive name
 	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Webhook endpoint URL (must be HTTPS)
@@ -42,11 +42,11 @@ type WebhookSubscription struct {
 	// Number of verification challenges sent
 	ChallengesSent *int32 `json:"challenges_sent,omitempty"`
 	// Creation timestamp
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	CreatedAt time.Time `json:"created_at"`
 	// Last modification timestamp
-	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	ModifiedAt time.Time `json:"modified_at"`
 	// Last successful delivery timestamp
-	LastSuccessfulUse NullableTime `json:"last_successful_use,omitempty" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1\\,6})?(Z|[+-][0-9]{2}:[0-9]{2})$"`
+	LastSuccessfulUse NullableTime `json:"last_successful_use,omitempty"`
 	// Count of consecutive failed deliveries
 	PublicationFailures *int32 `json:"publication_failures,omitempty"`
 }

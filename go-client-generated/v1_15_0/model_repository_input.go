@@ -23,9 +23,9 @@ var _ MappedNullable = &RepositoryInput{}
 // RepositoryInput Input schema for creating or updating Repository
 type RepositoryInput struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty" validate:"regexp=^[^<>\"'&]*$"`
+	Name NullableString `json:"name,omitempty"'&]*$"`
 	// Description of the referenced source code
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Source code repository type
 	Type NullableString `json:"type,omitempty"`
 	Parameters *RepositoryBaseParameters `json:"parameters,omitempty"`

@@ -28,15 +28,15 @@ type TeamNoteListItem struct {
 	// Note name
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of note purpose or context
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
 	TimmyEnabled *bool `json:"timmy_enabled,omitempty"`
 	// Controls note visibility
 	Sharable *bool `json:"sharable,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 }
 
 type _TeamNoteListItem TeamNoteListItem

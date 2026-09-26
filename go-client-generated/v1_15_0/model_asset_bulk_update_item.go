@@ -25,15 +25,15 @@ type AssetBulkUpdateItem struct {
 	// Asset name
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the asset
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Type of asset
 	Type string `json:"type"`
 	// Criticality level of the asset
-	Criticality NullableString `json:"criticality,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
+	Criticality NullableString `json:"criticality,omitempty"`
 	// Classification tags for the asset
 	Classification []string `json:"classification,omitempty"`
 	// Sensitivity label for the asset
-	Sensitivity NullableString `json:"sensitivity,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
+	Sensitivity NullableString `json:"sensitivity,omitempty"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity

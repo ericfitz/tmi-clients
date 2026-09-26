@@ -114,7 +114,7 @@ python3 regenerate_go.py     --spec path/to/tmi-openapi.json --output-dir go-cli
 python3 regenerate_ts.py     --spec path/to/tmi-openapi.json --output-dir typescript-client-generated/v1.4.0
 ```
 
-Each per-language script runs openapi-generator, applies codegen bug-fix patches (UUID/datetime regex validator and the `oneOf` fixes for Python; optional-extends and TokenRequest for TypeScript; constructor fixes and auth settings for Go), writes modern config files, backs up and restores custom files, runs tests, and writes `REGENERATION_REPORT.md`. Exit codes: 0 success, 1 fatal (codegen failed), 2 completed with issues (test failures or patch warnings).
+Each per-language script runs openapi-generator, applies codegen bug-fix patches (UUID/datetime regex validator and the `oneOf` fixes for Python; optional-extends and TokenRequest for TypeScript; constructor fixes, form-param Content-Type, embedded-model decoding, and non-string regexp validators for Go, asserted by `go-client-generated/scripts/codegen_fixes_test.go`, which is copied into each client), writes modern config files, backs up and restores custom files, runs tests, and writes `REGENERATION_REPORT.md`. Exit codes: 0 success, 1 fatal (codegen failed), 2 completed with issues (test failures or patch warnings).
 
 Pruning of stale version directories is skipped automatically under `--branch` (a single-branch run doesn't know the full version set) or when any spec fails to download (its version is unknown, so its directory must not be treated as stale).
 

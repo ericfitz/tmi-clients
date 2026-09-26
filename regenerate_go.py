@@ -210,6 +210,161 @@ def patch_embedded_pointer_assignment(client_dir: Path, had_issues: bool) -> boo
     return had_issues
 
 
+def patch_form_content_type(client_dir: Path, had_issues: bool) -> bool:
+    """Fix openapi-generator bug: form-param operations send a JSON Content-Type.
+
+    When an operation's requestBody offers both ``application/json`` and a form
+    media type, the Go generator puts the body in ``localVarFormParams`` but
+    ``selectHeaderContentType`` always prefers ``application/json``.
+    ``prepareRequest`` only encodes form params for form content types, so the
+    request goes out as JSON with an empty body (e.g. ``RevokeToken`` -> 400).
+    For every operation that populates form params, drop ``application/json``
+    from its content types.
+    """
+    import re
+
+    func_split = re.compile(r"(?m)^(?=func )")
+    ct_line = re.compile(r"(localVarHTTPContentTypes := \[\]string\{)([^}]*)\}")
+    patched = []
+
+    for go_file in sorted(client_dir.glob("api_*.go")):
+        content = go_file.read_text(encoding="utf-8")
+        chunks = func_split.split(content)
+        changed = False
+        for i, chunk in enumerate(chunks):
+            if "(localVarFormParams," not in chunk and "localVarFormParams.Add(" not in chunk:
+                continue
+            m = ct_line.search(chunk)
+            if not m:
+                continue
+            types = [t.strip() for t in m.group(2).split(",") if t.strip()]
+            if '"application/json"' not in types or len(types) < 2:
+                continue
+            types.remove('"application/json"')
+            chunks[i] = chunk[: m.start()] + f"{m.group(1)}{', '.join(types)}}}" + chunk[m.end() :]
+            changed = True
+            name = re.match(r"func \([^)]*\) (\w+)", chunks[i])
+            patched.append(name.group(1) if name else go_file.name)
+        if changed:
+            go_file.write_text("".join(chunks), encoding="utf-8")
+
+    if patched:
+        print_success(f"Form content type patch: fixed {', '.join(patched)}")
+    else:
+        print_success("Form content type patch: no operations needed fixing")
+
+    return had_issues
+
+
+def patch_embedded_model_unmarshal(client_dir: Path, had_issues: bool) -> bool:
+    """Fix openapi-generator bug: models that embed another model can't decode.
+
+    ``X.UnmarshalJSON`` decodes into ``type _X X`` to avoid recursion, but a
+    defined type keeps the methods promoted from its embedded fields. When X
+    embeds model Y, ``_X`` still has ``Y.UnmarshalJSON``, so the decoder hands
+    the whole document to Y's strict decoder, which rejects X's own fields
+    (e.g. every ``DfdDiagram`` fails on ``cells`` via ``BaseDiagram``).
+    Decode through a wrapper whose depth-0 ``UnmarshalJSON`` field shadows the
+    promoted method, so encoding/json falls back to field-wise decoding.
+    """
+    import re
+
+    struct_re = re.compile(r"^type (\w+) struct \{\n(.*?)^\}", re.MULTILINE | re.DOTALL)
+    embedded_re = re.compile(r"^\t[A-Z]\w*$", re.MULTILINE)
+    patched = []
+
+    for go_file in sorted(client_dir.glob("model_*.go")):
+        content = go_file.read_text(encoding="utf-8")
+        new_content = content
+        for m in struct_re.finditer(content):
+            name, body = m.group(1), m.group(2)
+            if not embedded_re.search(body):
+                continue
+            old = f"err = decoder.Decode(&var{name})"
+            new = (
+                "// Shadow UnmarshalJSON promoted from the embedded model (patched by regenerate_go.py)\n"
+                f"\terr = decoder.Decode(&struct {{\n\t\t*_{name}\n"
+                '\t\tUnmarshalJSON struct{} `json:"-"`\n'
+                f"\t}}{{_{name}: &var{name}}})"
+            )
+            if old in new_content:
+                new_content = new_content.replace(old, new)
+                patched.append(name)
+        if new_content != content:
+            go_file.write_text(new_content, encoding="utf-8")
+
+    if patched:
+        print_success(f"Embedded model unmarshal patch: fixed {', '.join(patched)}")
+    else:
+        print_success("Embedded model unmarshal patch: no models needed fixing")
+
+    # Same embedding cause, second symptom: when X redeclares a field of an
+    # embedded Y (Node/Edge redeclare Cell.Shape as *string), JSON fills X's
+    # field and leaves Y's zero, so Y's validate tag fails in oneOf matching.
+    # Drop the validate tag from such shadowed fields of Y.
+    field_re = re.compile(r"^\t([A-Z]\w*) \S+ `", re.MULTILINE)
+    structs = {}
+    for go_file in sorted(client_dir.glob("model_*.go")):
+        for m in struct_re.finditer(go_file.read_text(encoding="utf-8")):
+            structs[m.group(1)] = (go_file, m.group(2))
+    shadowed = {}
+    for name, (_, body) in structs.items():
+        own = set(field_re.findall(body))
+        for emb in (line.strip() for line in embedded_re.findall(body)):
+            if emb in structs:
+                shadowed.setdefault(emb, set()).update(
+                    own & set(field_re.findall(structs[emb][1]))
+                )
+    stripped = []
+    for emb, fields in sorted(shadowed.items()):
+        go_file = structs[emb][0]
+        content = go_file.read_text(encoding="utf-8")
+        for field in sorted(fields):
+            content, n = re.subn(
+                rf"^(\t{field} \S+ `json:\"[^\"]*\") validate:\"[^\"]*\"",
+                r"\1",
+                content,
+                flags=re.MULTILINE,
+            )
+            if n:
+                stripped.append(f"{emb}.{field}")
+        go_file.write_text(content, encoding="utf-8")
+    if stripped:
+        print_success(f"Shadowed field validator patch: stripped {', '.join(stripped)}")
+
+    return had_issues
+
+
+def patch_non_string_regex_validators(client_dir: Path, had_issues: bool) -> bool:
+    """Fix openapi-generator bug: regexp validate tags on non-string fields.
+
+    The generator emits ``validate:"regexp=..."`` for format/pattern fields
+    whatever their Go type, but gopkg.in/validator.v2 only applies regexp to
+    strings and returns "unsupported type" for anything else (NullableString,
+    NullableTime, time.Time, ...). oneOf/anyOf decoding runs validator.Validate
+    on each candidate, so any member with such a field never matches (e.g. every
+    diagram cell fails on Node.Parent). Drop the tag from non-string fields.
+    """
+    import re
+
+    tag_re = re.compile(
+        r"^(\t\w+ (?!\*?string\b)\S+ `json:\"[^\"]*\") validate:\"regexp=[^\"]*\"",
+        re.MULTILINE,
+    )
+    patched_count = 0
+
+    for go_file in sorted(client_dir.glob("model_*.go")):
+        content = go_file.read_text(encoding="utf-8")
+        new_content, n = tag_re.subn(r"\1", content)
+        if n > 0:
+            go_file.write_text(new_content, encoding="utf-8")
+            patched_count += n
+
+    print_success(f"Non-string regexp validator patch: {patched_count} tags removed")
+
+    return had_issues
+
+
 def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = False
 
@@ -308,6 +463,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_json_literal_defaults(client_dir, had_issues)
     had_issues = patch_missing_time_import(client_dir, had_issues)
     had_issues = patch_embedded_pointer_assignment(client_dir, had_issues)
+    had_issues = patch_form_content_type(client_dir, had_issues)
+    had_issues = patch_embedded_model_unmarshal(client_dir, had_issues)
+    had_issues = patch_non_string_regex_validators(client_dir, had_issues)
     had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
     print_success("Patches applied")
 
@@ -343,6 +501,10 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             shutil.rmtree(target_dev)
         restored_dev.rename(target_dev)
         print_success("  Moved developer/ to docs/developer/")
+
+    # Regression tests for the codegen patches above
+    shutil.copy2(LANG_DIR / "scripts" / "codegen_fixes_test.go", client_dir)
+    print_success("  Copied codegen_fixes_test.go")
 
     # 11. Go mod tidy
     print_step(9, "Running go mod tidy")

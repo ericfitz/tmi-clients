@@ -25,7 +25,7 @@ type EdgeAttrsLine struct {
 	// Line width in pixels
 	StrokeWidth *float32 `json:"strokeWidth,omitempty"`
 	// Dash pattern for the line
-	StrokeDasharray NullableString `json:"strokeDasharray,omitempty" validate:"regexp=^$|^[0-9]+(\\\\.[0-9]+)?(\\,[0-9]+(\\\\.[0-9]+)?)*$"`
+	StrokeDasharray NullableString `json:"strokeDasharray,omitempty"`
 	TargetMarker *EdgeAttrsLineTargetMarker `json:"targetMarker,omitempty"`
 	SourceMarker *EdgeAttrsLineSourceMarker `json:"sourceMarker,omitempty"`
 }

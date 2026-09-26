@@ -25,7 +25,7 @@ type DocumentBase struct {
 	// Document name
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of document purpose or content
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// URL location of the document
 	Uri string `json:"uri" validate:"regexp=^[a-zA-Z][a-zA-Z0-9+.-]*://[^\\s]*$"`
 	// Whether this item should be included in generated reports

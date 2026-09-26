@@ -30,7 +30,7 @@ type GroupMember struct {
 	// Internal UUID of the user
 	UserInternalUuid NullableString `json:"user_internal_uuid,omitempty"`
 	// Email address of the user
-	UserEmail NullableString `json:"user_email,omitempty" validate:"regexp=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2\\,}$"`
+	UserEmail NullableString `json:"user_email,omitempty"`
 	// Display name of the user
 	UserName NullableString `json:"user_name,omitempty"`
 	// OAuth/SAML provider for the user
@@ -40,7 +40,7 @@ type GroupMember struct {
 	// Internal UUID of the administrator who added this member
 	AddedByInternalUuid NullableString `json:"added_by_internal_uuid,omitempty"`
 	// Email of the administrator who added this member
-	AddedByEmail NullableString `json:"added_by_email,omitempty" validate:"regexp=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2\\,}$"`
+	AddedByEmail NullableString `json:"added_by_email,omitempty"`
 	// Timestamp when the user was added to the group (RFC3339)
 	AddedAt time.Time `json:"added_at"`
 	// Optional notes about this membership
