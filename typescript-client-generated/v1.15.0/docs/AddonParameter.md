@@ -22,7 +22,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AddonParameter } from '@tmiclient/client'
+import type { AddonParameter } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

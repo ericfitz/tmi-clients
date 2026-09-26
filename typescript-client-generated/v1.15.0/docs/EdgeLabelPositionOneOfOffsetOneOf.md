@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EdgeLabelPositionOneOfOffsetOneOf } from '@tmiclient/client'
+import type { EdgeLabelPositionOneOfOffsetOneOf } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

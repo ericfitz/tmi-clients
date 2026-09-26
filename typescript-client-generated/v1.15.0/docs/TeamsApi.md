@@ -40,11 +40,11 @@ Create multiple metadata key-value pairs for the specified team in a single requ
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { BulkCreateTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -124,11 +124,11 @@ Replace all metadata for the specified team with the provided key-value pairs.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { BulkReplaceTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -208,11 +208,11 @@ Create or update multiple metadata key-value pairs for the specified team in a s
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { BulkUpsertTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -292,11 +292,11 @@ Creates a new team. The creating user is automatically added as a member.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { CreateTeamRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateTeamRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -372,11 +372,11 @@ Create a new metadata key-value pair for the specified team.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { CreateTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -456,11 +456,11 @@ Creates a new note within the specified team
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { CreateTeamNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateTeamNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -540,11 +540,11 @@ Deletes a team. Requires owner role or admin access. Returns 409 if the team is 
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { DeleteTeamRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteTeamRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -622,11 +622,11 @@ Delete a metadata key-value pair from the specified team.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { DeleteTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -705,11 +705,11 @@ Deletes a specific note from the team
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { DeleteTeamNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteTeamNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -789,11 +789,11 @@ Returns a team by ID. Requires team membership or admin access.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { GetTeamRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTeamRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -869,11 +869,11 @@ Retrieve all metadata key-value pairs associated with the specified team.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { GetTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -948,11 +948,11 @@ Returns details of a specific note within the team
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { GetTeamNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTeamNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1031,11 +1031,11 @@ Returns a paginated list of notes within the specified team
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { ListTeamNotesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListTeamNotesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1117,11 +1117,11 @@ Returns a paginated list of teams. Non-admin users see only teams they are membe
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { ListTeamsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListTeamsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1216,11 +1216,11 @@ Partial update of a team using JSON Patch (RFC 6902). Requires team membership o
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { PatchTeamRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchTeamRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1305,11 +1305,11 @@ Apply JSON Patch operations to partially update a team note
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { PatchTeamNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchTeamNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1392,11 +1392,11 @@ Full replacement update of a team. Requires team membership or admin access.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { UpdateTeamRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateTeamRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1481,11 +1481,11 @@ Update the value of an existing metadata key for the specified team.
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { UpdateTeamMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateTeamMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1568,11 +1568,11 @@ Updates a specific note within the team
 import {
   Configuration,
   TeamsApi,
-} from '@tmiclient/client';
-import type { UpdateTeamNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateTeamNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

@@ -32,7 +32,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { SurveyResponse } from '@tmiclient/client'
+import type { SurveyResponse } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

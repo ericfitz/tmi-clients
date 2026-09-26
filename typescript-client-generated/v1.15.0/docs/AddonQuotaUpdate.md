@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AddonQuotaUpdate } from '@tmiclient/client'
+import type { AddonQuotaUpdate } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { LinkedIdentity } from '@tmiclient/client'
+import type { LinkedIdentity } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

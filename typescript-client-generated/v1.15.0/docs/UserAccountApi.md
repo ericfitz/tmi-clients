@@ -34,11 +34,11 @@ Starts the OAuth authorization flow for a delegated content provider. Returns an
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { AuthorizeContentTokenOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AuthorizeContentTokenOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -118,11 +118,11 @@ Consumes a pending identity link token and permanently links the second identity
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { ConfirmIdentityLinkOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ConfirmIdentityLinkOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -200,11 +200,11 @@ Creates preferences for the current user. Fails with 409 Conflict if preferences
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { CreateCurrentUserPreferencesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateCurrentUserPreferencesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -280,11 +280,11 @@ Best-effort revokes the token at the provider (where supported) and deletes the 
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { DeleteMyContentTokenRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteMyContentTokenRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -360,11 +360,11 @@ Removes a linked identity from the current user account. The primary identity ca
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { DeleteMyIdentityRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteMyIdentityRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -441,11 +441,11 @@ Retrieves the current user\&#39;s preferences. Returns an empty object {} if no 
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { GetCurrentUserPreferencesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetCurrentUserPreferencesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -511,11 +511,11 @@ Returns the details of a pending identity link, including both sides of the link
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { GetPendingIdentityLinkRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetPendingIdentityLinkRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -591,11 +591,11 @@ Called by tmi-ux after a user picks a file via the Microsoft File Picker. The se
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { GrantMicrosoftFilePermissionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GrantMicrosoftFilePermissionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -672,11 +672,11 @@ Returns all delegated content provider tokens linked for the current user. Secre
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { ListMyContentTokensRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListMyContentTokensRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -743,11 +743,11 @@ Returns the primary identity and all linked identities for the authenticated use
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { ListMyIdentitiesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListMyIdentitiesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -814,11 +814,11 @@ Mint a short-lived access token for the Google Picker browser client. The return
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { MintPickerTokenRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { MintPickerTokenRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -895,11 +895,11 @@ Initiates the OAuth flow to link an additional identity provider to the current 
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { StartIdentityLinkRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { StartIdentityLinkRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -979,11 +979,11 @@ Creates or replaces the current user\&#39;s preferences. This is an upsert opera
 import {
   Configuration,
   UserAccountApi,
-} from '@tmiclient/client';
-import type { UpdateCurrentUserPreferencesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateCurrentUserPreferencesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

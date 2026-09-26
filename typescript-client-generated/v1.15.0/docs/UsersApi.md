@@ -24,11 +24,11 @@ Two-step deletion process: 1. First call (no challenge parameter) - Returns chal
 import {
   Configuration,
   UsersApi,
-} from '@tmiclient/client';
-import type { DeleteUserAccountRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteUserAccountRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -104,11 +104,11 @@ Revokes the authenticated user\&#39;s current JWT token. This is a convenience e
 import {
   Configuration,
   UsersApi,
-} from '@tmiclient/client';
-import type { LogoutCurrentUserRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { LogoutCurrentUserRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -175,11 +175,11 @@ Transfers ownership of all threat models and survey responses owned by the curre
 import {
   Configuration,
   UsersApi,
-} from '@tmiclient/client';
-import type { TransferCurrentUserOwnershipRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { TransferCurrentUserOwnershipRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

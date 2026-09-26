@@ -21,7 +21,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { MinimalCell } from '@tmiclient/client'
+import type { MinimalCell } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

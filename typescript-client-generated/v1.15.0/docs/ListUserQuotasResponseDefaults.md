@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ListUserQuotasResponseDefaults } from '@tmiclient/client'
+import type { ListUserQuotasResponseDefaults } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

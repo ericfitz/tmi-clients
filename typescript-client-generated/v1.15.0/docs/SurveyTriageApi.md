@@ -30,11 +30,11 @@ Creates a new threat model from an approved survey response. Copies answers to T
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelFromSurveyResponseRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelFromSurveyResponseRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -112,11 +112,11 @@ Creates a new triage note on the specified survey response. Only accessible to s
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { CreateTriageSurveyResponseTriageNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateTriageSurveyResponseTriageNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -196,11 +196,11 @@ Returns a specific survey response for security engineer review.
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { GetTriageSurveyResponseRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTriageSurveyResponseRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -276,11 +276,11 @@ Returns all metadata key-value pairs for the specified survey response (read-onl
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { GetTriageSurveyResponseMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTriageSurveyResponseMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -356,11 +356,11 @@ Returns a specific metadata entry by key for the specified survey response (read
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { GetTriageSurveyResponseMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTriageSurveyResponseMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -439,11 +439,11 @@ Returns details of a specific triage note within the survey response. Only acces
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { GetTriageSurveyResponseTriageNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTriageSurveyResponseTriageNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -522,11 +522,11 @@ Returns a paginated list of triage notes attached to the specified survey respon
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { ListTriageSurveyResponseTriageNotesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListTriageSurveyResponseTriageNotesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -608,11 +608,11 @@ Returns a paginated list of survey responses for security engineers to triage. F
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { ListTriageSurveyResponsesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListTriageSurveyResponsesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -714,11 +714,11 @@ Partially updates a survey response using JSON Patch (RFC 6902). Security Review
 import {
   Configuration,
   SurveyTriageApi,
-} from '@tmiclient/client';
-import type { PatchTriageSurveyResponseRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchTriageSurveyResponseRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

@@ -23,11 +23,11 @@ Delete multiple threats in a single request
 import {
   Configuration,
   ThreatsApi,
-} from '@tmiclient/client';
-import type { BulkDeleteThreatModelThreatsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkDeleteThreatModelThreatsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -107,11 +107,11 @@ Apply JSON Patch operations to multiple threats. Each patch specifies a threat I
 import {
   Configuration,
   ThreatsApi,
-} from '@tmiclient/client';
-import type { BulkPatchThreatModelThreatsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkPatchThreatModelThreatsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

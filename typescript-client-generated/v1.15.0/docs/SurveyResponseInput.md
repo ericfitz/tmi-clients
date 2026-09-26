@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { SurveyResponseInput } from '@tmiclient/client'
+import type { SurveyResponseInput } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

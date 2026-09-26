@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ClientConfigLimits } from '@tmiclient/client'
+import type { ClientConfigLimits } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

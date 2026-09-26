@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { UpdateThreatMetadataByKeyRequest } from '@tmiclient/client'
+import type { UpdateThreatMetadataByKeyRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

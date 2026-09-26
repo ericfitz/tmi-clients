@@ -127,11 +127,11 @@ Creates multiple metadata entries in a single operation for the specified diagra
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateDiagramMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateDiagramMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -215,11 +215,11 @@ Creates multiple metadata entries in a single operation for the specified docume
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateDocumentMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateDocumentMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -303,11 +303,11 @@ Creates multiple metadata key-value pairs for the specified note. Returns 409 Co
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateNoteMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateNoteMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -391,11 +391,11 @@ Creates multiple metadata entries in a single operation for the specified source
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateRepositoryMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateRepositoryMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -479,11 +479,11 @@ Creates multiple metadata entries in a single operation for the specified threat
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -567,11 +567,11 @@ Creates multiple metadata key-value pairs for the specified asset. Returns 409 C
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -655,11 +655,11 @@ Creates multiple assets within the specified threat model (maximum 50 per reques
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatModelAssetsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatModelAssetsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -740,11 +740,11 @@ Creates multiple documents in a single operation for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatModelDocumentsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatModelDocumentsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -825,11 +825,11 @@ Creates multiple metadata entries in a single operation for the specified threat
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatModelMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatModelMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -910,11 +910,11 @@ Creates multiple source references in a single operation for the specified threa
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatModelRepositoriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatModelRepositoriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -995,11 +995,11 @@ Creates multiple threats in a single operation for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkCreateThreatModelThreatsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateThreatModelThreatsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1080,11 +1080,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceDiagramMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceDiagramMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1168,11 +1168,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceDocumentMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceDocumentMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1256,11 +1256,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceNoteMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceNoteMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1344,11 +1344,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceRepositoryMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceRepositoryMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1432,11 +1432,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceThreatMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceThreatMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1520,11 +1520,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1608,11 +1608,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkReplaceThreatModelMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceThreatModelMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1693,11 +1693,11 @@ Updates multiple threats in a single operation for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpdateThreatModelThreatsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpdateThreatModelThreatsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1777,11 +1777,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertDiagramMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertDiagramMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1865,11 +1865,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertDocumentMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertDocumentMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1953,11 +1953,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertNoteMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertNoteMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2041,11 +2041,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertRepositoryMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertRepositoryMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2129,11 +2129,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertThreatMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertThreatMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2217,11 +2217,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2305,11 +2305,11 @@ Create or update multiple assets in a single request
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertThreatModelAssetsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertThreatModelAssetsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2391,11 +2391,11 @@ Create or update multiple documents in a single request
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertThreatModelDocumentsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertThreatModelDocumentsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2476,11 +2476,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertThreatModelMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertThreatModelMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2561,11 +2561,11 @@ Create or update multiple repositories in a single request
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { BulkUpsertThreatModelRepositoriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertThreatModelRepositoriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2647,11 +2647,11 @@ Records sentiment + optional false-positive taxonomy on a note/diagram/threat or
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateContentFeedbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateContentFeedbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2732,11 +2732,11 @@ Creates a new metadata entry for the specified diagram. Returns 409 Conflict if 
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateDiagramMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateDiagramMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2820,11 +2820,11 @@ Creates new metadata entry for the specified document. Returns 409 Conflict if t
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateDocumentMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateDocumentMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2908,11 +2908,11 @@ Creates new metadata entry for the specified note. Returns 409 Conflict if the k
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateNoteMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateNoteMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2996,11 +2996,11 @@ Creates new metadata entry for the specified source reference. Returns 409 Confl
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateRepositoryMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateRepositoryMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3084,11 +3084,11 @@ Creates new metadata entry for the specified threat. Returns 409 Conflict if the
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3172,11 +3172,11 @@ Creates a new asset within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelAssetRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelAssetRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3257,11 +3257,11 @@ Adds a new metadata key-value pair to the specified asset. Returns 409 Conflict 
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3345,11 +3345,11 @@ Creates a new diagram within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelDiagramRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelDiagramRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3429,11 +3429,11 @@ Creates a new document within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelDocumentRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelDocumentRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3514,11 +3514,11 @@ Creates new metadata entry for the specified threat model. Returns 409 Conflict 
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3599,11 +3599,11 @@ Creates a new note within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3684,11 +3684,11 @@ Creates a new source code reference within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelRepositoryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelRepositoryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3768,11 +3768,11 @@ Creates a new threat within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelThreatRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelThreatRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3852,11 +3852,11 @@ Removes a specific metadata entry for the diagram by key
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteDiagramMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteDiagramMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -3939,11 +3939,11 @@ Deletes a specific metadata entry by key for the specified document
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteDocumentMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteDocumentMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4026,11 +4026,11 @@ Deletes a specific metadata entry by key for the specified note
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteNoteMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteNoteMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4113,11 +4113,11 @@ Deletes a specific metadata entry by key for the specified source reference
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteRepositoryMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteRepositoryMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4200,11 +4200,11 @@ Deletes a specific metadata entry by key for the specified threat
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4287,11 +4287,11 @@ Deletes an asset from the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelAssetRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelAssetRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4371,11 +4371,11 @@ Deletes a metadata key-value pair from the specified asset
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4458,11 +4458,11 @@ Permanently removes a diagram from the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelDiagramRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelDiagramRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4543,11 +4543,11 @@ Deletes a specific document from the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelDocumentRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelDocumentRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4627,11 +4627,11 @@ Deletes a specific metadata entry by key for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4711,11 +4711,11 @@ Deletes a specific note from the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4795,11 +4795,11 @@ Deletes a specific source code reference from the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelRepositoryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelRepositoryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4879,11 +4879,11 @@ Deletes a specific threat from the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelThreatRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelThreatRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -4961,11 +4961,11 @@ Get a single content feedback entry
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetContentFeedbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetContentFeedbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5044,11 +5044,11 @@ Retrieves all metadata entries for the specified diagram
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetDiagramMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDiagramMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5127,11 +5127,11 @@ Retrieves a specific metadata entry for the diagram by key
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetDiagramMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDiagramMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5213,11 +5213,11 @@ Returns a minimal representation of the diagram optimized for automated threat m
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetDiagramModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDiagramModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5296,11 +5296,11 @@ Returns all metadata key-value pairs for the specified document
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetDocumentMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDocumentMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5379,11 +5379,11 @@ Returns a specific metadata entry by key for the specified document
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetDocumentMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDocumentMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5465,11 +5465,11 @@ Returns all metadata key-value pairs for the specified note
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetNoteMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetNoteMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5548,11 +5548,11 @@ Returns a specific metadata entry by key for the specified note
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetNoteMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetNoteMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5634,11 +5634,11 @@ Returns all metadata key-value pairs for the specified source reference
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetRepositoryMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetRepositoryMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5717,11 +5717,11 @@ Returns a specific metadata entry by key for the specified source reference
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetRepositoryMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetRepositoryMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5803,11 +5803,11 @@ Returns all metadata key-value pairs for the specified threat
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5886,11 +5886,11 @@ Returns a specific metadata entry by key for the specified threat
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -5972,11 +5972,11 @@ Returns a single asset by its ID
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelAssetRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelAssetRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6055,11 +6055,11 @@ Returns all metadata key-value pairs for the specified asset
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6138,11 +6138,11 @@ Returns a single metadata value by its key
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelAssetMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelAssetMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6224,11 +6224,11 @@ Returns a paginated list of assets within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelAssetsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelAssetsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6313,11 +6313,11 @@ Retrieves a specific diagram from the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelDiagramRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelDiagramRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6396,11 +6396,11 @@ Returns all diagrams associated with a specific threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelDiagramsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelDiagramsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6485,11 +6485,11 @@ Returns details of a specific document within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelDocumentRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelDocumentRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6568,11 +6568,11 @@ Returns a paginated list of documents within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelDocumentsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelDocumentsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6657,11 +6657,11 @@ Returns all metadata key-value pairs for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6737,11 +6737,11 @@ Returns a specific metadata entry by key for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6820,11 +6820,11 @@ Returns details of a specific note within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6903,11 +6903,11 @@ Returns a paginated list of notes within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelNotesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelNotesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -6992,11 +6992,11 @@ Returns a paginated list of source code references within the specified threat m
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelRepositoriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelRepositoriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7081,11 +7081,11 @@ Returns details of a specific source code reference within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelRepositoryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelRepositoryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7164,11 +7164,11 @@ Returns details of a specific threat within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelThreatRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelThreatRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7247,11 +7247,11 @@ Returns a paginated list of threats within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { GetThreatModelThreatsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelThreatsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7393,11 +7393,11 @@ Reader+ on the parent threat model. Returns all feedback rows for the TM with fi
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { ListContentFeedbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListContentFeedbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7491,11 +7491,11 @@ Apply JSON Patch operations to update specific parts of a diagram
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { PatchThreatModelDiagramRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchThreatModelDiagramRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7584,11 +7584,11 @@ Applies JSON patch operations to a specific threat within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { PatchThreatModelThreatRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchThreatModelThreatRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7676,11 +7676,11 @@ Restores a soft-deleted asset within a threat model. The parent threat model mus
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { RestoreAssetRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreAssetRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7761,11 +7761,11 @@ Restores a soft-deleted diagram within a threat model. The parent threat model m
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { RestoreDiagramRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreDiagramRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7846,11 +7846,11 @@ Restores a soft-deleted document within a threat model. The parent threat model 
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { RestoreDocumentRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreDocumentRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -7931,11 +7931,11 @@ Restores a soft-deleted note within a threat model. The parent threat model must
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { RestoreNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8016,11 +8016,11 @@ Restores a soft-deleted repository within a threat model. The parent threat mode
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { RestoreRepositoryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreRepositoryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8101,11 +8101,11 @@ Restores a soft-deleted threat within a threat model. The parent threat model mu
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { RestoreThreatRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreThreatRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8186,11 +8186,11 @@ Updates or creates a metadata entry for the diagram with the specified key
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateDiagramMetadataByKeyOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateDiagramMetadataByKeyOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8277,11 +8277,11 @@ Updates a specific metadata entry by key for the specified document
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateDocumentMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateDocumentMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8368,11 +8368,11 @@ Updates a specific metadata entry by key for the specified note
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateNoteMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateNoteMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8459,11 +8459,11 @@ Updates a specific metadata entry by key for the specified source reference
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateRepositoryMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateRepositoryMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8550,11 +8550,11 @@ Updates a specific metadata entry by key for the specified threat
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatMetadataByKeyOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatMetadataByKeyOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8641,11 +8641,11 @@ Updates an existing asset within the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelAssetRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelAssetRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8733,11 +8733,11 @@ Updates an existing metadata value by its key
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelAssetMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelAssetMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8824,11 +8824,11 @@ Completely replaces a diagram with new data. Use DfdDiagramInput schema which ex
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelDiagramRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelDiagramRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -8916,11 +8916,11 @@ Updates a specific document within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelDocumentRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelDocumentRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -9008,11 +9008,11 @@ Updates a specific metadata entry by key for the specified threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -9096,11 +9096,11 @@ Updates a specific note within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -9184,11 +9184,11 @@ Updates a specific source code reference within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelRepositoryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelRepositoryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -9271,11 +9271,11 @@ Updates a specific threat within the threat model
 import {
   Configuration,
   ThreatModelSubResourcesApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelThreatRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelThreatRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

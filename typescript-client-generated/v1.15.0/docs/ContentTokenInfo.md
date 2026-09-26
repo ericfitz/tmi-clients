@@ -19,7 +19,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ContentTokenInfo } from '@tmiclient/client'
+import type { ContentTokenInfo } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

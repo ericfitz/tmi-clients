@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { GetJWKS200ResponseKeysInner } from '@tmiclient/client'
+import type { GetJWKS200ResponseKeysInner } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

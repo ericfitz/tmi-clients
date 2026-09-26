@@ -19,7 +19,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { UserWithAdminStatus } from '@tmiclient/client'
+import type { UserWithAdminStatus } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

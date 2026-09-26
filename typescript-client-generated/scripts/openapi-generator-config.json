@@ -1,5 +1,5 @@
 {
-  "npmName": "@tmiclient/client",
+  "npmName": "@tmi-dev/client",
   "npmVersion": "1.15.0",
   "supportsES6": true,
   "withInterfaces": true,

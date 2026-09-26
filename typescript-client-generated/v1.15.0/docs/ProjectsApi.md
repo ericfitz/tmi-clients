@@ -40,11 +40,11 @@ Create multiple metadata key-value pairs for the specified project in a single r
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { BulkCreateProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -124,11 +124,11 @@ Replace all metadata for the specified project with the provided key-value pairs
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { BulkReplaceProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -208,11 +208,11 @@ Create or update multiple metadata key-value pairs for the specified project in 
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { BulkUpsertProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -292,11 +292,11 @@ Creates a new project. Requires membership in the referenced team.
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { CreateProjectRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateProjectRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -373,11 +373,11 @@ Create a new metadata key-value pair for the specified project.
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { CreateProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -457,11 +457,11 @@ Creates a new note within the specified project
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { CreateProjectNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateProjectNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -541,11 +541,11 @@ Deletes a project. Requires owner role or admin access. Returns 409 if the proje
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { DeleteProjectRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteProjectRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -623,11 +623,11 @@ Delete a metadata key-value pair from the specified project.
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { DeleteProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -706,11 +706,11 @@ Deletes a specific note from the project
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { DeleteProjectNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteProjectNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -790,11 +790,11 @@ Returns a project by ID. Requires membership in the project\&#39;s team or admin
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { GetProjectRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetProjectRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -870,11 +870,11 @@ Retrieve all metadata key-value pairs associated with the specified project.
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { GetProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -949,11 +949,11 @@ Returns details of a specific note within the project
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { GetProjectNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetProjectNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1032,11 +1032,11 @@ Returns a paginated list of notes within the specified project
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { ListProjectNotesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListProjectNotesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1118,11 +1118,11 @@ Returns a paginated list of projects. Non-admin users see only projects belongin
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { ListProjectsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListProjectsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1217,11 +1217,11 @@ Partial update of a project using JSON Patch (RFC 6902). Requires membership in 
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { PatchProjectRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchProjectRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1306,11 +1306,11 @@ Apply JSON Patch operations to partially update a project note
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { PatchProjectNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchProjectNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1393,11 +1393,11 @@ Full replacement update of a project. Requires membership in the project\&#39;s 
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { UpdateProjectRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateProjectRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1482,11 +1482,11 @@ Update the value of an existing metadata key for the specified project.
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { UpdateProjectMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateProjectMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1569,11 +1569,11 @@ Updates a specific note within the project
 import {
   Configuration,
   ProjectsApi,
-} from '@tmiclient/client';
-import type { UpdateProjectNoteRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateProjectNoteRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

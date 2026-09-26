@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ClientConfigFeatures } from '@tmiclient/client'
+import type { ClientConfigFeatures } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

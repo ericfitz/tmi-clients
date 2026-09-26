@@ -28,11 +28,11 @@ Sends a user message to the Timmy AI assistant and returns an SSE stream of the 
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { CreateTimmyChatMessageRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateTimmyChatMessageRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -116,11 +116,11 @@ Creates a new AI assistant chat session for the specified threat model. Returns 
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { CreateTimmyChatSessionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateTimmyChatSessionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -200,11 +200,11 @@ Deletes a specific Timmy chat session and all associated messages
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { DeleteTimmyChatSessionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteTimmyChatSessionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -284,11 +284,11 @@ Returns the details of a specific Timmy chat session
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { GetTimmyChatSessionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTimmyChatSessionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -367,11 +367,11 @@ Returns a paginated list of messages within the specified Timmy chat session
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { ListTimmyChatMessagesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListTimmyChatMessagesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -456,11 +456,11 @@ Returns a paginated list of Timmy chat sessions for the specified threat model
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { ListTimmyChatSessionsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListTimmyChatSessionsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -542,11 +542,11 @@ Re-scans sources for an active Timmy session, picking up any documents whose acc
 import {
   Configuration,
   TimmyChatApi,
-} from '@tmiclient/client';
-import type { RefreshTimmySourcesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RefreshTimmySourcesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

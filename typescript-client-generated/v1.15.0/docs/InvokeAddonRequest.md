@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { InvokeAddonRequest } from '@tmiclient/client'
+import type { InvokeAddonRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

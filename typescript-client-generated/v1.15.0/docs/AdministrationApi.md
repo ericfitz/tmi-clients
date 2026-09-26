@@ -55,11 +55,11 @@ Adds a user to a group. The user must exist in the system. Cannot add members to
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { AddGroupMemberOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AddGroupMemberOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -140,11 +140,11 @@ Creates a new TMI built-in group (provider&#x3D;\&quot;tmi\&quot;). These groups
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { CreateAdminGroupOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAdminGroupOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -221,11 +221,11 @@ Deletes the custom addon invocation quota for a user, reverting to system defaul
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteAddonInvocationQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAddonInvocationQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -302,11 +302,11 @@ Deletes a TMI-managed group and handles threat model cleanup. Protected groups l
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteAdminGroupRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAdminGroupRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -383,11 +383,11 @@ Deletes a user and all associated data. Transfers sole-owned threat models or de
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteAdminUserRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAdminUserRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -465,11 +465,11 @@ Deletes a system setting. Requires administrator privileges.
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteSystemSettingRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteSystemSettingRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -546,11 +546,11 @@ Deletes the custom API quota for a user, reverting to system defaults
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteUserAPIQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteUserAPIQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -627,11 +627,11 @@ Deletes the custom webhook quota for a user, reverting to system defaults
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteWebhookQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteWebhookQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -708,11 +708,11 @@ Retrieves the addon invocation quota for a specific user
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetAddonInvocationQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAddonInvocationQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -788,11 +788,11 @@ Returns detailed information about a specific group, including enriched data (us
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetAdminGroupRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAdminGroupRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -868,11 +868,11 @@ Returns a single threat-model audit entry by ID, admin cross-TM view. Admin role
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetAdminThreatModelAuditEntryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAdminThreatModelAuditEntryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -948,11 +948,11 @@ Returns detailed information about a specific user, including enriched data (adm
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetAdminUserRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAdminUserRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1028,11 +1028,11 @@ Returns a single system-level audit entry by ID. Admin role required.
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetSystemAuditEntryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetSystemAuditEntryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1108,11 +1108,11 @@ Returns a specific system setting by key. Requires administrator privileges.
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetSystemSettingRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetSystemSettingRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1188,11 +1188,11 @@ Retrieves the API rate limit quota for a specific user
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetUserAPIQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetUserAPIQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1268,11 +1268,11 @@ Retrieves the webhook quota for a specific user
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { GetWebhookQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetWebhookQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1348,11 +1348,11 @@ Retrieves all custom addon invocation quotas (users with non-default quotas)
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListAddonInvocationQuotasRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAddonInvocationQuotasRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1430,11 +1430,11 @@ Returns a paginated list of groups with optional filtering by provider, name, an
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListAdminGroupsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAdminGroupsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1530,11 +1530,11 @@ Cursor-paginated cross-threat-model admin view of the threat-model audit stream.
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListAdminThreatModelAuditEntriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAdminThreatModelAuditEntriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1637,11 +1637,11 @@ Returns a paginated list of users with optional filtering by provider, email, an
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListAdminUsersRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAdminUsersRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1749,11 +1749,11 @@ Returns a paginated list of users who are members of the specified group. Includ
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListGroupMembersRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListGroupMembersRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1835,11 +1835,11 @@ Cursor-paginated, filterable list of system-level admin-write audit records. Adm
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListSystemAuditEntriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListSystemAuditEntriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1942,11 +1942,11 @@ Returns all system settings. Requires administrator privileges.
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListSystemSettingsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListSystemSettingsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2013,11 +2013,11 @@ Retrieves all custom API rate limit quotas (users with non-default quotas)
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListUserAPIQuotasRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListUserAPIQuotasRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2095,11 +2095,11 @@ Retrieves all custom webhook quotas (users with non-default quotas)
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ListWebhookQuotasRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListWebhookQuotasRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2177,11 +2177,11 @@ Re-encrypts all system settings with the current encryption key. Use this after 
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { ReencryptSystemSettingsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ReencryptSystemSettingsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2250,11 +2250,11 @@ Removes a user or nested group from a group. Use the subject_type query paramete
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { RemoveGroupMemberRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RemoveGroupMemberRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2337,11 +2337,11 @@ Transfers ownership of all threat models and survey responses owned by the speci
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { TransferAdminUserOwnershipRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { TransferAdminUserOwnershipRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2421,11 +2421,11 @@ Creates or updates the addon invocation quota for a specific user
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateAddonInvocationQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateAddonInvocationQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2506,11 +2506,11 @@ Updates group metadata fields (name, description). Only provided fields are upda
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateAdminGroupOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateAdminGroupOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2590,11 +2590,11 @@ Updates user metadata fields (email, name, email_verified). Only provided fields
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateAdminUserOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateAdminUserOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2674,11 +2674,11 @@ Creates or updates a system setting. Requires administrator privileges.
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateSystemSettingRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateSystemSettingRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2758,11 +2758,11 @@ Creates or updates the API rate limit quota for a specific user
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateUserAPIQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateUserAPIQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -2843,11 +2843,11 @@ Creates or updates the webhook quota for a specific user
 import {
   Configuration,
   AdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateWebhookQuotaRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateWebhookQuotaRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

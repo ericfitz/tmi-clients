@@ -24,7 +24,7 @@ Regenerate one or more TMI API clients from the latest OpenAPI specification. Th
 |--------|-----------|-----------|---------|
 | Python | `python-client-generated/` | openapi-generator 7.x | `tmi-client` (PyPI) |
 | Go | `go-client-generated/` | swagger-codegen 3.0.75 | `go-client-generated` (Go module) |
-| TypeScript | `typescript-client-generated/` | openapi-generator 7.x | `@tmiclient/client` (npm) |
+| TypeScript | `typescript-client-generated/` | openapi-generator 7.x | `@tmi-dev/client` (npm) |
 
 ## Prerequisites
 

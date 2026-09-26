@@ -24,7 +24,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Repository } from '@tmiclient/client'
+import type { Repository } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

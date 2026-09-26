@@ -44,11 +44,11 @@ Redirects user to OAuth provider\&#39;s authorization page. Supports client call
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { AuthorizeOAuthProviderRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AuthorizeOAuthProviderRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -136,11 +136,11 @@ Public callback endpoint that completes the delegated content provider OAuth aut
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ContentOAuthCallbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ContentOAuthCallbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -216,11 +216,11 @@ Creates a new OAuth 2.0 client credential for machine-to-machine authentication.
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { CreateCurrentUserClientCredentialOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateCurrentUserClientCredentialOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -296,11 +296,11 @@ Permanently deletes a client credential. All tokens issued with this credential 
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { DeleteCurrentUserClientCredentialRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteCurrentUserClientCredentialRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -376,11 +376,11 @@ Provider-neutral endpoint to exchange OAuth credentials for TMI JWT tokens. Supp
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ExchangeOAuthCodeOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ExchangeOAuthCodeOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -457,11 +457,11 @@ Returns a list of configured OAuth providers available for authentication
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { GetAuthProvidersRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAuthProvidersRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   try {
@@ -522,11 +522,11 @@ Returns information about the currently authenticated user
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { GetCurrentUserRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetCurrentUserRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -592,11 +592,11 @@ Returns detailed information about the currently authenticated user including gr
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { GetCurrentUserProfileRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetCurrentUserProfileRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -662,11 +662,11 @@ Returns groups available from a specific identity provider for autocomplete and 
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { GetProviderGroupsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetProviderGroupsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -741,11 +741,11 @@ Returns the SP metadata XML for SAML configuration
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { GetSAMLMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetSAMLMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -815,11 +815,11 @@ Returns a list of configured SAML providers available for authentication
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { GetSAMLProvidersRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetSAMLProvidersRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   try {
@@ -880,11 +880,11 @@ Exchanges OAuth authorization code for JWT tokens. If client_callback was provid
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { HandleOAuthCallbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { HandleOAuthCallbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -958,11 +958,11 @@ Starts SAML authentication flow by redirecting to IdP
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { InitiateSAMLLoginRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { InitiateSAMLLoginRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1035,11 +1035,11 @@ Introspects a JWT token to determine its validity and metadata as per RFC 7662
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { IntrospectTokenRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { IntrospectTokenRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1112,11 +1112,11 @@ Retrieves all client credentials owned by the authenticated user. Secrets are ne
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ListCurrentUserClientCredentialsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListCurrentUserClientCredentialsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1193,11 +1193,11 @@ Returns a paginated list of members for a group that the authenticated user belo
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ListMyGroupMembersRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListMyGroupMembersRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1279,11 +1279,11 @@ Returns the TMI-managed groups that the authenticated user belongs to. Returns d
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ListMyGroupsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListMyGroupsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1349,11 +1349,11 @@ Handles SAML logout requests from IdP
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ProcessSAMLLogoutRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ProcessSAMLLogoutRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1423,11 +1423,11 @@ Handles SAML logout requests from IdP via POST
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ProcessSAMLLogoutPostRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ProcessSAMLLogoutPostRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1498,11 +1498,11 @@ Processes SAML responses from IdP after authentication
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { ProcessSAMLResponseRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ProcessSAMLResponseRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1579,11 +1579,11 @@ Exchanges a refresh token for a new JWT access token
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { RefreshTokenRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RefreshTokenRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1654,11 +1654,11 @@ Revokes an OAuth 2.0 token per RFC 7009. The token to revoke is passed in the re
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { RevokeTokenRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RevokeTokenRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new AuthenticationApi();
 
   const body = {
@@ -1738,11 +1738,11 @@ Forces a fresh interactive re-authentication at the user\&#39;s bound IdP by add
 import {
   Configuration,
   AuthenticationApi,
-} from '@tmiclient/client';
-import type { StepUpAuthenticateRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { StepUpAuthenticateRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

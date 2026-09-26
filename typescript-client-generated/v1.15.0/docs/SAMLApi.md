@@ -22,11 +22,11 @@ Returns a lightweight list of active users for a specific SAML provider. Intende
 import {
   Configuration,
   SAMLApi,
-} from '@tmiclient/client';
-import type { ListSAMLUsersRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListSAMLUsersRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

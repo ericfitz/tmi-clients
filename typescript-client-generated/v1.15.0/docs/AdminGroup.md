@@ -23,7 +23,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AdminGroup } from '@tmiclient/client'
+import type { AdminGroup } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

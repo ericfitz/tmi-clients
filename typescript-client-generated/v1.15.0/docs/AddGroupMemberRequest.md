@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AddGroupMemberRequest } from '@tmiclient/client'
+import type { AddGroupMemberRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

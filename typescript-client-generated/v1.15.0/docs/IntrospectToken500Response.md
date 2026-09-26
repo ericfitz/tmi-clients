@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { IntrospectToken500Response } from '@tmiclient/client'
+import type { IntrospectToken500Response } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

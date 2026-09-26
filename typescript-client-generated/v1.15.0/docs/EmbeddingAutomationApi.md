@@ -24,11 +24,11 @@ Bulk delete embeddings with query parameter filters. At least one filter is requ
 import {
   Configuration,
   EmbeddingAutomationApi,
-} from '@tmiclient/client';
-import type { DeleteEmbeddingsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteEmbeddingsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -114,11 +114,11 @@ Returns embedding model configuration including API keys for automation tools. R
 import {
   Configuration,
   EmbeddingAutomationApi,
-} from '@tmiclient/client';
-import type { GetEmbeddingConfigRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetEmbeddingConfigRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -194,11 +194,11 @@ Accepts a batch of pre-computed embedding vectors and stores them in the specifi
 import {
   Configuration,
   EmbeddingAutomationApi,
-} from '@tmiclient/client';
-import type { IngestEmbeddingsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { IngestEmbeddingsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

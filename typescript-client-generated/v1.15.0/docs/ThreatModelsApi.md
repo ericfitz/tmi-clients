@@ -28,11 +28,11 @@ Creates a new threat model with the authenticated user as owner
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { CreateThreatModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateThreatModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -107,11 +107,11 @@ Deletes a threat model; restricted to owner role
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { DeleteThreatModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteThreatModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -189,11 +189,11 @@ Retrieves the full details of a specific threat model if the user has access
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { GetThreatModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -269,11 +269,11 @@ Returns a list of threat models accessible to the authenticated user with enhanc
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { ListThreatModelsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListThreatModelsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -390,11 +390,11 @@ Applies JSON Patch operations to a threat model; restricted to writer/owner role
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { PatchThreatModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchThreatModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -479,11 +479,11 @@ Restores a soft-deleted threat model and all its soft-deleted children (diagrams
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { RestoreThreatModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RestoreThreatModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -561,11 +561,11 @@ Fully updates a threat model; restricted to writer/owner roles
 import {
   Configuration,
   ThreatModelsApi,
-} from '@tmiclient/client';
-import type { UpdateThreatModelRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateThreatModelRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

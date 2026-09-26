@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { UpdateWebhookDeliveryStatusRequest } from '@tmiclient/client'
+import type { UpdateWebhookDeliveryStatusRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

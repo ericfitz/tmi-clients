@@ -6,7 +6,7 @@ REST clients for the TMI (Threat Modeling Improved) API, generated from the [TMI
 
 - **Python** (`python-client-generated/`) - Package name: `tmi_client`
 - **Go** (`go-client-generated/`)
-- **TypeScript** (`typescript-client-generated/`) - Package name: `@tmiclient/client`
+- **TypeScript** (`typescript-client-generated/`) - Package name: `@tmi-dev/client`
 
 ## Multi-Version Structure
 

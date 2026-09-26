@@ -29,11 +29,11 @@ Create a new webhook subscription. Requires administrator privileges. The subscr
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { CreateWebhookSubscriptionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateWebhookSubscriptionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -109,11 +109,11 @@ Delete a webhook subscription and all its associated deliveries. Requires admini
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { DeleteWebhookSubscriptionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteWebhookSubscriptionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -190,11 +190,11 @@ Retrieve details of a specific webhook delivery including payload and delivery a
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { GetWebhookDeliveryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetWebhookDeliveryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -269,11 +269,11 @@ Retrieve details of a specific webhook subscription. Requires administrator priv
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { GetWebhookSubscriptionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetWebhookSubscriptionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -348,11 +348,11 @@ List webhook deliveries. Requires administrator privileges. Optionally filter by
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { ListWebhookDeliveriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListWebhookDeliveriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -432,11 +432,11 @@ List all webhook subscriptions. Requires administrator privileges.
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { ListWebhookSubscriptionsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListWebhookSubscriptionsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -516,11 +516,11 @@ Apply JSON Patch operations to partially update a webhook subscription. Requires
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { PatchAdminWebhookSubscriptionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchAdminWebhookSubscriptionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -601,11 +601,11 @@ Send a test event to the webhook endpoint. Requires administrator privileges. Re
 import {
   Configuration,
   WebhooksApi,
-} from '@tmiclient/client';
-import type { TestWebhookSubscriptionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { TestWebhookSubscriptionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

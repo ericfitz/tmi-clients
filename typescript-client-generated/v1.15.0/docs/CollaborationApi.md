@@ -25,11 +25,11 @@ Creates a new collaboration session for real-time diagram editing. Only one coll
 import {
   Configuration,
   CollaborationApi,
-} from '@tmiclient/client';
-import type { CreateDiagramCollaborationSessionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateDiagramCollaborationSessionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -111,11 +111,11 @@ Terminates the active collaboration session for a diagram
 import {
   Configuration,
   CollaborationApi,
-} from '@tmiclient/client';
-import type { EndDiagramCollaborationSessionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { EndDiagramCollaborationSessionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -195,11 +195,11 @@ Returns all currently active collaboration sessions for diagrams. Clients can us
 import {
   Configuration,
   CollaborationApi,
-} from '@tmiclient/client';
-import type { GetCurrentUserSessionsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetCurrentUserSessionsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -265,11 +265,11 @@ Retrieves the current collaboration session details for a diagram. The session p
 import {
   Configuration,
   CollaborationApi,
-} from '@tmiclient/client';
-import type { GetDiagramCollaborationSessionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDiagramCollaborationSessionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

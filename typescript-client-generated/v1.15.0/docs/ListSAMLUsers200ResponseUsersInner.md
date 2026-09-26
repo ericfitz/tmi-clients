@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ListSAMLUsers200ResponseUsersInner } from '@tmiclient/client'
+import type { ListSAMLUsers200ResponseUsersInner } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -16,7 +16,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ApiInfo } from '@tmiclient/client'
+import type { ApiInfo } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

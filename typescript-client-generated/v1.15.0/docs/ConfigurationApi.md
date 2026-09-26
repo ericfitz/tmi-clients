@@ -22,11 +22,11 @@ Returns configuration settings for client applications such as tmi-ux. This endp
 import {
   Configuration,
   ConfigurationApi,
-} from '@tmiclient/client';
-import type { GetClientConfigRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetClientConfigRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new ConfigurationApi();
 
   try {

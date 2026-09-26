@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ComponentHealth } from '@tmiclient/client'
+import type { ComponentHealth } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

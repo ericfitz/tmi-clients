@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ResponsibleParty } from '@tmiclient/client'
+import type { ResponsibleParty } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

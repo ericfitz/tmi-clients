@@ -35,7 +35,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ThreatModel } from '@tmiclient/client'
+import type { ThreatModel } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { NodeAttrsTextRefX } from '@tmiclient/client'
+import type { NodeAttrsTextRefX } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

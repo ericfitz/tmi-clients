@@ -1,4 +1,4 @@
-# @tmiclient/client@1.15.0
+# @tmi-dev/client@1.15.0
 
 A TypeScript SDK client for the api.tmi.dev API.
 
@@ -7,7 +7,7 @@ A TypeScript SDK client for the api.tmi.dev API.
 First, install the SDK from npm.
 
 ```bash
-npm install @tmiclient/client --save
+npm install @tmi-dev/client --save
 ```
 
 Next, try it out.
@@ -17,11 +17,11 @@ Next, try it out.
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { CreateAddonOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAddonOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

@@ -24,11 +24,11 @@ Returns the JSON Web Key Set (JWKS) for JWT signature verification
 import {
   Configuration,
   OIDCDiscoveryApi,
-} from '@tmiclient/client';
-import type { GetJWKSRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetJWKSRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new OIDCDiscoveryApi();
 
   try {
@@ -89,11 +89,11 @@ Returns OAuth 2.0 authorization server metadata as per RFC 8414
 import {
   Configuration,
   OIDCDiscoveryApi,
-} from '@tmiclient/client';
-import type { GetOAuthAuthorizationServerMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetOAuthAuthorizationServerMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new OIDCDiscoveryApi();
 
   try {
@@ -154,11 +154,11 @@ Returns OpenID Connect provider configuration metadata as per RFC 8414
 import {
   Configuration,
   OIDCDiscoveryApi,
-} from '@tmiclient/client';
-import type { GetOpenIDConfigurationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetOpenIDConfigurationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new OIDCDiscoveryApi();
 
   try {
