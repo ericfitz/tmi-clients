@@ -25,11 +25,11 @@ type SurveyBase struct {
 	// Name of the survey
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the survey and its purpose
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Custom version string (e.g., '2024-Q1', 'v2-pilot')
 	Version string `json:"version" validate:"regexp=^[a-zA-Z0-9._-]+$"`
 	// Survey status: active surveys appear in intake, inactive are hidden but editable, archived are read-only and preserved for historical reference
-	Status NullableString `json:"status,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
+	Status NullableString `json:"status,omitempty"`
 	Settings *SurveySettings `json:"settings,omitempty"`
 	// Complete SurveyJS JSON definition. Opaque to the server; validated only for top-level structure (must contain a pages array).
 	SurveyJson map[string]interface{} `json:"survey_json"`

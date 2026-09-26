@@ -26,15 +26,15 @@ type ExtendedAsset struct {
 	// Asset name
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the asset
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Type of asset
 	Type string `json:"type"`
 	// Criticality level of the asset
-	Criticality NullableString `json:"criticality,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
+	Criticality NullableString `json:"criticality,omitempty"`
 	// Classification tags for the asset
 	Classification []string `json:"classification,omitempty"`
 	// Sensitivity label for the asset
-	Sensitivity NullableString `json:"sensitivity,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
+	Sensitivity NullableString `json:"sensitivity,omitempty"`
 	// Whether this item should be included in generated reports
 	IncludeInReport *bool `json:"include_in_report,omitempty"`
 	// Whether the Timmy AI assistant is enabled for this entity
@@ -44,11 +44,11 @@ type ExtendedAsset struct {
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// Creation timestamp (ISO3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at"`
 	// Last modification timestamp (ISO3339)
-	ModifiedAt time.Time `json:"modified_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt time.Time `json:"modified_at"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty"`
 	// Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation.
 	Alias *int32 `json:"alias,omitempty"`
 	// Server-managed monotonically-increasing optimistic-locking version. Returned on reads and bumped by every successful PUT/PATCH. Clients echo this back via the If-Match request header (preferred) or the body 'version' field on the next mutation. A mismatch returns 409 Conflict. See issue #385.

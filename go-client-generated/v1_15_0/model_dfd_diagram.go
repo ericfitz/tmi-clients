@@ -206,7 +206,11 @@ func (o *DfdDiagram) UnmarshalJSON(data []byte) (err error) {
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDfdDiagram)
+	// Shadow UnmarshalJSON promoted from the embedded model (patched by regenerate_go.py)
+	err = decoder.Decode(&struct {
+		*_DfdDiagram
+		UnmarshalJSON struct{} `json:"-"`
+	}{_DfdDiagram: &varDfdDiagram})
 
 	if err != nil {
 		return err

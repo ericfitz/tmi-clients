@@ -26,13 +26,13 @@ type Team struct {
 	// Team name
 	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Team description
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Relationships to other teams
 	RelatedTeams []RelatedTeam `json:"related_teams,omitempty"`
 	// URL or reference to internal team page
 	Uri NullableString `json:"uri,omitempty"`
 	// Team email address
-	EmailAddress NullableString `json:"email_address,omitempty" validate:"regexp=^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2\\,}$"`
+	EmailAddress NullableString `json:"email_address,omitempty"`
 	// Team lifecycle status. Defaults to 'active' if not provided or set to null.
 	Status NullableTeamStatus `json:"status,omitempty"`
 	// Unique identifier for the team (UUID)
@@ -40,15 +40,15 @@ type Team struct {
 	// User who created the team
 	CreatedBy map[string]interface{} `json:"created_by,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// User who last modified the team
 	ModifiedBy map[string]interface{} `json:"modified_by,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	// User who last reviewed the team
 	ReviewedBy map[string]interface{} `json:"reviewed_by,omitempty"`
 	// Last review timestamp (RFC3339)
-	ReviewedAt NullableTime `json:"reviewed_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ReviewedAt NullableTime `json:"reviewed_at,omitempty"`
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// List of notes associated with the team

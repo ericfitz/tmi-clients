@@ -34,7 +34,7 @@ type Node struct {
 	// Port configuration for connections
 	Ports *PortConfiguration `json:"ports,omitempty"`
 	// ID of the parent cell for nested/grouped nodes (UUID)
-	Parent NullableString `json:"parent,omitempty" validate:"regexp=^$|^[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*-[0-9a-fA-F]*$"`
+	Parent NullableString `json:"parent,omitempty"`
 	// IDs of child cells contained within this node (UUIDs)
 	Children []string `json:"children,omitempty"`
 	// X coordinate (flat format). Use either this with y, width, height OR use position/size objects.
@@ -550,7 +550,11 @@ func (o *Node) UnmarshalJSON(data []byte) (err error) {
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNode)
+	// Shadow UnmarshalJSON promoted from the embedded model (patched by regenerate_go.py)
+	err = decoder.Decode(&struct {
+		*_Node
+		UnmarshalJSON struct{} `json:"-"`
+	}{_Node: &varNode})
 
 	if err != nil {
 		return err

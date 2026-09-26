@@ -411,7 +411,11 @@ func (o *Edge) UnmarshalJSON(data []byte) (err error) {
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEdge)
+	// Shadow UnmarshalJSON promoted from the embedded model (patched by regenerate_go.py)
+	err = decoder.Decode(&struct {
+		*_Edge
+		UnmarshalJSON struct{} `json:"-"`
+	}{_Edge: &varEdge})
 
 	if err != nil {
 		return err

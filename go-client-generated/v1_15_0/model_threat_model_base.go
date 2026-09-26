@@ -25,7 +25,7 @@ type ThreatModelBase struct {
 	// Name of the threat model
 	Name string `json:"name" validate:"regexp=^[^<>\"'&]*$"`
 	// Description of the threat model
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// User who owns the threat model (can be null for orphaned models)
 	Owner User `json:"owner"`
 	// The framework used for this threat model
@@ -35,7 +35,7 @@ type ThreatModelBase struct {
 	// Key-value pairs for additional threat model metadata
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// URL to an issue in an issue tracking system for this threat model
-	IssueUri NullableString `json:"issue_uri,omitempty" validate:"regexp=^$|^\\s*https?://[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0\\,61}[a-zA-Z0-9])?)*(:[0-9]{1\\,5})?(/[^\\s]*)?\\s*$"`
+	IssueUri NullableString `json:"issue_uri,omitempty"`
 	// Status of the threat model in the organization's threat modeling or SDLC process. Examples: \"not_started\", \"in_progress\", \"pending_review\", \"approved\", \"closed\". Defaults to \"not_started\" on create.
 	Status *string `json:"status,omitempty" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Server-assigned monotonically-increasing integer alias, globally unique across all threat models. Immutable after creation.
@@ -43,7 +43,7 @@ type ThreatModelBase struct {
 	// Security reviewer assigned to this threat model. When set, the security reviewer is automatically added to the authorization list with the owner role. The security reviewer's owner role cannot be removed via authorization changes while they remain assigned as security reviewer. To change the security reviewer's authorization, first unassign them as security reviewer.
 	SecurityReviewer NullableUser `json:"security_reviewer,omitempty"`
 	// Optional reference to the project this threat model belongs to
-	ProjectId NullableString `json:"project_id,omitempty" validate:"regexp=^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"`
+	ProjectId NullableString `json:"project_id,omitempty"`
 }
 
 type _ThreatModelBase ThreatModelBase

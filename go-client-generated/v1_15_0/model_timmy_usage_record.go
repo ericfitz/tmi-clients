@@ -36,9 +36,9 @@ type TimmyUsageRecord struct {
 	// Number of embedding tokens consumed
 	EmbeddingTokens *int32 `json:"embedding_tokens,omitempty"`
 	// Start of the usage period (RFC3339)
-	PeriodStart *time.Time `json:"period_start,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	PeriodStart *time.Time `json:"period_start,omitempty"`
 	// End of the usage period (RFC3339)
-	PeriodEnd *time.Time `json:"period_end,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	PeriodEnd *time.Time `json:"period_end,omitempty"`
 }
 
 // NewTimmyUsageRecord instantiates a new TimmyUsageRecord object

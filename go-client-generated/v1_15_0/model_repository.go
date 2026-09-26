@@ -24,9 +24,9 @@ var _ MappedNullable = &Repository{}
 // Repository Complete Repository schema with server-generated fields
 type Repository struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty" validate:"regexp=^[^<>\"'&]*$"`
+	Name NullableString `json:"name,omitempty"'&]*$"`
 	// Description of the referenced source code
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^<>\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 	// Source code repository type
 	Type NullableString `json:"type,omitempty"`
 	Parameters *RepositoryBaseParameters `json:"parameters,omitempty"`
@@ -41,11 +41,11 @@ type Repository struct {
 	// Optional metadata key-value pairs
 	Metadata []Metadata `json:"metadata,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt *time.Time `json:"created_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	// Deletion timestamp (RFC3339). Present only on soft-deleted entities within the tombstone retention period.
-	DeletedAt NullableTime `json:"deleted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	DeletedAt NullableTime `json:"deleted_at,omitempty"`
 	// Server-assigned monotonically-increasing integer alias, unique within the parent threat model. Immutable after creation.
 	Alias *int32 `json:"alias,omitempty"`
 }

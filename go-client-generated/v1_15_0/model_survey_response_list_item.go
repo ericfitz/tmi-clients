@@ -32,11 +32,11 @@ type SurveyResponseListItem struct {
 	// User who created the response
 	Owner NullableUser `json:"owner,omitempty"`
 	// Creation timestamp (RFC3339)
-	CreatedAt time.Time `json:"created_at" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	CreatedAt time.Time `json:"created_at"`
 	// When the response was submitted
-	SubmittedAt NullableTime `json:"submitted_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	SubmittedAt NullableTime `json:"submitted_at,omitempty"`
 	// Last modification timestamp (RFC3339)
-	ModifiedAt *time.Time `json:"modified_at,omitempty" validate:"regexp=^[0-9]*-[0-9]*-[0-9]*T[0-9]*:[0-9]*:[0-9]*(\\.[0-9]*)?(Z|[+-][0-9]*:[0-9]*)$"`
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	// ID of the survey
 	SurveyId string `json:"survey_id"`
 	// Name of the survey

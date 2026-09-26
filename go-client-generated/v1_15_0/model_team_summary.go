@@ -27,7 +27,7 @@ type TeamSummary struct {
 	// Team name
 	Name string `json:"name" validate:"regexp=^[^\\x00-\\x1F]*$"`
 	// Team description
-	Description NullableString `json:"description,omitempty" validate:"regexp=^[^\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]*$"`
+	Description NullableString `json:"description,omitempty"`
 }
 
 type _TeamSummary TeamSummary

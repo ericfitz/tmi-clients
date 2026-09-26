@@ -27,7 +27,7 @@ type NodeAttrsBody struct {
 	// Stroke width in pixels
 	StrokeWidth *float32 `json:"strokeWidth,omitempty"`
 	// Dash pattern for strokes
-	StrokeDasharray NullableString `json:"strokeDasharray,omitempty" validate:"regexp=^$|^[0-9]+(\\\\.[0-9]+)?(\\,[0-9]+(\\\\.[0-9]+)?)*$"`
+	StrokeDasharray NullableString `json:"strokeDasharray,omitempty"`
 	// Corner radius along the x-axis (set as default by X6 shape registrations, e.g., actor/process/security-boundary)
 	Rx *float32 `json:"rx,omitempty"`
 	// Corner radius along the y-axis (set as default by X6 shape registrations)
