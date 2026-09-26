@@ -20,7 +20,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { TimmyUsageRecord } from '@tmiclient/client'
+import type { TimmyUsageRecord } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

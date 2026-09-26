@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { DfdDiagramInput } from '@tmiclient/client'
+import type { DfdDiagramInput } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EmbeddingDeleteResponse } from '@tmiclient/client'
+import type { EmbeddingDeleteResponse } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

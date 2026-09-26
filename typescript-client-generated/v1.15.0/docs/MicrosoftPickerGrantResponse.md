@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { MicrosoftPickerGrantResponse } from '@tmiclient/client'
+import type { MicrosoftPickerGrantResponse } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

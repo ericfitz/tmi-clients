@@ -22,11 +22,11 @@ Apply JSON Patch operations to partially update a asset
 import {
   Configuration,
   AssetsApi,
-} from '@tmiclient/client';
-import type { PatchThreatModelAssetRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchThreatModelAssetRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

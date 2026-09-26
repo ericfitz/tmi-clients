@@ -22,11 +22,11 @@ Returns service, API, and operator information without authentication
 import {
   Configuration,
   GeneralApi,
-} from '@tmiclient/client';
-import type { GetApiInfoRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetApiInfoRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new GeneralApi();
 
   try {

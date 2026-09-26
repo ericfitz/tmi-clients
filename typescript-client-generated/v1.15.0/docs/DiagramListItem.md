@@ -22,7 +22,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { DiagramListItem } from '@tmiclient/client'
+import type { DiagramListItem } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

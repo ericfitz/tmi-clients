@@ -20,7 +20,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CollaborationSession } from '@tmiclient/client'
+import type { CollaborationSession } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

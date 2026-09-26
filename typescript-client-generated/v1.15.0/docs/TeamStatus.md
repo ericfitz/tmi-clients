@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { TeamStatus } from '@tmiclient/client'
+import type { TeamStatus } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

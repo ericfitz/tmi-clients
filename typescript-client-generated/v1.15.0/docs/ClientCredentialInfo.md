@@ -22,7 +22,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ClientCredentialInfo } from '@tmiclient/client'
+import type { ClientCredentialInfo } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -31,7 +31,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { DfdDiagramAllOfCells } from '@tmiclient/client'
+import type { DfdDiagramAllOfCells } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

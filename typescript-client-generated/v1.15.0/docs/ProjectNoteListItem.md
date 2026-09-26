@@ -18,7 +18,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ProjectNoteListItem } from '@tmiclient/client'
+import type { ProjectNoteListItem } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

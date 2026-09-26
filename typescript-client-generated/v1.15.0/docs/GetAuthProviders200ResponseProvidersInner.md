@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { GetAuthProviders200ResponseProvidersInner } from '@tmiclient/client'
+import type { GetAuthProviders200ResponseProvidersInner } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EdgeAttrs } from '@tmiclient/client'
+import type { EdgeAttrs } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

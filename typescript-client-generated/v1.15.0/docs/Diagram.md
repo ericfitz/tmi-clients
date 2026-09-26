@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Diagram } from '@tmiclient/client'
+import type { Diagram } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

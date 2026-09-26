@@ -12,7 +12,7 @@ publishing already uses OIDC trusted publishing.
 
 ## Decision
 
-Publish `@tmiclient/client` through npm trusted publishing (OIDC from GitHub
+Publish `@tmi-dev/client` through npm trusted publishing (OIDC from GitHub
 Actions, environment `npm`), with no stored npm token.
 
 ## Consequences

@@ -23,7 +23,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Node } from '@tmiclient/client'
+import type { Node } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

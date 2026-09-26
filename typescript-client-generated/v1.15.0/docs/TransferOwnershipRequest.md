@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { TransferOwnershipRequest } from '@tmiclient/client'
+import type { TransferOwnershipRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { TransferOwnershipResultThreatModelsTransferred } from '@tmiclient/client'
+import type { TransferOwnershipResultThreatModelsTransferred } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

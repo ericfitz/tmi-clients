@@ -27,11 +27,11 @@ Create a new add-on (administrators only)
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { CreateAddonOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAddonOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -108,11 +108,11 @@ Delete an add-on (administrators only)
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { DeleteAddonRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAddonRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -190,11 +190,11 @@ Get a single add-on by ID
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { GetAddonRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAddonRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -269,11 +269,11 @@ Trigger an add-on invocation (authenticated users)
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { InvokeAddonOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { InvokeAddonOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -352,11 +352,11 @@ List all add-ons (authenticated users)
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { ListAddonsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAddonsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -436,11 +436,11 @@ Apply JSON Patch operations to partially update an add-on (administrators only).
 import {
   Configuration,
   AddonsApi,
-} from '@tmiclient/client';
-import type { PatchAddonRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchAddonRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { SurveySettings } from '@tmiclient/client'
+import type { SurveySettings } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

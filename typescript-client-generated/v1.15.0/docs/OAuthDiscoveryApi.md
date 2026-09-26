@@ -22,11 +22,11 @@ Returns OAuth 2.0 protected resource metadata as per RFC 9728
 import {
   Configuration,
   OAuthDiscoveryApi,
-} from '@tmiclient/client';
-import type { GetOAuthProtectedResourceMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetOAuthProtectedResourceMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const api = new OAuthDiscoveryApi();
 
   try {

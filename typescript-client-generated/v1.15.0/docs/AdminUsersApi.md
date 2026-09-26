@@ -29,11 +29,11 @@ Administrator-only best-effort revocation of a target user\&#39;s delegated cont
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { AdminDeleteUserContentTokenRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AdminDeleteUserContentTokenRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -113,11 +113,11 @@ Administrator-only removal of a target user\&#39;s linked sign-in identity. The 
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { AdminDeleteUserIdentityRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AdminDeleteUserIdentityRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -197,11 +197,11 @@ Administrator-only listing of a target user\&#39;s delegated content provider to
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { AdminListUserContentTokensRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AdminListUserContentTokensRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -277,11 +277,11 @@ Administrator-only listing of a target user\&#39;s primary sign-in identity (fro
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { AdminListUserIdentitiesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { AdminListUserIdentitiesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -357,11 +357,11 @@ Creates a new client credential for the specified automation user. Only accessib
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { CreateAdminUserClientCredentialOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAdminUserClientCredentialOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -442,11 +442,11 @@ Creates a new automation account with the TMI provider, sets the automation flag
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { CreateAutomationAccountOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAutomationAccountOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -523,11 +523,11 @@ Deletes and revokes a client credential for the specified automation user. Only 
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { DeleteAdminUserClientCredentialRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAdminUserClientCredentialRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -607,11 +607,11 @@ Lists all client credentials for the specified automation user. Only accessible 
 import {
   Configuration,
   AdminUsersApi,
-} from '@tmiclient/client';
-import type { ListAdminUserClientCredentialsRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAdminUserClientCredentialsRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

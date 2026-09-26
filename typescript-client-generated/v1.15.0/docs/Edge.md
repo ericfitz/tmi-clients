@@ -20,7 +20,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Edge } from '@tmiclient/client'
+import type { Edge } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

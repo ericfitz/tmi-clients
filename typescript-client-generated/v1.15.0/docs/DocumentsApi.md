@@ -23,11 +23,11 @@ Apply JSON Patch operations to partially update a document
 import {
   Configuration,
   DocumentsApi,
-} from '@tmiclient/client';
-import type { PatchThreatModelDocumentRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchThreatModelDocumentRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -115,11 +115,11 @@ Re-sends the access request for a document with pending_access status.
 import {
   Configuration,
   DocumentsApi,
-} from '@tmiclient/client';
-import type { RequestDocumentAccessRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RequestDocumentAccessRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

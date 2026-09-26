@@ -4,7 +4,7 @@ Auto-generated API clients for the TMI (Threat Modeling Improved) API, built wit
 
 - **Python** (`python-client-generated/`) — package `tmi_client`; the primary, most mature client (Pydantic v2 models, bug-fix patches, modern tooling)
 - **Go** (`go-client-generated/`) — auto-generated with minimal codegen-bug patches
-- **TypeScript** (`typescript-client-generated/`) — package `@tmiclient/client`; likewise
+- **TypeScript** (`typescript-client-generated/`) — package `@tmi-dev/client`; likewise
 
 ## Versioned layout
 

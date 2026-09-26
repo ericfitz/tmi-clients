@@ -24,7 +24,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ContentFeedback } from '@tmiclient/client'
+import type { ContentFeedback } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

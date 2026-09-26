@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AuditActor } from '@tmiclient/client'
+import type { AuditActor } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

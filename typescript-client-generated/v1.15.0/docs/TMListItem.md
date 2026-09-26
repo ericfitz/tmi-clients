@@ -31,7 +31,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { TMListItem } from '@tmiclient/client'
+import type { TMListItem } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

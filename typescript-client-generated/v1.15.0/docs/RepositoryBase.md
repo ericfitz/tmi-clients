@@ -18,7 +18,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { RepositoryBase } from '@tmiclient/client'
+import type { RepositoryBase } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

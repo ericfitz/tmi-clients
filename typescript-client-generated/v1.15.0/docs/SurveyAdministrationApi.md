@@ -35,11 +35,11 @@ Creates multiple metadata key-value pairs for the specified survey. Returns 409 
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { BulkCreateAdminSurveyMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkCreateAdminSurveyMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -120,11 +120,11 @@ Replaces all metadata for the entity. All existing metadata is deleted and repla
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { BulkReplaceAdminSurveyMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkReplaceAdminSurveyMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -205,11 +205,11 @@ Creates or updates only the provided metadata keys. Keys not included in the req
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { BulkUpsertAdminSurveyMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { BulkUpsertAdminSurveyMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -290,11 +290,11 @@ Creates a new survey. Surveys are created in inactive status by default.
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { CreateAdminSurveyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAdminSurveyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -371,11 +371,11 @@ Adds a new metadata key-value pair to the specified survey. Returns 409 Conflict
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { CreateAdminSurveyMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateAdminSurveyMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -456,11 +456,11 @@ Deletes a survey. Surveys with existing responses cannot be deleted.
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteAdminSurveyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAdminSurveyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -541,11 +541,11 @@ Deletes a specific metadata entry by key for the specified survey
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { DeleteAdminSurveyMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { DeleteAdminSurveyMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -625,11 +625,11 @@ Returns a specific survey by ID.
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { GetAdminSurveyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAdminSurveyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -705,11 +705,11 @@ Returns all metadata key-value pairs for the specified survey
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { GetAdminSurveyMetadataRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAdminSurveyMetadataRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -785,11 +785,11 @@ Returns a specific metadata entry by key for the specified survey
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { GetAdminSurveyMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAdminSurveyMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -868,11 +868,11 @@ Returns a paginated list of all surveys with optional filtering by status.
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { ListAdminSurveysRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListAdminSurveysRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -968,11 +968,11 @@ Partially updates a survey using JSON Patch (RFC 6902).
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { PatchAdminSurveyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { PatchAdminSurveyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1053,11 +1053,11 @@ Fully updates a survey. All fields are replaced.
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateAdminSurveyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateAdminSurveyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -1138,11 +1138,11 @@ Updates or creates a metadata entry by key for the specified survey
 import {
   Configuration,
   SurveyAdministrationApi,
-} from '@tmiclient/client';
-import type { UpdateAdminSurveyMetadataByKeyRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateAdminSurveyMetadataByKeyRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

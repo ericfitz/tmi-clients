@@ -25,7 +25,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Asset } from '@tmiclient/client'
+import type { Asset } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

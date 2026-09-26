@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ListUsabilityFeedback200Response } from '@tmiclient/client'
+import type { ListUsabilityFeedback200Response } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -23,11 +23,11 @@ Returns the current system status of the Timmy AI assistant including memory uti
 import {
   Configuration,
   TimmyAdministrationApi,
-} from '@tmiclient/client';
-import type { GetTimmyStatusRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTimmyStatusRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -95,11 +95,11 @@ Returns usage statistics for the Timmy AI assistant, optionally filtered by user
 import {
   Configuration,
   TimmyAdministrationApi,
-} from '@tmiclient/client';
-import type { GetTimmyUsageRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetTimmyUsageRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

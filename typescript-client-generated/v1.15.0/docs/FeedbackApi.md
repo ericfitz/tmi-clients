@@ -24,11 +24,11 @@ Records a thumbs-up/down with surface tag and client metadata. Any authenticated
 import {
   Configuration,
   FeedbackApi,
-} from '@tmiclient/client';
-import type { CreateUsabilityFeedbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CreateUsabilityFeedbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -102,11 +102,11 @@ Get a single usability feedback entry (admin)
 import {
   Configuration,
   FeedbackApi,
-} from '@tmiclient/client';
-import type { GetUsabilityFeedbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetUsabilityFeedbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -182,11 +182,11 @@ Admin-only listing with filters and pagination.
 import {
   Configuration,
   FeedbackApi,
-} from '@tmiclient/client';
-import type { ListUsabilityFeedbackRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListUsabilityFeedbackRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

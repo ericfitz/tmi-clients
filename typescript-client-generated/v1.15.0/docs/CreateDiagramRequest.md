@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CreateDiagramRequest } from '@tmiclient/client'
+import type { CreateDiagramRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

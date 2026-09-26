@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ListWebhookSubscriptionsResponse } from '@tmiclient/client'
+import type { ListWebhookSubscriptionsResponse } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

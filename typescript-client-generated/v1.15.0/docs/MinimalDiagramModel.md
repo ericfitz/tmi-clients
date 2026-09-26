@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { MinimalDiagramModel } from '@tmiclient/client'
+import type { MinimalDiagramModel } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

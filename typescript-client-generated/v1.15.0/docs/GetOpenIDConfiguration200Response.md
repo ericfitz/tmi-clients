@@ -25,7 +25,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { GetOpenIDConfiguration200Response } from '@tmiclient/client'
+import type { GetOpenIDConfiguration200Response } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

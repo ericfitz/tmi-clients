@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Authorization } from '@tmiclient/client'
+import type { Authorization } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -30,11 +30,11 @@ Returns a paginated list of audit trail entries for a specific resource
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetAssetAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAssetAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -119,11 +119,11 @@ Returns a single audit trail entry by ID
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetAuditEntryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetAuditEntryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -202,11 +202,11 @@ Returns a paginated list of audit trail entries for a specific resource
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetDiagramAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDiagramAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -291,11 +291,11 @@ Returns a paginated list of audit trail entries for a specific resource
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetDocumentAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetDocumentAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -380,11 +380,11 @@ Returns a paginated list of audit trail entries for a specific resource
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetNoteAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetNoteAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -469,11 +469,11 @@ Returns a paginated list of audit trail entries for a specific resource
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetRepositoryAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetRepositoryAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -558,11 +558,11 @@ Returns a paginated list of audit trail entries for a specific resource
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetThreatAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -647,11 +647,11 @@ Returns a paginated list of audit trail entries
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { GetThreatModelAuditTrailRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetThreatModelAuditTrailRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -748,11 +748,11 @@ Restores an entity to the state captured in the specified audit entry\&#39;s ver
 import {
   Configuration,
   AuditTrailApi,
-} from '@tmiclient/client';
-import type { RollbackToVersionRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { RollbackToVersionRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

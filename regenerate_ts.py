@@ -56,7 +56,7 @@ _VERSION_PLACEHOLDER = "0.0.0-dev"
 #   https://github.com/typescript-eslint/typescript-eslint/issues/10940
 PACKAGE_JSON = """\
 {
-  "name": "@tmiclient/client",
+  "name": "@tmi-dev/client",
   "version": "0.0.0-dev",
   "description": "TypeScript client for TMI (Threat Modeling Improved) API",
   "license": "Apache-2.0",
@@ -370,7 +370,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
 
     # 2. Banner
     print_banner("TMI TypeScript Client Regeneration (openapi-generator)", {
-        "Package": "@tmiclient/client",
+        "Package": "@tmi-dev/client",
         "Node.js": "18+",
         "Generator": "openapi-generator 7.x",
         "Language": "TypeScript (fetch)",
@@ -590,7 +590,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
 
     report = generate_report("TMI TypeScript Client Regeneration Report", [
         {"heading": "Configuration", "content": (
-            "- Package: @tmiclient/client\n"
+            "- Package: @tmi-dev/client\n"
             f"- Version: {spec_version}\n"
             "- Generator: openapi-generator 7.x (typescript-fetch)\n"
             "- Target: ES2022\n"

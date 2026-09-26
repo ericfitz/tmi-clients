@@ -21,7 +21,7 @@ This document describes how to publish new versions of the TMI API clients to Py
 no `NPM_TOKEN` secret. See `docs/adr/0001-npm-trusted-publishing.md`.
 
 1. Create an account at https://www.npmjs.com
-2. Create the `@tmiclient` organization: https://www.npmjs.com/org/create
+2. The `tmi-dev` organization (scope `@tmi-dev`) must exist on npmjs.com
 3. First publish of a new package: npm can't attach a trusted publisher to a
    package that doesn't exist yet, so publish the first version by hand from
    the client directory (`npm ci && npm run build && npm publish --access public`,
@@ -84,7 +84,7 @@ Or create the release via the GitHub web UI: https://github.com/ericfitz/tmi-cli
 After the workflows complete:
 
 - **PyPI:** https://pypi.org/project/tmi-client/
-- **npm:** https://www.npmjs.com/package/@tmiclient/client
+- **npm:** https://www.npmjs.com/package/@tmi-dev/client
 - **Go:** `go get github.com/ericfitz/tmi-clients/go-client-generated/v1_15_0@v1.15.0`
 
 ## What Happens Automatically
@@ -92,7 +92,7 @@ After the workflows complete:
 When you publish a GitHub release with a `python-v*`, `ts-v*`, or `go-v*` tag, the matching workflow runs:
 
 1. **publish-python.yml** — builds and publishes `tmi-client` to PyPI via trusted publishing (OIDC)
-2. **publish-js.yml** — builds and publishes `@tmiclient/client` to npm via trusted publishing (provenance is automatic)
+2. **publish-js.yml** — builds and publishes `@tmi-dev/client` to npm via trusted publishing (provenance is automatic)
 3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests `go-client-generated/vX_Y_Z`, then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git.
 
 Each workflow runs tests before publishing. If tests fail, publishing is skipped.
@@ -131,7 +131,7 @@ unclaimed. These uploads are throwaway; nothing consumes them.
 pip install tmi-client
 
 # JavaScript
-npm install @tmiclient/client
+npm install @tmi-dev/client
 
 # Go
 go get github.com/ericfitz/tmi-clients/go-client-generated/v1_15_0@v1.15.0

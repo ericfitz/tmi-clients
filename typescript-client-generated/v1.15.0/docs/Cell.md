@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Cell } from '@tmiclient/client'
+import type { Cell } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

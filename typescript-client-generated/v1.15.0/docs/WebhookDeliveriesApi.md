@@ -25,11 +25,11 @@ Mark a pending or in-progress delivery as cancelled (terminal). Allowed for admi
 import {
   Configuration,
   WebhookDeliveriesApi,
-} from '@tmiclient/client';
-import type { CancelWebhookDeliveryRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { CancelWebhookDeliveryRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -106,11 +106,11 @@ Retrieve the status of a webhook delivery. Supports JWT (owner/invoker/admin) or
 import {
   Configuration,
   WebhookDeliveriesApi,
-} from '@tmiclient/client';
-import type { GetWebhookDeliveryStatusRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { GetWebhookDeliveryStatusRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -189,11 +189,11 @@ List deliveries the caller may see: admins see every delivery; other callers see
 import {
   Configuration,
   WebhookDeliveriesApi,
-} from '@tmiclient/client';
-import type { ListMyWebhookDeliveriesRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { ListMyWebhookDeliveriesRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",
@@ -270,11 +270,11 @@ Update the status of a webhook delivery via callback. Requires HMAC signature au
 import {
   Configuration,
   WebhookDeliveriesApi,
-} from '@tmiclient/client';
-import type { UpdateWebhookDeliveryStatusOperationRequest } from '@tmiclient/client';
+} from '@tmi-dev/client';
+import type { UpdateWebhookDeliveryStatusOperationRequest } from '@tmi-dev/client';
 
 async function example() {
-  console.log("🚀 Testing @tmiclient/client SDK...");
+  console.log("🚀 Testing @tmi-dev/client SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ReencryptSystemSettings200ResponseErrorsInner } from '@tmiclient/client'
+import type { ReencryptSystemSettings200ResponseErrorsInner } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

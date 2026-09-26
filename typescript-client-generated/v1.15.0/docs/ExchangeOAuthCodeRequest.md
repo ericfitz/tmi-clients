@@ -18,7 +18,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ExchangeOAuthCodeRequest } from '@tmiclient/client'
+import type { ExchangeOAuthCodeRequest } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {

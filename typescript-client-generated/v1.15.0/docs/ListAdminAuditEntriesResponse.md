@@ -16,7 +16,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ListAdminAuditEntriesResponse } from '@tmiclient/client'
+import type { ListAdminAuditEntriesResponse } from '@tmi-dev/client'
 
 // TODO: Update the object below with actual values
 const example = {
