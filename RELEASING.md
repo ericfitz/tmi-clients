@@ -62,13 +62,13 @@ git push origin main
 
 ### 3. Create a GitHub Release
 
-```bash
-# Tag and push
-git tag v1.3.0
-git push origin v1.3.0
+One release per language; the tag prefix selects the workflow:
 
-# Create the release (triggers publishing workflows)
-gh release create v1.3.0 --title "v1.3.0" --notes "Release tracking TMI API v1.3.0"
+```bash
+# Creating the release creates and pushes the tag, and triggers the workflow
+gh release create python-v1.15.0 --title "Python v1.15.0" --notes "Release tracking TMI API v1.15.0"
+gh release create ts-v1.15.0     --title "TypeScript v1.15.0" --notes "Release tracking TMI API v1.15.0"
+gh release create go-v1.15.0     --title "Go v1.15.0" --notes "Release tracking TMI API v1.15.0"
 ```
 
 Or create the release via the GitHub web UI: https://github.com/ericfitz/tmi-clients/releases/new
@@ -79,15 +79,15 @@ After the workflows complete:
 
 - **PyPI:** https://pypi.org/project/tmi-client/
 - **npm:** https://www.npmjs.com/package/@tmiclient/client
-- **Go:** `go get github.com/ericfitz/tmi-clients/go-client-generated@v1.3.0`
+- **Go:** `go get github.com/ericfitz/tmi-clients/go-client-generated/v1_15_0@v1.15.0`
 
 ## What Happens Automatically
 
-When you publish a GitHub release with a `v*` tag:
+When you publish a GitHub release with a `python-v*`, `ts-v*`, or `go-v*` tag, the matching workflow runs:
 
 1. **publish-python.yml** — builds and publishes `tmi-client` to PyPI via trusted publishing (OIDC)
 2. **publish-js.yml** — builds and publishes `@tmiclient/client` to npm with provenance
-3. **publish-go.yml** — validates the Go client builds and tests pass (Go modules are served directly from git)
+3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests `go-client-generated/vX_Y_Z`, then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git.
 
 Each workflow runs tests before publishing. If tests fail, publishing is skipped.
 
@@ -128,7 +128,7 @@ pip install tmi-client
 npm install @tmiclient/client
 
 # Go
-go get github.com/ericfitz/tmi-clients/go-client-generated@latest
+go get github.com/ericfitz/tmi-clients/go-client-generated/v1_15_0@v1.15.0
 ```
 
 ## Troubleshooting
@@ -142,8 +142,8 @@ Check that the `NPM_TOKEN` secret is set in the repository and the token has pub
 ### Go module not found after release
 The Go module proxy may take a few minutes to index new tags. You can force it with:
 ```bash
-GOPROXY=proxy.golang.org go get github.com/ericfitz/tmi-clients/go-client-generated@v1.3.0
+GOPROXY=proxy.golang.org go get github.com/ericfitz/tmi-clients/go-client-generated/v1_15_0@v1.15.0
 ```
 
 ### Workflow not triggered
-Ensure the release tag starts with `v` (e.g., `v1.3.0`). The workflows filter on `refs/tags/v*`.
+Each publish workflow filters on its own tag prefix: `python-v*`, `ts-v*`, `go-v*` (e.g., `go-v1.15.0`).
