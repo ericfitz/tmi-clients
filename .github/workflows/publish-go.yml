@@ -16,6 +16,8 @@ jobs:
   validate:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/go-v')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the Go module tag
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -39,6 +41,7 @@ jobs:
           fi
           # Go version dirs use underscores (v1_4_0), not dots.
           echo "go_dir=go-client-generated/v${TAG_VERSION//./_}" >> "$GITHUB_OUTPUT"
+          echo "version=$TAG_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Verify version directory exists
         run: |
@@ -59,3 +62,23 @@ jobs:
       - name: Test
         working-directory: ${{ steps.version.outputs.go_dir }}
         run: go test -v ./...
+
+      # The module lives in a subdirectory, so Go resolves versions only from
+      # tags prefixed with that subdirectory (go-client-generated/v1_15_0/v1.15.0).
+      # The release tag (go-v1.15.0) is not one Go understands.
+      - name: Push Go module tag
+        if: github.event_name == 'release'
+        env:
+          MODULE_TAG: ${{ steps.version.outputs.go_dir }}/v${{ steps.version.outputs.version }}
+        run: |
+          existing=$(git ls-remote --tags origin "refs/tags/$MODULE_TAG" | cut -f1)
+          if [ -n "$existing" ]; then
+            if [ "$existing" = "$GITHUB_SHA" ]; then
+              echo "$MODULE_TAG already points at $GITHUB_SHA"
+              exit 0
+            fi
+            echo "::error::$MODULE_TAG already exists at $existing, not $GITHUB_SHA"
+            exit 1
+          fi
+          git tag "$MODULE_TAG" "$GITHUB_SHA"
+          git push origin "refs/tags/$MODULE_TAG"
