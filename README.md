@@ -37,6 +37,17 @@ cd typescript-client-generated/v1.5.0
 npm install && npm run build
 ```
 
+## Choosing a Client Version
+
+When you build or deploy software that uses one of these clients, match the client to the TMI server it will talk to:
+
+1. Get the server's API schema version, either from a running server (`GET /`, JSON path `.api.version`) or from `info.version` in [`api-schema/tmi-openapi.json`](https://github.com/ericfitz/tmi/blob/main/api-schema/tmi-openapi.json) in the TMI repository.
+2. Use the client with the highest patch version whose major and minor versions match the schema's. For example, for schema `1.15.4` with clients `v1.15.0` and `v1.15.2` available, use `v1.15.2`.
+
+Clients aren't regenerated for every patch release of the schema, because patch releases seldom change the API surface. An exact patch match may therefore not exist.
+
+The Docker builds in [ericfitz/tmi-tf-wh](https://github.com/ericfitz/tmi-tf-wh) are a working example of this pattern.
+
 ## Regeneration
 
 Regenerate all clients from all branches:
