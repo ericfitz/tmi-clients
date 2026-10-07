@@ -132,3 +132,7 @@ gh pr create --base main --head chore/regenerate-clients --title "Regenerated cl
 ```
 
 The ruleset also blocks force-pushes and deletion of `main`.
+
+## Learned Preferences
+
+- Regenerate clients only when the upstream spec changes paths, schemas, or parameters: diff `jq -S 'del(.info.version)'` of the committed tmi-openapi.json against upstream first, and skip version-only or example-only changes (report them instead).
