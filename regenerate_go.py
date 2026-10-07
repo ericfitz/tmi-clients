@@ -132,6 +132,37 @@ def patch_test_module_path(
     return had_issues
 
 
+def patch_doc_import_paths(
+    client_dir: Path, go_module_path: str, had_issues: bool
+) -> bool:
+    """Fix openapi-generator bug: README and docs examples import the wrong path.
+
+    Same root cause as ``patch_test_module_path``: the generator builds the
+    import from ``gitUserId``/``gitRepoId`` (``.../go-client-generated``), which
+    is not a module. Rewrite every quoted tmi-clients import in README.md and
+    docs/*.md to ``go_module_path``.
+    """
+    import re
+
+    import_re = re.compile(r'"github\.com/ericfitz/tmi-clients[^"]*"')
+    docs = [client_dir / "README.md", *sorted((client_dir / "docs").glob("*.md"))]
+    patched_count = 0
+    for doc in docs:
+        if not doc.is_file():
+            continue
+        content = doc.read_text(encoding="utf-8")
+        new_content = import_re.sub(f'"{go_module_path}"', content)
+        if new_content != content:
+            doc.write_text(new_content, encoding="utf-8")
+            patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"Doc import path patch: {patched_count} files fixed")
+    else:
+        print_success("Doc import path patch: no files needed fixing")
+    return had_issues
+
+
 def patch_json_literal_defaults(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: JSON literal defaults in Go constructors.
 
@@ -244,6 +275,11 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     go_module_path = (
         f"github.com/ericfitz/tmi-clients/go-client-generated/{version_dir}"
     )
+    # Go requires a /vN suffix on the module path of any v2+ module; without it
+    # proxy.golang.org rejects the version tag. The directory stays vX_Y_Z.
+    major = int(spec_version.split(".")[0])
+    if major >= 2:
+        go_module_path += f"/v{major}"
 
     if output_dir:
         client_dir = Path(output_dir)
@@ -334,6 +370,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_form_content_type(client_dir, had_issues)
     had_issues = patch_non_string_regex_validators(client_dir, had_issues)
     had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
+    had_issues = patch_doc_import_paths(client_dir, go_module_path, had_issues)
     print_success("Patches applied")
 
     # 9. Patch go.mod (openapi-generator may use different module path / Go version)

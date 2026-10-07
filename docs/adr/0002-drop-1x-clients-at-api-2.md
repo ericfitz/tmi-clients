@@ -28,9 +28,14 @@ clients are maintained from then on.
 - Codegen patches that only applied to the 1.x schema shapes are removed:
   `patch_self_referential_discriminator` (Python), `patch_embedded_pointer_assignment`
   and `patch_embedded_model_unmarshal` (Go), and `patch_optional_extends`
-  (TypeScript). Regenerating from the 2.0.0 spec with and without them produced
+  (TypeScript). Regenerating from the #956 spec with and without them produced
   identical output. Their regression checks stay, as behavior tests.
 - Consumers that pick "the newest client at or above a floor" move to 2.0.0
   automatically and must handle the renamed types.
+- Go requires a `/v2` suffix on the module path of a v2+ module, so the Go
+  module becomes `github.com/ericfitz/tmi-clients/go-client-generated/v2_0_0/v2`
+  (the directory stays `v2_0_0`; the module tag stays
+  `go-client-generated/v2_0_0/v2.0.0`). This is Go-mandated, not part of
+  Eric's decision.
 - Supporting a 1.x server again would mean re-adding a branch and restoring the
   removed patches from git history.

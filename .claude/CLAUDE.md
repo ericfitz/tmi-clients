@@ -18,7 +18,7 @@ python-client-generated/
   v1.4.0/            # from dev/1.4.0
 ```
 
-**Go uses underscores** (`v1_4_0`) because Go's module system rejects dotted version path elements other than major-version suffixes (`/v2`). Go module paths are `github.com/ericfitz/tmi-clients/go-client-generated/v<major>_<minor>_<patch>`.
+**Go uses underscores** (`v1_4_0`) because Go's module system rejects dotted version path elements other than major-version suffixes (`/v2`). Go module paths are `github.com/ericfitz/tmi-clients/go-client-generated/v<major>_<minor>_<patch>`, plus the Go-mandated `/v<major>` suffix from 2.0.0 on (directory `v2_0_0`, module `.../v2_0_0/v2`).
 
 Each version directory contains the generated package (`api/`, `models/`), `docs/`, `test/`, a README, build config (`pyproject.toml`, `go.mod`, `package.json`), and a `REGENERATION_REPORT.md` from its last regeneration.
 
