@@ -60,6 +60,11 @@ jobs:
           fi
           exit "$code"
 
+      - name: Run diagram integration test
+        # Hand-written guard for the patched oneOf/regex behavior (copied from
+        # python-client-generated/scripts/). A missing file fails the job.
+        run: uv run python3 test_diagram_fixes.py
+
   test-js:
     needs: setup
     runs-on: ubuntu-latest

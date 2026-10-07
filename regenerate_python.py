@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -458,65 +459,6 @@ def patch_oneof_json_safety(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_self_referential_discriminator(client_dir: Path, had_issues: bool) -> bool:
-    """Stop ``from_dict`` recursing when a discriminator maps a class to itself.
-
-    When a schema is both a discriminator parent and one of its own mapping
-    targets, openapi-generator emits a ``from_dict`` that is *only* a dispatch
-    table — and one of its branches dispatches straight back into the same
-    class.  ``DfdDiagram`` maps ``'DFD-1.0.0'`` to ``'DfdDiagram'``, so
-    ``DfdDiagram.from_dict()`` recursed until it raised ``RecursionError``.
-    ``ApiClient.__deserialize_model`` deserialises 200 responses through
-    ``klass.from_dict()``, so every DFD diagram read failed.
-
-    The fix replaces the self-dispatching branch with direct validation.
-    Nested models — including ``oneOf`` wrappers, once
-    ``patch_oneof_constructor_coercion`` has run — are resolved by Pydantic.
-    """
-    models_dir = client_dir / "tmi_client" / "models"
-    if not models_dir.is_dir():
-        print_warning("Models directory not found — skipping discriminator patch")
-        return True
-
-    patched_count = 0
-    for model_file in sorted(models_dir.glob("*.py")):
-        content = model_file.read_text(encoding="utf-8")
-        if "return import_module" not in content:
-            continue
-
-        class_match = re.search(r"^class (\w+)\(", content, re.MULTILINE)
-        if not class_match:
-            continue
-        cls_name = class_match.group(1)
-
-        # Only the branch that dispatches back into this very class.
-        self_branch = re.compile(
-            rf"(^        if object_type ==\s+'[^']+':\n)"
-            rf"            return import_module\([^)]*\)\.{cls_name}\.from_dict\(obj\)\n",
-            re.MULTILINE,
-        )
-        replacement = (
-            r"\1"
-            "            # Patched by regenerate_python.py: the discriminator maps this\n"
-            "            # value back to this same class, so dispatching would recurse\n"
-            "            # forever.  Validate directly instead.\n"
-            "            return cls.model_validate(obj)\n"
-        )
-        new_content, count = self_branch.subn(replacement, content)
-        if count:
-            model_file.write_text(new_content, encoding="utf-8")
-            patched_count += count
-
-    if patched_count > 0:
-        print_success(
-            f"Self-discriminator patch: {patched_count} recursive branches fixed"
-        )
-    else:
-        print_warning("Self-discriminator patch: no branches needed fixing")
-
-    return had_issues
-
-
 def patch_api_client_types(client_dir: Path, had_issues: bool) -> bool:
     """Fix type annotation issues in the generated api_client.py.
 
@@ -661,7 +603,6 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_step(3, "Backing up custom files")
     backed_up = backup_files(
         files=[
-            client_dir / "test_diagram_fixes.py",
             client_dir / ".openapi-generator-ignore",
         ],
         dirs=[],
@@ -724,7 +665,6 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_oneof_return_types(client_dir, had_issues)
     had_issues = patch_oneof_constructor_coercion(client_dir, had_issues)
     had_issues = patch_oneof_json_safety(client_dir, had_issues)
-    had_issues = patch_self_referential_discriminator(client_dir, had_issues)
     had_issues = patch_api_client_types(client_dir, had_issues)
     had_issues = patch_configuration_self_type(client_dir, had_issues)
     print_success("Patches applied")
@@ -738,10 +678,14 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     restore_files(
         backup_dir=backup_dir,
         dest_dir=client_dir,
-        files=["test_diagram_fixes.py", ".openapi-generator-ignore"],
+        files=[".openapi-generator-ignore"],
         dirs=[],
         backed_up=backed_up,
     )
+    # The integration test lives in scripts/ so pruning a version directory
+    # cannot delete it; copy it into every client.
+    shutil.copy2(LANG_DIR / "scripts" / "test_diagram_fixes.py", client_dir)
+    print_success("  Copied test_diagram_fixes.py")
     # Note: we do NOT restore pyproject.toml — openapi-generator produces
     # a good one with pydantic deps that we want to keep.
 
@@ -788,6 +732,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         (client_dir / "integration_test_output.log").write_text(result.stdout + result.stderr)
     else:
         print_warning("Integration test file not found")
+        had_issues = True
 
     # 11. Generate report
     print_step(11, "Generating summary report")
@@ -819,9 +764,6 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "- OneOf JSON-safety fix (openapi-generator bug: from_dict() did "
             "json.dumps() on to_dict() output, which still holds native UUID "
             "and datetime objects, breaking the read-modify-write round trip)\n"
-            "- Self-referential discriminator fix (openapi-generator bug: a "
-            "class listed in its own discriminator mapping dispatched from_dict() "
-            "back into itself, so every DFD diagram read raised RecursionError)\n"
             "- API client type annotation fix (None guards, str coercion, "
             "return-type suppression)\n"
             "- Configuration Self type fix (ClassVar[Optional[Self]] causes "

@@ -44,6 +44,8 @@ When you build or deploy software that uses one of these clients, match the clie
 1. Get the server's API schema version, either from a running server (`GET /`, JSON path `.api.version`) or from `info.version` in [`api-schema/tmi-openapi.json`](https://github.com/ericfitz/tmi/blob/main/api-schema/tmi-openapi.json) in the TMI repository.
 2. Use the client with the highest patch version whose major and minor versions match the schema's. For example, for schema `1.15.4` with clients `v1.15.0` and `v1.15.2` available, use `v1.15.2`.
 
+Only 2.x clients are maintained (see [ADR 0002](docs/adr/0002-drop-1x-clients-at-api-2.md)). For a 1.x server, use the last 1.x release: `tmi-client` 1.16.1 on PyPI, `@tmi-dev/client` 1.16.1 on npm, or Go module `github.com/ericfitz/tmi-clients/go-client-generated/v1_16_1` v1.16.1.
+
 Clients aren't regenerated for every patch release of the schema, because patch releases seldom change the API surface. An exact patch match may therefore not exist.
 
 The Docker builds in [ericfitz/tmi-tf-wh](https://github.com/ericfitz/tmi-tf-wh) are a working example of this pattern.

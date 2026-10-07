@@ -42,14 +42,14 @@ func TestRevokeTokenSendsFormBody(t *testing.T) {
 	}
 }
 
-// patch_embedded_model_unmarshal: models embedding another model must decode.
+// Diagram and cell models must decode. Before API 2.0.0 these embedded other
+// models and needed patch_embedded_model_unmarshal; the check stays as a guard.
 func TestEmbeddedModelsUnmarshal(t *testing.T) {
 	cases := map[string]struct {
 		v    interface{}
 		data string
 	}{
 		"DfdDiagram":      {&DfdDiagram{}, diagramJSON},
-		"Diagram":         {&Diagram{}, diagramJSON},
 		"DfdDiagramInput": {&DfdDiagramInput{}, `{"name":"d","type":"DFD-1.0.0",` + cellsJSON + `}`},
 		"Node":            {&Node{}, nodeJSON},
 		"Edge":            {&Edge{}, edgeJSON},
@@ -67,7 +67,7 @@ func TestEmbeddedModelsUnmarshal(t *testing.T) {
 	if d.GetType() != "DFD-1.0.0" || d.Name != "d" || len(d.Cells) != 2 {
 		t.Fatalf("decoded wrong: type=%q name=%q cells=%d", d.GetType(), d.Name, len(d.Cells))
 	}
-	// patch_non_string_regex_validators + shadowed-field tags: cells resolve through oneOf
+	// patch_non_string_regex_validators: cells resolve through oneOf
 	if d.Cells[0].Node == nil || d.Cells[1].Edge == nil {
 		t.Fatalf("cells not resolved to Node/Edge: %+v", d.Cells)
 	}
