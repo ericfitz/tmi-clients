@@ -135,6 +135,7 @@ export type NodeShapeEnum = typeof NodeShapeEnum[keyof typeof NodeShapeEnum];
 export function instanceOfNode(value: object): value is Node {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('shape' in value) || value['shape'] === undefined) return false;
+    if (value['shape'] !== 'actor' && value['shape'] !== 'process' && value['shape'] !== 'store' && value['shape'] !== 'security-boundary' && value['shape'] !== 'text-box') return false;
     return true;
 }
 

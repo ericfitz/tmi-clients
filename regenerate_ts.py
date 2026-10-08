@@ -297,6 +297,71 @@ def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
+# Guards to tighten: (model, property, enum const). openapi-generator checks a
+# required enum property's value in instanceOfX() only when the enum has a single
+# value (Edge.shape === 'flow'); for multi-value enums it checks presence only,
+# so instanceOfNode() returns true for an edge.
+#
+# Deliberately limited to the node/edge shape guards. The same generator gap
+# exists in ~45 other guards (e.g. EdgeRouterOneOf.name, EdgeConnectorOneOf.name),
+# but those drive oneOf dispatch whose fallback is `return {} as any`, so
+# tightening them would turn an unrecognized value into a silently emptied object.
+ENUM_GUARDS = [
+    ("Node", "shape", "NodeShapeEnum"),
+    ("MinimalNode", "shape", "MinimalNodeShapeEnum"),
+]
+
+
+def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
+    """Fix openapi-generator gap: instanceOfX() ignores the value of a required
+    multi-value enum property, so it cannot tell a Node from an Edge.
+
+    Inserts the same check the generator emits for single-value enums, listing
+    every value parsed from the model's own enum const.
+    """
+    for model, prop, enum_name in ENUM_GUARDS:
+        model_file = client_dir / "src" / "models" / f"{model}.ts"
+        if not model_file.is_file():
+            print_warning(f"Enum guard patch: {model}.ts not found")
+            had_issues = True
+            continue
+        content = model_file.read_text(encoding="utf-8")
+
+        enum_block = re.search(
+            rf"export const {enum_name} = \{{\n(.*?)\n\}} as const;", content, re.DOTALL
+        )
+        presence = re.search(
+            rf"(export function instanceOf{model}\(value: object\): value is {model} \{{\n"
+            rf"(?:.*\n)*?"
+            rf"    if \(!\('{prop}' in value\) \|\| value\['{prop}'\] === undefined\) return false;\n)",
+            content,
+        )
+        if not enum_block or not presence:
+            print_warning(
+                f"Enum guard patch: {enum_name} or instanceOf{model} '{prop}' check not found"
+            )
+            had_issues = True
+            continue
+
+        values = re.findall(r"^\s+\w+: '([^']*)',?$", enum_block.group(1), re.MULTILINE)
+        if not values:
+            print_warning(f"Enum guard patch: no values parsed from {enum_name}")
+            had_issues = True
+            continue
+
+        conditions = " && ".join(f"value['{prop}'] !== '{v}'" for v in values)
+        check = f"    if ({conditions}) return false;\n"
+        if check in content:
+            print_success(f"Enum guard patch: instanceOf{model} already checks {prop}")
+            continue
+
+        content = content[: presence.end()] + check + content[presence.end():]
+        model_file.write_text(content, encoding="utf-8")
+        print_success(f"Enum guard patch: instanceOf{model} now checks {prop} values")
+
+    return had_issues
+
+
 # --- Main ---
 
 
@@ -381,6 +446,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     # 8. Apply patches
     print_step(6, "Applying patches")
     had_issues = patch_missing_token_request(client_dir, had_issues)
+    had_issues = patch_enum_guards(client_dir, had_issues)
     print_success("Patches applied")
 
     # 9. Write config files (overwrite openapi-generator defaults)
@@ -414,6 +480,11 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             shutil.rmtree(target_dev)
         restored_dev.rename(target_dev)
         print_success("  Moved developer/ to docs/developer/")
+
+    # Regression tests for the codegen patches above
+    (client_dir / "test").mkdir(exist_ok=True)
+    shutil.copy2(LANG_DIR / "scripts" / "codegen_fixes.test.ts", client_dir / "test")
+    print_success("  Copied codegen_fixes.test.ts")
 
     # 11. Install dependencies
     print_step(9, "Installing dependencies")
@@ -548,7 +619,9 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         )},
         {"heading": "Patches Applied", "content": (
             "- TokenRequest fix (AuthenticationApi references a model "
-            "that openapi-generator does not generate)"
+            "that openapi-generator does not generate)\n"
+            "- Enum guard fix (instanceOfNode/instanceOfMinimalNode check the "
+            "shape value, so an Edge is not mistaken for a Node)"
         )},
         {"heading": "Build Results", "content": (
             f"- TypeScript compilation: "
