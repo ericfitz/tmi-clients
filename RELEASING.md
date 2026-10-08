@@ -93,7 +93,7 @@ When you publish a GitHub release with a `python-v*`, `ts-v*`, or `go-v*` tag, t
 
 1. **publish-python.yml** — builds and publishes `tmi-client` to PyPI via trusted publishing (OIDC)
 2. **publish-js.yml** — builds and publishes `@tmi-dev/client` to npm via trusted publishing (provenance is automatic)
-3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests `go-client-generated/vX_Y_Z`, then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git.
+3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests `go-client-generated/vX_Y_Z`, then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git. From 2.0.0 on, the module path carries Go's major-version suffix (`go get github.com/ericfitz/tmi-clients/go-client-generated/v2_0_0/v2@v2.0.0`); the tag keeps the directory prefix (`go-client-generated/v2_0_0/v2.0.0`).
 
 Each workflow runs tests before publishing. If tests fail, publishing is skipped.
 

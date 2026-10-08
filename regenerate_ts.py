@@ -224,59 +224,6 @@ export default tseslint.config(
 # --- Patches ---
 
 
-def patch_optional_extends(client_dir: Path, had_issues: bool) -> bool:
-    """Fix openapi-generator bug: allOf child interfaces declare inherited
-    required properties as optional, causing TS2430/TS2345 errors.
-
-    The pattern: a child interface (e.g., DfdDiagram) extends a parent
-    (e.g., BaseDiagram) but marks an inherited required property (e.g., `type`)
-    as optional (`type?`).  The fix removes the `?` to make it required,
-    matching the parent interface.
-
-    Known affected pairs:
-    - DfdDiagram extends BaseDiagram (property: type)
-    - DfdDiagramInput extends BaseDiagramInput (property: type)
-    - Edge extends Cell (property: shape)
-    - Node extends Cell (property: shape)
-    """
-    models_dir = client_dir / "src" / "models"
-    if not models_dir.is_dir():
-        print_warning("Models directory not found — skipping optional-extends patch")
-        return True
-
-    # Map of (child_file, parent_file, property_name)
-    fixes = [
-        ("DfdDiagram.ts", "BaseDiagram.ts", "type"),
-        ("DfdDiagramInput.ts", "BaseDiagramInput.ts", "type"),
-        ("Edge.ts", "Cell.ts", "shape"),
-        ("Node.ts", "Cell.ts", "shape"),
-    ]
-
-    patched_count = 0
-    for child_file, _parent_file, prop_name in fixes:
-        child_path = models_dir / child_file
-        if not child_path.is_file():
-            continue
-
-        content = child_path.read_text(encoding="utf-8")
-        # Match the optional property declaration in the interface
-        # e.g., "    type?: DfdDiagramTypeEnum;" -> "    type: DfdDiagramTypeEnum;"
-        pattern = rf"(\s+){prop_name}\?:"
-        replacement = rf"\1{prop_name}:"
-        new_content, count = re.subn(pattern, replacement, content)
-        if count > 0:
-            child_path.write_text(new_content, encoding="utf-8")
-            patched_count += count
-            print(f"    Fixed: {child_file} ({prop_name}? -> {prop_name})")
-
-    if patched_count > 0:
-        print_success(f"Optional-extends patch: {patched_count} properties fixed")
-    else:
-        print_warning("Optional-extends patch: no properties needed fixing")
-
-    return had_issues
-
-
 def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: AuthenticationApi.ts imports TokenRequest
     but no TokenRequest model is generated.
@@ -433,7 +380,6 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
 
     # 8. Apply patches
     print_step(6, "Applying patches")
-    had_issues = patch_optional_extends(client_dir, had_issues)
     had_issues = patch_missing_token_request(client_dir, had_issues)
     print_success("Patches applied")
 
@@ -601,8 +547,6 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             f"- Model classes: {model_count}"
         )},
         {"heading": "Patches Applied", "content": (
-            "- Optional-extends fix (allOf child interfaces incorrectly "
-            "mark inherited required properties as optional)\n"
             "- TokenRequest fix (AuthenticationApi references a model "
             "that openapi-generator does not generate)"
         )},

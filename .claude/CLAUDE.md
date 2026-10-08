@@ -18,7 +18,7 @@ python-client-generated/
   v1.4.0/            # from dev/1.4.0
 ```
 
-**Go uses underscores** (`v1_4_0`) because Go's module system rejects dotted version path elements other than major-version suffixes (`/v2`). Go module paths are `github.com/ericfitz/tmi-clients/go-client-generated/v<major>_<minor>_<patch>`.
+**Go uses underscores** (`v1_4_0`) because Go's module system rejects dotted version path elements other than major-version suffixes (`/v2`). Go module paths are `github.com/ericfitz/tmi-clients/go-client-generated/v<major>_<minor>_<patch>`, plus the Go-mandated `/v<major>` suffix from 2.0.0 on (directory `v2_0_0`, module `.../v2_0_0/v2`).
 
 Each version directory contains the generated package (`api/`, `models/`), `docs/`, `test/`, a README, build config (`pyproject.toml`, `go.mod`, `package.json`), and a `REGENERATION_REPORT.md` from its last regeneration.
 
@@ -59,7 +59,7 @@ tox                        # all supported Pythons (3.9–3.14); `tox -e py311`;
 
 ### Input vs output schemas
 
-`*Input` classes are for POST/PUT and exclude readOnly fields; base classes are returned from GET and include everything (`id`, `created_at`, `modified_at`). Diagrams: `BaseDiagram → DfdDiagram` (output) and `BaseDiagramInput → DfdDiagramInput` (input); the `type` discriminator is currently only `"DFD-1.0.0"`.
+`*Input` classes are for POST/PUT and exclude readOnly fields; base classes are returned from GET and include everything (`id`, `created_at`, `modified_at`). Diagrams: `DfdDiagram` (output) and `DfdDiagramInput` (input), standalone since API 2.0.0 (no `BaseDiagram`/`Cell`/`Diagram`); cell `data` is `CellData`. `type` is currently only `"DFD-1.0.0"`.
 
 ```python
 from tmi_client.models.create_diagram_request import CreateDiagramRequest
@@ -75,7 +75,7 @@ update.name = "Renamed"
 api.update_threat_model_diagram(update, tm_id, diagram_id)
 ```
 
-> The three `oneOf`/discriminator defects tracked in issue #41 — cells silently discarded by the constructor, `to_dict()` not round-tripping through `from_dict()`, and `DfdDiagram.from_dict()` recursing forever — are generator bugs fixed by `patch_oneof_constructor_coercion`, `patch_oneof_json_safety`, and `patch_self_referential_discriminator` in `regenerate_python.py`. The patches must survive every regeneration; `test_diagram_fixes.py` asserts all three. The older swagger-codegen-era spec patches are gone (see `MIGRATION_GUIDE.md`); what remains is listed in each version's `REGENERATION_REPORT.md`.
+> The three `oneOf`/discriminator defects tracked in issue #41 — cells silently discarded by the constructor, `to_dict()` not round-tripping through `from_dict()`, and `DfdDiagram.from_dict()` recursing forever — are generator bugs. The first two are fixed by `patch_oneof_constructor_coercion` and `patch_oneof_json_safety` in `regenerate_python.py`, which must survive every regeneration; the recursion came from a self-referential discriminator that API 2.0.0 removed. `python-client-generated/scripts/test_diagram_fixes.py` asserts all three; regeneration copies it into each client and CI runs it. Each version's `REGENERATION_REPORT.md` lists the patches applied.
 
 ### Cells (AntV X6 format)
 
@@ -114,7 +114,7 @@ python3 regenerate_go.py     --spec path/to/tmi-openapi.json --output-dir go-cli
 python3 regenerate_ts.py     --spec path/to/tmi-openapi.json --output-dir typescript-client-generated/v1.4.0
 ```
 
-Each per-language script runs openapi-generator, applies codegen bug-fix patches (UUID/datetime regex validator and the `oneOf` fixes for Python; optional-extends and TokenRequest for TypeScript; constructor fixes, form-param Content-Type, embedded-model decoding, and non-string regexp validators for Go, asserted by `go-client-generated/scripts/codegen_fixes_test.go`, which is copied into each client), writes modern config files, backs up and restores custom files, runs tests, and writes `REGENERATION_REPORT.md`. Exit codes: 0 success, 1 fatal (codegen failed), 2 completed with issues (test failures or patch warnings).
+Each per-language script runs openapi-generator, applies codegen bug-fix patches (UUID/datetime regex validator and the `oneOf` fixes for Python; TokenRequest for TypeScript; constructor fixes, form-param Content-Type, and non-string regexp validators for Go, asserted by `go-client-generated/scripts/codegen_fixes_test.go`, which is copied into each client), writes modern config files, backs up and restores custom files, copies in hand-written regression tests from `scripts/`, runs tests, and writes `REGENERATION_REPORT.md`. Exit codes: 0 success, 1 fatal (codegen failed), 2 completed with issues (test failures or patch warnings).
 
 Pruning of stale version directories is skipped automatically under `--branch` (a single-branch run doesn't know the full version set) or when any spec fails to download (its version is unknown, so its directory must not be treated as stale).
 
@@ -132,3 +132,7 @@ gh pr create --base main --head chore/regenerate-clients --title "Regenerated cl
 ```
 
 The ruleset also blocks force-pushes and deletion of `main`.
+
+## Learned Preferences
+
+- Regenerate clients only when the upstream spec changes paths, schemas, or parameters: diff `jq -S 'del(.info.version)'` of the committed tmi-openapi.json against upstream first, and skip version-only or example-only changes (report them instead).

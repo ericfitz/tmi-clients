@@ -132,6 +132,37 @@ def patch_test_module_path(
     return had_issues
 
 
+def patch_doc_import_paths(
+    client_dir: Path, go_module_path: str, had_issues: bool
+) -> bool:
+    """Fix openapi-generator bug: README and docs examples import the wrong path.
+
+    Same root cause as ``patch_test_module_path``: the generator builds the
+    import from ``gitUserId``/``gitRepoId`` (``.../go-client-generated``), which
+    is not a module. Rewrite every quoted tmi-clients import in README.md and
+    docs/*.md to ``go_module_path``.
+    """
+    import re
+
+    import_re = re.compile(r'"github\.com/ericfitz/tmi-clients[^"]*"')
+    docs = [client_dir / "README.md", *sorted((client_dir / "docs").glob("*.md"))]
+    patched_count = 0
+    for doc in docs:
+        if not doc.is_file():
+            continue
+        content = doc.read_text(encoding="utf-8")
+        new_content = import_re.sub(f'"{go_module_path}"', content)
+        if new_content != content:
+            doc.write_text(new_content, encoding="utf-8")
+            patched_count += 1
+
+    if patched_count > 0:
+        print_success(f"Doc import path patch: {patched_count} files fixed")
+    else:
+        print_success("Doc import path patch: no files needed fixing")
+    return had_issues
+
+
 def patch_json_literal_defaults(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: JSON literal defaults in Go constructors.
 
@@ -154,58 +185,6 @@ def patch_json_literal_defaults(client_dir: Path, had_issues: bool) -> bool:
         print_success(f"JSON literal defaults patch: {patched_count} occurrences fixed")
     else:
         print_success("JSON literal defaults patch: no occurrences found")
-
-    return had_issues
-
-
-def patch_embedded_pointer_assignment(client_dir: Path, had_issues: bool) -> bool:
-    """Fix openapi-generator bug: wrapper constructors assign a value to an
-    embedded pointer field.
-
-    A thin allOf wrapper (e.g. ``Diagram`` embeds ``DfdDiagram``) gets a
-    constructor that takes ``type_ string`` and runs ``this.Type = type_``.
-    But the embedded ``DfdDiagram.Type`` is ``*string`` (optional/omitempty),
-    so the assignment fails to compile:
-
-        cannot use type_ (variable of type string) as *string value
-
-    The generator does not insert the address-of for the embedded pointer.
-    Detect constructors whose parameter is ``type_ string`` and whose body
-    assigns ``this.Type = type_``, and rewrite the assignment to take the
-    address (``this.Type = &type_``).
-    """
-    import re
-
-    # The distinguishing feature of the broken wrapper: it assigns
-    # `this.Type = type_` but its OWN struct declares no `Type` field — so
-    # `this.Type` resolves to an *embedded* struct's `Type *string`, and the
-    # plain-string assignment is a pointer mismatch.
-    #
-    # Models that declare their own `Type string` (the common case) are correct
-    # and must NOT be touched, or we would break a valid assignment. We gate on
-    # the absence of an own `Type` field declaration.
-    assign_re = re.compile(r"^(\tthis\.Type = )type_$", re.MULTILINE)
-    own_type_field = re.compile(r"^\tType \*?string\b", re.MULTILINE)
-    patched_count = 0
-
-    for go_file in sorted(client_dir.glob("model_*.go")):
-        content = go_file.read_text(encoding="utf-8")
-        if not assign_re.search(content):
-            continue
-        if own_type_field.search(content):
-            # Has its own Type field -> assignment is already correct.
-            continue
-        new_content, n = assign_re.subn(r"\1&type_", content)
-        if n > 0:
-            go_file.write_text(new_content, encoding="utf-8")
-            patched_count += n
-
-    if patched_count > 0:
-        print_success(
-            f"Embedded pointer assignment patch: {patched_count} constructors fixed"
-        )
-    else:
-        print_success("Embedded pointer assignment patch: no constructors needed fixing")
 
     return had_issues
 
@@ -256,85 +235,6 @@ def patch_form_content_type(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
-def patch_embedded_model_unmarshal(client_dir: Path, had_issues: bool) -> bool:
-    """Fix openapi-generator bug: models that embed another model can't decode.
-
-    ``X.UnmarshalJSON`` decodes into ``type _X X`` to avoid recursion, but a
-    defined type keeps the methods promoted from its embedded fields. When X
-    embeds model Y, ``_X`` still has ``Y.UnmarshalJSON``, so the decoder hands
-    the whole document to Y's strict decoder, which rejects X's own fields
-    (e.g. every ``DfdDiagram`` fails on ``cells`` via ``BaseDiagram``).
-    Decode through a wrapper whose depth-0 ``UnmarshalJSON`` field shadows the
-    promoted method, so encoding/json falls back to field-wise decoding.
-    """
-    import re
-
-    struct_re = re.compile(r"^type (\w+) struct \{\n(.*?)^\}", re.MULTILINE | re.DOTALL)
-    embedded_re = re.compile(r"^\t[A-Z]\w*$", re.MULTILINE)
-    patched = []
-
-    for go_file in sorted(client_dir.glob("model_*.go")):
-        content = go_file.read_text(encoding="utf-8")
-        new_content = content
-        for m in struct_re.finditer(content):
-            name, body = m.group(1), m.group(2)
-            if not embedded_re.search(body):
-                continue
-            old = f"err = decoder.Decode(&var{name})"
-            new = (
-                "// Shadow UnmarshalJSON promoted from the embedded model (patched by regenerate_go.py)\n"
-                f"\terr = decoder.Decode(&struct {{\n\t\t*_{name}\n"
-                '\t\tUnmarshalJSON struct{} `json:"-"`\n'
-                f"\t}}{{_{name}: &var{name}}})"
-            )
-            if old in new_content:
-                new_content = new_content.replace(old, new)
-                patched.append(name)
-        if new_content != content:
-            go_file.write_text(new_content, encoding="utf-8")
-
-    if patched:
-        print_success(f"Embedded model unmarshal patch: fixed {', '.join(patched)}")
-    else:
-        print_success("Embedded model unmarshal patch: no models needed fixing")
-
-    # Same embedding cause, second symptom: when X redeclares a field of an
-    # embedded Y (Node/Edge redeclare Cell.Shape as *string), JSON fills X's
-    # field and leaves Y's zero, so Y's validate tag fails in oneOf matching.
-    # Drop the validate tag from such shadowed fields of Y.
-    field_re = re.compile(r"^\t([A-Z]\w*) \S+ `", re.MULTILINE)
-    structs = {}
-    for go_file in sorted(client_dir.glob("model_*.go")):
-        for m in struct_re.finditer(go_file.read_text(encoding="utf-8")):
-            structs[m.group(1)] = (go_file, m.group(2))
-    shadowed = {}
-    for name, (_, body) in structs.items():
-        own = set(field_re.findall(body))
-        for emb in (line.strip() for line in embedded_re.findall(body)):
-            if emb in structs:
-                shadowed.setdefault(emb, set()).update(
-                    own & set(field_re.findall(structs[emb][1]))
-                )
-    stripped = []
-    for emb, fields in sorted(shadowed.items()):
-        go_file = structs[emb][0]
-        content = go_file.read_text(encoding="utf-8")
-        for field in sorted(fields):
-            content, n = re.subn(
-                rf"^(\t{field} \S+ `json:\"[^\"]*\") validate:\"[^\"]*\"",
-                r"\1",
-                content,
-                flags=re.MULTILINE,
-            )
-            if n:
-                stripped.append(f"{emb}.{field}")
-        go_file.write_text(content, encoding="utf-8")
-    if stripped:
-        print_success(f"Shadowed field validator patch: stripped {', '.join(stripped)}")
-
-    return had_issues
-
-
 def patch_non_string_regex_validators(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator bug: regexp validate tags on non-string fields.
 
@@ -375,6 +275,11 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     go_module_path = (
         f"github.com/ericfitz/tmi-clients/go-client-generated/{version_dir}"
     )
+    # Go requires a /vN suffix on the module path of any v2+ module; without it
+    # proxy.golang.org rejects the version tag. The directory stays vX_Y_Z.
+    major = int(spec_version.split(".")[0])
+    if major >= 2:
+        go_module_path += f"/v{major}"
 
     if output_dir:
         client_dir = Path(output_dir)
@@ -462,11 +367,10 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     print_step(6, "Applying patches")
     had_issues = patch_json_literal_defaults(client_dir, had_issues)
     had_issues = patch_missing_time_import(client_dir, had_issues)
-    had_issues = patch_embedded_pointer_assignment(client_dir, had_issues)
     had_issues = patch_form_content_type(client_dir, had_issues)
-    had_issues = patch_embedded_model_unmarshal(client_dir, had_issues)
     had_issues = patch_non_string_regex_validators(client_dir, had_issues)
     had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
+    had_issues = patch_doc_import_paths(client_dir, go_module_path, had_issues)
     print_success("Patches applied")
 
     # 9. Patch go.mod (openapi-generator may use different module path / Go version)
