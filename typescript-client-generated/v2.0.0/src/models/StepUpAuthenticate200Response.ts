@@ -57,6 +57,7 @@ export type StepUpAuthenticate200ResponseResultEnum = typeof StepUpAuthenticate2
  */
 export function instanceOfStepUpAuthenticate200Response(value: object): value is StepUpAuthenticate200Response {
     if (!('result' in value) || value['result'] === undefined) return false;
+    if (value['result'] !== 'step_up_weak_complete' && value['result'] !== 'step_up_redirect') return false;
     return true;
 }
 

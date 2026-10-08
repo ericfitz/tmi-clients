@@ -46,6 +46,7 @@ export type ApiInfoStatusCodeEnum = typeof ApiInfoStatusCodeEnum[keyof typeof Ap
  */
 export function instanceOfApiInfoStatus(value: object): value is ApiInfoStatus {
     if (!('code' in value) || value['code'] === undefined) return false;
+    if (value['code'] !== 'ok' && value['code'] !== 'degraded' && value['code'] !== 'error') return false;
     if (!('time' in value) || value['time'] === undefined) return false;
     return true;
 }

@@ -59,6 +59,7 @@ export function instanceOfParticipant(value: object): value is Participant {
     if (!('user' in value) || value['user'] === undefined) return false;
     if (!('last_activity' in value) || value['last_activity'] === undefined) return false;
     if (!('permissions' in value) || value['permissions'] === undefined) return false;
+    if (value['permissions'] !== 'reader' && value['permissions'] !== 'writer') return false;
     return true;
 }
 

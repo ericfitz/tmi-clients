@@ -49,6 +49,7 @@ export interface RelatedTeam {
 export function instanceOfRelatedTeam(value: object): value is RelatedTeam {
     if (!('related_team_id' in value) || value['related_team_id'] === undefined) return false;
     if (!('relationship' in value) || value['relationship'] === undefined) return false;
+    if (value['relationship'] !== 'parent' && value['relationship'] !== 'child' && value['relationship'] !== 'dependency' && value['relationship'] !== 'dependent' && value['relationship'] !== 'supersedes' && value['relationship'] !== 'superseded_by' && value['relationship'] !== 'related' && value['relationship'] !== 'other') return false;
     return true;
 }
 

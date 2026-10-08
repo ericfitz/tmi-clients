@@ -53,6 +53,7 @@ export type SystemSettingUpdateTypeEnum = typeof SystemSettingUpdateTypeEnum[key
 export function instanceOfSystemSettingUpdate(value: object): value is SystemSettingUpdate {
     if (!('value' in value) || value['value'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'string' && value['type'] !== 'int' && value['type'] !== 'bool' && value['type'] !== 'json' && value['type'] !== 'float') return false;
     return true;
 }
 

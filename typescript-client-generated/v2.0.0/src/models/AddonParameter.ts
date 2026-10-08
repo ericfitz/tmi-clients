@@ -85,6 +85,7 @@ export type AddonParameterTypeEnum = typeof AddonParameterTypeEnum[keyof typeof 
 export function instanceOfAddonParameter(value: object): value is AddonParameter {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'enum' && value['type'] !== 'boolean' && value['type'] !== 'string' && value['type'] !== 'number' && value['type'] !== 'metadata_key') return false;
     return true;
 }
 

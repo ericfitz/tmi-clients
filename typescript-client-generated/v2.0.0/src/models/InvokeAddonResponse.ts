@@ -52,6 +52,7 @@ export type InvokeAddonResponseStatusEnum = typeof InvokeAddonResponseStatusEnum
 export function instanceOfInvokeAddonResponse(value: object): value is InvokeAddonResponse {
     if (!('delivery_id' in value) || value['delivery_id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'pending' && value['status'] !== 'in_progress' && value['status'] !== 'completed' && value['status'] !== 'failed') return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     return true;
 }

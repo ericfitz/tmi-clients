@@ -104,6 +104,7 @@ export function instanceOfWebhookSubscription(value: object): value is WebhookSu
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('events' in value) || value['events'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'pending_verification' && value['status'] !== 'active' && value['status'] !== 'inactive' && value['status'] !== 'pending_delete') return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     if (!('modified_at' in value) || value['modified_at'] === undefined) return false;
     return true;

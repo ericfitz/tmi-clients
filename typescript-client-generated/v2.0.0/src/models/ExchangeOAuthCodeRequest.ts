@@ -70,6 +70,7 @@ export type ExchangeOAuthCodeRequestGrantTypeEnum = typeof ExchangeOAuthCodeRequ
  */
 export function instanceOfExchangeOAuthCodeRequest(value: object): value is ExchangeOAuthCodeRequest {
     if (!('grant_type' in value) || value['grant_type'] === undefined) return false;
+    if (value['grant_type'] !== 'authorization_code' && value['grant_type'] !== 'client_credentials' && value['grant_type'] !== 'refresh_token') return false;
     return true;
 }
 

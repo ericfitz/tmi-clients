@@ -49,6 +49,7 @@ export interface RelatedProject {
 export function instanceOfRelatedProject(value: object): value is RelatedProject {
     if (!('related_project_id' in value) || value['related_project_id'] === undefined) return false;
     if (!('relationship' in value) || value['relationship'] === undefined) return false;
+    if (value['relationship'] !== 'parent' && value['relationship'] !== 'child' && value['relationship'] !== 'dependency' && value['relationship'] !== 'dependent' && value['relationship'] !== 'supersedes' && value['relationship'] !== 'superseded_by' && value['relationship'] !== 'related' && value['relationship'] !== 'other') return false;
     return true;
 }
 

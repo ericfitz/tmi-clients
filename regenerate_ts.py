@@ -297,67 +297,114 @@ def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
-# Guards to tighten: (model, property, enum const). openapi-generator checks a
-# required enum property's value in instanceOfX() only when the enum has a single
-# value (Edge.shape === 'flow'); for multi-value enums it checks presence only,
-# so instanceOfNode() returns true for an edge.
-#
-# Deliberately limited to the node/edge shape guards. The same generator gap
-# exists in ~45 other guards (e.g. EdgeRouterOneOf.name, EdgeConnectorOneOf.name),
-# but those drive oneOf dispatch whose fallback is `return {} as any`, so
-# tightening them would turn an unrecognized value into a silently emptied object.
-ENUM_GUARDS = [
-    ("Node", "shape", "NodeShapeEnum"),
-    ("MinimalNode", "shape", "MinimalNodeShapeEnum"),
-]
+# openapi-generator checks a required enum property's value in instanceOfX() only
+# when the enum has a single value (Edge.shape === 'flow'); for multi-value enums
+# it checks presence only, so instanceOfNode() returns true for an edge. The patch
+# below tightens every such guard it discovers, except these (model, property)
+# pairs: they drive oneOf dispatch in EdgeRouter.ts / EdgeConnector.ts, whose
+# fallback is `return {} as any`, so tightening them would turn an unrecognized
+# name into a silently emptied object. See
+# docs/superpowers/specs/2026-10-08-ts-enum-guards-design.md.
+ENUM_GUARD_EXEMPT = {
+    ("EdgeRouterOneOf", "name"),
+    ("EdgeConnectorOneOf", "name"),
+}
+
+_INSTANCE_OF_RE = re.compile(
+    r"export function instanceOf(\w+)\(value: object\): value is \w+ \{\n(.*?)\n    return true;",
+    re.DOTALL,
+)
+_PRESENCE_RE = re.compile(
+    r"^    if \(!\('([^']+)' in value\) \|\| value\['\1'\] === undefined\) return false;\n",
+    re.MULTILINE,
+)
 
 
 def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
     """Fix openapi-generator gap: instanceOfX() ignores the value of a required
     multi-value enum property, so it cannot tell a Node from an Edge.
 
-    Inserts the same check the generator emits for single-value enums, listing
-    every value parsed from the model's own enum const.
+    Discovers every required property that instanceOfX() checks only for
+    presence and whose declared type is an enum const (2+ values) in the same
+    file, and inserts the same value check the generator emits for single-value
+    enums. Skips ENUM_GUARD_EXEMPT entries. Enum consts are resolved across all
+    model files, since shared enum schemas live in their own file.
+
+    Out of scope: required Array<Enum> properties and `Enum | null` properties,
+    whose declared type is not a bare enum name.
     """
-    for model, prop, enum_name in ENUM_GUARDS:
-        model_file = client_dir / "src" / "models" / f"{model}.ts"
-        if not model_file.is_file():
-            print_warning(f"Enum guard patch: {model}.ts not found")
-            had_issues = True
-            continue
+    models_dir = client_dir / "src" / "models"
+    enum_bodies: dict[str, str] = {}
+    for model_file in sorted(models_dir.glob("*.ts")):
+        for m in re.finditer(
+            r"export const (\w+) = \{\n(.*?)\n\} as const;",
+            model_file.read_text(encoding="utf-8"),
+            re.DOTALL,
+        ):
+            enum_bodies[m.group(1)] = m.group(2)
+    seen: set[tuple[str, str]] = set()
+    patched = 0
+    already = 0
+
+    for model_file in sorted(models_dir.glob("*.ts")):
         content = model_file.read_text(encoding="utf-8")
+        func = _INSTANCE_OF_RE.search(content)
+        if not func:
+            continue
+        model = func.group(1)
+        original = content
 
-        enum_block = re.search(
-            rf"export const {enum_name} = \{{\n(.*?)\n\}} as const;", content, re.DOTALL
-        )
-        presence = re.search(
-            rf"(export function instanceOf{model}\(value: object\): value is {model} \{{\n"
-            rf"(?:.*\n)*?"
-            rf"    if \(!\('{prop}' in value\) \|\| value\['{prop}'\] === undefined\) return false;\n)",
-            content,
-        )
-        if not enum_block or not presence:
-            print_warning(
-                f"Enum guard patch: {enum_name} or instanceOf{model} '{prop}' check not found"
+        for prop in [m.group(1) for m in _PRESENCE_RE.finditer(func.group(2) + "\n")]:
+            type_match = re.search(rf"^\s+{re.escape(prop)}: (\w+);", content, re.MULTILINE)
+            if not type_match:
+                continue
+            enum_body = enum_bodies.get(type_match.group(1))
+            if enum_body is None:
+                continue
+            lines = [ln.strip() for ln in enum_body.splitlines() if ln.strip()]
+            values = [m.group(1) for ln in lines if (m := re.fullmatch(r"\w+: '([^'\\]*)',?", ln))]
+            if len(values) != len(lines):
+                print_warning(
+                    f"Enum guard patch: {model}.{prop} has non-string or escaped enum values; skipped"
+                )
+                had_issues = True
+                continue
+            if len(values) < 2:
+                continue
+
+            seen.add((model, prop))
+            if (model, prop) in ENUM_GUARD_EXEMPT:
+                continue
+
+            conditions = " && ".join(f"value['{prop}'] !== '{v}'" for v in values)
+            check = f"    if ({conditions}) return false;\n"
+            if check in content:
+                already += 1
+                continue
+
+            presence = re.search(
+                rf"^    if \(!\('{re.escape(prop)}' in value\) \|\| value\['{re.escape(prop)}'\] === undefined\) return false;\n",
+                content,
+                re.MULTILINE,
             )
-            had_issues = True
-            continue
+            assert presence  # found above in the same content
+            content = content[: presence.end()] + check + content[presence.end():]
+            patched += 1
 
-        values = re.findall(r"^\s+\w+: '([^']*)',?$", enum_block.group(1), re.MULTILINE)
-        if not values:
-            print_warning(f"Enum guard patch: no values parsed from {enum_name}")
-            had_issues = True
-            continue
+        if content != original:
+            model_file.write_text(content, encoding="utf-8")
 
-        conditions = " && ".join(f"value['{prop}'] !== '{v}'" for v in values)
-        check = f"    if ({conditions}) return false;\n"
-        if check in content:
-            print_success(f"Enum guard patch: instanceOf{model} already checks {prop}")
-            continue
-
-        content = content[: presence.end()] + check + content[presence.end():]
-        model_file.write_text(content, encoding="utf-8")
-        print_success(f"Enum guard patch: instanceOf{model} now checks {prop} values")
+    for model, prop in sorted(ENUM_GUARD_EXEMPT - seen):
+        print_warning(f"Enum guard patch: exempt {model}.{prop} not found (spec drift?)")
+        had_issues = True
+    if not patched and not already:
+        print_warning("Enum guard patch: no enum guards found (anchor drift?)")
+        had_issues = True
+    else:
+        print_success(
+            f"Enum guard patch: {patched} guard(s) tightened, {already} already checked, "
+            f"{len(ENUM_GUARD_EXEMPT)} exempt"
+        )
 
     return had_issues
 

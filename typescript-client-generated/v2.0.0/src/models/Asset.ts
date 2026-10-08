@@ -110,6 +110,7 @@ export type AssetTypeEnum = typeof AssetTypeEnum[keyof typeof AssetTypeEnum];
 export function instanceOfAsset(value: object): value is Asset {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'data' && value['type'] !== 'hardware' && value['type'] !== 'software' && value['type'] !== 'infrastructure' && value['type'] !== 'service' && value['type'] !== 'personnel') return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     return true;
 }
