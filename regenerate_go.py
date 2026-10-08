@@ -291,10 +291,31 @@ def patch_lenient_decoding(client_dir: Path, had_issues: bool) -> bool:
             patched_count += n
 
     utils = client_dir / "utils.go"
-    if not utils.is_file() or "func newStrictDecoder(" not in utils.read_text(
-        encoding="utf-8"
-    ):
+    utils_text = utils.read_text(encoding="utf-8") if utils.is_file() else ""
+    if "func newStrictDecoder(" not in utils_text:
         print_warning("Lenient decoding patch: newStrictDecoder not found in utils.go")
+        return True
+    old_comment = "// A wrapper for strict JSON decoding\nfunc newStrictDecoder("
+    if old_comment in utils_text:
+        utils.write_text(
+            utils_text.replace(
+                old_comment,
+                "// A wrapper for JSON decoding; despite the name it no longer rejects"
+                " unknown fields\nfunc newStrictDecoder(",
+            ),
+            encoding="utf-8",
+        )
+
+    # The template may have changed the call's form; flag anything left behind
+    leftover = [
+        f.name
+        for f in sorted(client_dir.glob("*.go"))
+        if "DisallowUnknownFields" in f.read_text(encoding="utf-8")
+    ]
+    if leftover:
+        print_warning(
+            f"Lenient decoding patch: DisallowUnknownFields remains in {', '.join(leftover)}"
+        )
         return True
 
     print_success(f"Lenient decoding patch: {patched_count} strict calls removed")
