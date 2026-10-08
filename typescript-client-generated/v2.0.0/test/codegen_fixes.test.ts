@@ -17,6 +17,7 @@ import {
   instanceOfJsonPatchDocumentInner,
   instanceOfMinimalNode,
   instanceOfNode,
+  instanceOfRelatedProject,
   instanceOfRepositoryBaseParameters,
   instanceOfWebhookDelivery,
 } from "../src/index";
@@ -124,12 +125,31 @@ const enumGuardCases: [string, (v: object) => boolean, Record<string, unknown>, 
     "refType",
   ],
   [
+    "RelatedProject.relationship",
+    instanceOfRelatedProject,
+    { related_project_id: "p", relationship: "parent" },
+    "relationship",
+  ],
+  [
+    "WebhookDelivery.event_type",
+    instanceOfWebhookDelivery,
+    {
+      id: "i",
+      subscription_id: "s",
+      event_type: "threat_model.created",
+      status: "pending",
+      attempts: 0,
+      created_at: "2026-01-01T00:00:00Z",
+    },
+    "event_type",
+  ],
+  [
     "WebhookDelivery.status",
     instanceOfWebhookDelivery,
     {
       id: "i",
       subscription_id: "s",
-      event_type: "e",
+      event_type: "threat_model.created",
       status: "pending",
       attempts: 0,
       created_at: "2026-01-01T00:00:00Z",
@@ -169,6 +189,13 @@ describe("enum guard patch (all required multi-value enums)", () => {
       eager: true,
     });
     expect(Object.keys(models).length).toBeGreaterThan(100);
+    // Enum consts by name across all models: shared enum schemas live in their own file.
+    const enums = new Map<string, string>();
+    for (const src of Object.values(models)) {
+      for (const [, name, body] of src.matchAll(/export const (\w+) = \{\n([\s\S]*?)\n\} as const;/g)) {
+        enums.set(name, body);
+      }
+    }
     const exempt = new Set(["EdgeRouterOneOf.name", "EdgeConnectorOneOf.name"]);
     const unchecked: string[] = [];
     for (const src of Object.values(models)) {
@@ -176,9 +203,8 @@ describe("enum guard patch (all required multi-value enums)", () => {
       if (!fn) continue;
       for (const [, prop] of fn[2].matchAll(/if \(!\('([^']+)' in value\)/g)) {
         const type = new RegExp(`^\\s+${prop}: (\\w+);`, "m").exec(src);
-        const enumBlock =
-          type && new RegExp(`export const ${type[1]} = \\{\\n([\\s\\S]*?)\\n\\} as const;`).exec(src);
-        if (!enumBlock || (enumBlock[1].match(/: /g) ?? []).length < 2) continue;
+        const body = type && enums.get(type[1]);
+        if (!body || (body.match(/: /g) ?? []).length < 2) continue;
         if (!fn[2].includes(`value['${prop}'] !== '`) && !exempt.has(`${fn[1]}.${prop}`)) {
           unchecked.push(`${fn[1]}.${prop}`);
         }

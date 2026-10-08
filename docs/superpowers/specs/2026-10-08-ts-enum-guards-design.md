@@ -6,15 +6,18 @@ openapi-generator (typescript-fetch) emits a value check in `instanceOfX()` for 
 required enum property only when the enum has a single value (`Edge.shape === 'flow'`).
 For multi-value enums it emits a presence check only, so `instanceOfNode()` returned
 true for an edge. `patch_enum_guards` in `regenerate_ts.py` covered only
-`Node.shape` and `MinimalNode.shape` from a hand table; 41 other required
-multi-value enum guards (e.g. `Asset.type`, `Authorization.role`,
-`JsonPatchDocumentInner.op`) were still presence-only.
+`Node.shape` and `MinimalNode.shape` from a hand table; 44 other required
+multi-value enum guards (e.g. `Asset.type`, `Authorization.role`, and shared enum
+schemas such as `RelatedProject.relationship`) were still presence-only.
 
 ## Decision (human-made, Eric, 2026-10-08)
 
 Tighten every required multi-value enum guard, discovered automatically from each
 model file, except `EdgeRouterOneOf.name` and `EdgeConnectorOneOf.name`, which stay
 presence-only. Released later as ts-v2.0.2.
+
+Out of scope: required `Array<Enum>` properties (e.g. `WebhookSubscription.events`) and
+`Enum | null` properties; their declared type is not a bare enum name.
 
 ## Exemption rationale
 

@@ -327,9 +327,21 @@ def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
     Discovers every required property that instanceOfX() checks only for
     presence and whose declared type is an enum const (2+ values) in the same
     file, and inserts the same value check the generator emits for single-value
-    enums. Skips ENUM_GUARD_EXEMPT entries.
+    enums. Skips ENUM_GUARD_EXEMPT entries. Enum consts are resolved across all
+    model files, since shared enum schemas live in their own file.
+
+    Out of scope: required Array<Enum> properties and `Enum | null` properties,
+    whose declared type is not a bare enum name.
     """
     models_dir = client_dir / "src" / "models"
+    enum_bodies: dict[str, str] = {}
+    for model_file in sorted(models_dir.glob("*.ts")):
+        for m in re.finditer(
+            r"export const (\w+) = \{\n(.*?)\n\} as const;",
+            model_file.read_text(encoding="utf-8"),
+            re.DOTALL,
+        ):
+            enum_bodies[m.group(1)] = m.group(2)
     seen: set[tuple[str, str]] = set()
     patched = 0
     already = 0
@@ -346,14 +358,10 @@ def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
             type_match = re.search(rf"^\s+{re.escape(prop)}: (\w+);", content, re.MULTILINE)
             if not type_match:
                 continue
-            enum_block = re.search(
-                rf"export const {type_match.group(1)} = \{{\n(.*?)\n\}} as const;",
-                content,
-                re.DOTALL,
-            )
-            if not enum_block:
+            enum_body = enum_bodies.get(type_match.group(1))
+            if enum_body is None:
                 continue
-            lines = [ln.strip() for ln in enum_block.group(1).splitlines() if ln.strip()]
+            lines = [ln.strip() for ln in enum_body.splitlines() if ln.strip()]
             values = [m.group(1) for ln in lines if (m := re.fullmatch(r"\w+: '([^'\\]*)',?", ln))]
             if len(values) != len(lines):
                 print_warning(
