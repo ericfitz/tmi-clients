@@ -196,7 +196,6 @@ func (o *WebhookQuotaUpdate) UnmarshalJSON(data []byte) (err error) {
 	varWebhookQuotaUpdate := _WebhookQuotaUpdate{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varWebhookQuotaUpdate)
 
 	if err != nil {

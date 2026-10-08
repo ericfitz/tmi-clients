@@ -196,7 +196,6 @@ func (o *AuditActor) UnmarshalJSON(data []byte) (err error) {
 	varAuditActor := _AuditActor{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAuditActor)
 
 	if err != nil {

@@ -340,11 +340,17 @@ func (o *MinimalNode) UnmarshalJSON(data []byte) (err error) {
 	varMinimalNode := _MinimalNode{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMinimalNode)
 
 	if err != nil {
 		return err
+	}
+
+	// Reject shapes outside the spec enum (MinimalNode)
+	switch varMinimalNode.Shape {
+	case "actor", "process", "store", "security-boundary", "text-box":
+	default:
+		return fmt.Errorf("invalid shape %q for MinimalNode", varMinimalNode.Shape)
 	}
 
 	*o = MinimalNode(varMinimalNode)

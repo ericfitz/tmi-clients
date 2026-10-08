@@ -146,7 +146,6 @@ func (o *GetUserAPIQuota429Response) UnmarshalJSON(data []byte) (err error) {
 	varGetUserAPIQuota429Response := _GetUserAPIQuota429Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetUserAPIQuota429Response)
 
 	if err != nil {

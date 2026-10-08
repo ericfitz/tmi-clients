@@ -195,7 +195,6 @@ func (o *ListDiagramsResponse) UnmarshalJSON(data []byte) (err error) {
 	varListDiagramsResponse := _ListDiagramsResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListDiagramsResponse)
 
 	if err != nil {

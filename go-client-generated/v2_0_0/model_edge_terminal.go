@@ -156,7 +156,6 @@ func (o *EdgeTerminal) UnmarshalJSON(data []byte) (err error) {
 	varEdgeTerminal := _EdgeTerminal{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEdgeTerminal)
 
 	if err != nil {

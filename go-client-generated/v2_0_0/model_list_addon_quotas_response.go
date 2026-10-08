@@ -223,7 +223,6 @@ func (o *ListAddonQuotasResponse) UnmarshalJSON(data []byte) (err error) {
 	varListAddonQuotasResponse := _ListAddonQuotasResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListAddonQuotasResponse)
 
 	if err != nil {

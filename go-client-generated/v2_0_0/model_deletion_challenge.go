@@ -139,7 +139,6 @@ func (o *DeletionChallenge) UnmarshalJSON(data []byte) (err error) {
 	varDeletionChallenge := _DeletionChallenge{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDeletionChallenge)
 
 	if err != nil {

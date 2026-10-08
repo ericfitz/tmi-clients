@@ -250,7 +250,6 @@ func (o *TokenRevocationRequest) UnmarshalJSON(data []byte) (err error) {
 	varTokenRevocationRequest := _TokenRevocationRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTokenRevocationRequest)
 
 	if err != nil {

@@ -464,7 +464,6 @@ func (o *NoteListItem) UnmarshalJSON(data []byte) (err error) {
 	varNoteListItem := _NoteListItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varNoteListItem)
 
 	if err != nil {

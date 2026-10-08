@@ -260,7 +260,6 @@ func (o *ListSystemAuditEntriesResponse) UnmarshalJSON(data []byte) (err error) 
 	varListSystemAuditEntriesResponse := _ListSystemAuditEntriesResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListSystemAuditEntriesResponse)
 
 	if err != nil {

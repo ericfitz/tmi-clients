@@ -229,7 +229,6 @@ func (o *TeamMember) UnmarshalJSON(data []byte) (err error) {
 	varTeamMember := _TeamMember{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTeamMember)
 
 	if err != nil {

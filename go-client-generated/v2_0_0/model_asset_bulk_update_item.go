@@ -428,7 +428,6 @@ func (o *AssetBulkUpdateItem) UnmarshalJSON(data []byte) (err error) {
 	varAssetBulkUpdateItem := _AssetBulkUpdateItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAssetBulkUpdateItem)
 
 	if err != nil {

@@ -175,7 +175,6 @@ func (o *RepositoryBaseParameters) UnmarshalJSON(data []byte) (err error) {
 	varRepositoryBaseParameters := _RepositoryBaseParameters{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varRepositoryBaseParameters)
 
 	if err != nil {

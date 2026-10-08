@@ -257,7 +257,6 @@ func (o *GetCurrentUser200Response) UnmarshalJSON(data []byte) (err error) {
 	varGetCurrentUser200Response := _GetCurrentUser200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetCurrentUser200Response)
 
 	if err != nil {

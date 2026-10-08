@@ -137,7 +137,6 @@ func (o *CreateThreatModelDocument202Response) UnmarshalJSON(data []byte) (err e
 	varCreateThreatModelDocument202Response := _CreateThreatModelDocument202Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateThreatModelDocument202Response)
 
 	if err != nil {

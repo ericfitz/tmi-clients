@@ -291,11 +291,17 @@ func (o *MinimalEdge) UnmarshalJSON(data []byte) (err error) {
 	varMinimalEdge := _MinimalEdge{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMinimalEdge)
 
 	if err != nil {
 		return err
+	}
+
+	// Reject shapes outside the spec enum (MinimalEdge)
+	switch varMinimalEdge.Shape {
+	case "flow":
+	default:
+		return fmt.Errorf("invalid shape %q for MinimalEdge", varMinimalEdge.Shape)
 	}
 
 	*o = MinimalEdge(varMinimalEdge)

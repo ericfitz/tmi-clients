@@ -175,7 +175,6 @@ func (o *CreateAdminGroupRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateAdminGroupRequest := _CreateAdminGroupRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateAdminGroupRequest)
 
 	if err != nil {

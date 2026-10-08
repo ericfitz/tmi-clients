@@ -458,11 +458,17 @@ func (o *Edge) UnmarshalJSON(data []byte) (err error) {
 	varEdge := _Edge{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEdge)
 
 	if err != nil {
 		return err
+	}
+
+	// Reject shapes outside the spec enum (Edge)
+	switch varEdge.Shape {
+	case "flow":
+	default:
+		return fmt.Errorf("invalid shape %q for Edge", varEdge.Shape)
 	}
 
 	*o = Edge(varEdge)

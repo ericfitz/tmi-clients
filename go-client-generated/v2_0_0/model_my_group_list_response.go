@@ -138,7 +138,6 @@ func (o *MyGroupListResponse) UnmarshalJSON(data []byte) (err error) {
 	varMyGroupListResponse := _MyGroupListResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMyGroupListResponse)
 
 	if err != nil {

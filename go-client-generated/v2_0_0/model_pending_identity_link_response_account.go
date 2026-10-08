@@ -138,7 +138,6 @@ func (o *PendingIdentityLinkResponseAccount) UnmarshalJSON(data []byte) (err err
 	varPendingIdentityLinkResponseAccount := _PendingIdentityLinkResponseAccount{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varPendingIdentityLinkResponseAccount)
 
 	if err != nil {

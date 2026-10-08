@@ -338,7 +338,6 @@ func (o *ProjectNoteListItem) UnmarshalJSON(data []byte) (err error) {
 	varProjectNoteListItem := _ProjectNoteListItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varProjectNoteListItem)
 
 	if err != nil {

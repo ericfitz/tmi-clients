@@ -905,7 +905,6 @@ func (o *ThreatBulkUpdateItem) UnmarshalJSON(data []byte) (err error) {
 	varThreatBulkUpdateItem := _ThreatBulkUpdateItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varThreatBulkUpdateItem)
 
 	if err != nil {

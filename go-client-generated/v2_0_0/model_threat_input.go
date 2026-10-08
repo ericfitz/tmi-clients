@@ -876,7 +876,6 @@ func (o *ThreatInput) UnmarshalJSON(data []byte) (err error) {
 	varThreatInput := _ThreatInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varThreatInput)
 
 	if err != nil {

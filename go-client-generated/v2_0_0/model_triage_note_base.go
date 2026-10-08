@@ -138,7 +138,6 @@ func (o *TriageNoteBase) UnmarshalJSON(data []byte) (err error) {
 	varTriageNoteBase := _TriageNoteBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTriageNoteBase)
 
 	if err != nil {

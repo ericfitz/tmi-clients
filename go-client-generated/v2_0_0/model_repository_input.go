@@ -368,7 +368,6 @@ func (o *RepositoryInput) UnmarshalJSON(data []byte) (err error) {
 	varRepositoryInput := _RepositoryInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varRepositoryInput)
 
 	if err != nil {

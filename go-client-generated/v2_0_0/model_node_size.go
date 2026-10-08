@@ -138,7 +138,6 @@ func (o *NodeSize) UnmarshalJSON(data []byte) (err error) {
 	varNodeSize := _NodeSize{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varNodeSize)
 
 	if err != nil {

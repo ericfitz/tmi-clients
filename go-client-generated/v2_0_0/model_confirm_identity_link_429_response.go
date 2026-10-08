@@ -144,7 +144,6 @@ func (o *ConfirmIdentityLink429Response) UnmarshalJSON(data []byte) (err error) 
 	varConfirmIdentityLink429Response := _ConfirmIdentityLink429Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varConfirmIdentityLink429Response)
 
 	if err != nil {

@@ -597,11 +597,17 @@ func (o *Node) UnmarshalJSON(data []byte) (err error) {
 	varNode := _Node{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varNode)
 
 	if err != nil {
 		return err
+	}
+
+	// Reject shapes outside the spec enum (Node)
+	switch varNode.Shape {
+	case "actor", "process", "store", "security-boundary", "text-box":
+	default:
+		return fmt.Errorf("invalid shape %q for Node", varNode.Shape)
 	}
 
 	*o = Node(varNode)

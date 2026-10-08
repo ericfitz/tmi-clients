@@ -138,7 +138,6 @@ func (o *AddonQuotaUpdate) UnmarshalJSON(data []byte) (err error) {
 	varAddonQuotaUpdate := _AddonQuotaUpdate{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAddonQuotaUpdate)
 
 	if err != nil {

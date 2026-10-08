@@ -426,7 +426,6 @@ func (o *UsabilityFeedbackInput) UnmarshalJSON(data []byte) (err error) {
 	varUsabilityFeedbackInput := _UsabilityFeedbackInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varUsabilityFeedbackInput)
 
 	if err != nil {

@@ -390,7 +390,6 @@ func (o *SystemSetting) UnmarshalJSON(data []byte) (err error) {
 	varSystemSetting := _SystemSetting{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varSystemSetting)
 
 	if err != nil {

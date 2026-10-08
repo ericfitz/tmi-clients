@@ -109,7 +109,6 @@ func (o *ContentTokenList) UnmarshalJSON(data []byte) (err error) {
 	varContentTokenList := _ContentTokenList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varContentTokenList)
 
 	if err != nil {

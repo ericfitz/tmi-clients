@@ -139,7 +139,6 @@ func (o *ApiInfoStatus) UnmarshalJSON(data []byte) (err error) {
 	varApiInfoStatus := _ApiInfoStatus{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varApiInfoStatus)
 
 	if err != nil {

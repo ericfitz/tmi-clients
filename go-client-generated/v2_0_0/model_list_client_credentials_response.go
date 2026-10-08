@@ -195,7 +195,6 @@ func (o *ListClientCredentialsResponse) UnmarshalJSON(data []byte) (err error) {
 	varListClientCredentialsResponse := _ListClientCredentialsResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListClientCredentialsResponse)
 
 	if err != nil {

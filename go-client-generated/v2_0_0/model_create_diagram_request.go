@@ -138,7 +138,6 @@ func (o *CreateDiagramRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateDiagramRequest := _CreateDiagramRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateDiagramRequest)
 
 	if err != nil {

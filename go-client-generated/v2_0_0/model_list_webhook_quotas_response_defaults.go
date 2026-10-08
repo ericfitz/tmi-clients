@@ -196,7 +196,6 @@ func (o *ListWebhookQuotasResponseDefaults) UnmarshalJSON(data []byte) (err erro
 	varListWebhookQuotasResponseDefaults := _ListWebhookQuotasResponseDefaults{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListWebhookQuotasResponseDefaults)
 
 	if err != nil {

@@ -485,7 +485,6 @@ func (o *DiagramListItem) UnmarshalJSON(data []byte) (err error) {
 	varDiagramListItem := _DiagramListItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDiagramListItem)
 
 	if err != nil {

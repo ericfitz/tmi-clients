@@ -366,7 +366,6 @@ func (o *TimmyChatSession) UnmarshalJSON(data []byte) (err error) {
 	varTimmyChatSession := _TimmyChatSession{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTimmyChatSession)
 
 	if err != nil {

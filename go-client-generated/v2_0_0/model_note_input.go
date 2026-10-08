@@ -267,7 +267,6 @@ func (o *NoteInput) UnmarshalJSON(data []byte) (err error) {
 	varNoteInput := _NoteInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varNoteInput)
 
 	if err != nil {

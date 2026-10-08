@@ -138,7 +138,6 @@ func (o *CVSSScore) UnmarshalJSON(data []byte) (err error) {
 	varCVSSScore := _CVSSScore{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCVSSScore)
 
 	if err != nil {

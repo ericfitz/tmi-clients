@@ -138,7 +138,6 @@ func (o *ReencryptSystemSettings200ResponseErrorsInner) UnmarshalJSON(data []byt
 	varReencryptSystemSettings200ResponseErrorsInner := _ReencryptSystemSettings200ResponseErrorsInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varReencryptSystemSettings200ResponseErrorsInner)
 
 	if err != nil {

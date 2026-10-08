@@ -108,7 +108,6 @@ func (o *GetSAMLProviders200Response) UnmarshalJSON(data []byte) (err error) {
 	varGetSAMLProviders200Response := _GetSAMLProviders200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetSAMLProviders200Response)
 
 	if err != nil {

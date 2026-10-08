@@ -195,7 +195,6 @@ func (o *ListTimmyMessagesResponse) UnmarshalJSON(data []byte) (err error) {
 	varListTimmyMessagesResponse := _ListTimmyMessagesResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListTimmyMessagesResponse)
 
 	if err != nil {

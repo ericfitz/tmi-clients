@@ -256,7 +256,6 @@ func (o *StepUpAuthenticate200Response) UnmarshalJSON(data []byte) (err error) {
 	varStepUpAuthenticate200Response := _StepUpAuthenticate200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varStepUpAuthenticate200Response)
 
 	if err != nil {

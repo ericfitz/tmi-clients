@@ -218,7 +218,6 @@ func (o *EdgeLabelPositionOneOf) UnmarshalJSON(data []byte) (err error) {
 	varEdgeLabelPositionOneOf := _EdgeLabelPositionOneOf{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEdgeLabelPositionOneOf)
 
 	if err != nil {

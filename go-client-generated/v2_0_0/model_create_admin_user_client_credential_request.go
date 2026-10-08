@@ -262,7 +262,6 @@ func (o *CreateAdminUserClientCredentialRequest) UnmarshalJSON(data []byte) (err
 	varCreateAdminUserClientCredentialRequest := _CreateAdminUserClientCredentialRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateAdminUserClientCredentialRequest)
 
 	if err != nil {

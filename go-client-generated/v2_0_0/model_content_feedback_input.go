@@ -414,7 +414,6 @@ func (o *ContentFeedbackInput) UnmarshalJSON(data []byte) (err error) {
 	varContentFeedbackInput := _ContentFeedbackInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varContentFeedbackInput)
 
 	if err != nil {

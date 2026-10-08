@@ -349,10 +349,9 @@ type MappedNullable interface {
 	ToMap() (map[string]interface{}, error)
 }
 
-// A wrapper for strict JSON decoding
+// A wrapper for JSON decoding; despite the name it no longer rejects unknown fields
 func newStrictDecoder(data []byte) *json.Decoder {
 	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
 	return dec
 }
 

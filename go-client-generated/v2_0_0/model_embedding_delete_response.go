@@ -109,7 +109,6 @@ func (o *EmbeddingDeleteResponse) UnmarshalJSON(data []byte) (err error) {
 	varEmbeddingDeleteResponse := _EmbeddingDeleteResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEmbeddingDeleteResponse)
 
 	if err != nil {

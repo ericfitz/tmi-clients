@@ -345,7 +345,6 @@ func (o *ContentTokenInfo) UnmarshalJSON(data []byte) (err error) {
 	varContentTokenInfo := _ContentTokenInfo{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varContentTokenInfo)
 
 	if err != nil {

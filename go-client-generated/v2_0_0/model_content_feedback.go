@@ -527,7 +527,6 @@ func (o *ContentFeedback) UnmarshalJSON(data []byte) (err error) {
 	varContentFeedback := _ContentFeedback{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varContentFeedback)
 
 	if err != nil {

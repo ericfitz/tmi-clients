@@ -318,7 +318,6 @@ func (o *LinkedIdentity) UnmarshalJSON(data []byte) (err error) {
 	varLinkedIdentity := _LinkedIdentity{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varLinkedIdentity)
 
 	if err != nil {

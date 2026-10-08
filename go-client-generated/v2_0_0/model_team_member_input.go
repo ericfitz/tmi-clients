@@ -182,7 +182,6 @@ func (o *TeamMemberInput) UnmarshalJSON(data []byte) (err error) {
 	varTeamMemberInput := _TeamMemberInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTeamMemberInput)
 
 	if err != nil {

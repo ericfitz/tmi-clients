@@ -244,7 +244,6 @@ func (o *UserAPIQuota) UnmarshalJSON(data []byte) (err error) {
 	varUserAPIQuota := _UserAPIQuota{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varUserAPIQuota)
 
 	if err != nil {

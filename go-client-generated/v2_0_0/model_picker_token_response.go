@@ -250,7 +250,6 @@ func (o *PickerTokenResponse) UnmarshalJSON(data []byte) (err error) {
 	varPickerTokenResponse := _PickerTokenResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varPickerTokenResponse)
 
 	if err != nil {

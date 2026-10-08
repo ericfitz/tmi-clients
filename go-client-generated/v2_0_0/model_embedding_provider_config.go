@@ -212,7 +212,6 @@ func (o *EmbeddingProviderConfig) UnmarshalJSON(data []byte) (err error) {
 	varEmbeddingProviderConfig := _EmbeddingProviderConfig{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEmbeddingProviderConfig)
 
 	if err != nil {

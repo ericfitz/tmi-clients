@@ -137,7 +137,6 @@ func (o *TimmyUsageResponse) UnmarshalJSON(data []byte) (err error) {
 	varTimmyUsageResponse := _TimmyUsageResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTimmyUsageResponse)
 
 	if err != nil {

@@ -444,7 +444,6 @@ func (o *GetOAuthAuthorizationServerMetadata200Response) UnmarshalJSON(data []by
 	varGetOAuthAuthorizationServerMetadata200Response := _GetOAuthAuthorizationServerMetadata200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetOAuthAuthorizationServerMetadata200Response)
 
 	if err != nil {

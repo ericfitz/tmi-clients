@@ -167,7 +167,6 @@ func (o *SkippedSource) UnmarshalJSON(data []byte) (err error) {
 	varSkippedSource := _SkippedSource{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varSkippedSource)
 
 	if err != nil {
