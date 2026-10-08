@@ -116,7 +116,9 @@ export type ContentFeedbackInputFalsePositiveSubreasonEnum = typeof ContentFeedb
  */
 export function instanceOfContentFeedbackInput(value: object): value is ContentFeedbackInput {
     if (!('sentiment' in value) || value['sentiment'] === undefined) return false;
+    if (value['sentiment'] !== 'up' && value['sentiment'] !== 'down') return false;
     if (!('target_type' in value) || value['target_type'] === undefined) return false;
+    if (value['target_type'] !== 'note' && value['target_type'] !== 'diagram' && value['target_type'] !== 'threat' && value['target_type'] !== 'threat_classification') return false;
     if (!('target_id' in value) || value['target_id'] === undefined) return false;
     if (!('client_id' in value) || value['client_id'] === undefined) return false;
     return true;

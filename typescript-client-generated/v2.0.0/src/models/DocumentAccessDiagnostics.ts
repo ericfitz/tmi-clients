@@ -64,6 +64,7 @@ export type DocumentAccessDiagnosticsReasonCodeEnum = typeof DocumentAccessDiagn
  */
 export function instanceOfDocumentAccessDiagnostics(value: object): value is DocumentAccessDiagnostics {
     if (!('reason_code' in value) || value['reason_code'] === undefined) return false;
+    if (value['reason_code'] !== 'token_not_linked' && value['reason_code'] !== 'token_refresh_failed' && value['reason_code'] !== 'token_transient_failure' && value['reason_code'] !== 'picker_registration_invalid' && value['reason_code'] !== 'no_accessible_source' && value['reason_code'] !== 'source_not_found' && value['reason_code'] !== 'fetch_error' && value['reason_code'] !== 'microsoft_not_shared' && value['reason_code'] !== 'other') return false;
     if (!('remediations' in value) || value['remediations'] === undefined) return false;
     return true;
 }

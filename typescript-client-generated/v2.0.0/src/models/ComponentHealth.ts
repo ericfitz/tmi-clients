@@ -50,6 +50,7 @@ export type ComponentHealthStatusEnum = typeof ComponentHealthStatusEnum[keyof t
  */
 export function instanceOfComponentHealth(value: object): value is ComponentHealth {
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'healthy' && value['status'] !== 'unhealthy' && value['status'] !== 'unknown') return false;
     return true;
 }
 

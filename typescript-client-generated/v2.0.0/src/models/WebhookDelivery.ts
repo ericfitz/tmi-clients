@@ -118,6 +118,7 @@ export function instanceOfWebhookDelivery(value: object): value is WebhookDelive
     if (!('subscription_id' in value) || value['subscription_id'] === undefined) return false;
     if (!('event_type' in value) || value['event_type'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'pending' && value['status'] !== 'in_progress' && value['status'] !== 'delivered' && value['status'] !== 'failed' && value['status'] !== 'cancelled') return false;
     if (!('attempts' in value) || value['attempts'] === undefined) return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     return true;

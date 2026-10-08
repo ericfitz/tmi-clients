@@ -57,6 +57,7 @@ export type PrincipalPrincipalTypeEnum = typeof PrincipalPrincipalTypeEnum[keyof
  */
 export function instanceOfPrincipal(value: object): value is Principal {
     if (!('principal_type' in value) || value['principal_type'] === undefined) return false;
+    if (value['principal_type'] !== 'user' && value['principal_type'] !== 'group') return false;
     if (!('provider' in value) || value['provider'] === undefined) return false;
     if (!('provider_id' in value) || value['provider_id'] === undefined) return false;
     return true;

@@ -60,6 +60,7 @@ export function instanceOfContentProvider(value: object): value is ContentProvid
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (value['kind'] !== 'delegated' && value['kind'] !== 'service' && value['kind'] !== 'direct') return false;
     if (!('icon' in value) || value['icon'] === undefined) return false;
     return true;
 }

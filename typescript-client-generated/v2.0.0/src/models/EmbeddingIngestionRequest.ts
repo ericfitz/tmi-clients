@@ -53,6 +53,7 @@ export type EmbeddingIngestionRequestIndexTypeEnum = typeof EmbeddingIngestionRe
  */
 export function instanceOfEmbeddingIngestionRequest(value: object): value is EmbeddingIngestionRequest {
     if (!('index_type' in value) || value['index_type'] === undefined) return false;
+    if (value['index_type'] !== 'text' && value['index_type'] !== 'code') return false;
     if (!('embeddings' in value) || value['embeddings'] === undefined) return false;
     return true;
 }

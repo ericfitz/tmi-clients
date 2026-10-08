@@ -52,6 +52,7 @@ export type SSVCScoreDecisionEnum = typeof SSVCScoreDecisionEnum[keyof typeof SS
 export function instanceOfSSVCScore(value: object): value is SSVCScore {
     if (!('vector' in value) || value['vector'] === undefined) return false;
     if (!('decision' in value) || value['decision'] === undefined) return false;
+    if (value['decision'] !== 'Defer' && value['decision'] !== 'Scheduled' && value['decision'] !== 'Out-of-Cycle' && value['decision'] !== 'Immediate') return false;
     if (!('methodology' in value) || value['methodology'] === undefined) return false;
     return true;
 }

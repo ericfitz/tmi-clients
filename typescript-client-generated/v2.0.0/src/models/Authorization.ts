@@ -71,9 +71,11 @@ export type AuthorizationRoleEnum = typeof AuthorizationRoleEnum[keyof typeof Au
  */
 export function instanceOfAuthorization(value: object): value is Authorization {
     if (!('principal_type' in value) || value['principal_type'] === undefined) return false;
+    if (value['principal_type'] !== 'user' && value['principal_type'] !== 'group') return false;
     if (!('provider' in value) || value['provider'] === undefined) return false;
     if (!('provider_id' in value) || value['provider_id'] === undefined) return false;
     if (!('role' in value) || value['role'] === undefined) return false;
+    if (value['role'] !== 'reader' && value['role'] !== 'writer' && value['role'] !== 'owner') return false;
     return true;
 }
 

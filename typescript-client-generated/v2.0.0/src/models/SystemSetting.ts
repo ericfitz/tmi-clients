@@ -98,6 +98,7 @@ export function instanceOfSystemSetting(value: object): value is SystemSetting {
     if (!('key' in value) || value['key'] === undefined) return false;
     if (!('value' in value) || value['value'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'string' && value['type'] !== 'int' && value['type'] !== 'bool' && value['type'] !== 'json' && value['type'] !== 'float') return false;
     return true;
 }
 

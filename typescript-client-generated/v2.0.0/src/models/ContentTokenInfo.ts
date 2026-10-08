@@ -71,6 +71,7 @@ export function instanceOfContentTokenInfo(value: object): value is ContentToken
     if (!('provider_id' in value) || value['provider_id'] === undefined) return false;
     if (!('scopes' in value) || value['scopes'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'active' && value['status'] !== 'failed_refresh') return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     return true;
 }

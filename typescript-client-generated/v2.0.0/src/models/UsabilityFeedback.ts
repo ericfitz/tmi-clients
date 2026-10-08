@@ -89,6 +89,7 @@ export type UsabilityFeedbackSentimentEnum = typeof UsabilityFeedbackSentimentEn
  */
 export function instanceOfUsabilityFeedback(value: object): value is UsabilityFeedback {
     if (!('sentiment' in value) || value['sentiment'] === undefined) return false;
+    if (value['sentiment'] !== 'up' && value['sentiment'] !== 'down') return false;
     if (!('surface' in value) || value['surface'] === undefined) return false;
     if (!('client_id' in value) || value['client_id'] === undefined) return false;
     if (!('id' in value) || value['id'] === undefined) return false;

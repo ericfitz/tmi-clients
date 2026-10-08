@@ -57,6 +57,7 @@ export type UpdateWebhookDeliveryStatusResponseStatusEnum = typeof UpdateWebhook
 export function instanceOfUpdateWebhookDeliveryStatusResponse(value: object): value is UpdateWebhookDeliveryStatusResponse {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'pending' && value['status'] !== 'in_progress' && value['status'] !== 'delivered' && value['status'] !== 'failed' && value['status'] !== 'cancelled') return false;
     if (!('status_percent' in value) || value['status_percent'] === undefined) return false;
     if (!('status_updated_at' in value) || value['status_updated_at'] === undefined) return false;
     return true;

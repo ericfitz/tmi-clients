@@ -96,6 +96,7 @@ export function instanceOfGroupMember(value: object): value is GroupMember {
     if (!('group_internal_uuid' in value) || value['group_internal_uuid'] === undefined) return false;
     if (!('added_at' in value) || value['added_at'] === undefined) return false;
     if (!('subject_type' in value) || value['subject_type'] === undefined) return false;
+    if (value['subject_type'] !== 'user' && value['subject_type'] !== 'group') return false;
     return true;
 }
 

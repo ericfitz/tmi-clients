@@ -84,6 +84,7 @@ export function instanceOfTimmyChatSession(value: object): value is TimmyChatSes
     if (!('threat_model_id' in value) || value['threat_model_id'] === undefined) return false;
     if (!('user_id' in value) || value['user_id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (value['status'] !== 'active' && value['status'] !== 'archived') return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     if (!('modified_at' in value) || value['modified_at'] === undefined) return false;
     return true;

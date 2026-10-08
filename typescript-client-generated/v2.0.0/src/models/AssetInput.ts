@@ -74,6 +74,7 @@ export type AssetInputTypeEnum = typeof AssetInputTypeEnum[keyof typeof AssetInp
 export function instanceOfAssetInput(value: object): value is AssetInput {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'data' && value['type'] !== 'hardware' && value['type'] !== 'software' && value['type'] !== 'infrastructure' && value['type'] !== 'service' && value['type'] !== 'personnel') return false;
     return true;
 }
 

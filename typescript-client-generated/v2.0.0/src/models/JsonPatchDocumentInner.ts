@@ -53,6 +53,7 @@ export type JsonPatchDocumentInnerOpEnum = typeof JsonPatchDocumentInnerOpEnum[k
  */
 export function instanceOfJsonPatchDocumentInner(value: object): value is JsonPatchDocumentInner {
     if (!('op' in value) || value['op'] === undefined) return false;
+    if (value['op'] !== 'add' && value['op'] !== 'replace' && value['op'] !== 'remove' && value['op'] !== 'move' && value['op'] !== 'copy' && value['op'] !== 'test') return false;
     if (!('path' in value) || value['path'] === undefined) return false;
     return true;
 }

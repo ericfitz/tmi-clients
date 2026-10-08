@@ -101,8 +101,10 @@ export function instanceOfAuditEntry(value: object): value is AuditEntry {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('threat_model_id' in value) || value['threat_model_id'] === undefined) return false;
     if (!('object_type' in value) || value['object_type'] === undefined) return false;
+    if (value['object_type'] !== 'threat_model' && value['object_type'] !== 'diagram' && value['object_type'] !== 'threat' && value['object_type'] !== 'asset' && value['object_type'] !== 'document' && value['object_type'] !== 'note' && value['object_type'] !== 'repository') return false;
     if (!('object_id' in value) || value['object_id'] === undefined) return false;
     if (!('change_type' in value) || value['change_type'] === undefined) return false;
+    if (value['change_type'] !== 'created' && value['change_type'] !== 'updated' && value['change_type'] !== 'patched' && value['change_type'] !== 'deleted' && value['change_type'] !== 'rolled_back' && value['change_type'] !== 'restored') return false;
     if (!('actor' in value) || value['actor'] === undefined) return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     return true;

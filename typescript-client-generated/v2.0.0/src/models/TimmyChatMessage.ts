@@ -67,6 +67,7 @@ export function instanceOfTimmyChatMessage(value: object): value is TimmyChatMes
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('session_id' in value) || value['session_id'] === undefined) return false;
     if (!('role' in value) || value['role'] === undefined) return false;
+    if (value['role'] !== 'user' && value['role'] !== 'assistant') return false;
     if (!('content' in value) || value['content'] === undefined) return false;
     if (!('sequence' in value) || value['sequence'] === undefined) return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;

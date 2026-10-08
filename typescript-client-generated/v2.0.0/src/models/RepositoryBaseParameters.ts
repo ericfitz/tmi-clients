@@ -50,6 +50,7 @@ export type RepositoryBaseParametersRefTypeEnum = typeof RepositoryBaseParameter
  */
 export function instanceOfRepositoryBaseParameters(value: object): value is RepositoryBaseParameters {
     if (!('refType' in value) || value['refType'] === undefined) return false;
+    if (value['refType'] !== 'branch' && value['refType'] !== 'tag' && value['refType'] !== 'commit') return false;
     if (!('refValue' in value) || value['refValue'] === undefined) return false;
     return true;
 }

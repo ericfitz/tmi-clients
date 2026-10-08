@@ -51,6 +51,7 @@ export type AccessRemediationActionEnum = typeof AccessRemediationActionEnum[key
  */
 export function instanceOfAccessRemediation(value: object): value is AccessRemediation {
     if (!('action' in value) || value['action'] === undefined) return false;
+    if (value['action'] !== 'link_account' && value['action'] !== 'relink_account' && value['action'] !== 'repick_file' && value['action'] !== 'share_with_service_account' && value['action'] !== 'share_with_application' && value['action'] !== 'repick_after_share' && value['action'] !== 'retry' && value['action'] !== 'contact_owner') return false;
     if (!('params' in value) || value['params'] === undefined) return false;
     return true;
 }

@@ -49,6 +49,7 @@ export type PickerRegistrationProviderIdEnum = typeof PickerRegistrationProvider
  */
 export function instanceOfPickerRegistration(value: object): value is PickerRegistration {
     if (!('provider_id' in value) || value['provider_id'] === undefined) return false;
+    if (value['provider_id'] !== 'google_workspace' && value['provider_id'] !== 'microsoft') return false;
     if (!('file_id' in value) || value['file_id'] === undefined) return false;
     if (!('mime_type' in value) || value['mime_type'] === undefined) return false;
     return true;

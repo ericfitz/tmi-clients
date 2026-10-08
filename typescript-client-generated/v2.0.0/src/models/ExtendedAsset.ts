@@ -114,6 +114,7 @@ export type ExtendedAssetTypeEnum = typeof ExtendedAssetTypeEnum[keyof typeof Ex
 export function instanceOfExtendedAsset(value: object): value is ExtendedAsset {
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
+    if (value['type'] !== 'data' && value['type'] !== 'hardware' && value['type'] !== 'software' && value['type'] !== 'infrastructure' && value['type'] !== 'service' && value['type'] !== 'personnel') return false;
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;
     if (!('modified_at' in value) || value['modified_at'] === undefined) return false;
