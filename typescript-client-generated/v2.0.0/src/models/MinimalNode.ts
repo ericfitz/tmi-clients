@@ -73,6 +73,7 @@ export type MinimalNodeShapeEnum = typeof MinimalNodeShapeEnum[keyof typeof Mini
 export function instanceOfMinimalNode(value: object): value is MinimalNode {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('shape' in value) || value['shape'] === undefined) return false;
+    if (value['shape'] !== 'actor' && value['shape'] !== 'process' && value['shape'] !== 'store' && value['shape'] !== 'security-boundary' && value['shape'] !== 'text-box') return false;
     if (!('children' in value) || value['children'] === undefined) return false;
     if (!('labels' in value) || value['labels'] === undefined) return false;
     if (!('metadata' in value) || value['metadata'] === undefined) return false;
