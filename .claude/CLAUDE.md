@@ -28,6 +28,8 @@ Each version directory contains the generated package (`api/`, `models/`), `docs
 { "branches": ["release/1.3.5", "main"] }
 ```
 
+Client-only fix releases (e.g. `go-v2.0.1` for a `v2_0_0` client) publish from the nearest same-minor directory with the release version stamped in CI; see `docs/adr/0003-client-fix-release-versions.md` and `RELEASING.md`.
+
 Specs are downloaded from `https://raw.githubusercontent.com/ericfitz/tmi/<branch>/api-schema/tmi-openapi.json`.
 
 ## Python client
