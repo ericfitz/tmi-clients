@@ -125,3 +125,16 @@ jobs:
 
       - name: Test
         run: go test -v ./...
+
+  test-release-scripts:
+    # The publish workflows resolve and stamp release versions with these
+    # scripts (ADR 0003); a bug there ships a wrong package, so test them.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+
+      - name: Run tests
+        run: uv run --with pytest python3 -m pytest .github/scripts/ -v

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Client version to validate, e.g. 1.8.3 (dotted, not underscored)"
+        description: "Release version, e.g. 2.0.1 (dotted, not underscored); resolves to the newest committed directory with the same major.minor"
         required: true
         type: string
 
@@ -21,55 +21,58 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Determine version directory
+      - name: Determine release version and client directory
         id: version
         # Both sources are untrusted-ish (a dispatch input, a tag name), and the
         # result becomes a filesystem path, so pass them through env: rather than
-        # ${{ }} interpolation and reject anything that is not a bare N.N.N.
+        # ${{ }} interpolation. The resolver rejects anything that is not a bare
+        # N.N.N and picks the committed directory with the same major.minor and
+        # the highest patch <= the release version (ADR 0003).
         env:
           EVENT_NAME: ${{ github.event_name }}
           INPUT_VERSION: ${{ inputs.version }}
         run: |
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            TAG_VERSION="$INPUT_VERSION"
+            RELEASE_VERSION="$INPUT_VERSION"
           else
-            TAG_VERSION="${GITHUB_REF_NAME#go-v}"
+            RELEASE_VERSION="${GITHUB_REF_NAME#go-v}"
           fi
-          if ! printf '%s' "$TAG_VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "::error::Invalid version '$TAG_VERSION' (expected N.N.N)"
-            exit 1
-          fi
-          # Go version dirs use underscores (v1_4_0), not dots.
-          echo "go_dir=go-client-generated/v${TAG_VERSION//./_}" >> "$GITHUB_OUTPUT"
-          echo "version=$TAG_VERSION" >> "$GITHUB_OUTPUT"
+          python3 .github/scripts/resolve_client_dir.py --lang go --version "$RELEASE_VERSION" --github-output
 
-      - name: Verify version directory exists
+      # The resolver guarantees this (same major.minor); assert it anyway, since
+      # a wrong major would publish a module tag Go rejects.
+      - name: Verify module major matches release major
+        env:
+          GO_DIR: ${{ steps.version.outputs.pkg_dir }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
         run: |
-          if [ ! -d "${{ steps.version.outputs.go_dir }}" ]; then
-            echo "::error::Directory ${{ steps.version.outputs.go_dir }} does not exist"
+          dir_major="${GO_DIR##*/v}"; dir_major="${dir_major%%_*}"
+          if [ "$dir_major" != "${RELEASE_VERSION%%.*}" ]; then
+            echo "::error::$GO_DIR does not match major version of $RELEASE_VERSION"
             exit 1
           fi
 
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
-          go-version-file: ${{ steps.version.outputs.go_dir }}/go.mod
-          cache-dependency-path: ${{ steps.version.outputs.go_dir }}/go.sum
+          go-version-file: ${{ steps.version.outputs.pkg_dir }}/go.mod
+          cache-dependency-path: ${{ steps.version.outputs.pkg_dir }}/go.sum
 
       - name: Build
-        working-directory: ${{ steps.version.outputs.go_dir }}
+        working-directory: ${{ steps.version.outputs.pkg_dir }}
         run: go build ./...
 
       - name: Test
-        working-directory: ${{ steps.version.outputs.go_dir }}
+        working-directory: ${{ steps.version.outputs.pkg_dir }}
         run: go test -v ./...
 
       # The module lives in a subdirectory, so Go resolves versions only from
-      # tags prefixed with that subdirectory (go-client-generated/v1_15_0/v1.15.0).
+      # tags prefixed with that subdirectory (go-client-generated/v2_0_0/v2.0.1). The
+      # directory keeps the spec version; the tag version is the release version.
       # The release tag (go-v1.15.0) is not one Go understands.
       - name: Push Go module tag
         if: github.event_name == 'release'
         env:
-          MODULE_TAG: ${{ steps.version.outputs.go_dir }}/v${{ steps.version.outputs.version }}
+          MODULE_TAG: ${{ steps.version.outputs.pkg_dir }}/v${{ steps.version.outputs.version }}
         run: |
           existing=$(git ls-remote --tags origin "refs/tags/$MODULE_TAG" | cut -f1)
           if [ -n "$existing" ]; then
