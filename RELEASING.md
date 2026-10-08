@@ -109,8 +109,9 @@ language.
 
 Re-running a release with the same R is safe for Go when the tag already
 points at the release commit (the step is a no-op); a different commit fails.
-PyPI and npm reject a duplicate version, so a re-run after a successful
-publish fails at the publish step. A release tag that points at an older
+The TestPyPI upload uses `skip-existing`, so a Python re-run reaches PyPI,
+which rejects a duplicate version (as does npm), so a re-run after a
+successful publish fails at the publish step. A release tag that points at an older
 commit builds that commit's tree, so the resolver sees only the directories
 that existed then.
 

@@ -28,7 +28,7 @@ LANG_DIRS = {
     "ts": ("typescript-client-generated", "."),
     "go": ("go-client-generated", "_"),
 }
-VERSION_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
+VERSION_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 
 
 def parse_version(text: str) -> tuple[int, int, int]:

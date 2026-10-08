@@ -15,7 +15,11 @@ import resolve_client_dir as rcd
 import stamp_python_version as spv
 
 REPO = HERE.parent.parent
-REAL_PY = REPO / "python-client-generated" / "v2.0.0"
+_REAL_CANDIDATES = rcd.list_candidates(REPO / "python-client-generated", ".")
+assert _REAL_CANDIDATES, "no committed python-client-generated/vX.Y.Z directory"
+_REAL_VER, _REAL_NAME = _REAL_CANDIDATES[-1]
+REAL_PY = REPO / "python-client-generated" / _REAL_NAME
+SPEC_VER = ".".join(map(str, _REAL_VER))
 
 
 def make_tree(tmp_path: Path, python=(), ts=(), go=(), extra=()) -> Path:
@@ -127,6 +131,9 @@ def test_missing_language_dir(tmp_path):
         " 2.0.1",
         "2.0.1.1",
         "a.b.c",
+        "2.0.01",
+        "02.0.1",
+        "2.00.1",
     ],
 )
 def test_invalid_versions_rejected(tmp_path, bad):
@@ -234,7 +241,7 @@ def test_real_files_carry_expected_spec_version():
 
 def test_stamp_rewrites_only_package_version_sites(client):
     before = snapshot(client)
-    changed = spv.stamp(client, "2.0.0", "2.0.7")
+    changed = spv.stamp(client, SPEC_VER, "99.0.7")
     assert sorted(changed) == sorted(SITE_FILES)
     after = snapshot(client)
     for rel in SITE_FILES:
@@ -242,41 +249,42 @@ def test_stamp_rewrites_only_package_version_sites(client):
         assert len(old) == len(new)
         diff = [(a, b) for a, b in zip(old, new) if a != b]
         assert len(diff) == 1, (rel, diff)
-        assert "2.0.7" in diff[0][1]
+        assert "99.0.7" in diff[0][1]
     # API-version strings and OpenAPI-document headers are untouched.
     cfg = after["tmi_client/configuration.py"]
-    assert "Version of the API: 2.0.0" in cfg and "SDK Package Version: 2.0.7" in cfg
-    assert "The version of the OpenAPI document: 2.0.0" in cfg
-    assert "OpenAPI-Generator/2.0.7/python" in after["tmi_client/api_client.py"]
-    assert '__version__ = "2.0.7"' in after["tmi_client/__init__.py"]
-    assert 'version = "2.0.7"' in after["pyproject.toml"]
-    assert 'VERSION = "2.0.7"' in after["setup.py"]
+    assert f"Version of the API: {SPEC_VER}" in cfg
+    assert "SDK Package Version: 99.0.7" in cfg
+    assert f"The version of the OpenAPI document: {SPEC_VER}" in cfg
+    assert "OpenAPI-Generator/99.0.7/python" in after["tmi_client/api_client.py"]
+    assert '__version__ = "99.0.7"' in after["tmi_client/__init__.py"]
+    assert 'version = "99.0.7"' in after["pyproject.toml"]
+    assert 'VERSION = "99.0.7"' in after["setup.py"]
 
 
 def test_stamp_noop_when_same(client):
     before = snapshot(client)
-    assert spv.stamp(client, "2.0.0", "2.0.0") == []
+    assert spv.stamp(client, SPEC_VER, SPEC_VER) == []
     assert snapshot(client) == before
 
 
 def test_stamp_second_run_with_same_target_fails_cleanly(client):
-    spv.stamp(client, "2.0.0", "2.0.1")
-    with pytest.raises(ValueError, match="expected '2.0.0'"):
-        spv.stamp(client, "2.0.0", "2.0.1")
+    spv.stamp(client, SPEC_VER, "2.0.1")
+    with pytest.raises(ValueError, match=f"expected {SPEC_VER!r}"):
+        spv.stamp(client, SPEC_VER, "2.0.1")
 
 
 def test_stamp_missing_site_fails_without_partial_write(client):
     (client / "tmi_client/configuration.py").write_text("nothing here\n")
     before = snapshot(client)
     with pytest.raises(ValueError, match="configuration.py: expected exactly 1"):
-        spv.stamp(client, "2.0.0", "2.0.1")
+        spv.stamp(client, SPEC_VER, "2.0.1")
     assert snapshot(client) == before
 
 
 def test_stamp_missing_file_fails(client):
     (client / "setup.py").unlink()
     with pytest.raises(ValueError, match="missing"):
-        spv.stamp(client, "2.0.0", "2.0.1")
+        spv.stamp(client, SPEC_VER, "2.0.1")
 
 
 def test_stamp_wrong_from_fails(client):
@@ -284,15 +292,15 @@ def test_stamp_wrong_from_fails(client):
         spv.stamp(client, "1.9.9", "2.0.1")
 
 
-@pytest.mark.parametrize("bad", ["2.0", "2.0.1-rc1", "", "2.0.1\n"])
+@pytest.mark.parametrize("bad", ["2.0", "2.0.1-rc1", "", "2.0.1\n", "2.0.01", "02.0.1"])
 def test_stamp_rejects_bad_versions(client, bad):
     with pytest.raises(ValueError):
-        spv.stamp(client, "2.0.0", bad)
+        spv.stamp(client, SPEC_VER, bad)
     with pytest.raises(ValueError):
         spv.stamp(client, bad, "2.0.1")
 
 
 def test_stamp_cli(client, capsys):
-    assert spv.main(["--dir", str(client), "--from", "2.0.0", "--to", "2.0.2"]) == 0
+    assert spv.main(["--dir", str(client), "--from", SPEC_VER, "--to", "2.0.2"]) == 0
     assert "stamped 2.0.2" in capsys.readouterr().out
-    assert spv.main(["--dir", str(client), "--from", "2.0.0", "--to", "2.0.3"]) == 1
+    assert spv.main(["--dir", str(client), "--from", SPEC_VER, "--to", "2.0.3"]) == 1

@@ -9,7 +9,8 @@ The committed client carries the spec version (--from). A client-only fix
 release publishes under a different version (--to), so the CI checkout is
 rewritten before building (ADR 0003). Only package-version sites change; the
 "version of the OpenAPI document" headers, API-version strings, docs, tests
-and uv.lock are left alone. Every site must match exactly once or the script
+and uv.lock are left alone (uv.lock is intentionally not stamped: the build
+does not use it). Every site must match exactly once or the script
 fails without writing anything. It is a no-op when --from equals --to.
 """
 
@@ -20,7 +21,7 @@ import re
 import sys
 from pathlib import Path
 
-VERSION_RE = re.compile(r"^\d+\.\d+\.\d+$")
+VERSION_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 
 # (file relative to the client dir, regex with one group for the version)
 SITES = [
