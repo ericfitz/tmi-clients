@@ -399,7 +399,6 @@ func (o *AssetInput) UnmarshalJSON(data []byte) (err error) {
 	varAssetInput := _AssetInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAssetInput)
 
 	if err != nil {

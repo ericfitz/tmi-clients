@@ -109,7 +109,6 @@ func (o *ConfirmIdentityLinkRequest) UnmarshalJSON(data []byte) (err error) {
 	varConfirmIdentityLinkRequest := _ConfirmIdentityLinkRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varConfirmIdentityLinkRequest)
 
 	if err != nil {

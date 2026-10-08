@@ -138,7 +138,6 @@ func (o *CreateThreatModelFromSurveyResponse) UnmarshalJSON(data []byte) (err er
 	varCreateThreatModelFromSurveyResponse := _CreateThreatModelFromSurveyResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateThreatModelFromSurveyResponse)
 
 	if err != nil {

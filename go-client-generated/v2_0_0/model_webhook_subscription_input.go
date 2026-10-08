@@ -251,7 +251,6 @@ func (o *WebhookSubscriptionInput) UnmarshalJSON(data []byte) (err error) {
 	varWebhookSubscriptionInput := _WebhookSubscriptionInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varWebhookSubscriptionInput)
 
 	if err != nil {

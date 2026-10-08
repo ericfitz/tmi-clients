@@ -138,7 +138,6 @@ func (o *ColorPaletteEntry) UnmarshalJSON(data []byte) (err error) {
 	varColorPaletteEntry := _ColorPaletteEntry{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varColorPaletteEntry)
 
 	if err != nil {

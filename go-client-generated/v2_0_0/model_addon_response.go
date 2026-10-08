@@ -382,7 +382,6 @@ func (o *AddonResponse) UnmarshalJSON(data []byte) (err error) {
 	varAddonResponse := _AddonResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAddonResponse)
 
 	if err != nil {

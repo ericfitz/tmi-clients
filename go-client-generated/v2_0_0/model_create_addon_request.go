@@ -323,7 +323,6 @@ func (o *CreateAddonRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateAddonRequest := _CreateAddonRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateAddonRequest)
 
 	if err != nil {

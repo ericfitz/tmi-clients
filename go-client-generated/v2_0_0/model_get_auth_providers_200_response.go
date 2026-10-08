@@ -108,7 +108,6 @@ func (o *GetAuthProviders200Response) UnmarshalJSON(data []byte) (err error) {
 	varGetAuthProviders200Response := _GetAuthProviders200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetAuthProviders200Response)
 
 	if err != nil {

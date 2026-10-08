@@ -368,7 +368,6 @@ func (o *OAuthProtectedResourceMetadata) UnmarshalJSON(data []byte) (err error) 
 	varOAuthProtectedResourceMetadata := _OAuthProtectedResourceMetadata{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varOAuthProtectedResourceMetadata)
 
 	if err != nil {

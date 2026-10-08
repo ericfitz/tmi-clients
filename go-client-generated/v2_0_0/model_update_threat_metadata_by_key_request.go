@@ -109,7 +109,6 @@ func (o *UpdateThreatMetadataByKeyRequest) UnmarshalJSON(data []byte) (err error
 	varUpdateThreatMetadataByKeyRequest := _UpdateThreatMetadataByKeyRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varUpdateThreatMetadataByKeyRequest)
 
 	if err != nil {

@@ -138,7 +138,6 @@ func (o *EmbeddingIngestionRequest) UnmarshalJSON(data []byte) (err error) {
 	varEmbeddingIngestionRequest := _EmbeddingIngestionRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEmbeddingIngestionRequest)
 
 	if err != nil {

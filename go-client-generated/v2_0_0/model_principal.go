@@ -241,7 +241,6 @@ func (o *Principal) UnmarshalJSON(data []byte) (err error) {
 	varPrincipal := _Principal{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varPrincipal)
 
 	if err != nil {

@@ -109,7 +109,6 @@ func (o *UpdateDiagramMetadataByKeyRequest) UnmarshalJSON(data []byte) (err erro
 	varUpdateDiagramMetadataByKeyRequest := _UpdateDiagramMetadataByKeyRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varUpdateDiagramMetadataByKeyRequest)
 
 	if err != nil {

@@ -174,7 +174,6 @@ func (o *RelatedProject) UnmarshalJSON(data []byte) (err error) {
 	varRelatedProject := _RelatedProject{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varRelatedProject)
 
 	if err != nil {

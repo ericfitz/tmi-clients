@@ -183,7 +183,6 @@ func (o *ComponentHealth) UnmarshalJSON(data []byte) (err error) {
 	varComponentHealth := _ComponentHealth{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varComponentHealth)
 
 	if err != nil {

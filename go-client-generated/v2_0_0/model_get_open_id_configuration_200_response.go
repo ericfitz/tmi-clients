@@ -564,7 +564,6 @@ func (o *GetOpenIDConfiguration200Response) UnmarshalJSON(data []byte) (err erro
 	varGetOpenIDConfiguration200Response := _GetOpenIDConfiguration200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetOpenIDConfiguration200Response)
 
 	if err != nil {

@@ -1183,7 +1183,6 @@ func (o *Threat) UnmarshalJSON(data []byte) (err error) {
 	varThreat := _Threat{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varThreat)
 
 	if err != nil {

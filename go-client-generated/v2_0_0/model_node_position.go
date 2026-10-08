@@ -138,7 +138,6 @@ func (o *NodePosition) UnmarshalJSON(data []byte) (err error) {
 	varNodePosition := _NodePosition{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varNodePosition)
 
 	if err != nil {

@@ -136,7 +136,6 @@ func (o *ListUsabilityFeedback200Response) UnmarshalJSON(data []byte) (err error
 	varListUsabilityFeedback200Response := _ListUsabilityFeedback200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListUsabilityFeedback200Response)
 
 	if err != nil {

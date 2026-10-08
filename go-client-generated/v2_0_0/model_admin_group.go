@@ -477,7 +477,6 @@ func (o *AdminGroup) UnmarshalJSON(data []byte) (err error) {
 	varAdminGroup := _AdminGroup{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAdminGroup)
 
 	if err != nil {

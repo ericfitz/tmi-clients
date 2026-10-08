@@ -224,7 +224,6 @@ func (o *CreateAutomationAccountRequest) UnmarshalJSON(data []byte) (err error) 
 	varCreateAutomationAccountRequest := _CreateAutomationAccountRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateAutomationAccountRequest)
 
 	if err != nil {

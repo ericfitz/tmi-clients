@@ -195,7 +195,6 @@ func (o *ListSurveyResponsesResponse) UnmarshalJSON(data []byte) (err error) {
 	varListSurveyResponsesResponse := _ListSurveyResponsesResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListSurveyResponsesResponse)
 
 	if err != nil {

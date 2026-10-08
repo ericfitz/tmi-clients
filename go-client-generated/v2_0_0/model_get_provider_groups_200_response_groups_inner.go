@@ -183,7 +183,6 @@ func (o *GetProviderGroups200ResponseGroupsInner) UnmarshalJSON(data []byte) (er
 	varGetProviderGroups200ResponseGroupsInner := _GetProviderGroups200ResponseGroupsInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetProviderGroups200ResponseGroupsInner)
 
 	if err != nil {

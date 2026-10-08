@@ -138,7 +138,6 @@ func (o *CreateDiagramCollaborationSession409Response) UnmarshalJSON(data []byte
 	varCreateDiagramCollaborationSession409Response := _CreateDiagramCollaborationSession409Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateDiagramCollaborationSession409Response)
 
 	if err != nil {

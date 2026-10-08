@@ -138,7 +138,6 @@ func (o *TransferOwnershipResultThreatModelsTransferred) UnmarshalJSON(data []by
 	varTransferOwnershipResultThreatModelsTransferred := _TransferOwnershipResultThreatModelsTransferred{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTransferOwnershipResultThreatModelsTransferred)
 
 	if err != nil {

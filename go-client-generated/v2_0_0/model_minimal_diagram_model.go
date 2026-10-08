@@ -254,7 +254,6 @@ func (o *MinimalDiagramModel) UnmarshalJSON(data []byte) (err error) {
 	varMinimalDiagramModel := _MinimalDiagramModel{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMinimalDiagramModel)
 
 	if err != nil {

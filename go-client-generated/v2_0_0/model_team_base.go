@@ -334,7 +334,6 @@ func (o *TeamBase) UnmarshalJSON(data []byte) (err error) {
 	varTeamBase := _TeamBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTeamBase)
 
 	if err != nil {

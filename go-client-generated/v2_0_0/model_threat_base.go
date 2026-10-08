@@ -876,7 +876,6 @@ func (o *ThreatBase) UnmarshalJSON(data []byte) (err error) {
 	varThreatBase := _ThreatBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varThreatBase)
 
 	if err != nil {

@@ -518,7 +518,6 @@ func (o *AdminUser) UnmarshalJSON(data []byte) (err error) {
 	varAdminUser := _AdminUser{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAdminUser)
 
 	if err != nil {

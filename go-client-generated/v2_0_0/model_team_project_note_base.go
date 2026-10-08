@@ -263,7 +263,6 @@ func (o *TeamProjectNoteBase) UnmarshalJSON(data []byte) (err error) {
 	varTeamProjectNoteBase := _TeamProjectNoteBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTeamProjectNoteBase)
 
 	if err != nil {

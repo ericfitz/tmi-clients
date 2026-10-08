@@ -168,7 +168,6 @@ func (o *IdentityLinkStartResponse) UnmarshalJSON(data []byte) (err error) {
 	varIdentityLinkStartResponse := _IdentityLinkStartResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varIdentityLinkStartResponse)
 
 	if err != nil {

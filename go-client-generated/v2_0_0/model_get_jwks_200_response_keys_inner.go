@@ -192,7 +192,6 @@ func (o *GetJWKS200ResponseKeysInner) UnmarshalJSON(data []byte) (err error) {
 	varGetJWKS200ResponseKeysInner := _GetJWKS200ResponseKeysInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varGetJWKS200ResponseKeysInner)
 
 	if err != nil {

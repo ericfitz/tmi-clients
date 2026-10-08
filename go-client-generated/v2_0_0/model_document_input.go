@@ -305,7 +305,6 @@ func (o *DocumentInput) UnmarshalJSON(data []byte) (err error) {
 	varDocumentInput := _DocumentInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDocumentInput)
 
 	if err != nil {

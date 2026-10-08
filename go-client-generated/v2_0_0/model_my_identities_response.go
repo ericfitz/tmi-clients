@@ -145,7 +145,6 @@ func (o *MyIdentitiesResponse) UnmarshalJSON(data []byte) (err error) {
 	varMyIdentitiesResponse := _MyIdentitiesResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMyIdentitiesResponse)
 
 	if err != nil {

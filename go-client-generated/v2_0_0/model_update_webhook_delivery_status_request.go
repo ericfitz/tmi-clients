@@ -183,7 +183,6 @@ func (o *UpdateWebhookDeliveryStatusRequest) UnmarshalJSON(data []byte) (err err
 	varUpdateWebhookDeliveryStatusRequest := _UpdateWebhookDeliveryStatusRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varUpdateWebhookDeliveryStatusRequest)
 
 	if err != nil {

@@ -139,7 +139,6 @@ func (o *ContentAuthorizationURL) UnmarshalJSON(data []byte) (err error) {
 	varContentAuthorizationURL := _ContentAuthorizationURL{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varContentAuthorizationURL)
 
 	if err != nil {

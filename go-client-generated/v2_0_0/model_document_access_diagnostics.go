@@ -183,7 +183,6 @@ func (o *DocumentAccessDiagnostics) UnmarshalJSON(data []byte) (err error) {
 	varDocumentAccessDiagnostics := _DocumentAccessDiagnostics{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDocumentAccessDiagnostics)
 
 	if err != nil {

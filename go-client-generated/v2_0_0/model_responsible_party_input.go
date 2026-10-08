@@ -182,7 +182,6 @@ func (o *ResponsiblePartyInput) UnmarshalJSON(data []byte) (err error) {
 	varResponsiblePartyInput := _ResponsiblePartyInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varResponsiblePartyInput)
 
 	if err != nil {

@@ -267,7 +267,6 @@ func (o *DocumentBase) UnmarshalJSON(data []byte) (err error) {
 	varDocumentBase := _DocumentBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDocumentBase)
 
 	if err != nil {

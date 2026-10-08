@@ -109,7 +109,6 @@ func (o *EmbeddingIngestionResponse) UnmarshalJSON(data []byte) (err error) {
 	varEmbeddingIngestionResponse := _EmbeddingIngestionResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEmbeddingIngestionResponse)
 
 	if err != nil {

@@ -741,7 +741,6 @@ func (o *TMListItem) UnmarshalJSON(data []byte) (err error) {
 	varTMListItem := _TMListItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTMListItem)
 
 	if err != nil {

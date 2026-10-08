@@ -137,7 +137,6 @@ func (o *AccessRemediation) UnmarshalJSON(data []byte) (err error) {
 	varAccessRemediation := _AccessRemediation{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAccessRemediation)
 
 	if err != nil {

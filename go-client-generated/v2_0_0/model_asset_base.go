@@ -399,7 +399,6 @@ func (o *AssetBase) UnmarshalJSON(data []byte) (err error) {
 	varAssetBase := _AssetBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAssetBase)
 
 	if err != nil {

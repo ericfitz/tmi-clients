@@ -223,7 +223,6 @@ func (o *ListWebhookQuotasResponse) UnmarshalJSON(data []byte) (err error) {
 	varListWebhookQuotasResponse := _ListWebhookQuotasResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListWebhookQuotasResponse)
 
 	if err != nil {

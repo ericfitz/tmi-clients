@@ -138,7 +138,6 @@ func (o *Point) UnmarshalJSON(data []byte) (err error) {
 	varPoint := _Point{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varPoint)
 
 	if err != nil {

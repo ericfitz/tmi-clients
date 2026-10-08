@@ -418,7 +418,6 @@ func (o *DfdDiagramInput) UnmarshalJSON(data []byte) (err error) {
 	varDfdDiagramInput := _DfdDiagramInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDfdDiagramInput)
 
 	if err != nil {

@@ -167,7 +167,6 @@ func (o *PickerRegistration) UnmarshalJSON(data []byte) (err error) {
 	varPickerRegistration := _PickerRegistration{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varPickerRegistration)
 
 	if err != nil {

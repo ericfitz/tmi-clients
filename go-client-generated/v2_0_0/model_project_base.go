@@ -316,7 +316,6 @@ func (o *ProjectBase) UnmarshalJSON(data []byte) (err error) {
 	varProjectBase := _ProjectBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varProjectBase)
 
 	if err != nil {

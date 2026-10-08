@@ -381,7 +381,6 @@ func (o *RepositoryBulkUpdateItem) UnmarshalJSON(data []byte) (err error) {
 	varRepositoryBulkUpdateItem := _RepositoryBulkUpdateItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varRepositoryBulkUpdateItem)
 
 	if err != nil {

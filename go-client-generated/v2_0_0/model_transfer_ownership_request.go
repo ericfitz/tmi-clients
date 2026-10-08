@@ -109,7 +109,6 @@ func (o *TransferOwnershipRequest) UnmarshalJSON(data []byte) (err error) {
 	varTransferOwnershipRequest := _TransferOwnershipRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTransferOwnershipRequest)
 
 	if err != nil {

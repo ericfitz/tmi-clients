@@ -185,7 +185,6 @@ func (o *TeamSummary) UnmarshalJSON(data []byte) (err error) {
 	varTeamSummary := _TeamSummary{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varTeamSummary)
 
 	if err != nil {

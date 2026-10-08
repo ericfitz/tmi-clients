@@ -176,7 +176,6 @@ func (o *JsonPatchDocumentInner) UnmarshalJSON(data []byte) (err error) {
 	varJsonPatchDocumentInner := _JsonPatchDocumentInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varJsonPatchDocumentInner)
 
 	if err != nil {

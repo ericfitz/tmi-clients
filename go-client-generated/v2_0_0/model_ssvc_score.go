@@ -167,7 +167,6 @@ func (o *SSVCScore) UnmarshalJSON(data []byte) (err error) {
 	varSSVCScore := _SSVCScore{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varSSVCScore)
 
 	if err != nil {

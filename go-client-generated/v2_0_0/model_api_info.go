@@ -236,7 +236,6 @@ func (o *ApiInfo) UnmarshalJSON(data []byte) (err error) {
 	varApiInfo := _ApiInfo{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varApiInfo)
 
 	if err != nil {

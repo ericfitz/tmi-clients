@@ -265,6 +265,117 @@ def patch_non_string_regex_validators(client_dir: Path, had_issues: bool) -> boo
     return had_issues
 
 
+def patch_lenient_decoding(client_dir: Path, had_issues: bool) -> bool:
+    """Make model decoding tolerate unknown fields.
+
+    The Go template calls DisallowUnknownFields() in every model's UnmarshalJSON
+    and in newStrictDecoder (used by the oneOf wrappers), so any response with a
+    field newer than the client fails to decode. Remove the calls; the function
+    name stays so oneOf wrappers keep compiling. Without strictness, Node and
+    Edge are no longer disjoint (see patch_shape_enum_checks).
+    """
+    import re
+
+    call_re = re.compile(
+        r"^[ \t]*(?:decoder|dec)\.DisallowUnknownFields\(\)\n", re.MULTILINE
+    )
+    patched_count = 0
+
+    for go_file in [*sorted(client_dir.glob("model_*.go")), client_dir / "utils.go"]:
+        if not go_file.is_file():
+            continue
+        content = go_file.read_text(encoding="utf-8")
+        new_content, n = call_re.subn("", content)
+        if n > 0:
+            go_file.write_text(new_content, encoding="utf-8")
+            patched_count += n
+
+    utils = client_dir / "utils.go"
+    if not utils.is_file() or "func newStrictDecoder(" not in utils.read_text(
+        encoding="utf-8"
+    ):
+        print_warning("Lenient decoding patch: newStrictDecoder not found in utils.go")
+        return True
+
+    print_success(f"Lenient decoding patch: {patched_count} strict calls removed")
+
+    return had_issues
+
+
+# Models whose shape enum keeps the Node/Edge oneOf disjoint once unknown fields
+# are allowed (an edge decodes as a Node otherwise: Node requires only id+shape).
+_SHAPE_CHECKED_MODELS = {
+    "Node": "model_node.go",
+    "MinimalNode": "model_minimal_node.go",
+    "Edge": "model_edge.go",
+    "MinimalEdge": "model_minimal_edge.go",
+}
+
+
+def patch_shape_enum_checks(client_dir: Path, had_issues: bool) -> bool:
+    """Reject cells whose shape is outside the spec enum.
+
+    The generator types shape as a plain string, so with strict decoding gone
+    (patch_lenient_decoding) a Node and an Edge payload both decode as either
+    type and the cell oneOf matches twice. Validate Shape against the enum read
+    from the spec in each model's UnmarshalJSON, before the result is assigned.
+    """
+    import json
+
+    spec_file = client_dir / "tmi-openapi.json"
+    try:
+        schemas = json.loads(spec_file.read_text(encoding="utf-8"))["components"][
+            "schemas"
+        ]
+    except (OSError, KeyError, ValueError) as e:
+        print_warning(f"Shape enum patch: cannot read schemas from {spec_file}: {e}")
+        return True
+
+    patched = []
+
+    for model, filename in _SHAPE_CHECKED_MODELS.items():
+        enum = schemas.get(model, {}).get("properties", {}).get("shape", {}).get("enum")
+        if not enum:
+            print_warning(f"Shape enum patch: no shape enum for {model} in spec")
+            had_issues = True
+            continue
+
+        go_file = client_dir / filename
+        if not go_file.is_file():
+            print_warning(f"Shape enum patch: {filename} not found")
+            had_issues = True
+            continue
+
+        content = go_file.read_text(encoding="utf-8")
+        anchor = f"\t*o = {model}(var{model})\n"
+        marker = f"// Reject shapes outside the spec enum ({model})"
+        if marker in content:
+            continue
+        if content.count(anchor) != 1:
+            print_warning(f"Shape enum patch: anchor not found in {filename}")
+            had_issues = True
+            continue
+
+        allowed = ", ".join(json.dumps(v) for v in enum)
+        check = (
+            f"\t{marker}\n"
+            f"\tswitch var{model}.Shape {{\n"
+            f"\tcase {allowed}:\n"
+            f"\tdefault:\n"
+            f'\t\treturn fmt.Errorf("invalid shape %q for {model}", var{model}.Shape)\n'
+            f"\t}}\n\n"
+        )
+        go_file.write_text(content.replace(anchor, check + anchor), encoding="utf-8")
+        patched.append(model)
+
+    if patched:
+        print_success(f"Shape enum patch: added checks to {', '.join(patched)}")
+    else:
+        print_success("Shape enum patch: no models needed patching")
+
+    return had_issues
+
+
 def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = False
 
@@ -369,6 +480,8 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_missing_time_import(client_dir, had_issues)
     had_issues = patch_form_content_type(client_dir, had_issues)
     had_issues = patch_non_string_regex_validators(client_dir, had_issues)
+    had_issues = patch_lenient_decoding(client_dir, had_issues)
+    had_issues = patch_shape_enum_checks(client_dir, had_issues)
     had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
     had_issues = patch_doc_import_paths(client_dir, go_module_path, had_issues)
     print_success("Patches applied")

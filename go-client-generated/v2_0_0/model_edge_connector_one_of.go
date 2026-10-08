@@ -145,7 +145,6 @@ func (o *EdgeConnectorOneOf) UnmarshalJSON(data []byte) (err error) {
 	varEdgeConnectorOneOf := _EdgeConnectorOneOf{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varEdgeConnectorOneOf)
 
 	if err != nil {

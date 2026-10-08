@@ -146,7 +146,6 @@ func (o *RollbackResponse) UnmarshalJSON(data []byte) (err error) {
 	varRollbackResponse := _RollbackResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varRollbackResponse)
 
 	if err != nil {

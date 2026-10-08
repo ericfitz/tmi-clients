@@ -146,7 +146,6 @@ func (o *IntrospectToken500Response) UnmarshalJSON(data []byte) (err error) {
 	varIntrospectToken500Response := _IntrospectToken500Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varIntrospectToken500Response)
 
 	if err != nil {

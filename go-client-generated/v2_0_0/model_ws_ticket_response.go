@@ -109,7 +109,6 @@ func (o *WsTicketResponse) UnmarshalJSON(data []byte) (err error) {
 	varWsTicketResponse := _WsTicketResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varWsTicketResponse)
 
 	if err != nil {

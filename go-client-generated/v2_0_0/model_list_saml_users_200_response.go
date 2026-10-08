@@ -167,7 +167,6 @@ func (o *ListSAMLUsers200Response) UnmarshalJSON(data []byte) (err error) {
 	varListSAMLUsers200Response := _ListSAMLUsers200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListSAMLUsers200Response)
 
 	if err != nil {

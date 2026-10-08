@@ -260,7 +260,6 @@ func (o *ListThreatModelAuditTrailResponse) UnmarshalJSON(data []byte) (err erro
 	varListThreatModelAuditTrailResponse := _ListThreatModelAuditTrailResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListThreatModelAuditTrailResponse)
 
 	if err != nil {

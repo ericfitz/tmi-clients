@@ -297,7 +297,6 @@ func (o *SurveyBase) UnmarshalJSON(data []byte) (err error) {
 	varSurveyBase := _SurveyBase{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varSurveyBase)
 
 	if err != nil {

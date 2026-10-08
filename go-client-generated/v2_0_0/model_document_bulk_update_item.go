@@ -296,7 +296,6 @@ func (o *DocumentBulkUpdateItem) UnmarshalJSON(data []byte) (err error) {
 	varDocumentBulkUpdateItem := _DocumentBulkUpdateItem{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varDocumentBulkUpdateItem)
 
 	if err != nil {

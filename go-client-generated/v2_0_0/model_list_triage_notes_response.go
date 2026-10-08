@@ -195,7 +195,6 @@ func (o *ListTriageNotesResponse) UnmarshalJSON(data []byte) (err error) {
 	varListTriageNotesResponse := _ListTriageNotesResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListTriageNotesResponse)
 
 	if err != nil {

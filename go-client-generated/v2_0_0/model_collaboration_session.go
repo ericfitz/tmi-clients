@@ -349,7 +349,6 @@ func (o *CollaborationSession) UnmarshalJSON(data []byte) (err error) {
 	varCollaborationSession := _CollaborationSession{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCollaborationSession)
 
 	if err != nil {

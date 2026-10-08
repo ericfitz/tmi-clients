@@ -226,7 +226,6 @@ func (o *AddonInvocationQuota) UnmarshalJSON(data []byte) (err error) {
 	varAddonInvocationQuota := _AddonInvocationQuota{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAddonInvocationQuota)
 
 	if err != nil {

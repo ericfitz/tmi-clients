@@ -175,7 +175,6 @@ func (o *PortConfigurationItemsInner) UnmarshalJSON(data []byte) (err error) {
 	varPortConfigurationItemsInner := _PortConfigurationItemsInner{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varPortConfigurationItemsInner)
 
 	if err != nil {

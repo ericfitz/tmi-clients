@@ -109,7 +109,6 @@ func (o *CreateTimmyMessageRequest) UnmarshalJSON(data []byte) (err error) {
 	varCreateTimmyMessageRequest := _CreateTimmyMessageRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varCreateTimmyMessageRequest)
 
 	if err != nil {

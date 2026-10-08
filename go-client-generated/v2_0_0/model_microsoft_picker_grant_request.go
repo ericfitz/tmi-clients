@@ -138,7 +138,6 @@ func (o *MicrosoftPickerGrantRequest) UnmarshalJSON(data []byte) (err error) {
 	varMicrosoftPickerGrantRequest := _MicrosoftPickerGrantRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMicrosoftPickerGrantRequest)
 
 	if err != nil {

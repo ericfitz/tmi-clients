@@ -220,7 +220,6 @@ func (o *InvokeAddonRequest) UnmarshalJSON(data []byte) (err error) {
 	varInvokeAddonRequest := _InvokeAddonRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varInvokeAddonRequest)
 
 	if err != nil {

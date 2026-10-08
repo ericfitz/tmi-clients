@@ -109,7 +109,6 @@ func (o *BulkPatchRequest) UnmarshalJSON(data []byte) (err error) {
 	varBulkPatchRequest := _BulkPatchRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varBulkPatchRequest)
 
 	if err != nil {

@@ -196,7 +196,6 @@ func (o *AdminUserListResponse) UnmarshalJSON(data []byte) (err error) {
 	varAdminUserListResponse := _AdminUserListResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varAdminUserListResponse)
 
 	if err != nil {

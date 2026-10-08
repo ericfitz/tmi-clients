@@ -438,7 +438,6 @@ func (o *ExchangeOAuthCodeRequest) UnmarshalJSON(data []byte) (err error) {
 	varExchangeOAuthCodeRequest := _ExchangeOAuthCodeRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varExchangeOAuthCodeRequest)
 
 	if err != nil {

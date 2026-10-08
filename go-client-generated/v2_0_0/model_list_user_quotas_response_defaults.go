@@ -138,7 +138,6 @@ func (o *ListUserQuotasResponseDefaults) UnmarshalJSON(data []byte) (err error) 
 	varListUserQuotasResponseDefaults := _ListUserQuotasResponseDefaults{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varListUserQuotasResponseDefaults)
 
 	if err != nil {
