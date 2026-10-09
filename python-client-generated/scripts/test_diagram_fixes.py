@@ -31,6 +31,9 @@ Covered:
      diagram must not recurse forever. The recursion came from a
      self-referential discriminator mapping that API 2.0.0 removed, so its
      patch is gone; the check stays as a regression guard.
+  6. The urllib3 floor that `patch_urllib3_minimum_version` writes into
+     pyproject.toml, setup.py and requirements.txt excludes the versions with
+     known HIGH-severity advisories (issue #68).
 
 Version-portable: asserts on the presence or absence of specific fields rather
 than exact field lists, since the schema grows between API versions.
@@ -38,9 +41,11 @@ than exact field lists, since the schema grows between API versions.
 from __future__ import annotations
 
 import json
+import re
 import sys
 import traceback
 from datetime import datetime, timezone
+from pathlib import Path
 from uuid import UUID
 
 from tmi_client.models.dfd_diagram import DfdDiagram
@@ -71,6 +76,9 @@ EDGE_CELL = {
 }
 
 READONLY_FIELDS = ("id", "created_at", "modified_at")
+
+# Lowest urllib3 without known HIGH-severity advisories (issue #68).
+URLLIB3_FLOOR = (2, 8, 0)
 
 _results: list[tuple[str, str, str]] = []
 
@@ -281,6 +289,19 @@ def _read_modify_write_round_trip() -> None:
     assert len(update.cells) == 2, f"expected 2 cells, got {len(update.cells)}"
     for field in READONLY_FIELDS:
         assert field not in update.to_dict(), f"readOnly field {field} leaked into input"
+
+
+
+@check("urllib3 floor excludes vulnerable versions in every dependency file")
+def _urllib3_floor() -> None:
+    client_dir = Path(__file__).resolve().parent
+    for name in ("pyproject.toml", "setup.py", "requirements.txt"):
+        text = (client_dir / name).read_text(encoding="utf-8")
+        floors = re.findall(r"urllib3\s*\(?\s*>=\s*([\d.]+)", text)
+        assert floors, f"{name}: no urllib3 floor found"
+        for floor in floors:
+            version = tuple(int(part) for part in floor.split("."))
+            assert version >= URLLIB3_FLOOR, f"{name}: urllib3 >= {floor} is below {URLLIB3_FLOOR}"
 
 
 def main() -> int:
