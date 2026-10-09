@@ -23,7 +23,7 @@ var _ MappedNullable = &RepositoryBase{}
 // RepositoryBase Base fields for Repository (user-writable only)
 type RepositoryBase struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty"'&]*$"`
+	Name NullableString `json:"name,omitempty"`
 	// Description of the referenced source code
 	Description NullableString `json:"description,omitempty"`
 	// Source code repository type

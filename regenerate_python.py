@@ -145,13 +145,16 @@ def patch_regex_validators(client_dir: Path, had_issues: bool) -> bool:
 
 
 def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
-    """Bump urllib3 minimum version to >=2.6.3 across all dependency files.
+    """Bump urllib3 minimum version to >=2.8.0 across all dependency files.
 
-    openapi-generator defaults to urllib3 >= 2.1.0, but versions before 2.6.3
-    have HIGH-severity CVEs (decompression-bomb bypass, unbounded decompression
-    chain).  This patch updates pyproject.toml, setup.py, and requirements.txt.
+    openapi-generator defaults to urllib3 >= 2.1.0, but versions before 2.8.0
+    have HIGH-severity advisories (decompression-bomb bypass, unbounded
+    decompression chain, cross-origin header forwarding; issue #68).  urllib3
+    2.8.0 requires Python >= 3.10, matching patch_python_minimum_version.  This
+    patch updates pyproject.toml, setup.py, and requirements.txt;
+    test_diagram_fixes.py asserts the floor.
     """
-    min_version = "2.6.3"
+    min_version = "2.8.0"
     files_patched = 0
 
     for rel_path in ["pyproject.toml", "setup.py", "requirements.txt"]:
@@ -195,8 +198,8 @@ def patch_python_minimum_version(client_dir: Path, had_issues: bool) -> bool:
     forwarding in proxied redirects, decompression-bomb bypass in the streaming
     API) — requires Python >=3.10.  Keeping a 3.9 floor forces the resolver to
     pin urllib3 2.6.3 for the 3.9 slice, leaving 3.9 users exposed with no
-    backport available.  Raising the floor lets urllib3 resolve to 2.7.0 for
-    every supported interpreter.  The ``tox = ">= 3.9.0"`` dev dependency is a
+    backport available.  The urllib3 floor (patch_urllib3_minimum_version,
+    now >=2.8.0) needs Python >=3.10 too.  The ``tox = ">= 3.9.0"`` dev dependency is a
     tox *package* version and is intentionally left untouched.
     """
     min_python = "3.10"
@@ -586,7 +589,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     spec_version = extract_spec_version(Path(spec_path))
 
     if output_dir:
-        client_dir = Path(output_dir)
+        client_dir = Path(output_dir).resolve()
     else:
         client_dir = LANG_DIR / f"v{spec_version}"
 
@@ -754,7 +757,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "- Test return-type fix (openapi-generator bug: "
             "make_instance() stubs declare a model return type but body is "
             "commented out, causing type-checker errors)\n"
-            "- urllib3 minimum version bump to >= 2.6.3 "
+            "- urllib3 minimum version bump to >= 2.8.0 "
             "(CVE fixes for decompression-bomb and redirect vulnerabilities)\n"
             "- OneOf model return-type fix (type checkers can't narrow "
             "through hasattr guards on actual_instance)\n"

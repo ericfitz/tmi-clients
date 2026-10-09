@@ -5,9 +5,15 @@ package tmiclient
 import (
 	"context"
 	"encoding/json"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"reflect"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -186,5 +192,94 @@ func TestDiagramWithUnknownFields(t *testing.T) {
 	}
 	if len(d.Cells) != 2 || d.Cells[0].Node == nil || d.Cells[1].Edge == nil {
 		t.Fatalf("cells not resolved: %+v", d.Cells)
+	}
+}
+
+// wellFormedTag reports whether tag is a space-separated list of key:"value"
+// pairs, the format reflect.StructTag.Get and go vet's structtag check expect.
+func wellFormedTag(tag string) bool {
+	for tag != "" {
+		tag = strings.TrimLeft(tag, " ")
+		if tag == "" {
+			break
+		}
+		i := 0
+		for i < len(tag) && tag[i] > ' ' && tag[i] != ':' && tag[i] != '"' && tag[i] != 0x7f {
+			i++
+		}
+		if i == 0 || i+1 >= len(tag) || tag[i] != ':' || tag[i+1] != '"' {
+			return false
+		}
+		tag = tag[i+1:]
+		i = 1
+		for i < len(tag) && tag[i] != '"' {
+			if tag[i] == '\\' {
+				i++
+			}
+			i++
+		}
+		if i >= len(tag) {
+			return false
+		}
+		if _, err := strconv.Unquote(tag[:i+1]); err != nil {
+			return false
+		}
+		tag = tag[i+1:]
+		if tag != "" && tag[0] != ' ' {
+			return false
+		}
+	}
+	return true
+}
+
+func TestWellFormedTag(t *testing.T) {
+	for tag, want := range map[string]bool{
+		`json:"name,omitempty"`:                      true,
+		`json:"name" validate:"regexp=^[^<>\"'&]*$"`: true,
+		`json:"name,omitempty"'&]*$"`:                false,
+		`json:"name"validate:"x"`:                    false,
+		`json:"unterminated`:                         false,
+		``:                                           true,
+	} {
+		if got := wellFormedTag(tag); got != want {
+			t.Errorf("wellFormedTag(%q) = %v, want %v", tag, got, want)
+		}
+	}
+}
+
+// patch_non_string_regex_validators: stripping a validate tag must not leave
+// a malformed struct tag behind when the pattern contains an escaped quote
+// (RepositoryBase.name: ^[^<>\"'&]*$). go vet's structtag check flags these.
+func TestStructTagsWellFormed(t *testing.T) {
+	fset := token.NewFileSet()
+	pkgs, err := parser.ParseDir(fset, ".", func(fi os.FileInfo) bool {
+		return !strings.HasSuffix(fi.Name(), "_test.go")
+	}, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	tags := 0
+	for _, pkg := range pkgs {
+		for _, f := range pkg.Files {
+			ast.Inspect(f, func(n ast.Node) bool {
+				field, ok := n.(*ast.Field)
+				if !ok || field.Tag == nil {
+					return true
+				}
+				tags++
+				tag, err := strconv.Unquote(field.Tag.Value)
+				if err != nil || !wellFormedTag(tag) {
+					t.Errorf("%s: malformed struct tag %s", fset.Position(field.Pos()), field.Tag.Value)
+				}
+				return true
+			})
+		}
+	}
+	if tags < 100 {
+		t.Fatalf("only %d struct tags found; is the test running in the client root?", tags)
+	}
+	f, _ := reflect.TypeOf(Repository{}).FieldByName("Name")
+	if f.Tag != `json:"name,omitempty"` {
+		t.Errorf("Repository.Name tag = %q", f.Tag)
 	}
 }

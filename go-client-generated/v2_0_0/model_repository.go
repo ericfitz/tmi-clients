@@ -24,7 +24,7 @@ var _ MappedNullable = &Repository{}
 // Repository Complete Repository schema with server-generated fields
 type Repository struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty"'&]*$"`
+	Name NullableString `json:"name,omitempty"`
 	// Description of the referenced source code
 	Description NullableString `json:"description,omitempty"`
 	// Source code repository type

@@ -103,6 +103,7 @@ export function instanceOfWebhookSubscription(value: object): value is WebhookSu
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('events' in value) || value['events'] === undefined) return false;
+    if (!Array.isArray(value['events']) || !(value['events'] as unknown[]).every((v) => (['threat_model.created', 'threat_model.updated', 'threat_model.deleted', 'diagram.created', 'diagram.updated', 'diagram.deleted', 'document.created', 'document.updated', 'document.deleted', 'document.extraction_completed', 'document.extraction_failed', 'note.created', 'note.updated', 'note.deleted', 'repository.created', 'repository.updated', 'repository.deleted', 'asset.created', 'asset.updated', 'asset.deleted', 'threat.created', 'threat.updated', 'threat.deleted', 'metadata.created', 'metadata.updated', 'metadata.deleted', 'addon.invoked', 'survey.created', 'survey.updated', 'survey.deleted', 'survey_response.created', 'survey_response.updated', 'survey_response.deleted', 'system_audit.admin_write'] as unknown[]).includes(v))) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
     if (value['status'] !== 'pending_verification' && value['status'] !== 'active' && value['status'] !== 'inactive' && value['status'] !== 'pending_delete') return false;
     if (!('created_at' in value) || value['created_at'] === undefined) return false;

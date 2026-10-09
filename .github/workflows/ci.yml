@@ -123,6 +123,10 @@ jobs:
       - name: Build
         run: go build ./...
 
+      - name: Vet
+        # Catches malformed struct tags left by codegen patches (structtag).
+        run: go vet ./...
+
       - name: Test
         run: go test -v ./...
 

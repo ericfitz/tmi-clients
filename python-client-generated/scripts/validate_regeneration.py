@@ -136,7 +136,7 @@ class Validator:
             "six": "1.16.0",
             "python-dateutil": "2.9.0",
             "setuptools": "70.0.0",
-            "urllib3": "2.0.0",
+            "urllib3": "2.8.0",
         }
 
         for dep, min_version in expected_deps.items():

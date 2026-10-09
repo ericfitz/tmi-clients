@@ -244,11 +244,15 @@ def patch_non_string_regex_validators(client_dir: Path, had_issues: bool) -> boo
     NullableTime, time.Time, ...). oneOf/anyOf decoding runs validator.Validate
     on each candidate, so any member with such a field never matches (e.g. every
     diagram cell fails on Node.Parent). Drop the tag from non-string fields.
+
+    The tag value is a Go quoted string, so the pattern may hold escaped
+    quotes (``^[^<>\\"'&]*$``); match through ``\\.`` escapes, or the strip
+    stops early and leaves a malformed struct tag.
     """
     import re
 
     tag_re = re.compile(
-        r"^(\t\w+ (?!\*?string\b)\S+ `json:\"[^\"]*\") validate:\"regexp=[^\"]*\"",
+        r"^(\t\w+ (?!\*?string\b)\S+ `json:\"[^\"]*\") validate:\"regexp=(?:[^\"\\]|\\.)*\"",
         re.MULTILINE,
     )
     patched_count = 0
@@ -414,7 +418,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         go_module_path += f"/v{major}"
 
     if output_dir:
-        client_dir = Path(output_dir)
+        client_dir = Path(output_dir).resolve()
     else:
         client_dir = LANG_DIR / version_dir
 

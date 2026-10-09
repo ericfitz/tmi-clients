@@ -16,8 +16,16 @@ Tighten every required multi-value enum guard, discovered automatically from eac
 model file, except `EdgeRouterOneOf.name` and `EdgeConnectorOneOf.name`, which stay
 presence-only. Released later as ts-v2.0.2.
 
-Out of scope: required `Array<Enum>` properties (e.g. `WebhookSubscription.events`) and
-`Enum | null` properties; their declared type is not a bare enum name.
+Originally out of scope: required `Array<Enum>` properties (e.g. `WebhookSubscription.events`)
+and `Enum | null` properties, whose declared type is not a bare enum name.
+
+### Scope extension (human-made, Eric, 2026-10-08)
+
+`patch_enum_guards` also checks required `Array<Enum>` properties (an array whose every
+element is a known value), required `Enum | null` properties (null or a known value) and
+`readonly` properties. In API 2.0.0 this tightens only `WebhookSubscription.events`; every
+`Enum | null` property is optional, and `instanceOfX()` does not check optional
+properties.
 
 ## Exemption rationale
 
