@@ -1,8 +1,9 @@
 name: Security Audit
 
 # Proactive vulnerability + regen-drift sweep across every client version.
-# Dependabot covers security *updates*; this catches anything outstanding
-# between regenerations and fails (notifying the repo) when something is found.
+# deps-bump-bot (Renovate) opens fix PRs from Dependabot alerts; this catches
+# anything outstanding between regenerations and fails (notifying the repo)
+# when something is found.
 on:
   schedule:
     - cron: "0 8 * * 1" # Mondays 08:00 UTC (offset from the CodeQL scan)
