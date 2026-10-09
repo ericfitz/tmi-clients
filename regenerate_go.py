@@ -418,7 +418,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
         go_module_path += f"/v{major}"
 
     if output_dir:
-        client_dir = Path(output_dir)
+        client_dir = Path(output_dir).resolve()
     else:
         client_dir = LANG_DIR / version_dir
 

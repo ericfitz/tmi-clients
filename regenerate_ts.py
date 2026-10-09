@@ -419,7 +419,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     spec_version = extract_spec_version(Path(spec_path))
 
     if output_dir:
-        client_dir = Path(output_dir)
+        client_dir = Path(output_dir).resolve()
     else:
         client_dir = LANG_DIR / f"v{spec_version}"
 
