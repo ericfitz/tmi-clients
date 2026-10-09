@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+Done gate: `bash done_gate.sh` (what CI runs, for every committed client version: Python pytest + `test_diagram_fixes.py`, TypeScript build/typecheck/test, Go build/vet/test, release-script tests).
+
 Auto-generated API clients for the TMI (Threat Modeling Improved) API, built with openapi-generator 7.x:
 
 - **Python** (`python-client-generated/`) — package `tmi_client`; the primary, most mature client (Pydantic v2 models, bug-fix patches, modern tooling)
@@ -20,7 +22,7 @@ python-client-generated/
 
 **Go uses underscores** (`v1_4_0`) because Go's module system rejects dotted version path elements other than major-version suffixes (`/v2`). Go module paths are `github.com/ericfitz/tmi-clients/go-client-generated/v<major>_<minor>_<patch>`, plus the Go-mandated `/v<major>` suffix from 2.0.0 on (directory `v2_0_0`, module `.../v2_0_0/v2`).
 
-Each version directory contains the generated package (`api/`, `models/`), `docs/`, `test/`, a README, build config (`pyproject.toml`, `go.mod`, `package.json`), and a `REGENERATION_REPORT.md` from its last regeneration.
+Each version directory contains the generated package (`api/`, `models/`), `docs/`, `test/`, a README, and build config (`pyproject.toml`, `go.mod`, `package.json`). Regeneration also writes a `REGENERATION_REPORT.md` there, but it is gitignored: only a directory regenerated on this machine has one.
 
 `versions.json` at the repo root lists **only source branches**; each client's version is read from that branch's spec (`info.version`) at build time and determines its directory. To add or drop a maintained client, add or remove a branch. Two branches declaring the same version resolve to the same directory and the later build wins (the orchestrator warns). CI derives its test matrix from the committed client directories, not from this file.
 
@@ -77,7 +79,7 @@ update.name = "Renamed"
 api.update_threat_model_diagram(update, tm_id, diagram_id)
 ```
 
-> The three `oneOf`/discriminator defects tracked in issue #41 — cells silently discarded by the constructor, `to_dict()` not round-tripping through `from_dict()`, and `DfdDiagram.from_dict()` recursing forever — are generator bugs. The first two are fixed by `patch_oneof_constructor_coercion` and `patch_oneof_json_safety` in `regenerate_python.py`, which must survive every regeneration; the recursion came from a self-referential discriminator that API 2.0.0 removed. `python-client-generated/scripts/test_diagram_fixes.py` asserts all three; regeneration copies it into each client and CI runs it. Each version's `REGENERATION_REPORT.md` lists the patches applied.
+> The three `oneOf`/discriminator defects tracked in issue #41 — cells silently discarded by the constructor, `to_dict()` not round-tripping through `from_dict()`, and `DfdDiagram.from_dict()` recursing forever — are generator bugs. The first two are fixed by `patch_oneof_constructor_coercion` and `patch_oneof_json_safety` in `regenerate_python.py`, which must survive every regeneration; the recursion came from a self-referential discriminator that API 2.0.0 removed. `python-client-generated/scripts/test_diagram_fixes.py` asserts all three; regeneration copies it into each client and CI runs it. The local `REGENERATION_REPORT.md` a regeneration writes lists the patches applied.
 
 ### Cells (AntV X6 format)
 
