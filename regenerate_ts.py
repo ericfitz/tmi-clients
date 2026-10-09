@@ -325,13 +325,16 @@ def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
     multi-value enum property, so it cannot tell a Node from an Edge.
 
     Discovers every required property that instanceOfX() checks only for
-    presence and whose declared type is an enum const (2+ values) in the same
-    file, and inserts the same value check the generator emits for single-value
-    enums. Skips ENUM_GUARD_EXEMPT entries. Enum consts are resolved across all
-    model files, since shared enum schemas live in their own file.
+    presence and whose declared type is an enum const, and inserts a value
+    check after the presence check:
 
-    Out of scope: required Array<Enum> properties and `Enum | null` properties,
-    whose declared type is not a bare enum name.
+    - ``Enum`` (2+ values): the same check the generator emits for
+      single-value enums.
+    - ``Array<Enum>``: an array whose every element is a known value.
+    - ``Enum | null``: null or a known value.
+
+    Skips ENUM_GUARD_EXEMPT entries. Enum consts are resolved across all model
+    files, since shared enum schemas live in their own file.
     """
     models_dir = client_dir / "src" / "models"
     enum_bodies: dict[str, str] = {}
@@ -355,10 +358,17 @@ def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
         original = content
 
         for prop in [m.group(1) for m in _PRESENCE_RE.finditer(func.group(2) + "\n")]:
-            type_match = re.search(rf"^\s+{re.escape(prop)}: (\w+);", content, re.MULTILINE)
+            type_match = re.search(
+                rf"^\s+(?:readonly )?{re.escape(prop)}: (.+);", content, re.MULTILINE
+            )
             if not type_match:
                 continue
-            enum_body = enum_bodies.get(type_match.group(1))
+            shape = re.fullmatch(r"(\w+)|Array<(\w+)>|(\w+) \| null", type_match.group(1))
+            if not shape:
+                continue
+            is_array = shape.group(2) is not None
+            is_nullable = shape.group(3) is not None
+            enum_body = enum_bodies.get(shape.group(1) or shape.group(2) or shape.group(3))
             if enum_body is None:
                 continue
             lines = [ln.strip() for ln in enum_body.splitlines() if ln.strip()]
@@ -369,15 +379,26 @@ def patch_enum_guards(client_dir: Path, had_issues: bool) -> bool:
                 )
                 had_issues = True
                 continue
-            if len(values) < 2:
+            # The generator already checks a bare single-value enum.
+            if not values or (len(values) < 2 and not (is_array or is_nullable)):
                 continue
 
             seen.add((model, prop))
             if (model, prop) in ENUM_GUARD_EXEMPT:
                 continue
 
-            conditions = " && ".join(f"value['{prop}'] !== '{v}'" for v in values)
-            check = f"    if ({conditions}) return false;\n"
+            if is_array:
+                known = ", ".join(f"'{v}'" for v in values)
+                check = (
+                    f"    if (!Array.isArray(value['{prop}']) || "
+                    f"!(value['{prop}'] as unknown[]).every((v) => ([{known}] as unknown[]).includes(v))) "
+                    "return false;\n"
+                )
+            else:
+                conditions = " && ".join(f"value['{prop}'] !== '{v}'" for v in values)
+                if is_nullable:
+                    conditions = f"value['{prop}'] !== null && {conditions}"
+                check = f"    if ({conditions}) return false;\n"
             if check in content:
                 already += 1
                 continue

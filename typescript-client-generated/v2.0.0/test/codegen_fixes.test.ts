@@ -20,6 +20,7 @@ import {
   instanceOfRelatedProject,
   instanceOfRepositoryBaseParameters,
   instanceOfWebhookDelivery,
+  instanceOfWebhookSubscription,
 } from "../src/index";
 
 const node = {
@@ -158,6 +159,30 @@ const enumGuardCases: [string, (v: object) => boolean, Record<string, unknown>, 
   ],
 ];
 
+const webhookSubscription = {
+  id: "i",
+  owner_id: "o",
+  name: "w",
+  url: "https://example.com/hook",
+  events: ["threat_model.created", "threat_model.deleted"],
+  status: "active",
+  created_at: "2026-01-01T00:00:00Z",
+  modified_at: "2026-01-01T00:00:00Z",
+};
+
+describe("enum guard patch (required Array<Enum>)", () => {
+  it("WebhookSubscription.events accepts known event types", () => {
+    expect(instanceOfWebhookSubscription(webhookSubscription)).toBe(true);
+    expect(instanceOfWebhookSubscription({ ...webhookSubscription, events: [] })).toBe(true);
+  });
+
+  it("WebhookSubscription.events rejects an unknown event type or a non-array", () => {
+    const events = ["threat_model.created", "not-a-real-event"];
+    expect(instanceOfWebhookSubscription({ ...webhookSubscription, events })).toBe(false);
+    expect(instanceOfWebhookSubscription({ ...webhookSubscription, events: "threat_model.created" })).toBe(false);
+  });
+});
+
 describe("enum guard patch (all required multi-value enums)", () => {
   it.each(enumGuardCases)("%s: accepts a known value, rejects an unknown one", (_n, guard, valid, prop) => {
     expect(guard(valid)).toBe(true);
@@ -180,9 +205,10 @@ describe("enum guard patch (all required multi-value enums)", () => {
     expect(instanceOfEdgeConnectorOneOf({ name: "future-connector" })).toBe(true);
   });
 
-  // Fails when a regeneration leaves a required multi-value enum guard
-  // presence-only (the generator emits no value check for them).
-  it("no required multi-value enum guard is left presence-only", () => {
+  // Fails when a regeneration leaves a required enum guard presence-only (the
+  // generator emits no value check for multi-value enums, Array<Enum> or
+  // Enum | null).
+  it("no required enum guard is left presence-only", () => {
     const models = import.meta.glob<string>("../src/models/*.ts", {
       query: "?raw",
       import: "default",
@@ -202,10 +228,23 @@ describe("enum guard patch (all required multi-value enums)", () => {
       const fn = /export function instanceOf(\w+)\(value: object\)[^\n]*\{\n([\s\S]*?)\n {4}return true;/.exec(src);
       if (!fn) continue;
       for (const [, prop] of fn[2].matchAll(/if \(!\('([^']+)' in value\)/g)) {
-        const type = new RegExp(`^\\s+${prop}: (\\w+);`, "m").exec(src);
-        const body = type && enums.get(type[1]);
-        if (!body || (body.match(/: /g) ?? []).length < 2) continue;
-        if (!fn[2].includes(`value['${prop}'] !== '`) && !exempt.has(`${fn[1]}.${prop}`)) {
+        const type = new RegExp(`^\\s+(?:readonly )?${prop}: (.+);`, "m").exec(src);
+        if (!type) continue;
+        const shape = /^(?:(\w+)|Array<(\w+)>|(\w+) \| null)$/.exec(type[1]);
+        const name = shape && (shape[1] ?? shape[2] ?? shape[3]);
+        const body = name && enums.get(name);
+        if (!body) continue;
+        const count = (body.match(/: /g) ?? []).length;
+        let checked: boolean;
+        if (shape[2]) {
+          checked = fn[2].includes(`!Array.isArray(value['${prop}'])`);
+        } else if (shape[3]) {
+          checked = fn[2].includes(`value['${prop}'] !== null && value['${prop}'] !== '`);
+        } else {
+          if (count < 2) continue;
+          checked = fn[2].includes(`value['${prop}'] !== '`);
+        }
+        if (!checked && !exempt.has(`${fn[1]}.${prop}`)) {
           unchecked.push(`${fn[1]}.${prop}`);
         }
       }
