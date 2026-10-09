@@ -34,6 +34,9 @@ Covered:
   6. The urllib3 floor that `patch_urllib3_minimum_version` writes into
      pyproject.toml, setup.py and requirements.txt excludes the versions with
      known HIGH-severity advisories (issue #68).
+  7. Error responses with an error code this client version does not know
+     still parse (`patch_error_code_enums`): the server may add codes to
+     Error.error and OAuthError.error (ADR 0005).
 
 Version-portable: asserts on the presence or absence of specific fields rather
 than exact field lists, since the schema grows between API versions.
@@ -50,6 +53,8 @@ from uuid import UUID
 
 from tmi_client.models.dfd_diagram import DfdDiagram
 from tmi_client.models.dfd_diagram_input import DfdDiagramInput
+from tmi_client.models.error import Error
+from tmi_client.models.o_auth_error import OAuthError
 
 NODE_ID = "11111111-1111-4111-8111-111111111111"
 EDGE_ID = "22222222-2222-4222-8222-222222222222"
@@ -302,6 +307,21 @@ def _urllib3_floor() -> None:
         for floor in floors:
             version = tuple(int(part) for part in floor.split("."))
             assert version >= URLLIB3_FLOOR, f"{name}: urllib3 >= {floor} is below {URLLIB3_FLOOR}"
+
+
+
+@check("error responses with an unknown error code still parse")
+def _unknown_error_code_accepted() -> None:
+    for model, known in ((Error, "not_found"), (OAuthError, "invalid_request")):
+        for code in (known, "some_future_code"):
+            parsed = model.from_dict({"error": code, "error_description": "d"})
+            assert parsed is not None and parsed.error == code, f"{model.__name__}: {code} -> {parsed}"
+        try:
+            model.from_dict({"error": "bad\ncode", "error_description": "d"})
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"{model.__name__}: control character accepted in error code")
 
 
 def main() -> int:

@@ -301,13 +301,17 @@ def patch_missing_token_request(client_dir: Path, had_issues: bool) -> bool:
 # when the enum has a single value (Edge.shape === 'flow'); for multi-value enums
 # it checks presence only, so instanceOfNode() returns true for an edge. The patch
 # below tightens every such guard it discovers, except these (model, property)
-# pairs: they drive oneOf dispatch in EdgeRouter.ts / EdgeConnector.ts, whose
-# fallback is `return {} as any`, so tightening them would turn an unrecognized
-# name into a silently emptied object. See
-# docs/superpowers/specs/2026-10-08-ts-enum-guards-design.md.
+# pairs. The EdgeRouter/EdgeConnector names drive oneOf dispatch in
+# EdgeRouter.ts / EdgeConnector.ts, whose fallback is `return {} as any`, so
+# tightening them would turn an unrecognized name into a silently emptied
+# object (docs/superpowers/specs/2026-10-08-ts-enum-guards-design.md). The
+# error codes list what the server sends today, but it may add codes, and an
+# error response must still be recognized as one (docs/adr/0005-api-2.2.0-clients.md).
 ENUM_GUARD_EXEMPT = {
     ("EdgeRouterOneOf", "name"),
     ("EdgeConnectorOneOf", "name"),
+    ("ModelError", "error"),
+    ("OAuthError", "error"),
 }
 
 _INSTANCE_OF_RE = re.compile(

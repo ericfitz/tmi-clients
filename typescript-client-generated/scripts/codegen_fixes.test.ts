@@ -16,7 +16,9 @@ import {
   instanceOfEdgeRouterOneOf,
   instanceOfJsonPatchDocumentInner,
   instanceOfMinimalNode,
+  instanceOfModelError,
   instanceOfNode,
+  instanceOfOAuthError,
   instanceOfRelatedProject,
   instanceOfRepositoryBaseParameters,
   instanceOfWebhookDelivery,
@@ -189,6 +191,15 @@ describe("enum guard patch (all required multi-value enums)", () => {
     expect(guard({ ...valid, [prop]: "not-a-real-value" })).toBe(false);
   });
 
+  // ADR 0005: the server may add error codes, so these guards stay presence-only.
+  it("error guards accept an error code this client does not know", () => {
+    for (const guard of [instanceOfModelError, instanceOfOAuthError]) {
+      expect(guard({ error: "some_future_code", error_description: "d" })).toBe(true);
+    }
+    expect(instanceOfModelError({ error: "not_found", error_description: "d" })).toBe(true);
+    expect(instanceOfOAuthError({ error: "invalid_request", error_description: "d" })).toBe(true);
+  });
+
   it("EdgeRouter keeps an unknown name instead of collapsing to {}", () => {
     const router = EdgeRouterFromJSON({ name: "future-router", args: {} });
     expect(router).toMatchObject({ name: "future-router" });
@@ -222,7 +233,12 @@ describe("enum guard patch (all required multi-value enums)", () => {
         enums.set(name, body);
       }
     }
-    const exempt = new Set(["EdgeRouterOneOf.name", "EdgeConnectorOneOf.name"]);
+    const exempt = new Set([
+      "EdgeRouterOneOf.name",
+      "EdgeConnectorOneOf.name",
+      "ModelError.error",
+      "OAuthError.error",
+    ]);
     const unchecked: string[] = [];
     for (const src of Object.values(models)) {
       const fn = /export function instanceOf(\w+)\(value: object\)[^\n]*\{\n([\s\S]*?)\n {4}return true;/.exec(src);

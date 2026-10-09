@@ -190,6 +190,49 @@ def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
+# (model file, field) pairs whose spec enum lists the codes the server sends
+# today; the server may add codes, so an unknown one must still parse.
+# See docs/adr/0005-api-2.2.0-clients.md.
+ERROR_CODE_ENUM_FIELDS = [
+    ("error.py", "error"),
+    ("o_auth_error.py", "error"),
+]
+
+
+def patch_error_code_enums(client_dir: Path, had_issues: bool) -> bool:
+    """Drop the enum validator from error-code fields (ERROR_CODE_ENUM_FIELDS).
+
+    openapi-generator emits ``<field>_validate_enum``, which raises on any value
+    outside the spec enum, so an error response carrying a code added in a
+    later API version would fail to parse. The pattern validator stays.
+    """
+    models_dir = client_dir / "tmi_client" / "models"
+    removed = 0
+    for file_name, field in ERROR_CODE_ENUM_FIELDS:
+        model_file = models_dir / file_name
+        if not model_file.is_file():
+            print_warning(f"Error code enum patch: {file_name} not found (spec drift?)")
+            had_issues = True
+            continue
+        content = model_file.read_text(encoding="utf-8")
+        new_content, n = re.subn(
+            rf"    @field_validator\('{field}'\)\n"
+            rf"    def {field}_validate_enum\(cls, value\):\n"
+            r"(?:        .*\n)+?"
+            r"        return value\n\n",
+            "",
+            content,
+        )
+        if n != 1:
+            print_warning(f"Error code enum patch: {file_name} {field}_validate_enum not found (anchor drift?)")
+            had_issues = True
+            continue
+        model_file.write_text(new_content, encoding="utf-8")
+        removed += 1
+    print_success(f"Error code enum patch: {removed} enum validator(s) removed")
+    return had_issues
+
+
 def patch_python_minimum_version(client_dir: Path, had_issues: bool) -> bool:
     """Raise the minimum supported Python to >=3.10 in pyproject.toml and setup.py.
 
@@ -664,6 +707,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_regex_validators(client_dir, had_issues)
     had_issues = patch_test_return_types(client_dir, had_issues)
     had_issues = patch_urllib3_minimum_version(client_dir, had_issues)
+    had_issues = patch_error_code_enums(client_dir, had_issues)
     had_issues = patch_python_minimum_version(client_dir, had_issues)
     had_issues = patch_oneof_return_types(client_dir, had_issues)
     had_issues = patch_oneof_constructor_coercion(client_dir, had_issues)
@@ -759,6 +803,8 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "commented out, causing type-checker errors)\n"
             "- urllib3 minimum version bump to >= 2.8.0 "
             "(CVE fixes for decompression-bomb and redirect vulnerabilities)\n"
+            "- Error code enum relaxation (Error.error and OAuthError.error "
+            "accept codes added in later API versions; ADR 0005)\n"
             "- OneOf model return-type fix (type checkers can't narrow "
             "through hasattr guards on actual_instance)\n"
             "- OneOf constructor coercion (openapi-generator bug: raw dicts "

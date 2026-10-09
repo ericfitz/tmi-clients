@@ -283,3 +283,17 @@ func TestStructTagsWellFormed(t *testing.T) {
 		t.Errorf("Repository.Name tag = %q", f.Tag)
 	}
 }
+
+// ADR 0005: Error.error and OAuthError.error list the server's codes, but the
+// server may add codes; an unknown one must still decode.
+func TestUnknownErrorCodeDecodes(t *testing.T) {
+	data := []byte(`{"error":"some_future_code","error_description":"d"}`)
+	var e Error
+	if err := json.Unmarshal(data, &e); err != nil || e.Error != "some_future_code" {
+		t.Errorf("Error: %v (%q)", err, e.Error)
+	}
+	var o OAuthError
+	if err := json.Unmarshal(data, &o); err != nil || o.Error != "some_future_code" {
+		t.Errorf("OAuthError: %v (%q)", err, o.Error)
+	}
+}
