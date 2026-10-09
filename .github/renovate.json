@@ -1,0 +1,91 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>ericfitz/deps-bump-bot"
+  ],
+  "platformAutomerge": false,
+  "packageRules": [
+    {
+      "description": "openapi-generator boilerplate CI files (regeneration overwrites them, and this repo's CI does not run them)",
+      "matchFileNames": [
+        "python-client-generated/**/.github/workflows/**",
+        "python-client-generated/**/.gitlab-ci.yml"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Published Python clients: refresh uv.lock only; raising a dependency floor in pyproject.toml is a deliberate generator change (ADR 0004)",
+      "matchManagers": [
+        "pep621"
+      ],
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "description": "Published Go modules: a require bump raises every consumer's minimum, so it waits for approval on the Dependency Dashboard (ADR 0004)",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchFileNames": [
+        "go-client-generated/**"
+      ],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    },
+    {
+      "description": "regenerate_ts.py devDependency ranges land in the same PR as the committed clients' package.json",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchDatasources": [
+        "npm"
+      ],
+      "groupName": "node packages"
+    },
+    {
+      "description": "Hold TypeScript at 6.x until typescript-eslint supports 7 (typescript-eslint#10940)",
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "regenerate_go.py GO_VERSION is the generated modules' go directive (consumers' minimum Go): every change waits for approval",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchDepNames": [
+        "go"
+      ],
+      "groupName": "go toolchain",
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "regenerate_ts.py writes the TypeScript clients' devDependencies; regeneration overwrites bumps made only in a client's package.json",
+      "managerFilePatterns": [
+        "/^regenerate_ts\\.py$/"
+      ],
+      "matchStrings": [
+        "\"(?<depName>@?[a-z0-9][a-z0-9._/-]*)\": \"(?<currentValue>\\^\\d+(?:\\.\\d+)*)\""
+      ],
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "description": "regenerate_go.py GO_VERSION sets the go directive of every generated go.mod; tracked as an exact major.minor so new Go minors are proposed",
+      "managerFilePatterns": [
+        "/^regenerate_go\\.py$/"
+      ],
+      "matchStrings": [
+        "GO_VERSION = \"(?<currentValue>\\d+\\.\\d+)\""
+      ],
+      "depNameTemplate": "go",
+      "datasourceTemplate": "golang-version",
+      "versioningTemplate": "loose",
+      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)"
+    }
+  ]
+}
