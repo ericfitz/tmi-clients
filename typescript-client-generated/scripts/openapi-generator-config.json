@@ -1,6 +1,6 @@
 {
   "npmName": "@tmi-dev/client",
-  "npmVersion": "2.0.0",
+  "npmVersion": "2.2.0",
   "supportsES6": true,
   "withInterfaces": true,
   "modelPropertyNaming": "original"
