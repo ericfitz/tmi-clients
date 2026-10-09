@@ -23,7 +23,7 @@ var _ MappedNullable = &RepositoryInput{}
 // RepositoryInput Input schema for creating or updating Repository
 type RepositoryInput struct {
 	// Name for the source code reference
-	Name NullableString `json:"name,omitempty"'&]*$"`
+	Name NullableString `json:"name,omitempty"`
 	// Description of the referenced source code
 	Description NullableString `json:"description,omitempty"`
 	// Source code repository type
