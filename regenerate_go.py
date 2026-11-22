@@ -446,6 +446,33 @@ _ACCEPT_DECODE_RESPONSE_GO = """func (c *APIClient) decodeResponse(v interface{}
 func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {"""
 
 
+def _verify_accept_override(client_dir: Path, had_issues: bool) -> bool:
+    """Check that a tree where WithAccept exists carries every part of the patch."""
+    import re
+
+    client_text = (client_dir / "client.go").read_text(encoding="utf-8")
+    missing = []
+    if "func (c *APIClient) decodeResponse(" not in client_text:
+        missing.append("decodeResponse in client.go")
+    if 'localVarRequest.Header.Set("Accept", mediaType)' not in client_text:
+        missing.append("Accept Header.Set in client.go")
+    site_re = re.compile(r"a\.client\.decode\(&localVarReturnValue,")
+    remaining = [
+        f.name
+        for f in sorted(client_dir.glob("api_*.go"))
+        if site_re.search(f.read_text(encoding="utf-8"))
+    ]
+    if remaining:
+        missing.append(f"unpatched decode sites in {', '.join(remaining)}")
+    if missing:
+        print_warning(
+            f"Accept override patch: partially applied tree: {'; '.join(missing)}"
+        )
+        return True
+    print_success("Accept override patch: already applied")
+    return had_issues
+
+
 def patch_accept_override(client_dir: Path, had_issues: bool) -> bool:
     """Add WithAccept, an opt-in per-request Accept override (issue #24).
 
@@ -466,8 +493,7 @@ def patch_accept_override(client_dir: Path, had_issues: bool) -> bool:
 
     config_text = config.read_text(encoding="utf-8")
     if "func WithAccept(" in config_text:
-        print_success("Accept override patch: already applied")
-        return had_issues
+        return _verify_accept_override(client_dir, had_issues)
 
     client_text = client.read_text(encoding="utf-8")
     decode_anchor = "func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {"

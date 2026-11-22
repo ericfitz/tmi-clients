@@ -15,6 +15,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"sync"
 	"testing"
 )
 
@@ -304,19 +305,38 @@ const acceptTM = "123e4567-e89b-41d4-a716-446655440000"
 const acceptDiagram = "223e4567-e89b-41d4-a716-446655440000"
 const minimalModelJSON = `{"id":"` + acceptDiagram + `","name":"n","description":"d","metadata":{},"cells":[],"assets":[]}`
 
+// acceptLog collects Accept header values; the server handler runs on another
+// goroutine, so access is locked to keep go test -race clean.
+type acceptLog struct {
+	mu     sync.Mutex
+	values []string
+}
+
+func (l *acceptLog) add(v []string) {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	l.values = append(l.values, v...)
+}
+
+func (l *acceptLog) get() []string {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	return append([]string(nil), l.values...)
+}
+
 // acceptServer answers every request with the given status, Content-Type and
 // body, and records the Accept header values of each request.
-func acceptServer(t *testing.T, status int, contentType, body string) (*httptest.Server, *[]string) {
+func acceptServer(t *testing.T, status int, contentType, body string) (*httptest.Server, *acceptLog) {
 	t.Helper()
-	var accepts []string
+	accepts := &acceptLog{}
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		accepts = append(accepts, r.Header.Values("Accept")...)
+		accepts.add(r.Header.Values("Accept"))
 		w.Header().Set("Content-Type", contentType)
 		w.WriteHeader(status)
 		_, _ = w.Write([]byte(body))
 	}))
 	t.Cleanup(srv.Close)
-	return srv, &accepts
+	return srv, accepts
 }
 
 func acceptClient(srvURL string) (*APIClient, *Configuration) {
@@ -325,10 +345,10 @@ func acceptClient(srvURL string) (*APIClient, *Configuration) {
 	return NewAPIClient(cfg), cfg
 }
 
-func checkAccept(t *testing.T, got *[]string, want ...string) {
+func checkAccept(t *testing.T, log *acceptLog, want ...string) {
 	t.Helper()
-	if !reflect.DeepEqual(*got, want) {
-		t.Fatalf("Accept values = %q, want %q", *got, want)
+	if got := log.get(); !reflect.DeepEqual(got, want) {
+		t.Fatalf("Accept values = %q, want %q", got, want)
 	}
 }
 
