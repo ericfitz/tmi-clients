@@ -37,6 +37,9 @@ Covered:
   7. Error responses with an error code this client version does not know
      still parse (`patch_error_code_enums`): the server may add codes to
      Error.error and OAuthError.error (ADR 0005).
+  8. Accept-header content negotiation (issue #24): `_headers` overrides the
+     generated Accept, the `_without_preload_content` variants return the raw
+     YAML/CSV body, and the default Accept stays `application/json`.
 
 Version-portable: asserts on the presence or absence of specific fields rather
 than exact field lists, since the schema grows between API versions.
@@ -397,6 +400,7 @@ def _accept_override_csv_raw_body():
 
     data, seen = _with_server(200, "text/csv", b"id,actor\n1,a\n", call)
     assert seen["Accept"] == "text/csv", seen
+    assert seen["Authorization"] == "Bearer tok", seen
     assert data == b"id,actor\n1,a\n", data
 
 

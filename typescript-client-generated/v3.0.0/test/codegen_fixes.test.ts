@@ -326,7 +326,18 @@ describe("Accept-header content negotiation", () => {
       withAccept("text/csv"),
     );
     expect(seen.headers?.get("Accept")).toBe("text/csv");
+    expect(seen.headers?.get("Authorization")).toBe("Bearer tok");
     expect(await r.raw.text()).toBe("id,actor\n1,a\n");
+  });
+
+  it("object-form initOverrides replaces all headers (drops Authorization)", async () => {
+    const { seen, config } = stub("text/csv", "id,actor\n1,a\n");
+    await new AdministrationApi(config).listSystemAuditEntriesRaw(
+      {},
+      { headers: { Accept: "text/csv" } },
+    );
+    expect(seen.headers?.get("Accept")).toBe("text/csv");
+    expect(seen.headers?.has("Authorization")).toBe(false);
   });
 
   it("no Accept header by default (server default is JSON)", async () => {

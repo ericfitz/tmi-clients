@@ -77,10 +77,14 @@ _, resp, err = client.AdministrationAPI.ListSystemAuditEntries(ctx).Execute()
 ```python
 resp = ThreatModelSubResourcesApi(api_client).get_diagram_model_without_preload_content(
     tm_id, diagram_id, _headers={"Accept": "application/yaml"})
+if resp.status != 200:  # no deserialization, so errors (e.g. 406) don't raise
+    raise RuntimeError(f"HTTP {resp.status}: {resp.data[:200]!r}")
 yaml_text = resp.data.decode()
 
 resp = AdministrationApi(api_client).list_system_audit_entries_without_preload_content(
     _headers={"Accept": "text/csv"})
+if resp.status != 200:
+    raise RuntimeError(f"HTTP {resp.status}: {resp.data[:200]!r}")
 csv_text = resp.data.decode()
 ```
 
@@ -102,8 +106,8 @@ const csv = await (await new AdministrationApi(config).listSystemAuditEntriesRaw
 Notes:
 
 - **Go:** with an override and a non-JSON response, `Execute()` returns a nil error and the model's zero value. Read the body from the returned `*http.Response`. JSON responses, including JSON error bodies, decode as usual. Without an override Go sends `application/json`.
-- **Python:** the deserializing methods (`get_diagram_model()`, `list_system_audit_entries()`) raise for non-JSON responses, so use the `_without_preload_content` variants. Without `_headers`, Python sends `application/json`.
-- **TypeScript:** pass a function as `initOverrides`. An object replaces all headers, including `Authorization`. TypeScript sends no `Accept` header unless you set one, and the server then returns JSON.
+- **Python:** the deserializing methods (`get_diagram_model()`, `list_system_audit_entries()`) raise for non-JSON responses, so use the `_without_preload_content` variants. The `_without_preload_content` variants skip deserialization and error handling, so check `resp.status` before using `resp.data`. Without `_headers`, Python sends `application/json`.
+- **TypeScript:** pass a function as `initOverrides`. An object replaces all headers, including `Authorization`. The generated TypeScript client sets no `Accept` header, so fetch's default (`*/*` in Node) is sent and the server picks its default JSON representation.
 
 ## Regeneration
 
