@@ -4,6 +4,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  AdministrationApi,
+  Configuration,
   DfdDiagramCellsInnerFromJSON,
   DfdDiagramCellsInnerToJSON,
   EdgeConnectorFromJSON,
@@ -23,6 +25,7 @@ import {
   instanceOfRepositoryBaseParameters,
   instanceOfWebhookDelivery,
   instanceOfWebhookSubscription,
+  ThreatModelSubResourcesApi,
 } from "../src/index";
 
 const node = {
@@ -266,5 +269,73 @@ describe("enum guard patch (all required multi-value enums)", () => {
       }
     }
     expect(unchecked).toEqual([]);
+  });
+});
+
+describe("Accept-header content negotiation", () => {
+  const tmId = "123e4567-e89b-41d4-a716-446655440000";
+  const diagramId = "223e4567-e89b-41d4-a716-446655440000";
+  const minimalModel = JSON.stringify({
+    id: diagramId,
+    name: "n",
+    description: "d",
+    metadata: {},
+    cells: [],
+    assets: [],
+  });
+
+  // A stub fetch that records the request headers and replies with a canned response.
+  function stub(contentType: string, body: string) {
+    const seen: { headers?: Headers } = {};
+    const fetchApi = async (_url: RequestInfo | URL, init?: RequestInit) => {
+      seen.headers = new Headers(init?.headers);
+      return new Response(body, {
+        status: 200,
+        headers: { "Content-Type": contentType },
+      });
+    };
+    const config = new Configuration({
+      basePath: "http://tmi.test",
+      accessToken: "tok",
+      fetchApi,
+    });
+    return { seen, config };
+  }
+
+  const withAccept =
+    (mediaType: string) =>
+    async ({ init }: { init: RequestInit }) => ({
+      headers: { ...(init.headers as Record<string, string>), Accept: mediaType },
+    });
+
+  it("function-form initOverrides selects YAML and keeps Authorization", async () => {
+    const { seen, config } = stub("application/yaml", "name: x\n");
+    const r = await new ThreatModelSubResourcesApi(config).getDiagramModelRaw(
+      { threatModelId: tmId, diagramId },
+      withAccept("application/yaml"),
+    );
+    expect(seen.headers?.get("Accept")).toBe("application/yaml");
+    expect(seen.headers?.get("Authorization")).toBe("Bearer tok");
+    expect(await r.raw.text()).toBe("name: x\n");
+  });
+
+  it("audit export as CSV returns the raw body", async () => {
+    const { seen, config } = stub("text/csv", "id,actor\n1,a\n");
+    const r = await new AdministrationApi(config).listSystemAuditEntriesRaw(
+      {},
+      withAccept("text/csv"),
+    );
+    expect(seen.headers?.get("Accept")).toBe("text/csv");
+    expect(await r.raw.text()).toBe("id,actor\n1,a\n");
+  });
+
+  it("no Accept header by default (server default is JSON)", async () => {
+    const { seen, config } = stub("application/json", minimalModel);
+    const m = await new ThreatModelSubResourcesApi(config).getDiagramModel({
+      threatModelId: tmId,
+      diagramId,
+    });
+    expect(seen.headers?.has("Accept")).toBe(false);
+    expect(m.id).toBe(diagramId);
   });
 });

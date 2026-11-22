@@ -50,6 +50,61 @@ Clients aren't regenerated for every patch release of the schema, because patch 
 
 The Docker builds in [ericfitz/tmi-tf-wh](https://github.com/ericfitz/tmi-tf-wh) are a working example of this pattern.
 
+## Content negotiation (Accept header)
+
+Two operations return more than one representation, selected by the `Accept` header (the old `?format=` query parameter is gone):
+
+| Operation | Media types |
+|---|---|
+| `getDiagramModel` | `application/json` (default), `application/yaml`, `application/graphml+xml` |
+| `listSystemAuditEntries` | `application/json` (a page, default), `text/csv`, `application/x-ndjson` (an export) |
+
+**Go** (`tmiclient.WithAccept`):
+
+```go
+ctx := tmiclient.WithAccept(context.Background(), "application/yaml")
+_, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, tmID, diagramID).Execute()
+if err != nil { /* ... */ }
+defer resp.Body.Close()
+body, _ := io.ReadAll(resp.Body) // raw YAML
+
+ctx = tmiclient.WithAccept(context.Background(), "text/csv")
+_, resp, err = client.AdministrationAPI.ListSystemAuditEntries(ctx).Execute()
+```
+
+**Python** (`_without_preload_content` plus `_headers`):
+
+```python
+resp = ThreatModelSubResourcesApi(api_client).get_diagram_model_without_preload_content(
+    tm_id, diagram_id, _headers={"Accept": "application/yaml"})
+yaml_text = resp.data.decode()
+
+resp = AdministrationApi(api_client).list_system_audit_entries_without_preload_content(
+    _headers={"Accept": "text/csv"})
+csv_text = resp.data.decode()
+```
+
+**TypeScript** (`*Raw` plus a function-form `initOverrides`):
+
+```ts
+const withAccept = (mediaType: string) => async ({ init }: { init: RequestInit }) => ({
+  headers: { ...(init.headers as Record<string, string>), Accept: mediaType },
+});
+
+const r = await new ThreatModelSubResourcesApi(config).getDiagramModelRaw(
+  { threatModelId, diagramId }, withAccept("application/yaml"));
+const yaml = await r.raw.text();
+
+const csv = await (await new AdministrationApi(config).listSystemAuditEntriesRaw(
+  {}, withAccept("text/csv"))).raw.text();
+```
+
+Notes:
+
+- **Go:** with an override and a non-JSON response, `Execute()` returns a nil error and the model's zero value. Read the body from the returned `*http.Response`. JSON responses, including JSON error bodies, decode as usual. Without an override Go sends `application/json`.
+- **Python:** the deserializing methods (`get_diagram_model()`, `list_system_audit_entries()`) raise for non-JSON responses, so use the `_without_preload_content` variants. Without `_headers`, Python sends `application/json`.
+- **TypeScript:** pass a function as `initOverrides`. An object replaces all headers, including `Authorization`. TypeScript sends no `Accept` header unless you set one, and the server then returns JSON.
+
 ## Regeneration
 
 Regenerate all clients from all branches:
