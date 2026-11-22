@@ -225,13 +225,17 @@ type acceptKey struct{}
 // place of the default (and of any Accept set through AddDefaultHeader). It
 // selects the representation of content-negotiated operations (getDiagramModel,
 // listSystemAuditEntries). For a non-JSON response the returned model is the
-// zero value and the raw body is on the returned *http.Response's Body. An
-// empty mediaType leaves the default in effect.
+// zero value (nil for pointer-returning operations, "" for string-returning
+// ones) and the raw body is on the returned *http.Response's Body. An empty mediaType leaves the default in
+// effect.
 func WithAccept(ctx context.Context, mediaType string) context.Context {
 	return context.WithValue(ctx, acceptKey{}, mediaType)
 }
 
 func acceptOverride(ctx context.Context) (string, bool) {
+	if ctx == nil {
+		return "", false
+	}
 	mediaType, ok := ctx.Value(acceptKey{}).(string)
 	return mediaType, ok && mediaType != ""
 }

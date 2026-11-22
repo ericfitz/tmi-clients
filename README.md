@@ -105,9 +105,9 @@ const csv = await (await new AdministrationApi(config).listSystemAuditEntriesRaw
 
 Notes:
 
-- **Go:** with an override and a non-JSON response, `Execute()` returns a nil error and the model's zero value. Read the body from the returned `*http.Response`. JSON responses, including JSON error bodies, decode as usual. Without an override Go sends `application/json`.
+- **Go:** with an override and a non-JSON response, `Execute()` returns a nil error and a zero-value model (nil for pointer returns, `""` for string returns). Read the body from the returned `*http.Response`. JSON responses, including JSON error bodies, decode as usual. Without an override Go sends `application/json`.
 - **Python:** the deserializing methods (`get_diagram_model()`, `list_system_audit_entries()`) raise for non-JSON responses, so use the `_without_preload_content` variants. The `_without_preload_content` variants skip deserialization and error handling, so check `resp.status` before using `resp.data`. Without `_headers`, Python sends `application/json`.
-- **TypeScript:** pass a function as `initOverrides`. An object replaces all headers, including `Authorization`. The generated TypeScript client sets no `Accept` header, so fetch's default (`*/*` in Node) is sent and the server picks its default JSON representation.
+- **TypeScript:** pass a function as `initOverrides`. An object replaces all headers, including `Authorization`. `*Raw` throws `ResponseError` on a non-2xx status, so errors still surface. The generated TypeScript client sets no `Accept` header, so fetch's default (`*/*` in Node) is sent and the server picks its default JSON representation.
 
 ## Regeneration
 

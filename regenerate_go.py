@@ -409,13 +409,17 @@ type acceptKey struct{}
 // place of the default (and of any Accept set through AddDefaultHeader). It
 // selects the representation of content-negotiated operations (getDiagramModel,
 // listSystemAuditEntries). For a non-JSON response the returned model is the
-// zero value and the raw body is on the returned *http.Response's Body. An
-// empty mediaType leaves the default in effect.
+// zero value (nil for pointer-returning operations, "" for string-returning
+// ones) and the raw body is on the returned *http.Response's Body. An empty mediaType leaves the default in
+// effect.
 func WithAccept(ctx context.Context, mediaType string) context.Context {
 	return context.WithValue(ctx, acceptKey{}, mediaType)
 }
 
 func acceptOverride(ctx context.Context) (string, bool) {
+	if ctx == nil {
+		return "", false
+	}
 	mediaType, ok := ctx.Value(acceptKey{}).(string)
 	return mediaType, ok && mediaType != ""
 }
@@ -504,7 +508,11 @@ def patch_accept_override(client_dir: Path, had_issues: bool) -> bool:
         "\treturn localVarRequest, nil\n}\n"
     )
     if client_text.count(decode_anchor) != 1 or client_text.count(set_anchor) != 1:
-        print_warning("Accept override patch: anchors not found in client.go")
+        print_warning(
+            "Accept override patch: expected exactly one decode() definition and one "
+            "DefaultHeader loop followed by the return in client.go; the template "
+            "changed or client.go is partly patched"
+        )
         return True
     if "JsonCheck" not in client_text:
         print_warning("Accept override patch: JsonCheck not found in client.go")
@@ -539,7 +547,11 @@ def patch_accept_override(client_dir: Path, had_issues: bool) -> bool:
             leftover.append(go_file.name)
 
     if sites == 0:
-        print_warning("Accept override patch: no decode sites found in api_*.go")
+        print_warning(
+            "Accept override patch: client.go and configuration.go are patched but "
+            "no a.client.decode(&localVarReturnValue, ...) sites were found in "
+            "api_*.go; the template changed"
+        )
         return True
     if leftover:
         print_warning(

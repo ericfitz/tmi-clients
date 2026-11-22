@@ -6,7 +6,7 @@
 
 **Architecture:** Go gets an opt-in, generic codegen patch: `WithAccept(ctx, mediaType)`. With it, `prepareRequest` sets the header, and the success-path decode is skipped for non-JSON responses. Python and TypeScript keep their generator hooks. Regression tests in each language's `scripts/` dir are copied into the clients. The root README documents a recipe per language.
 
-**Tech Stack:** openapi-generator 7.27.0 output; Go `net/http/httptest`; Python stdlib `http.server` with `tmi_client`; TypeScript vitest with `node:http` and the typescript-fetch runtime.
+**Tech Stack:** openapi-generator 7.27.0 output; Go `net/http/httptest`; Python stdlib `http.server` with `tmi_client`; TypeScript vitest with a `fetchApi` stub and the typescript-fetch runtime.
 
 **Spec:** `docs/superpowers/specs/2026-11-22-accept-header-negotiation-design.md`
 
@@ -93,10 +93,10 @@
   - `_accept_override_csv_raw_body`: list_system_audit_entries with `text/csv` gives `.data == b"id,actor\n1,a\n"`.
   - `_accept_default_json`: plain `get_diagram_model(tm, d)` without `_headers` sends Accept `application/json`. Reply with the same minimal MinimalDiagramModel JSON as the Go test and assert the decoded id.
 
-- [ ] **Step 2: Write the TypeScript tests** in a `describe("Accept-header content negotiation", ...)` using `node:http` `createServer` on port 0 (closed in `afterAll`), with `new Configuration({ basePath, accessToken: "tok" })`:
+- [ ] **Step 2: Write the TypeScript tests** in a `describe("Accept-header content negotiation", ...)` using a stub `fetchApi` in the `Configuration` (no sockets; the generated TypeScript client sets no default Accept), with `new Configuration({ basePath, accessToken: "tok" })`:
   - `"function-form initOverrides selects YAML and keeps Authorization"`: Accept is `application/yaml`, Authorization is `Bearer tok`, and `raw.text()` is `"name: x\n"`.
   - `"audit export as CSV returns the raw body"`: `text/csv` round trip.
-  - `"default Accept is application/json"`: no overrides gives `application/json`.
+  - `"no default Accept"`: no overrides sends no Accept header (the server picks JSON).
 
 - [ ] **Step 3: Copy both test files into their clients and run them.** They should pass without code changes, because these hooks already exist. If one fails, the spec's statement of current behavior is wrong: stop and report.
   - `cp python-client-generated/scripts/test_diagram_fixes.py python-client-generated/v3.0.0/ && (cd python-client-generated/v3.0.0 && uv run python3 test_diagram_fixes.py | tail -2)` should show `N/N checks passed`.

@@ -376,13 +376,18 @@ func TestAcceptOverrideYAMLReturnsRawBody(t *testing.T) {
 }
 
 func TestAcceptOverrideGraphMLReturnsRawBody(t *testing.T) {
-	body := `<graphml xmlns="http://graphml.graphdrawing.org/xmlns"><graph id="g"/></graphml>`
+	// XML-decoding this body would allocate the model and set its Id from <Id>,
+	// so a nil model proves the decode was skipped.
+	body := `<graphml xmlns="http://graphml.graphdrawing.org/xmlns"><Id>from-xml</Id><graph id="g"/></graphml>`
 	srv, accepts := acceptServer(t, 200, "application/graphml+xml", body)
 	client, _ := acceptClient(srv.URL)
 	ctx := WithAccept(context.Background(), "application/graphml+xml")
-	_, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	m, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
 	if err != nil {
 		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	if m != nil {
+		t.Fatalf("model was decoded from the raw body: %+v", m)
 	}
 	checkAccept(t, accepts, "application/graphml+xml")
 	checkRawBody(t, resp, body)
@@ -469,6 +474,32 @@ func TestDecodeResponseNilRequest(t *testing.T) {
 	if err := (&APIClient{cfg: NewConfiguration()}).decodeResponse(&m, []byte(minimalModelJSON), resp); err != nil {
 		t.Fatalf("decodeResponse: %v", err)
 	}
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}
+
+// Without an override a non-JSON 2xx still goes through decode and fails as
+// it always did; only WithAccept opts in to skipping the decode.
+func TestNonJSONWithoutOverrideStillErrors(t *testing.T) {
+	srv, _ := acceptServer(t, 200, "application/yaml", "name: x\n")
+	client, _ := acceptClient(srv.URL)
+	_, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(context.Background(), acceptTM, acceptDiagram).Execute()
+	if err == nil {
+		t.Fatal("non-JSON response without WithAccept returned a nil error")
+	}
+}
+
+// A nil context must behave as before the patch: no override, no panic.
+func TestNilContextNoOverride(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	//nolint:staticcheck // a nil context is deliberate
+	m, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(nil, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel(nil ctx): %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
 	if m.Id != acceptDiagram {
 		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
 	}
