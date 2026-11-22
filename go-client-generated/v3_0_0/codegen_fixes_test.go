@@ -15,6 +15,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"sync"
 	"testing"
 )
 
@@ -295,5 +296,211 @@ func TestUnknownErrorCodeDecodes(t *testing.T) {
 	var o OAuthError
 	if err := json.Unmarshal(data, &o); err != nil || o.Error != "some_future_code" {
 		t.Errorf("OAuthError: %v (%q)", err, o.Error)
+	}
+}
+
+// --- Accept override (WithAccept) ---
+
+const acceptTM = "123e4567-e89b-41d4-a716-446655440000"
+const acceptDiagram = "223e4567-e89b-41d4-a716-446655440000"
+const minimalModelJSON = `{"id":"` + acceptDiagram + `","name":"n","description":"d","metadata":{},"cells":[],"assets":[]}`
+
+// acceptLog collects Accept header values; the server handler runs on another
+// goroutine, so access is locked to keep go test -race clean.
+type acceptLog struct {
+	mu     sync.Mutex
+	values []string
+}
+
+func (l *acceptLog) add(v []string) {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	l.values = append(l.values, v...)
+}
+
+func (l *acceptLog) get() []string {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	return append([]string(nil), l.values...)
+}
+
+// acceptServer answers every request with the given status, Content-Type and
+// body, and records the Accept header values of each request.
+func acceptServer(t *testing.T, status int, contentType, body string) (*httptest.Server, *acceptLog) {
+	t.Helper()
+	accepts := &acceptLog{}
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		accepts.add(r.Header.Values("Accept"))
+		w.Header().Set("Content-Type", contentType)
+		w.WriteHeader(status)
+		_, _ = w.Write([]byte(body))
+	}))
+	t.Cleanup(srv.Close)
+	return srv, accepts
+}
+
+func acceptClient(srvURL string) (*APIClient, *Configuration) {
+	cfg := NewConfiguration()
+	cfg.Servers = ServerConfigurations{{URL: srvURL}}
+	return NewAPIClient(cfg), cfg
+}
+
+func checkAccept(t *testing.T, log *acceptLog, want ...string) {
+	t.Helper()
+	if got := log.get(); !reflect.DeepEqual(got, want) {
+		t.Fatalf("Accept values = %q, want %q", got, want)
+	}
+}
+
+func checkRawBody(t *testing.T, resp *http.Response, want string) {
+	t.Helper()
+	b, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if string(b) != want {
+		t.Fatalf("body = %q, want %q", b, want)
+	}
+}
+
+func TestAcceptOverrideYAMLReturnsRawBody(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/yaml", "name: x\n")
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/yaml")
+	_, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/yaml")
+	checkRawBody(t, resp, "name: x\n")
+}
+
+func TestAcceptOverrideGraphMLReturnsRawBody(t *testing.T) {
+	// XML-decoding this body would allocate the model and set its Id from <Id>,
+	// so a nil model proves the decode was skipped.
+	body := `<graphml xmlns="http://graphml.graphdrawing.org/xmlns"><Id>from-xml</Id><graph id="g"/></graphml>`
+	srv, accepts := acceptServer(t, 200, "application/graphml+xml", body)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/graphml+xml")
+	m, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	if m != nil {
+		t.Fatalf("model was decoded from the raw body: %+v", m)
+	}
+	checkAccept(t, accepts, "application/graphml+xml")
+	checkRawBody(t, resp, body)
+}
+
+func TestAcceptOverrideCSVAuditExport(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "text/csv", "id,actor\n1,a\n")
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "text/csv")
+	_, resp, err := client.AdministrationAPI.ListSystemAuditEntries(ctx).Execute()
+	if err != nil {
+		t.Fatalf("ListSystemAuditEntries: %v", err)
+	}
+	checkAccept(t, accepts, "text/csv")
+	checkRawBody(t, resp, "id,actor\n1,a\n")
+}
+
+func TestAcceptOverrideReplacesDefaultHeader(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/x-ndjson", "{}\n")
+	client, cfg := acceptClient(srv.URL)
+	cfg.AddDefaultHeader("Accept", "application/json")
+	ctx := WithAccept(context.Background(), "application/x-ndjson")
+	if _, _, err := client.AdministrationAPI.ListSystemAuditEntries(ctx).Execute(); err != nil {
+		t.Fatalf("ListSystemAuditEntries: %v", err)
+	}
+	checkAccept(t, accepts, "application/x-ndjson")
+}
+
+func TestAcceptDefaultIsJSONAndDecodes(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	m, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(context.Background(), acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}
+
+func TestAcceptEmptyOverrideIgnored(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "")
+	if _, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute(); err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+}
+
+func TestAcceptOverrideJSONStillDecodes(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/json")
+	m, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}
+
+func TestAcceptOverrideErrorStillDecodes(t *testing.T) {
+	srv, _ := acceptServer(t, 406, "application/json", `{"error":"not_acceptable","error_description":"x"}`)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/yaml")
+	_, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	gerr, ok := err.(*GenericOpenAPIError)
+	if !ok {
+		t.Fatalf("err = %T %v, want *GenericOpenAPIError", err, err)
+	}
+	model, ok := gerr.Model().(Error)
+	if !ok || model.Error != "not_acceptable" {
+		t.Fatalf("Model() = %#v, want Error{Error: not_acceptable}", gerr.Model())
+	}
+}
+
+func TestDecodeResponseNilRequest(t *testing.T) {
+	var m MinimalDiagramModel
+	resp := &http.Response{Header: http.Header{"Content-Type": {"application/json"}}}
+	if err := (&APIClient{cfg: NewConfiguration()}).decodeResponse(&m, []byte(minimalModelJSON), resp); err != nil {
+		t.Fatalf("decodeResponse: %v", err)
+	}
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}
+
+// Without an override a non-JSON 2xx still goes through decode and fails as
+// it always did; only WithAccept opts in to skipping the decode.
+func TestNonJSONWithoutOverrideStillErrors(t *testing.T) {
+	srv, _ := acceptServer(t, 200, "application/yaml", "name: x\n")
+	client, _ := acceptClient(srv.URL)
+	_, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(context.Background(), acceptTM, acceptDiagram).Execute()
+	if err == nil {
+		t.Fatal("non-JSON response without WithAccept returned a nil error")
+	}
+}
+
+// A nil context must behave as before the patch: no override, no panic.
+func TestNilContextNoOverride(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	//nolint:staticcheck // a nil context is deliberate
+	m, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(nil, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel(nil ctx): %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
 	}
 }

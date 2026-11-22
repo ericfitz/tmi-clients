@@ -37,6 +37,9 @@ Covered:
   7. Error responses with an error code this client version does not know
      still parse (`patch_error_code_enums`): the server may add codes to
      Error.error and OAuthError.error (ADR 0005).
+  8. Accept-header content negotiation (issue #24): `_headers` overrides the
+     generated Accept, the `_without_preload_content` variants return the raw
+     YAML/CSV body, and the default Accept stays `application/json`.
 
 Version-portable: asserts on the presence or absence of specific fields rather
 than exact field lists, since the schema grows between API versions.
@@ -46,8 +49,10 @@ from __future__ import annotations
 import json
 import re
 import sys
+import threading
 import traceback
 from datetime import datetime, timezone
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from uuid import UUID
 
@@ -322,6 +327,97 @@ def _unknown_error_code_accepted() -> None:
             pass
         else:
             raise AssertionError(f"{model.__name__}: control character accepted in error code")
+
+
+# --- Accept-header content negotiation (issue #24) ---
+
+_ACCEPT_TM = "123e4567-e89b-41d4-a716-446655440000"
+_ACCEPT_DIAGRAM = "223e4567-e89b-41d4-a716-446655440000"
+_MINIMAL_MODEL_JSON = (
+    '{"id":"' + _ACCEPT_DIAGRAM + '","name":"n","description":"d",'
+    '"metadata":{},"cells":[],"assets":[]}'
+)
+
+
+def _with_server(status: int, content_type: str, body: bytes, call):
+    """Run call(api_client) against a local server; return (result, seen headers)."""
+    seen: dict[str, str | None] = {}
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            seen["Accept"] = self.headers.get("Accept")
+            seen["Authorization"] = self.headers.get("Authorization")
+            self.send_response(status)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, *args):
+            pass
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        from tmi_client.api_client import ApiClient
+        from tmi_client.configuration import Configuration
+
+        config = Configuration(
+            host=f"http://127.0.0.1:{server.server_address[1]}", access_token="tok"
+        )
+        with ApiClient(config) as api_client:
+            return call(api_client), seen
+    finally:
+        server.shutdown()
+        server.server_close()
+
+
+@check("Accept override selects YAML and returns the raw body")
+def _accept_override_yaml_raw_body():
+    from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResourcesApi
+
+    def call(c):
+        resp = ThreatModelSubResourcesApi(c).get_diagram_model_without_preload_content(
+            _ACCEPT_TM, _ACCEPT_DIAGRAM, _headers={"Accept": "application/yaml"}
+        )
+        return resp.data
+
+    data, seen = _with_server(200, "application/yaml", b"name: x\n", call)
+    assert seen["Accept"] == "application/yaml", seen
+    assert seen["Authorization"] == "Bearer tok", seen
+    assert data == b"name: x\n", data
+
+
+@check("Accept override selects CSV for the audit export")
+def _accept_override_csv_raw_body():
+    from tmi_client.api.administration_api import AdministrationApi
+
+    def call(c):
+        resp = AdministrationApi(c).list_system_audit_entries_without_preload_content(
+            _headers={"Accept": "text/csv"}
+        )
+        return resp.data
+
+    data, seen = _with_server(200, "text/csv", b"id,actor\n1,a\n", call)
+    assert seen["Accept"] == "text/csv", seen
+    assert seen["Authorization"] == "Bearer tok", seen
+    assert data == b"id,actor\n1,a\n", data
+
+
+@check("default Accept is application/json and the body decodes")
+def _accept_default_json():
+    from tmi_client.api.threat_model_sub_resources_api import ThreatModelSubResourcesApi
+
+    model, seen = _with_server(
+        200,
+        "application/json",
+        _MINIMAL_MODEL_JSON.encode(),
+        lambda c: ThreatModelSubResourcesApi(c).get_diagram_model(
+            _ACCEPT_TM, _ACCEPT_DIAGRAM
+        ),
+    )
+    assert seen["Accept"] == "application/json", seen
+    assert str(model.id) == _ACCEPT_DIAGRAM, model.id
 
 
 def main() -> int:
