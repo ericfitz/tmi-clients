@@ -25,15 +25,15 @@ python-client-generated/
 
 ```bash
 # Python (latest version)
-cd python-client-generated/v1.5.0
+cd python-client-generated/v3.0.0
 uv run python3 -c "import tmi_client; print('Success')"
 
 # Go (latest version)
-cd go-client-generated/v1_5_0
+cd go-client-generated/v3_0_0
 go build ./...
 
 # TypeScript (latest version)
-cd typescript-client-generated/v1.5.0
+cd typescript-client-generated/v3.0.0
 npm install && npm run build
 ```
 
@@ -44,7 +44,7 @@ When you build or deploy software that uses one of these clients, match the clie
 1. Get the server's API schema version, either from a running server (`GET /`, JSON path `.api.version`) or from `info.version` in [`api-schema/tmi-openapi.json`](https://github.com/ericfitz/tmi/blob/main/api-schema/tmi-openapi.json) in the TMI repository.
 2. Use the client with the highest patch version whose major and minor versions match the schema's. For example, for schema `1.15.4` with clients `v1.15.0` and `v1.15.2` available, use `v1.15.2`.
 
-Only 2.x clients are maintained (see [ADR 0002](docs/adr/0002-drop-1x-clients-at-api-2.md)). For a 1.x server, use the last 1.x release: `tmi-client` 1.16.1 on PyPI, `@tmi-dev/client` 1.16.1 on npm, or Go module `github.com/ericfitz/tmi-clients/go-client-generated/v1_16_1` v1.16.1.
+Only the 3.0.0 clients are maintained (see [ADR 0006](docs/adr/0006-api-3.0.0-clients.md)). For a 2.x server, use the last 2.x release: `tmi-client` 2.2.0 on PyPI, `@tmi-dev/client` 2.2.0 on npm, or Go module `github.com/ericfitz/tmi-clients/go-client-generated/v2_2_0/v2` v2.2.0. For a 1.x server ([ADR 0002](docs/adr/0002-drop-1x-clients-at-api-2.md)), use the last 1.x release: `tmi-client` 1.16.1 on PyPI, `@tmi-dev/client` 1.16.1 on npm, or Go module `github.com/ericfitz/tmi-clients/go-client-generated/v1_16_1` v1.16.1.
 
 Clients aren't regenerated for every patch release of the schema, because patch releases seldom change the API surface. An exact patch match may therefore not exist.
 
