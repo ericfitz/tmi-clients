@@ -239,7 +239,7 @@ func (a *ProjectsAPIService) BulkCreateProjectMetadataExecute(r ApiBulkCreatePro
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -466,7 +466,7 @@ func (a *ProjectsAPIService) BulkReplaceProjectMetadataExecute(r ApiBulkReplaceP
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -690,7 +690,7 @@ func (a *ProjectsAPIService) BulkUpsertProjectMetadataExecute(r ApiBulkUpsertPro
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -910,7 +910,7 @@ func (a *ProjectsAPIService) CreateProjectExecute(r ApiCreateProjectRequest) (*P
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1134,7 +1134,7 @@ func (a *ProjectsAPIService) CreateProjectMetadataExecute(r ApiCreateProjectMeta
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1358,7 +1358,7 @@ func (a *ProjectsAPIService) CreateProjectNoteExecute(r ApiCreateProjectNoteRequ
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2173,7 +2173,7 @@ func (a *ProjectsAPIService) GetProjectExecute(r ApiGetProjectRequest) (*Project
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2363,7 +2363,7 @@ func (a *ProjectsAPIService) GetProjectMetadataExecute(r ApiGetProjectMetadataRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2568,7 +2568,7 @@ func (a *ProjectsAPIService) GetProjectNoteExecute(r ApiGetProjectNoteRequest) (
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2797,7 +2797,7 @@ func (a *ProjectsAPIService) ListProjectNotesExecute(r ApiListProjectNotesReques
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3064,7 +3064,7 @@ func (a *ProjectsAPIService) ListProjectsExecute(r ApiListProjectsRequest) (*Lis
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3323,7 +3323,7 @@ func (a *ProjectsAPIService) PatchProjectExecute(r ApiPatchProjectRequest) (*Pro
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3554,7 +3554,7 @@ func (a *ProjectsAPIService) PatchProjectNoteExecute(r ApiPatchProjectNoteReques
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3810,7 +3810,7 @@ func (a *ProjectsAPIService) UpdateProjectExecute(r ApiUpdateProjectRequest) (*P
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4041,7 +4041,7 @@ func (a *ProjectsAPIService) UpdateProjectMetadataExecute(r ApiUpdateProjectMeta
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4269,7 +4269,7 @@ func (a *ProjectsAPIService) UpdateProjectNoteExecute(r ApiUpdateProjectNoteRequ
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

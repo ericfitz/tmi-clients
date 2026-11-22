@@ -239,7 +239,7 @@ func (a *TeamsAPIService) BulkCreateTeamMetadataExecute(r ApiBulkCreateTeamMetad
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -466,7 +466,7 @@ func (a *TeamsAPIService) BulkReplaceTeamMetadataExecute(r ApiBulkReplaceTeamMet
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -690,7 +690,7 @@ func (a *TeamsAPIService) BulkUpsertTeamMetadataExecute(r ApiBulkUpsertTeamMetad
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -899,7 +899,7 @@ func (a *TeamsAPIService) CreateTeamExecute(r ApiCreateTeamRequest) (*Team, *htt
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1123,7 +1123,7 @@ func (a *TeamsAPIService) CreateTeamMetadataExecute(r ApiCreateTeamMetadataReque
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1347,7 +1347,7 @@ func (a *TeamsAPIService) CreateTeamNoteExecute(r ApiCreateTeamNoteRequest) (*Te
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2162,7 +2162,7 @@ func (a *TeamsAPIService) GetTeamExecute(r ApiGetTeamRequest) (*Team, *http.Resp
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2352,7 +2352,7 @@ func (a *TeamsAPIService) GetTeamMetadataExecute(r ApiGetTeamMetadataRequest) ([
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2557,7 +2557,7 @@ func (a *TeamsAPIService) GetTeamNoteExecute(r ApiGetTeamNoteRequest) (*TeamNote
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2786,7 +2786,7 @@ func (a *TeamsAPIService) ListTeamNotesExecute(r ApiListTeamNotesRequest) (*List
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3053,7 +3053,7 @@ func (a *TeamsAPIService) ListTeamsExecute(r ApiListTeamsRequest) (*ListTeamsRes
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3312,7 +3312,7 @@ func (a *TeamsAPIService) PatchTeamExecute(r ApiPatchTeamRequest) (*Team, *http.
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3543,7 +3543,7 @@ func (a *TeamsAPIService) PatchTeamNoteExecute(r ApiPatchTeamNoteRequest) (*Team
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3799,7 +3799,7 @@ func (a *TeamsAPIService) UpdateTeamExecute(r ApiUpdateTeamRequest) (*Team, *htt
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4030,7 +4030,7 @@ func (a *TeamsAPIService) UpdateTeamMetadataExecute(r ApiUpdateTeamMetadataReque
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4258,7 +4258,7 @@ func (a *TeamsAPIService) UpdateTeamNoteExecute(r ApiUpdateTeamNoteRequest) (*Te
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

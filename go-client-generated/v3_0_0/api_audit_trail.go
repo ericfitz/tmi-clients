@@ -246,7 +246,7 @@ func (a *AuditTrailAPIService) GetAssetAuditTrailExecute(r ApiGetAssetAuditTrail
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -451,7 +451,7 @@ func (a *AuditTrailAPIService) GetAuditEntryExecute(r ApiGetAuditEntryRequest) (
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -684,7 +684,7 @@ func (a *AuditTrailAPIService) GetDiagramAuditTrailExecute(r ApiGetDiagramAuditT
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -917,7 +917,7 @@ func (a *AuditTrailAPIService) GetDocumentAuditTrailExecute(r ApiGetDocumentAudi
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1150,7 +1150,7 @@ func (a *AuditTrailAPIService) GetNoteAuditTrailExecute(r ApiGetNoteAuditTrailRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1383,7 +1383,7 @@ func (a *AuditTrailAPIService) GetRepositoryAuditTrailExecute(r ApiGetRepository
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1616,7 +1616,7 @@ func (a *AuditTrailAPIService) GetThreatAuditTrailExecute(r ApiGetThreatAuditTra
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1891,7 +1891,7 @@ func (a *AuditTrailAPIService) GetThreatModelAuditTrailExecute(r ApiGetThreatMod
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2118,7 +2118,7 @@ func (a *AuditTrailAPIService) RollbackToVersionExecute(r ApiRollbackToVersionRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

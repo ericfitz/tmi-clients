@@ -561,7 +561,22 @@ func (c *APIClient) prepareRequest(
 	for header, value := range c.cfg.DefaultHeader {
 		localVarRequest.Header.Add(header, value)
 	}
+	if mediaType, ok := acceptOverride(ctx); ok {
+		localVarRequest.Header.Set("Accept", mediaType)
+	}
 	return localVarRequest, nil
+}
+
+func (c *APIClient) decodeResponse(v interface{}, b []byte, resp *http.Response) error {
+	contentType := resp.Header.Get("Content-Type")
+	if resp.Request != nil {
+		if _, ok := acceptOverride(resp.Request.Context()); ok && !JsonCheck.MatchString(contentType) {
+			// The caller asked for a non-JSON representation: leave the model
+			// at its zero value; the raw body is on resp.Body.
+			return nil
+		}
+	}
+	return c.decode(v, b, contentType)
 }
 
 func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {

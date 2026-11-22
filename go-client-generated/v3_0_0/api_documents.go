@@ -275,7 +275,7 @@ func (a *DocumentsAPIService) PatchThreatModelDocumentExecute(r ApiPatchThreatMo
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -513,7 +513,7 @@ func (a *DocumentsAPIService) RequestDocumentAccessExecute(r ApiRequestDocumentA
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

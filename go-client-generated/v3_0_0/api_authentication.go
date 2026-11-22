@@ -661,7 +661,7 @@ func (a *AuthenticationAPIService) CreateCurrentUserClientCredentialExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1092,7 +1092,7 @@ func (a *AuthenticationAPIService) ExchangeOAuthCodeExecute(r ApiExchangeOAuthCo
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1256,7 +1256,7 @@ func (a *AuthenticationAPIService) GetAuthProvidersExecute(r ApiGetAuthProviders
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1431,7 +1431,7 @@ func (a *AuthenticationAPIService) GetCurrentUserExecute(r ApiGetCurrentUserRequ
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1606,7 +1606,7 @@ func (a *AuthenticationAPIService) GetCurrentUserProfileExecute(r ApiGetCurrentU
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1799,7 +1799,7 @@ func (a *AuthenticationAPIService) GetProviderGroupsExecute(r ApiGetProviderGrou
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -1978,7 +1978,7 @@ func (a *AuthenticationAPIService) GetSAMLMetadataExecute(r ApiGetSAMLMetadataRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2142,7 +2142,7 @@ func (a *AuthenticationAPIService) GetSAMLProvidersExecute(r ApiGetSAMLProviders
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2344,7 +2344,7 @@ func (a *AuthenticationAPIService) HandleOAuthCallbackExecute(r ApiHandleOAuthCa
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2724,7 +2724,7 @@ func (a *AuthenticationAPIService) IntrospectTokenExecute(r ApiIntrospectTokenRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -2927,7 +2927,7 @@ func (a *AuthenticationAPIService) ListCurrentUserClientCredentialsExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3156,7 +3156,7 @@ func (a *AuthenticationAPIService) ListMyGroupMembersExecute(r ApiListMyGroupMem
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3331,7 +3331,7 @@ func (a *AuthenticationAPIService) ListMyGroupsExecute(r ApiListMyGroupsRequest)
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3520,7 +3520,7 @@ func (a *AuthenticationAPIService) ProcessSAMLLogoutExecute(r ApiProcessSAMLLogo
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3723,7 +3723,7 @@ func (a *AuthenticationAPIService) ProcessSAMLLogoutPostExecute(r ApiProcessSAML
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -3958,7 +3958,7 @@ func (a *AuthenticationAPIService) ProcessSAMLResponseExecute(r ApiProcessSAMLRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4153,7 +4153,7 @@ func (a *AuthenticationAPIService) RefreshTokenExecute(r ApiRefreshTokenRequest)
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4386,7 +4386,7 @@ func (a *AuthenticationAPIService) RevokeTokenExecute(r ApiRevokeTokenRequest) (
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
@@ -4630,7 +4630,7 @@ func (a *AuthenticationAPIService) StepUpAuthenticateExecute(r ApiStepUpAuthenti
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

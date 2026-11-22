@@ -297,3 +297,159 @@ func TestUnknownErrorCodeDecodes(t *testing.T) {
 		t.Errorf("OAuthError: %v (%q)", err, o.Error)
 	}
 }
+
+// --- Accept override (WithAccept) ---
+
+const acceptTM = "123e4567-e89b-41d4-a716-446655440000"
+const acceptDiagram = "223e4567-e89b-41d4-a716-446655440000"
+const minimalModelJSON = `{"id":"` + acceptDiagram + `","name":"n","description":"d","metadata":{},"cells":[],"assets":[]}`
+
+// acceptServer answers every request with the given status, Content-Type and
+// body, and records the Accept header values of each request.
+func acceptServer(t *testing.T, status int, contentType, body string) (*httptest.Server, *[]string) {
+	t.Helper()
+	var accepts []string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		accepts = append(accepts, r.Header.Values("Accept")...)
+		w.Header().Set("Content-Type", contentType)
+		w.WriteHeader(status)
+		_, _ = w.Write([]byte(body))
+	}))
+	t.Cleanup(srv.Close)
+	return srv, &accepts
+}
+
+func acceptClient(srvURL string) (*APIClient, *Configuration) {
+	cfg := NewConfiguration()
+	cfg.Servers = ServerConfigurations{{URL: srvURL}}
+	return NewAPIClient(cfg), cfg
+}
+
+func checkAccept(t *testing.T, got *[]string, want ...string) {
+	t.Helper()
+	if !reflect.DeepEqual(*got, want) {
+		t.Fatalf("Accept values = %q, want %q", *got, want)
+	}
+}
+
+func checkRawBody(t *testing.T, resp *http.Response, want string) {
+	t.Helper()
+	b, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if string(b) != want {
+		t.Fatalf("body = %q, want %q", b, want)
+	}
+}
+
+func TestAcceptOverrideYAMLReturnsRawBody(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/yaml", "name: x\n")
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/yaml")
+	_, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/yaml")
+	checkRawBody(t, resp, "name: x\n")
+}
+
+func TestAcceptOverrideGraphMLReturnsRawBody(t *testing.T) {
+	body := `<graphml xmlns="http://graphml.graphdrawing.org/xmlns"><graph id="g"/></graphml>`
+	srv, accepts := acceptServer(t, 200, "application/graphml+xml", body)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/graphml+xml")
+	_, resp, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/graphml+xml")
+	checkRawBody(t, resp, body)
+}
+
+func TestAcceptOverrideCSVAuditExport(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "text/csv", "id,actor\n1,a\n")
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "text/csv")
+	_, resp, err := client.AdministrationAPI.ListSystemAuditEntries(ctx).Execute()
+	if err != nil {
+		t.Fatalf("ListSystemAuditEntries: %v", err)
+	}
+	checkAccept(t, accepts, "text/csv")
+	checkRawBody(t, resp, "id,actor\n1,a\n")
+}
+
+func TestAcceptOverrideReplacesDefaultHeader(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/x-ndjson", "{}\n")
+	client, cfg := acceptClient(srv.URL)
+	cfg.AddDefaultHeader("Accept", "application/json")
+	ctx := WithAccept(context.Background(), "application/x-ndjson")
+	if _, _, err := client.AdministrationAPI.ListSystemAuditEntries(ctx).Execute(); err != nil {
+		t.Fatalf("ListSystemAuditEntries: %v", err)
+	}
+	checkAccept(t, accepts, "application/x-ndjson")
+}
+
+func TestAcceptDefaultIsJSONAndDecodes(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	m, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(context.Background(), acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}
+
+func TestAcceptEmptyOverrideIgnored(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "")
+	if _, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute(); err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+}
+
+func TestAcceptOverrideJSONStillDecodes(t *testing.T) {
+	srv, accepts := acceptServer(t, 200, "application/json", minimalModelJSON)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/json")
+	m, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	if err != nil {
+		t.Fatalf("GetDiagramModel: %v", err)
+	}
+	checkAccept(t, accepts, "application/json")
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}
+
+func TestAcceptOverrideErrorStillDecodes(t *testing.T) {
+	srv, _ := acceptServer(t, 406, "application/json", `{"error":"not_acceptable","error_description":"x"}`)
+	client, _ := acceptClient(srv.URL)
+	ctx := WithAccept(context.Background(), "application/yaml")
+	_, _, err := client.ThreatModelSubResourcesAPI.GetDiagramModel(ctx, acceptTM, acceptDiagram).Execute()
+	gerr, ok := err.(*GenericOpenAPIError)
+	if !ok {
+		t.Fatalf("err = %T %v, want *GenericOpenAPIError", err, err)
+	}
+	model, ok := gerr.Model().(Error)
+	if !ok || model.Error != "not_acceptable" {
+		t.Fatalf("Model() = %#v, want Error{Error: not_acceptable}", gerr.Model())
+	}
+}
+
+func TestDecodeResponseNilRequest(t *testing.T) {
+	var m MinimalDiagramModel
+	resp := &http.Response{Header: http.Header{"Content-Type": {"application/json"}}}
+	if err := (&APIClient{cfg: NewConfiguration()}).decodeResponse(&m, []byte(minimalModelJSON), resp); err != nil {
+		t.Fatalf("decodeResponse: %v", err)
+	}
+	if m.Id != acceptDiagram {
+		t.Fatalf("Id = %q, want %q", m.Id, acceptDiagram)
+	}
+}

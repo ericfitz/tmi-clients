@@ -401,6 +401,130 @@ def patch_shape_enum_checks(client_dir: Path, had_issues: bool) -> bool:
     return had_issues
 
 
+_ACCEPT_CONFIG_GO = """
+// acceptKey is the context key under which WithAccept stores its media type.
+type acceptKey struct{}
+
+// WithAccept returns a context that makes a request send Accept: mediaType in
+// place of the default (and of any Accept set through AddDefaultHeader). It
+// selects the representation of content-negotiated operations (getDiagramModel,
+// listSystemAuditEntries). For a non-JSON response the returned model is the
+// zero value and the raw body is on the returned *http.Response's Body. An
+// empty mediaType leaves the default in effect.
+func WithAccept(ctx context.Context, mediaType string) context.Context {
+	return context.WithValue(ctx, acceptKey{}, mediaType)
+}
+
+func acceptOverride(ctx context.Context) (string, bool) {
+	mediaType, ok := ctx.Value(acceptKey{}).(string)
+	return mediaType, ok && mediaType != ""
+}
+"""
+
+_ACCEPT_SET_GO = """	for header, value := range c.cfg.DefaultHeader {
+		localVarRequest.Header.Add(header, value)
+	}
+	if mediaType, ok := acceptOverride(ctx); ok {
+		localVarRequest.Header.Set("Accept", mediaType)
+	}
+	return localVarRequest, nil
+}
+"""
+
+_ACCEPT_DECODE_RESPONSE_GO = """func (c *APIClient) decodeResponse(v interface{}, b []byte, resp *http.Response) error {
+	contentType := resp.Header.Get("Content-Type")
+	if resp.Request != nil {
+		if _, ok := acceptOverride(resp.Request.Context()); ok && !JsonCheck.MatchString(contentType) {
+			// The caller asked for a non-JSON representation: leave the model
+			// at its zero value; the raw body is on resp.Body.
+			return nil
+		}
+	}
+	return c.decode(v, b, contentType)
+}
+
+func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {"""
+
+
+def patch_accept_override(client_dir: Path, had_issues: bool) -> bool:
+    """Add WithAccept, an opt-in per-request Accept override (issue #24).
+
+    Content-negotiated operations (getDiagramModel, listSystemAuditEntries)
+    can return YAML, GraphML or CSV, but the generated client decodes every
+    success body as JSON/XML. WithAccept(ctx, mediaType) replaces the Accept
+    header and makes the success path skip decoding when the response is not
+    JSON, so the caller reads the raw body from the *http.Response. The error
+    path (decode(&v, ...)) is untouched.
+    """
+    import re
+
+    config = client_dir / "configuration.go"
+    client = client_dir / "client.go"
+    if not config.is_file() or not client.is_file():
+        print_warning("Accept override patch: configuration.go or client.go not found")
+        return True
+
+    config_text = config.read_text(encoding="utf-8")
+    if "func WithAccept(" in config_text:
+        print_success("Accept override patch: already applied")
+        return had_issues
+
+    client_text = client.read_text(encoding="utf-8")
+    decode_anchor = "func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {"
+    set_anchor = (
+        "\tfor header, value := range c.cfg.DefaultHeader {\n"
+        "\t\tlocalVarRequest.Header.Add(header, value)\n"
+        "\t}\n"
+        "\treturn localVarRequest, nil\n}\n"
+    )
+    if client_text.count(decode_anchor) != 1 or client_text.count(set_anchor) != 1:
+        print_warning("Accept override patch: anchors not found in client.go")
+        return True
+    if "JsonCheck" not in client_text:
+        print_warning("Accept override patch: JsonCheck not found in client.go")
+        return True
+
+    client.write_text(
+        client_text.replace(set_anchor, _ACCEPT_SET_GO).replace(
+            decode_anchor, _ACCEPT_DECODE_RESPONSE_GO
+        ),
+        encoding="utf-8",
+    )
+    config.write_text(
+        config_text.rstrip("\n") + "\n" + _ACCEPT_CONFIG_GO, encoding="utf-8"
+    )
+
+    site_re = re.compile(
+        r"a\.client\.decode\(&localVarReturnValue, localVarBody, "
+        r'localVarHTTPResponse\.Header\.Get\("Content-Type"\)\)'
+    )
+    sites = 0
+    leftover: list[str] = []
+    for go_file in sorted(client_dir.glob("api_*.go")):
+        text = go_file.read_text(encoding="utf-8")
+        new_text, n = site_re.subn(
+            "a.client.decodeResponse(&localVarReturnValue, localVarBody, localVarHTTPResponse)",
+            text,
+        )
+        if n:
+            go_file.write_text(new_text, encoding="utf-8")
+            sites += n
+        if site_re.search(new_text):
+            leftover.append(go_file.name)
+
+    if sites == 0:
+        print_warning("Accept override patch: no decode sites found in api_*.go")
+        return True
+    if leftover:
+        print_warning(
+            f"Accept override patch: decode sites remain in {', '.join(leftover)}"
+        )
+        return True
+
+    print_success(f"Accept override patch: {sites} decode sites")
+    return had_issues
+
+
 def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = False
 
@@ -507,6 +631,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     had_issues = patch_non_string_regex_validators(client_dir, had_issues)
     had_issues = patch_lenient_decoding(client_dir, had_issues)
     had_issues = patch_shape_enum_checks(client_dir, had_issues)
+    had_issues = patch_accept_override(client_dir, had_issues)
     had_issues = patch_test_module_path(client_dir, go_module_path, had_issues)
     had_issues = patch_doc_import_paths(client_dir, go_module_path, had_issues)
     print_success("Patches applied")
