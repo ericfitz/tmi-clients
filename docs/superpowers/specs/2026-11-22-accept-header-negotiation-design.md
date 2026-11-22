@@ -21,7 +21,8 @@ read the raw body.
   `*_without_preload_content(..., _headers=...)` returns the raw urllib3 response.
 - **TypeScript:** `*Raw(params, initOverrideFn)` with a function that merges
   `init.headers` works, followed by `.raw.text()`. Passing an object as `initOverrides`
-  replaces all headers, including `Authorization`.
+  replaces all headers, including `Authorization`. The generated TypeScript code sets no
+  `Accept` by default (fetch then sends `*/*`), and the server returns JSON.
 - **Go:** there is no per-request Accept. `Execute` always sends `application/json`;
   `AddDefaultHeader("Accept", ...)` appends a second value rather than replacing it. When the
   body is not JSON, `decode` errors on YAML/CSV/NDJSON and runs `xml.Unmarshal` into the model
@@ -78,7 +79,9 @@ against a local HTTP test server:
 - Python (`test_diagram_fixes.py`): `_headers` sends the override, and the
   `without_preload_content` body is the raw text.
 - TypeScript (`codegen_fixes.test.ts`): the function-form initOverrides sends the override
-  and keeps `Authorization`, and `.raw.text()` is the raw body.
+  and keeps `Authorization`, `.raw.text()` is the raw body, and no Accept is set by default.
+  It uses a stubbed `Configuration.fetchApi` rather than a socket server, because the
+  client's tsconfig has no Node types (controller ruling).
 
 **Rollout:** commit the patch and tests to `scripts/` and `regenerate_go.py`, regenerate the
 Go client only (API surface unchanged, so no spec change), and release `go-v3.0.1` as a
