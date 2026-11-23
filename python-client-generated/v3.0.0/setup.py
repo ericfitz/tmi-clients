@@ -21,7 +21,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # http://pypi.python.org/pypi/setuptools
 NAME = "tmi-client"
 VERSION = "3.0.0"
-PYTHON_REQUIRES = ">= 3.10"
+PYTHON_REQUIRES = ">= 3.11"
 REQUIRES = [
     "urllib3 (>=2.8.0, < 3.0.0)",
     "python-dateutil >= 2.8.2",

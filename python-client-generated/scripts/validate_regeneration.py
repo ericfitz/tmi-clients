@@ -29,6 +29,7 @@ from typing import Dict, List, Optional, Set, Tuple
 # Paths
 SCRIPT_DIR = Path(__file__).parent
 CLIENT_DIR = SCRIPT_DIR.parent
+MIN_PYTHON = "3.11"  # keep in step with patch_python_minimum_version in regenerate_python.py
 SPEC_ANALYSIS_PATH = CLIENT_DIR / "docs" / "developer" / "spec_analysis.json"
 
 
@@ -89,32 +90,23 @@ class Validator:
         return len(self.errors) == 0
 
     def validate_python_version(self) -> bool:
-        """Verify Python 3.9+ requirements."""
+        """Verify the Python floor set by regenerate_python.py (MIN_PYTHON)."""
         print("\n" + "=" * 80)
         print("Validating Python Version Requirements")
         print("=" * 80)
 
-        # Check pyproject.toml
-        pyproject_file = CLIENT_DIR / "pyproject.toml"
-        if pyproject_file.exists():
-            content = pyproject_file.read_text()
-            if 'requires-python = ">=3.9"' in content:
-                self.success("pyproject.toml requires Python 3.9+")
+        checks = [
+            ("pyproject.toml", f'requires-python = ">={MIN_PYTHON}"'),
+            ("setup.py", f'PYTHON_REQUIRES = ">= {MIN_PYTHON}"'),
+        ]
+        for name, expected in checks:
+            path = CLIENT_DIR / name
+            if not path.exists():
+                self.warning(f"{name} not found")
+            elif expected in path.read_text():
+                self.success(f"{name} requires Python {MIN_PYTHON}+")
             else:
-                self.error("pyproject.toml does not require Python 3.9+")
-        else:
-            self.warning("pyproject.toml not found")
-
-        # Check setup.py
-        setup_file = CLIENT_DIR / "setup.py"
-        if setup_file.exists():
-            content = setup_file.read_text()
-            if 'python_requires=">=3.9"' in content or "python_requires='>=3.9'" in content:
-                self.success("setup.py requires Python 3.9+")
-            else:
-                self.error("setup.py does not require Python 3.9+")
-        else:
-            self.warning("setup.py not found")
+                self.error(f"{name} does not require Python {MIN_PYTHON}+ (expected {expected})")
 
         return len(self.errors) == 0
 

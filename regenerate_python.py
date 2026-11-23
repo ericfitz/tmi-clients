@@ -150,7 +150,7 @@ def patch_urllib3_minimum_version(client_dir: Path, had_issues: bool) -> bool:
     openapi-generator defaults to urllib3 >= 2.1.0, but versions before 2.8.0
     have HIGH-severity advisories (decompression-bomb bypass, unbounded
     decompression chain, cross-origin header forwarding; issue #68).  urllib3
-    2.8.0 requires Python >= 3.10, matching patch_python_minimum_version.  This
+    2.8.0 requires Python >= 3.10; patch_python_minimum_version sets 3.11.  This
     patch updates pyproject.toml, setup.py, and requirements.txt;
     test_diagram_fixes.py asserts the floor.
     """
@@ -234,18 +234,19 @@ def patch_error_code_enums(client_dir: Path, had_issues: bool) -> bool:
 
 
 def patch_python_minimum_version(client_dir: Path, had_issues: bool) -> bool:
-    """Raise the minimum supported Python to >=3.10 in pyproject.toml and setup.py.
+    """Raise the minimum supported Python to >=3.11 in pyproject.toml and setup.py.
 
-    openapi-generator defaults the floor to >=3.9, but urllib3 2.7.0 — which
-    carries fixes for two HIGH-severity advisories (cross-origin header
-    forwarding in proxied redirects, decompression-bomb bypass in the streaming
-    API) — requires Python >=3.10.  Keeping a 3.9 floor forces the resolver to
-    pin urllib3 2.6.3 for the 3.9 slice, leaving 3.9 users exposed with no
-    backport available.  The urllib3 floor (patch_urllib3_minimum_version,
-    now >=2.8.0) needs Python >=3.10 too.  The ``tox = ">= 3.9.0"`` dev dependency is a
-    tox *package* version and is intentionally left untouched.
+    openapi-generator's floor is lower than the dependencies allow.  urllib3
+    2.8.0 (patch_urllib3_minimum_version; HIGH-severity fixes, issue #68)
+    requires Python >=3.10, and filelock 4.2.1, which fixes CVE-2026-112906
+    and related advisories in the tox/virtualenv dev dependencies, requires
+    Python >=3.11.  A lower floor makes the resolver pin the vulnerable
+    version for the older-Python slice with no backport available.  See
+    docs/adr/0007-python-3.11-floor.md (human decision).  The
+    ``tox = ">= 3.9.0"`` dev dependency is a tox *package* version and is
+    intentionally left untouched.
     """
-    min_python = "3.10"
+    min_python = "3.11"
     files_patched = 0
 
     # pyproject.toml: requires-python = ">=3.9"
@@ -615,7 +616,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     # 1. Banner
     print_banner("TMI Python Client Regeneration (openapi-generator)", {
         "Package": "tmi_client",
-        "Python": "3.10+",
+        "Python": "3.11+",
         "Generator": "openapi-generator 7.x",
         "Models": "Pydantic v2",
         "Testing": "pytest",
@@ -819,7 +820,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             "per-method Self scope conflicts)\n\n"
             "### Generated Configuration\n"
             "- pyproject.toml with Pydantic v2 dependencies\n"
-            "- Python 3.10+ requirement\n"
+            "- Python 3.11+ requirement\n"
             "- pytest-based testing infrastructure\n"
             "- mypy configuration for type checking"
         )},

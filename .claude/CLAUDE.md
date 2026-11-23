@@ -41,7 +41,7 @@ Specs are downloaded from `https://raw.githubusercontent.com/ericfitz/tmi/<branc
 ```python
 #!/usr/bin/env python3
 # /// script
-# requires-python = ">=3.9"
+# requires-python = ">=3.11"
 # dependencies = ["tmi-client", "six", "certifi"]
 # ///
 ```
@@ -52,7 +52,7 @@ uv run --with pytest python3 -m pytest test/ -v                       # all test
 uv run --with pytest python3 -m pytest test/test_dfd_diagram.py -v    # one file
 uv run --with pytest --with pytest-cov python3 -m pytest test/ --cov=tmi_client --cov-report=term
 uv run python3 -c "import tmi_client; print('Success')"               # import check
-tox                        # all supported Pythons (3.9–3.14); `tox -e py311`; `tox -- -k test_dfd_diagram`
+tox                        # the py3 env (python3 on PATH); `tox -e py311` for one version (3.11+); `tox -- -k test_dfd_diagram`
 ```
 
 ### Key API classes
