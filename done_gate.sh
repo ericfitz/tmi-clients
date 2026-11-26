@@ -42,6 +42,7 @@ for dir in "${ts_dirs[@]}"; do
   step "typescript ${dir#"$ROOT"/}"
   (cd "$dir" && npm ci --silent && npm run build --silent \
     && npm run typecheck --if-present --silent \
+    && npm run lint --if-present --silent -- --deny-warnings \
     && npm run test --if-present --silent -- --passWithNoTests)
 done
 
