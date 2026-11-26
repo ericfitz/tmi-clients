@@ -97,9 +97,10 @@ jobs:
 
       - name: Lint tests
         # Oxlint over the hand-written test/ directory; --if-present skips
-        # versions with no "lint" script. Oxlint reports its default rules as
-        # warnings, so --deny-warnings is what makes a finding fail the job.
-        run: npm run lint --if-present -- --deny-warnings
+        # versions with no "lint" script. The script passes --deny-warnings
+        # because Oxlint reports its default rules as warnings, so a finding
+        # fails the job.
+        run: npm run lint --if-present
 
       - name: Run tests
         # --if-present skips versions with no "test" script; --passWithNoTests

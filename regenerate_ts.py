@@ -61,7 +61,7 @@ PACKAGE_JSON = """\
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.test.json",
-    "lint": "oxlint test"
+    "lint": "oxlint --deny-warnings test"
   },
   "devDependencies": {
     "oxlint": "^1.95",

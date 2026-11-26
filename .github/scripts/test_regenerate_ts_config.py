@@ -23,7 +23,7 @@ def test_dev_dependencies():
 
 def test_lint_script():
     scripts = json.loads(regenerate_ts.PACKAGE_JSON)["scripts"]
-    assert scripts["lint"] == "oxlint test"
+    assert scripts["lint"] == "oxlint --deny-warnings test"
 
 
 def test_no_eslint_remnants():
