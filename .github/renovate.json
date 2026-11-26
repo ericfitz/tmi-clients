@@ -42,13 +42,6 @@
       "groupName": "node packages"
     },
     {
-      "description": "Hold TypeScript at 6.x until typescript-eslint supports 7 (typescript-eslint#10940)",
-      "matchPackageNames": [
-        "typescript"
-      ],
-      "allowedVersions": "<7"
-    },
-    {
       "description": "regenerate_go.py GO_VERSION is the generated modules' go directive (consumers' minimum Go): every change waits for approval",
       "matchManagers": [
         "custom.regex"

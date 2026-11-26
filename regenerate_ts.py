@@ -39,24 +39,9 @@ CONFIG_FILE = LANG_DIR / "scripts" / "openapi-generator-config.json"
 
 _VERSION_PLACEHOLDER = "0.0.0-dev"
 
-# `typescript` is deliberately pinned to ^6.0, not ^7.0.
-#
-# typescript-eslint 8.66.0 (the latest release as of 2026-08) declares a peer
-# range of `typescript@">=4.8.4 <6.1.0"`, so a TypeScript 7 client cannot even
-# be installed: `npm ci` fails with ERESOLVE before any build or test runs, and
-# typescript-eslint additionally refuses to load under TS 7 at runtime.
-#
-# The substantive fix in the TS 7 migration was moving off `moduleResolution:
-# node10`, which TypeScript 7 removed. That works fine on TypeScript 6 (see
-# TSCONFIG below, which uses node16 without an `ignoreDeprecations` escape
-# hatch), so pinning the compiler back to ^6.0 keeps the migration's real
-# benefit while restoring a working `npm ci` and a working lint step.
-#
-# Move to ^7.0 once typescript-eslint supports TypeScript 7:
-#   https://github.com/typescript-eslint/typescript-eslint/issues/10940
-# The hold is mirrored in check_regen_drift.py HOLDS (which reports it as
-# DRIFT again as soon as typescript-eslint's peer range accepts 7) and in
-# .github/renovate.json; lift all three together.
+# typescript-eslint was dropped in favor of Oxlint (no type-aware rules), because
+# typescript-eslint caps its TypeScript peer range below 7; that unblocks TypeScript 7.
+# Type-aware linting is tracked in issue #96.
 PACKAGE_JSON = """\
 {
   "name": "@tmi-dev/client",
@@ -76,13 +61,11 @@ PACKAGE_JSON = """\
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.test.json",
-    "lint": "eslint test"
+    "lint": "oxlint test"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0",
-    "eslint": "^10.0",
-    "typescript": "^6.0",
-    "typescript-eslint": "^8.60",
+    "oxlint": "^1.95",
+    "typescript": "^7.0",
     "vitest": "^5.0"
   },
   "repository": {
@@ -135,8 +118,8 @@ TSCONFIG_ESM = """\
 
 # Type-checks the hand-written test/ directory, which the main tsconfig excludes
 # (it only includes src/, under rootDir src/). Without this the tests get no
-# static checking at all: Vitest transpiles without type-checking, and ESLint is
-# currently unable to run (see LINT_TS7_HINT below).
+# static checking at all: Vitest transpiles without type-checking, and Oxlint
+# runs without type information.
 #
 # Uses ESM resolution rather than the node16 the package builds with, because
 # that is how Vitest actually loads these files. Under node16 the test files are
@@ -158,20 +141,6 @@ TSCONFIG_TEST = """\
 }
 """
 
-# Guard for a future TypeScript 7 bump. typescript-eslint hard-refuses to load
-# against TS 7.x (see the note on PACKAGE_JSON), so if someone raises the
-# `typescript` pin before upstream support lands, lint stops working. Report
-# that as a clearly labelled skip rather than an inscrutable regeneration
-# failure — `npm run typecheck` still covers the tests statically. Unreachable
-# while `typescript` is pinned to ^6.0.
-#   https://github.com/typescript-eslint/typescript-eslint/issues/10940
-LINT_TS7_MARKER = "typescript-eslint does not support TS 7"
-LINT_TS7_HINT = (
-    "Lint skipped: typescript-eslint does not support TypeScript 7 yet "
-    "(upstream issue typescript-eslint#10940). Tests are still type-checked "
-    "via `npm run typecheck`."
-)
-
 # vitest's bundler (vite -> rollup) ships its platform binary as an optional
 # dependency. A developer/CI npm config of `omit=optional` would skip it and
 # break `npm test` with a missing-native-binding error. This project-level
@@ -179,9 +148,7 @@ LINT_TS7_HINT = (
 # `legacy-peer-deps=false` is not the npm default's business here — it is set
 # because a developer with `legacy-peer-deps=true` in their user config silently
 # installs past peer-dependency conflicts that CI (with a clean config) then
-# fails on. That exact mismatch hid the typescript-eslint/TypeScript 7 conflict
-# described above during local regeneration. Pinning it project-side keeps local
-# runs honest.
+# fails on. Pinning it project-side keeps local runs honest.
 NPMRC = "include=optional\nlegacy-peer-deps=false\n"
 
 # openapi-generator emits a .npmignore that excludes README.md, which would
@@ -204,24 +171,25 @@ export default defineConfig({
 });
 """
 
-# ESLint flat config. Scoped to the hand-written test/ directory only — the
-# generated src/ carries `/* eslint-disable */` headers and is not ours to lint.
-ESLINT_CONFIG = """\
-import js from "@eslint/js";
-import tseslint from "typescript-eslint";
+# Config files written by earlier generator versions that must not linger in
+# existing client directories.
+STALE_CONFIG_FILES = ("eslint.config.mjs",)
 
-export default tseslint.config(
-  { ignores: ["dist", "node_modules", "src", "docs"] },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  {
-    files: ["test/**/*.ts"],
-    languageOptions: {
-      globals: { process: "readonly" },
-    },
-  },
-);
-"""
+
+def remove_stale_configs(client_dir: Path) -> list[Path]:
+    """Delete STALE_CONFIG_FILES under client_dir; return the paths removed."""
+    removed = []
+    for name in STALE_CONFIG_FILES:
+        path = client_dir / name
+        if path.is_file():
+            path.unlink()
+            removed.append(path)
+    return removed
+
+
+def lint_status_for(returncode: int) -> tuple[str, bool]:
+    """Map the lint command's exit code to (report status, had issue)."""
+    return ("PASS", False) if returncode == 0 else ("FAIL", True)
 
 
 # --- Patches ---
@@ -532,9 +500,10 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
     write_file(client_dir / "tsconfig.esm.json", TSCONFIG_ESM)
     write_file(client_dir / "tsconfig.test.json", TSCONFIG_TEST)
     write_file(client_dir / "vitest.config.ts", VITEST_CONFIG)
-    write_file(client_dir / "eslint.config.mjs", ESLINT_CONFIG)
     write_file(client_dir / ".npmrc", NPMRC)
     write_file(client_dir / ".npmignore", NPMIGNORE)
+    for stale in remove_stale_configs(client_dir):
+        print_success(f"Removed stale {stale.name}")
     print_success(f"Config files written (version {spec_version})")
 
     # 10. Restore custom files
@@ -609,7 +578,7 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             had_issues = True
 
     # 12b. Type-check and lint the hand-written test/ directory. The generated
-    # src/ is eslint-disabled, and the main tsconfig does not include test/, so
+    # src/ is not linted, and the main tsconfig does not include test/, so
     # without this step the tests would have no static checking at all.
     print_step(11, "Type-checking and linting tests")
     typecheck_status = "SKIPPED (no test/ directory)"
@@ -634,24 +603,15 @@ def main(spec_path: str, output_dir: str | None = None) -> int:
             ["npm", "run", "lint"],
             cwd=client_dir,
             capture=True,
-            error_context="ESLint failed.",
+            error_context="Oxlint failed.",
         )
-        lint_output = lint_result.stdout + lint_result.stderr
-        if lint_result.returncode == 0:
-            lint_status = "PASS"
-            print_success("Lint passed")
-        elif LINT_TS7_MARKER in lint_output:
-            lint_status = "SKIPPED (typescript-eslint lacks TypeScript 7 support)"
-            # typescript-eslint refuses to load under TypeScript 7.x and there
-            # is no released version that supports it. Do not fail the
-            # regeneration over a blocked upstream dependency — the type-check
-            # above is the gating static check until this clears.
-            print_warning(LINT_TS7_HINT)
-        else:
-            lint_status = "FAIL"
+        lint_status, lint_issue = lint_status_for(lint_result.returncode)
+        if lint_issue:
             print_warning("Lint failed — see output below")
-            print(lint_output)
+            print(lint_result.stdout + lint_result.stderr)
             had_issues = True
+        else:
+            print_success("Lint passed")
     else:
         print_warning("No test/ directory — skipping type-check and lint")
 

@@ -35,7 +35,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent
 TS_SCRIPT = REPO_ROOT / "regenerate_ts.py"
 
-# Matches lines like:   "vitest": "^4.1",   or   "@eslint/js": "^10.0"
+# Matches lines like:   "vitest": "^4.1",   or   "@types/node": "^22.0"
 PIN_RE = re.compile(r'"(?P<name>@?[\w./-]+)":\s*"\^?(?P<major>\d+)\.\d+')
 
 
@@ -45,14 +45,10 @@ class Hold:
     reason: str
 
 
-# Keep in sync with the matching rule in .github/renovate.json and the comment
-# next to the pin in regenerate_ts.py.
-HOLDS: dict[str, Hold] = {
-    "typescript": Hold(
-        blocker="typescript-eslint",
-        reason="typescript-eslint does not support TypeScript 7 yet (typescript-eslint#10940)",
-    ),
-}
+# Pins deliberately held below an upstream major, keyed by package name. Empty
+# while nothing is held. When adding a hold, keep it in sync with a matching
+# rule in .github/renovate.json and a comment next to the pin in regenerate_ts.py.
+HOLDS: dict[str, Hold] = {}
 
 Version = tuple[int, int, int]
 _COMPARATOR_RE = re.compile(

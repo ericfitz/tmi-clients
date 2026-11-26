@@ -60,6 +60,14 @@ def registry(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
     script = tmp_path / "regenerate_ts.py"
     script.write_text(TS_SCRIPT_TEXT)
     monkeypatch.setattr(crd, "TS_SCRIPT", script)
+    monkeypatch.setitem(
+        crd.HOLDS,
+        "typescript",
+        crd.Hold(
+            blocker="typescript-eslint",
+            reason="typescript-eslint does not support TypeScript 7 yet (typescript-eslint#10940)",
+        ),
+    )
     manifests: dict[str, object] = {
         "eslint": {"version": "10.2.0"},
         "typescript": {"version": "7.0.1"},
