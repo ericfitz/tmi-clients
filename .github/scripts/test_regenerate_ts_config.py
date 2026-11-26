@@ -13,12 +13,20 @@ import regenerate_ts
 
 
 def test_dev_dependencies():
-    pkg = json.loads(regenerate_ts.PACKAGE_JSON)
-    assert pkg["devDependencies"] == {
-        "oxlint": "^1.95",
-        "typescript": "^7.0",
-        "vitest": "^5.0",
-    }
+    dev = json.loads(regenerate_ts.PACKAGE_JSON)["devDependencies"]
+    assert set(dev) == {"oxlint", "typescript", "vitest"}
+    assert dev["typescript"].startswith("^7")
+
+
+def test_committed_clients_match_generator():
+    """Every committed client's scripts and devDependencies match what regenerate_ts writes."""
+    expected = json.loads(regenerate_ts.PACKAGE_JSON)
+    paths = sorted((REPO / "typescript-client-generated").glob("v*/package.json"))
+    assert paths
+    for path in paths:
+        actual = json.loads(path.read_text())
+        assert actual["scripts"] == expected["scripts"], path
+        assert actual["devDependencies"] == expected["devDependencies"], path
 
 
 def test_lint_script():

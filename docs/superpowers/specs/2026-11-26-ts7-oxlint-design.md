@@ -41,9 +41,12 @@ Biome was dropped: its formatter is irrelevant for generated code and it has no 
 1. `regenerate_ts.py`
    - devDependencies: `typescript ^7.0`, `oxlint` (current major caret, 1.x), `vitest ^5.0`. Remove
      `@eslint/js`, `eslint`, `typescript-eslint`.
-   - `"lint": "oxlint test"`; replace `ESLINT_CONFIG` / `eslint.config.mjs` with nothing unless Oxlint
+   - `"lint": "oxlint --deny-warnings test"`; replace `ESLINT_CONFIG` / `eslint.config.mjs` with nothing unless Oxlint
      needs config (builder's call: defaults preferred; add `.oxlintrc.json` only for something concrete,
      e.g. the `process` global).
+   - Controller ruling (2026-11-26, during execution, not a human decision): the script passes `--deny-warnings`
+     because Oxlint exits 0 on warnings (its default `no-debugger` is a warning), so without the flag
+     regeneration, CI and the done gate would pass on findings.
    - Remove the TS 6 pin comment block and the `LINT_TS7_MARKER` / `LINT_TS7_HINT` skip path; a lint
      failure is a regeneration issue (exit 2) like any other.
    - The backup/restore of custom files must not resurrect `eslint.config.mjs` in existing clients;
