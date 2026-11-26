@@ -54,6 +54,9 @@ _VERSION_PLACEHOLDER = "0.0.0-dev"
 #
 # Move to ^7.0 once typescript-eslint supports TypeScript 7:
 #   https://github.com/typescript-eslint/typescript-eslint/issues/10940
+# The hold is mirrored in check_regen_drift.py HOLDS (which reports it as
+# DRIFT again as soon as typescript-eslint's peer range accepts 7) and in
+# .github/renovate.json; lift all three together.
 PACKAGE_JSON = """\
 {
   "name": "@tmi-dev/client",
