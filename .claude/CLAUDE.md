@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Done gate: `bash done_gate.sh` (what CI runs, for every committed client version: Python pytest + `test_diagram_fixes.py`, TypeScript build/typecheck/test, Go build/vet/test, release-script tests).
+Done gate: `bash done_gate.sh` (what CI runs, for every committed client version: Python pytest + `test_diagram_fixes.py`, TypeScript build/typecheck/lint/test, Go build/vet/test, release-script tests).
 
 Auto-generated API clients for the TMI (Threat Modeling Improved) API, built with openapi-generator 7.x:
 

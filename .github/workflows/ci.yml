@@ -91,10 +91,16 @@ jobs:
         run: npm run build
 
       - name: Type-check tests
-        # The main tsconfig only includes src/, and ESLint cannot run while
-        # typescript-eslint lacks TypeScript 7 support, so this is the static
-        # check that covers the hand-written test/ directory.
+        # The main tsconfig only includes src/, so this is the type check
+        # that covers the hand-written test/ directory.
         run: npm run typecheck --if-present
+
+      - name: Lint tests
+        # Oxlint over the hand-written test/ directory; --if-present skips
+        # versions with no "lint" script. The script passes --deny-warnings
+        # because Oxlint reports its default rules as warnings, so a finding
+        # fails the job.
+        run: npm run lint --if-present
 
       - name: Run tests
         # --if-present skips versions with no "test" script; --passWithNoTests
