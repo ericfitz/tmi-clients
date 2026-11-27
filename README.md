@@ -25,15 +25,15 @@ python-client-generated/
 
 ```bash
 # Python (latest version)
-cd python-client-generated/v3.0.0
+cd python-client-generated/v3.0.3
 uv run python3 -c "import tmi_client; print('Success')"
 
 # Go (latest version)
-cd go-client-generated/v3_0_0
+cd go-client-generated/v3_0_3
 go build ./...
 
 # TypeScript (latest version)
-cd typescript-client-generated/v3.0.0
+cd typescript-client-generated/v3.0.3
 npm install && npm run build
 ```
 

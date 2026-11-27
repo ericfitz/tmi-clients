@@ -50,7 +50,7 @@ python3 regenerate_all.py
 
 # Or one language, or one spec file
 python3 regenerate_all.py --language python
-python3 regenerate_ts.py --spec path/to/tmi-openapi.json --output-dir typescript-client-generated/v3.0.0
+python3 regenerate_ts.py --spec path/to/tmi-openapi.json --output-dir typescript-client-generated/v3.0.3
 ```
 
 The regeneration scripts extract the version from the OpenAPI spec's `info.version` field, name the client directory for it, and update all package configs.
@@ -65,9 +65,9 @@ One release per language; the tag prefix selects the workflow:
 
 ```bash
 # Creating the release creates and pushes the tag, and triggers the workflow
-gh release create python-v3.0.0 --title "Python v3.0.0" --notes "Release tracking TMI API v3.0.0"
-gh release create ts-v3.0.0     --title "TypeScript v3.0.0" --notes "Release tracking TMI API v3.0.0"
-gh release create go-v3.0.0     --title "Go v3.0.0" --notes "Release tracking TMI API v3.0.0"
+gh release create python-v3.0.3 --title "Python v3.0.3" --notes "Release tracking TMI API v3.0.3"
+gh release create ts-v3.0.3     --title "TypeScript v3.0.3" --notes "Release tracking TMI API v3.0.3"
+gh release create go-v3.0.3     --title "Go v3.0.3" --notes "Release tracking TMI API v3.0.3"
 ```
 
 Or create the release via the GitHub web UI: https://github.com/ericfitz/tmi-clients/releases/new
@@ -121,7 +121,7 @@ After the workflows complete:
 
 - **PyPI:** https://pypi.org/project/tmi-client/
 - **npm:** https://www.npmjs.com/package/@tmi-dev/client
-- **Go:** `go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_0/v3@v3.0.0`
+- **Go:** `go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_3/v3@v3.0.3`
 
 ## What Happens Automatically
 
@@ -129,7 +129,7 @@ When you publish a GitHub release with a `python-v*`, `ts-v*`, or `go-v*` tag, t
 
 1. **publish-python.yml** — builds and publishes `tmi-client` to PyPI via trusted publishing (OIDC)
 2. **publish-js.yml** — builds and publishes `@tmi-dev/client` to npm via trusted publishing (provenance is automatic)
-3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests the resolved directory (`go-client-generated/vX_Y_Z` for the same major.minor, see Client-only fix releases), then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git. From 2.0.0 on, the module path carries Go's major-version suffix (`go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_0/v3@v3.0.0`); the tag keeps the directory prefix (`go-client-generated/v3_0_0/v3.0.0`).
+3. **publish-go.yml** — on a `go-vX.Y.Z` release, builds and tests the resolved directory (`go-client-generated/vX_Y_Z` for the same major.minor, see Client-only fix releases), then pushes the Go module tag `go-client-generated/vX_Y_Z/vX.Y.Z` at the release commit. Go resolves a subdirectory module's versions only from tags with that prefix; the proxy serves modules straight from git. From 2.0.0 on, the module path carries Go's major-version suffix (`go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_3/v3@v3.0.3`); the tag keeps the directory prefix (`go-client-generated/v3_0_3/v3.0.3`).
 
 Each workflow runs tests before publishing. If tests fail, publishing is skipped.
 
@@ -170,7 +170,7 @@ pip install tmi-client
 npm install @tmi-dev/client
 
 # Go
-go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_0/v3@v3.0.0
+go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_3/v3@v3.0.3
 ```
 
 ## Troubleshooting
@@ -184,7 +184,7 @@ Check that the trusted publisher on the package's npm settings names the exact o
 ### Go module not found after release
 The Go module proxy may take a few minutes to index new tags. You can force it with:
 ```bash
-GOPROXY=proxy.golang.org go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_0/v3@v3.0.0
+GOPROXY=proxy.golang.org go get github.com/ericfitz/tmi-clients/go-client-generated/v3_0_3/v3@v3.0.3
 ```
 
 ### Workflow not triggered
